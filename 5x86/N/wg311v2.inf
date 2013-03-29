@@ -1,0 +1,288 @@
+;*****************************************************************************
+;*
+;*  Copyright (c)2003, NETGEAR, Inc.
+;*
+;*****************************************************************************
+
+
+[Version]
+CatalogFile=netwg311.cat
+Signature = "$Windows NT$"
+Provider  = %TI%
+Class     = Net
+ClassGUID={4d36e972-e325-11ce-bfc1-08002be10318}
+DriverVer=06/17/2004,6.0.5.30
+
+[Manufacturer]
+%TI% = TexasInstruments,NT.5.1
+
+; pnp cards should be excluded from select
+[ControlFlags]
+ExcludeFromSelect = PCI\VEN_104C&DEV_9066&SUBSYS_4C001385	
+
+
+;For WinXP
+[TexasInstruments.NT.5.1]
+%TIACX.DeviceDesc% = TIACXXP, PCI\VEN_104C&DEV_9066&SUBSYS_4C001385	; B & G
+
+
+; For Win98,ME,2K
+[TexasInstruments]
+%TIACX.DeviceDesc% = TIACX, PCI\VEN_104C&DEV_9066&SUBSYS_4C001385	; B & G
+
+
+;~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+;~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~   Windows XP   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+;~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+;******************************   Windows XP B & G ******************************
+[TIACXXP]
+BusType         = 5
+AddReg          =TIACXXP.ndi.reg.NT, TI.Param.Reg, BG.Param.Reg
+Characteristics = 0x84
+CopyFiles       =TIACXXP.CopyFiles
+
+[TIACXXP.ndi.reg.NT]
+HKR, Ndi,               Service,    0,  "netwg311"
+HKR, Ndi\Interfaces,    LowerRange, 0,  "ethernet"
+HKR, Ndi\Interfaces,    UpperRange, 0,  "ndis5"
+
+[TIACXXP.Services]
+AddService = netwg311, 2, TIACXLNXP.Service, TIACXLNXP.EventLog
+
+[TIACXXP.CopyFiles]
+FwRad16.bin
+FwRad17.bin
+netwg311.sys, netwg311_XP.sys
+
+;******************************   Windows XP A & G ******************************
+[TIACXAGXP]
+BusType         = 5
+AddReg          =TIACXAGXP.ndi.reg.NT, TI.Param.Reg, AG.Param.Reg
+Characteristics = 0x84
+CopyFiles       =TIACXAGXP.CopyFiles
+
+[TIACXAGXP.ndi.reg.NT]
+HKR, Ndi,               Service,    0,  "netwg311"
+HKR, Ndi\Interfaces,    LowerRange, 0,  "ethernet"
+HKR, Ndi\Interfaces,    UpperRange, 0,  "ndis5"
+
+[TIACXAGXP.Services]
+AddService = netwg311, 2, TIACXLNXP.Service, TIACXLNXP.EventLog
+
+
+[TIACXAGXP.CopyFiles]
+FwRad16.bin
+FwRad17.bin
+netwg311.sys, netwg311_XP.sys
+
+;******************************   Windows XP Common A & B & G **************************
+
+[TIACXLNXP.Service]
+DisplayName     = %TIACXLN.Service.DispName%
+ServiceType     = 1 ;%SERVICE_KERNEL_DRIVER%
+StartType       = 3 ;%SERVICE_DEMAND_START%
+ErrorControl    = 1 ;%SERVICE_ERROR_NORMAL%
+ServiceBinary   = %12%\netwg311.sys
+LoadOrderGroup  = NDIS
+
+[TIACXLNXP.EventLog]
+AddReg = TIACXLNXP.AddEventLog.reg
+
+[TIACXLNXP.AddEventLog.reg]
+HKR, , EventMessageFile, 0x00020000, "%%SystemRoot%%\System32\netevent.dll"
+HKR, , TypesSupported,   0x00010001, 7
+
+[WXP.Param.Reg]
+HKR, ,PrivacyMode,, "0"
+HKR, ,utlPrivacyMode,, "0"
+HKR, ,utlAuthenticationMode,, "0"
+
+
+
+;~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+;~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~   End of Windows XP   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+;~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+;~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~   Windows 2k/ME   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+;~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+;******************************   Windows 2k/ME   B & G   ******************************
+[TIACX.NT]
+BusType         = 5
+AddReg          =TIACX.ndi.reg.NT, TI.Param.Reg, BG.Param.Reg
+Characteristics = 0x84
+CopyFiles       =TIACX.CopyFiles.NT, TIACX.BinFiles.NT
+
+[TIACX.ndi.reg.NT]
+HKR, Ndi,               Service,    0,  "netwg311"
+HKR, Ndi\Interfaces,    LowerRange, 0,  "ethernet"
+HKR, Ndi\Interfaces,    UpperRange, 0,  "ndis5"
+
+[TIACX.NT.Services]
+AddService = netwg311, 2, TIACXLN.Service, TIACXLN.EventLog
+
+[TIACX.CopyFiles.NT]
+FwRad16.bin
+FwRad17.bin
+netwg311.sys, netwg311_2K.sys
+
+;
+; Copy tiacxsn.bin to system directory for ME
+;
+[TIACX.BinFiles.NT]
+FwRad16.bin
+FwRad17.bin
+
+;******************************   Windows 2k/ME   A & G   ******************************
+[TIACXAG.NT]
+BusType         = 5
+AddReg          =TIACXAG.ndi.reg.NT, TI.Param.Reg, AG.Param.Reg
+Characteristics = 0x84
+CopyFiles       =TIACXAG.CopyFiles.NT, TIACXAG.BinFiles.NT
+
+[TIACXAG.ndi.reg.NT]
+HKR, Ndi,               Service,    0,  "netwg311"
+HKR, Ndi\Interfaces,    LowerRange, 0,  "ethernet"
+HKR, Ndi\Interfaces,    UpperRange, 0,  "ndis5"
+
+[TIACXAG.NT.Services]
+AddService = netwg311, 2, TIACXLN.Service, TIACXLN.EventLog
+
+[TIACXAG.CopyFiles.NT]
+FwRad16.bin
+FwRad17.bin
+netwg311.sys, netwg311_2K.sys
+
+;
+; Copy tiacxsn.bin to system directory for ME
+;
+[TIACXAG.BinFiles.NT]
+FwRad16.bin
+FwRad17.bin
+
+;******************************   Windows 2K/ME Common A & B & G **************************
+
+[TIACXLN.Service]
+DisplayName     = %TIACXLN.Service.DispName%
+ServiceType     = 1 ;%SERVICE_KERNEL_DRIVER%
+StartType       = 3 ;%SERVICE_DEMAND_START%
+ErrorControl    = 1 ;%SERVICE_ERROR_NORMAL%
+ServiceBinary   = %12%\netwg311.sys
+LoadOrderGroup  = NDIS
+
+[TIACXLN.EventLog]
+AddReg = TIACXLN.AddEventLog.reg
+
+[TIACXLN.AddEventLog.reg]
+HKR, , EventMessageFile, 0x00020000, "%%SystemRoot%%\System32\netevent.dll"
+HKR, , TypesSupported,   0x00010001, 7
+
+[W2K.Param.Reg]
+HKR, ,PrivacyMode,, "0"
+HKR, ,utlPrivacyMode,, "0"
+HKR, ,utlAuthenticationMode,, "0"
+
+;~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+;~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~   End of Windows 2k/ME  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+;***********************************   B & G All OSes ***********************************
+
+[BG.Param.Reg]
+HKR, ,dot11SupportedRateMask,, "8"
+HKR, ,dot11BasicRateMask,, "1"
+
+
+HKR, ,dot11DesiredChannel, ,1
+
+
+;************************************   A & G All OSes ************************************
+
+[AG.Param.Reg]
+HKR, ,dot11SupportedRateMask,, "8"
+HKR, ,dot11BasicRateMask,, "0"
+
+
+HKR, ,dot11DesiredChannel, ,11
+
+
+;******************************  Common Registry Settings  ******************************
+
+[TI.Param.Reg]
+
+HKR, ,DisableSsidPending,, "1"
+
+
+HKR,NDI\params\dot11DesiredBSSType,ParamDesc,,"Network Type"
+HKR,NDI\params\dot11DesiredBSSType,type,,"enum"
+HKR,NDI\params\dot11DesiredBSSType,default,,"1"
+HKR,NDI\params\dot11DesiredBSSType\enum,"0",,"802.11 Ad-hoc"
+HKR,NDI\params\dot11DesiredBSSType\enum,"1",,"Infrastructure"
+
+
+HKR, Ndi\Params\dot11DesiredSSID, ParamDesc, ,"SSID"
+HKR, Ndi\Params\dot11DesiredSSID, Type, ,"edit"
+HKR, Ndi\Params\dot11DesiredSSID, LimitText, ,"32"
+HKR, Ndi\Params\dot11DesiredSSID, Default,,""
+HKR, Ndi\Params\dot11DesiredSSID, UpperCase,,"0"
+
+; Desired Tx Rate 
+HKR,NDI\params\dot11DesiredTxRate,ParamDesc,, "Desired Tx Rate"
+HKR,NDI\params\dot11DesiredTxRate,type,,"enum"
+HKR,NDI\params\dot11DesiredTxRate,default,,"0"
+HKR,NDI\params\dot11DesiredTxRate\enum,"0",,"Auto"
+HKR,NDI\params\dot11DesiredTxRate\enum,"1",,"1 Mbps"
+HKR,NDI\params\dot11DesiredTxRate\enum,"2",,"2 Mbps"
+HKR,NDI\params\dot11DesiredTxRate\enum,"3",,"5.5 Mbps"
+HKR,NDI\params\dot11DesiredTxRate\enum,"4",,"6 Mbps"
+HKR,NDI\params\dot11DesiredTxRate\enum,"5",,"9 Mbps"
+HKR,NDI\params\dot11DesiredTxRate\enum,"6",,"11 Mbps"
+HKR,NDI\params\dot11DesiredTxRate\enum,"7",,"12 Mbps"
+HKR,NDI\params\dot11DesiredTxRate\enum,"8",,"18 Mbps"
+HKR,NDI\params\dot11DesiredTxRate\enum,"9",,"22 Mbps"
+HKR,NDI\params\dot11DesiredTxRate\enum,"10",,"24 Mbps"
+HKR,NDI\params\dot11DesiredTxRate\enum,"11",,"36 Mbps"
+HKR,NDI\params\dot11DesiredTxRate\enum,"12",,"48 Mbps"
+HKR,NDI\params\dot11DesiredTxRate\enum,"13",,"54 Mbps"
+
+
+; Rate Adaptation
+HKR, ,Mode4x,, "0"
+HKR, ,dot11DesiredBSSType,, "1"
+HKR, ,dot11BasicRateMask,, "1"
+HKR, ,dot11SupportedRateMask,, "8"
+HKR, ,dot11AuthenticationMode,, "2"
+HKR, ,FBLongInterval,, "100"
+HKR, ,FBShortInterval,, "2000"
+HKR, ,PrivacyMode,, "2"
+HKR, ,WiFiAdhoc,, "1"
+
+;******************************   Common Misc Settings ******************************
+
+[DestinationDirs]
+DefaultDestDir  =     12 ; Windows\System32\Drivers
+TIACXXP.CopyFiles =   12 ; Winnt\System32\Drivers Directory ; WinXP
+TIACXAGXP.CopyFiles = 12 ; Winnt\System32\Drivers Directory ; WinXP
+TIACX.CopyFiles =     11 ; Windows\System or Winnt\System32 Directory ; Win98/ME
+TIACX.BinFiles.NT =   10,system
+TIACXAG.CopyFiles =   11 ; Windows\System or Winnt\System32 Directory ; Win98/ME
+TIACXAG.BinFiles.NT = 10,system
+
+;TIACX.CopyFiles.NT = 12 ; Winnt\System32\Drivers Directory ; Win2k
+
+
+[SourceDisksNames]
+1 = %DiskName%,,
+
+[SourceDisksFiles]
+FwRad16.bin   = 1
+FwRad17.bin   = 1
+netwg311_XP.sys  = 1
+netwg311_2K.sys  = 1
+
+
+[Strings]
+TI="NETGEAR, Inc."
+TIACX.DeviceDesc = "NETGEAR WG311v2 802.11g Wireless PCI Adapter"
+TIACXLN.Service.DispName  = "NETGEAR WG311v2 802.11g Wireless PCI Adapter"
+WLANAdapterHelpText= "A WLAN Adapter provides high speed connection to the Internet through 802.11g technology"
+DiskName="NETGEAR WG311v2 802.11g Wireless PCI Adapter Installation Disk"

@@ -1,0 +1,219 @@
+;-------------------------------------------------------------------------------
+; Novatel Wireless Merlin USB Serial Port
+; Module Name -- NWUsbSer.inf
+; Copyright (c) 2004-2005 Novatel Wireless Inc.
+;-------------------------------------------------------------------------------
+;
+;when          who   what, where, why
+;-----------   ---   -----------------------------------------------------------
+;19 Aug 2004   SK    Added Resident mode
+;24 Aug 2004   SK    Removed upperfilters
+;30 Aug 2004   SK    Removed resident mode
+;24 Feb 2005   SK    Fixed HT issue
+;01 Apr 2005   SK    Driver Fix + Device list
+;28 Sep 2005   SK    Updated driver 
+;19 Oct 2005   SK    Added PowerMgt and updated driver
+;15 Dec 2005   SK    Added Modem response strings
+;08 Mar 2006   SK    Fixed standby BSOD
+;-------------------------------------------------------------------------------
+
+;-------------------------------------------------------------------------------
+; INF Version Section
+;-------------------------------------------------------------------------------
+[Version]
+signature  = "$WINDOWS NT$"
+Class      = Ports
+Provider   = %NW%
+ClassGuid  = {4D36E978-E325-11CE-BFC1-08002BE10318}
+DriverVer      = 05/06/2009,3.0.20.1
+CatalogFile.NT = NWUsbMdm.cat
+CatalogFile.NTAMD64 = nwusbx64.cat
+
+;-------------------------------------------------------------------------------
+; INF Manufactuerer Section
+;-------------------------------------------------------------------------------
+[Manufacturer]
+%NW% = Models,NTamd64
+
+;-------------------------------------------------------------------------------
+; INF ControlFlags Section
+;-------------------------------------------------------------------------------
+[ControlFlags]
+ExcludeFromSelect = *
+
+;-------------------------------------------------------------------------------
+; INF Models Section
+;-------------------------------------------------------------------------------
+
+[Models]
+%NW001% = Port,  USB\VID_1410&PID_1100&MI_01
+%NW001% = Port,  USB\VID_1410&PID_1110&MI_01
+%NW001% = Port,  USB\VID_1410&PID_1120&MI_01
+%NW001% = Port,  USB\VID_1410&PID_1130&MI_01
+%NW004% = Port,  USB\VID_1410&PID_1400&MI_01
+%NW004% = Port,  USB\VID_1410&PID_1410&MI_01
+%NW004% = Port,  USB\VID_1410&PID_1420&MI_01
+%NW004% = Port,  USB\VID_1410&PID_1430&MI_01
+%NW005% = Port,  USB\VID_1410&PID_1450&MI_01
+%NW006% = Port,  USB\VID_1410&PID_2100&MI_01
+%NW006% = Port,  USB\VID_1410&PID_2110&MI_01
+%NW006% = Port,  USB\VID_1410&PID_2120&MI_01
+%NW009% = Port,  USB\VID_1410&PID_2400&MI_01
+%NW009% = Port,  USB\VID_1410&PID_2410&MI_01
+%NW009% = Port,  USB\VID_1410&PID_2420&MI_01
+%NW016% = Port,  USB\VID_1410&PID_4100&MI_01
+%NW019% = Port,  USB\VID_1410&PID_4400&MI_01
+%NW020% = Port2,  USB\VID_1410&PID_6000&MI_01
+%NW020% = Port2,  USB\VID_1410&PID_6001&MI_01
+%NW020% = Port2,  USB\VID_1410&PID_7000&MI_01
+%NW020% = Port2,  USB\VID_1410&PID_7001&MI_01
+%NW020% = Port2,  USB\VID_1410&PID_7030&MI_01
+%NW020% = Port2,  USB\VID_1410&PID_8000&MI_01
+%NW020% = Port2,  USB\VID_1410&PID_8001&MI_01
+%NW020% = Port2,  USB\VID_1410&PID_9000&MI_01
+%NW020% = Port2,  USB\VID_1410&PID_9001&MI_01
+
+[Models.NTamd64]
+%NW001% = Port,  USB\VID_1410&PID_1100&MI_01
+%NW001% = Port,  USB\VID_1410&PID_1110&MI_01
+%NW001% = Port,  USB\VID_1410&PID_1120&MI_01
+%NW001% = Port,  USB\VID_1410&PID_1130&MI_01
+%NW004% = Port,  USB\VID_1410&PID_1400&MI_01
+%NW004% = Port,  USB\VID_1410&PID_1410&MI_01
+%NW004% = Port,  USB\VID_1410&PID_1420&MI_01
+%NW004% = Port,  USB\VID_1410&PID_1430&MI_01
+%NW005% = Port,  USB\VID_1410&PID_1450&MI_01
+%NW006% = Port,  USB\VID_1410&PID_2100&MI_01
+%NW006% = Port,  USB\VID_1410&PID_2110&MI_01
+%NW006% = Port,  USB\VID_1410&PID_2120&MI_01
+%NW009% = Port,  USB\VID_1410&PID_2400&MI_01
+%NW009% = Port,  USB\VID_1410&PID_2410&MI_01
+%NW009% = Port,  USB\VID_1410&PID_2420&MI_01
+%NW016% = Port,  USB\VID_1410&PID_4100&MI_01
+%NW019% = Port,  USB\VID_1410&PID_4400&MI_01
+%NW020% = Port2,  USB\VID_1410&PID_6000&MI_01
+%NW020% = Port2,  USB\VID_1410&PID_6001&MI_01
+%NW020% = Port2,  USB\VID_1410&PID_7000&MI_01
+%NW020% = Port2,  USB\VID_1410&PID_7001&MI_01
+%NW020% = Port2,  USB\VID_1410&PID_7030&MI_01
+%NW020% = Port2,  USB\VID_1410&PID_8000&MI_01
+%NW020% = Port2,  USB\VID_1410&PID_8001&MI_01
+%NW020% = Port2,  USB\VID_1410&PID_9000&MI_01
+%NW020% = Port2,  USB\VID_1410&PID_9001&MI_01
+
+;-------------------------------------------------------------------------------
+; INF SourceDisksNames Section
+;-------------------------------------------------------------------------------
+[SourceDisksNames]
+1000 = %NWSrcDisk%,"",,
+
+;-------------------------------------------------------------------------------
+; INF SourceDisksFiles Section
+;-------------------------------------------------------------------------------
+[SourceDisksFiles]
+nwusbmdm.sys = 1000
+
+[SourceDisksFiles.amd64]
+nwusbx64.sys = 1000
+
+[NWUsbDriverFiles]
+nwusbser.sys,nwusbmdm.sys,,0x20
+
+[NWUsbDriverFilesamd64]
+nwusbser.sys,nwusbx64.sys,,0x20
+
+;-------------------------------------------------------------------------------
+; INF DestinationDirs Section
+;-------------------------------------------------------------------------------
+[DestinationDirs]
+DefaultDestDir = 12
+
+;-------------------------------------------------------------------------------
+; INF DDInstall Section
+;-------------------------------------------------------------------------------
+[Port.NT]
+CopyFiles = NWUsbDriverFiles
+AddReg    = All, AddReg.NT, FeatureConfig
+
+[Port.NTamd64]
+CopyFiles = NWUsbDriverFilesamd64
+AddReg    = All, AddReg.NT, FeatureConfig
+
+[Port2.NT]
+CopyFiles = NWUsbDriverFiles
+AddReg    = All, AddReg.NT, FeatureConfig
+
+[Port2.NTamd64]
+CopyFiles = NWUsbDriverFilesamd64
+AddReg    = All, AddReg.NT, FeatureConfig
+
+;-------------------------------------------------------------------------------
+; INF DDInstall.Services Section
+;-------------------------------------------------------------------------------
+[Port.NT.Services]
+AddService = NWUSBPort,  0x00000002, NWPort_Service_Inst
+
+[Port.NTamd64.Services]
+AddService = NWUSBPort,  0x00000002, NWPort_Service_Inst
+
+[Port2.NT.Services]
+AddService = NWUSBPort,  0x00000002, NWPort_Service_Inst2
+
+[Port2.NTamd64.Services]
+AddService = NWUSBPort,  0x00000002, NWPort_Service_Inst2
+
+[NWPort_Service_Inst]
+DisplayName   = %NWPortSvcName%
+ServiceType   = 1
+StartType     = 3
+ErrorControl  = 1
+ServiceBinary = %12%\nwusbser.sys
+AddReg	      = PowerMgt, SSPowerMgt
+
+[NWPort_Service_Inst2]
+DisplayName   = %NWPortSvcName%
+ServiceType   = 1
+StartType     = 3
+ErrorControl  = 1
+ServiceBinary = %12%\nwusbser.sys
+AddReg	      = PowerMgt, SSPowerMgt
+
+;-------------------------------------------------------------------------------
+; INF DDInstall Addreg Sections
+;-------------------------------------------------------------------------------
+[All]
+HKR,,NTMPDriver,,nwusbser.sys
+
+[AddReg.NT]
+HKR,,PortSubClass,1,01
+HKR,,EnumPropPages32,,"MsPorts.dll,SerialPortPropPageProvider"
+
+[Debug]
+HKR,,QCDriverLoggingDirectory,0,"\??\C:\"
+HKR,,QCDriverDebugMask,0x00010001,0x00000000
+
+[FeatureConfig]
+HKR,,QCDriverConfig,0x00010001,0x0000C000
+
+[PowerMgt]
+HKR,,QCDriverPowerManagementEnabled,0x00010001,0x00000001
+HKR,,QCDriverWaitWakeEnabled,0x00010001,0x00000000
+
+[SSPowerMgt]
+HKR,,QCDriverSelectiveSuspendIdleTime,0x00010001,0x00000005
+
+;-------------------------------------------------------------------------------
+; INF Strings Section
+;-------------------------------------------------------------------------------
+[Strings]
+NW               = "Novatel Wireless Inc"
+NWSrcDisk        = "Novatel Wireless USB Driver Disk"
+NWPortSvcName    = "Novatel Wireless USB Status Port Driver"
+NW001            = "Novatel Wireless Merlin CDMA EV-DO Status Port"
+NW004            = "Novatel Wireless Merlin HSDPA Status Port"
+NW005            = "Novatel Wireless Merlin HSPA Status Port"
+NW006            = "Novatel Wireless Expedite EV-DO Status Port"
+NW009            = "Novatel Wireless Expedite HSDPA Status Port"
+NW016            = "Novatel Wireless Ovation EV-DO Status Port"
+NW019            = "Novatel Wireless Ovation HSPA Status Port"
+NW020            = "Novatel Wireless Status Port"

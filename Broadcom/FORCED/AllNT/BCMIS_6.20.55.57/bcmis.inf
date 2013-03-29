@@ -1,0 +1,126 @@
+;;
+;; bcmis.inf
+;;
+;; Copyright 1998-2010, Broadcom Corporation.
+;; All Rights Reserved.
+;;
+;; This is UNPUBLISHED PROPRIETARY SOURCE CODE of Broadcom Corporation;
+;; the contents of this file may not be disclosed to third parties, copied or
+;; duplicated in any form, in whole or in part, without the prior written
+;; permission of Broadcom Corporation.
+;;
+[version]
+	Signature           = "$Windows NT$"
+	Class               = NetService
+	ClassGUID           = {4D36E974-E325-11CE-BFC1-08002BE10318}
+	Provider            = %Brcm%
+	CatalogFile         = BCMIS32.CAT
+	CatalogFile.NTamd64 = BCMIS64.CAT
+DriverVer=09/10/2012, 6.20.55.57
+
+[Manufacturer]
+	%Brcm% = BROADCOM,NTx86,NTamd64
+
+[BROADCOM.NTx86]
+%BcmIS_Desc%=BcmIS.NTx86, BCMIS_NdisLwf
+
+[BROADCOM.NTamd64]
+%BcmIS_Desc%=BcmIS.NTamd64, BCMIS_NdisLwf
+
+;-------------------------------------------------------------------------------
+; Broadcom IS LW filter driver
+;
+[BcmIS.NTx86]
+AddReg          = BcmIS.Reg
+Characteristics = 0x40000 ; NCF_LW_FILTER
+NetCfgInstanceId= "{daa09c10-5325-4e7e-8fb3-405b66299597}"
+CopyFiles       = BcmIS.CopyFiles.NTx86
+
+[BcmIS.NTamd64]
+AddReg          = BcmIS.Reg
+Characteristics = 0x40000 ; NCF_LW_FILTER
+NetCfgInstanceId= "{daa09c10-5325-4e7e-8fb3-405b66299597}"
+CopyFiles       = BcmIS.CopyFiles.NTamd64
+
+;-----------------------------------------------------------------------------
+; Broadcom IS LW filter driver Common
+;
+[BcmIS.Reg]
+HKR, Ndi,Service,,"BcmIS"
+HKR, Ndi,CoServices,0x00010000,"BcmIS"
+HKR, Ndi,HelpText,,%BcmIS_HelpText%
+HKR, Ndi,FilterClass,, loadbalance
+HKR, Ndi,FilterType,0x00010001,0x00000002
+HKR, Ndi\Interfaces,UpperRange,,"noupper"
+HKR, Ndi\Interfaces,LowerRange,,"nolower"
+HKR, Ndi\Interfaces, FilterMediaTypes,,"ethernet, ppip"
+HKR, Ndi,FilterRunType, 0x00010001, 1 ;this filter must run before any protocol can bind to the below miniport 
+
+;-----------------------------------------------------------------------------
+; Driver and Service Section
+;
+[BcmIS.CopyFiles.NTx86]
+bcmis32.sys,,,2
+
+[BcmIS.CopyFiles.NTamd64]
+bcmis64.sys,,,2
+
+[SourceDisksNames]
+1=%BcmIS_Desc%,"",,
+
+[SourceDisksFiles.x86]
+bcmis32.sys=1
+
+[SourceDisksFiles.amd64]
+bcmis64.sys=1
+
+[DestinationDirs]
+DefaultDestDir=12
+BcmIS.CopyFiles.NTx86=12
+BcmIS.CopyFiles.NTamd64=12
+
+[BcmIS.NTx86.Services]
+AddService=BcmIS,,BcmIS.Service.NTx86
+
+[BcmIS.NTamd64.Services]
+AddService=BcmIS,,BcmIS.Service.NTamd64
+
+[BcmIS.Service.NTx86]
+DisplayName     = %BcmIS_Desc%
+ServiceType     = 1 ;SERVICE_KERNEL_DRIVER
+StartType       = 1 ;SERVICE_SYSTEM_START
+ErrorControl    = 1 ;SERVICE_ERROR_NORMAL
+ServiceBinary   = %12%\bcmis32.sys
+LoadOrderGroup  = NDIS
+Description     = %BcmIS_Desc%
+AddReg          = Common.Params.reg
+
+[BcmIS.Service.NTamd64]
+DisplayName     = %BcmIS_Desc%
+ServiceType     = 1 ;SERVICE_KERNEL_DRIVER
+StartType       = 1 ;SERVICE_SYSTEM_START
+ErrorControl    = 1 ;SERVICE_ERROR_NORMAL
+ServiceBinary   = %12%\bcmis64.sys
+LoadOrderGroup  = NDIS
+Description     = %BcmIS_Desc%
+AddReg          = Common.Params.reg
+
+[BcmIS.NTx86.Remove.Services]
+DelService=BcmIS,0x200
+
+[BcmIS.NTamd64.Remove.Services]
+DelService=BcmIS,0x200
+
+[Common.Params.reg]
+HKR, FilterDriverParams\DriverParam, 		ParamDesc, 	, "Driverparam for lwf"
+HKR, FilterDriverParams\DriverParam, 		default, 	, "5"
+HKR, FilterDriverParams\DriverParam, 		type, 		, "int"
+
+HKR, FilterAdapterParams\AdapterParam, 		ParamDesc, 	, "Adapterparam for lwf"
+HKR, FilterAdapterParams\AdapterParam, 		default, 	, "10"
+HKR, FilterAdapterParams\AdapterParam, 		type, 		, "int"
+
+[Strings]
+Brcm = "Broadcom"
+BcmIS_Desc = "Broadcom IS LW Filter Driver"
+BcmIS_HelpText = "Broadcom IS LW Filter Device"

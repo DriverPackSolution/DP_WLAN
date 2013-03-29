@@ -1,0 +1,117 @@
+; QCLocationSensorlno.inf
+; Copyright (c) 2010 Qualcomm Incorporated
+; Manufacturer: Qualcomm Incorporated
+
+[Version]
+Signature   = "$Windows NT$"
+Class       = Ports
+ClassGuid   = {4D36E978-E325-11CE-BFC1-08002BE10318}
+Provider    = %QCOM%
+CatalogFile = QCLocationSensorlno.cat
+DriverVer   = 04/05/2010,1.0.2.0
+
+; =================== Manufacturer/Models sections =======================
+
+[Manufacturer]
+%QCOM%                        = QCOM, NTamd64
+
+[QCOM]
+%QCLocationSensor.DeviceDesc9205% = QCLocationSensor_Install,USB\VID_05C6&PID_9205&MI_03
+%QCLocationSensor.DeviceDesc9285% = QCLocationSensor_Install,USB\VID_05C6&PID_9285&MI_03
+
+[QCOM.NTamd64]
+%QCLocationSensor.DeviceDesc9205% = QCLocationSensor_Install,USB\VID_05C6&PID_9205&MI_03
+%QCLocationSensor.DeviceDesc9285% = QCLocationSensor_Install,USB\VID_05C6&PID_9285&MI_03
+
+; =================== Location Sensor Device ==================================
+
+[QCLocationSensor_Install]
+CopyFiles       = UMDriverCopy
+AddReg          = All00, QCAddReg, DevFunction1  
+FeatureScore    = 0x20  
+
+[QCLocationSensor_Install.hw]
+AddReg          = UpperFilterAddReg
+
+[UpperFilterAddReg]
+HKR,,"UpperFilters",0x00010000,"WUDFRd"
+
+[QCLocationSensor_Install.Services]
+AddService      = qcusbserlno2k,  0x00000002, QC_USBSerialService
+AddService      = WUDFRd,,WUDFRD_ServiceInstall
+
+[QCLocationSensor_Install.CoInstallers]
+AddReg          = WUDF_CoInstallers_AddReg
+CopyFiles       = WUDF_CoInstallers_CopyFiles
+
+[QCLocationSensor_Install.Wdf]
+UmdfService                = QCLocationSensor,UMDFQCLocationSensor_Install
+UmdfServiceOrder           = QCLocationSensor
+UmdfImpersonationLevel     = Impersonation
+UmdfKernelModeClientPolicy = AllowKernelModeClients
+
+[QC_USBSerialService]
+DisplayName   = %QCUSBSER%
+ServiceType   = 1
+StartType     = 3
+ErrorControl  = 1
+ServiceBinary = %12%\qcusbserlno2k.sys
+
+[All00]
+HKR,,NTMPDriver,,qcusbserlno2k.sys
+
+[DevFunction1]
+HKR,,QCDeviceFunction,0x00010001,1
+
+[QCAddReg]
+HKR,,PortSubClass,1,01
+HKR,,EnumPropPages32,,"MsPorts.dll,SerialPortPropPageProvider"
+
+; =================== UMDF Service Install section ===================
+
+[UMDFQCLocationSensor_Install]
+UmdfLibraryVersion      = 1.9.0
+ServiceBinary           = %12%\UMDF\QCLocationSensorlno.dll
+DriverCLSID             = {87D65DC0-B800-40C7-8607-9C3559738B14}
+
+[WUDFRD_ServiceInstall]
+DisplayName     = %WudfRdDisplayName%
+ServiceType     = 1
+StartType       = 3
+ErrorControl    = 1
+ServiceBinary   = %12%\WUDFRd.sys
+LoadOrderGroup  = Base
+
+[SourceDisksFiles]
+QCLocationSensorlno.dll  = 1
+PDSHelperlno.dll         = 1
+WudfUpdate_01009.dll     = 1
+
+[SourceDisksNames]
+1 = %MediaDescription%
+
+[WUDF_CoInstallers_CopyFiles]
+WudfUpdate_01009.dll
+
+[WUDF_CoInstallers_AddReg]
+HKR,,CoInstallers32,0x00010000,"WUDFUpdate_01009.dll"
+
+[DestinationDirs]
+UMDriverCopy                 = 12,UMDF
+WUDF_CoInstallers_CopyFiles  = 11
+
+[UMDriverCopy]
+QCLocationSensorlno.dll
+PDSHelperlno.dll
+
+; =================== Generic ==================================
+[Strings]
+QCOM                             = "Qualcomm Incorporated"
+MediaDescription                 = "Qualcomm Gobi Location Sensor Driver Installation Media"
+ClassName                        = "Qualcomm Gobi Location Sensor Driver"
+WudfRdDisplayName                = "Windows Driver Foundation - User-mode Driver Framework Reflector"
+QCLocationSensor.DeviceDesc9205  = "Qualcomm Gobi 2000 HS-USB NMEA 9205"
+QCLocationSensor.DeviceDesc9285  = "Qualcomm Gobi 2000 HS-USB NMEA 9285"
+QCUSBSER                         = "Gobi 2000 USB Device for Legacy Serial Communication(05C6-9205)"
+QcomDevice92053                  = "Qualcomm Gobi 2000 HS-USB NMEA 9205"
+QcomDevice92853                  = "Qualcomm Gobi 2000 HS-USB NMEA 9285"

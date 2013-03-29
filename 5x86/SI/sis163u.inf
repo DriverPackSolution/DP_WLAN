@@ -1,0 +1,591 @@
+;======================================================
+; Copyright (c) 2004, Silicon Integrated Systems Corp.
+;
+; INF file for Windows NT--- SIS163u.INF          
+;
+;======================================================
+
+[Version]
+Signature           = "$Windows NT$"
+Class               = Net
+ClassGUID           = {4d36e972-e325-11ce-bfc1-08002be10318}
+Provider            = %SiSMfg%
+CatalogFile	    	= sis163u.cat
+DriverVer           = 03/24/2005,5.1.1039.1030
+
+[Manufacturer]
+%SiSMfg%            = SiS
+%FSCMfg%			= FSC
+%ROPERMfg%			= ROPER
+ 
+[ControlFlags]
+ExcludeFromSelect   =USB\VID_0457&PID_0163 
+ExcludeFromSelect   =USB\VID_0d8e&PID_0163
+ExcludeFromSelect   =USB\VID_1371&PID_0021
+ExcludeFromSelect   =USB\VID_1371&PID_0022
+ExcludeFromSelect   =USB\VID_1371&PID_0023
+ExcludeFromSelect   =USB\VID_0769&PID_11F7
+ExcludeFromSelect   =USB\VID_0B3B&PID_0163
+ExcludeFromSelect   =USB\VID_18E8&PID_6171
+ExcludeFromSelect   =USB\VID_0BF8&PID_100F
+ExcludeFromSelect   =USB\VID_0457&PID_5401
+
+[SiS]
+%sis163.DeviceDesc%  = sis163.ndi1, USB\VID_0457&PID_0163
+%GST.DeviceDesc%     = sis163.ndi2, USB\VID_0d8e&PID_0163
+%Cnet1.DeviceDesc%   = sis163.ndi3, USB\VID_1371&PID_0021
+%Cnet2.DeviceDesc%   = sis163.ndi4, USB\VID_1371&PID_0022
+%Surecom.DeviceDesc% = sis163.ndi5, USB\VID_0769&PID_11F7
+%Cnet3.DeviceDesc%   = sis163.ndi6, USB\VID_1371&PID_0023
+%TP_LINK.DeviceDesc% = sis163.ndi7, USB\VID_0B3B&PID_0163
+%sis163.DeviceDesc%  = sis163.ndi8, USB\VID_18E8&PID_6171
+
+[FSC]
+%FSC.DeviceDesc%	 = sis163.ndi9, USB\VID_0BF8&PID_100F
+
+[ROPER]
+%ROPER.DeviceDesc%	= sis163.ndiA, USB\VID_0457&PID_5401
+
+;------------------------------------------------------------------------
+; SIS
+;
+[sis163.ndi1]
+Characteristics     = 0x84    ; NCF_PHYSICAL
+BusType             = 15       ;usb
+DelReg              = SiSDefault.reg, SiSWireless.reg, nt5.reg,sisuninstall.reg,sisuninstall1.reg;,Inst1.reg 
+AddReg              = SiSDefault.reg, SiSWireless.reg, nt5.reg,sisuninstall.reg,sisuninstall1.reg;,Inst1.reg
+CopyFiles           = sis163.CopyFiles,Uninstall.CopyFiles;,Inst.CopyFiles
+
+[sis163.ndi2]
+Characteristics     = 0x84    ; NCF_PHYSICAL
+BusType             = 15       ;usb
+DelReg              = SiSDefault.reg, SiSWireless.reg, nt5.reg,sisuninstall.reg,sisuninstall2.reg;,Inst2.reg 
+AddReg              = SiSDefault.reg, SiSWireless.reg, nt5.reg,sisuninstall.reg,sisuninstall2.reg;,Inst2.reg
+CopyFiles           = sis163.CopyFiles,Uninstall.CopyFiles;,Inst.CopyFiles
+
+[sis163.ndi3]
+Characteristics     = 0x84    ; NCF_PHYSICAL
+BusType             = 15       ;usb
+DelReg              = SiSDefault.reg, SiSWireless.reg, nt5.reg,sisuninstall.reg,sisuninstall3.reg;,Inst3.reg 
+AddReg              = SiSDefault.reg, SiSWireless.reg, nt5.reg,sisuninstall.reg,sisuninstall3.reg;,Inst3.reg
+CopyFiles           = sis163.CopyFiles,Uninstall.CopyFiles;,Inst.CopyFiles
+
+[sis163.ndi4]
+Characteristics     = 0x84    ; NCF_PHYSICAL
+BusType             = 15       ;usb
+DelReg              = SiSDefault.reg, SiSWireless.reg, nt5.reg,sisuninstall.reg,sisuninstall4.reg;,Inst4.reg 
+AddReg              = SiSDefault.reg, SiSWireless.reg, nt5.reg,sisuninstall.reg,sisuninstall4.reg;,Inst4.reg
+CopyFiles           = sis163.CopyFiles,Uninstall.CopyFiles;,Inst.CopyFiles
+
+[sis163.ndi5]
+Characteristics     = 0x84    ; NCF_PHYSICAL
+BusType             = 15       ;usb
+DelReg              = SiSDefault.reg, SiSWireless.reg, nt5.reg,sisuninstall.reg,sisuninstall5.reg;,Inst5.reg 
+AddReg              = SiSDefault.reg, SiSWireless.reg, nt5.reg,sisuninstall.reg,sisuninstall5.reg;,Inst5.reg
+CopyFiles           = sis163.CopyFiles,Uninstall.CopyFiles;,Inst.CopyFiles
+
+[sis163.ndi6]
+Characteristics     = 0x84    ; NCF_PHYSICAL
+BusType             = 15       ;usb
+DelReg              = SiSDefault.reg, SiSWireless.reg, nt5.reg,sisuninstall.reg,sisuninstall6.reg;,Inst6.reg 
+AddReg              = SiSDefault.reg, SiSWireless.reg, nt5.reg,sisuninstall.reg,sisuninstall6.reg;,Inst6.reg
+CopyFiles           = sis163.CopyFiles,Uninstall.CopyFiles;,Inst.CopyFiles
+
+[sis163.ndi7]
+Characteristics     = 0x84    ; NCF_PHYSICAL
+BusType             = 15       ;usb
+DelReg              = SiSDefault.reg, SiSWireless.reg, nt5.reg,sisuninstall.reg,sisuninstall7.reg;,Inst7.reg 
+AddReg              = SiSDefault.reg, SiSWireless.reg, nt5.reg,sisuninstall.reg,sisuninstall7.reg;,Inst7.reg
+CopyFiles           = sis163.CopyFiles,Uninstall.CopyFiles;,Inst.CopyFiles
+
+[sis163.ndi8]
+Characteristics     = 0x84    ; NCF_PHYSICAL
+BusType             = 15       ;usb
+DelReg              = SiSDefault.reg, SiSWireless.reg, nt5.reg,sisuninstall.reg,sisuninstall8.reg;,Inst8.reg 
+AddReg              = SiSDefault.reg, SiSWireless.reg, nt5.reg,sisuninstall.reg,sisuninstall8.reg;,Inst8.reg
+CopyFiles           = sis163.CopyFiles,Uninstall.CopyFiles;,Inst.CopyFiles
+
+[sis163.ndi9]
+Characteristics     = 0x84    ; NCF_PHYSICAL
+BusType             = 15       ;usb
+DelReg              = SiSDefault.reg, SiSWireless.reg, nt5.reg,sisuninstall.reg,sisuninstall9.reg 
+AddReg              = SiSDefault.reg, SiSWireless.reg, nt5.reg,sisuninstall.reg,sisuninstall9.reg
+CopyFiles           = sis163.CopyFiles,Uninstall.CopyFiles
+
+[sis163.ndiA]
+Characteristics     = 0x84    ; NCF_PHYSICAL
+BusType             = 15       ;usb
+DelReg              = SiSDefault.reg, SiSWireless.reg, nt5.reg,sisuninstall.reg,sisuninstallA.reg 
+AddReg              = SiSDefault.reg, SiSWireless.reg, nt5.reg,sisuninstall.reg,sisuninstallA.reg
+CopyFiles           = sis163.CopyFiles,Uninstall.CopyFiles
+
+;----------------------------------------------------------------------------
+[sis163.ndi1.Services]
+AddService          = SIS163u, 2, sis163u.Service, common.EventLog
+[sis163.ndi2.Services]
+AddService          = SIS163u, 2, sis163u.Service, common.EventLog
+[sis163.ndi3.Services]
+AddService          = SIS163u, 2, sis163u.Service, common.EventLog
+[sis163.ndi4.Services]
+AddService          = SIS163u, 2, sis163u.Service, common.EventLog
+[sis163.ndi5.Services]
+AddService          = SIS163u, 2, sis163u.Service, common.EventLog
+[sis163.ndi6.Services]
+AddService          = SIS163u, 2, sis163u.Service, common.EventLog
+[sis163.ndi7.Services]
+AddService          = SIS163u, 2, sis163u.Service, common.EventLog
+[sis163.ndi8.Services]
+AddService          = SIS163u, 2, sis163u.Service, common.EventLog
+[sis163.ndi9.Services]
+AddService          = SIS163u, 2, sis163u.Service, common.EventLog
+[sis163.ndiA.Services]
+AddService          = SIS163u, 2, ROPER.Service, common.EventLog
+
+;----------------------------------------------------------------------------
+; Common driver parameters
+;
+[SiSDefault.reg]
+
+;====== Driver Information for UI ======;
+
+HKR,Ndi\SiSdefault\,SiSWirelessLan  ,2,"VID_0457&PID_0163"
+;=======================================;
+
+;================ only set init value ==================
+HKR,Ndi\SiSdefault\,Channel,2,"000"
+HKR,Ndi\SiSdefault\,InfrastructureMode,2,"000"
+HKR,Ndi\SiSdefault\,AuthenticationMode,2,"000"
+HKR,Ndi\SiSdefault\,Preamble,2,"002"
+HKR,Ndi\SiSdefault\,AntennaSelect,2,"0"
+HKR,Ndi\SiSdefault\,SSID,2,"LOCAL"
+HKR,Ndi\SiSdefault\,Password,2,""
+HKR,Ndi\SiSdefault\,WepStatus,2,"000"
+HKR,Ndi\SiSdefault\,TransmitKey,2,"001"
+HKR,Ndi\SiSdefault\,WepStatus1,2, "001"
+HKR,Ndi\SiSdefault\,KeyData1,2,""
+HKR,Ndi\SiSdefault\,WepStatus2,2,"001"
+HKR,Ndi\SiSdefault\,KeyData2,2,""
+HKR,Ndi\SiSdefault\,WepStatus3,2,"001"
+HKR,Ndi\SiSdefault\,KeyData3,2,""
+HKR,Ndi\SiSdefault\,WepStatus4,2,"001"
+HKR,Ndi\SiSdefault\,KeyData4,2,""
+HKR,Ndi\SiSdefault\,HWProbe,2,"000"
+HKR,Ndi\SiSdefault\,FrameThreshold,2,"2312"
+HKR,Ndi\SiSdefault\,RTSThreshold,2,"2312"
+HKR,Ndi\SiSdefault\,TxRate,2,"004"
+HKR,Ndi\SiSdefault\,BeaconInterval,2,"100"
+HKR,Ndi\SiSdefault\,ListenInterval,2,"1"
+HKR,Ndi\SiSdefault\,CTxPower12345,2,"24924924"
+HKR,Ndi\SiSdefault\,CTxPower6789A,2,"24924924"
+HKR,Ndi\SiSdefault\,CTxPowerBCDE,2,"924924"
+HKR,Ndi\SiSdefault\,SiSRFReg,2,"80"
+HKR,Ndi\SiSdefault\,TxRetryCounts,2,"7"
+HKR,Ndi\SiSdefault\,TxPowerLevel,2,"3f"
+HKR,Ndi\SiSdefault\,PowerMode,2,"000"
+HKR,Ndi\SiSdefault\,ATIMWindow,2,"5"
+HKR,Ndi\SiSdefault\,PromiscuousOption,2,"1"
+HKR,Ndi\SiSdefault\,RFType,2,"8"
+HKR,Ndi\SiSdefault\,Distance,2,"0"
+HKR,Ndi\SiSdefault\,Radio,2,"1"
+HKR,Ndi\SiSdefault\,BasebandMode,2,"5"
+HKR,Ndi\SiSdefault\,OldMaximParam,2,"0"
+;-----------------------------------------------------------------------------
+
+[SiSWireless.reg]
+;====== Driver Information for UI ======;
+HKR,,SiSWirelessLan,2,"VID_0457&PID_0163"
+;=======================================;
+
+HKR, Ndi\params\NetworkAddress,ParamDesc,,"NetworkAddress"
+HKR, NDI\params\NetworkAddress,default,,""
+HKR, Ndi\params\NetworkAddress,optional,,"1"
+HKR, NDI\params\NetworkAddress,type,,"edit"
+HKR, NDI\params\NetworkAddress,LimitText,,"12"
+HKR, NDI\params\NetworkAddress,UpperCase,,"1"
+
+HKR, Ndi\params\HWProbe,		ParamDesc, 0, "HWProbe"
+HKR, NDI\params\HWProbe,default,,"0"
+HKR, Ndi\params\HWProbe,optional,,"0"
+HKR, NDI\params\HWProbe,type,,"edit"
+HKR, NDI\params\HWProbe,LimitText,,"3"
+HKR, NDI\params\HWProbe,UpperCase,,"0"
+;HKR, Ndi\params\HWProbe,flag,1,20,00,00,00
+;================ only set init value ==================
+HKR,,Channel,2,"000"
+HKR,,InfrastructureMode,2,"000"
+HKR,,AuthenticationMode,2,"000"
+HKR,,Preamble,2,"002"
+HKR,,AntennaSelect,2,"0"
+HKR,,SSID,2,"LOCAL"
+HKR,,Password,2,""
+HKR,,WepStatus,2,"000"
+HKR,,TransmitKey,2,"001"
+HKR,,WepStatus1,2, "001"
+HKR,,KeyData1,2,""
+HKR,,WepStatus2,2,"001"
+HKR,,KeyData2,2,""
+HKR,,WepStatus3,2,"001"
+HKR,,KeyData3,2,""
+HKR,,WepStatus4,2,"001"
+HKR,,KeyData4,2,""
+HKR,,HWProbe,2,"000"
+HKR,,FrameThreshold,2,"2312"
+HKR,,RTSThreshold,2,"2312"
+HKR,,TxRate,2,"004"
+HKR,,BeaconInterval,2,"100"
+HKR,,ListenInterval,2,"1"
+HKR,,CTxPower12345,2,"24924924"
+HKR,,CTxPower6789A,2,"24924924"
+HKR,,CTxPowerBCDE,2,"924924"
+HKR,,SiSRFReg,2,"80"
+HKR,,TxRetryCounts,2,"7"
+HKR,,TxPowerLevel,2,"3f"
+HKR,,PowerMode,2,"000"
+HKR,,ATIMWindow,2,"5"
+HKR,,PromiscuousOption,2,"1"
+HKR,,RFType,2,"8"
+HKR,,Distance,2,"0"
+HKR,,BasebandMode,2,"5"
+HKR,,OldMaximParam,2,"0"
+HKR,,UISetRegionAfterInstallDriver,2,"UnChecked"
+;-----------------------------------------------------------------------------
+
+;==================================================================================================
+[sis163.reg]
+HKR, Ndi\params\Channel,		ParamDesc, 0, "Channel"
+HKR, Ndi\params\Channel,		default,   0, "000"
+HKR, Ndi\params\Channel,		type,      0, "enum"
+HKR, Ndi\params\Channel\enum,	"000",     0, "Auto"
+HKR, Ndi\params\Channel\enum,	"001",     0, "Channel  1"
+HKR, Ndi\params\Channel\enum,	"002",     0, "Channel  2"
+HKR, Ndi\params\Channel\enum,	"003",     0, "Channel  3"
+HKR, Ndi\params\Channel\enum,	"004",     0, "Channel  4"
+HKR, Ndi\params\Channel\enum,	"005",     0, "Channel  5"
+HKR, Ndi\params\Channel\enum,	"006",     0, "Channel  6"
+HKR, Ndi\params\Channel\enum,	"007",     0, "Channel  7"
+HKR, Ndi\params\Channel\enum,	"008",     0, "Channel  8"
+HKR, Ndi\params\Channel\enum,	"009",     0, "Channel  9"
+HKR, Ndi\params\Channel\enum,	"00a",     0, "Channel 10"
+HKR, Ndi\params\Channel\enum,	"00b",     0, "Channel 11"
+HKR, Ndi\params\Channel\enum,	"00c",     0, "Channel 12"
+HKR, Ndi\params\Channel\enum,	"00d",     0, "Channel 13"
+HKR, Ndi\params\Channel\enum,	"00e",     0, "Channel 14"
+
+HKR, Ndi\params\InfrastructureMode,	ParamDesc, 0, "InfrastructureMode"
+HKR, Ndi\params\InfrastructureMode,	default,   0, "000"
+HKR, Ndi\params\InfrastructureMode,	type,      0, "enum"
+HKR, Ndi\params\InfrastructureMode\enum,	"000",     0, "Infrastructure"
+HKR, Ndi\params\InfrastructureMode\enum,	"002",     0, "Ad Hoc"
+
+
+
+
+
+HKR, Ndi\params\AuthenticationMode,	ParamDesc, 0, "AuthenticationMode"
+HKR, Ndi\params\AuthenticationMode,	default,   0, "000"
+HKR, Ndi\params\AuthenticationMode,	type,      0, "enum"
+HKR, Ndi\params\AuthenticationMode\enum,	"000",     0, "Open System"
+HKR, Ndi\params\AuthenticationMode\enum,	"001",     0, "Shared Key"
+HKR, Ndi\params\AuthenticationMode\enum,	"002",     0, "AutoSwitch"
+HKR, Ndi\params\Preamble,	ParamDesc, 0, "Preamble"
+HKR, Ndi\params\Preamble,	default,   0, "002"
+HKR, Ndi\params\Preamble,	type,      0, "enum"
+HKR, Ndi\params\Preamble\enum,	"000",     0, "Short Preamble"
+HKR, Ndi\params\Preamble\enum,	"001",     0, "Long Preamble"
+HKR, Ndi\params\Preamble\enum,	"002",     0, "Auto Preamble"
+
+
+
+
+HKR, Ndi\params\AntennaSelect,	ParamDesc, 0, "AntennaSelect"
+HKR, Ndi\params\AntennaSelect,	default,   0, "0ff"
+HKR, Ndi\params\AntennaSelect,	type,      0, "enum"
+HKR, Ndi\params\AntennaSelect\enum,	"0ff",     0, "Diversity"
+HKR, Ndi\params\AntennaSelect\enum,	"000",     0, "Antenna 1"
+HKR, Ndi\params\AntennaSelect\enum,	"001",     0, "Antenna 2"
+
+HKR, Ndi\params\SSID,ParamDesc,,"SSID"
+HKR, NDI\params\SSID,default,,"LOCAL"
+HKR, Ndi\params\SSID,optional,,"1"
+HKR, NDI\params\SSID,type,,"edit"
+HKR, NDI\params\SSID,LimitText,,"32"
+HKR, NDI\params\SSID,UpperCase,,"0"
+;HKR, Ndi\params\SSID,flag,1,20,00,00,00
+
+
+HKR, Ndi\params\FrameThreshold,ParamDesc,,"Frame Threshold"
+HKR, NDI\params\FrameThreshold,default,,"2312"
+HKR, Ndi\params\FrameThreshold,optional,,"0"
+HKR, NDI\params\FrameThreshold,type,,"edit"
+HKR, NDI\params\FrameThreshold,LimitText,,"5"
+HKR, NDI\params\FrameThreshold,UpperCase,,"0"
+;HKR, Ndi\params\FrameThreshold,flag,1,20,00,00,00
+
+HKR, Ndi\params\RTSThreshold,ParamDesc,,"RTS Threshold"
+HKR, NDI\params\RTSThreshold,default,,"2312"
+HKR, Ndi\params\RTSThreshold,optional,,"0"
+HKR, NDI\params\RTSThreshold,type,,"edit"
+HKR, NDI\params\RTSThreshold,LimitText,,"5"
+HKR, NDI\params\RTSThreshold,UpperCase,,"0"
+;HKR, Ndi\params\RTSThreshold,flag,1,20,00,00,00
+
+HKR, Ndi\params\TxRate,		ParamDesc, 0, "Tx Rate"
+HKR, Ndi\params\TxRate,		default,   0, "004"
+HKR, Ndi\params\TxRate,		type,      0, "enum"
+HKR, Ndi\params\TxRate\enum,	"000",     0, " 1.0 Mbps"
+HKR, Ndi\params\TxRate\enum,	"001",     0, " 2.0 Mbps"
+HKR, Ndi\params\TxRate\enum,	"002",     0, " 5.5 Mbps"
+HKR, Ndi\params\TxRate\enum,	"003",     0, "11.0 Mbps"
+HKR, Ndi\params\TxRate\enum,	"004",     0, "Auto TxRate"
+
+HKR, Ndi\params\BeaconInterval,ParamDesc,,"Beacon Interval"
+HKR, NDI\params\BeaconInterval,default,,"100"
+HKR, Ndi\params\BeaconInterval,optional,,"0"
+HKR, NDI\params\BeaconInterval,type,,"edit"
+HKR, NDI\params\BeaconInterval,LimitText,,"5"
+HKR, NDI\params\BeaconInterval,UpperCase,,"0"
+;HKR, Ndi\params\BeaconInterval,flag,1,20,00,00,00
+
+HKR, Ndi\params\ListenInterval,ParamDesc,,"Listen Interval"
+HKR, NDI\params\ListenInterval,default,,"1"
+HKR, Ndi\params\ListenInterval,optional,,"0"
+HKR, NDI\params\ListenInterval,type,,"edit"
+HKR, NDI\params\ListenInterval,LimitText,,"5"
+HKR, NDI\params\ListenInterval,UpperCase,,"0"
+;HKR, Ndi\params\ListenInterval,flag,1,20,00,00,00
+
+HKR, Ndi\params\CTxPower12345,ParamDesc,,"CTxPower12345"
+HKR, NDI\params\CTxPower12345,default,,"0"
+HKR, Ndi\params\CTxPower12345,optional,,"0"
+HKR, NDI\params\CTxPower12345,type,,"edit"
+HKR, NDI\params\CTxPower12345,LimitText,,"8"
+HKR, NDI\params\CTxPower12345,UpperCase,,"0"
+;HKR, Ndi\params\CTxPower12345,flag,1,20,00,00,00
+
+HKR, Ndi\params\CTxPower6789A,ParamDesc,,"CTxPower6789A"
+HKR, NDI\params\CTxPower6789A,default,,"0"
+HKR, Ndi\params\CTxPower6789A,optional,,"0"
+HKR, NDI\params\CTxPower6789A,type,,"edit"
+HKR, NDI\params\CTxPower6789A,LimitText,,"8"
+HKR, NDI\params\CTxPower6789A,UpperCase,,"0"
+;HKR, Ndi\params\CTxPower6789A,flag,1,20,00,00,00
+
+HKR, Ndi\params\CTxPowerBCDE,ParamDesc,,"CTxPowerBCDE"
+HKR, NDI\params\CTxPowerBCDE,default,,"0"
+HKR, Ndi\params\CTxPowerBCDE,optional,,"0"
+HKR, NDI\params\CTxPowerBCDE,type,,"edit"
+HKR, NDI\params\CTxPowerBCDE,LimitText,,"8"
+HKR, NDI\params\CTxPowerBCDE,UpperCase,,"0"
+;HKR, Ndi\params\CTxPowerBCDE,flag,1,20,00,00,00
+
+HKR, Ndi\params\SiSRFReg,ParamDesc,,"SiSRFReg"
+HKR, NDI\params\SiSRFReg,default,,"80"
+HKR, Ndi\params\SiSRFReg,optional,,"0"
+HKR, NDI\params\SiSRFReg,type,,"edit"
+HKR, NDI\params\SiSRFReg,LimitText,,"5"
+HKR, NDI\params\SiSRFReg,UpperCase,,"0"
+;HKR, Ndi\params\SiSRFReg,flag,1,20,00,00,00
+
+
+HKR, Ndi\params\TxRetryCounts,ParamDesc,,"TxRetryCounts"
+HKR, NDI\params\TxRetryCounts,default,,"7"
+HKR, Ndi\params\TxRetryCounts,optional,,"0"
+HKR, NDI\params\TxRetryCounts,type,,"edit"
+HKR, NDI\params\TxRetryCounts,LimitText,,"5"
+HKR, NDI\params\TxRetryCounts,UpperCase,,"0"
+;HKR, Ndi\params\TxRetryCounts,flag,1,20,00,00,00
+
+
+
+
+HKR, Ndi\params\TxPowerLevel,ParamDesc,,"TxPowerLevel"
+HKR, NDI\params\TxPowerLevel,default,,"3f"
+HKR, Ndi\params\TxPowerLevel,optional,,"0"
+HKR, NDI\params\TxPowerLevel,type,,"edit"
+HKR, NDI\params\TxPowerLevel,LimitText,,"5"
+HKR, NDI\params\TxPowerLevel,UpperCase,,"0"
+;HKR, Ndi\params\TxPowerLevel,flag,1,20,00,00,00
+
+
+
+
+HKR, Ndi\params\PowerMode,	ParamDesc, 0, "POWER_MODE"
+HKR, Ndi\params\PowerMode,	default,   0, "000"
+HKR, Ndi\params\PowerMode,	type,      0, "enum"
+HKR, Ndi\params\PowerMode\enum,	"000",     0, "Ndis802_11PowerModeCAM"
+HKR, Ndi\params\PowerMode\enum,	"001",     0, "Ndis802_11PowerModeMAX_PSP"
+HKR, Ndi\params\PowerMode\enum,	"002",     0, "Ndis802_11PowerModeFast_PSP"
+HKR, Ndi\params\PowerMode\enum,	"003",     0, "Ndis802_11PowerModeMax"
+
+HKR, Ndi\params\ATIMWindow,ParamDesc,,"ATIMWindow"
+HKR, NDI\params\ATIMWindow,default,,"5"
+HKR, Ndi\params\ATIMWindow,optional,,"0"
+HKR, NDI\params\ATIMWindow,type,,"edit"
+HKR, NDI\params\ATIMWindow,LimitText,,"5"
+HKR, NDI\params\ATIMWindow,UpperCase,,"0"
+;HKR, Ndi\params\ATIMWindow,flag,1,20,00,00,00
+
+[sisuninstall.reg]
+HKLM,%SiS163uUninst%,UninstallString,0,"%11%\unwlsdrv.exe SiS163u"
+ 
+;----------------------------------------------------------------------------
+[sisuninstall1.reg]
+HKLM,%SiS163uUninst%,DisplayName,0,%sis163.DeviceDesc%
+HKLM,%SiS163uUninst1%,DeviceID,0,"USB\VID_0457&PID_0163"
+[Inst1.reg]
+HKLM,Software\Microsoft\Windows\CurrentVersion\RunOnce,Inst,,"Rundll32.exe SiSWInst.dll,Inst sis163u.inf,VID_0457&PID_0163,%01%"
+
+[sisuninstall2.reg]
+HKLM,%SiS163uUninst%,DisplayName,0,%GST.DeviceDesc%
+HKLM,%SiS163uUninst2%,DeviceID,0,"USB\VID_0d8e&PID_0163"
+[Inst2.reg]
+HKLM,Software\Microsoft\Windows\CurrentVersion\RunOnce,Inst,,"Rundll32.exe SiSWInst.dll,Inst sis163u.inf,VID_0d8e&PID_0163,%01%"
+
+[sisuninstall3.reg]
+HKLM,%SiS163uUninst%,DisplayName,0,%Cnet1.DeviceDesc%
+HKLM,%SiS163uUninst3%,DeviceID,0,"USB\VID_1371&PID_0021"
+[Inst3.reg]
+HKLM,Software\Microsoft\Windows\CurrentVersion\RunOnce,Inst,,"Rundll32.exe SiSWInst.dll,Inst sis163u.inf,VID_1371&PID_0021,%01%"
+
+[sisuninstall4.reg]
+HKLM,%SiS163uUninst%,DisplayName,0,%Cnet2.DeviceDesc%
+HKLM,%SiS163uUninst4%,DeviceID,0,"USB\VID_1371&PID_0022"
+[Inst4.reg]
+HKLM,Software\Microsoft\Windows\CurrentVersion\RunOnce,Inst,,"Rundll32.exe SiSWInst.dll,Inst sis163u.inf,VID_1371&PID_0022,%01%"
+
+[sisuninstall5.reg]
+HKLM,%SiS163uUninst%,DisplayName,0,%Surecom.DeviceDesc%
+HKLM,%SiS163uUninst5%,DeviceID,0,"USB\VID_0769&PID_11F7"
+[Inst5.reg]
+HKLM,Software\Microsoft\Windows\CurrentVersion\RunOnce,Inst,,"Rundll32.exe SiSWInst.dll,Inst sis163u.inf,VID_0769&PID_11F7,%01%"
+
+[sisuninstall6.reg]
+HKLM,%SiS163uUninst%,DisplayName,0,%Cnet3.DeviceDesc%
+HKLM,%SiS163uUninst6%,DeviceID,0,"USB\VID_1371&PID_0023"
+[Inst6.reg]
+HKLM,Software\Microsoft\Windows\CurrentVersion\RunOnce,Inst,,"Rundll32.exe SiSWInst.dll,Inst sis163u.inf,VID_1371&PID_0023,%01%"
+
+[sisuninstall7.reg]
+HKLM,%SiS163uUninst%,DisplayName,0,%TP_LINK.DeviceDesc%
+HKLM,%SiS163uUninst7%,DeviceID,0,"USB\VID_0B3B&PID_0163"
+[Inst7.reg]
+HKLM,Software\Microsoft\Windows\CurrentVersion\RunOnce,Inst,,"Rundll32.exe SiSWInst.dll,Inst sis163u.inf,VID_0B3B&PID_0163,%01%"
+
+[sisuninstall8.reg]
+HKLM,%SiS163uUninst%,DisplayName,0,%sis163.DeviceDesc%
+HKLM,%SiS163uUninst8%,DeviceID,0,"USB\VID_18E8&PID_6171"
+[Inst8.reg]
+HKLM,Software\Microsoft\Windows\CurrentVersion\RunOnce,Inst,,"Rundll32.exe SiSWInst.dll,Inst sis163u.inf,VID_18E8&PID_6171,%01%"
+
+[sisuninstall9.reg]
+HKLM,%SiS163uUninst%,DisplayName,0,%FSC.DeviceDesc%
+HKLM,%SiS163uUninst9%,DeviceID,0,"USB\VID_0BF8&PID_100F"
+
+[sisuninstallA.reg]
+HKLM,%SiS163uUninst%,DisplayName,0,%ROPER.DeviceDesc%
+HKLM,%SiS163uUninstA%,DeviceID,0,"USB\VID_0457&PID_5401"
+
+; -----------------------------------------
+; Ndi object registration
+;
+;NT specific
+[nt5.reg]
+HKR, Ndi,                               Service,            0, "SIS163u"
+HKR, Ndi\Interfaces,                    UpperRange,         0, "ndis5"
+HKR, Ndi\Interfaces,                    LowerRange,         0, "ethernet"
+
+;--------------------------------------------------------------------------------
+
+; Services Sections for NT
+;
+[sis163u.Service]
+DisplayName         = %sis163.Service.DispName%
+ServiceType         = 1 ;%SERVICE_KERNEL_DRIVER%
+StartType           = 3 ;%SERVICE_DEMAND_START%
+ErrorControl        = 1 ;%SERVICE_ERROR_NORMAL%
+ServiceBinary       = %12%\sis163u.sys
+LoadOrderGroup      = NDIS
+
+[ROPER.Service]
+DisplayName         = %ROPER.Service.DispName%
+ServiceType         = 1 ;%SERVICE_KERNEL_DRIVER%
+StartType           = 3 ;%SERVICE_DEMAND_START%
+ErrorControl        = 1 ;%SERVICE_ERROR_NORMAL%
+ServiceBinary       = %12%\sis163u.sys
+LoadOrderGroup      = NDIS
+
+[common.EventLog]
+AddReg              = common.AddEventLog.reg
+
+[common.AddEventLog.reg]
+HKR,,EventMessageFile,   0x00020000, = "%%SystemRoot%%\System32\netevent.dll"
+HKR,,TypesSupported,     0x00010001, = 7
+
+;----------------------------------------------------------------------------
+; Copy files
+;
+[DestinationDirs]
+DefaultDestDir      = 12
+sis163.CopyFiles    = 12
+Uninstall.CopyFiles  =11  
+Inst.CopyFiles       =11
+
+[SourceDisksNames]
+1                   = %SiSSourceDiskName%,,,""
+
+[SourceDisksFiles]
+sis163u.sys=1
+Unwlsdrv.exe=1
+SiSWInst.dll=1
+SiSWPars.dll=1
+SiSWBase.dll=1
+
+[sis163.CopyFiles]
+sis163u.sys
+
+[Uninstall.CopyFiles]
+unwlsdrv.exe
+
+[Inst.CopyFiles]
+SiSWInst.dll
+SiSWPars.dll
+SiSWBase.dll
+
+;----------------------------------------------------------------------------
+; Localizable Strings
+;
+[Strings]
+;SiS                           = "SiS"
+SiSMfg                         = "Silicon Integrated Systems Corp.(1.03.15)"
+FSCMfg                         = "Fujitsu Siemens Computers"
+ROPERMfg					   = "ROPER"
+sis163.DeviceDesc              = "802.11b/g USB Wireless LAN Adapter"
+GST.DeviceDesc                 = "802.11g 54 Mbps Wireless USB Dongle"
+Cnet1.DeviceDesc               = "Wireless-G USB Adapter"
+Cnet2.DeviceDesc               = "Wireless-G USB Dongle"
+Surecom.DeviceDesc             = "SURECOM 802.11g 54M WLAN USB Adapter"
+Cnet3.DeviceDesc               = "Wireless-G USB Module"
+TP_LINK.DeviceDesc             = "TL-WN320G 1.0 USB WLAN Adapter"
+FSC.DeviceDesc                 = "Fujitsu Siemens Computers WLAN 802.11b/g D1705/D1706"
+ROPER.DeviceDesc               = "Wireless USB Adapter RO80211GS-USB"
+
+;=============================================================================;
+sis163.Service.DispName       = "SiS163 usb Wireless LAN Adapter Driver"
+SiSSourceDiskName             = "SiS163 usb Wireless LAN Adapter Drivers Disk"
+ROPER.Service.DispName       	= "Wireless USB Adapter RO80211GS-USB Driver"
+ROPERSourceDiskName             = "Wireless USB Adapter RO80211GS-USB Drivers Disk"
+
+
+SiS163uUninst                  ="Software\Microsoft\Windows\CurrentVersion\Uninstall\SiS163u"
+SiS163uUninst1                 ="Software\Microsoft\Windows\CurrentVersion\Uninstall\SiS163u\SiS163u1"
+SiS163uUninst2                 ="Software\Microsoft\Windows\CurrentVersion\Uninstall\SiS163u\SiS163u2"
+SiS163uUninst3                 ="Software\Microsoft\Windows\CurrentVersion\Uninstall\SiS163u\SiS163u3"
+SiS163uUninst4                 ="Software\Microsoft\Windows\CurrentVersion\Uninstall\SiS163u\SiS163u4"
+SiS163uUninst5                 ="Software\Microsoft\Windows\CurrentVersion\Uninstall\SiS163u\SiS163u5"
+SiS163uUninst6                 ="Software\Microsoft\Windows\CurrentVersion\Uninstall\SiS163u\SiS163u6"
+SiS163uUninst7                 ="Software\Microsoft\Windows\CurrentVersion\Uninstall\SiS163u\SiS163u7"
+SiS163uUninst8                 ="Software\Microsoft\Windows\CurrentVersion\Uninstall\SiS163u\SiS163u8"
+SiS163uUninst9                 ="Software\Microsoft\Windows\CurrentVersion\Uninstall\SiS163u\SiS163u9"
+SiS163uUninstA                 ="Software\Microsoft\Windows\CurrentVersion\Uninstall\SiS163u\SiS163uA"
+
+;=============================================================================;

@@ -1,0 +1,533 @@
+;****************************************************************************************
+;
+; rt61.inf
+;
+;   This installation script supports Windows 98,Me,2000 & XP for the
+;   Belkin Wireless G Plus MIMO Notebook Card.
+;
+;   Copyright (c)2006, Belkin Corporation., All Rights Reserved
+;
+;****************************************************************************************
+
+[Version]
+Signature       = "$Chicago$"
+Class           = Net
+ClassGUID       = {4d36e972-e325-11ce-bfc1-08002be10318}
+Provider        = %Belkin%
+Compatible      = 1
+DriverVer       = 08/26/2005, 1.00.02.0000
+CatalogFile     = RT61.CAT            
+
+[ControlFlags]
+;ExcludeFromSelect = PCI\VEN_1814&DEV_0301
+
+[Manufacturer]
+%Belkin%        = Belkin
+
+[Belkin]
+; DisplayName               Section                 DeviceID
+; -----------               -------                 --------
+%F5D9010.DeviceDesc%         = F5D9010.ndi,           PCI\VEN_1814&DEV_0401&SUBSYS_901B1799
+
+;*******************************************************************************************
+; Windows 9X specific entries
+;*******************************************************************************************
+[F5D9010.ndi]
+AddReg                  = PCI0302.ndi.reg, RT619X.ndi.reg, Common.reg
+CopyFiles               = win9x.CopyFiles
+
+;*******************************************************************************************
+; NT specific entries
+;*******************************************************************************************
+[F5D9010.ndi.NT]
+AddReg                  = Common.reg, RT61.ndi.NT.reg
+Characteristics         = 0x84                      ; NCF_REMOVABLE | NCF_HAS_UI | NCF_PHYSICAL
+BusType                 = 5
+CopyFiles               = NT.CopyFiles
+
+; NT services sections
+[F5D9010.ndi.NT.Services]
+AddService              = RT61, 2, F5D9010.Service, common.EventLog
+
+;*******************************************************************************************
+; common regs for NT and W9x
+;*******************************************************************************************
+
+[Common.reg]
+;*******************************************************************************************
+; System Level Property
+
+;
+; Current Profile
+;
+HKR, ,                    CurProfile,      0,""
+HKR, Default,             CurProfile,      0,""
+
+;
+; Radio On/Off
+;
+HKR, ,                            Radio,           0, "0"
+HKR, NDI\params\Radio,            ParamDesc,       0, "Radio On/Off"
+HKR, NDI\params\Radio,            type,            0, "enum"
+HKR, NDI\params\Radio,            default,         0, "0"
+HKR, NDI\params\Radio\enum,       1,               0, "Disable"
+HKR, NDI\params\Radio\enum,       0,               0, "Enable"
+
+;
+; Auto Reconnect Mode
+;
+HKR, ,                                  AutoReconnect,      0, "1"
+HKR, NDI\params\AutoReconnect,          ParamDesc,          0, "Auto Reconnect Mode"
+HKR, NDI\params\AutoReconnect,          type,               0, "enum"
+HKR, NDI\params\AutoReconnect,          default,            0, "1"
+HKR, NDI\params\AutoReconnect\enum,     0,                  0, "Disable"
+HKR, NDI\params\AutoReconnect\enum,     1,                  0, "Enable"
+
+;
+; Show Hidden SSID in Site Survey Page
+;
+HKR, ,                                  ShowHiddenSSID,     0, "0"   ; 0=disable(default), 1=enable
+
+;
+; Country Region G Band
+;
+HKR, ,                                 CountryRegion,      0, "0"
+HKR, NDI\params\CountryRegion,         ParamDesc,          0, "Country Region 11G"
+HKR, NDI\params\CountryRegion,         type,               0, "enum"
+HKR, NDI\params\CountryRegion,         default,            0, "0"
+HKR, NDI\params\CountryRegion\enum,    0,                  0, "(Channel 1 - 11)"
+HKR, NDI\params\CountryRegion\enum,    1,                  0, "(Channel 1 - 13)"
+HKR, NDI\params\CountryRegion\enum,    2,                  0, "(Channel 10 - 11)"
+HKR, NDI\params\CountryRegion\enum,    3,                  0, "(Channel 10 - 13)"
+HKR, NDI\params\CountryRegion\enum,    4,                  0, "(Channel 14)"
+HKR, NDI\params\CountryRegion\enum,    5,                  0, "(Channel 1 - 14)"
+HKR, NDI\params\CountryRegion\enum,    6,                  0, "(Channel 3 - 9)"
+
+;
+; Country Region A Band
+;
+HKR, ,                                 CountryRegionABand, 0, "7"
+HKR, NDI\params\CountryRegionABand,    ParamDesc,          0, "Country Region 11A"
+HKR, NDI\params\CountryRegionABand,    type,               0, "enum"
+HKR, NDI\params\CountryRegionABand,    default,            0, "7"
+HKR, NDI\params\CountryRegionABand\enum,0,                 0, "Ch(36 - 64,149 - 165)"
+HKR, NDI\params\CountryRegionABand\enum,1,                 0, "Ch(36 - 140)"
+HKR, NDI\params\CountryRegionABand\enum,2,                 0, "Ch(36 - 64)"
+HKR, NDI\params\CountryRegionABand\enum,3,                 0, "Ch(52 - 64,149 - 161)"
+HKR, NDI\params\CountryRegionABand\enum,4,                 0, "Ch(149 - 165)"
+HKR, NDI\params\CountryRegionABand\enum,5,                 0, "Ch(149 - 161)"
+HKR, NDI\params\CountryRegionABand\enum,6,                 0, "Ch(36 - 48)"
+HKR, NDI\params\CountryRegionABand\enum,7,                 0, "Ch(36 - 165)"
+
+;*******************************************************************************************
+; Advance Page
+
+;
+; OpMode
+;
+HKR, ,                            OpMode,          0, "0"
+
+;
+; WirelessMode
+;
+HKR, ,                            WirelessMode,    0, "3"
+
+;
+; Enable TX Burst
+;
+HKR, ,                            TXBurst,         0, "1"
+
+;
+; Use Short Slot Time
+;
+HKR, ,                            ShortSlot,       0, "1"
+
+;
+; Use Turbo rate
+;
+HKR, ,                            TurboRate,       0, "0"
+
+;
+; Use Ofdm rate in adhoc mode
+;
+HKR, ,                            AdhocOfdm,       0, "0"
+HKR, NDI\params\AdhocOfdm,              ParamDesc, 0, "Adhoc Wireless Mode"
+HKR, NDI\params\AdhocOfdm,              type,      0, "enum"
+HKR, NDI\params\AdhocOfdm,              default,   0, "0"
+HKR, NDI\params\AdhocOfdm\enum,         0,         0, "802.11 B Only"
+HKR, NDI\params\AdhocOfdm\enum,         1,         0, "802.11 B/G Mix"
+
+;
+; Use BG Protection
+;
+HKR, ,                            BGProtection,    0, "0"
+HKR, NDI\params\BGProtection,           ParamDesc, 0, "B/G Protection"
+HKR, NDI\params\BGProtection,           type,      0, "enum"
+HKR, NDI\params\BGProtection,           default,   0, "0"
+HKR, NDI\params\BGProtection\enum,      0,         0, "Auto"
+HKR, NDI\params\BGProtection\enum,      1,         0, "On"
+HKR, NDI\params\BGProtection\enum,      2,         0, "Off"
+
+;
+; FrameAggregation
+;
+HKR, ,                            FrameAggregation,0, "1"
+HKR, NDI\params\FrameAggregation,       ParamDesc, 0, "Frame Aggregation"
+HKR, NDI\params\FrameAggregation,       type,      0, "enum"
+HKR, NDI\params\FrameAggregation,       default,   0, "1"
+HKR, NDI\params\FrameAggregation\enum,  0,         0, "Disable"
+HKR, NDI\params\FrameAggregation\enum,  1,         0, "Enable"
+
+;
+; IEEE80211H
+;
+HKR, ,                            IEEE80211H,      0, "0"
+HKR, NDI\params\IEEE80211H,       ParamDesc,       0, "IEEE802.11h"
+HKR, NDI\params\IEEE80211H,       type,            0, "enum"
+HKR, NDI\params\IEEE80211H,       default,         0, "0"
+HKR, NDI\params\IEEE80211H\enum,  0,               0, "Disable"
+HKR, NDI\params\IEEE80211H\enum,  1,               0, "Enable"
+
+;
+; AutoChannelSelect
+;
+HKR, ,                            AutoChannelSelect,      0, "0"
+HKR, NDI\params\AutoChannelSelect,       ParamDesc,0, "Auto Channel Select"
+HKR, NDI\params\AutoChannelSelect,       type,     0, "enum"
+HKR, NDI\params\AutoChannelSelect,       default,  0, "0"
+HKR, NDI\params\AutoChannelSelect\enum,  0,        0, "Disable"
+HKR, NDI\params\AutoChannelSelect\enum,  1,        0, "Enable"
+
+;
+; WMMCapable
+;
+HKR, ,                            WMMCapable,      0, "0"
+HKR, NDI\params\WMMCapable,             ParamDesc, 0, "WMM Capable"
+HKR, NDI\params\WMMCapable,             type,      0, "enum"
+HKR, NDI\params\WMMCapable,             default,   0, "0"
+HKR, NDI\params\WMMCapable\enum,        0,         0, "Disable"
+HKR, NDI\params\WMMCapable\enum,        1,         0, "Enable"
+
+;
+; APSDCapable
+;
+HKR, ,                            APSDCapable,     0, "0"
+HKR, NDI\params\APSDCapable,            ParamDesc, 0, "APSD Capable"
+HKR, NDI\params\APSDCapable,            type,      0, "enum"
+HKR, NDI\params\APSDCapable,            default,   0, "0"
+HKR, NDI\params\APSDCapable\enum,       0,         0, "Disable"
+HKR, NDI\params\APSDCapable\enum,       1,         0, "Enable"
+
+;
+; APSDAC_BE
+;
+HKR, ,                            APSDAC_BE,       0, "0"
+HKR, NDI\params\APSDAC_BE,              ParamDesc, 0, "AC_BE support APSD"
+HKR, NDI\params\APSDAC_BE,              type,      0, "enum"
+HKR, NDI\params\APSDAC_BE,              default,   0, "0"
+HKR, NDI\params\APSDAC_BE\enum,         0,         0, "Disable"
+HKR, NDI\params\APSDAC_BE\enum,         1,         0, "Enable"
+
+;
+; APSDAC_BK
+;
+HKR, ,                            APSDAC_BK,       0, "0"
+HKR, NDI\params\APSDAC_BK,              ParamDesc, 0, "AC_BK support APSD"
+HKR, NDI\params\APSDAC_BK,              type,      0, "enum"
+HKR, NDI\params\APSDAC_BK,              default,   0, "0"
+HKR, NDI\params\APSDAC_BK\enum,         0,         0, "Disable"
+HKR, NDI\params\APSDAC_BK\enum,         1,         0, "Enable"
+
+;
+; APSDAC_VI
+;
+HKR, ,                            APSDAC_VI,       0, "0"
+HKR, NDI\params\APSDAC_VI,              ParamDesc, 0, "AC_VI support APSD"
+HKR, NDI\params\APSDAC_VI,              type,      0, "enum"
+HKR, NDI\params\APSDAC_VI,              default,   0, "0"
+HKR, NDI\params\APSDAC_VI\enum,         0,         0, "Disable"
+HKR, NDI\params\APSDAC_VI\enum,         1,         0, "Enable"
+
+;
+; APSDAC_VO
+;
+HKR, ,                            APSDAC_VO,       0, "0"
+HKR, NDI\params\APSDAC_VO,              ParamDesc, 0, "AC_VO support APSD"
+HKR, NDI\params\APSDAC_VO,              type,      0, "enum"
+HKR, NDI\params\APSDAC_VO,              default,   0, "0"
+HKR, NDI\params\APSDAC_VO\enum,         0,         0, "Disable"
+HKR, NDI\params\APSDAC_VO\enum,         1,         0, "Enable"
+
+;
+; MaxSPLength
+;
+HKR, ,                            MaxSPLength,     0, "0"
+HKR, Default,                     MaxSPLength,     0, "0"
+HKR, NDI\params\MaxSPLength,      ParamDesc,       0, "Max Service Period Length"
+HKR, NDI\params\MaxSPLength,      type,            0, "int"
+HKR, Ndi\params\MaxSPLength,      default,         0, "0"
+HKR, NDI\params\MaxSPLength,      min,             0, "0"
+HKR, NDI\params\MaxSPLength,      max,             0, "3"
+HKR, NDI\params\MaxSPLength,      step,            0, "1"
+HKR, NDI\params\MaxSPLength,      optional,        0, "0"
+
+;
+; CCX2 control
+;
+HKR, ,                            CCX2Control,     0x00010001, 0x00fa4600
+
+;
+; Vendor Description
+;
+HKR, ,                            VendorDesc,      0, %VENDOR_DESC_DEF_STR%
+HKR, Default,                     VendorDesc,      0, %VENDOR_DESC_DEF_STR%
+
+;*******************************************************************************************
+; Profile
+
+;
+; SSID
+;
+HKR, ,                            SSID,            0, %SSID_DEF_STR%
+HKR, Default,                     SSID,            0, %SSID_DEF_STR%
+HKR, NDI\params\SSID,             ParamDesc,       0, "SSID"
+HKR, NDI\params\SSID,             type,            0, "edit"
+HKR, NDI\params\SSID,             limitText,       0, "32"
+HKR, NDI\params\SSID,             default,         0, %SSID_DEF_STR%
+
+;
+; Network Type
+;
+HKR, ,                            NetworkType,     0, %NETWORK_TYPE_DEF_STR%
+HKR, Default,                     NetworkType,     0, %NETWORK_TYPE_DEF_STR%
+HKR, NDI\params\NetworkType,      ParamDesc,       0, "Network Type"
+HKR, NDI\params\NetworkType,      type,            0, "enum"
+HKR, NDI\params\NetworkType,      default,         0, %NETWORK_TYPE_DEF_STR%
+HKR, NDI\params\NetworkType\enum, 0,               0, "802.11 Ad Hoc"
+HKR, NDI\params\NetworkType\enum, 1,               0, "Infrastructure"
+
+;
+; Channel
+;
+HKR, ,                            Channel,         0, %CHANNEL%
+HKR, Default,                     Channel,         0, %CHANNEL%
+
+
+;*******************************************************************************************
+; System Configuration Page
+
+;
+; Local Administration MAC Network Address
+;
+HKR, ,                            NetworkAddress,  0, ""
+HKR, Default,                     NetworkAddress,  0, ""
+HKR, NDI\params\NetworkAddress,   ParamDesc,       0, "Local Administration MAC Network Address"
+HKR, NDI\params\NetworkAddress,   type,            0, "edit"
+HKR, NDI\params\NetworkAddress,   limitText,       0, "12"
+HKR, NDI\params\NetworkAddress,   default,         0, ""
+
+;
+; Power Saving Mode
+;
+HKR, ,                            PSMode,          0, "0"
+HKR, Default,                     PSMode,          0, "0"
+HKR, NDI\params\PSMode,           ParamDesc,       0, "Power Saving Mode"
+HKR, NDI\params\PSMode,           type,            0, "enum"
+HKR, NDI\params\PSMode,           default,         0, "0"
+HKR, NDI\params\PSMode\enum,      0,               0, "CAM (Constantly Awake Mode)"
+HKR, NDI\params\PSMode\enum,      1,               0, "Max_PSP (Max Power Savings)"
+HKR, NDI\params\PSMode\enum,      2,               0, "Fast_PSP (Power Save Mode)"
+
+;
+; CAM when AC Power
+;
+HKR, ,                            ACPowerCam,      0, "0"
+HKR, Default,                     ACPowerCam,      0, "0"
+HKR, NDI\params\ACPowerCam,       ParamDesc,       0, "CAM when AC Power"
+HKR, NDI\params\ACPowerCam,       type,            0, "enum"
+HKR, NDI\params\ACPowerCam,       default,         0, "0"
+HKR, NDI\params\ACPowerCam\enum,  0,               0, "Disable"
+HKR, NDI\params\ACPowerCam\enum,  1,               0, "Enable"
+
+;
+; Preamble Type
+;
+HKR, ,                            PreambleType,    0, "0"
+HKR, Default,                     PreambleType,    0, "0"
+
+;
+; RTS Threshold
+;
+HKR, ,                            RTSThresh,       0, "2347"
+HKR, Default,                     RTSThresh,       0, "2347"
+HKR, NDI\params\RTSThresh,        ParamDesc,       0, "RTS Threshold"
+HKR, NDI\params\RTSThresh,        type,            0, "int"
+HKR, Ndi\params\RTSThresh,        default,         0, "2347"
+HKR, NDI\params\RTSThresh,        min,             0, "0"
+HKR, NDI\params\RTSThresh,        max,             0, "2347"
+HKR, NDI\params\RTSThresh,        step,            0, "32"
+HKR, NDI\params\RTSThresh,        optional,        0, "0"
+
+;
+; Fragment Threshold
+;
+HKR, ,                            FragThresh,      0, "2346"
+HKR, Default,                     FragThresh,      0, "2346"
+HKR, NDI\params\FragThresh,       ParamDesc,       0, "Fragment Threshold"
+HKR, NDI\params\FragThresh,       type,            0, "int"
+HKR, Ndi\params\FragThresh,       default,         0, "2346"
+HKR, NDI\params\FragThresh,       min,             0, "256"
+HKR, NDI\params\FragThresh,       max,             0, "2346"
+HKR, NDI\params\FragThresh,       step,            0, "32"
+HKR, NDI\params\FragThresh,       optional,        0, "0"
+
+;*******************************************************************************************
+; Authentication & Security Page
+
+;
+; Authentication Type
+;
+HKR, ,                AuthenType,      0, "0" ; Open System
+HKR, Default,         AuthenType,      0, "0"
+
+;
+; Encryption
+;
+HKR, ,                Encryption,      0, "1" ; Disable
+HKR, Default,         Encryption,      0, "1"
+
+;
+; WEP Keys Length
+;
+HKR, ,                WEPKeyLen,       0, "0"
+HKR, Default,         WEPKeyLen,       0, "0"
+
+;
+; WEP Key to use
+;
+HKR, ,                WEPKeyUse,       0,"1"
+HKR, Default,         WEPKeyUse,       0,"1"
+
+;
+; WEP Key1
+;
+HKR, ,                WEPKey1,         0,""
+HKR, Default,         WEPKey1,         0,""
+
+;
+; WEP Key2
+;
+HKR, ,                WEPKey2,         0,""
+HKR, Default,         WEPKey2,         0,""
+
+;
+; WEP Key3
+;
+HKR, ,                WEPKey3,         0,""
+HKR, Default,         WEPKey3,         0,""
+
+;
+; WEP Key4
+;
+HKR, ,                WEPKey4,         0,""
+HKR, Default,         WEPKey4,         0,""
+
+[PCI0301.ndi.reg]
+HKR, Ndi,                         DeviceID,         0, "PCI\VEN_1814&DEV_0301"
+
+[PCI0302.ndi.reg]
+HKR, Ndi,                         DeviceID,         0, "PCI\VEN_1814&DEV_0302"
+
+[PCI0401.ndi.reg]
+HKR, Ndi,                         DeviceID,         0, "PCI\VEN_1814&DEV_0401"
+
+[RT619X.ndi.reg]
+HKR, ,                            NTMPDriver,       0, RT619x.sys
+
+HKR, ,                            BusType,          0, 5
+HKR, NDI,                         CardType,         0, "PCI"
+
+HKR, ,                            RunningWin9X,     0, "1"
+HKR, ,                            DevLoader,        0, "*ndis"
+HKR, ,                            DeviceVxDs,       0, "RT619x.sys"
+HKR, ,                            EnumPropPages,    0, "netdi.dll,EnumPropPages"
+
+HKR, Ndi\Interfaces,              DefUpper,         0, "ndis3"
+HKR, Ndi\Interfaces,              DefLower,         0, "ethernet"
+HKR, Ndi\Interfaces,              UpperRange,       0, "ndis3"
+HKR, Ndi\Interfaces,              LowerRange,       0, "ethernet"
+
+HKR, NDIS,                        LogDriverName,    0, "RT619X"
+HKR, NDIS,                        MajorNdisVersion, 1, 03
+HKR, NDIS,                        MinorNdisVersion, 1, 0A
+
+;*******************************************************************************************
+; DestinationDirs
+;*******************************************************************************************
+
+[DestinationDirs]
+NT.CopyFiles            = 12    ; system32\drivers subdirectory on NT
+XP.CopyFiles            = 12    ; system32\drivers subdirectory on Windows XP
+win9x.CopyFiles         = 11    ; system subdirectory on win9x
+
+[NT.CopyFiles]
+rt61.sys                        ; NT Installation
+
+[XP.CopyFiles]
+rt61.sys
+
+[win9x.CopyFiles]
+rt619x.sys                      ; Win9x Installation
+
+[SourceDisksNames]
+1                       = %INSTALL_DISK_STR%,,,
+
+[SourceDisksFiles] 
+rt61.sys                = 1
+rt619x.sys              = 1
+
+;*******************************************************************************************
+; NT specific
+;*******************************************************************************************
+[RT61.ndi.NT.reg]
+HKR, Ndi,                   Service,            0, "RT61"
+HKR, Ndi\Interfaces,        UpperRange,         0, "ndis5"
+HKR, Ndi\Interfaces,        LowerRange,         0, "ethernet"
+
+[F5D9010.Service]
+DisplayName                 = %F5D9010.Service.DispName%
+ServiceType                 = 1                             ;%SERVICE_KERNEL_DRIVER%
+StartType                   = 3                             ;%SERVICE_AUTO_START%
+ErrorControl                = 1                             ;%SERVICE_ERROR_NORMAL%
+ServiceBinary               = %12%\RT61.sys
+LoadOrderGroup              = NDIS
+
+[common.EventLog]
+AddReg=common.AddEventLog.reg
+
+[common.AddEventLog.reg]
+HKR, , EventMessageFile, 0x00020000, "%%SystemRoot%%\System32\netevent.dll,%%SystemRoot%%\System32\drivers\RT61.sys"
+HKR, , TypesSupported,   0x00010001, 7
+
+;*******************************************************************************************
+; Strings
+;*******************************************************************************************
+[Strings]
+Belkin                      = "Belkin Corporation"
+
+;*******************************************************************************************
+; Device description
+;*******************************************************************************************
+F5D9010.DeviceDesc           = "Belkin Wireless G Plus MIMO Notebook Card"
+
+INSTALL_DISK_STR            = "Belkin Wireless G Installation Disk"
+
+F5D9010.Service.DispName     = "Belkin  Wireless G Plus MIMO "
+
+; Don't put spaces around=sign otherwise installer will not be able to
+; find these lines.
+SSID_DEF_STR                = ""
+VENDOR_DESC_DEF_STR         = "Belkin Wireless G Plus MIMO Notebook Card"
+NETWORK_TYPE_DEF_STR        = "1"
+CHANNEL                     = "1"
+

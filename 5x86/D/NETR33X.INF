@@ -1,0 +1,359 @@
+;
+;Copyright (c) 2003 D-Link Corporation, Incorporated All Rights Reserved
+;
+;Module Name:
+;
+;    NETR33X.inf
+
+
+[version]
+Signature      = "$Chicago$"
+Compatible     = 1
+Class          = Net
+ClassGUID      = {4d36e972-e325-11ce-bfc1-08002be10318}
+Provider       = %DLINK%                                 ;;
+CatalogFile    = netr33x.cat                               ;; for WHQL certified
+CatalogFile.NT = netr33x.cat
+DriverVer      = 05/23/2003,5.140.0523.2003
+
+[Manufacturer]
+%DLINK%   = DLINK
+
+[ControlFlags]
+
+ExcludeFromSelect     = VEN_10EC&DEV_8180&SUBSYS_33021186                   
+ExcludeFromSelect     = VEN_10EC&DEV_8180&SUBSYS_33031186                   
+
+[DLINK]
+%NETR33XUS.DeviceDesc%	= NETR33X.ndi, PCI\VEN_10EC&DEV_8180&SUBSYS_33021186
+%NETR33XUSP.DeviceDesc%	= NETR33X.ndi, PCI\VEN_10EC&DEV_8180&SUBSYS_33031186
+
+;;****************************************************************************
+;; Windows 9x
+;;****************************************************************************
+[NETR33X.ndi]
+DriverVer       = 05/23/2003,140
+AddReg          = NETR33X.id.reg, NETR33X.common.reg, NETR33X.win.reg
+CopyFiles       = NETR33X.CopyFiles98
+
+
+;;****************************************************************************
+;; NT 5.0
+;;****************************************************************************
+[NETR33X.ndi.NT]
+AddReg          = NETR33X.common.reg, NETR33X.reg
+Characteristics = 0x84
+BusType         = 5
+CopyFiles       = NETR33X.CopyFiles
+
+[NETR33X.ndi.NT.Services]
+AddService = NETR33X, 2, rtsnt.Service, NETR33X.EventLog
+
+[NETR33X.CopyFiles]
+NETR33X.sys,,,2
+
+[NETR33X.CopyFiles98]
+NETR33X.sys,,,2
+
+;;----------------------------------------------------------------------------
+;; NETR33X Parameters
+;;----------------------------------------------------------------------------
+;;***************************************************************************
+;; Windows 9x parameters
+;;***************************************************************************
+[NETR33X.id.reg]
+HKR, Ndi,       DeviceID,       0,      "PCI\VEN_10EC&DEV_8180"
+
+HKR, Ndi\Install,                       ,       0,      rtsnt.install
+HKR, NDI\Params\NetworkAddress,         flag,   1,      30, 00, 00, 00
+
+[NETR33X.win.reg]
+;; key,subkey,valuname,type,value
+HKR, ,  DriverDesc,     0,      "D-Link Air Wireless LAN Adapter"
+HKR, ,  DevLoader,      0,      *ndis
+HKR, ,  DeviceVxDs,     0,      NETR33X.sys
+HKR, ,  EnumPropPages,  0,      netdi.dll,      EnumPropPages
+
+;;params
+HKR, ,  MediaType,      0,      1
+HKR, ,  AdapterType,    0,      5
+HKR, ,  BusType,        0,      5
+
+;; NDIS Info
+HKR, NDIS,              MajorNdisVersion,       1,      03
+HKR, NDIS,              MinorNdisVersion,       1,      0a
+HKR, NDIS,              LogDriverName,          0,      "NETR33X"
+
+;; Interfaces
+HKR, Ndi\Interfaces,    DefLower,               ,       "ethernet"
+HKR, Ndi\Interfaces,    LowerRange,             ,       "ethernet"
+HKR, Ndi\Interfaces,    DefUpper,               ,       "ndis3"
+HKR, Ndi\Interfaces,    UpperRange,             ,       "ndis3"
+
+;; Install sections
+HKR, Ndi\Install,       ndis3,                  0,      "NETR33X.ndis5"
+
+;;****************************************************************************
+;; NETR33X common parameters
+;;****************************************************************************
+[NETR33X.common.reg]
+
+; connect in adhoc
+;HKR,,ConnectedOnIBSS,0,"1"
+
+;HKR,Ndi\Params\Coalesce, ParamDesc, 0, "always coalesce"
+;HKR,Ndi\Params\Coalesce, Type,      0, "enum"
+;HKR,Ndi\Params\Coalesce, Default,   0, "0"
+;HKR,Ndi\Params\Coalesce\enum, "0",  0, "Disable"
+;HKR,Ndi\Params\Coalesce\enum, "1",  0, "Enable"
+
+;HKR,Ndi\Params\RateDependentAck, ParamDesc, 0, "Enable Rate Dependent Ack"
+;HKR,Ndi\Params\RateDependentAck, Type,      0, "enum"
+;HKR,Ndi\Params\RateDependentAck, Default,   0, "0"
+;HKR,Ndi\Params\RateDependentAck\enum, "0",  0, "Disable"
+;HKR,Ndi\Params\RateDependentAck\enum, "1",  0, "Enable"
+
+HKR,Ndi\params\NetworkAddress,   ParamDesc, 0, %NetworkAddress%
+HKR,Ndi\params\NetworkAddress,   type,      0, "edit"
+HKR,Ndi\params\NetworkAddress,   default,   0, "000000000000"
+HKR,Ndi\params\NetworkAddress,   LimitText, 0, "12"
+HKR,Ndi\params\NetworkAddress,   UpperCase, 0, "1"
+HKR,Ndi\params\NetworkAddress,   Optional,  0, "1"
+
+;HKR,NDI\Params\TxMaxDMABurst,flag,1,30,00,00,00
+;HKR,Ndi\params\TxMaxDMABurst,ParamDesc,0,"Transmit DMA burst size"
+;HKR,Ndi\params\TxMaxDMABurst,type,0,enum
+;HKR,Ndi\params\TxMaxDMABurst,default,0,6
+;HKR,Ndi\params\TxMaxDMABurst\enum,0,0,"0:16 bytes"
+;HKR,Ndi\params\TxMaxDMABurst\enum,1,0,"1:32 bytes"
+;HKR,Ndi\params\TxMaxDMABurst\enum,2,0,"2:64 bytes"
+;HKR,Ndi\params\TxMaxDMABurst\enum,3,0,"3:128 bytes"
+;HKR,Ndi\params\TxMaxDMABurst\enum,4,0,"4:256 bytes"
+;HKR,Ndi\params\TxMaxDMABurst\enum,5,0,"5:512 bytes"
+;HKR,Ndi\params\TxMaxDMABurst\enum,6,0,"6:1024 bytes"
+;HKR,Ndi\params\TxMaxDMABurst\enum,7,0,"7:2048 bytes"
+
+;HKR,NDI\Params\RxMaxDMABurst,flag,1,30,00,00,00
+;HKR,Ndi\params\RxMaxDMABurst,ParamDesc,0,"Receive DMA burst size"
+;HKR,Ndi\params\RxMaxDMABurst,type,0,enum
+;HKR,Ndi\params\RxMaxDMABurst,default,0,6
+;HKR,Ndi\params\RxMaxDMABurst\enum,0,0,"0:16 bytes"
+;HKR,Ndi\params\RxMaxDMABurst\enum,1,0,"1:32 bytes"
+;HKR,Ndi\params\RxMaxDMABurst\enum,2,0,"2:64 bytes"
+;HKR,Ndi\params\RxMaxDMABurst\enum,3,0,"3:128 bytes"
+;HKR,Ndi\params\RxMaxDMABurst\enum,4,0,"4:256 bytes"
+;HKR,Ndi\params\RxMaxDMABurst\enum,5,0,"5:512 bytes"
+;HKR,Ndi\params\RxMaxDMABurst\enum,6,0,"6:1024 bytes"
+;HKR,Ndi\params\RxMaxDMABurst\enum,7,0,"7:unlimitted"
+
+;HKR,NDI\Params\EarlyRxThreshold,flag,1,30,00,00,00
+;HKR,Ndi\params\EarlyRxThreshold,ParamDesc,0,"Receive FIFO threshold"
+;HKR,Ndi\params\EarlyRxThreshold,type,0,enum
+;HKR,Ndi\params\EarlyRxThreshold,default,0,2
+;HKR,Ndi\params\EarlyRxThreshold\enum,0,0,"0:16 bytes"
+;HKR,Ndi\params\EarlyRxThreshold\enum,1,0,"1:32 bytes"
+;HKR,Ndi\params\EarlyRxThreshold\enum,2,0,"2:64 bytes"
+;HKR,Ndi\params\EarlyRxThreshold\enum,3,0,"3:128 bytes"
+;HKR,Ndi\params\EarlyRxThreshold\enum,4,0,"4:256 bytes"
+;HKR,Ndi\params\EarlyRxThreshold\enum,5,0,"5:512 bytes"
+;HKR,Ndi\params\EarlyRxThreshold\enum,6,0,"6:1024 bytes"
+;HKR,Ndi\params\EarlyRxThreshold\enum,7,0,"7:Disabled"
+
+;HKR,defaults,ListenInterval,0,"3"
+;HKR,Ndi\params\ListenInterval,default,	0,"3"
+;HKR,NDI\params\ListenInterval,ParamDesc,,%LISTENINTERVAL_STR%
+;HKR,NDI\params\ListenInterval,type,		,"int"
+;HKR,NDI\params\ListenInterval,flag,		1,"30","00","00","00"
+;HKR,NDI\params\ListenInterval,min,		0,"0"
+;HKR,NDI\params\ListenInterval,max,		0,"77"
+;HKR,NDI\params\ListenInterval,step,		0,"1"
+;HKR,NDI\params\ListenInterval,optional,	0,"1"
+
+;HKR,defaults,AH_BcnIntv,0,"1000"
+;HKR,Ndi\params\AH_BcnIntv,default,0,"100"
+;HKR,NDI\params\AH_BcnIntv,ParamDesc,0,%AH_BCNINTV_STR%
+;HKR,NDI\params\AH_BcnIntv,type,0,"int"
+;HKR,NDI\params\AH_BcnIntv,min,0,"20"
+;HKR,NDI\params\AH_BcnIntv,max,0,"1000"
+;HKR,NDI\params\AH_BcnIntv,step,0,"1"
+
+;HKR,defaults,AH_ATIMWnd,0,"1000"
+;HKR,Ndi\params\AH_ATIMWnd,default,0,"10"
+;HKR,NDI\params\AH_ATIMWnd,ParamDesc,0,%AH_ATIMINTV_STR%
+;HKR,NDI\params\AH_ATIMWnd,type,0,"int"
+;HKR,NDI\params\AH_ATIMWnd,min,0,"0"
+;HKR,NDI\params\AH_ATIMWnd,max,0,"1000"
+;HKR,NDI\params\AH_ATIMWnd,step,0,"1"
+
+;HKR,defaults,RTSThresh,0,"2432"
+;HKR,Ndi\params\RTSThresh,default,0,"2432"
+;HKR,NDI\params\RTSThresh,ParamDesc,0,%RTSTHRESH_STR%
+;HKR,NDI\params\RTSThresh,type,0,"int"
+;HKR,NDI\params\RTSThresh,flag,1,"20","00","00","00"
+;HKR,NDI\params\RTSThresh,min,0,"0"
+;HKR,NDI\params\RTSThresh,max,0,"2432"
+;HKR,NDI\params\RTSThresh,step,0,"64"
+;HKR,NDI\params\RTSThresh,optional,0,"1"
+
+;HKR,defaults,FragThresh,0,"2432"
+;HKR,Ndi\params\FragThresh,default,0,"2432"
+;HKR,NDI\params\FragThresh,ParamDesc,0,%FRAGTHRESH_STR%
+;HKR,NDI\params\FragThresh,type,0,"int"
+;HKR,NDI\params\FragThresh,flag,1,"20","00","00","00"
+;HKR,NDI\params\FragThresh,min,0,"256"
+;HKR,NDI\params\FragThresh,max,0,"2432"
+;HKR,NDI\params\FragThresh,step,0,"128"
+;HKR,NDI\params\FragThresh,optional,0,"1"
+
+
+;HKR,defaults,PreambleMode,0,"1"
+;HKR,Ndi\params\PreambleMode,default,0,"1"
+;HKR,NDI\params\PreambleMode,ParamDesc,,%SHORT_PREAM_STR%
+;HKR,NDI\params\PreambleMode,type,,"enum"
+;HKR,NDI\params\PreambleMode,flag,1,"30","00","00","00"
+;HKR,NDI\params\PreambleMode\enum,1,,"Long Tx Preamble"
+;HKR,NDI\params\PreambleMode\enum,2,,"Short Tx Preamble"
+;HKR,NDI\params\PreambleMode\enum,3,,"Auto"
+;HKR,NDI\params\PreambleMode,optional,0,"1"
+
+;HKR,defaults,AuthentAlg,0,"65535"
+;HKR,NDI\params\AuthentAlg,default,0,"0"
+;HKR,NDI\params\AuthentAlg,ParamDesc,,%AUTHENT_TYPE_STR%
+;HKR,NDI\params\AuthentAlg,type,,"enum"
+;HKR,NDI\params\AuthentAlg,flag,1,"30","00","00","00"
+;HKR,NDI\params\AuthentAlg\enum,1,,"Open System"
+;HKR,NDI\params\AuthentAlg\enum,2,,"Share Key(40 bit)"
+;HKR,NDI\params\AuthentAlg\enum,3,,"Share Key(128 bit)"
+;HKR,NDI\params\AuthentAlg,optional,0,"1"
+
+;HKR,defaults,AdhocDemoMode,0,"0"
+;HKR,Ndi\params\AdhocDemoMode,default,0,"0"
+;HKR,NDI\params\AdhocDemoMode,ParamDesc,,%ADHOC_DEMO_STR%
+;HKR,NDI\params\AdhocDemoMode,type,,"enum"
+;HKR,NDI\params\AdhocDemoMode,flag,1,"30","00","00","00"
+;HKR,NDI\params\AdhocDemoMode\enum,0,,"Disable"
+;HKR,NDI\params\AdhocDemoMode\enum,1,,"Enable"
+;HKR,NDI\params\AdhocDemoMode,optional,0,"1"
+
+HKR,,Channel,0,"1"
+;HKR,Ndi\params\Channel,default,	0,"1"
+;HKR,NDI\params\Channel,ParamDesc,,%CHANNEL_STR%
+;HKR,NDI\params\Channel,type,		,"int"
+;HKR,NDI\params\Channel,flag,		1,"30","00","00","00"
+;HKR,NDI\params\Channel,min,			0,"1"
+;HKR,NDI\params\Channel,max,			0,"14"
+;HKR,NDI\params\Channel,step,		0,"1"
+;HKR,NDI\params\Channel,optional,	0,"1"
+
+;HKR,defaults,DataRate,0,"0"
+;HKR,Ndi\params\DataRate,default,0,"0"
+;HKR,NDI\params\DataRate,ParamDesc,,%DATA_RATE_STR%
+;HKR,NDI\params\DataRate,type,,"enum"
+;HKR,NDI\params\DataRate,flag,1,"30","00","00","00"
+;HKR,NDI\params\DataRate\enum,0,,"Auto"
+;HKR,NDI\params\DataRate\enum,1,,"1 Mbps"
+;HKR,NDI\params\DataRate\enum,2,,"2 Mbps"
+;HKR,NDI\params\DataRate\enum,3,,"5.5 Mbps"
+;HKR,NDI\params\DataRate\enum,4,,"11 Mbps"
+;HKR,NDI\params\DataRate,optional,0,"1"
+
+HKR,defaults,PowerSaveMode,0,"0"
+HKR,Ndi\params\PowerSaveMode,default,0,"0"
+HKR,NDI\params\PowerSaveMode,ParamDesc,,%POWER_SAVE_STR%
+HKR,NDI\params\PowerSaveMode,type,,"enum"
+HKR,NDI\params\PowerSaveMode,flag,1,"30","00","00","00"
+HKR,NDI\params\PowerSaveMode\enum,0,,"CAM"
+HKR,NDI\params\PowerSaveMode\enum,1,,"MAX_PSP"
+HKR,NDI\params\PowerSaveMode\enum,2,,"Fast_PSP"
+;HKR,NDI\params\PowerSaveMode,optional,0,"1"
+
+HKR,Ndi\params\SSID,   	ParamDesc, 	0, 	%SSID_STR%
+HKR,defaults,			SSID,		0,	"ANY"
+HKR,Ndi\params\SSID,   	type,      	0, 	"edit"
+HKR,Ndi\params\SSID,   	default,   	0, 	"ANY"
+HKR,Ndi\params\SSID,   	LimitText, 	0, 	"32"
+;HKR,Ndi\params\SSID,   	Optional,  	0, 	"1"
+
+HKR,defaults,NetworkType,0,"1"
+HKR,Ndi\params\NetworkType,default,0,"1"
+HKR,NDI\params\NetworkType,ParamDesc,,%NETWORK_TYPE_STR%
+HKR,NDI\params\NetworkType,type,,"enum"
+HKR,NDI\params\NetworkType,flag,1,"30","00","00","00"
+HKR,NDI\params\NetworkType\enum,0,,"Ad Hoc"
+HKR,NDI\params\NetworkType\enum,1,,"Infrastructure"
+HKR,NDI\params\NetworkType\enum,2,,"Auto select"
+;HKR,NDI\params\NetworkType,optional,0,"1"
+
+
+HKR,,DefaultKeyID,,"0"
+HKR,,DefaultKey0,,""
+HKR,,DefaultKey1,,""
+HKR,,DefaultKey2,,""
+HKR,,DefaultKey3,,""
+;;****************************************************************************
+;; NT 5.0 parameters
+;;****************************************************************************
+[NETR33X.reg]
+HKR, Ndi\Interfaces,            UpperRange, 0, "ndis5"
+HKR, Ndi\Interfaces,            LowerRange, 0, "ethernet"
+HKR, Ndi,                       Service,    0, "NETR33X"
+
+[rtsnt.Service]
+DisplayName     = %NETR33X.Service.DispName%
+ServiceType     = 1                             ; %SERVICE_KERNEL_DRIVER%
+StartType       = 3                             ; %SERVICE_DEMAND_START%
+ErrorControl    = 1                             ; %SERVICE_ERROR_NORMAL%
+ServiceBinary   = %12%\NETR33X.SYS
+LoadOrderGroup  = NDIS
+
+[NETR33X.EventLog]
+Addreg = NETR33X.AddEventLog.reg
+
+[NETR33X.AddEventLog.reg]
+HKR,    ,   EventMessageFile,   0x00020000, "%%SystemRoot%%\System32\netevent.dll"
+HKR,    ,   TypesSupported,     0x00010001, 7
+
+;;****************************************************************************
+;; Destination Directory
+;;****************************************************************************
+[DestinationDirs]
+NETR33X.CopyFiles           = 12
+NETR33X.CopyFiles98         = 11
+DefaultDestDir              = 11        ; LDID_SYS
+
+;;****************************************************************************
+;; Source Files
+;;****************************************************************************
+[SourceDisksNames]
+1=%DISKNAME%,,,
+
+[SourceDisksFiles]
+NETR33X.sys  = 1
+
+
+;;****************************************************************************
+;; Strings
+;;****************************************************************************
+[Strings]
+DLINK	            	  	= "D-Link"
+
+
+;;Source disk name
+DISKNAME			= "D-Link Air Wireless Network Adapter Driver Disk"
+NetworkAddress			= "Network Address"
+ADHOC_DEMO_STR         		= "Adhoc Demo Mode"
+SHORT_PREAM_STR 	       	= "Preamble Mode"
+AH_BCNINTV_STR		= "Beacon Interval"
+AH_ATIMINTV_STR		= "Atim Window"
+RTSTHRESH_STR   	       	= "RTS Threshold"
+FRAGTHRESH_STR	         	= "Fragmentation Threshold"
+AUTHENT_TYPE_STR       		= "Authentication Algorithm"
+LISTENINTERVAL_STR	    	= "Listen Interval"
+CHANNEL_STR			= "Channel"
+DATA_RATE_STR			= "Data Rate"
+POWER_SAVE_STR		= "Power Save Mode"
+SSID_STR			= "SSID"
+NETWORK_TYPE_STR		= "Network Type"
+NETR33XUS.DeviceDesc	 	= "D-Link Air DWL-650 Wireless Cardbus Adapter(rev.M)"
+NETR33XUSP.DeviceDesc	 	= "D-Link Air DWL-520 Wireless PCI Adapter(rev.D)"
+NETR33X.Service.DispName	= "D-Link Air Wireless Adapter(RTL) NT Driver"

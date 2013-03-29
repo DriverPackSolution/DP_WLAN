@@ -1,0 +1,389 @@
+;+-----------------------------------------------------------------------+
+;| Device name    : ZD1201 USB 802.11b Wireless LAN card. (ZD1201)       |
+;| Platform	  : Microsoft Windows 98 / Me / 2000 / XP                |
+;| Host interface : USB                                                  |
+;|                                                                       |
+;| Copyright (c) 2000-2003 ZyDAS Technology Corporation.                 |
+;| All Rights Reserved.                                                  |
+;+-----------------------------------------------------------------------+
+
+;-------------------------------------------------------------------------
+[Version]
+Signature		= "$Chicago$"
+Compatible		= 1
+Class			= Net
+ClassGUID		= {4d36e972-e325-11ce-bfc1-08002be10318}
+MillenniumPreferred	= .ME
+Provider		= %INFProvider%
+CatalogFile		= zd1201u.cat			; for WHQL certified
+DriverVer		= 01/06/2004, 1.97.106.2004
+
+[Manufacturer]
+%Manufacturer%	= ZyDAS, NT.5.1
+
+
+[ControlFlags]
+
+
+[ZyDAS]
+;DisplayName              Section           Hardware ID
+;-----------              -------           --------------------------
+%ZD1201_50U_DESC%       = ZD1201_50U.ndi,   USB\VID_0ACE&PID_1201
+
+
+[ZyDAS.NT.5.1]
+;DisplayName              Section           Hardware ID
+;-----------              -------           --------------------------
+%ZD1201_50U_DESC%       = ZD1201XP_50U.ndi, USB\VID_0ACE&PID_1201
+
+
+;*********************************************************************
+;   Microsoft Windows 98 section
+;*********************************************************************
+;---------- 5.0 volt ----------
+[ZD1201_50U.ndi]
+AddReg		= ZD1201_Win9x.reg, ZD1201_Common.reg, UnZDRegistryUSB.reg
+CopyFiles       = ZD1201.CopyFiles98
+DriverVer	= 01/06/2004, 1.97.106.2004
+
+
+[ZD1201_Win9x.reg]
+HKR,NDI,              DeviceID,           0, %ZD1201_50U_PNP%
+HKR,NDI,              CardType,           0, %CardType%
+HKR,,                 DevLoader,          0, "*ndis"
+HKR,,                 DeviceVxDs,         0, %DriverFileName%
+
+; NDIS Info
+HKR,NDIS,             MajorNdisVersion,   1, 03
+HKR,NDIS,             MinorNdisVersion,   1, 0A
+HKR,NDIS,             LogDriverName,      0, %CustomServiceName%(%Manufacturer%)
+
+; Interfaces Info
+HKR,NDI\Interfaces,   DefUpper,           0, "ndis3"
+HKR,NDI\Interfaces,   DefLower,           0, "ethernet"
+HKR,NDI\Interfaces,   UpperRange,         0, "ndis3"
+HKR,NDI\Interfaces,   LowerRange,         0, "ethernet"
+
+; Other Info
+HKR,,                 BusType,            0, 15
+HKR,,                 IOBaseAddress,      1, 02,00,00,00
+HKR,,                 InterruptNumber,    1, 04,00,00,00
+HKR,,                 EnumPropPages,      0, "netdi.dll,EnumPropPages"
+
+; Install Sections
+HKR,NDI\Install,      ndis3,              0, "ZD1201.ndis3"
+
+HKR,,                 VendorDesc,         0, %VendorDesc%
+
+
+[ZD1201.CopyFiles98]
+ZD1201U.sys,ZD1U98.sys,,2
+WS01UPH.bin,,,2
+
+
+;*********************************************************************
+;   Microsoft Windows Me section
+;*********************************************************************
+;---------- 5.0 volt ----------
+[ZD1201_50U.ndi.ME]
+Characteristics = 0x84
+BusType         = 15
+AddReg		= ZD1201_WinMe.reg, ZD1201_Common.reg, UnZDRegistryUSB.reg
+CopyFiles       = ZD1201.CopyFilesMe
+
+
+[ZD1201_50U.ndi.ME.Services]
+AddService = %CustomServiceName%(%Manufacturer%), 2, ZD1201U_ME.Service, ZD1201U.EventLog
+
+
+[ZD1201_WinMe.reg]
+HKR,NDI,              Service,            0, %CustomServiceName%(%Manufacturer%)
+HKR,,                 DevLoader,          0, "*ndis"
+HKR,,                 DeviceVxDs,         0, %DriverFileName%
+HKR,,                 EnumPropPages,      0, "netdi.dll,EnumPropPages"
+
+; NDIS Info
+HKR,NDIS,             MajorNdisVersion,   1, 05
+HKR,NDIS,             MinorNdisVersion,   1, 00
+HKR,NDIS,             LogDriverName,      0, %CustomServiceName%(%Manufacturer%)
+
+; Interfaces Info
+HKR,NDI\Interfaces,   DefUpper,           0, "ndis5"
+HKR,NDI\Interfaces,   DefLower,           0, "ethernet"
+HKR,NDI\Interfaces,   UpperRange,         0, "ndis5"
+HKR,NDI\Interfaces,   LowerRange,         0, "ethernet"
+
+; Install Sections
+HKR,NDI\Install,      ndis3,              0, "ZD1201.ndis5me"
+
+HKR,,                 VendorDesc,         0, %VendorDesc%
+
+
+[ZD1201.ndis5me]
+CopyFiles       = ZD1201.CopyFilesMe
+
+
+[ZD1201.CopyFilesMe]
+ZD1201U.sys,ZD1UME.sys,,2
+WS01UPH.bin,,,2
+
+
+[ZD1201U_ME.Service]
+DisplayName     = %ZD1201U.Service.DispName%(%Manufacturer%)
+ServiceType     = 1                             ; %SERVICE_KERNEL_DRIVER%
+StartType       = 3                             ; %SERVICE_DEMAND_START%
+ErrorControl    = 1                             ; %SERVICE_ERROR_NORMAL%
+ServiceBinary   = %11%\%DriverFileName%		; %11%\zd1201u.sys
+LoadOrderGroup  = NDIS
+
+
+;*********************************************************************
+;   Microsoft Windows 2000 section
+;*********************************************************************
+;---------- 5.0 volt ----------
+[ZD1201_50U.ndi.NTx86]
+Characteristics = 0x84
+BusType         = 15
+AddReg		= ZD1201_Win2K.reg, ZD1201_Common.reg, UnZDRegistryUSB.reg
+CopyFiles       = ZD1201.CopyFiles2K
+
+[ZD1201_50U.ndi.NTx86.Services]
+AddService = %CustomServiceName%(%Manufacturer%), 2, ZD1201U_NT.Service, ZD1201U.EventLog
+
+[ZD1201_Win2K.reg]
+; Interfaces Info
+HKR,NDI\Interfaces,   UpperRange,         0, "ndis5"
+HKR,NDI\Interfaces,   LowerRange,         0, "ethernet"
+HKR,NDI,              Service,            0, %CustomServiceName%(%Manufacturer%)
+
+HKR,,                 VendorDesc,         0, %VendorDesc%
+
+
+[ZD1201.CopyFiles2K]
+ZD1201U.sys,ZD1U2K.sys,,2
+WS01UPH.bin,,,2
+
+
+;*********************************************************************
+;   Microsoft Windows XP section
+;*********************************************************************
+;---------- 5.0 volt ----------
+[ZD1201XP_50U.ndi.NTx86]
+Characteristics = 0x84
+BusType         = 15
+AddReg		= ZD1201_WinXP.reg, ZD1201_Common.reg, UnZDRegistryUSB.reg
+CopyFiles       = ZD1201.CopyFilesXP
+
+
+[ZD1201XP_50U.ndi.NTx86.Services]
+AddService = %CustomServiceName%(%Manufacturer%), 2, ZD1201U_NT.Service, ZD1201U.EventLog
+
+
+[ZD1201_WinXP.reg]
+; Interfaces Info
+HKR,NDI\Interfaces,   UpperRange,         0, "ndis5"
+HKR,NDI\Interfaces,   LowerRange,         0, "ethernet"
+HKR,NDI,              Service,            0, %CustomServiceName%(%Manufacturer%)
+HKR,,                 VendorDesc,         0, %VendorDesc%
+
+
+[ZD1201.CopyFilesXP]
+ZD1201U.sys,ZD1UXP.sys,,2
+WS01UPH.bin,,,2
+
+
+;*********************************************************************
+;   Microsoft Windows 2000/XP Common Section
+;*********************************************************************
+;---------- 5.0 volt ----------
+[ZD1201U_NT.Service]
+DisplayName     = %ZD1201U.Service.DispName%(%Manufacturer%)
+ServiceType     = 1                             ; %SERVICE_KERNEL_DRIVER%
+StartType       = 3                             ; %SERVICE_DEMAND_START%
+ErrorControl    = 1                             ; %SERVICE_ERROR_NORMAL%
+ServiceBinary   = %12%\%DriverFileName%		; %12%\%DriverFileName%
+LoadOrderGroup  = NDIS
+
+
+;*********************************************************************
+;   Microsoft Windows ME/2000/XP Common Section
+;*********************************************************************
+;---------- 5.0 volt ----------
+[ZD1201U.EventLog]
+Addreg = ZD1201U.AddEventLog.reg
+
+[ZD1201U.AddEventLog.reg]
+HKR,,                               EventMessageFile,  0x00020000, "%%SystemRoot%%\System32\netevent.dll"
+HKR,,                               TypesSupported,    0x00010001, 7
+
+
+;*********************************************************************
+;   Destination Directories
+;*********************************************************************
+[DestinationDirs]
+ZD1201.CopyFiles98	= 11			; system subdirectory on Win 98
+ZD1201.CopyFilesMe	= 11			; system subdirectory on Win Me
+ZD1201.CopyFiles2K	= 12			; system32\drivers subdirectory on Win NT/2000
+ZD1201.CopyFilesXP	= 12			; system32\drivers subdirectory on Win XP
+
+
+[SourceDisksNames]
+1=%DISKNAME%,,,
+
+
+[SourceDisksFiles]
+ZD1U98.sys = 1
+ZD1UME.sys = 1
+ZD1U2K.sys = 1
+ZD1UXP.sys = 1
+WS01UPH.bin = 1
+
+
+;******************************************************************************
+[ZD1201_Common.reg]
+HKR,,                               NetworkType,       0, "1"
+HKR,NDI\params\NetworkType,         ParamDesc,         0, "Network Type"
+HKR,NDI\params\NetworkType,         type,              0, "enum"
+HKR,NDI\params\NetworkType,         flag,              1, 30,00,00,00
+HKR,NDI\params\NetworkType,         default,           0, "1"
+HKR,NDI\params\NetworkType\enum,    "0",               0, "Ad-Hoc"
+HKR,NDI\params\NetworkType\enum,    "1",               0, "Infrastructure"
+HKR,NDI\params\NetworkType\enum,    "3",               0, "Pseudo IBSS"
+
+HKR,NDI\params\NetworkAddress,      ParamDesc,         0, "Network Address"
+HKR,NDI\params\NetworkAddress,      type,              0, "edit"
+HKR,NDI\params\NetworkAddress,      default,           0, "000000000000"
+HKR,NDI\params\NetworkAddress,      LimitText,         0, "12"
+HKR,NDI\params\NetworkAddress,      UpperCase,         0, "1"
+HKR,NDI\params\NetworkAddress,      Optional,          0, "1"
+
+HKR,,                               SSID,              0, %Def_SSID%
+HKR,NDI\params\SSID,                ParamDesc,         0, "SSID"
+HKR,NDI\params\SSID,                type,              0, "edit"
+HKR,NDI\params\SSID,                flag,              1, 30,00,00,00
+HKR,NDI\params\SSID,                default,           0, %Def_SSID%
+HKR,NDI\params\SSID,                limitText,         0, "32"
+
+HKR,,                               RFChannel,         0, %Def_Channel%
+HKR,NDI\params\RFChannel,           ParamDesc,         0, "Channel"
+HKR,NDI\params\RFChannel,           type,              0, "enum"
+HKR,NDI\params\RFChannel,           flag,              1, 30,00,00,00
+HKR,NDI\params\RFChannel,           default,           0, %Def_Channel%
+HKR,NDI\params\RFChannel\enum,      "1",               0, "Channel  1"
+HKR,NDI\params\RFChannel\enum,      "2",               0, "Channel  2"
+HKR,NDI\params\RFChannel\enum,      "3",               0, "Channel  3"
+HKR,NDI\params\RFChannel\enum,      "4",               0, "Channel  4"
+HKR,NDI\params\RFChannel\enum,      "5",               0, "Channel  5"
+HKR,NDI\params\RFChannel\enum,      "6",               0, "Channel  6"
+HKR,NDI\params\RFChannel\enum,      "7",               0, "Channel  7"
+HKR,NDI\params\RFChannel\enum,      "8",               0, "Channel  8"
+HKR,NDI\params\RFChannel\enum,      "9",               0, "Channel  9"
+HKR,NDI\params\RFChannel\enum,      "10",              0, "Channel 10"
+HKR,NDI\params\RFChannel\enum,      "11",              0, "Channel 11"
+HKR,NDI\params\RFChannel\enum,      "12",              0, "Channel 12"
+HKR,NDI\params\RFChannel\enum,      "13",              0, "Channel 13"
+HKR,NDI\params\RFChannel\enum,      "14",              0, "Channel 14"
+
+HKR,,                               TxDataRate,        0, %Def_TxDataRate%
+HKR,NDI\params\TxDataRate,          ParamDesc,         0, "Transmit Data Rate"
+HKR,NDI\params\TxDataRate,          type,              0, "enum"
+HKR,NDI\params\TxDataRate,          flag,              1, 30,00,00,00
+HKR,NDI\params\TxDataRate,          default,           0, %Def_TxDataRate%
+HKR,NDI\params\TxDataRate\enum,     "1",               0, "1M bps  "
+HKR,NDI\params\TxDataRate\enum,     "2",               0, "2M bps  "
+HKR,NDI\params\TxDataRate\enum,     "4",               0, "5.5M bps"
+HKR,NDI\params\TxDataRate\enum,     "8",               0, "11M bps "
+HKR,NDI\params\TxDataRate\enum,     "15",              0, "Auto    "
+
+HKR,,                               RTSCTSThreshold,   0, "2305"
+HKR,NDI\Params\RTSCTSThreshold,     ParamDesc,         0, "RTS/CTS Threshold"
+HKR,NDI\Params\RTSCTSThreshold,     Type,              0, "int"
+HKR,NDI\params\RTSCTSThreshold,     flag,              1, 30,00,00,00
+HKR,NDI\Params\RTSCTSThreshold,     Default,           0, "2305"
+HKR,NDI\Params\RTSCTSThreshold,     Min,               0, "0"
+HKR,NDI\Params\RTSCTSThreshold,     Max,               0, "2305"
+HKR,NDI\Params\RTSCTSThreshold,     Step,              0, "1"
+HKR,NDI\Params\RTSCTSThreshold,     Base,              0, "10"
+
+HKR,,                               FragmentThreshold, 0, "2305"
+HKR,NDI\Params\FragmentThreshold,   ParamDesc,         0, "Fragmentation Threshold"
+HKR,NDI\Params\FragmentThreshold,   Type,              0, "int"
+HKR,NDI\params\FragmentThreshold,   flag,              1, 30,00,00,00
+HKR,NDI\Params\FragmentThreshold,   Default,           0, "2305"
+HKR,NDI\Params\FragmentThreshold,   Min,               0, "0"
+HKR,NDI\Params\FragmentThreshold,   Max,               0, "2305"
+HKR,NDI\Params\FragmentThreshold,   Step,              0, "1"
+HKR,NDI\Params\FragmentThreshold,   Base,              0, "10"
+
+HKR,,                               PowerSaveMode,     0, "0"
+HKR,NDI\params\PowerSaveMode,       ParamDesc,         0, "Power Save Mode"
+HKR,NDI\params\PowerSaveMode,       type,              0, "enum"
+HKR,NDI\params\PowerSaveMode,       flag,              1, 30,00,00,00
+HKR,NDI\params\PowerSaveMode,       default,           0, "0"
+HKR,NDI\params\PowerSaveMode\enum,  "0",               0, "Disabled"
+HKR,NDI\params\PowerSaveMode\enum,  "1",               0, "Enabled "
+
+HKR,,                               PowerSaveLevel,    0, "0"
+HKR,NDI\params\PowerSaveLevel,      ParamDesc,         0, "Power Save Level"
+HKR,NDI\params\PowerSaveLevel,      type,              0, "enum"
+HKR,NDI\params\PowerSaveLevel,      flag,              1, 30,00,00,00
+HKR,NDI\params\PowerSaveLevel,      default,           0, "0"
+HKR,NDI\params\PowerSaveLevel\enum, "0",               0, "Level 0"
+HKR,NDI\params\PowerSaveLevel\enum, "1",               0, "Level 1"
+
+HKR,,                               AuthentMode,       0, "3"
+HKR,NDI\params\AuthentMode,         ParamDesc,         0, "Authentication Mode"
+HKR,NDI\params\AuthentMode,         type,              0, "enum"
+HKR,NDI\params\AuthentMode,         flag,              1, 30,00,00,00
+HKR,NDI\params\AuthentMode,         default,           0, "3"
+HKR,NDI\params\AuthentMode\enum,    "1",               0, "Open system"
+HKR,NDI\params\AuthentMode\enum,    "2",               0, "Shared key"
+HKR,NDI\params\AuthentMode\enum,    "3",               0, "Auto"
+
+HKR,,                               WEPStatus,         0, "0"
+HKR,NDI\params\WEPStatus,           ParamDesc,         0, "WEP Encryption"
+HKR,NDI\params\WEPStatus,           type,              0, "enum"
+HKR,NDI\params\WEPStatus,           flag,              1, 30,00,00,00
+HKR,Ndi\params\WEPStatus,           default,           0, "0"
+HKR,NDI\params\WEPStatus\enum,      0,                 0, "Disabled"
+HKR,NDI\params\WEPStatus\enum,      2,                 0, "Enabled (64 bit)"
+HKR,NDI\params\WEPStatus\enum,      6,                 0, "Enabled (128 bit)"
+
+HKR,,                               FirmwareName,      0, %FirmwareFileName%
+HKR,,                               WEPDefaultKeyId,   0, 1
+HKR,,                               WEPDefaultKeys,    0, "1011121314101112131410111213141011121314"
+HKR,,                               WEPEncryptInDriver,0, 1
+HKR,,                               WEPDecryptInDriver,0, 0
+
+HKR,,                               ATIMWindow,        0, 0
+HKR,,                               TxPowerControl,    0, 1	; Enable Tx Power Control process.
+HKR,,                               AntennaSelect,     0, 2	; Tx/Rx all use Antenna 2. Antenna auto select process is active.
+
+
+;*********************************************************************
+[UnZDRegistryUSB.reg]
+HKLM,SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\UNZD1201%InterfaceType%,DEL_HKR_0000,0,"ENUM\"%ZD1201_50U_PNP%
+
+
+;*********************************************************************
+[Strings]
+INFProvider	= "ZyDAS"
+Manufacturer	= "ZyDAS"
+
+DISKNAME	= "ZyDAS ZD1201 IEEE 802.11b Wireless LAN Driver (USB) Installation Disk"
+
+DriverFileName	= "zd1201u.sys"
+InterfaceType	= "USB"
+CardType	= "PNP"
+VendorDesc	= "ZyDAS ZD1201 802.11b Wireless LAN"
+CustomServiceName = "ZD1201U"
+
+ZD1201_50U_DESC	= "(ZD1201)IEEE 802.11b USB Adapter"
+ZD1201_50U_PNP  = "USB\VID_0ACE&PID_1201"
+
+Def_SSID	= ""
+Def_Channel	= "6"
+Def_TxDataRate	= "15"
+FirmwareFileName= "ws01uph.bin"
+
+ZD1201U.Service.DispName = "ZyDAS ZD1201 IEEE 802.11b Wireless LAN Driver (USB)"

@@ -1,0 +1,45 @@
+**
+**
+**  VIA Technologies VT6656 USB Wireless LAN Adapter
+**
+**  NDIS Driver for Windows Vista x86 Edition
+**
+**  
+**
+**
+
+Introduction:
+=============
+
+  This document shows you how to setup the driver in Windows operating system.
+
+Contents of the Subdirectory:
+=============================
+    
+    VW6UX86V.SYS        The NDIS6 driver for Windows Vista.
+    VW6UX86V.INF        The installation information file.
+    DIFxAPI.DLL         DIFx API for Vista X86.
+    VUINS32.DLL         32-bit uninstaller.
+    WINX86.TXT          This file.
+
+Installation:
+=============
+
+  Before starting with the installation process, make sure that the adapter
+  is properly installed and configured.
+
+    1. Turn on the power of your PC on to boot from Windows operating system.
+       Windows will auto-detect your new adapter, and the "New Hardware Found"
+       dialogue box will appear. Select "Driver from disk provided by hardware
+       manufacturer" to install driver from the diskette that comes with your
+       LAN adapter.
+
+    2. Insert the driver diskette into your floppy drive, and specify the
+       path of the driver in the diskette(i.e. A:\) to copy the driver
+       files to your system.
+
+  Note:
+
+    1. On some machines, it is possible that some NICs fail to initialize.
+       This might be caused by insufficient memory. Users can try to decrease
+       Transmit or Receive buffer number to solve this problem.

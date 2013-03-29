@@ -1,0 +1,341 @@
+;***********************************************************************
+;WlanUIB.INF
+;
+;  This installation script supports Windows XP for 
+;  Sitecom Wireless Network USB adapter 11M.
+;  
+;
+;  Copyright (c) 2003
+;  All Rights Reserved.
+;***********************************************************************
+
+[Version]
+ DriverVer = 09/01/2003, 3.1.3
+ Signature           = "$Chicago$"
+ Compatible          = 1
+ Class               = Net
+ ClassGUID           = {4d36e972-e325-11ce-bfc1-08002be10318}
+ Provider            = %VER_VENDOR_STR%
+
+[ControlFlags]
+;Exclude all PNP adapters from user selection
+ ExcludeFromSelect   = *
+
+[Manufacturer]
+ %VER_VENDOR_NAME_STR% = DeviceList
+
+[DeviceList]
+ %USB_DESC_STR%     = WLAN_USB1,        USB\VID_0CDE&PID_0005			       
+ %USB_DESC_STR%     = WLAN_USB2,        USB\VID_0CDE&PID_0004			       
+ %USB_DESC_STR%     = WLAN_USB3,        USB\VID_0CDE&PID_0003			       
+ %USB_DESC_STR%	    = WLAN_USB4,    	USB\VID_09AA&PID_3642			       
+ %USB_DESC_STR%     = WLAN_USB5,        USB\VID_9016&PID_182D			       
+ 
+;==========================================
+[WLAN_USB1.NT]    ; Win2k
+ AddReg         = WLAN_USB1.reg, COMMON_USB.reg, COMMON_NDIS.reg.NT, COMMON.reg
+ CopyFiles      = WLAN_DRIVER.copy.NT
+ BusType        = 15     ; USB
+ Characteristics= 0x84  ; NCF_PHYSICAL | NCF_HAS_UI
+
+[WLAN_USB1.NT.Services]
+ AddService     = "WlanUIB", 2, WLAN_DRIVER_USB.Service, WLAN_DRIVER.EventLog
+
+[WLAN_USB1.reg]
+ HKR,Ndi        ,DeviceID,0,"USB\Vid_0cde&Pid_0005"
+ HKR,           ,PlatformId,0,"0"
+ HKR,           ,VendorDesc,0,%USB_DESC_STR%
+
+;==========================================
+[WLAN_USB2.NT]    ; Win2k
+ AddReg         = WLAN_USB2.reg, COMMON_USB.reg, COMMON_NDIS.reg.NT, COMMON.reg
+ CopyFiles      = WLAN_DRIVER.copy.NT
+ BusType        = 15     ; USB
+ Characteristics= 0x84  ; NCF_PHYSICAL | NCF_HAS_UI
+
+[WLAN_USB2.NT.Services]
+ AddService     = "WlanUIB", 2, WLAN_DRIVER_USB.Service, WLAN_DRIVER.EventLog
+
+[WLAN_USB2.reg]
+ HKR,Ndi        ,DeviceID,0,"USB\VID_0CDE&PID_0004"
+ HKR,           ,PlatformId,0,"0"
+ HKR,           ,VendorDesc,0,%USB_DESC_STR%
+
+;==========================================
+[WLAN_USB3.NT]    ; Win2k
+ AddReg         = WLAN_USB3.reg, COMMON_USB.reg, COMMON_NDIS.reg.NT, COMMON.reg
+ CopyFiles      = WLAN_DRIVER.copy.NT
+ BusType        = 15     ; USB
+ Characteristics= 0x84  ; NCF_PHYSICAL | NCF_HAS_UI
+
+[WLAN_USB3.NT.Services]
+ AddService     = "WlanUIB", 2, WLAN_DRIVER_USB.Service, WLAN_DRIVER.EventLog
+
+[WLAN_USB3.reg]
+ HKR,Ndi        ,DeviceID,0,"USB\VID_0CDE&PID_0003"
+ HKR,           ,PlatformId,0,"0"
+ HKR,           ,VendorDesc,0,%USB_DESC_STR%
+ 
+;==========================================
+[WLAN_USB4.NT]    ; Win2k
+ AddReg         = WLAN_USB4.reg, COMMON_USB.reg, COMMON_NDIS.reg.NT, COMMON.reg
+ CopyFiles      = WLAN_DRIVER.copy.NT
+ BusType        = 15     ; USB
+ Characteristics= 0x84  ; NCF_PHYSICAL | NCF_HAS_UI
+
+[WLAN_USB4.NT.Services]
+ AddService     = "WlanUIB", 2, WLAN_DRIVER_USB.Service, WLAN_DRIVER.EventLog
+
+[WLAN_USB4.reg]
+ HKR,Ndi        ,DeviceID,0,"USB\VID_09AA&PID_3642"
+ HKR,           ,PlatformId,0,"0"
+ HKR,           ,VendorDesc,0,%USB_DESC_STR%
+  
+;==========================================
+[WLAN_USB5.NT]    ; Win2k
+ AddReg         = WLAN_USB5.reg, COMMON_USB.reg, COMMON_NDIS.reg.NT, COMMON.reg
+ CopyFiles      = WLAN_DRIVER.copy.NT
+ BusType        = 15     ; USB
+ Characteristics= 0x84  ; NCF_PHYSICAL | NCF_HAS_UI
+
+[WLAN_USB5.NT.Services]
+ AddService     = "WlanUIB", 2, WLAN_DRIVER_USB.Service, WLAN_DRIVER.EventLog
+
+[WLAN_USB5.reg]
+ HKR,Ndi        ,DeviceID,0,"USB\VID_9016&PID_182D"
+ HKR,           ,PlatformId,0,"0"
+ HKR,           ,VendorDesc,0,%USB_DESC_STR%
+
+;###############################################################################
+
+[WLAN_DRIVER_USB.Service]
+ DisplayName    = %WLAN_SERVICE_DISPLAY%
+ ServiceType    = 1    ; SERVICE_KERNEL_DRIVER
+ StartType      = 3    ; SERVICE_DEMAND_START
+ ErrorControl   = 1    ; NORMAL
+ ServiceBinary  = %12%\WlanUIB.sys
+ LoadOrderGroup = NDIS
+
+[WLAN_DRIVER.EventLog]
+ AddReg         = WLAN_DRIVER.EventLog.reg
+
+[WLAN_DRIVER.EventLog.reg]
+ HKR,           ,EventMessageFile       ,0x00020000     ,"%%SystemRoot%%\System32\netevent.dll"
+ HKR,           ,TypesSupported         ,0x00010001     ,7
+
+;###############################################################################
+
+[COMMON_USB.reg]
+ HKR,                   ,WLANIOC		,0      ,"XI-735"
+ HKR,NDI                ,Service                ,0      ,"WlanUIB"
+ HKR,NDI                ,CardType               ,0      ,"USB"
+ HKR,                   ,BusType                ,0      ,"15"
+ HKR,                   ,DeviceVxDs             ,0      ,"WlanUIB.sys"
+
+[COMMON_NDIS.reg.NT]
+ HKR,NDI\Interfaces     ,UpperRange             ,0      ,"ndis5"
+ HKR,NDI\Interfaces     ,LowerRange             ,0      ,"ethernet"
+
+[COMMON.reg]
+
+;Power save mode
+ HKR,	      ,PSMode,0,1
+ HKR, defaults,PSMode,0,1
+ HKR, Ndi\params\PSMode,default,0,1
+ HKR, NDI\params\PSMode,ParamDesc,,%POWER_SAVE_STR%
+ HKR, NDI\params\PSMode,type,,enum
+ HKR, NDI\params\PSMode,flag,1,30,00,00,00
+ HKR, NDI\params\PSMode\enum,1,,"Disable"
+ HKR, NDI\params\PSMode\enum,2,,"Always Enable"
+ HKR, NDI\params\PSMode\enum,3,,"Auto Enable"
+ HKR, NDI\params\PSMode,optional,0,1
+
+;ListenInterval
+ HKR,         ,ListenInterval,0,3
+ HKR, defaults,ListenInterval,0,3
+ HKR, Ndi\params\ListenInterval,default,0,3
+ HKR, NDI\params\ListenInterval,ParamDesc,,%LISTENINTERVAL_STR%
+ HKR, NDI\params\ListenInterval,type,,int
+ HKR, NDI\params\ListenInterval,flag,1,30,00,00,00
+ HKR, NDI\params\ListenInterval,min,0,0
+ HKR, NDI\params\ListenInterval,max,0,77
+ HKR, NDI\params\ListenInterval,step,0,1
+ HKR, NDI\params\ListenInterval,optional,0,1
+
+;RTS
+ HKR,         ,RTSThresh,0,2432
+ HKR, defaults,RTSThresh,0,2432
+ HKR, Ndi\params\RTSThresh,default,0,2432
+ HKR, NDI\params\RTSThresh,ParamDesc,0,%RTSTHRESH_STR%
+ HKR, NDI\params\RTSThresh,type,0,int
+ HKR, NDI\params\RTSThresh,flag,1,20,00,00,00
+ HKR, NDI\params\RTSThresh,min,0,0
+ HKR, NDI\params\RTSThresh,max,0,2432
+ HKR, NDI\params\RTSThresh,step,0,64
+ HKR, NDI\params\RTSThresh,optional,0,1
+ 
+ HKR,         ,FragThresh,0,2346
+ HKR,defaults,FragThresh,0,2346
+ HKR,Ndi\params\FragThresh,default,0,2346
+ HKR,NDI\params\FragThresh,ParamDesc,0,%FRAGTHRESH_STR%
+ HKR,NDI\params\FragThresh,type,0,int
+ HKR,NDI\params\FragThresh,flag,1,30,00,00,00
+ HKR,NDI\params\FragThresh,min,0,256
+ HKR,NDI\params\FragThresh,max,0,2346
+ HKR,NDI\params\FragThresh,step,0,2
+ HKR,NDI\params\FragThresh,optional,0,1
+                                
+                                     
+;Preamble  
+ HKR,         ,PreambleMode,0,1                          
+ HKR, defaults,PreambleMode,0,1  
+ HKR, Ndi\params\PreambleMode,default,0,1
+ HKR, NDI\params\PreambleMode,ParamDesc,,%SHORT_PREAM_STR%
+ HKR, NDI\params\PreambleMode,type,,enum
+ HKR, NDI\params\PreambleMode,flag,1,30,00,00,00
+ HKR, NDI\params\PreambleMode\enum,1,,"Long"
+ HKR, NDI\params\PreambleMode\enum,2,,"Short"
+ HKR, NDI\params\PreambleMode,optional,0,1
+
+;Authent Alg
+ HKR,         ,AuthentAlg,0,65535    
+ HKR, defaults,AuthentAlg,0,65535
+ HKR, NDI\params\AuthentAlg,default,0,65535
+ HKR, NDI\params\AuthentAlg,ParamDesc,,%AUTHENT_TYPE_STR%
+ HKR, NDI\params\AuthentAlg,type,,enum
+ HKR, NDI\params\AuthentAlg,flag,1,30,00,00,00
+ HKR, NDI\params\AuthentAlg\enum,1,,"Open"
+ HKR, NDI\params\AuthentAlg\enum,2,,"Share Key"
+ HKR, NDI\params\AuthentAlg\enum,65535,,"Auto"
+ HKR, NDI\params\AuthentAlg,optional,0,1
+
+; DSChannel.
+ HKR,         ,DSChannel,0,6
+ HKR, defaults,DSChannel,0,6 			;Default as 6      
+ HKR, Ndi\params\DSChannel,default,	0, "6"
+ HKR, Ndi\params\DSChannel,ParamDesc,0, %CHANNEL_STR%
+ HKR, Ndi\params\DSChannel,type,0, "int"
+ HKR, Ndi\params\DSChannel,min,0, "1"
+ HKR, Ndi\params\DSChannel,max,0, "14"
+ HKR, Ndi\params\DSChannel,step,0, "1"
+ HKR, NDI\params\DSChannel,optional,0,1
+ 
+;;SSID 
+ HKR,         ,SSID,0,"Sitecom"
+ HKR, defaults,SSID,0,"Sitecom" ;Default value is "Sitecom"       
+ HKR, Ndi\params\SSID,default,	0, "Sitecom"
+ HKR, Ndi\params\SSID,ParamDesc,0, %ESSID_Str%
+ HKR, Ndi\params\SSID,type,0, "edit"
+ HKR, Ndi\params\SSID,default,0, "Sitecom"
+ HKR, Ndi\params\SSID,LimitText,0, "32"
+ HKR, Ndi\params\SSID,UpperCase,0, "0"
+ HKR, NDI\params\SSID,optional,0,1
+ 
+;TX Rate 
+ HKR,         ,TxRate,0,15
+ HKR, defaults,TxRate,0,15   ;Auto.
+ HKR, Ndi\params\TxRate,default,0,15
+ HKR, NDI\params\TxRate,ParamDesc,,%TX_RATE%
+ HKR, NDI\params\TxRate,type,,enum
+ HKR, NDI\params\TxRate\enum,1,0,"1Mbps"
+ HKR, NDI\params\TxRate\enum,2,0,"2Mbps"
+ HKR, NDI\params\TxRate\enum,4,0,"5Mbps"
+ HKR, NDI\params\TxRate\enum,8,0,"11Mbps"
+ HKR, NDI\params\TxRate\enum,15,0,"Auto"
+ HKR, NDI\params\TxRate,optional,0,1
+ 
+;WEP level 
+ HKR,         ,WepReq,0,0
+ HKR, defaults,WepReq,0,0   ;Disable
+ HKR, Ndi\params\WepReq,default,0,0 
+ HKR, Ndi\params\WepReq,ParamDesc,0,%ENCRYPTION_LEVEL%
+ HKR, Ndi\params\WepReq,type,0,"enum"
+ HKR, Ndi\params\WepReq,default,	0,"0"
+ HKR, Ndi\params\WepReq\enum,0,0,"Disable"
+ HKR, Ndi\params\WepReq\enum,2,0,"64(40) Bit"
+ HKR, Ndi\params\WepReq\enum,6,0,"128(104) Bit"
+ HKR, NDI\params\WepReq,optional,0,1
+ 
+;NetworkType
+ HKR,         ,NetworkType,0,1
+ HKR, defaults,NetworkType,0,1   ;Infrasturcture
+ HKR, Ndi\params\NetworkType,default,0,1 
+ HKR, Ndi\params\NetworkType,ParamDesc,0, %NET_WORK_TYPE%
+ HKR, Ndi\params\NetworkType,type,0, "enum"
+ HKR, Ndi\params\NetworkType,default,0, "1"
+ HKR, Ndi\params\NetworkType\enum,1,0, "Infrastructure"
+ HKR, Ndi\params\NetworkType\enum,2,0, "802.11 AdHoc"
+ HKR, Ndi\params\NetworkType\enum,3,0, "AdHoc"
+ HKR, NDI\params\NetworkType,optional,0,1
+ 
+ ;Load Firmware.
+ HKR,         ,LoadFirmware,0,1 
+ HKR, defaults,LoadFirmware,0,1
+ HKR, Ndi\params\LoadFirmware,default,0,1
+ HKR, NDI\params\LoadFirmware,ParamDesc,,%LOAD_FIRMWARE_STR%
+ HKR, NDI\params\LoadFirmware,type,,enum
+ HKR, NDI\params\LoadFirmware,flag,1,30,00,00,00                                 
+ HKR, NDI\params\LoadFirmware\enum,0,,"Disable"
+ HKR, NDI\params\LoadFirmware\enum,1,,"Enable"
+ HKR, NDI\params\LoadFirmware,optional,0,1
+ 
+ 
+ ;11d Mode.
+ HKR,         ,11dMode,0,0
+ HKR, defaults,11dMode,0,0   ;Disalbed
+ HKR, Ndi\params\11dMode,default,0,0 
+ HKR, Ndi\params\11dMode,ParamDesc,0, %11D_MODE%
+ HKR, Ndi\params\11dMode,type,0, "enum"
+ HKR, Ndi\params\11dMode,default,0, "0"
+ HKR, Ndi\params\11dMode\enum,0,0, "Disabled"
+ HKR, Ndi\params\11dMode\enum,1,0, "Strict"
+ HKR, Ndi\params\11dMode\enum,2,0, "Flexible"
+ HKR, NDI\params\11dMode,optional,0,1
+
+ HKR,,DefaultKeyId,0,0
+ HKR,,EncryptInDriver,0,1
+ HKR,,DecryptInDriver,0,1
+
+
+;###############################################################################
+[DestinationDirs]
+;CopyFiles Section      = Destination Directory ID -- see layout.inf
+;-----------------        ------------------------
+ DefaultDestDir		= 11 ; Win9x=%windir%\system Win2k=%windir%\system32
+ WLAN_DRIVER.copy.NT	= 12 ; Win2k=%windir%\system32\drivers
+
+[WLAN_DRIVER.copy.NT]
+ WlanUIB.sys
+
+[SourceDisksNames]
+;Source Disk ID         = Disk Name
+;--------------           ---------
+ 1                      = %INSTALL_DISK_STR%,,,
+
+[SourceDisksFiles.X86]  ; Win2k/Xp
+ WlanUIB.sys		= 1
+
+;###############################################################################
+[Strings]
+;String ID              	= String Text
+;---------                	-----------
+ VER_VENDOR_STR         	= "Sitecom Europe BV"
+ VER_VENDOR_NAME_STR    	= "Sitecom Europe BV"
+
+ WLAN_SERVICE_DISPLAY		= "Sitecom 802.11b USB Driver"
+ INSTALL_DISK_STR       	= "WL-022" 
+ USB_DESC_STR           	= "Sitecom Wireless USB adapter 11M WL-022"
+ 
+ SHORT_PREAM_STR        	= "Preamble Mode"
+ RTSTHRESH_STR          	= "RTS Threshold"
+ FRAGTHRESH_STR         	= "Fragmentation Threshold"
+ AUTHENT_TYPE_STR       	= "Authentication"
+ LISTENINTERVAL_STR     	= "Listen Interval"          
+ CHANNEL_STR			= "AdHoc Channel"
+ ESSID_Str			= "ssid"
+ TX_RATE			= "TxRate"
+ ENCRYPTION_LEVEL		= "Encryption"
+ NET_WORK_TYPE			= "Network Type"
+ LOAD_FIRMWARE_STR		= "Firmware Download"
+ POWER_SAVE_STR			= "Power Save Mode"
+ 11D_MODE			= "11D Mode"

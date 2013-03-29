@@ -1,0 +1,339 @@
+; 
+; USRWLAN.INF
+;
+; WinXP installation file for USR 22M WLAN Adapter
+;
+; Copyright (c) 2002, 2003, All Rights Reserved.
+;
+
+[Version]
+CatalogFile=usrwlan.cat
+Signature = "$Windows NT$"
+Provider  = %TI%
+Class     = Net
+ClassGUID={4d36e972-e325-11ce-bfc1-08002be10318}
+DriverVer=02/25/2003,3.0.0.0
+
+[Manufacturer]
+%TI% = USR
+
+; pnp cards should be excluded from select
+[ControlFlags]
+ExcludeFromSelect = PCI\VEN_104C&DEV_8400&SUBSYS_16EC00FC
+ExcludeFromSelect = PCI\VEN_104C&DEV_8400&SUBSYS_16EC00FD
+
+[USR]
+%USR.DeviceDesc1% = USR.8400, PCI\VEN_104C&DEV_8400&SUBSYS_16EC00FC
+%USR.DeviceDesc2% = USR.8400, PCI\VEN_104C&DEV_8400&SUBSYS_16EC00FD
+
+;
+; This section is necessary for the tool
+;
+[TI3000P.ndi]
+AddReg=USR.ndi.reg
+
+[USR.8400.NT]
+BusType         = 5
+AddReg          =USR.ndi.reg.NT, TI.Param.Reg
+Characteristics = 0x84
+CopyFiles       =USR.8400.CopyFiles.NT, USR.8400.BinFiles.NT
+
+[USR.ndi.reg.NT]
+HKR, Ndi,               Service,    0,  "USRLN"
+HKR, Ndi\Interfaces,    LowerRange, 0,  "ethernet"
+HKR, Ndi\Interfaces,    UpperRange, 0,  "ndis5"
+
+[USR.8400.NT.Services]
+AddService = USRLN, 2, USRLN.Service, USRLN.EventLog
+
+[USRLN.Service]
+DisplayName     = %USRLN.Service.DispName%
+ServiceType     = 1 ;%SERVICE_KERNEL_DRIVER%
+StartType       = 3 ;%SERVICE_DEMAND_START%
+ErrorControl    = 1 ;%SERVICE_ERROR_NORMAL%
+ServiceBinary   = %12%\usrwlan.sys
+LoadOrderGroup  = NDIS
+
+[USRLN.EventLog]
+AddReg = USRLN.AddEventLog.reg
+
+[USRLN.AddEventLog.reg]
+HKR, , EventMessageFile, 0x00020000, "%%SystemRoot%%\System32\netevent.dll"
+HKR, , TypesSupported,   0x00010001, 7
+
+[USR.8400.CopyFiles.NT]
+;USRWLAN.sys
+;WLANGEN.bin
+;RADIO0d.bin
+;RADIO11.bin
+
+;
+; Copy FW Files to system directory for ME
+;
+[USR.8400.BinFiles.NT]
+;WLANGEN.bin
+;RADIO0d.bin
+;RADIO11.bin
+
+;
+; Windows9x specific
+;
+[USR.8400]
+AddReg=USR.ndi.reg, TI.Param.Reg, USR.8400.Install
+
+[USR.8400.Install]
+HKR,Ndi\Install,,,"USR.8400.Copy"
+HKR,Ndi\Remove,,,"USR.8400.Remove"
+
+[USR.ndi.reg]
+HKR,Ndi,DeviceID,,"PCI\VEN_104C&DEV_8400"
+
+;HKR,Ndi,NetType,,1
+HKR,Ndi,HelpText,0,%WLANAdapterHelpText%
+
+; key,subkey,valuname,type,value
+HKR,,DevLoader,,*ndis
+HKR,,DeviceVxDs,,USRWLAN.sys
+HKR,,EnumPropPages,,"netdi.dll,EnumPropPages"
+
+; NDIS Info
+HKR, NDIS, LogDriverName, , "USRLN"
+HKR, NDIS, MajorNdisVersion, 1, 03
+HKR, NDIS, MinorNdisVersion, 1, 0A
+
+HKR,Ndi\Interfaces,DefLower,,"ethernet"
+HKR,Ndi\Interfaces,LowerRange,,"ethernet"
+HKR,Ndi\Interfaces,DefUpper,,"ndis3,ndis4,ndis5"
+HKR,Ndi\Interfaces,UpperRange,,"ndis3,ndis4,ndis5"
+
+; Required Components
+HKR,Ndi,InstallInf,,"USRWLAN.INF"
+
+[USR.8400.Copy]
+CopyFiles=USR.8400.CopyFiles
+
+[USR.8400.Remove]
+DelFiles=USR.8400.CopyFiles
+
+[USR.8400.CopyFiles]
+;USRWLAN.sys
+;WLANGEN.bin
+;RADIO0d.bin
+;RADIO11.bin
+
+;
+; Common sections
+;
+[TI.Param.Reg]
+; Radio values
+; RFMD
+HKR, ,Radio11_RxLevel,, "bc b3 a9 9a 90 89 80 79 70 68 64 61 60 55 00"
+HKR, ,Radio11_LNA,,     "01 01 01 01 01 01 01 01 01 01 01 01 01 01 01"
+HKR, ,Radio11_RSSI,,    "0a 0f 14 19 1e 23 28 2d 32 37 3c 41 46 4b c8"
+
+    
+;Maxim
+HKR, ,Radio0D_RxLevel,, "55 4f 4a 43 3a 32 5d 56 4e 46 3e 37 2a 23 1f"
+HKR, ,Radio0D_LNA,,     "00 00 00 00 00 00 01 01 01 01 01 01 01 01 01"
+HKR, ,Radio0D_RSSI,,    "0a 0f 14 19 1e 23 28 2d 32 37 3c 41 46 4b 5a"
+
+
+; TcpWindowSize - TCP Window size
+HKLM,System\CurrentControlSet\Services\Tcpip\Parameters, TcpWindowSize, 0x10001, 25200
+
+; PermAddress
+HKR,,PermAddress,,112233
+
+; HardwareID
+HKR, ,HardwareID, ,"ACX100"
+
+
+; Tx/Rx descriptors
+
+HKR, ,NumACXRxDescriptors, ,10
+HKR, ,NumACXTxDescriptors, ,10
+
+; LEAP User password
+HKR, ,LeapUserPassword, ,""
+
+;HKR, ,ackE4x, ,0
+
+
+HKR, ,DriverDescription, ,"USR 22M WLAN Adapter"
+
+HKR,NDI\params\dot11DesiredBSSType,ParamDesc,,"Desired BSS Type"
+HKR,NDI\params\dot11DesiredBSSType,type,,"enum"
+HKR,NDI\params\dot11DesiredBSSType,default,,"1"
+HKR,NDI\params\dot11DesiredBSSType\enum,"0",,"Ad-Hoc"
+HKR,NDI\params\dot11DesiredBSSType\enum,"1",,"Infrastructure"
+;HKR,NDI\params\dot11DesiredBSSType\enum,"2",,"Auto Detect"
+
+
+HKR, Ndi\Params\dot11DesiredSSID, ParamDesc, ,"Desired SSID"
+HKR, Ndi\Params\dot11DesiredSSID, Type, ,"edit"
+HKR, Ndi\Params\dot11DesiredSSID, LimitText, ,"32"
+HKR, Ndi\Params\dot11DesiredSSID, Default,,"ANY"
+HKR, Ndi\Params\dot11DesiredSSID, UpperCase,,"0"
+
+HKR,NDI\params\dot11PowerMode,ParamDesc,,"Power Mode"
+HKR,NDI\params\dot11PowerMode,type,,"enum"
+HKR,NDI\params\dot11PowerMode,default,,"0"
+HKR,NDI\params\dot11PowerMode\enum,"0",,"Continuous Access Mode"
+HKR,NDI\params\dot11PowerMode\enum,"1",,"Maximum Power Save"
+HKR,NDI\params\dot11PowerMode\enum,"2",,"Fast Power Save"
+
+; Desired Tx Rate 
+HKR,NDI\params\dot11DesiredTxRate,ParamDesc,, "Desired Tx Rate"
+HKR,NDI\params\dot11DesiredTxRate,type,,"enum"
+HKR,NDI\params\dot11DesiredTxRate,default,,"0"
+HKR,NDI\params\dot11DesiredTxRate\enum,"0",,"Auto"
+HKR,NDI\params\dot11DesiredTxRate\enum,"1",,"1 Mbps"
+HKR,NDI\params\dot11DesiredTxRate\enum,"2",,"2 Mbps"
+HKR,NDI\params\dot11DesiredTxRate\enum,"3",,"5.5 Mbps"
+HKR,NDI\params\dot11DesiredTxRate\enum,"4",,"5.5 Mbps PBCC"
+HKR,NDI\params\dot11DesiredTxRate\enum,"5",,"11 Mbps"
+HKR,NDI\params\dot11DesiredTxRate\enum,"6",,"11 Mbps PBCC"
+HKR,NDI\params\dot11DesiredTxRate\enum,"7",,"22 Mbps PBCC"
+
+; Desired supported Rate Set 
+HKR,NDI\params\dot11SupportedRateMask,ParamDesc,, "Desired Supported Rate Set"
+HKR,NDI\params\dot11SupportedRateMask,type,,"enum"
+HKR,NDI\params\dot11SupportedRateMask,default,,"2"
+HKR,NDI\params\dot11SupportedRateMask\enum,"0",,"1,2 Mbps"
+HKR,NDI\params\dot11SupportedRateMask\enum,"1",,"1,2,5.5,11 Mbps"
+HKR,NDI\params\dot11SupportedRateMask\enum,"2",,"1,2,5.5,11,22 Mbps"
+
+; Desired Basic Rate Set 
+HKR,NDI\params\dot11BasicRateMask,ParamDesc,, "Desired Basic Rate Set"
+HKR,NDI\params\dot11BasicRateMask,type,,"enum"
+HKR,NDI\params\dot11BasicRateMask,default,,"0"
+HKR,NDI\params\dot11BasicRateMask\enum,"0",,"1,2,5.5,11 Mbps"
+HKR,NDI\params\dot11BasicRateMask\enum,"1",,"1,2 Mbps"
+
+
+; Fragmentation Threshold 
+HKR, Ndi\Params\dot11FragmentationThreshold, ParamDesc, ,"Fragmentation Threshold"
+HKR, Ndi\Params\dot11FragmentationThreshold, Type, , "int"
+HKR, Ndi\Params\dot11FragmentationThreshold, Default, , "4096"
+HKR, Ndi\Params\dot11FragmentationThreshold, Min, , "256"
+HKR, Ndi\Params\dot11FragmentationThreshold, Max, , "6000"
+HKR, Ndi\Params\dot11FragmentationThreshold, Step, , "1"
+HKR, Ndi\Params\dot11FragmentationThreshold, Base, , "10"
+
+; RTS Threshold 
+HKR, Ndi\Params\dot11RTSThreshold, ParamDesc, ,"RTS Threshold"
+HKR, Ndi\Params\dot11RTSThreshold, Type, , "int"
+HKR, Ndi\Params\dot11RTSThreshold, Default, , "4096"
+HKR, Ndi\Params\dot11RTSThreshold, Min, , "0"
+HKR, Ndi\Params\dot11RTSThreshold, Max, , "6000"
+HKR, Ndi\Params\dot11RTSThreshold, Step, , "1"
+HKR, Ndi\Params\dot11RTSThreshold, Base, , "10"
+
+HKR,NDI\params\dot11WEPStatus,ParamDesc,,"WEP Option"
+HKR,NDI\params\dot11WEPStatus,type,,"enum"
+HKR,NDI\params\dot11WEPStatus,default,,"1"
+HKR,NDI\params\dot11WEPStatus\enum,"0",,"WEP Enabled"
+HKR,NDI\params\dot11WEPStatus\enum,"1",,"WEP Disabled"
+
+HKR,NDI\params\dot11AuthMode,ParamDesc,,"Authentication Mode"
+HKR,NDI\params\dot11AuthMode,type,,"enum"
+HKR,NDI\params\dot11AuthMode,default,,"2"
+HKR,NDI\params\dot11AuthMode\enum,"0",,"Open Authentication"
+HKR,NDI\params\dot11AuthMode\enum,"1",,"Shared Authentication"
+HKR,NDI\params\dot11AuthMode\enum,"2",,"Auto Switch"
+
+;HKR,NDI\params\dot11PBCCInvoked,ParamDesc,,"PBCC"
+;HKR,NDI\params\dot11PBCCInvoked,type,,"enum"
+;HKR,NDI\params\dot11PBCCInvoked,default,,"0"
+;HKR,NDI\params\dot11PBCCInvoked\enum,"0",,"Off"
+;HKR,NDI\params\dot11PBCCInvoked\enum,"1",,"On"
+
+HKR,NDI\params\dot11ShortPreambleInvoked,ParamDesc,,"Short Preamble"
+HKR,NDI\params\dot11ShortPreambleInvoked,type,,"enum"
+HKR,NDI\params\dot11ShortPreambleInvoked,default,,"0"
+HKR,NDI\params\dot11ShortPreambleInvoked\enum,"0",,"Off"
+HKR,NDI\params\dot11ShortPreambleInvoked\enum,"1",,"On"
+
+;HKR,NDI\params\ELPSupport,ParamDesc,,"ELP Support"
+;HKR,NDI\params\ELPSupport,type,,"enum"
+;HKR,NDI\params\ELPSupport,default,,"0"
+;HKR,NDI\params\ELPSupport\enum,"1",,"Enabled"
+;HKR,NDI\params\ELPSupport\enum,"0",,"Disabled"
+
+;HKR, Ndi\Params\LeapUserName, ParamDesc, ,"LeapUserName"
+;HKR, Ndi\Params\LeapUserName, Type, ,"edit"
+;HKR, Ndi\Params\LeapUserName, LimitText, ,"32"
+;HKR, Ndi\Params\LeapUserName, Default,,"tiwlan"
+;HKR, Ndi\Params\LeapUserName, UpperCase,,"0"
+
+;HKR,NDI\params\LeapEnabled,ParamDesc,,"LeapEnabled"
+;HKR,NDI\params\LeapEnabled,type,,"enum"
+;HKR,NDI\params\LeapEnabled,default,,"0"
+;HKR,NDI\params\LeapEnabled\enum,"1",,"Enabled"
+;HKR,NDI\params\LeapEnabled\enum,"0",,"Disabled"
+
+HKR,NDI\params\Mode4x,ParamDesc,,"Mode4x"
+HKR,NDI\params\Mode4x,type,,"enum"
+HKR,NDI\params\Mode4x,default,,"1"
+HKR,NDI\params\Mode4x\enum,"0",,"Off"
+HKR,NDI\params\Mode4x\enum,"1",,"On"
+
+;HKR,NDI\params\Mode4xMixed,ParamDesc,,"Mode4xMixed"
+;HKR,NDI\params\Mode4xMixed,type,,"enum"
+;HKR,NDI\params\Mode4xMixed,default,,"0"
+;HKR,NDI\params\Mode4xMixed\enum,"0",,"Off"
+;HKR,NDI\params\Mode4xMixed\enum,"1",,"On"
+
+HKR,NDI\params\ackE4x,ParamDesc,,"4X Ack emulation"
+HKR,NDI\params\ackE4x,type,,"enum"
+HKR,NDI\params\ackE4x,default,,"1"
+HKR,NDI\params\ackE4x\enum,"0",,"Off"
+HKR,NDI\params\ackE4x\enum,"1",,"On"
+
+; For Antenna
+HKR,NDI\params\dot11TxAntenna,ParamDesc,,"Antenna TX"
+HKR,NDI\params\dot11TxAntenna,type,,"enum"
+HKR,NDI\params\dot11TxAntenna,default,,"1"
+HKR,NDI\params\dot11TxAntenna\enum,"0",,"Antenna 1"
+HKR,NDI\params\dot11TxAntenna\enum,"1",,"Antenna 2"
+;HKR,NDI\params\dot11TxAntenna\enum,"2",,"Both"
+
+HKR,NDI\params\dot11RxAntenna,ParamDesc,,"Antenna RX"
+HKR,NDI\params\dot11RxAntenna,type,,"enum"
+HKR,NDI\params\dot11RxAntenna,default,,"2"
+HKR,NDI\params\dot11RxAntenna\enum,"0",,"Antenna 1"
+HKR,NDI\params\dot11RxAntenna\enum,"1",,"Antenna 2"
+HKR,NDI\params\dot11RxAntenna\enum,"2",,"Both"
+
+; Desired channel
+HKR, Ndi\Params\dot11DesiredChannel, ParamDesc, ,"Desired Channel"
+HKR, Ndi\Params\dot11DesiredChannel, Type, , "int"
+HKR, Ndi\Params\dot11DesiredChannel, Default, , "11"
+HKR, Ndi\Params\dot11DesiredChannel, Min, , "1"
+HKR, Ndi\Params\dot11DesiredChannel, Max, , "11"
+HKR, Ndi\Params\dot11DesiredChannel, Step, , "1"
+HKR, Ndi\Params\dot11DesiredChannel, Base, , "10"
+
+
+[DestinationDirs]
+DefaultDestDir  = 12 ; System Directory
+USR.8400.CopyFiles = 11
+USR.8400.BinFiles.NT = 10,system
+
+[SourceDisksNames]
+1 = %DiskName%,,
+
+[SourceDisksFiles]
+USRWLAN.sys  = 1
+WLANGEN.bin  = 1
+RADIO0d.bin  = 1
+RADIO11.bin  = 1
+
+
+[Strings]
+TI="U.S.Robotics"
+USR.DeviceDesc1="U.S. Robotics 22Mbps Wireless Cardbus Adapter"
+USR.DeviceDesc2="U.S. Robotics 22Mbps Wireless PCI Adapter"
+USRLN.Service.DispName="U.S. Robotics 22Mbps Wireless Lan Adapter"
+WLANAdapterHelpText="A U.S. Robotics 22Mbps Wireless Lan Adapter provides high speed connection to the Internet through 802.11b technology"
+DiskName="U.S. Robotics 22Mbps Wireless Lan Adapter Installation Disk"

@@ -1,0 +1,268 @@
+;***********************************************************************
+;WLANNIC.INF
+;
+;  This installation script supports Windows Xp for the
+;  IEEE 802.11b Wireless LAN Adapters ,including XI-360,XI-660,XI-960 
+;
+;  Copyright (c) 2003 Sitecom Europe BV
+;  All Rights Reserved.;
+;***********************************************************************
+
+[Version]
+ DriverVer = 08/12/2003, 176.10.1.1
+ Signature           = "$Chicago$"
+ Compatible          = 1
+ Class               = Net
+ ClassGUID           = {4d36e972-e325-11ce-bfc1-08002be10318}
+ Provider            = %VER_VENDOR_STR%
+
+[ControlFlags]
+;Exclude all PNP adapters from user selection
+ ExcludeFromSelect   = *
+
+[Manufacturer]
+ %VER_VENDOR_NAME_STR% = DeviceList
+
+[DeviceList]
+ %CARDBUS_DESC_STR%  	= WLAN_CARDBUS1,	PCI\VEN_1022&DEV_2003&SUBSYS_002217CF   ;XI-360
+ %MINIPCI_DESC_STR%  	= WLAN_MINIPCI1,	PCI\VEN_1022&DEV_2003&SUBSYS_003017CF	;XI-660
+ %PCI_DESC_STR%  	= WLAN_PCI1,     	PCI\VEN_1022&DEV_2003&SUBSYS_003117CF	;XI-960
+ 
+;==========================================
+
+[WLAN_CARDBUS1.NT]    ; Win2k
+ AddReg         = WLAN_RegNdis, WLAN_RegParams, Cardbus_RegParamsHW
+ CopyFiles      = WLAN_DRIVER.copy.NT
+ BusType        = 5     ; PCI
+ Characteristics= 0x84  ; NCF_PHYSICAL | NCF_HAS_UI
+
+[WLAN_CARDBUS1.NT.Services]
+ AddService     = "Am772", 2, WLAN_DRIVER.Service, WLAN_DRIVER.EventLog
+  
+[Cardbus_RegParamsHW]
+HKR, , VendorName,                      0,              %VER_VENDOR_NAME_STR%
+HKR, , ProductName,                     0,              %CARDBUS_DESC_STR%
+
+;==========================================
+[WLAN_MINIPCI1.NT]    ; Win2k
+ AddReg         = WLAN_RegNdis, WLAN_RegParams, MINIPCI_RegParamsHW
+ CopyFiles      = WLAN_DRIVER.copy.NT
+ BusType        = 5     ; PCI
+ Characteristics= 0x84  ; NCF_PHYSICAL | NCF_HAS_UI
+
+[WLAN_MINIPCI1.NT.Services]
+ AddService     = "Am772", 2, WLAN_DRIVER.Service, WLAN_DRIVER.EventLog
+
+[MINIPCI_RegParamsHW]
+HKR, , VendorName,                      0,              %VER_VENDOR_NAME_STR%
+HKR, , ProductName,                     0,              %MINIPCI_DESC_STR%
+
+;==========================================
+[WLAN_PCI1.NT]    ; Win2k
+ AddReg         = WLAN_RegNdis, WLAN_RegParams, PCI_RegParamsHW
+ CopyFiles      = WLAN_DRIVER.copy.NT
+ BusType        = 5     ; PCI
+ Characteristics= 0x84  ; NCF_PHYSICAL | NCF_HAS_UI
+
+[WLAN_PCI1.NT.Services]
+ AddService     = "Am772", 2, WLAN_DRIVER.Service, WLAN_DRIVER.EventLog
+
+[PCI_RegParamsHW]
+HKR, , VendorName,                      0,              %VER_VENDOR_NAME_STR%
+HKR, , ProductName,                     0,              %PCI_DESC_STR%
+
+;###############################################################################
+
+[WLAN_DRIVER.Service]
+ DisplayName    = %WLAN_SERVICE_DISPLAY%
+ ServiceType    = 1    ; SERVICE_KERNEL_DRIVER
+ StartType      = 3    ; SERVICE_DEMAND_START
+ ErrorControl   = 1    ; NORMAL
+ ServiceBinary  = %12%\WLANNDS.sys
+ LoadOrderGroup = NDIS
+
+[WLAN_DRIVER.EventLog]
+ AddReg         = WLAN_DRIVER.EventLog.reg
+
+[WLAN_DRIVER.EventLog.reg]
+ HKR,           ,EventMessageFile       ,0x00020000     ,"%%SystemRoot%%\System32\netevent.dll"
+ HKR,           ,TypesSupported         ,0x00010001     ,7
+
+;###############################################################################
+[WLAN_RegNdis]
+HKR, Ndi,               Service,            0,          "Am772"
+HKR, Ndi\Interfaces,    LowerRange,         0,          "ethernet"
+HKR, Ndi\Interfaces,    UpperRange,         0,          "ndis5"
+HKR, Ndi\Interfaces,    DefLower,           0,          "ethernet"
+HKR, Ndi\Interfaces,    DefUpper,           0,          "ndis5"
+
+[WLAN_RegParams]
+HKR,               ,			WLANIOC,	0,  "XI-360"
+HKR,               ,			DeviceVxDs,	0,  "WLANNDS.sys"
+HKR, Ndi\Params\MTU,                    ParamDesc,      0,  %Mtu%
+HKR, Ndi\Params\MTU,                    Type,           0,  "int"
+HKR, Ndi\Params\MTU,                    Min,            0,  "1"
+HKR, Ndi\Params\MTU,                    Max,            0,  "2310"
+HKR, Ndi\Params\MTU,                    Default,        0,  "2310"
+HKR, Ndi\Params\MTU,                    Optional,       0,  "1"
+
+HKR, Ndi\Params\RegulatoryDomain,       ParamDesc,      0,  %RegDomain%
+HKR, Ndi\Params\RegulatoryDomain,       Type,           0,  "enum"
+HKR, Ndi\Params\RegulatoryDomain,       Default,        0,  "16"
+HKR, Ndi\Params\RegulatoryDomain,       Optional,       0,  "1"
+HKR, Ndi\Params\RegulatoryDomain\enum,  "16",           0,  %RegDomainFCC%
+HKR, Ndi\Params\RegulatoryDomain\enum,  "32",           0,  %RegDomainIC%
+HKR, Ndi\Params\RegulatoryDomain\enum,  "48",           0,  %RegDomainETSI%
+HKR, Ndi\Params\RegulatoryDomain\enum,  "49",           0,  %RegDomainSpain%
+HKR, Ndi\Params\RegulatoryDomain\enum,  "50",           0,  %RegDomainFrance%
+HKR, Ndi\Params\RegulatoryDomain\enum,  "64",           0,  %RegDomainJapan1%
+HKR, Ndi\Params\RegulatoryDomain\enum,  "65",           0,  %RegDomainJapan2%
+HKR, Ndi\Params\RegulatoryDomain\enum,  "255",          0,  %RegDomainTest%
+
+HKR, Ndi\Params\TxPowerLevel,           ParamDesc,      0,  %TxPowerLevel%
+HKR, Ndi\Params\TxPowerLevel,           Type,           0,  "enum"
+HKR, Ndi\Params\TxPowerLevel,           Default,        0,  "100000"
+HKR, Ndi\Params\TxPowerLevel,           Optional,       0,  "1"
+HKR, Ndi\Params\TxPowerLevel\enum,      "100000",       0,  %TxPower0dBm%
+HKR, Ndi\Params\TxPowerLevel\enum,      "50125",        0,  %TxPowerN3dBm%
+HKR, Ndi\Params\TxPowerLevel\enum,      "25119",        0,  %TxPowerN6dBm%
+HKR, Ndi\Params\TxPowerLevel\enum,      "10000",        0,  %TxPowerN10dBm%
+HKR, Ndi\Params\TxPowerLevel\enum,      "1258",         0,  %TxPowerN19dBm%
+
+HKR, Ndi\Params\RxAntenna,              ParamDesc,      0,  %RxAntenna%
+HKR, Ndi\Params\RxAntenna,              Type,           0,  "enum"
+HKR, Ndi\Params\RxAntenna,              Default,        0,  "1"
+HKR, Ndi\Params\RxAntenna,              Optional,       0,  "1"
+HKR, Ndi\Params\RxAntenna\enum,         "1",            0,  %AntennaA%
+HKR, Ndi\Params\RxAntenna\enum,         "2",            0,  %AntennaB%
+HKR, Ndi\Params\RxAntenna\enum,         "-1",           0,  %AntennaDiv%
+
+HKR, Ndi\Params\TxAntenna,              ParamDesc,      0,  %TxAntenna%
+HKR, Ndi\Params\TxAntenna,              Type,           0,  "enum"
+HKR, Ndi\Params\TxAntenna,              Default,        0,  "1"
+HKR, Ndi\Params\TxAntenna,              Optional,       0,  "1"
+HKR, Ndi\Params\TxAntenna\enum,         "1",            0,  %AntennaA%
+HKR, Ndi\Params\TxAntenna\enum,         "2",            0,  %AntennaB%
+
+HKR, Ndi\Params\SupportedRates,         ParamDesc,      0,  %SupportedRates%
+HKR, Ndi\Params\SupportedRates,         Type,           0,  "enum"
+HKR, Ndi\Params\SupportedRates,         Default,        0,  "0x02040b16"
+HKR, Ndi\Params\SupportedRates,         Optional,       0,  "1"
+HKR, Ndi\Params\SupportedRates\enum,    "0x02",         0,  %SuppRates1Mb%
+HKR, Ndi\Params\SupportedRates\enum,    "0x0204",       0,  %SuppRates2Mb%
+HKR, Ndi\Params\SupportedRates\enum,    "0x02040b",     0,  %SuppRates5P5Mb%
+HKR, Ndi\Params\SupportedRates\enum,    "0x02040b16",   0,  %SuppRates11Mb%
+
+HKR, Ndi\Params\RtsThreshold,           ParamDesc,      0,  %RtsThreshold%
+HKR, Ndi\Params\RtsThreshold,           Type,           0,  "int"
+HKR, Ndi\Params\RtsThreshold,           Min,            0,  "0"
+HKR, Ndi\Params\RtsThreshold,           Max,            0,  "2347"
+HKR, Ndi\Params\RtsThreshold,           Default,        0,  "2347"
+HKR, Ndi\Params\RtsThreshold,           Optional,       0,  "1"
+
+HKR, Ndi\Params\FragThreshold,          ParamDesc,      0,  %FragThreshold%
+HKR, Ndi\Params\FragThreshold,          Type,           0,  "int"
+HKR, Ndi\Params\FragThreshold,          Min,            0,  "256"
+HKR, Ndi\Params\FragThreshold,          Max,            0,  "2346"
+HKR, Ndi\Params\FragThreshold,          Default,        0,  "2346"
+HKR, Ndi\Params\FragThreshold,          Optional,       0,  "1"
+
+HKR, Ndi\Params\DefaultChannel,         ParamDesc,      0,  %DefaultChannel%
+HKR, Ndi\Params\DefaultChannel,         Type,           0,  "enum"
+HKR, Ndi\Params\DefaultChannel,         Default,        0,  "6"
+HKR, Ndi\Params\DefaultChannel,         Optional,       0,  "1"
+HKR, Ndi\Params\DefaultChannel\enum,    "0",            0,  %DefaultChannelAuto%
+HKR, Ndi\Params\DefaultChannel\enum,    "1",            0,  %DefaultChannel1%
+HKR, Ndi\Params\DefaultChannel\enum,    "2",            0,  %DefaultChannel2%
+HKR, Ndi\Params\DefaultChannel\enum,    "3",            0,  %DefaultChannel3%
+HKR, Ndi\Params\DefaultChannel\enum,    "4",            0,  %DefaultChannel4%
+HKR, Ndi\Params\DefaultChannel\enum,    "5",            0,  %DefaultChannel5%
+HKR, Ndi\Params\DefaultChannel\enum,    "6",            0,  %DefaultChannel6%
+HKR, Ndi\Params\DefaultChannel\enum,    "7",            0,  %DefaultChannel7%
+HKR, Ndi\Params\DefaultChannel\enum,    "8",            0,  %DefaultChannel8%
+HKR, Ndi\Params\DefaultChannel\enum,    "9",            0,  %DefaultChannel9%
+HKR, Ndi\Params\DefaultChannel\enum,    "10",           0,  %DefaultChannel10%
+HKR, Ndi\Params\DefaultChannel\enum,    "11",           0,  %DefaultChannel11%
+HKR, Ndi\Params\DefaultChannel\enum,    "12",           0,  %DefaultChannel12%
+HKR, Ndi\Params\DefaultChannel\enum,    "13",           0,  %DefaultChannel13%
+HKR, Ndi\Params\DefaultChannel\enum,    "14",           0,  %DefaultChannel14%
+
+;###############################################################################
+[DestinationDirs]
+;CopyFiles Section      = Destination Directory ID -- see layout.inf
+;-----------------        ------------------------
+ DefaultDestDir		= 11 ; Win9x=%windir%\system Win2k=%windir%\system32
+ WLAN_DRIVER.copy.NT	= 12 ; Win2k=%windir%\system32\drivers
+
+[WLAN_DRIVER.copy.NT]
+ WLANNDS.sys
+
+[SourceDisksNames]
+;Source Disk ID         = Disk Name
+;--------------           ---------
+ 1                      = %INSTALL_DISK_STR%,,,
+
+[SourceDisksFiles.X86]  ; Win2k/Xp
+ WLANNDS.sys		= 1
+
+;###############################################################################
+[Strings]
+;String ID              	= String Text
+;---------                	-----------
+ VER_VENDOR_STR         	= "Sitecom Europe BV"
+ VER_VENDOR_NAME_STR    	= "Sitecom Europe BV."
+
+ WLAN_SERVICE_DISPLAY		= "IEEE 802.11b Wireless LAN Cardbus Card Driver"
+
+ INSTALL_DISK_STR       	= "Wireless LAN card driver & Utility install disk"
+
+ CARDBUS_DESC_STR        	= "IEEE802.11b Cardbus Wireless LAN Card"
+ MINIPCI_DESC_STR        	= "IEEE802.11b MiniPCI Wireless LAN Card"
+ PCI_DESC_STR        	        = "Sitecom Wireless Netwerk PCI Card 11M"
+ 
+ NetworkAddress      = "Network Address"
+ RegDomain           = "Regulatory Domain"
+ RegDomainFCC        = "United States (FCC)"
+ RegDomainIC         = "Canada (IC)"
+ RegDomainETSI       = "Europe (ETSI)"
+ RegDomainSpain      = "Spain"
+ RegDomainFrance     = "France"
+ RegDomainJapan1     = "Japan (MPHPT)"
+ RegDomainJapan2     = "Japan (non MPHPT)"
+ RegDomainTest       = "Unrestricted (for testing only)"
+ Mtu                 = "MTU"
+ TxPowerLevel        = "TX Power Level"
+ TxPower0dBm         = "100 mW"
+ TxPowerN3dBm        = "50 mW"
+ TxPowerN6dBm        = "25 mW"
+ TxPowerN10dBm       = "10 mW"
+ TxPowerN19dBm       = "1 mW"
+ RxAntenna           = "RX Antenna"
+ TxAntenna           = "TX Antenna"
+ AntennaA            = "Antenna A"
+ AntennaB            = "Antenna B"
+ AntennaDiv          = "Antenna Diversity"
+ SupportedRates      = "Supported Rates"
+ SuppRates1Mb        = "1 Mbit/s only"
+ SuppRates2Mb        = "1..2 Mbit/s"
+ SuppRates5P5Mb      = "1..5.5 Mbit/s"
+ SuppRates11Mb       = "1..11 Mbit/s"
+ RtsThreshold        = "RTS Threshold"
+ FragThreshold       = "Fragmentation Threshold"
+ DefaultChannel      = "Default channel for IBSS"
+ DefaultChannelAuto  = "Auto"
+ DefaultChannel1     = "Channel 1"
+ DefaultChannel2     = "Channel 2"
+ DefaultChannel3     = "Channel 3"
+ DefaultChannel4     = "Channel 4"
+ DefaultChannel5     = "Channel 5"
+ DefaultChannel6     = "Channel 6"
+ DefaultChannel7     = "Channel 7"
+ DefaultChannel8     = "Channel 8"
+ DefaultChannel9     = "Channel 9"
+ DefaultChannel10    = "Channel 10"
+ DefaultChannel11    = "Channel 11"
+ DefaultChannel12    = "Channel 12"
+ DefaultChannel13    = "Channel 13"
+ DefaultChannel14    = "Channel 14"  
+

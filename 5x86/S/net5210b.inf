@@ -1,0 +1,348 @@
+;/*++
+;
+;Copyright (c) 2002 SMC Networks,Inc., Incorporated All Rights Reserved
+;
+;Module Name:
+;
+;    net5210b.inf
+;
+;Abstract:
+;    INF file for installing SMC EZ Connect 802.11a Wireless Network Adapter
+;
+;--*/
+
+[Version]
+Signature   = "$CHICAGO$"
+Class       = Net
+ClassGUID   = {4d36e972-e325-11ce-bfc1-08002be10318}
+Provider    = %SMC%
+Compatible  = 1
+DriverVer   = 11/26/2002,1.4.0.41
+Catalogfile = net5210b.cat
+
+[Manufacturer]
+%SMC%     = SMC
+
+[ControlFlags]
+ExcludeFromSelect = *
+
+
+[SMC]
+; DisplayName           Section       DeviceID
+; -----------           -------       --------
+%ATHER.DeviceDesc%  = ATHER_DEV_1107.ndi,    PCI\VEN_168C&DEV_1107
+%ATHER.DeviceDesc%  = ATHER_DEV_0005.ndi,    PCI\VEN_168C&DEV_0005
+%ATHER.DeviceDesc%  = ATHER_DEV_0105.ndi,    PCI\VEN_168C&DEV_0105
+%ATHER.DeviceDesc%  = ATHER_DEV_0006.ndi,    PCI\VEN_168C&DEV_0006
+%ATHER.DeviceDesc%  = ATHER_DEV_0007.ndi,    PCI\VEN_168C&DEV_0007
+%ATHER.DeviceDesc%  = ATHER_DEV_0107.ndi,    PCI\VEN_168C&DEV_0107
+
+; Windows 9X specific entries
+[ATHER_DEV_1107.ndi]
+AddReg          = ATHER_DEV_1107.id.reg, 5210.reg, ATHER.win.reg
+CopyFiles       = ATHER.win.CopyFiles, ATHER.cpl.CopyFiles, DEFAULTDESTDIRS
+DelFiles        = ATHER.DelIniFiles
+
+[ATHER_DEV_0005.ndi]
+AddReg          = ATHER_DEV_0005.id.reg, 5210.reg, ATHER.win.reg
+CopyFiles       = ATHER.win.CopyFiles, ATHER.cpl.CopyFiles, DEFAULTDESTDIRS
+DelFiles        = ATHER.DelIniFiles
+
+[ATHER_DEV_0105.ndi]
+AddReg          = ATHER_DEV_0105.id.reg, 5210.reg, ATHER.win.reg
+CopyFiles       = ATHER.win.CopyFiles, ATHER.cpl.CopyFiles, DEFAULTDESTDIRS
+DelFiles        = ATHER.DelIniFiles
+
+[ATHER_DEV_0006.ndi]
+AddReg          = ATHER_DEV_0006.id.reg, 5210.reg, ATHER.win.reg
+CopyFiles       = ATHER.win.CopyFiles, ATHER.cpl.CopyFiles, DEFAULTDESTDIRS
+DelFiles        = ATHER.DelIniFiles
+
+[ATHER_DEV_0007.ndi]
+AddReg          = ATHER_DEV_0007.id.reg, 5210.reg, ATHER.win.reg
+CopyFiles       = ATHER.win.CopyFiles, ATHER.cpl.CopyFiles, DEFAULTDESTDIRS
+DelFiles        = ATHER.DelIniFiles
+
+[ATHER_DEV_0107.ndi]
+AddReg          = ATHER_DEV_0107.id.reg, 5210.reg, ATHER.win.reg
+CopyFiles       = ATHER.win.CopyFiles, ATHER.cpl.CopyFiles, DEFAULTDESTDIRS
+DelFiles        = ATHER.DelIniFiles
+
+; Windows NT specific entry
+[ATHER_DEV_1107.ndi.NT]
+Characteristics = 0x84 ; NCF_PHYSICAL | NCF_HAS_UI
+BusType         = 5
+AddReg          = 5210.reg, ATHER.reg, stacfg_page.reg.NT, 5210.reg
+CopyFiles       = ATHER.CopyFiles, ATHER.CopyFiles.NT, DEFAULTDESTDIRS
+DelFiles        = ATHER.DelIniFiles
+
+[ATHER_DEV_0005.ndi.NT]
+Characteristics = 0x84 ; NCF_PHYSICAL | NCF_HAS_UI
+BusType         = 5
+AddReg          = 5210.reg, ATHER.reg, stacfg_page.reg.NT, 5210.reg
+CopyFiles       = ATHER.CopyFiles, ATHER.CopyFiles.NT, DEFAULTDESTDIRS
+DelFiles        = ATHER.DelIniFiles
+
+[ATHER_DEV_0105.ndi.NT]
+Characteristics = 0x84 ; NCF_PHYSICAL | NCF_HAS_UI
+BusType         = 5
+AddReg          = 5210.reg, ATHER.reg, stacfg_page.reg.NT, 5210.reg
+CopyFiles       = ATHER.CopyFiles, ATHER.CopyFiles.NT, DEFAULTDESTDIRS
+DelFiles        = ATHER.DelIniFiles
+
+[ATHER_DEV_0006.ndi.NT]
+Characteristics = 0x84 ; NCF_PHYSICAL | NCF_HAS_UI
+BusType         = 5
+AddReg          = 5210.reg, ATHER.reg, stacfg_page.reg.NT, 5210.reg
+CopyFiles       = ATHER.CopyFiles, ATHER.CopyFiles.NT, DEFAULTDESTDIRS
+DelFiles        = ATHER.DelIniFiles
+
+[ATHER_DEV_0007.ndi.NT]
+Characteristics = 0x84 ; NCF_PHYSICAL | NCF_HAS_UI
+BusType         = 5
+AddReg          = 5210.reg, ATHER.reg, stacfg_page.reg.NT, 5210.reg
+CopyFiles       = ATHER.CopyFiles, ATHER.CopyFiles.NT, DEFAULTDESTDIRS
+DelFiles        = ATHER.DelIniFiles
+
+[ATHER_DEV_0107.ndi.NT]
+Characteristics = 0x84 ; NCF_PHYSICAL | NCF_HAS_UI
+BusType         = 5
+AddReg          = 5210.reg, ATHER.reg, stacfg_page.reg.NT, 5210.reg
+CopyFiles       = ATHER.CopyFiles, ATHER.CopyFiles.NT, DEFAULTDESTDIRS
+DelFiles        = ATHER.DelIniFiles
+
+[ATHER_DEV_1107.ndi.NT.Services]
+AddService      = ATHER, 2, ATHER.Service, common.EventLog
+
+[ATHER_DEV_0005.ndi.NT.Services]
+AddService      = ATHER, 2, ATHER.Service, common.EventLog
+
+[ATHER_DEV_0105.ndi.NT.Services]
+AddService      = ATHER, 2, ATHER.Service, common.EventLog
+
+[ATHER_DEV_0006.ndi.NT.Services]
+AddService      = ATHER, 2, ATHER.Service, common.EventLog
+
+[ATHER_DEV_0007.ndi.NT.Services]
+AddService      = ATHER, 2, ATHER.Service, common.EventLog
+
+[ATHER_DEV_0107.ndi.NT.Services]
+AddService      = ATHER, 2, ATHER.Service, common.EventLog
+
+;----------------------------------------------------------------------------
+; Win9x id registry sections
+; These are not needed by NT
+
+[ATHER_DEV_1107.id.reg]
+HKR, Ndi, DeviceID, 0, "PCI\VEN_168C&DEV_1107"
+
+[ATHER_DEV_0005.id.reg]
+HKR, Ndi, DeviceID, 0, "PCI\VEN_168C&DEV_0005"
+
+[ATHER_DEV_0105.id.reg]
+HKR, Ndi, DeviceID, 0, "PCI\VEN_168C&DEV_0105"
+
+[ATHER_DEV_0006.id.reg]
+HKR, Ndi, DeviceID, 0, "PCI\VEN_168C&DEV_0006"
+
+[ATHER_DEV_0007.id.reg]
+HKR, Ndi, DeviceID, 0, "PCI\VEN_168C&DEV_0007"
+
+[ATHER_DEV_0107.id.reg]
+HKR, Ndi, DeviceID, 0, "PCI\VEN_168C&DEV_0107"
+
+
+[stacfg_page.reg.NT]
+HKR, ,                                  EnumPropPages32,0,  "stacfg00.dll,NetPropPageProvider"
+
+;-----------------------------------------------------------------------------
+; 5210 common
+;
+[5210.reg]
+
+HKR, Ndi\params\MapRegisters,           ParamDesc,                      0,  %MapRegisters%
+HKR, Ndi\params\MapRegisters,           default,                        0,  "256"
+HKR, Ndi\params\MapRegisters,           min,                            0,  "32"
+HKR, Ndi\params\MapRegisters,           max,                            0,  "512"
+HKR, Ndi\params\MapRegisters,           step,                           0,  "8"
+HKR, Ndi\params\MapRegisters,           base,                           0,  "10"
+HKR, Ndi\params\MapRegisters,           type,                           0,  "int"
+
+HKR, Ndi\params\QoS,                    ParamDesc,                      0,  %QoS%
+HKR, Ndi\params\QoS,                    Base,                           0,  "10"
+HKR, Ndi\params\QoS,                    default,                        0,  "0"
+HKR, Ndi\params\QoS,                    type,                           0,  "enum"
+HKR, Ndi\params\QoS\enum,               "1",                            0,  "Enabled"
+HKR, Ndi\params\QoS\enum,               "0",                            0,  "Disabled"
+
+HKR, Ndi\params\tpc,                    ParamDesc,                      0,  %tpc%
+HKR, Ndi\params\tpc,                    Base,                           0,  "10"
+HKR, Ndi\params\tpc,                    default,                        0,  "0"
+HKR, Ndi\params\tpc,                    type,                           0,  "enum"
+HKR, Ndi\params\tpc\enum,               "4",                            0,  "Lowest Power"
+HKR, Ndi\params\tpc\enum,               "3",                            0,  "12% Power"
+HKR, Ndi\params\tpc\enum,               "2",                            0,  "25% Power"
+HKR, Ndi\params\tpc\enum,               "1",                            0,  "50% Power"
+HKR, Ndi\params\tpc\enum,               "0",                            0,  "Highest Power"
+
+HKR, Ndi\params\scanType,               ParamDesc,                      0,  %scanType%
+HKR, Ndi\params\scanType,               Base,                           0,  "10"
+HKR, Ndi\params\scanType,               default,                        0,  "2"
+HKR, Ndi\params\scanType,               type,                           0,  "enum"
+HKR, Ndi\params\scanType\enum,          "0",                            0,  "Active Scanning"
+HKR, Ndi\params\scanType\enum,          "1",                            0,  "Passive Scanning"
+HKR, Ndi\params\scanType\enum,          "2",                            0,  "Use Regulatory Domain"
+
+HKR, Ndi\params\EncryptionAlg,          ParamDesc,                      0,  %EncryptionAlg%
+HKR, Ndi\params\EncryptionAlg,          Base,                           0,  "10"
+HKR, Ndi\params\EncryptionAlg,          default,                        0,  "2"
+HKR, Ndi\params\EncryptionAlg,          type,                           0,  "enum"
+HKR, Ndi\params\EncryptionAlg\enum,     "0",                            0,  "WEP Only"
+HKR, Ndi\params\EncryptionAlg\enum,     "1",                            0,  "AES Only"
+HKR, Ndi\params\EncryptionAlg\enum,     "2",                            0,  "WEP & AES (Auto)"
+
+HKR, ,                                  clist,                          0x00002,    ""
+HKR, ,                                  ccode,                          0x00002,    "US"
+HKR, ,                                  HwTxRetries,                    0x00002,    "5"
+HKR, ,                                  SwTxRetryScale,                 0x00002,    "1"
+HKR, ,                                  AwakeTimePerf,                  0x00002,    "200"
+HKR, ,                                  TurboEnable,                    0x00002,    "0"
+HKR, ,                                  beaconInterval,                 0x00002,    "100"
+HKR, ,                                  bssType,                        0x00002,    "1"
+HKR, ,                                  privacyInvoked,                 0x00002,    "0"
+HKR, ,                                  sleepMode,                      0x00002,    "2"
+HKR, ,                                  FragThreshold,                  0x00002,    "2346"
+HKR, ,                                  RTSThreshold,                   0x00002,    "2346"
+HKR, ,                                  rateCtrlEnable,                 0x00002,    "1"
+HKR, ,                                  SmeEnable,                      0x00002,    "1"
+HKR, ,                                  TransmitRate,                   0x00002,    "5"    ;; 36 Mbps
+HKR, ,                                  bkScanEnable,                   0x00002,    "1"
+
+HKR, CustomParams\Configurations,       MajorVersion,                   0x10003,    1
+HKR, CustomParams\Configurations,       MinorVersion,                   0x10003,    0
+
+HKR, CustomParams\Configurations,       SelectedConfigurationIndex,     0x10003,    0
+HKR, CustomParams\Configurations,       SelectedConfigurationName,      0x00002,    "Default"
+HKR, CustomParams\Configurations\Cfg0,  ConfigurationName,              0x00002,    "Default"
+HKR, CustomParams\Configurations\Cfg0,  DefaultKey,                     0x10003,    0
+HKR, CustomParams\Configurations\Cfg0,  EnableMacAddress,               0x10003,    0
+HKR, CustomParams\Configurations\Cfg0,  EnableSecurity,                 0x10003,    0
+HKR, CustomParams\Configurations\Cfg0,  EnableTurbo,                    0x10003,    0
+HKR, CustomParams\Configurations\Cfg0,  MacAddress,                     0x00002,    ""
+HKR, CustomParams\Configurations\Cfg0,  NetworkConnectionType,          0x10003,    1
+HKR, CustomParams\Configurations\Cfg0,  NetworkName,                    0x00002,    ""
+HKR, CustomParams\Configurations\Cfg0,  PowerManagement,                0x10003,    1
+
+
+;-----------------------------------------------------------------------------
+; ATHER NT specific
+;
+
+[ATHER.reg]
+HKR, Ndi,             Service,      0, "ATHER"
+HKR, Ndi\Interfaces,  UpperRange,   0, "ndis5"
+HKR, Ndi\Interfaces,  LowerRange,   0, "ethernet"
+HKR, ,                InitFile,     0, %InitFile%
+HKR, ,                aifs,         0, "2"
+HKR, ,                cwmin,        0, "15"
+
+
+[ATHER.Service]
+DisplayName     = %ATHER.Service.DispName%
+ServiceType     = 1 ;%SERVICE_KERNEL_DRIVER%
+StartType       = 3 ;%SERVICE_DEMAND_START%
+ErrorControl    = 1 ;%SERVICE_ERROR_NORMAL%
+ServiceBinary   = %12%\ar5210b.sys
+LoadOrderGroup  = NDIS
+
+[common.EventLog]
+AddReg = common.AddEventLog.reg
+
+[common.AddEventLog.reg]
+HKR, ,                  EventMessageFile,   0x00020000,   "%%SystemRoot%%\System32\netevent.dll"
+HKR, ,                  TypesSupported,     0x00010001,   7
+
+;----------------------------------------------------------------------------
+; ATHER Win9x specific
+;
+[ATHER.win.reg]
+HKR, ,                  DevLoader,          0,    "*ndis"
+HKR, ,                  DeviceVxDs,         0,    "ar5210b.sys"
+HKR, ,                  EnumPropPages,      0,    "netdi.dll,EnumPropPages"
+
+HKR, Ndi\Interfaces,    DefUpper,           0,    "ndis3"
+HKR, Ndi\Interfaces,    DefLower,           0,    "ethernet"
+HKR, Ndi\Interfaces,    UpperRange,         0,    "ndis3"
+HKR, Ndi\Interfaces,    LowerRange,         0,    "ethernet"
+
+
+HKR, NDIS,              LogDriverName,      0,    "AR5210b"
+HKR, NDIS,              MajorNdisVersion,   1,    03
+HKR, NDIS,              MinorNdisVersion,   1,    0A
+HKR, ,                  InitFile,           0,    %InitFile%
+HKR, ,                  aifs,               0,    2
+HKR, ,                  cwmin,              0,    15
+
+HKR, Ndi\Install,       ndis3,              0,    "ATHER.install"
+
+;-----------------------------------------------------------------------------
+; DestinationDirs
+;
+[ATHER.win.CopyFiles]
+ar5210b.sys,,,2
+
+[ATHER.CopyFiles]
+ar5210b.sys,,,2
+
+[ATHER.CopyFiles.NT]
+stacfg00.dll,,,2
+stacfg.hlp,,,2
+
+[ATHER.cpl.CopyFiles]
+stacfg00.cpl,,,2
+stacfg.hlp,,,2
+
+[ATHER.DelIniFiles]
+Athnic.ini,,,1
+
+
+[SourceDisksNames]
+;
+; diskid = description[, [tagfile] [, <unused>, subdir]]
+;
+1 = %Atheros_Disk%,,,
+
+[SourceDisksFiles]
+;
+; filename_on_source = diskID[, [subdir][, size]]
+;
+ar5210b.sys = 1,, ; on distribution disk 1
+stacfg00.dll                 = 1,,
+stacfg.hlp                   = 1,,
+stacfg00.cpl                 = 1,,
+
+
+[DestinationDirs]
+ATHER.CopyFiles              = 12
+ATHER.cpl.CopyFiles          = 11
+ATHER.win.CopyFiles          = 10,system32\drivers ; %SystemRoot%\system32\drivers 
+ATHER.DelIniFiles            = 10,system32\drivers ; %SystemRoot%\system32\drivers 
+DefaultDestDir               = 11
+
+[DEFAULTDESTDIRS]
+;
+
+
+[Strings]
+SMC                          = "SMC Networks,Inc."
+MapRegisters                 = "Map Registers"
+InitFile                     = "Athnic.ini"
+Qos                          = "QoS (802.11e)"
+scanType                     = "Scan Method"
+EncryptionAlg                = "Encryption Algorithm"
+tpc                          = "Transmit Power Control"
+SMC_Disk                     = "SMC Driver Disk 1"
+ATHER.DeviceDesc             = "SMC EZ Connect 802.11a Wireless Cardbus Adapter"
+ATHER.Service.DispName       = "SMC EZ Connect 802.11a Wireless Cardbus Adapter Service"
+
+

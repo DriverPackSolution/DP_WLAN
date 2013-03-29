@@ -1,0 +1,964 @@
+;/*++
+;
+;Copyright (c) 2001-2008 Atheros Communications, Incorporated All Rights Reserved
+;
+;Module Name:
+;
+;    netathuw.inf
+;
+;Abstract:
+;    INF file for installing Atheros AR9271 Wireless Network Adapter
+;
+;    Installs athuw.sys (NDIS 5/5.1 driver) on NT platforms (2000, XP and greater)
+;    Installs athuwx.sys (NDIS 5 driver) on 9x platforms
+;
+;--*/
+
+[Version]
+Signature   = "$CHICAGO$"
+Class       = Net
+ClassGUID   = {4d36e972-e325-11ce-bfc1-08002be10318}
+Provider    = %ATHEROS%
+Compatible  = 1
+DriverVer   = 10/12/2011,7.7.0.104
+Catalogfile.nt = netathuw.cat
+
+[Manufacturer]
+%ATHEROS%     = Atheros
+%NETGEAR%     = NETGEAR
+%DLINK%       = DLINK
+%AZUREWAVE%   = AZUREWAVE
+%LITEON%      = LITEON
+%SMC%         = SMC
+%VIA%         = VIA
+%VERIZON%     = Verizon
+%ACTIONTEC%   = Actiontec
+
+[ControlFlags]
+ExcludeFromSelect = *
+
+[Atheros]
+; DisplayName               Section                 DeviceID
+; -----------               -------                 --------
+; Atheros
+%ATHER.DeviceDesc.9271% = ATHER_DEV_9271.ndi,     USB\VID_0CF3&PID_9271
+%ATHER.DeviceDesc.7010% = ATHER_DEV_7010.ndi,     USB\VID_0CF3&PID_7010
+%ATHER.DeviceDesc.7015% = ATHER_DEV_7015.ndi,     USB\VID_0CF3&PID_7015
+%ATHER.DeviceDesc.1006% = ATHER_DEV_1006.ndi,     USB\VID_0CF3&PID_1006
+
+[NETGEAR]
+; DisplayName               Section                 DeviceID
+; -----------               -------                 --------
+; Netgear
+%NTGR.DeviceDesc.9030%  = NTGR_DEV_9030.ndi,      USB\VID_0846&PID_9030
+%NTGR.DeviceDesc.9018%  = NTGR_DEV_9018.ndi,      USB\VID_0846&PID_9018
+
+[DLINK]
+; DisplayName               Section                 DeviceID
+; -----------               -------                 --------
+; DLINK
+%DLINK.DeviceDesc.3A10% = DLINK_DEV_3A10.ndi,     USB\VID_07D1&PID_3A10
+
+[AZUREWAVE]
+; DisplayName               Section                 DeviceID
+; -----------               -------                 --------
+; AZUREWAVE
+%AZWV.DeviceDesc.3327%  = AZWV_DEV_3327.ndi,      USB\VID_13D3&PID_3327
+%AZWV.DeviceDesc.3328%  = AZWV_DEV_3328.ndi,      USB\VID_13D3&PID_3328
+%AZWV.DeviceDesc.3346%  = AZWV_DEV_3346.ndi,      USB\VID_13D3&PID_3346
+%AZWV.DeviceDesc.3348%  = AZWV_DEV_3348.ndi,      USB\VID_13D3&PID_3348
+%AZWV.DeviceDesc.3349%  = AZWV_DEV_3349.ndi,      USB\VID_13D3&PID_3349
+%AZWV.DeviceDesc.3350%  = AZWV_DEV_3350.ndi,      USB\VID_13D3&PID_3350
+%AZWV.DeviceDesc.3390%  = AZWV_DEV_33XX.ndi,      USB\VID_13D3&PID_3390
+%AZWV.DeviceDesc.3391%  = AZWV_DEV_33XX.ndi,      USB\VID_13D3&PID_3391
+
+[LITEON]
+; DisplayName               Section                 DeviceID
+; -----------               -------                 --------
+; LITEON
+%ATHER.DeviceDesc.9271% = ATHER_DEV_9271.ndi,     USB\VID_04CA&PID_4605
+
+[SMC]
+; DisplayName               Section                 DeviceID
+; -----------               -------                 --------
+; SMC
+%SMC.DeviceDesc.A704%   = SMC_DEV_A704.ndi,       USB\VID_083A&PID_A704
+
+[VIA]
+; DisplayName               Section                 DeviceID
+; -----------               -------                 --------
+; VIA
+%VIA.DeviceDesc.3801%   = ATHER_DEV_9271.ndi,     USB\VID_040D&PID_3801
+
+[VERIZON]
+; DisplayName               Section                 DeviceID
+; -----------               -------                 --------
+; Verizon
+%VRZN.DeviceDesc.1200%  = ATHER_DEV_7015.ndi,     USB\VID_1668&PID_1200
+
+[ACTIONTEC]
+; DisplayName               Section                 DeviceID
+; -----------               -------                 --------
+; Actiontec
+%ACTION.DeviceDesc.4500% = ATHER_DEV_7015.ndi,    USB\VID_1668&PID_4500
+
+; Windows NT specific entries
+[ATHER_DEV_9271.ndi.NT]
+Characteristics = 0x84 ; NCF_PHYSICAL | NCF_HAS_UI
+BusType         = 15
+DelReg          = 5416.DelReg
+AddReg          = 5416.reg, ATHER.reg, 5416.reg, 5416.bgnub.reg, sys.TcpParams.reg, uapsd.reg, ATHR_9271.reg, htDisableWepTkip.reg
+CopyFiles       = ATHER.CopyFiles.nt, DEFAULTDESTDIRS
+DelFiles        = ATHER.DelIniFiles
+
+[ATHER_DEV_9271.ndi.NT.Services]
+AddService      = AR9271, 2, ATHER.Service, common.EventLog
+
+[ATHER_DEV_7010.ndi.NT]
+Characteristics = 0x84 ; NCF_PHYSICAL | NCF_HAS_UI
+BusType         = 15
+DelReg          = 5416.DelReg
+AddReg          = 5416.reg, ATHER.reg, 5416.reg, 5416.abgnub.reg, uapsd.reg, 7010.reg, htDisableWepTkip.reg
+CopyFiles       = ATHER.CopyFiles.nt, DEFAULTDESTDIRS
+DelFiles        = ATHER.DelIniFiles
+
+[ATHER_DEV_7010.ndi.NT.Services]
+AddService      = AR9271, 2, ATHER.Service, common.EventLog
+
+[ATHER_DEV_7015.ndi.NT]
+Characteristics = 0x84 ; NCF_PHYSICAL | NCF_HAS_UI
+BusType         = 15
+DelReg          = 5416.DelReg
+AddReg          = 5416.reg, ATHER.reg, 5416.reg, 5416.bgnub.reg, uapsd.reg, 7015.reg, htDisableWepTkip.reg
+CopyFiles       = ATHER.CopyFiles.nt, DEFAULTDESTDIRS
+DelFiles        = ATHER.DelIniFiles
+
+[ATHER_DEV_7015.ndi.NT.Services]
+AddService      = AR9271, 2, ATHER.Service, common.EventLog
+
+[ATHER_DEV_1006.ndi.NT]
+Characteristics = 0x84 ; NCF_PHYSICAL | NCF_HAS_UI
+BusType         = 15
+DelReg          = 5416.DelReg
+AddReg          = 5416.reg, ATHER.reg, 5416.reg, 5416.bgub.reg, sys.TcpParams.reg, uapsd.reg, ATHR_9271.reg, customer1.SCAN.reg
+CopyFiles       = ATHER.CopyFiles.nt, DEFAULTDESTDIRS
+DelFiles        = ATHER.DelIniFiles
+
+[ATHER_DEV_1006.ndi.NT.Services]
+AddService      = AR9271, 2, ATHER.Service, common.EventLog
+
+;===========================CUSTOM SECTION=====================================
+; Windows NT specific entries
+[NTGR_DEV_9030.ndi.NT]
+Characteristics = 0x84 ; NCF_PHYSICAL | NCF_HAS_UI
+BusType         = 15
+DelReg          = 5416.DelReg
+AddReg          = 5416.reg, ATHER.reg, 5416.reg, 5416.bgnub.reg, sys.TcpParams.reg, uapsd.reg, ATHR_9271.reg, NTGR.reg, scanReduce.reg
+CopyFiles       = ATHER.CopyFiles.nt, DEFAULTDESTDIRS
+DelFiles        = ATHER.DelIniFiles
+
+[NTGR_DEV_9030.ndi.NT.Services]
+AddService      = AR9271, 2, ATHER.Service, common.EventLog
+
+[NTGR_DEV_9018.ndi.NT]
+Characteristics = 0x84 ; NCF_PHYSICAL | NCF_HAS_UI
+BusType         = 15
+DelReg          = 5416.DelReg
+AddReg          = 5416.reg, ATHER.reg, 5416.reg, 5416.abgnub.reg, uapsd_VO.reg, NTGR_9018.reg, htDisableWepTkip.reg, scanReduce.reg
+CopyFiles       = ATHER.CopyFiles.nt, DEFAULTDESTDIRS
+DelFiles        = ATHER.DelIniFiles
+
+[NTGR_DEV_9018.ndi.NT.Services]
+AddService      = AR9271, 2, ATHER.Service, common.EventLog
+
+[DLINK_DEV_3A10.ndi.NT]
+Characteristics = 0x84 ; NCF_PHYSICAL | NCF_HAS_UI
+BusType         = 15
+DelReg          = 5416.DelReg
+AddReg          = 5416.reg, ATHER.reg, 5416.reg, 5416.bgnub.reg, sys.TcpParams.reg, uapsd.reg, ATHR_9271.reg, DLINK.reg, htDisableWepTkip.reg
+CopyFiles       = ATHER.CopyFiles.nt, DEFAULTDESTDIRS
+DelFiles        = ATHER.DelIniFiles
+
+[DLINK_DEV_3A10.ndi.NT.Services]
+AddService      = AR9271, 2, ATHER.Service, common.EventLog
+
+[AZWV_DEV_3327.ndi.NT]
+Characteristics = 0x84 ; NCF_PHYSICAL | NCF_HAS_UI
+BusType         = 15
+DelReg          = 5416.DelReg
+AddReg          = 5416.reg, ATHER.reg, 5416.reg, 5416.bgnub.reg, sys.TcpParams.reg, uapsd.reg, ATHR_9271.reg, htDisableWepTkip.reg, surpriseRemovalOk.reg
+CopyFiles       = ATHER.CopyFiles.nt, DEFAULTDESTDIRS
+DelFiles        = ATHER.DelIniFiles
+
+[AZWV_DEV_3327.ndi.NT.Services]
+AddService      = AR9271, 2, ATHER.Service, common.EventLog
+
+[AZWV_DEV_3328.ndi.NT]
+Characteristics = 0x84 ; NCF_PHYSICAL | NCF_HAS_UI
+BusType         = 15
+DelReg          = 5416.DelReg
+AddReg          = 5416.reg, ATHER.reg, 5416.reg, 5416.bgnub.reg, sys.TcpParams.reg, uapsd.reg, ATHR_9271.reg, htDisableWepTkip.reg, surpriseRemovalOk.reg
+CopyFiles       = ATHER.CopyFiles.nt, DEFAULTDESTDIRS
+DelFiles        = ATHER.DelIniFiles
+
+[AZWV_DEV_3328.ndi.NT.Services]
+AddService      = AR9271, 2, ATHER.Service, common.EventLog
+
+[AZWV_DEV_3346.ndi.NT]
+Characteristics = 0x84 ; NCF_PHYSICAL | NCF_HAS_UI
+BusType         = 15
+DelReg          = 5416.DelReg
+AddReg          = 5416.reg, ATHER.reg, 5416.reg, 5416.bgnub.reg, sys.TcpParams.reg, uapsd.reg, ATHR_9271.reg, htDisableWepTkip.reg
+CopyFiles       = ATHER.CopyFiles.nt, DEFAULTDESTDIRS
+DelFiles        = ATHER.DelIniFiles
+
+[AZWV_DEV_3346.ndi.NT.Services]
+AddService      = AR9271, 2, ATHER.Service, common.EventLog
+
+[AZWV_DEV_3348.ndi.NT]
+Characteristics = 0x84 ; NCF_PHYSICAL | NCF_HAS_UI
+BusType         = 15
+DelReg          = 5416.DelReg
+AddReg          = 5416.reg, ATHER.reg, 5416.reg, 5416.bgnub.reg, sys.TcpParams.reg, uapsd.reg, ATHR_9271.reg, htDisableWepTkip.reg, surpriseRemovalOk.reg
+CopyFiles       = ATHER.CopyFiles.nt, DEFAULTDESTDIRS
+DelFiles        = ATHER.DelIniFiles
+
+[AZWV_DEV_3348.ndi.NT.Services]
+AddService      = AR9271, 2, ATHER.Service, common.EventLog
+
+[AZWV_DEV_3349.ndi.NT]
+Characteristics = 0x84 ; NCF_PHYSICAL | NCF_HAS_UI
+BusType         = 15
+DelReg          = 5416.DelReg
+AddReg          = 5416.reg, ATHER.reg, 5416.reg, 5416.bgnub.reg, sys.TcpParams.reg, uapsd.reg, ATHR_9271.reg, htDisableWepTkip.reg, surpriseRemovalOk.reg
+CopyFiles       = ATHER.CopyFiles.nt, DEFAULTDESTDIRS
+DelFiles        = ATHER.DelIniFiles
+
+[AZWV_DEV_3349.ndi.NT.Services]
+AddService      = AR9271, 2, ATHER.Service, common.EventLog
+
+[AZWV_DEV_3350.ndi.NT]
+Characteristics = 0x84 ; NCF_PHYSICAL | NCF_HAS_UI
+BusType         = 15
+DelReg          = 5416.DelReg
+AddReg          = 5416.reg, ATHER.reg, 5416.reg, 5416.bgnub.reg, sys.TcpParams.reg, uapsd.reg, ATHR_9271.reg, htDisableWepTkip.reg, surpriseRemovalOk.reg
+CopyFiles       = ATHER.CopyFiles.nt, DEFAULTDESTDIRS
+DelFiles        = ATHER.DelIniFiles
+
+[AZWV_DEV_3350.ndi.NT.Services]
+AddService      = AR9271, 2, ATHER.Service, common.EventLog
+
+[AZWV_DEV_33XX.ndi.NT]
+Characteristics = 0x84 ; NCF_PHYSICAL | NCF_HAS_UI
+BusType         = 15
+DelReg          = 5416.DelReg
+AddReg          = 5416.reg, ATHER.reg, 5416.reg, 5416.bgnub.reg, sys.TcpParams.reg, uapsd.reg, ATHR_9271.reg, htDisableWepTkip.reg, surpriseRemovalOk.reg
+CopyFiles       = ATHER.CopyFiles.nt, DEFAULTDESTDIRS
+DelFiles        = ATHER.DelIniFiles
+
+[AZWV_DEV_33XX.ndi.NT.Services]
+AddService      = AR9271, 2, ATHER.Service, common.EventLog
+
+[SMC_DEV_A704.ndi.NT]
+Characteristics = 0x84 ; NCF_PHYSICAL | NCF_HAS_UI
+BusType         = 15
+DelReg          = 5416.DelReg
+AddReg          = 5416.reg, ATHER.reg, 5416.reg, 5416.bgnub.reg, uapsd.reg, 7015.reg, htDisableWepTkip.reg
+CopyFiles       = ATHER.CopyFiles.nt, DEFAULTDESTDIRS
+DelFiles        = ATHER.DelIniFiles
+
+[SMC_DEV_A704.ndi.NT.Services]
+AddService      = AR9271, 2, ATHER.Service, common.EventLog
+;===========================CUSTOM SECTION END=================================
+
+;
+; 5416 Enumerated Types
+;
+
+[5416.bgub.reg]
+HKR, ,                                  NetBand,                        0x00002,  "12"
+HKR, ,                                  wModeSelect,                    0x00002,  "40972"
+HKR, CustomParams\Configurations,       NicType,                        0x10003,  1
+HKR, ,                                  abolt,                          0x00002,  "0"
+HKR, ,                                  rateCtrlEnable,                 0x00002,  "1"
+HKR, ,                                  rmEnable,                       0x00002,  "1"
+
+[5416.bgnub.reg]
+HKR, ,                                  NetBand,                        0x00002,  "40972"
+HKR, ,                                  wModeSelect,                    0x00002,  "40972"
+HKR, CustomParams\Configurations,       NicType,                        0x10003,  1
+HKR, ,                                  abolt,                          0x00002,  "0"
+HKR, ,                                  rateCtrlEnable,                 0x00002,  "1"
+HKR, ,                                  rmEnable,                       0x00002,  "1"
+
+[5416.abgnub.reg]
+HKR, CustomParams\Configurations,       NicType,                        0x10003,  1
+HKR, ,                                  abolt,                          0x00002,  "0"
+HKR, ,                                  rateCtrlEnable,                 0x00002,  "1"
+HKR, ,                                  rmEnable,                       0x00002,  "1"
+HKR, Ndi\params\NetBand,                ParamDesc,                      0,  %WirelessMode%
+HKR, Ndi\params\NetBand,                Base,                           0,  "10"
+HKR, Ndi\params\NetBand,                default,                        0,  "61455"
+HKR, Ndi\params\NetBand,                type,                           0,  "enum"
+HKR, Ndi\params\NetBand\enum,           "61455",                        0,  %WirelessModeAuto%
+HKR, Ndi\params\NetBand\enum,           "20481",                        0,  %WirelessMode5GHzOnly%
+HKR, Ndi\params\NetBand\enum,           "40972",                        0,  %WirelessMode2GHzOnly%
+
+[5416.antennacontrols.reg] 
+HKR, ,                                  rxChainSelect,                 	0x00002,  "7"
+;HKR, ,                                  txChainSelectLegacy,            0x00002,  "5"
+HKR, ,                                  rxChainSelectLegacy,           	0x00002,  "7"
+HKR, ,                                  forceBias,           	        0x00002,  "2"
+HKR, ,                                  rxChainDetect,                  0x00002,  "1"
+HKR, ,                                  rxChainDetectRef,               0x00002,  "0"
+HKR, ,                                  rxChainDetectThreshA,           0x00002,  "0"
+HKR, ,                                  rxChainDetectThreshG,           0x00002,  "0"
+HKR, ,                                  rxChainDetectDeltaA,            0x00002,  "20"
+HKR, ,                                  rxChainDetectDeltaG,            0x00002,  "20"
+
+[pushbutton.reg]
+HKR, ,                                  wpsButtonGpio,                  0x00002,  "9"
+
+[bandselect.reg]
+HKR, Ndi\params\NetBand,                ParamDesc,                      0,        %WirelessMode%
+HKR, Ndi\params\NetBand,                Base,                           0,        "10"
+HKR, Ndi\params\NetBand,                default,                        0,        "1823"
+HKR, Ndi\params\NetBand,                type,                           0,        "enum"
+HKR, Ndi\params\NetBand\enum,           "1823",                         0,        %WirelessModeAuto%
+HKR, Ndi\params\NetBand\enum,           "1795",                         0,        %WirelessMode5GHzOnly%
+HKR, Ndi\params\NetBand\enum,           "28",                           0,        %WirelessMode2GHzOnly%
+
+[pcibusconfig.reg]
+HKR, ,                                  BusConfig,                 	0x00002,  "0"
+
+[d3hot.reg]
+HKR, ,                                  pciePowerReset,                 0x00002,  "0"
+HKR, ,                                  pcieRestore,                 	0x00002,  "1"
+
+[expresscardaspmoff.reg]
+HKR, ,                                  pciDetectEnable,                0x00002,  "2"
+HKR, ,                                  pciePowerSaveEnable,            0x00002,  "1"
+HKR, ,                                  pcieAspm,                       0x00002,  "0"
+
+[gpioled.reg]
+HKR,,                                   linkLEDFunc,                    0,        "49"
+HKR,,                                   activityLEDFunc,                0,        "51"
+HKR,,                                   connectionLEDFunc,              0,        "55"
+
+; Allow non admin uses to switch profiles
+;[5211.reg.security]
+;"D:ARAI(A;;GA;;;BA)(A;;GA;;;SY)(A;CI;GA;;;IU)"
+
+[uapsd.reg]
+HKR, Ndi\params\uapsdEnabledBE,            ParamDesc,                      0,  %uapsdEnabledBE%
+HKR, Ndi\params\uapsdEnabledBE,            Base,                           0,  "10"
+HKR, Ndi\params\uapsdEnabledBE,            default,                        0,  "0"
+HKR, Ndi\params\uapsdEnabledBE,            type,                           0,  "enum"
+HKR, Ndi\params\uapsdEnabledBE\enum,       "1",                            0,  %uapsdEnabledBEOn%
+HKR, Ndi\params\uapsdEnabledBE\enum,       "0",                            0,  %uapsdEnabledBEOff%
+
+HKR, Ndi\params\uapsdEnabledBK,            ParamDesc,                      0,  %uapsdEnabledBK%
+HKR, Ndi\params\uapsdEnabledBK,            Base,                           0,  "10"
+HKR, Ndi\params\uapsdEnabledBK,            default,                        0,  "0"
+HKR, Ndi\params\uapsdEnabledBK,            type,                           0,  "enum"
+HKR, Ndi\params\uapsdEnabledBK\enum,       "1",                            0,  %uapsdEnabledBKOn%
+HKR, Ndi\params\uapsdEnabledBK\enum,       "0",                            0,  %uapsdEnabledBKOff%
+
+HKR, Ndi\params\uapsdEnabledVI,            ParamDesc,                      0,  %uapsdEnabledVI%
+HKR, Ndi\params\uapsdEnabledVI,            Base,                           0,  "10"
+HKR, Ndi\params\uapsdEnabledVI,            default,                        0,  "0"
+HKR, Ndi\params\uapsdEnabledVI,            type,                           0,  "enum"
+HKR, Ndi\params\uapsdEnabledVI\enum,       "1",                            0,  %uapsdEnabledVIOn%
+HKR, Ndi\params\uapsdEnabledVI\enum,       "0",                            0,  %uapsdEnabledVIOff%
+
+HKR, Ndi\params\uapsdEnabledVO,            ParamDesc,                      0,  %uapsdEnabledVO%
+HKR, Ndi\params\uapsdEnabledVO,            Base,                           0,  "10"
+HKR, Ndi\params\uapsdEnabledVO,            default,                        0,  "0"
+HKR, Ndi\params\uapsdEnabledVO,            type,                           0,  "enum"
+HKR, Ndi\params\uapsdEnabledVO\enum,       "1",                            0,  %uapsdEnabledVOOn%
+HKR, Ndi\params\uapsdEnabledVO\enum,       "0",                            0,  %uapsdEnabledVOOff%
+
+HKR, Ndi\params\psPollEnable,            ParamDesc,                      0,  %psPoll%
+HKR, Ndi\params\psPollEnable,            Base,                           0,  "10"
+HKR, Ndi\params\psPollEnable,            default,                        0,  "0"
+HKR, Ndi\params\psPollEnable,            type,                           0,  "enum"
+HKR, Ndi\params\psPollEnable\enum,       "1",                            0,  %psPollEnable%
+HKR, Ndi\params\psPollEnable\enum,       "0",                            0,  %psPollDisable%
+
+[uapsd_VO.reg]
+HKR, Ndi\params\uapsdEnabledBE,            ParamDesc,                      0,  %uapsdEnabledBE%
+HKR, Ndi\params\uapsdEnabledBE,            Base,                           0,  "10"
+HKR, Ndi\params\uapsdEnabledBE,            default,                        0,  "0"
+HKR, Ndi\params\uapsdEnabledBE,            type,                           0,  "enum"
+HKR, Ndi\params\uapsdEnabledBE\enum,       "1",                            0,  %uapsdEnabledBEOn%
+HKR, Ndi\params\uapsdEnabledBE\enum,       "0",                            0,  %uapsdEnabledBEOff%
+
+HKR, Ndi\params\uapsdEnabledBK,            ParamDesc,                      0,  %uapsdEnabledBK%
+HKR, Ndi\params\uapsdEnabledBK,            Base,                           0,  "10"
+HKR, Ndi\params\uapsdEnabledBK,            default,                        0,  "0"
+HKR, Ndi\params\uapsdEnabledBK,            type,                           0,  "enum"
+HKR, Ndi\params\uapsdEnabledBK\enum,       "1",                            0,  %uapsdEnabledBKOn%
+HKR, Ndi\params\uapsdEnabledBK\enum,       "0",                            0,  %uapsdEnabledBKOff%
+
+HKR, Ndi\params\uapsdEnabledVI,            ParamDesc,                      0,  %uapsdEnabledVI%
+HKR, Ndi\params\uapsdEnabledVI,            Base,                           0,  "10"
+HKR, Ndi\params\uapsdEnabledVI,            default,                        0,  "0"
+HKR, Ndi\params\uapsdEnabledVI,            type,                           0,  "enum"
+HKR, Ndi\params\uapsdEnabledVI\enum,       "1",                            0,  %uapsdEnabledVIOn%
+HKR, Ndi\params\uapsdEnabledVI\enum,       "0",                            0,  %uapsdEnabledVIOff%
+
+HKR, Ndi\params\uapsdEnabledVO,            ParamDesc,                      0,  %uapsdEnabledVO%
+HKR, Ndi\params\uapsdEnabledVO,            Base,                           0,  "10"
+HKR, Ndi\params\uapsdEnabledVO,            default,                        0,  "1"
+HKR, Ndi\params\uapsdEnabledVO,            type,                           0,  "enum"
+HKR, Ndi\params\uapsdEnabledVO\enum,       "1",                            0,  %uapsdEnabledVOOn%
+HKR, Ndi\params\uapsdEnabledVO\enum,       "0",                            0,  %uapsdEnabledVOOff%
+
+HKR, Ndi\params\psPollEnable,            ParamDesc,                      0,  %psPoll%
+HKR, Ndi\params\psPollEnable,            Base,                           0,  "10"
+HKR, Ndi\params\psPollEnable,            default,                        0,  "1"
+HKR, Ndi\params\psPollEnable,            type,                           0,  "enum"
+HKR, Ndi\params\psPollEnable\enum,       "1",                            0,  %psPollEnable%
+HKR, Ndi\params\psPollEnable\enum,       "0",                            0,  %psPollDisable%
+
+;-----------------------------------------------------------------------------
+;
+; 5416 common
+;
+[5416.DelReg]
+HKR,,NetBand
+HKR,,ssid
+HKR,,ssid2
+HKR,,ssid3
+HKR,,prefBssid1
+HKR,,prefBssid2
+HKR,,prefBssid3
+HKR,,prefBssid4
+HKR,Ndi\Params\tpc
+HKR,,tpc
+HKR,Ndi\Params\authTypeUseOnly
+HKR,,authTypeUseOnly
+HKR,,AdHocBand
+HKR,,AwakeTimePerf
+HKR,,beaconInterval
+HKR,,bkScanEnable
+HKR,,bssType
+HKR,,ccode
+HKR,,clist
+HKR,,defaultKey
+HKR,,EncryptionAlg
+HKR,,FragThreshold
+HKR,,HwTxRetries
+HKR,,privacyInvoked
+HKR,,QoS
+HKR,,rateCtrlEnable
+HKR,,RTSThreshold
+HKR,,scanType
+HKR,,SwTxRetryScale
+HKR,,SmeEnable
+HKR,,aifs
+HKR,,cwmin
+HKR,,pcieClockReq
+HKR,,rmEnable
+HKR,,overrideACstatus
+HKR, Ndi\params\NetBand
+HKR,,rxChainSelect
+HKR,,txChainSelectLegacy
+HKR,,rxChainSelectLegacy
+HKR,,rxChainDetect
+HKR,,rxChainDetectRef
+HKR,,rxChainDetectThreshA
+HKR,,rxChainDetectThreshG
+HKR,,rxChainDetectDeltaA
+HKR,,rxChainDetectDeltaG
+HKR,,pciePowerSaveEnable
+HKR,,pcieAspm
+HKR,,scanReduceLevel
+HKR,,scanTimePreSleep
+
+[5416.reg]
+HKR, Ndi\params\MapRegisters,           ParamDesc,                      0,  %MapRegisters%
+HKR, Ndi\params\MapRegisters,           default,                        0,  "256"
+HKR, Ndi\params\MapRegisters,           min,                            0,  "32"
+HKR, Ndi\params\MapRegisters,           max,                            0,  "512"
+HKR, Ndi\params\MapRegisters,           step,                           0,  "8"
+HKR, Ndi\params\MapRegisters,           base,                           0,  "10"
+HKR, Ndi\params\MapRegisters,           type,                           0,  "int"
+
+HKR, Ndi\params\NetworkAddress,         ParamDesc,                      0,  %NetworkAddress%
+HKR, Ndi\params\NetworkAddress,         default,                        0,  ""
+HKR, Ndi\params\NetworkAddress,         LimitText,                      0,  "12"
+HKR, Ndi\params\NetworkAddress,         UpperCase,                      0,  "1"
+HKR, Ndi\params\NetworkAddress,         optional,                       0,  "1"
+HKR, Ndi\params\NetworkAddress,         type,                           0,  "edit"
+
+HKR, Ndi\params\sleepMode,              ParamDesc,                      0,  %sleepMode%
+HKR, Ndi\params\sleepMode,              Base,                           0,  "10"
+HKR, Ndi\params\sleepMode,              default,                        0,  "0"
+HKR, Ndi\params\sleepMode,              type,                           0,  "enum"
+HKR, Ndi\params\sleepMode\enum,         "0",                            0,  %sleepModeOff%
+HKR, Ndi\params\sleepMode\enum,         "2",                            0,  %sleepModeNormal%
+HKR, Ndi\params\sleepMode\enum,         "1",                            0,  %sleepModeMax%
+
+HKR, Ndi\params\shortPreamble,          ParamDesc,                      0,  %shortPreamble%
+HKR, Ndi\params\shortPreamble,          Base,                           0,  "10"
+HKR, Ndi\params\shortPreamble,          default,                        0,  "1"
+HKR, Ndi\params\shortPreamble,          type,                           0,  "enum"
+HKR, Ndi\params\shortPreamble\enum,     "1",                            0,  %shortPreambleEnable%
+HKR, Ndi\params\shortPreamble\enum,     "0",                            0,  %shortPreambleDisable%
+
+HKR, Ndi\params\radioEnable,            ParamDesc,                      0,  %radioEnable%
+HKR, Ndi\params\radioEnable,            Base,                           0,  "10"
+HKR, Ndi\params\radioEnable,            default,                        0,  "1"
+HKR, Ndi\params\radioEnable,            type,                           0,  "enum"
+HKR, Ndi\params\radioEnable\enum,       "1",                            0,  %radioEnableOn%
+HKR, Ndi\params\radioEnable\enum,       "0",                            0,  %radioEnableOff%
+
+HKR, Ndi\params\scanTimeValid,          ParamDesc,                      0,  %scanTimeValid%
+HKR, Ndi\params\scanTimeValid,          default,                        0,  "60"
+HKR, Ndi\params\scanTimeValid,          min,                            0,  "20"
+HKR, Ndi\params\scanTimeValid,          max,                            0,  "120"
+HKR, Ndi\params\scanTimeValid,          step,                           0,  "5"
+HKR, Ndi\params\scanTimeValid,          base,                           0,  "10"
+HKR, Ndi\params\scanTimeValid,          type,                           0,  "int"
+
+HKR, Ndi\params\ccx5FeatureEnable,      ParamDesc,                      0,  %ccx5FeatureEnable%
+HKR, Ndi\params\ccx5FeatureEnable,      Base,                           0,  "10"
+HKR, Ndi\params\ccx5FeatureEnable,      default,                        0,  "0"
+HKR, Ndi\params\ccx5FeatureEnable,      type,                           0,  "enum"
+HKR, Ndi\params\ccx5FeatureEnable\enum, "1",                            0,  %ccx5FeatureEnableMfpEnable%
+HKR, Ndi\params\ccx5FeatureEnable\enum, "0",                            0,  %ccx5FeatureEnableMfpDisable%
+
+HKR, Ndi\params\PSPXLinkMode,           ParamDesc,                      0,  %PSPXLinkMode%
+HKR, Ndi\params\PSPXLinkMode,           Base,                           0,  "10"
+HKR, Ndi\params\PSPXLinkMode,           default,                        0,  "0"
+HKR, Ndi\params\PSPXLinkMode,           type,                           0,  "enum"
+HKR, Ndi\params\PSPXLinkMode\enum,      "1",                            0,  %PSPXLinkModeEnable%
+HKR, Ndi\params\PSPXLinkMode\enum,      "0",                            0,  %PSPXLinkModeDisable%
+
+HKR, CustomParams\Configurations,       MajorVersion,                   0x10003,  2
+HKR, CustomParams\Configurations,       MinorVersion,                   0x10003,  0
+
+HKR, CustomParams\Configurations,       SelectedConfigurationIndex,     0x10003,  0
+HKR, CustomParams\Configurations,       SelectedConfigurationName,      0x00002,  "Default"
+
+[7010.reg]
+HKR, ,                                  forceNormalSlotMrvl,             0x00002, "1"
+HKR, ,                                  htAdhocEnable,                   0x00002, "0"
+HKR, ,                                  isMagpie,                        0x00002, "1"
+HKR, ,                                  gpioLedCustom,                   0x00002, "1"
+HKR, ,                                  gpioPinFunc0,                    0x00002, "12"
+HKR, ,                                  gpioPinFunc1,                    0x00002, "10"
+HKR, ,                                  stbcEnable,                      0x00002, "1"
+HKR, ,                                  wpsButtonGpio,                   0x00002, "13"
+HKLM,SOFTWARE\Atheros\Atheros Client Installation Program,  USBVIDPID,  0, "%ATHR_VID_0CF3%;%NTGR_VID_0846%;%AZWV_VID_13D3%;%LION_VID_04CA%"
+
+[7015.reg]
+HKR, ,                                  forceNormalSlotMrvl,             0x00002, "1"
+HKR, ,                                  htAdhocEnable,                   0x00002, "0"
+HKR, ,                                  isMagpie,                        0x00002, "1"
+HKR, ,                                  gpioLedCustom,                   0x00002, "1"
+HKR, ,                                  gpioPinFunc0,                    0x00002, "12"
+HKR, ,                                  gpioPinFunc1,                    0x00002, "10"
+HKR, ,                                  stbcEnable,                      0x00002, "1"
+HKR, ,                                  wpsButtonGpio,                   0x00002, "4"
+HKLM,SOFTWARE\Atheros\Atheros Client Installation Program,  USBVIDPID,  0, "%ATHR_VID_0CF3%;%NTGR_VID_0846%;%AZWV_VID_13D3%;%LION_VID_04CA%"
+
+[htDisableWepTkip.reg]
+HKR, ,                                  htEnableWepTkip,                 0x00002, "0"
+
+[surpriseRemovalOk.reg]
+HKR, ,                                  surpriseRemovalOk,               0x10003, 1
+
+[scanReduce.reg]
+HKR, ,                                  scanReduceLevel,                 0x00002, "1"
+HKR, ,                                  scanTimePreSleep,                0x00002, "10"
+
+[NTGR.reg]
+HKR, ,                                  ignore11dBeacon,                0, 1
+HKR, ,                                  gpioLedCustom,                  0, 8
+HKR, ,                                  gpioPinFunc0,                   0, 15
+HKR, ,                                  swapDefaultLED,                 0, 1
+HKR, ,                                  GreenTx,                        0, 15
+HKR, ,                                  htEnableWepTkip,          0x00002, "3"
+HKR, ,                                  htEnableWepTkipAgg,       0x00002, "0"
+
+[NTGR_9018.reg]
+HKR, ,                                  forceNormalSlotMrvl,             0x00002, "1"
+HKR, ,                                  htAdhocEnable,                   0x00002, "0"
+HKR, ,                                  isMagpie,                        0x00002, "1"
+HKR, ,                                  gpioLedCustom,                   0x00002, "9"
+HKR, ,                                  gpioPinFunc0,                    0x00002, "12"
+HKR, ,                                  gpioPinFunc1,                    0x00002, "10"
+HKR, ,                                  GreenTx,                         0, 0
+HKR, ,                                  updatelinkspeed,                 0, 1
+HKR, ,                                  pciePowerSaveEnable,             0, 2
+HKR, ,                                  stbcEnable,                      0x00002, "1"
+HKR, ,                                  wpsButtonGpio,                   0x00002, "13"
+HKLM,SOFTWARE\Atheros\Atheros Client Installation Program,  USBVIDPID,  0, "%ATHR_VID_0CF3%;%NTGR_VID_0846%;%AZWV_VID_13D3%;%LION_VID_04CA%"
+
+[DLINK.reg]
+HKR, , gpioLedCustom,   0, 1
+HKR, , gpioPinFunc0,    0, 15
+HKR, , swapDefaultLED,  0, 1
+;-----------------------------------------------------------------------------
+;;Customized Section
+
+[customer0.reg]
+;PCIe Related
+HKR, ,                                  pcieAspm,                 	0x00002,  "2"
+HKR, ,                                  pciePowerSaveEnable,            0x00002,  "1"
+HKR, ,                                  overrideACstatus,               0x00002,  "1"
+HKR, ,                                  forceWake,                 	0x00002,  "0"
+HKR, ,                                  antennaSwitchSwap,              0x00002,  "1"
+;LED Related
+HKR, ,                                  gpioPinFunc1,                  0x00002,  "1"
+;General Customer0
+HKR, ,                                  ssid,                           0x00002,  "randomssidtoshutoffautoconnectib"
+HKR,NDI\params\ignore11dBeacon,ParamDesc,,	%Mode11d%
+HKR,NDI\params\ignore11dBeacon,type,,		"enum"
+HKR,NDI\params\ignore11dBeacon,Default,,	"1"
+HKR,NDI\params\ignore11dBeacon\enum,0,,		%Mode11dEnable%
+HKR,NDI\params\ignore11dBeacon\enum,1,,		%Mode11dDisable%
+
+HKR, Ndi\params\roamRssiA,              ParamDesc,                      0,  %roamRssiA%
+HKR, Ndi\params\roamRssiA,              default,                        0,  "15"
+HKR, Ndi\params\roamRssiA,              min,                            0,  "1"
+HKR, Ndi\params\roamRssiA,              max,                            0,  "95"
+HKR, Ndi\params\roamRssiA,           	step,                           0,  "1"
+HKR, Ndi\params\roamRssiA,           	base,                           0,  "10"
+HKR, Ndi\params\roamRssiA,           	type,                           0,  "int"
+
+HKR, Ndi\params\sleepMode,              ParamDesc,                      0,  %sleepMode%
+HKR, Ndi\params\sleepMode,              Base,                           0,  "10"
+HKR, Ndi\params\sleepMode,              default,                        0,  "1"
+HKR, Ndi\params\sleepMode,              type,                           0,  "enum"
+HKR, Ndi\params\sleepMode\enum,         "0",                            0,  %sleepModeOff%
+HKR, Ndi\params\sleepMode\enum,         "2",                            0,  %sleepModeNormal%
+HKR, Ndi\params\sleepMode\enum,         "1",                            0,  %sleepModeMax%
+
+HKR, Ndi\params\scanTimeValid,          ParamDesc,                      0,  %scanTime%
+HKR, Ndi\params\scanTimeValid,          default,                        0,  "60"
+HKR, Ndi\params\scanTimeValid,          min,                            0,  "20"
+HKR, Ndi\params\scanTimeValid,          max,                            0,  "120"
+HKR, Ndi\params\scanTimeValid,          step,                           0,  "5"
+HKR, Ndi\params\scanTimeValid,          base,                           0,  "10"
+HKR, Ndi\params\scanTimeValid,          type,                           0,  "int"
+
+HKR,,                 isMagpie,                 0, 0
+[customer0.LED.reg]
+HKR, ,                                  gpioPinFunc1,                   0x00002,  "0"
+
+[customer0.LED1.reg]
+HKR, ,                                  gpioPinFunc1,                   0x00002,  "1"
+HKR, ,                                  overrideACstatus,               0x00002,  "1"
+HKR, ,                                  pcieClockReq,                   0x00002,  "0"
+HKR, ,                                  pciePowerSaveEnable,            0x00002,  "1"
+HKR, ,                                  pcieAspm,                       0x00002,  "2"
+
+[customer1.SCAN.reg]
+HKR, ,                                  bkPeriodicScanEnable,           0x00002,  "0"
+HKR, ,                                  scanPendingCriterion,           0x00002,  "65"
+
+[customer11_11nwmode.reg]
+HKR, Ndi\params\wModeSelect,            ParamDesc,                      0,        %wModeSelect%
+HKR, Ndi\params\wModeSelect,            Base,                           0,        "10"
+HKR, Ndi\params\wModeSelect,            default,                        0,        "49719"
+HKR, Ndi\params\wModeSelect,            type,                           0,        "enum"
+HKR, Ndi\params\wModeSelect\enum,       "32772",                        0,        %wModeSelect11bonly%
+HKR, Ndi\params\wModeSelect\enum,       "16387",                        0,        %wModeSelect11na%
+HKR, Ndi\params\wModeSelect\enum,       "32796",                        0,        %wModeSelect11nbg%
+HKR, Ndi\params\wModeSelect\enum,       "49719",                        0,        %wModeSelect11abgn%
+
+[customer11_legacywmode.reg]
+HKR, Ndi\params\wModeSelect,            ParamDesc,                      0,        %wModeSelect%
+HKR, Ndi\params\wModeSelect,            Base,                           0,        "10"
+HKR, Ndi\params\wModeSelect,            default,                        0,        "2075"
+HKR, Ndi\params\wModeSelect,            type,                           0,        "enum"
+HKR, Ndi\params\wModeSelect\enum,       "4",                            0,        %wModeLegacy11bonly%
+HKR, Ndi\params\wModeSelect\enum,       "3",                            0,        %wModeLegacy11a%
+HKR, Ndi\params\wModeSelect\enum,       "28",                           0,        %wModeLegacy11bg%
+HKR, Ndi\params\wModeSelect\enum,       "2075",                         0,        %wModeLegacy11abg%
+
+[customer11Ant.reg]
+HKR, Ndi\params\antennaSwitch,          ParamDesc,                      0,        %antennaSwitch%
+HKR, Ndi\params\antennaSwitch,          Base,                           0,        "10"
+HKR, Ndi\params\antennaSwitch,          default,                        0,        "0"
+HKR, Ndi\params\antennaSwitch,          type,                           0,        "enum"
+HKR, Ndi\params\antennaSwitch\enum,     "1",                            0,        %antennaSwitchA%
+HKR, Ndi\params\antennaSwitch\enum,     "2",                            0,        %antennaSwitchB%
+HKR, Ndi\params\antennaSwitch\enum,     "0",                            0,        %antennaSwitchAuto%
+
+[rssiAdjust.reg]
+HKR, ,                                  rssiAdjust,                     0x00002,  "7"
+
+[cmdRegister.reg]
+HKR, ,                                  cmdRegister,                    0x00002,  "838"
+
+;-----------------------------------------------------------------------------
+; ATHER NT specific
+;
+
+[ATHER.reg]
+HKR, Ndi,             Service,      0, "AR9271"
+HKR, Ndi\Interfaces,  UpperRange,   0, "ndis5"
+HKR, Ndi\Interfaces,  LowerRange,   0, "ethernet"
+
+[ATHER.Service]
+DisplayName     = %ATHER.Service.DispName%
+ServiceType     = 1 ;%SERVICE_KERNEL_DRIVER%
+StartType       = 3 ;%SERVICE_DEMAND_START%
+ErrorControl    = 1 ;%SERVICE_ERROR_NORMAL%
+ServiceBinary   = %12%\athuw.sys
+LoadOrderGroup  = NDIS
+
+;-----------------------------------------------------------------------------
+; ATHER NT/XP common
+;
+[common.EventLog]
+AddReg = common.AddEventLog.reg
+
+[common.AddEventLog.reg]
+HKR, ,                  EventMessageFile,   0x00020000,   "%%SystemRoot%%\System32\netevent.dll"
+HKR, ,                  TypesSupported,     0x00010001,   7
+
+;----------------------------------------------------------------------------
+; System TCPIP parameter changes
+;
+[sys.TcpParams.reg]
+HKLM, SYSTEM\CurrentControlSet\Services\Tcpip\Parameters, Tcp1323Opts, 0x00010001, 0x00000001
+HKLM, SYSTEM\CurrentControlSet\Services\Tcpip\Parameters, TcpWindowSize, 0x00010001, 0x00040000
+
+[sys.TcpParamslan.reg]
+HKLM, SYSTEM\CurrentControlSet\Services\Tcpip\Parameters, Tcp1323Opts, 0x00010001, 0x00000001
+HKLM, SYSTEM\CurrentControlSet\Services\Tcpip\Parameters, TcpWindowSize, 0x00010001, 0x00040000
+
+;----------------------------------------------------------------------------
+;*********************************************************************
+;   Atheros Client Installation Program
+;*********************************************************************
+[ATHR_9271.reg]
+HKR, ,                                  forceNormalSlotMrvl,             0x00002,  "1"
+HKR, ,                                  htAdhocEnable,                   0x00002,  "0"
+HKR, ,                                  wpsButtonGpio,                   0x00002,  "13"
+HKLM,SOFTWARE\Atheros\Atheros Client Installation Program,  USBVIDPID,  0, "%ATHR_VID_0CF3%;%NTGR_VID_0846%;%AZWV_VID_13D3%;%LION_VID_04CA%"
+
+;----------------------------------------------------------------------------
+; NT Files to Copy
+[ATHER.CopyFiles.nt]
+athuw.sys,,,2
+
+[ATHER.DelIniFiles]
+Athnic.ini,,,1
+
+[SourceDisksNames]
+;
+; diskid = description[, [tagfile] [, <unused>, subdir]]
+;
+1 = %Atheros_Disk%,,,
+
+;----------------------------------------------------------------------------
+; Source Files
+[SourceDisksFiles]
+athuw.sys                   = 1,, ; on distribution disk 1
+
+
+[DestinationDirs]
+ATHER.CopyFiles.nt           = 12
+;ATHER.win.CopyFiles          = 10,system32\drivers ; %SystemRoot%\system32\drivers
+ATHER.DelIniFiles            = 10,system32\drivers ; %SystemRoot%\system32\drivers
+DefaultDestDir               = 11
+
+[DEFAULTDESTDIRS]
+;
+
+
+[Strings]
+Atheros                      = "Atheros Communications Inc."
+NETGEAR                      = "Netgear Inc."
+DLINK                        = "D-Link"
+AZUREWAVE                    = "AzureWave Technologies, Inc."
+LITEON                       = "Lite-On"
+SMC                          = "SMC Networks, Inc." 
+VIA                          = "VIA"
+VERIZON                      = "Verizon"
+ACTIONTEC                    = "Actiontec"
+MapRegisters                 = "Map Registers"
+NetworkAddress               = "Network Address"
+sleepMode                    = "Power Save Mode"
+scanTimeValid                = "Scan Valid Interval"
+scanTime                     = "Roam Time (sec)"
+roamRssiA                    = "Roam Time Threshold (db)"
+sleepModeOff                 = "Off"
+sleepModeNormal              = "Normal"
+sleepModeMax                 = "Maximum"
+tpc                          = "Transmit Power"
+tpcLowest                    = "Lowest"
+tpc12                        = "12.5%"
+tpc25                        = "25%"
+tpc50                        = "50%"
+tpc100                       = "100%"
+shortPreamble                = "802.11b Preamble"
+shortPreambleEnable          = "Long and Short"
+shortPreambleDisable         = "Long only"
+radioEnable                  = "Radio On/Off"
+radioEnableOn                = "On"
+radioEnableOff               = "Off"
+WirelessMode                 = "Wireless Mode Selection"
+WirelessModeAuto             = "Auto"
+WirelessMode5GHzOnly         = "5 GHz Only"
+WirelessMode2GHzOnly         = "2.4 GHz Only"
+rssiThrHigh                  = "RSSI Threshold"
+rssiThrHighNormal            = "Normal"
+rssiThrHighMin               = "Min"
+roamPolicy                   = "Roaming Policy"
+roamPolicyVeryLow            = "Very Low"
+roamPolicyLow                = "Low"
+roamPolicyNormal             = "Normal"
+roamPolicyHigh               = "High"
+roamPolicyVeryHigh           = "Very High"
+scanTimeValidcust            = "Roam Time (sec)"
+scanTimeValidcust120         = "120"
+scanTimeValidcust60          = "60"
+scanTimeValidcust45          = "45"
+scanTimeValidcust30          = "30"
+scanTimeValidcust20          = "20"
+scanTimeValidcust10          = "10"
+scanTimeValidcust5           = "5"
+sleepMode_DEFAULT            = "2"  
+NetBand_DEF_STR_A            = "3"                       ; (A/T) 
+NetBand_DEF_STR_AB           = "7"                       ; (A/T/B)   
+NetBand_DEF_STR_G            = "12"                      ; (B/G)     
+NetBand_DEF_STR_AG           = "15"                      ; (A/T/B/G)
+AdhocBand_DEF_STR_A          = "1"                       ; (A)
+AdhocBand_DEF_STR_AB         = "1"                       ; (A)
+AdhocBand_DEF_STR_G          = "0"                       ; (B)
+AdhocBand_DEF_STR_AG         = "0"                       ; (B)
+shortPreamble_DEFAULT        = "1"
+authTypeUseOnly              = "802.11 Authentication Type"
+authAuto                     = "Auto"
+authOpen                     = "Open"
+authShared                   = "Shared"
+bkScanEnable                 = "BackgroundScan On/Off"
+bkScanEnableOn               = "On"
+bkScanEnableOff              = "Off"
+roamRssi11A                  = "roamRssiA"
+roamRssi11B                  = "roamRssiB"
+roamRssi11BOnly              = "roamRssiBOnly"
+roamRateA                    = "roamRateA"
+roamRateA6M                  = " 6Mbps"
+roamRateA9M                  = " 9Mbps"
+roamRateA12M                 = "12Mbps"
+roamRateA18M                 = "18Mbps"
+roamRateA24M                 = "24Mbps"
+roamRateA36M                 = "36Mbps"
+roamRateA48M                 = "48Mbps"
+roamRateA54M                 = "54Mbps"
+roamRateBOnly                = "roamRateBOnly"
+roamRateBOnly1M              = " 1Mbps"
+roamRateBOnly2M              = " 2Mbps"
+roamRateBOnly5M              = " 5Mbps"
+roamRateBOnly11M             = "11Mbps"
+roamRateB                    = "roamRateB"
+roamRateB1M                  = " 1Mbps"
+roamRateB2M                  = " 2Mbps"
+roamRateB5M                  = " 5Mbps"
+roamRateB6M                  = " 6Mbps"
+roamRateB9M                  = " 9Mbps"
+roamRateB11M                 = "11Mbps"
+pcieAspm                     = "pcieAspm"
+pcieAspmOff                  = "L0s Off, L1 Off"
+pcieAspmL1On                 = "L0s Off, L1 On"
+wModeSelect                  = "Wireless Mode"
+wModeSelect11bonly           = "11b only"
+wModeSelect11nbg             = "11n(2.4GHz) and g and b"
+wModeSelect11na              = "11n(5GHz) and a"
+wModeSelect11abgn            = "11abgn"
+wModeLegacy11a               = "11a only"
+wModeLegacy11bonly           = "11b only"
+wModeLegacy11bg              = "11g and 11b"
+wModeLegacy11abg             = "11abg"
+antennaSwitch                = "AntennaSwitch"
+antennaSwitchAuto            = "Auto"
+antennaSwitchA               = "Antenna A"
+antennaSwitchB               = "Antenna B"
+uapsdEnabledBE               = "Power Save Policy (Best Effort)"
+uapsdEnabledBEOn             = "WMM Power Save (UAPSD)"
+uapsdEnabledBEOff            = "Legacy Power Save"
+uapsdEnabledBK               = "Power Save Policy (Background)"
+uapsdEnabledBKOn             = "WMM Power Save (UAPSD)"
+uapsdEnabledBKOff            = "Legacy Power Save"
+uapsdEnabledVI               = "Power Save Policy (Video)"
+uapsdEnabledVIOn             = "WMM Power Save (UAPSD)"
+uapsdEnabledVIOff            = "Legacy Power Save"
+uapsdEnabledVO               = "Power Save Policy (Voice)"
+uapsdEnabledVOOn             = "WMM Power Save (UAPSD)"
+uapsdEnabledVOOff            = "Legacy Power Save"
+psPoll                       = "Power Save Legacy Algorithm"
+psPollEnable                 = "PS Poll"
+psPollDisable                = "PS non Poll"
+ccx5FeatureEnable            = "MFP"
+ccx5FeatureEnableMfpEnable   = "Enable"
+ccx5FeatureEnableMfpDisable  = "Disable"
+Mode11d                      = "11d Mode Switch"
+Mode11dEnable                = "Enable"
+Mode11dDisable               = "Disable"
+RateCtrl                     = "Auto Transmit Rate"
+RateCtrlEnable               = "Enable"
+RateCtrlDisable              = "Disable"
+TxRate11b                    = "11b Transmit Rates"
+TxRate11b1M                  = "1 Mbps"
+TxRate11b2M                  = "2 Mbps"
+TxRate11b5M                  = "5.5 Mbps"
+TxRate11b11M                 = "11 Mbps"
+TxRate11g                    = "11g Transmit Rates"
+TxRate11g1M                  = "1 Mbps"
+TxRate11g2M                  = "2 Mbps"
+TxRate11g5M                  = "5.5 Mbps"
+TxRate11g11M                 = "11 Mbps"
+TxRate11g6M                  = "6 Mbps"
+TxRate11g9M                  = "9 Mbps"
+TxRate11g12M                 = "12 Mbps"
+TxRate11g18M                 = "18 Mbps"
+TxRate11g24M                 = "24 Mbps"
+TxRate11g36M                 = "36 Mbps"
+TxRate11g48M                 = "48 Mbps"
+TxRate11g54M                 = "54 Mbps"
+TxRate11a                    = "11a Transmit Rates"
+TxRate11a6M                  = "6 Mbps"
+TxRate11a9M                  = "9 Mbps"
+TxRate11a12M                 = "12 Mbps"
+TxRate11a18M                 = "18 Mbps"
+TxRate11a24M                 = "24 Mbps"
+TxRate11a36M                 = "36 Mbps"
+TxRate11a48M                 = "48 Mbps"
+TxRate11a54M                 = "54 Mbps"
+ATHR_VID_0CF3                = "VID_0CF3"
+NTGR_VID_0846                = "VID_0846"
+AZWV_VID_13D3                = "VID_13D3"
+LION_VID_04CA                = "VID_04CA"
+PSPXLinkMode                 = "PSP XLink mode"
+PSPXLinkModeEnable           = "Enable"
+PSPXLinkModeDisable          = "Disable"
+
+Atheros_Disk                 = "Atheros Driver Disk 1"
+ATHER.Service.DispName       = "Atheros AR9271 Wireless Network Adapter Service"
+ATHER.DeviceDesc.9271        = "Atheros AR9271 Wireless Network Adapter"
+ATHER.DeviceDesc.7010        = "Atheros AR7010 Wireless Network Adapter"
+ATHER.DeviceDesc.7015        = "Atheros AR7015 Wireless Network Adapter"
+ATHER.DeviceDesc.1006        = "Atheros 11G USB Wireless Network Adapter"
+NTGR.DeviceDesc.9030         = "NETGEAR WNA1100 N150 Wireless USB Adapter"
+NTGR.DeviceDesc.9018         = "NETGEAR WNDA3200 Wireless 11N Dual-band USB Adapter"
+DLINK.DeviceDesc.3A10        = "High-Power Wireless 150 USB adapter"
+AZWV.DeviceDesc.3327         = "Atheros AR9271 Wireless Network Adapter"
+AZWV.DeviceDesc.3328         = "Atheros AR9271 Wireless Network Adapter"
+AZWV.DeviceDesc.3346         = "Atheros AR9271 Wireless Network Adapter"
+AZWV.DeviceDesc.3348         = "Atheros AR9271 Wireless Network Adapter"
+AZWV.DeviceDesc.3349         = "Atheros AR9271 Wireless Network Adapter"
+AZWV.DeviceDesc.3350         = "Atheros AR9271 Wireless Network Adapter"
+AZWV.DeviceDesc.3390         = "Atheros AR9271 Wireless Network Adapter"
+AZWV.DeviceDesc.3391         = "Atheros AR9271 Wireless Network Adapter"
+SMC.DeviceDesc.A704          = "SMC Networks EZ Connect N 802.11n Wireless USB 2.0 Adapter"
+VIA.DeviceDesc.3801          = "VIA 802.11b/g/n USB Wireless Network Adapter"
+VRZN.DeviceDesc.1200         = "Verizon Wireless N 300 USB Adapter"
+ACTION.DeviceDesc.4500       = "Actiontec Wireless N 300 USB Adapter"

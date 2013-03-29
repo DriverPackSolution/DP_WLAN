@@ -1,0 +1,386 @@
+;******************************************************************************
+; WL50ND5.INF
+;
+; Intel PRO/Wireless 5000 LAN Adapters
+; NDIS5 Installation File for W98SE, ME, W2K and XP
+;
+; Copyright (c) 2001-2002 Intel, Inc. All Rights Reserved
+;
+; $Date$
+; $Revision$
+;
+;------------------------------------------------------------------------------
+
+;******************************************************************************
+; Version Section
+;------------------------------------------------------------------------------
+[Version]
+Signature   = "$CHICAGO$"
+Compatible  = 1
+Class       = Net
+ClassGUID   = {4d36e972-e325-11ce-bfc1-08002be10318}
+DriverVer   = 06/04/2003,1.0.1.33
+Provider    = %PROVIDER_NAME%
+CatalogFile = WL50ND5.CAT
+
+;******************************************************************************
+; Manufacturer
+;------------------------------------------------------------------------------
+[Manufacturer]
+%COMPANY_NAME% = Device
+
+[ControlFlags]
+ExcludeFromSelect = PCI\VEN_168C&DEV_0007&SUBSYS_25008086, \
+                    PCI\VEN_168C&DEV_0007&SUBSYS_25018086
+
+;******************************************************************************
+; Device
+;------------------------------------------------------------------------------
+[Device]
+%NIC1%          = Install_NIC1,PCI\VEN_168C&DEV_0007&SUBSYS_25008086   ; WCB5000
+%NIC2%          = Install_NIC2,PCI\VEN_168C&DEV_0007&SUBSYS_25018086   ; WM3A5000
+
+;******************************************************************************
+; Install
+;------------------------------------------------------------------------------
+
+
+;-----------------------------------------------------------------------------
+; WCB5000 - Intel PRO/Wireless 5000 LAN Cardbus Adapter
+;-----------------------------------------------------------------------------
+; Windows 9X specific entries
+[Install_NIC1]   ; WCB5000
+AddReg    = reg_w9x_NIC1id, reg_w9x_NIC, reg_w9x_NDIS, reg_common_NIC
+CopyFiles = Intel_copyfiles_9xSystem, Intel_copyfiles_9xNdiInst
+
+; Windows NT specific entry
+[Install_NIC1.NT]
+AddReg          = reg_w2k_NIC1id, reg_w2k_NDIS, reg_w2k_NIC, reg_common_NIC
+Characteristics = 0x84 ; NCF_PHYSICAL | NCF_HAS_UI
+BusType         = 5    ; PCI
+CopyFiles       = Intel_copyfiles_w2kDriver
+
+[Install_NIC1.NT.CoInstallers]
+AddReg          = reg_w2k_CoInstaller
+CopyFiles       = Intel_copyfiles_coinstaller
+
+[Install_NIC1.NT.Services]
+AddService      = WL50ND5, 2, NIC_Service, common_EventLog
+
+;-----------------------------------------------------------------------------
+; WM3A5000 - Intel PRO/Wireless 5000 LAN 3A Mini PCI Adapter
+;-----------------------------------------------------------------------------
+; Windows 9X specific entries
+[Install_NIC2]   ; WM3A5000
+AddReg    = reg_w9x_NIC2id, reg_w9x_NIC, reg_w9x_NDIS, reg_common_NIC
+CopyFiles = Intel_copyfiles_9xSystem, Intel_copyfiles_9xNdiInst
+
+; Windows NT specific entry
+[Install_NIC2.NT]
+AddReg          = reg_w2k_NIC2id, reg_w2k_NDIS, reg_w2k_NIC, reg_common_NIC
+Characteristics = 0x84 ; NCF_PHYSICAL | NCF_HAS_UI
+BusType         = 5    ; PCI
+CopyFiles       = Intel_copyfiles_w2kDriver
+
+[Install_NIC2.NT.CoInstallers]
+AddReg          = reg_w2k_CoInstaller
+CopyFiles       = Intel_copyfiles_coinstaller
+
+[Install_NIC2.NT.Services]
+AddService      = WL50ND5, 2, NIC_Service, common_EventLog
+
+;----------------------------------------------------------------------------
+; Win9x id registry sections
+
+[reg_w9x_NIC1id]                 ; WCB5000
+HKR,Ndi,DeviceID,                 ,"PCI\VEN_168C&DEV_0007"
+HKR,,AdapterModel,               0,%NIC1_AdapterModel%
+HKR,,CardType,                    ,"1"
+
+[reg_w9x_NIC2id]                 ; WM3A5000
+HKR,Ndi,DeviceID,                0,"PCI\VEN_168C&DEV_0007"
+HKR,,AdapterModel,               0,%NIC2_AdapterModel%
+HKR,,CardType,                    ,"2"
+
+;----------------------------------------------------------------------------
+; Win9x NIC registry entries
+[reg_w9x_NIC]
+HKR,,aifs,                       0x00002,"2"    
+HKR,,AwakeTimePerf,              0x00002,"6000"
+HKR,,beaconInterval,             0x00002,"100"    
+HKR,,bkScanEnable,               0x00002,"1"    
+HKR,,bssType,                    0x00002,"1"
+HKR,,CLSGUID,                    0x00002,%INTEL_GUID%
+HKR,,cwmin,                      0x00002,"15"    
+HKR,,defaultKey,                 0x00002,"1"
+HKR,,eepRD,                      0x00010003,0
+HKR,,FragThreshold,              0x00002,"2346"
+HKR,,InitialInstall,             0x00002,"TRUE"
+HKR,,InitFile,                   0x00002,%InitFile%
+HKR,,key0,                       0x00002,""
+HKR,,key1,                       0x00002,""
+HKR,,key2,                       0x00002,""
+HKR,,key3,                       0x00002,""
+HKR,,keyLength0,                 0x00002,"0"
+HKR,,keyLength1,                 0x00002,"0"
+HKR,,keyLength2,                 0x00002,"0"
+HKR,,keyLength3,                 0x00002,"0"
+HKR,,NetworkAddress,             0x00002," "
+HKR,,privacyInvoked,             0x00002,"0"
+HKR,,Provider,                   0x00002,"Intel"
+HKR,,rateCtrlEnable,             0x00002,"1"
+HKR,,RTSThreshold,               0x00002,"2346"
+HKR,,SleepMode,                  0x00002,"2"
+HKR,,SleepTimePerf,              0x00002,"100"
+HKR,,SmeEnable,                  0x00002,"1"
+HKR,,ssid,                       0x00002,""
+HKR,,tpc,                        0x00002,"0"
+HKR,,TransmitRate,               0x00002,"5"
+HKR,,TurboEnable,                0x00002,"0"
+HKR,,uniqKey,                    0x00002,""
+HKR,,uniqKeyLength,              0x00002,"0"
+HKR,,promiscuousEnable,          0x00002,"0"
+HKR,,StealthEnable,              0x00002,"1" ;; Stealth Enable
+
+
+HKR, CustomParams\Configurations, MajorVersion,                   0x10003, 1
+HKR, CustomParams\Configurations, MinorVersion,                   0x10003, 0
+HKR, CustomParams\Configurations, SelectedConfigurationIndex,     0x10003, 0
+HKR, CustomParams\Configurations, SelectedConfigurationName,      0x00002, "Default"
+
+HKR, CustomParams\Configurations\Cfg0,ConfigurationName,          0x00002, "Default"
+HKR, CustomParams\Configurations\Cfg0,DefaultKey,                 0x10003, 0
+HKR, CustomParams\Configurations\Cfg0,EnableMacAddress,           0x10003, 0
+HKR, CustomParams\Configurations\Cfg0,EnableSecurity,             0x10003, 0
+HKR, CustomParams\Configurations\Cfg0,EnableTurbo,                0x10003, 0
+HKR, CustomParams\Configurations\Cfg0,MacAddress,                 0x00002, ""
+HKR, CustomParams\Configurations\Cfg0,NetworkConnectionType,      0x10003, 1
+HKR, CustomParams\Configurations\Cfg0,NetworkName,                0x00002, ""
+HKR, CustomParams\Configurations\Cfg0,PowerManagement,            0x10003, 1
+HKR, CustomParams\Configurations\Cfg0,RateCtrlEnable,             0x10003, 1
+HKR, CustomParams\Configurations\Cfg0,TransmitRateIndex,          0x10003, 5
+
+HKR, CustomParams\Configurations\Cfg0,SharedKey1,                 0x00002, ""
+HKR, CustomParams\Configurations\Cfg0,SharedKey2,                 0x00002, ""
+HKR, CustomParams\Configurations\Cfg0,SharedKey3,                 0x00002, ""
+HKR, CustomParams\Configurations\Cfg0,SharedKey4,                 0x00002, ""
+HKR, CustomParams\Configurations\Cfg0,SharedKey1Length,           0x10003, 40
+HKR, CustomParams\Configurations\Cfg0,SharedKey2Length,           0x10003, 40
+HKR, CustomParams\Configurations\Cfg0,SharedKey3Length,           0x10003, 40
+HKR, CustomParams\Configurations\Cfg0,SharedKey4Length,           0x10003, 40
+HKR, CustomParams\Configurations\Cfg0,UniqueKey,                  0x00002, ""
+HKR, CustomParams\Configurations\Cfg0,UniqueKeyLength,            0x10003, 40
+
+;-----------------------------------------------------------------------------
+; Win9x & Win2000 common entries for NIC
+;
+[reg_common_NIC]
+
+HKR, Ndi\params\MapRegisters,           ParamDesc,                      0,  %MapRegisters%
+HKR, Ndi\params\MapRegisters,           default,                        0x00002,  "256"
+HKR, Ndi\params\MapRegisters,           min,                            0,  "32"
+HKR, Ndi\params\MapRegisters,           max,                            0,  "512"
+HKR, Ndi\params\MapRegisters,           step,                           0,  "8"
+HKR, Ndi\params\MapRegisters,           base,                           0,  "10"
+HKR, Ndi\params\MapRegisters,           type,                           0,  "int"
+
+HKR, ,                                  clist,                          0x00002,  ""
+HKR, ,                                  HwTxRetries,                    0,  "5"
+HKR, ,                                  SwTxRetryScale,                 0,  "2"
+
+HKR, Ndi\params\QoS,                    ParamDesc,                      0,  %QoS%
+HKR, Ndi\params\QoS,                    Base,                           0,  "10"
+HKR, Ndi\params\QoS,                    default,                        0x00002,  "0"
+HKR, Ndi\params\QoS,                    type,                           0,  "enum"
+HKR, Ndi\params\QoS\enum,               "1",                            0,  "Enabled"
+HKR, Ndi\params\QoS\enum,               "0",                            0,  "Disabled"
+
+HKR, Ndi\params\radioEnable,            ParamDesc,                      0,  %radioEnable%
+HKR, Ndi\params\radioEnable,            Base,                           0,  "10"
+HKR, Ndi\params\radioEnable,            default,                        0x00002,  "1"
+HKR, Ndi\params\radioEnable,            type,                           0,  "enum"
+HKR, Ndi\params\radioEnable\enum,       "1",                            0,  "Enabled"
+HKR, Ndi\params\radioEnable\enum,       "0",                            0,  "Disabled"
+
+
+
+[reg_w2k_NIC1id]                 ; WCB5000
+HKR,,AdapterModel,               0,%NIC1_AdapterModel%
+HKR,,CardType,          0x00010001,1
+
+[reg_w2k_NIC2id]                 ; WM3A5000
+HKR,,AdapterModel,               0,%NIC2_AdapterModel%
+HKR,,CardType,          0x00010001,2
+
+[reg_w2k_NIC]
+HKR,,EnumPropPages32,            0, "wl5cfg.dll,NetPropPageProvider"
+
+HKR,,aifs,                       0x00002, "2"
+HKR,,AwakeTimePerf,              0x00002, "6000"
+HKR,,beaconInterval,             0x00002, "100"
+HKR,,bkScanEnable,               0x00002, "1"
+HKR,,bssType,                    0x00002, "1"
+HKR,,CLSGUID,                    0x00002, %INTEL_GUID%
+HKR,,cwmin,                      0x00002, "15"
+HKR,,defaultKey,                 0x00002, "1"
+HKR,,eepRD,                      0x00010003, 0
+HKR,,FragThreshold,              0x00002, "2346"
+HKR,,InitialInstall,             0x00002, "TRUE"
+HKR,,InitFile,                   0x00002, %InitFile%
+HKR,,key0,                       0x00002, ""
+HKR,,key1,                       0x00002, ""
+HKR,,key2,                       0x00002, ""
+HKR,,key3,                       0x00002, ""
+HKR,,keyLength0,                 0x00002, "0"
+HKR,,keyLength1,                 0x00002, "0"
+HKR,,keyLength2,                 0x00002, "0"
+HKR,,keyLength3,                 0x00002, "0"
+HKR,,NetworkAddress,             0x00002, " "    
+HKR,,privacyInvoked,             0x00002, "0"
+HKR,,Provider,                   0x00002, "Intel"
+HKR,,rateCtrlEnable,             0x00002, "1"
+HKR,,RTSThreshold,               0x00002, "2346"
+HKR,,SleepMode,                  0x00002, "2"
+HKR,,SleepTimePerf,              0x00002, "100"
+HKR,,SmeEnable,                  0x00002, "1"
+HKR,,ssid,                       0x00002, ""
+HKR,,tpc,                        0x00002, "0"    ;; highest power
+HKR,,TransmitRate,               0x00002, "5"    ;; 36 Mbps
+HKR,,TurboEnable,                0x00002, "0"
+HKR,,uniqKey,                    0x00002, ""
+HKR,,uniqKeyLength,              0x00002, "0"
+HKR,,promiscuousEnable,          0x00002, "0"
+HKR,,StealthEnable,              0x00002, "1"    ;; Stealth enable
+
+HKR, CustomParams\Configurations, MajorVersion,                   0x00010003,    1
+HKR, CustomParams\Configurations, MinorVersion,                   0x00010003,    0
+HKR, CustomParams\Configurations, SelectedConfigurationIndex,     0x00010003,    0
+HKR, CustomParams\Configurations, SelectedConfigurationName,         0x00002,    "Default"
+
+HKR, CustomParams\Configurations\Cfg0,  ConfigurationName,           0x00002,    "Default"
+HKR, CustomParams\Configurations\Cfg0,  DefaultKey,               0x00010003,    0
+HKR, CustomParams\Configurations\Cfg0,  EnableMacAddress,         0x00010003,    0
+HKR, CustomParams\Configurations\Cfg0,  EnableSecurity,           0x00010003,    0
+HKR, CustomParams\Configurations\Cfg0,  EnableTurbo,              0x00010003,    0
+HKR, CustomParams\Configurations\Cfg0,  MacAddress,                  0x00002,    ""
+HKR, CustomParams\Configurations\Cfg0,  NetworkConnectionType,    0x00010003,    1
+HKR, CustomParams\Configurations\Cfg0,  NetworkName,                 0x00002,    ""
+HKR, CustomParams\Configurations\Cfg0,  PowerManagement,          0x00010003,    1
+HKR, CustomParams\Configurations\Cfg0,  RateCtrlEnable,           0x00010003,    1
+HKR, CustomParams\Configurations\Cfg0,  TransmitRateIndex,        0x00010003,    5
+
+HKR, CustomParams\Configurations\Cfg0,  SharedKey1,                  0x00002,    ""
+HKR, CustomParams\Configurations\Cfg0,  SharedKey2,                  0x00002,    ""
+HKR, CustomParams\Configurations\Cfg0,  SharedKey3,                  0x00002,    ""
+HKR, CustomParams\Configurations\Cfg0,  SharedKey4,                  0x00002,    ""
+HKR, CustomParams\Configurations\Cfg0,  SharedKey1Length,         0x00010003,    40
+HKR, CustomParams\Configurations\Cfg0,  SharedKey2Length,         0x00010003,    40
+HKR, CustomParams\Configurations\Cfg0,  SharedKey3Length,         0x00010003,    40
+HKR, CustomParams\Configurations\Cfg0,  SharedKey4Length,         0x00010003,    40
+HKR, CustomParams\Configurations\Cfg0,  UniqueKey,                   0x00002,    ""
+HKR, CustomParams\Configurations\Cfg0,  UniqueKeyLength,          0x00010003,    40
+
+[reg_w2k_NDIS]
+HKR, Ndi\Interfaces,  UpperRange,   0, "ndis5"
+HKR, Ndi\Interfaces,  LowerRange,   0, "ethernet"
+HKR, Ndi,             Service,      0, "WL50ND5"
+
+[reg_w2k_CoInstaller]
+HKR,,CoInstallers32,0x10000,"wl5cfg.dll,SparksClassCoInstaller"
+
+[NIC_Service]
+DisplayName     = %NIC_Service_DispName%
+ServiceType     = 1 ;%SERVICE_KERNEL_DRIVER%
+StartType       = 3 ;%SERVICE_DEMAND_START%
+ErrorControl    = 1 ;%SERVICE_ERROR_NORMAL%
+ServiceBinary   = %12%\wl50nd5.sys
+LoadOrderGroup  = NDIS
+
+[common_EventLog]
+AddReg = common_AddEventLog_reg
+
+[common_AddEventLog_reg]
+HKR, , EventMessageFile,   0x00020000,   "%%SystemRoot%%\System32\netevent.dll"
+HKR, , TypesSupported,     0x00010001,   7
+
+;----------------------------------------------------------------------------
+; Win9x NDIS specific
+;
+[reg_w9x_NDIS]
+; Custom Ndi Install DLL
+HKR,Ndi,NdiInstaller,,"wl5ndi.dll,Sparks11aNdiProc"
+
+HKR,,DevLoader,,*ndis
+HKR,,DeviceVxDs,,"wl50nd5.sys"
+HKR,,EnumPropPages,,"netdi.dll,EnumPropPages"
+;
+; NDIS Info
+;
+HKR,NDIS,LogDriverName,,"wl50nd5"
+HKR,NDIS,MajorNdisVersion,1,03
+HKR,NDIS,MinorNdisVersion,1,0A
+;
+; Interfaces
+;
+HKR,Ndi\Interfaces,DefUpper,,"ndis3"
+HKR,Ndi\Interfaces,DefLower,,"ethernet"
+HKR,Ndi\Interfaces,UpperRange,,"ndis3"
+HKR,Ndi\Interfaces,LowerRange,,"ethernet"
+;
+; Install sections
+;
+HKR,Ndi\Install,,,"Intel_copyfiles_9xSystem"
+
+
+
+;-----------------------------------------------------------------------------
+; DestinationDirs
+;
+[Intel_copyfiles_w2kDriver]
+wl50nd5.sys,,,2
+
+[Intel_copyfiles_coinstaller]
+wl5cfg.dll,,,2
+
+[Intel_copyfiles_9xSystem]
+wl50nd5.sys,,,2
+
+[Intel_copyfiles_9xNdiInst]
+wl5ndi.dll
+wl5cfg.dll
+dm95.exe
+
+
+[SourceDisksNames]
+1=%SOURCEDISK1%,,
+
+[SourceDisksFiles]
+wl50nd5.sys    = 1,,
+wl5cfg.dll     = 1,,
+wl5ndi.dll     = 1,,
+dm95.exe       = 1,,
+
+
+[DestinationDirs]
+DefaultDestDir               =11  ; Windows\System
+Intel_copyfiles_w2kDriver    =12  ; Windows\System32\Drivers
+Intel_copyfiles_coinstaller  =11  ; Windows\System32
+Intel_copyfiles_9xSystem     =11  ; Windows\System
+Intel_copyfiles_9xNdiInst    =11  ; Windows\System 
+
+
+[Strings]
+PROVIDER_NAME                = "Intel"
+COMPANY_NAME                 = "Intel"
+NIC1                         = "Intel(R) PRO/Wireless 5000 LAN Cardbus Adapter"
+NIC2                         = "Intel(R) PRO/Wireless 5000 LAN 3A Mini PCI Adapter"
+NIC1_AdapterModel            = "PRO/Wireless 5000 LAN Cardbus Adapter"
+NIC2_AdapterModel            = "PRO/Wireless 5000 LAN 3A Mini PCI Adapter"
+NIC_Service_DispName         = "Intel(R) PRO/Wireless 5000 LAN Adapter Driver"
+SOURCEDISK1                  = "Intel(R) PRO/Wireless 5000 LAN Adapter Installation Disk"
+INTEL_GUID                   = "{F93AC681-94E1-4b32-B053-A163558CE1B9}"
+
+InitFile                     = "wl50nic.ini"
+MapRegisters                 = "Map Registers"
+Qos                          = "QoS (802.11e)"
+radioEnable                  = "Radio Enable"

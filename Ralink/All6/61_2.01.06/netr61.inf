@@ -1,0 +1,1366 @@
+;****************************************************************************************
+;
+; NETR61.INF
+;
+;   This installation script supports Windows Vista for the
+;   Ralink RT2561 & RT2661 series Wireless LAN Card.
+;
+;   Copyright (c)2009, Ralink Technology Corp., All Rights Reserved
+;   Developed by RaLink Technology, Corp. -- http://www.ralinktech.com
+;
+;****************************************************************************************
+
+[Version]
+Signature       = "$Chicago$"
+Class           = Net
+ClassGUID       = {4d36e972-e325-11ce-bfc1-08002be10318}
+Provider        = %Ralink%
+Compatible      = 1
+CatalogFile     = netr61.cat
+DriverVer       = 07/17/2009,2.01.06.0000
+
+[ControlFlags]
+ExcludeFromSelect = *
+
+[Manufacturer]
+%Ralink%        = Ralink
+%Gigabyte%      = Gigabyte
+%Edimax%        = Edimax
+%Sitecom%       = Sitecom
+%Delta%         = Delta
+%Hawking%       = Hawking
+%Billionton%    = Billionton
+%Asus%          = ASUS
+%ZINWELL%       = ZINWELL
+%AMIT%          = AMIT
+%CASTLENET%     = CASTLENET
+%ACCTON%        = ACCTON
+%Surecom%       = Surecom
+%Belkin%        = Belkin
+%VTech%         = VTech
+%Siemens%       = Siemens
+%Conceptronic%  = Conceptronic
+%SMC%           = SMC
+%CNet%          = CNet
+%Corega%        = Corega
+%Netopia%       = Netopia
+%AboCom%        = AboCom
+%Planex%        = Planex
+%Logitec%       = Logitec
+%Corega2%       = Corega2
+%D-Link%        = D-Link
+
+[Ralink]
+; DisplayName               Section                 DeviceID
+; -----------               -------                 --------
+%Ralink_0301.DeviceDesc%    = RALINK.ndi,           PCI\VEN_1814&DEV_0301&SUBSYS_25611814
+%Ralink_0302.DeviceDesc%    = RALINK.ndi,           PCI\VEN_1814&DEV_0302&SUBSYS_25611814
+%Ralink_0401.DeviceDesc%    = RALINK.ndi,           PCI\VEN_1814&DEV_0401&SUBSYS_26611814
+; MSI
+%M61_B833T.DeviceDesc%      = RALINK.ndi,           PCI\VEN_1814&DEV_0301&SUBSYS_B8331462
+%M61_B834T.DeviceDesc%      = RALINK.ndi,           PCI\VEN_1814&DEV_0301&SUBSYS_B8341462
+%M61_B835T.DeviceDesc%      = RALINK.ndi,           PCI\VEN_1814&DEV_0301&SUBSYS_B8351462
+%M61_B833.DeviceDesc%       = RALINK.ndi,           PCI\VEN_1814&DEV_0302&SUBSYS_B8331462
+%M61_B834.DeviceDesc%       = RALINK.ndi,           PCI\VEN_1814&DEV_0302&SUBSYS_B8341462
+%M61_B835.DeviceDesc%       = RALINK.ndi,           PCI\VEN_1814&DEV_0302&SUBSYS_B8351462
+%M61_C855.DeviceDesc%       = RALINK.ndi,           PCI\VEN_1814&DEV_0302&SUBSYS_C8551462
+; Winstron
+%WLANm.DeviceDesc%          = RALINK.ndi,           PCI\VEN_1814&DEV_0302&SUBSYS_12A0185F
+%WLANc.DeviceDesc%          = RALINK.ndi,           PCI\VEN_1814&DEV_0302&SUBSYS_22A0185F
+; Amigo
+%AMIGO_9142.DeviceDesc%     = RALINK.ndi,           PCI\VEN_1814&DEV_0301&SUBSYS_914216EF
+%AMIGO_9222.DeviceDesc%     = RALINK.ndi,           PCI\VEN_1814&DEV_0301&SUBSYS_922216EF
+%AMIGO_9262.DeviceDesc%     = RALINK.ndi,           PCI\VEN_1814&DEV_0301&SUBSYS_926216EF
+%AMIGO_9142V2.DeviceDesc%   = RALINK.ndi,           PCI\VEN_1814&DEV_0302&SUBSYS_914216EF
+%AMIGO_9221.DeviceDesc%     = RALINK.ndi,           PCI\VEN_1814&DEV_0302&SUBSYS_922116EF
+%AMIGO_9261.DeviceDesc%     = RALINK.ndi,           PCI\VEN_1814&DEV_0302&SUBSYS_926116EF
+%AMIGO_9223.DeviceDesc%     = RALINK.ndi,           PCI\VEN_1814&DEV_0401&SUBSYS_922316EF
+; CNet
+%CNetPCI.DeviceDesc%        = RALINK.ndi,           PCI\VEN_1814&DEV_0302&SUBSYS_00251371
+%CNetMPCI.DeviceDesc%       = RALINK.ndi,           PCI\VEN_1814&DEV_0302&SUBSYS_00261371
+%CNetCardbus.DeviceDesc%    = RALINK.ndi,           PCI\VEN_1814&DEV_0302&SUBSYS_00271371
+; Qcom
+%Qcom.DeviceDesc%           = RALINK.ndi,           PCI\VEN_1814&DEV_0302&SUBSYS_619418E8
+
+[Gigabyte]
+; DisplayName               Section                 DeviceID
+; -----------               -------                 --------
+%GigabyteWM01GS.DeviceDesc% = GIGABYTE.ndi,         PCI\VEN_1814&DEV_0301&SUBSYS_E8321458
+%GigabyteWI01GS.DeviceDesc% = GIGABYTE.ndi,         PCI\VEN_1814&DEV_0301&SUBSYS_E9331458
+%GigabyteWP01GS.DeviceDesc% = GIGABYTE.ndi,         PCI\VEN_1814&DEV_0301&SUBSYS_E9341458
+%GigabyteWM02GS.DeviceDesc% = GIGABYTE.ndi,         PCI\VEN_1814&DEV_0302&SUBSYS_E8321458
+%GigabyteWI02GS.DeviceDesc% = GIGABYTE.ndi,         PCI\VEN_1814&DEV_0302&SUBSYS_E9331458
+%GigabyteWP02GS.DeviceDesc% = GIGABYTE.ndi,         PCI\VEN_1814&DEV_0302&SUBSYS_E9341458
+%GigabyteWI02GM.DeviceDesc% = GIGABYTE.ndi,         PCI\VEN_1814&DEV_0401&SUBSYS_E9351458
+%GigabyteWM01GM.DeviceDesc% = GIGABYTE.ndi,         PCI\VEN_1814&DEV_0401&SUBSYS_E8331458
+%GigabyteWP01GM.DeviceDesc% = GIGABYTE.ndi,         PCI\VEN_1814&DEV_0401&SUBSYS_E9361458
+
+[Edimax]
+; DisplayName               Section                 DeviceID
+; -----------               -------                 --------
+%EW-0301-7108.DeviceDesc%   = Edimax.ndi,           PCI\VEN_1814&DEV_0301&SUBSYS_71081432
+%EW-0301-7128.DeviceDesc%   = Edimax.ndi,           PCI\VEN_1814&DEV_0301&SUBSYS_71281432
+%EW-7108.DeviceDesc%        = Edimax.ndi,           PCI\VEN_1814&DEV_0302&SUBSYS_71081432
+%EW-7128.DeviceDesc%        = Edimax.ndi,           PCI\VEN_1814&DEV_0302&SUBSYS_71281432
+%EW-7608.DeviceDesc%        = Edimax.ndi,           PCI\VEN_1814&DEV_0401&SUBSYS_76081432
+%EW-7628.DeviceDesc%        = Edimax.ndi,           PCI\VEN_1814&DEV_0401&SUBSYS_76281432
+
+[Sitecom]
+; DisplayName               Section                 DeviceID
+; -----------               -------                 --------
+%Sitecom_WL112V2.DeviceDesc% = SITECOM.ndi,         PCI\VEN_1814&DEV_0301&SUBSYS_9072182D
+%Sitecom_WL115V2.DeviceDesc% = SITECOM.ndi,         PCI\VEN_1814&DEV_0301&SUBSYS_9074182D
+%Sitecom_WL170.DeviceDesc%  = SITECOM.ndi,          PCI\VEN_1814&DEV_0301&SUBSYS_90AA182D
+%Sitecom_WL171.DeviceDesc%  = SITECOM.ndi,          PCI\VEN_1814&DEV_0301&SUBSYS_90AB182D
+%Sitecom_WL211.DeviceDesc%  = SITECOM.ndi,          PCI\VEN_1814&DEV_0301&SUBSYS_0025182D
+%Sitecom_WL210.DeviceDesc%  = SITECOM.ndi,          PCI\VEN_1814&DEV_0301&SUBSYS_0026182D
+%Sitecom_WL150.DeviceDesc%  = SITECOM.ndi,          PCI\VEN_1814&DEV_0401&SUBSYS_9096182D
+%Sitecom_WL151.DeviceDesc%  = SITECOM.ndi,          PCI\VEN_1814&DEV_0401&SUBSYS_9097182D
+
+[Delta]
+; DisplayName               Section                 DeviceID
+; -----------               -------                 --------
+%DeltaPCI.DeviceDesc%       = DELTA.ndi,            PCI\VEN_1814&DEV_0301&SUBSYS_701C4033
+%DeltaCB.DeviceDesc%        = DELTA.ndi,            PCI\VEN_1814&DEV_0301&SUBSYS_701B4033
+
+[Hawking]
+; DisplayName               Section                 DeviceID
+; -----------               -------                 --------
+%Hawking0C54.DeviceDesc%    = HAWKING.ndi,          PCI\VEN_1814&DEV_0302&SUBSYS_0C541432
+%Hawking0B54.DeviceDesc%    = HAWKING.ndi,          PCI\VEN_1814&DEV_0302&SUBSYS_0B541432
+
+[Billionton]
+; DisplayName               Section                 DeviceID
+; -----------               -------                 --------
+%GMIWLGRL2-B.DeviceDesc%   = BILLIONTON.ndi,        PCI\VEN_1814&DEV_0302&SUBSYS_020514CB
+%GMIWLGRL2-N.DeviceDesc%   = BILLIONTON.ndi,        PCI\VEN_1814&DEV_0302&SUBSYS_020614CB
+
+[ASUS]
+; DisplayName               Section                 DeviceID
+; -----------               -------                 --------
+%ASUS_837E.DeviceDesc%      = ASUS.ndi,             PCI\VEN_1814&DEV_0301&SUBSYS_837E1043
+%ASUS.DeviceDesc%           = ASUS.ndi,             PCI\VEN_1814&DEV_0302&SUBSYS_107F1043
+%ASUS.DeviceDesc%           = ASUS.ndi,             PCI\VEN_1814&DEV_0302&SUBSYS_127F1043
+%ASUS.DeviceDesc%           = ASUS.ndi,             PCI\VEN_1814&DEV_0302&SUBSYS_130F1043
+%ASUS.DeviceDesc%           = ASUS.ndi,             PCI\VEN_1814&DEV_0302&SUBSYS_137F1043
+%ASUSGEN.DeviceDesc%        = ASUS.ndi,             PCI\VEN_1814&DEV_0302&SUBSYS_137E1043
+
+[ZINWELL]
+; DisplayName               Section                 DeviceID
+; -----------               -------                 --------
+%ZINWELLPCI.DeviceDesc%     = ZINWELL.ndi,          PCI\VEN_1814&DEV_0302&SUBSYS_03615A57
+%ZINWELLMPCI.DeviceDesc%    = ZINWELL.ndi,          PCI\VEN_1814&DEV_0302&SUBSYS_03605A57
+%ZINWELLCARD.DeviceDesc%    = ZINWELL.ndi,          PCI\VEN_1814&DEV_0302&SUBSYS_01605A57
+%ZINWELLOEM1.DeviceDesc%    = ZINWELL.ndi,          PCI\VEN_1814&DEV_0302&SUBSYS_300918A3
+%ZINWELLOEM2.DeviceDesc%    = ZINWELL.ndi,          PCI\VEN_1814&DEV_0302&SUBSYS_301018A3
+
+[AMIT]
+; DisplayName               Section                 DeviceID
+; -----------               -------                 --------
+%AMIT.DeviceDesc%           = AMIT.ndi,             PCI\VEN_1814&DEV_0302&SUBSYS_531018EB
+%AMITMINI.DeviceDesc%       = AMIT.ndi,             PCI\VEN_1814&DEV_0302&SUBSYS_531118EB
+%AMITPCI.DeviceDesc%        = AMIT.ndi,             PCI\VEN_1814&DEV_0302&SUBSYS_531218EB
+%AMIT0100.DeviceDesc%       = AMIT.ndi,             PCI\VEN_1814&DEV_0401&SUBSYS_010018EB
+%AMIT0200.DeviceDesc%       = AMIT.ndi,             PCI\VEN_1814&DEV_0401&SUBSYS_020018EB
+%AMIT0300.DeviceDesc%       = AMIT.ndi,             PCI\VEN_1814&DEV_0401&SUBSYS_030018EB
+%AMIT0202.DeviceDesc%       = AMIT.ndi,             PCI\VEN_1814&DEV_0401&SUBSYS_020218EB
+%AMIT0302.DeviceDesc%       = AMIT.ndi,             PCI\VEN_1814&DEV_0401&SUBSYS_030218EB
+%AMIT0203.DeviceDesc%       = AMIT.ndi,             PCI\VEN_1814&DEV_0401&SUBSYS_020318EB
+%AMIT0303.DeviceDesc%       = AMIT.ndi,             PCI\VEN_1814&DEV_0401&SUBSYS_030318EB
+%AMIT0204.DeviceDesc%       = AMIT.ndi,             PCI\VEN_1814&DEV_0401&SUBSYS_020418EB
+%AMIT0304.DeviceDesc%       = AMIT.ndi,             PCI\VEN_1814&DEV_0401&SUBSYS_030418EB
+%AMITCG.DeviceDesc%         = AMIT.ndi,             PCI\VEN_1814&DEV_0401&SUBSYS_C11E1259
+%AMIT0006.DeviceDesc%       = AMIT.ndi,             PCI\VEN_1814&DEV_0401&SUBSYS_000618C5
+
+[CASTLENET]
+; DisplayName               Section                 DeviceID
+; -----------               -------                 --------
+%CASTLENET.DeviceDesc%      = CASTLENET.ndi,        PCI\VEN_1814&DEV_0302&SUBSYS_12801688
+
+[ACCTON]
+; DisplayName               Section                 DeviceID
+; -----------               -------                 --------
+%WN4306A.DeviceDesc%        = WN4306A.ndi,          PCI\VEN_1814&DEV_0302&SUBSYS_43061113
+
+[Surecom]
+; DisplayName               Section                 DeviceID
+; -----------               -------                 --------
+%SurecomPCI.DeviceDesc%     = SURECOM.ndi,          PCI\VEN_1814&DEV_0302&SUBSYS_13F310BD
+%SurecomCardbus.DeviceDesc% = SURECOM.ndi,          PCI\VEN_1814&DEV_0302&SUBSYS_14F310BD
+
+[Belkin]
+; DisplayName               Section                 DeviceID
+; -----------               -------                 --------
+%Belkin.DeviceDesc%         = BELKIN.ndi,           PCI\VEN_1814&DEV_0302&SUBSYS_701A1799
+%Belkin.DeviceDesc%         = BELKIN.ndi,           PCI\VEN_1814&DEV_0302&SUBSYS_700A1799
+%Belkin_901B.DeviceDesc%    = BELKIN.ndi,           PCI\VEN_1814&DEV_0401&SUBSYS_901B1799
+%Belkin_901C.DeviceDesc%    = BELKIN.ndi,           PCI\VEN_1814&DEV_0401&SUBSYS_901C1799
+%Belkin_700E.DeviceDesc%    = BELKIN.ndi,           PCI\VEN_1814&DEV_0301&SUBSYS_700E1799
+%Belkin_700E.DeviceDesc%    = BELKIN.ndi,           PCI\VEN_1814&DEV_0302&SUBSYS_700E1799
+%Belkin_701E.DeviceDesc%    = BELKIN.ndi,           PCI\VEN_1814&DEV_0301&SUBSYS_701E1799
+%Belkin_701E.DeviceDesc%    = BELKIN.ndi,           PCI\VEN_1814&DEV_0302&SUBSYS_701E1799
+
+[VTech]
+; DisplayName               Section                 DeviceID
+; -----------               -------                 --------
+%VTechPCI.DeviceDesc%       = VTECH.ndi,            PCI\VEN_1814&DEV_0302&SUBSYS_301118A3
+%VTechCARD.DeviceDesc%      = VTECH.ndi,            PCI\VEN_1814&DEV_0302&SUBSYS_301318A3
+
+[Siemens]
+; DisplayName               Section                 DeviceID
+; -----------               -------                 --------
+%Siemens.DeviceDesc%        = SIEMENS.ndi,          PCI\VEN_1814&DEV_0302&SUBSYS_3C800681
+
+[Conceptronic]
+; DisplayName               Section                 DeviceID
+; -----------               -------                 --------
+%Conceptronic_PCCard.DeviceDesc% = CONCEPTRONIC.ndi,  PCI\VEN_1814&DEV_0302&SUBSYS_3C231948
+%Conceptronic_PCICard.DeviceDesc% = CONCEPTRONIC.ndi, PCI\VEN_1814&DEV_0302&SUBSYS_3C241948
+
+[SMC]
+; DisplayName               Section                 DeviceID
+; -----------               -------                 --------
+%SMC_EE04.DeviceDesc%       = SMC.ndi,              PCI\VEN_1814&DEV_0401&SUBSYS_EE041113
+%SMC_EE05.DeviceDesc%       = SMC.ndi,              PCI\VEN_1814&DEV_0401&SUBSYS_EE051113
+
+[CNet]
+; DisplayName               Section                 DeviceID
+; -----------               -------                 --------
+%CNet_6221.DeviceDesc%      = CNET.ndi,             PCI\VEN_1814&DEV_0301&SUBSYS_62211371
+%CNet_7221.DeviceDesc%      = CNET.ndi,             PCI\VEN_1814&DEV_0301&SUBSYS_72211371
+%CNet_8221.DeviceDesc%      = CNET.ndi,             PCI\VEN_1814&DEV_0301&SUBSYS_82211371
+%CNet_6121.DeviceDesc%      = CNET.ndi,             PCI\VEN_1814&DEV_0302&SUBSYS_61211371
+%CNet_7121.DeviceDesc%      = CNET.ndi,             PCI\VEN_1814&DEV_0302&SUBSYS_71211371
+%CNet_8121.DeviceDesc%      = CNET.ndi,             PCI\VEN_1814&DEV_0302&SUBSYS_81211371
+%CNet_6321.DeviceDesc%      = CNET.ndi,             PCI\VEN_1814&DEV_0401&SUBSYS_63211371
+%CNet_7321.DeviceDesc%      = CNET.ndi,             PCI\VEN_1814&DEV_0401&SUBSYS_73211371
+%CNet_8321.DeviceDesc%      = CNET.ndi,             PCI\VEN_1814&DEV_0401&SUBSYS_83211371
+
+[Corega]
+; DisplayName               Section                 DeviceID
+; -----------               -------                 --------
+%Corega.DeviceDesc%         = Corega.ndi,           PCI\VEN_1814&DEV_0401&SUBSYS_C11D1259
+
+[Netopia]
+; DisplayName               Section                 DeviceID
+; -----------               -------                 --------
+%Netopia.DeviceDesc%        = Netopia.ndi,          PCI\VEN_1814&DEV_0302&SUBSYS_914116EF
+
+[AboCom]
+; DisplayName                    Section            DeviceID
+; -----------                    -------            --------
+%AboCom_0301_ABA1.DeviceDesc%    = AboCom.ndi,      PCI\VEN_1814&DEV_0301&SUBSYS_ABA113D1
+%AboCom_0301_ABA2.DeviceDesc%    = AboCom.ndi,      PCI\VEN_1814&DEV_0301&SUBSYS_ABA213D1
+%AboCom_0301_ABA4.DeviceDesc%    = AboCom.ndi,      PCI\VEN_1814&DEV_0301&SUBSYS_ABA413D1
+%AboCom_0301_ABA5.DeviceDesc%    = AboCom.ndi,      PCI\VEN_1814&DEV_0301&SUBSYS_ABA513D1
+%AboCom_0301_ABE3.DeviceDesc%    = AboCom.ndi,      PCI\VEN_1814&DEV_0301&SUBSYS_ABE313D1
+%AboCom_0301_ABE4.DeviceDesc%    = AboCom.ndi,      PCI\VEN_1814&DEV_0301&SUBSYS_ABE413D1
+%AboCom_0302_ABA1.DeviceDesc%    = AboCom.ndi,      PCI\VEN_1814&DEV_0302&SUBSYS_ABA113D1
+%AboCom_0401_ABA7.DeviceDesc%    = AboCom.ndi,      PCI\VEN_1814&DEV_0401&SUBSYS_ABA713D1
+%AboCom_0401_ABA1.DeviceDesc%    = AboCom.ndi,      PCI\VEN_1814&DEV_0401&SUBSYS_ABA113D1
+%AboCom_0401_ABA3.DeviceDesc%    = AboCom.ndi,      PCI\VEN_1814&DEV_0401&SUBSYS_ABA313D1
+%AboCom_0401_ABE5.DeviceDesc%    = AboCom.ndi,      PCI\VEN_1814&DEV_0401&SUBSYS_ABE513D1
+%AboCom_0401_ABA6.DeviceDesc%    = AboCom.ndi,      PCI\VEN_1814&DEV_0401&SUBSYS_ABA613D1
+
+[Planex]
+; DisplayName               Section                 DeviceID
+; -----------               -------                 --------
+%Planex.DeviceDesc%         = Planex.ndi,           PCI\VEN_1814&DEV_0401&SUBSYS_AB1914EA
+
+[Logitec]
+; DisplayName               Section                 DeviceID
+; -----------               -------                 --------
+%Logitec.DeviceDesc%        = Logitec.ndi,          PCI\VEN_1814&DEV_0301&SUBSYS_002C6409
+
+[Corega2]
+; DisplayName               Section                 DeviceID
+; -----------               -------                 --------
+%Corega2_C123.DeviceDesc%   = Corega2.ndi,          PCI\VEN_1814&DEV_0301&SUBSYS_C1231259
+
+[D-Link]
+; DisplayName                    Section            DeviceID
+; -----------                    -------            --------
+%D-Link_0301_3C08.DeviceDesc%    = D-Link.ndi,      PCI\VEN_1814&DEV_0301&SUBSYS_3C081186
+%D-Link_0301_3C09.DeviceDesc%    = D-Link.ndi,      PCI\VEN_1814&DEV_0301&SUBSYS_3C091186
+%D-Link_0302_3C08.DeviceDesc%    = D-Link.ndi,      PCI\VEN_1814&DEV_0302&SUBSYS_3C081186
+%D-Link_0302_3C09.DeviceDesc%    = D-Link.ndi,      PCI\VEN_1814&DEV_0302&SUBSYS_3C091186
+%D-Link_0302_3C10.DeviceDesc%    = D-Link.ndi,      PCI\VEN_1814&DEV_0302&SUBSYS_3C101186
+%D-Link_0302_3C11.DeviceDesc%    = D-Link.ndi,      PCI\VEN_1814&DEV_0302&SUBSYS_3C111186
+%D-Link_0302_3A71.DeviceDesc%    = D-Link.ndi,      PCI\VEN_1814&DEV_0302&SUBSYS_3A711186
+%D-Link_0302_3A72.DeviceDesc%    = D-Link.ndi,      PCI\VEN_1814&DEV_0302&SUBSYS_3A721186
+%D-Link_0302_3C12.DeviceDesc%    = D-Link.ndi,      PCI\VEN_1814&DEV_0401&SUBSYS_3C121186
+%D-Link_0302_3C13.DeviceDesc%    = D-Link.ndi,      PCI\VEN_1814&DEV_0401&SUBSYS_3C131186
+
+;*******************************************************************************************
+; NT specific entries
+;*******************************************************************************************
+
+[RALINK.ndi.NT]
+AddReg                  = RT61.reg
+Characteristics         = 0x84                      ; NCF_REMOVABLE | NCF_HAS_UI | NCF_PHYSICAL
+BusType                 = 5
+CopyFiles               = NT.CopyFiles
+*IfType                 = 71                        ; IF_TYPE_IEEE80211
+*MediaType              = 16                        ; NdisMediumNative802_11
+*PhysicalMediaType      = 9                         ; NdisPhysicalMediumNative802_11
+
+[GIGABYTE.ndi.NT]
+AddReg                  = RT61.reg
+Characteristics         = 0x84                      ; NCF_REMOVABLE | NCF_HAS_UI | NCF_PHYSICAL
+BusType                 = 5
+CopyFiles               = NT.CopyFiles
+*IfType                 = 71                        ; IF_TYPE_IEEE80211
+*MediaType              = 16                        ; NdisMediumNative802_11
+*PhysicalMediaType      = 9                         ; NdisPhysicalMediumNative802_11
+
+[Edimax.ndi.NT]
+AddReg                  = RT61.reg
+Characteristics         = 0x84                      ; NCF_REMOVABLE | NCF_HAS_UI | NCF_PHYSICAL
+BusType                 = 5
+CopyFiles               = NT.CopyFiles
+*IfType                 = 71                        ; IF_TYPE_IEEE80211
+*MediaType              = 16                        ; NdisMediumNative802_11
+*PhysicalMediaType      = 9                         ; NdisPhysicalMediumNative802_11
+
+[SITECOM.ndi.NT]
+AddReg                  = RT61.reg
+Characteristics         = 0x84                      ; NCF_REMOVABLE | NCF_HAS_UI | NCF_PHYSICAL
+BusType                 = 5
+CopyFiles               = NT.CopyFiles
+*IfType                 = 71                        ; IF_TYPE_IEEE80211
+*MediaType              = 16                        ; NdisMediumNative802_11
+*PhysicalMediaType      = 9                         ; NdisPhysicalMediumNative802_11
+
+[DELTA.ndi.NT]
+AddReg                  = RT61.reg
+Characteristics         = 0x84                      ; NCF_REMOVABLE | NCF_HAS_UI | NCF_PHYSICAL
+BusType                 = 5
+CopyFiles               = NT.CopyFiles
+*IfType                 = 71                        ; IF_TYPE_IEEE80211
+*MediaType              = 16                        ; NdisMediumNative802_11
+*PhysicalMediaType      = 9                         ; NdisPhysicalMediumNative802_11
+
+[HAWKING.ndi.NT]
+AddReg                  = RT61.reg
+Characteristics         = 0x84                      ; NCF_REMOVABLE | NCF_HAS_UI | NCF_PHYSICAL
+BusType                 = 5
+CopyFiles               = NT.CopyFiles
+*IfType                 = 71                        ; IF_TYPE_IEEE80211
+*MediaType              = 16                        ; NdisMediumNative802_11
+*PhysicalMediaType      = 9                         ; NdisPhysicalMediumNative802_11
+
+[BILLIONTON.ndi.NT]
+AddReg                  = RT61.reg
+Characteristics         = 0x84                      ; NCF_REMOVABLE | NCF_HAS_UI | NCF_PHYSICAL
+BusType                 = 5
+CopyFiles               = NT.CopyFiles
+*IfType                 = 71                        ; IF_TYPE_IEEE80211
+*MediaType              = 16                        ; NdisMediumNative802_11
+*PhysicalMediaType      = 9                         ; NdisPhysicalMediumNative802_11
+
+[ASUS.ndi.NT]
+AddReg                  = RT61.reg
+Characteristics         = 0x84                      ; NCF_REMOVABLE | NCF_HAS_UI | NCF_PHYSICAL
+BusType                 = 5
+CopyFiles               = NT.CopyFiles
+*IfType                 = 71                        ; IF_TYPE_IEEE80211
+*MediaType              = 16                        ; NdisMediumNative802_11
+*PhysicalMediaType      = 9                         ; NdisPhysicalMediumNative802_11
+
+[ZINWELL.ndi.NT]
+AddReg                  = RT61.reg
+Characteristics         = 0x84                      ; NCF_REMOVABLE | NCF_HAS_UI | NCF_PHYSICAL
+BusType                 = 5
+CopyFiles               = NT.CopyFiles
+*IfType                 = 71                        ; IF_TYPE_IEEE80211
+*MediaType              = 16                        ; NdisMediumNative802_11
+*PhysicalMediaType      = 9                         ; NdisPhysicalMediumNative802_11
+
+[AMIT.ndi.NT]
+AddReg                  = RT61.reg
+Characteristics         = 0x84                      ; NCF_REMOVABLE | NCF_HAS_UI | NCF_PHYSICAL
+BusType                 = 5
+CopyFiles               = NT.CopyFiles
+*IfType                 = 71                        ; IF_TYPE_IEEE80211
+*MediaType              = 16                        ; NdisMediumNative802_11
+*PhysicalMediaType      = 9                         ; NdisPhysicalMediumNative802_11
+
+[CASTLENET.ndi.NT]
+AddReg                  = RT61.reg
+Characteristics         = 0x84                      ; NCF_REMOVABLE | NCF_HAS_UI | NCF_PHYSICAL
+BusType                 = 5
+CopyFiles               = NT.CopyFiles
+*IfType                 = 71                        ; IF_TYPE_IEEE80211
+*MediaType              = 16                        ; NdisMediumNative802_11
+*PhysicalMediaType      = 9                         ; NdisPhysicalMediumNative802_11
+
+[WN4306A.ndi.NT]
+AddReg                  = RT61.reg
+Characteristics         = 0x84                      ; NCF_REMOVABLE | NCF_HAS_UI | NCF_PHYSICAL
+BusType                 = 5
+CopyFiles               = NT.CopyFiles
+*IfType                 = 71                        ; IF_TYPE_IEEE80211
+*MediaType              = 16                        ; NdisMediumNative802_11
+*PhysicalMediaType      = 9                         ; NdisPhysicalMediumNative802_11
+
+[SURECOM.ndi.NT]
+AddReg                  = RT61.reg
+Characteristics         = 0x84                      ; NCF_REMOVABLE | NCF_HAS_UI | NCF_PHYSICAL
+BusType                 = 5
+CopyFiles               = NT.CopyFiles
+*IfType                 = 71                        ; IF_TYPE_IEEE80211
+*MediaType              = 16                        ; NdisMediumNative802_11
+*PhysicalMediaType      = 9                         ; NdisPhysicalMediumNative802_11
+
+[BELKIN.ndi.NT]
+AddReg                  = RT61.reg
+Characteristics         = 0x84                      ; NCF_REMOVABLE | NCF_HAS_UI | NCF_PHYSICAL
+BusType                 = 5
+CopyFiles               = NT.CopyFiles
+*IfType                 = 71                        ; IF_TYPE_IEEE80211
+*MediaType              = 16                        ; NdisMediumNative802_11
+*PhysicalMediaType      = 9                         ; NdisPhysicalMediumNative802_11
+
+[VTECH.ndi.NT]
+AddReg                  = RT61.reg
+Characteristics         = 0x84                      ; NCF_REMOVABLE | NCF_HAS_UI | NCF_PHYSICAL
+BusType                 = 5
+CopyFiles               = NT.CopyFiles
+*IfType                 = 71                        ; IF_TYPE_IEEE80211
+*MediaType              = 16                        ; NdisMediumNative802_11
+*PhysicalMediaType      = 9                         ; NdisPhysicalMediumNative802_11
+
+[SIEMENS.ndi.NT]
+AddReg                  = RT61.reg
+Characteristics         = 0x84                      ; NCF_REMOVABLE | NCF_HAS_UI | NCF_PHYSICAL
+BusType                 = 5
+CopyFiles               = NT.CopyFiles
+*IfType                 = 71                        ; IF_TYPE_IEEE80211
+*MediaType              = 16                        ; NdisMediumNative802_11
+*PhysicalMediaType      = 9                         ; NdisPhysicalMediumNative802_11
+
+[CONCEPTRONIC.ndi.NT]
+AddReg                  = RT61.reg
+Characteristics         = 0x84                      ; NCF_REMOVABLE | NCF_HAS_UI | NCF_PHYSICAL
+BusType                 = 5
+CopyFiles               = NT.CopyFiles
+*IfType                 = 71                        ; IF_TYPE_IEEE80211
+*MediaType              = 16                        ; NdisMediumNative802_11
+*PhysicalMediaType      = 9                         ; NdisPhysicalMediumNative802_11
+
+[SMC.ndi.NT]
+AddReg                  = RT61.reg
+Characteristics         = 0x84                      ; NCF_REMOVABLE | NCF_HAS_UI | NCF_PHYSICAL
+BusType                 = 5
+CopyFiles               = NT.CopyFiles
+*IfType                 = 71                        ; IF_TYPE_IEEE80211
+*MediaType              = 16                        ; NdisMediumNative802_11
+*PhysicalMediaType      = 9                         ; NdisPhysicalMediumNative802_11
+
+[CNET.ndi.NT]
+AddReg                  = RT61.reg
+Characteristics         = 0x84                      ; NCF_REMOVABLE | NCF_HAS_UI | NCF_PHYSICAL
+BusType                 = 5
+CopyFiles               = NT.CopyFiles
+*IfType                 = 71                        ; IF_TYPE_IEEE80211
+*MediaType              = 16                        ; NdisMediumNative802_11
+*PhysicalMediaType      = 9                         ; NdisPhysicalMediumNative802_11
+
+[Corega.ndi.NT]
+AddReg                  = RT61.reg
+Characteristics         = 0x84                      ; NCF_REMOVABLE | NCF_HAS_UI | NCF_PHYSICAL
+BusType                 = 5
+CopyFiles               = NT.CopyFiles
+*IfType                 = 71                        ; IF_TYPE_IEEE80211
+*MediaType              = 16                        ; NdisMediumNative802_11
+*PhysicalMediaType      = 9                         ; NdisPhysicalMediumNative802_11
+
+[Netopia.ndi.NT]
+AddReg                  = RT61.reg
+Characteristics         = 0x84                      ; NCF_REMOVABLE | NCF_HAS_UI | NCF_PHYSICAL
+BusType                 = 5
+CopyFiles               = NT.CopyFiles
+*IfType                 = 71                        ; IF_TYPE_IEEE80211
+*MediaType              = 16                        ; NdisMediumNative802_11
+*PhysicalMediaType      = 9                         ; NdisPhysicalMediumNative802_11
+
+[AboCom.ndi.NT]
+AddReg                  = RT61.reg
+Characteristics         = 0x84                      ; NCF_REMOVABLE | NCF_HAS_UI | NCF_PHYSICAL
+BusType                 = 5
+CopyFiles               = NT.CopyFiles
+*IfType                 = 71                        ; IF_TYPE_IEEE80211
+*MediaType              = 16                        ; NdisMediumNative802_11
+*PhysicalMediaType      = 9                         ; NdisPhysicalMediumNative802_11
+
+[Planex.ndi.NT]
+AddReg                  = RT61.reg
+Characteristics         = 0x84                      ; NCF_REMOVABLE | NCF_HAS_UI | NCF_PHYSICAL
+BusType                 = 5
+CopyFiles               = NT.CopyFiles
+*IfType                 = 71                        ; IF_TYPE_IEEE80211
+*MediaType              = 16                        ; NdisMediumNative802_11
+*PhysicalMediaType      = 9                         ; NdisPhysicalMediumNative802_11
+
+[Logitec.ndi.NT]
+AddReg                  = RT61.reg
+Characteristics         = 0x84                      ; NCF_REMOVABLE | NCF_HAS_UI | NCF_PHYSICAL
+BusType                 = 5
+CopyFiles               = NT.CopyFiles
+*IfType                 = 71                        ; IF_TYPE_IEEE80211
+*MediaType              = 16                        ; NdisMediumNative802_11
+*PhysicalMediaType      = 9                         ; NdisPhysicalMediumNative802_11
+
+[Corega2.ndi.NT]
+AddReg                  = RT61.reg, Customer1.reg
+Characteristics         = 0x84                      ; NCF_REMOVABLE | NCF_HAS_UI | NCF_PHYSICAL
+BusType                 = 5
+CopyFiles               = NT.CopyFiles
+*IfType                 = 71                        ; IF_TYPE_IEEE80211
+*MediaType              = 16                        ; NdisMediumNative802_11
+*PhysicalMediaType      = 9                         ; NdisPhysicalMediumNative802_11
+
+[D-Link.ndi.NT]
+AddReg                  = RT61.reg, Customer2.reg
+Characteristics         = 0x84                      ; NCF_REMOVABLE | NCF_HAS_UI | NCF_PHYSICAL
+BusType                 = 5
+CopyFiles               = NT.CopyFiles
+*IfType			= 71                        ; IF_TYPE_IEEE80211
+*MediaType		= 16                        ; NdisMediumNative802_11
+*PhysicalMediaType	= 9                         ; NdisPhysicalMediumNative802_11
+
+;*******************************************************************************************
+; NT services sections
+;*******************************************************************************************
+[RALINK.ndi.NT.Services]
+AddService              = rt61x86, 2, RALINK.Service, common.EventLog
+
+[GIGABYTE.ndi.NT.Services]
+AddService              = rt61x86, 2, GIGABYTE.Service, common.EventLog
+
+[Edimax.ndi.NT.Services]
+AddService              = rt61x86, 2, Edimax.Service, common.EventLog
+
+[SITECOM.ndi.NT.Services]
+AddService              = rt61x86, 2, SITECOM.Service, common.EventLog
+
+[DELTA.ndi.NT.Services]
+AddService              = rt61x86, 2, DELTA.Service, common.EventLog
+
+[HAWKING.ndi.NT.Services]
+AddService              = rt61x86, 2, HAWKING.Service, common.EventLog
+
+[BILLIONTON.ndi.NT.Services]
+AddService              = rt61x86, 2, BILLIONTON.Service, common.EventLog
+
+[ASUS.ndi.NT.Services]
+AddService              = rt61x86, 2, ASUS.Service, common.EventLog
+
+[ZINWELL.ndi.NT.Services]
+AddService              = rt61x86, 2, ZINWELL.Service, common.EventLog
+
+[AMIT.ndi.NT.Services]
+AddService              = rt61x86, 2, AMIT.Service, common.EventLog
+
+[CASTLENET.ndi.NT.Services]
+AddService              = rt61x86, 2, CASTLENET.Service, common.EventLog
+
+[WN4306A.ndi.NT.Services]
+AddService              = rt61x86, 2, WN4306A.Service, common.EventLog
+
+[SURECOM.ndi.NT.Services]
+AddService              = rt61x86, 2, SURECOM.Service, common.EventLog
+
+[BELKIN.ndi.NT.Services]
+AddService              = rt61x86, 2, BELKIN.Service, common.EventLog
+
+[VTECH.ndi.NT.Services]
+AddService              = rt61x86, 2, VTECH.Service, common.EventLog
+
+[SIEMENS.ndi.NT.Services]
+AddService              = rt61x86, 2, SIEMENS.Service, common.EventLog
+
+[CONCEPTRONIC.ndi.NT.Services]
+AddService              = rt61x86, 2, CONCEPTRONIC.Service, common.EventLog
+
+[SMC.ndi.NT.Services]
+AddService              = rt61x86, 2, SMC.Service, common.EventLog
+
+[CNET.ndi.NT.Services]
+AddService              = rt61x86, 2, CNET.Service, common.EventLog
+
+[Corega.ndi.NT.Services]
+AddService              = rt61x86, 2, Corega.Service, common.EventLog
+
+[Netopia.ndi.NT.Services]
+AddService              = rt61x86, 2, Netopia.Service, common.EventLog
+
+[AboCom.ndi.NT.Services]
+AddService              = rt61x86, 2, General.Service, common.EventLog
+
+[Planex.ndi.NT.Services]
+AddService              = rt61x86, 2, General.Service, common.EventLog
+
+[Logitec.ndi.NT.Services]
+AddService              = rt61x86, 2, General.Service, common.EventLog
+
+[Corega2.ndi.NT.Services]
+AddService              = rt61x86, 2, Corega.Service, common.EventLog
+
+[D-Link.ndi.NT.Services]
+AddService              = rt61x86, 2, General.Service, common.EventLog
+
+;*******************************************************************************************
+; NT CoInstallers Sections
+;*******************************************************************************************
+[RALINK.ndi.NT.CoInstallers]
+CopyFiles = CoInstaller.CopyFiles
+AddReg = CoInstaller_AddReg
+
+[GIGABYTE.ndi.NT.CoInstallers]
+CopyFiles = CoInstaller.CopyFiles
+AddReg = CoInstaller_AddReg
+
+[Edimax.ndi.NT.CoInstallers]
+CopyFiles = CoInstaller.CopyFiles
+AddReg = CoInstaller_AddReg
+
+[SITECOM.ndi.NT.CoInstallers]
+CopyFiles = CoInstaller.CopyFiles
+AddReg = CoInstaller_AddReg
+
+[DELTA.ndi.NT.CoInstallers]
+CopyFiles = CoInstaller.CopyFiles
+AddReg = CoInstaller_AddReg
+
+[HAWKING.ndi.NT.CoInstallers]
+CopyFiles = CoInstaller.CopyFiles
+AddReg = CoInstaller_AddReg
+
+[BILLIONTON.ndi.NT.CoInstallers]
+CopyFiles = CoInstaller.CopyFiles
+AddReg = CoInstaller_AddReg
+
+[ASUS.ndi.NT.CoInstallers]
+CopyFiles = CoInstaller.CopyFiles
+AddReg = CoInstaller_AddReg
+
+[ZINWELL.ndi.NT.CoInstallers]
+CopyFiles = CoInstaller.CopyFiles
+AddReg = CoInstaller_AddReg
+
+[AMIT.ndi.NT.CoInstallers]
+CopyFiles = CoInstaller.CopyFiles
+AddReg = CoInstaller_AddReg
+
+[CASTLENET.ndi.NT.CoInstallers]
+CopyFiles = CoInstaller.CopyFiles
+AddReg = CoInstaller_AddReg
+
+[WN4306A.ndi.NT.CoInstallers]
+CopyFiles = CoInstaller.CopyFiles
+AddReg = CoInstaller_AddReg
+
+[SURECOM.ndi.NT.CoInstallers]
+CopyFiles = CoInstaller.CopyFiles
+AddReg = CoInstaller_AddReg
+
+[BELKIN.ndi.NT.CoInstallers]
+CopyFiles = CoInstaller.CopyFiles
+AddReg = CoInstaller_AddReg
+
+[VTECH.ndi.NT.CoInstallers]
+CopyFiles = CoInstaller.CopyFiles
+AddReg = CoInstaller_AddReg
+
+[SIEMENS.ndi.NT.CoInstallers]
+CopyFiles = CoInstaller.CopyFiles
+AddReg = CoInstaller_AddReg
+
+[CONCEPTRONIC.ndi.NT.CoInstallers]
+CopyFiles = CoInstaller.CopyFiles
+AddReg = CoInstaller_AddReg
+
+[SMC.ndi.NT.CoInstallers]
+CopyFiles = CoInstaller.CopyFiles
+AddReg = CoInstaller_AddReg
+
+[CNET.ndi.NT.CoInstallers]
+CopyFiles = CoInstaller.CopyFiles
+AddReg = CoInstaller_AddReg
+
+[Corega.ndi.NT.CoInstallers]
+CopyFiles = CoInstaller.CopyFiles
+AddReg = CoInstaller_AddReg
+
+[Netopia.ndi.NT.CoInstallers]
+CopyFiles = CoInstaller.CopyFiles
+AddReg = CoInstaller_AddReg
+
+[AboCom.ndi.NT.CoInstallers]
+CopyFiles = CoInstaller.CopyFiles
+AddReg = CoInstaller_AddReg
+
+[Planex.ndi.NT.CoInstallers]
+CopyFiles = CoInstaller.CopyFiles
+AddReg = CoInstaller_AddReg
+
+[Logitec.ndi.NT.CoInstallers]
+CopyFiles = CoInstaller.CopyFiles
+AddReg = CoInstaller_AddReg
+
+[Corega2.ndi.NT.CoInstallers]
+CopyFiles = CoInstaller.CopyFiles
+AddReg = CoInstaller_AddReg
+
+[D-Link.ndi.NT.CoInstallers]
+CopyFiles = CoInstaller.CopyFiles
+AddReg = CoInstaller_AddReg
+
+;*******************************************************************************************
+; RT61 registry for Windows Vista
+;*******************************************************************************************
+[RT61.reg]
+HKR, Ndi,                       Service,    0, "rt61x86"
+
+HKR, Ndi\Interfaces,            UpperRange, 0, "ndis5"
+HKR, Ndi\Interfaces,            LowerRange, 0, "wlan,ethernet"
+
+;
+; WirelessMode
+;
+HKR, ,                            WirelessMode,    0, "3"
+
+;
+; Channel
+;
+HKR, ,                            Channel,         0, %CHANNEL%
+HKR, Default,                     Channel,         0, %CHANNEL%
+
+;
+; Country Region G Band
+;
+HKR, ,                                 CountryRegion,      0, "0"
+HKR, NDI\params\CountryRegion,         ParamDesc,          0, %CountryRegion24G%
+HKR, NDI\params\CountryRegion,         type,               0, "enum"
+HKR, NDI\params\CountryRegion,         default,            0, "0"
+HKR, NDI\params\CountryRegion\enum,    0,                  0, %CountryRegion24G_0%
+HKR, NDI\params\CountryRegion\enum,    1,                  0, %CountryRegion24G_1%
+HKR, NDI\params\CountryRegion\enum,    2,                  0, %CountryRegion24G_2%
+HKR, NDI\params\CountryRegion\enum,    3,                  0, %CountryRegion24G_3%
+HKR, NDI\params\CountryRegion\enum,    4,                  0, %CountryRegion24G_4%
+HKR, NDI\params\CountryRegion\enum,    5,                  0, %CountryRegion24G_5%
+HKR, NDI\params\CountryRegion\enum,    6,                  0, %CountryRegion24G_6%
+HKR, NDI\params\CountryRegion\enum,    7,                  0, %CountryRegion24G_7%
+
+;
+; Country Region A Band
+;
+HKR, ,                                 CountryRegionABand, 0, "0"
+HKR, NDI\params\CountryRegionABand,    ParamDesc,          0, %CountryRegion5G%
+HKR, NDI\params\CountryRegionABand,    type,               0, "enum"
+HKR, NDI\params\CountryRegionABand,    default,            0, "0"
+HKR, NDI\params\CountryRegionABand\enum,0,                 0, %CountryRegion5G_0%
+HKR, NDI\params\CountryRegionABand\enum,1,                 0, %CountryRegion5G_1%
+HKR, NDI\params\CountryRegionABand\enum,2,                 0, %CountryRegion5G_2%
+HKR, NDI\params\CountryRegionABand\enum,3,                 0, %CountryRegion5G_3%
+HKR, NDI\params\CountryRegionABand\enum,4,                 0, %CountryRegion5G_4%
+HKR, NDI\params\CountryRegionABand\enum,5,                 0, %CountryRegion5G_5%
+HKR, NDI\params\CountryRegionABand\enum,6,                 0, %CountryRegion5G_6%
+HKR, NDI\params\CountryRegionABand\enum,7,                 0, %CountryRegion5G_7%
+HKR, NDI\params\CountryRegionABand\enum,8,                 0, %CountryRegion5G_8%
+HKR, NDI\params\CountryRegionABand\enum,9,                 0, %CountryRegion5G_9%
+HKR, NDI\params\CountryRegionABand\enum,10,                0, %CountryRegion5G_10%
+
+;
+; Use Short Slot Time
+;
+HKR, ,                            ShortSlot,       0, "1"
+
+;
+; Enable TX Burst
+;
+HKR, ,                            TXBurst,         0, "0"
+HKR, NDI\params\TXBurst,          ParamDesc,       0, %TXBurst%
+HKR, NDI\params\TXBurst,          type,            0, "enum"
+HKR, NDI\params\TXBurst,          default,         0, "0"
+HKR, NDI\params\TXBurst\enum,     0,               0, %Disable%
+HKR, NDI\params\TXBurst\enum,     1,               0, %Enable%
+
+;
+; FrameAggregation
+;
+HKR, ,                            FrameAggregation,0, "1"
+HKR, NDI\params\FrameAggregation,       ParamDesc, 0, %FrameAggregation%
+HKR, NDI\params\FrameAggregation,       type,      0, "enum"
+HKR, NDI\params\FrameAggregation,       default,   0, "1"
+HKR, NDI\params\FrameAggregation\enum,  0,         0, %Disable%
+HKR, NDI\params\FrameAggregation\enum,  1,         0, %Enable%
+
+;
+; Radio On/Off
+;
+HKR, ,                            Radio,           0, "0"
+HKR, NDI\params\Radio,            ParamDesc,       0, %RadioOnOff%
+HKR, NDI\params\Radio,            type,            0, "enum"
+HKR, NDI\params\Radio,            default,         0, "0"
+HKR, NDI\params\Radio\enum,       1,               0, %Disable%
+HKR, NDI\params\Radio\enum,       0,               0, %Enable%
+
+;
+; IEEE80211H
+;
+HKR, ,                            IEEE80211H,      0, "0"
+HKR, NDI\params\IEEE80211H,       ParamDesc,       0, %IEEE802_11h%
+HKR, NDI\params\IEEE80211H,       type,            0, "enum"
+HKR, NDI\params\IEEE80211H,       default,         0, "0"
+HKR, NDI\params\IEEE80211H\enum,  0,               0, %Disable%
+HKR, NDI\params\IEEE80211H\enum,  1,               0, %Enable%
+
+;
+; CarrierDetect
+;
+HKR, ,                               CarrierDetect,   0, "0"
+HKR, NDI\params\CarrierDetect,       ParamDesc,       0, %CarrierDetect%
+HKR, NDI\params\CarrierDetect,       type,            0, "enum"
+HKR, NDI\params\CarrierDetect,       default,         0, "0"
+HKR, NDI\params\CarrierDetect\enum,  0,               0, %Disable%
+HKR, NDI\params\CarrierDetect\enum,  1,               0, %Enable%
+
+;
+; Use BG Protection
+;
+HKR, ,                            BGProtection,    0, "0"
+HKR, NDI\params\BGProtection,           ParamDesc, 0, %BGProtection%
+HKR, NDI\params\BGProtection,           type,      0, "enum"
+HKR, NDI\params\BGProtection,           default,   0, "0"
+HKR, NDI\params\BGProtection\enum,      0,         0, %Auto%
+HKR, NDI\params\BGProtection\enum,      1,         0, %On%
+HKR, NDI\params\BGProtection\enum,      2,         0, %Off%
+
+;
+; SmartScan
+;
+HKR, ,                            SmartScan,       0, "0"
+HKR, NDI\params\SmartScan,              ParamDesc, 0, %SmartScan%
+HKR, NDI\params\SmartScan,              type,      0, "enum"
+HKR, NDI\params\SmartScan,              default,   0, "0"
+HKR, NDI\params\SmartScan\enum,         0,         0, %Disable%
+HKR, NDI\params\SmartScan\enum,         1,         0, %Enable%
+
+;
+; WPS Device Name
+;
+HKR, ,                            WPSDevName,      0, %WPS_DEVNAME_DEF_STR%
+HKR, Default,                     WPSDevName,      0, %WPS_DEVNAME_DEF_STR%
+
+;
+; W53 Control
+;
+HKR, ,                            W53Control,      0, "0"
+
+;
+; RaCoInstaller Options
+;
+HKR, ,                    RaCoInstOpt,      0,"00000000"
+
+[Customer1.reg]
+;
+; WPS Device Name
+;
+HKR, ,                            WPSDevName,      0, %WPS_DEVNAME_CUSTOMER1%
+HKR, Default,                     WPSDevName,      0, %WPS_DEVNAME_CUSTOMER1%
+
+[Customer2.reg]
+;
+; D-Link Request
+;
+; WMMCapable
+HKR, ,                            WMMCapable,      0, "1"
+; APSDCapable
+HKR, ,                            APSDCapable,     0, "1"
+; APSDAC_BE
+HKR, ,                            APSDAC_BE,       0, "1"
+; APSDAC_BK
+HKR, ,                            APSDAC_BK,       0, "1"
+; APSDAC_VI
+HKR, ,                            APSDAC_VI,       0, "1"
+; APSDAC_VO
+HKR, ,                            APSDAC_VO,       0, "1"
+; Show Hidden SSID in Site Survey Page
+HKR, ,                            ShowHiddenSSID,  0, "1"   ; 0=disable(default), 1=enable
+; Enable TX Burst
+HKR, ,                            TXBurst,         0, "1"
+; FrameAggregation
+HKR, ,                            FrameAggregation,0, "1"
+; DLSCapable
+HKR, ,                            DLSCapable,      0, "1"
+
+[CoInstaller_AddReg]
+HKR,,CoInstallers32,0x00010000, "RaCoInst.dll,ClassCoInstaller"
+
+;*******************************************************************************************
+; DestinationDirs
+;*******************************************************************************************
+
+[NT.CopyFiles]
+netr61.sys,,,2
+
+[CoInstaller.CopyFiles]
+RaCoInst.dll,,,2
+
+[SourceDisksNames]
+1 = %INSTALL_DISK_STR%,,,
+
+[SourceDisksFiles]
+netr61.sys                = 1,,
+RaCoInst.dll              = 1,,
+
+[DestinationDirs]
+NT.CopyFiles     = 12     ; system32\drivers subdirectory on NT
+DefaultDestDir   = 11
+CoInstaller.CopyFiles = 11
+
+;*******************************************************************************************
+; NT specific
+;*******************************************************************************************
+
+[General.Service]
+DisplayName                 = %General.Service.DispName%
+ServiceType                 = 1                             ;%SERVICE_KERNEL_DRIVER%
+StartType                   = 3                             ;%SERVICE_AUTO_START%
+ErrorControl                = 1                             ;%SERVICE_ERROR_NORMAL%
+ServiceBinary               = %12%\netr61.sys
+LoadOrderGroup              = NDIS
+
+[RALINK.Service]
+DisplayName                 = %RALINK.Service.DispName%
+ServiceType                 = 1                             ;%SERVICE_KERNEL_DRIVER%
+StartType                   = 3                             ;%SERVICE_AUTO_START%
+ErrorControl                = 1                             ;%SERVICE_ERROR_NORMAL%
+ServiceBinary               = %12%\netr61.sys
+LoadOrderGroup              = NDIS
+
+[GIGABYTE.Service]
+DisplayName                 = %GIGABYTE.Service.DispName%
+ServiceType                 = 1                             ;%SERVICE_KERNEL_DRIVER%
+StartType                   = 3                             ;%SERVICE_AUTO_START%
+ErrorControl                = 1                             ;%SERVICE_ERROR_NORMAL%
+ServiceBinary               = %12%\netr61.sys
+LoadOrderGroup              = NDIS
+
+[Edimax.Service]
+DisplayName                 = %EDIMAX.Service.DispName%
+ServiceType                 = 1                             ;%SERVICE_KERNEL_DRIVER%
+StartType                   = 3                             ;%SERVICE_AUTO_START%
+ErrorControl                = 1                             ;%SERVICE_ERROR_NORMAL%
+ServiceBinary               = %12%\netr61.sys
+LoadOrderGroup              = NDIS
+
+[SITECOM.Service]
+DisplayName                 = %SITECOM.Service.DispName%
+ServiceType                 = 1                             ;%SERVICE_KERNEL_DRIVER%
+StartType                   = 3                             ;%SERVICE_AUTO_START%
+ErrorControl                = 1                             ;%SERVICE_ERROR_NORMAL%
+ServiceBinary               = %12%\netr61.sys
+LoadOrderGroup              = NDIS
+
+[DELTA.Service]
+DisplayName                 = %DELTA.Service.DispName%
+ServiceType                 = 1                             ;%SERVICE_KERNEL_DRIVER%
+StartType                   = 3                             ;%SERVICE_AUTO_START%
+ErrorControl                = 1                             ;%SERVICE_ERROR_NORMAL%
+ServiceBinary               = %12%\netr61.sys
+LoadOrderGroup              = NDIS
+
+[HAWKING.Service]
+DisplayName                 = %HAWKING.Service.DispName%
+ServiceType                 = 1                             ;%SERVICE_KERNEL_DRIVER%
+StartType                   = 3                             ;%SERVICE_AUTO_START%
+ErrorControl                = 1                             ;%SERVICE_ERROR_NORMAL%
+ServiceBinary               = %12%\netr61.sys
+LoadOrderGroup              = NDIS
+
+[BILLIONTON.Service]
+DisplayName                 = %BILLIONTON.Service.DispName%
+ServiceType                 = 1                             ;%SERVICE_KERNEL_DRIVER%
+StartType                   = 3                             ;%SERVICE_AUTO_START%
+ErrorControl                = 1                             ;%SERVICE_ERROR_NORMAL%
+ServiceBinary               = %12%\netr61.sys
+LoadOrderGroup              = NDIS
+
+[ASUS.Service]
+DisplayName                 = %ASUS.Service.DispName%
+ServiceType                 = 1                             ;%SERVICE_KERNEL_DRIVER%
+StartType                   = 3                             ;%SERVICE_AUTO_START%
+ErrorControl                = 1                             ;%SERVICE_ERROR_NORMAL%
+ServiceBinary               = %12%\netr61.sys
+LoadOrderGroup              = NDIS
+
+[ZINWELL.Service]
+DisplayName                 = %ZINWELL.Service.DispName%
+ServiceType                 = 1                             ;%SERVICE_KERNEL_DRIVER%
+StartType                   = 3                             ;%SERVICE_AUTO_START%
+ErrorControl                = 1                             ;%SERVICE_ERROR_NORMAL%
+ServiceBinary               = %12%\netr61.sys
+LoadOrderGroup              = NDIS
+
+[AMIT.Service]
+DisplayName                 = %AMIT.Service.DispName%
+ServiceType                 = 1                             ;%SERVICE_KERNEL_DRIVER%
+StartType                   = 3                             ;%SERVICE_AUTO_START%
+ErrorControl                = 1                             ;%SERVICE_ERROR_NORMAL%
+ServiceBinary               = %12%\netr61.sys
+LoadOrderGroup              = NDIS
+
+[CASTLENET.Service]
+DisplayName                 = %CASTLENET.Service.DispName%
+ServiceType                 = 1                             ;%SERVICE_KERNEL_DRIVER%
+StartType                   = 3                             ;%SERVICE_AUTO_START%
+ErrorControl                = 1                             ;%SERVICE_ERROR_NORMAL%
+ServiceBinary               = %12%\netr61.sys
+LoadOrderGroup              = NDIS
+
+[WN4306A.Service]
+DisplayName                 = %WN4306A.Service.DispName%
+ServiceType                 = 1                             ;%SERVICE_KERNEL_DRIVER%
+StartType                   = 3                             ;%SERVICE_AUTO_START%
+ErrorControl                = 1                             ;%SERVICE_ERROR_NORMAL%
+ServiceBinary               = %12%\netr61.sys
+LoadOrderGroup              = NDIS
+
+[SURECOM.Service]
+DisplayName                 = %Surecom.Service.DispName%
+ServiceType                 = 1                             ;%SERVICE_KERNEL_DRIVER%
+StartType                   = 3                             ;%SERVICE_AUTO_START%
+ErrorControl                = 1                             ;%SERVICE_ERROR_NORMAL%
+ServiceBinary               = %12%\netr61.sys
+LoadOrderGroup              = NDIS
+
+[BELKIN.Service]
+DisplayName                 = %BELKIN.Service.DispName%
+ServiceType                 = 1                             ;%SERVICE_KERNEL_DRIVER%
+StartType                   = 3                             ;%SERVICE_AUTO_START%
+ErrorControl                = 1                             ;%SERVICE_ERROR_NORMAL%
+ServiceBinary               = %12%\netr61.sys
+LoadOrderGroup              = NDIS
+
+[VTECH.Service]
+DisplayName                 = %VTECH.Service.DispName%
+ServiceType                 = 1                             ;%SERVICE_KERNEL_DRIVER%
+StartType                   = 3                             ;%SERVICE_AUTO_START%
+ErrorControl                = 1                             ;%SERVICE_ERROR_NORMAL%
+ServiceBinary               = %12%\netr61.sys
+LoadOrderGroup              = NDIS
+
+[SIEMENS.Service]
+DisplayName                 = %SIEMENS.Service.DispName%
+ServiceType                 = 1                             ;%SERVICE_KERNEL_DRIVER%
+StartType                   = 3                             ;%SERVICE_AUTO_START%
+ErrorControl                = 1                             ;%SERVICE_ERROR_NORMAL%
+ServiceBinary               = %12%\netr61.sys
+LoadOrderGroup              = NDIS
+
+[CONCEPTRONIC.Service]
+DisplayName                 = %Conceptronic.Service.DispName%
+ServiceType                 = 1                             ;%SERVICE_KERNEL_DRIVER%
+StartType                   = 3                             ;%SERVICE_AUTO_START%
+ErrorControl                = 1                             ;%SERVICE_ERROR_NORMAL%
+ServiceBinary               = %12%\netr61.sys
+LoadOrderGroup              = NDIS
+
+[SMC.Service]
+DisplayName                 = %SMC.Service.DispName%
+ServiceType                 = 1                             ;%SERVICE_KERNEL_DRIVER%
+StartType                   = 3                             ;%SERVICE_AUTO_START%
+ErrorControl                = 1                             ;%SERVICE_ERROR_NORMAL%
+ServiceBinary               = %12%\netr61.sys
+LoadOrderGroup              = NDIS
+
+[CNET.Service]
+DisplayName                 = %CNET.Service.DispName%
+ServiceType                 = 1                             ;%SERVICE_KERNEL_DRIVER%
+StartType                   = 3                             ;%SERVICE_AUTO_START%
+ErrorControl                = 1                             ;%SERVICE_ERROR_NORMAL%
+ServiceBinary               = %12%\netr61.sys
+LoadOrderGroup              = NDIS
+
+[Corega.Service]
+DisplayName                 = %COREGA.Service.DispName%
+ServiceType                 = 1                             ;%SERVICE_KERNEL_DRIVER%
+StartType                   = 3                             ;%SERVICE_AUTO_START%
+ErrorControl                = 1                             ;%SERVICE_ERROR_NORMAL%
+ServiceBinary               = %12%\netr61.sys
+LoadOrderGroup              = NDIS
+
+[Netopia.Service]
+DisplayName                 = %Netopia.Service.DispName%
+ServiceType                 = 1                             ;%SERVICE_KERNEL_DRIVER%
+StartType                   = 3                             ;%SERVICE_AUTO_START%
+ErrorControl                = 1                             ;%SERVICE_ERROR_NORMAL%
+ServiceBinary               = %12%\netr61.sys
+LoadOrderGroup              = NDIS
+
+[common.EventLog]
+AddReg = common.AddEventLog.reg
+
+[common.AddEventLog.reg]
+HKR, , EventMessageFile, 0x00020000, "%%SystemRoot%%\System32\netevent.dll"
+HKR, , TypesSupported,   0x00010001, 7
+
+;*******************************************************************************************
+; Strings
+;*******************************************************************************************
+[Strings]
+Ralink                      = "Ralink Technology Corp."
+Gigabyte                    = "Gigabyte Technology Corp."
+Edimax                      = "Edimax Technology Co., Ltd."
+Sitecom                     = "Sitecom Europe BV"
+Billionton                  = "Billionton Systems Inc."
+Delta                       = "Delta Networks, Inc."
+Hawking                     = "Hawking Technologies, Inc."
+Asus                        = "ASUSTeK Computer Inc."
+ZINWELL                     = "ZINWELL Technology, Inc."
+AMIT                        = "AMIT Technology, Inc."
+CASTLENET                   = "CastleNet Technology, Inc."
+ACCTON                      = "Accton Technology Corporation"
+Surecom                     = "SURECOM Technology Corp."
+Belkin                      = "Belkin Components"
+VTech                       = "VTech Telecommunications Ltd"
+Siemens                     = "Siemens"
+Conceptronic                = "2L (Conceptronic)"
+SMC                         = "SMC Networks Inc."
+CNet                        = "CNet Technology Inc."
+Corega                      = "Corega Components"
+Netopia                     = "Netopia, Inc."
+AboCom                      = "AboCom Systems, Inc."
+Planex                      = "Planex Communications, Inc."
+Logitec                     = "Logitec Corporation"
+Corega2                     = "Allied Telesis K.K."
+D-Link                      = "D-Link Corporation"
+
+;*******************************************************************************************
+; Device description
+;*******************************************************************************************
+Ralink_0301.DeviceDesc      = "Ralink RT61 Turbo Wireless LAN Card"
+Ralink_0302.DeviceDesc      = "Ralink RT61 Wireless LAN Card V2"
+Ralink_0401.DeviceDesc      = "Ralink RT61 MIMO Wireless LAN Card"
+
+GigabyteWM01GS.DeviceDesc   = "Gigabyte GN-WM01GS Cardbus WLAN Card(Turbo)"
+GigabyteWI01GS.DeviceDesc   = "Gigabyte GN-WI01GS mini PCI WLAN Card(Turbo)"
+GigabyteWP01GS.DeviceDesc   = "Gigabyte GN-WP01GS PCI WLAN Card(Turbo)"
+GigabyteWM02GS.DeviceDesc   = "Gigabyte GN-WM01GS Cardbus WLAN Card"
+GigabyteWI02GS.DeviceDesc   = "Gigabyte GN-WI01GS mini PCI WLAN Card"
+GigabyteWP02GS.DeviceDesc   = "Gigabyte GN-WP01GS PCI WLAN Card"
+GigabyteWI02GM.DeviceDesc   = "Gigabyte GN-WI02GM mini PCI MIMO WLAN Card"
+GigabyteWM01GM.DeviceDesc   = "Gigabyte GN-WM01GM Cardbus MIMO WLAN Card"
+GigabyteWP01GM.DeviceDesc   = "Gigabyte GN-WP01GM PCI MIMO WLAN Card"
+
+EW-0301-7108.DeviceDesc     = "Edimax 802.11g Wireless Cardbus"
+EW-0301-7128.DeviceDesc     = "Edimax 802.11g Wireless PCI Card"
+EW-7108.DeviceDesc          = "Edimax EW-7108 Series 802.11g Wireless LAN PC Card"
+EW-7128.DeviceDesc          = "Edimax EW-7128 Series 802.11g Wireless LAN PCI Card"
+EW-7608.DeviceDesc          = "Edimax MIMO Wireless LAN Carbus"
+EW-7628.DeviceDesc          = "Edimax MIMO Wireless LAN PCI Card"
+
+GMIWLGRL2-B.DeviceDesc      = "Billionton mini PCI Wireless Lan 11B/G card"
+GMIWLGRL2-N.DeviceDesc      = "mini PCI Wireless Lan 11B/G card"
+
+Sitecom_WL112V2.DeviceDesc  = "Sitecom Wireless Network PC Card 54G WL-112v2"
+Sitecom_WL115V2.DeviceDesc  = "Sitecom Wireless Network PCI Adapter 54G WL-115v2"
+Sitecom_WL170.DeviceDesc    = "Sitecom Wireless Network PC Card turbo g WL-170"
+Sitecom_WL171.DeviceDesc    = "Sitecom Wireless Network PCI Card turbo g WL-171"
+Sitecom_WL211.DeviceDesc    = "Sitecom Wireless Network 54G-Turbo WPS PCI adapter WL-211"
+Sitecom_WL210.DeviceDesc    = "Sitecom Wireless Network 54G-Turbo WPS Cardbus adapter WL-210"
+Sitecom_WL150.DeviceDesc    = "Sitecom Wirless Network PC Card MiMoXR WL-150"
+Sitecom_WL151.DeviceDesc    = "Sitecom Wireless Network PCI Adapter MiMoXR WL-151"
+
+DeltaPCI.DeviceDesc         = "IEEE 802.11g Wireless PCI Adapter"
+DeltaCB.DeviceDesc          = "IEEE 802.11g Wireless PC Card"
+
+Hawking0C54.DeviceDesc      = "Hawking HWC54GR Hi-Speed Wireless-G CardBus Card"
+Hawking0B54.DeviceDesc      = "Hawking HWP54GR Hi-Speed Wireless-G PCI Card"
+
+ASUS_837E.DeviceDesc        = "ASUS 802.11 g/b Wireless PCI Adapter"
+ASUS.DeviceDesc             = "ASUS 802.11b/g Wireless LAN Card"
+ASUSGEN.DeviceDesc          = "802.11b/g Wireless LAN Card"
+
+ZINWELLPCI.DeviceDesc       = "802.11g WLAN PCI Adapter"
+ZINWELLMPCI.DeviceDesc      = "802.11g WLAN mini-PCI Adapter"
+ZINWELLCARD.DeviceDesc      = "802.11g WLAN CardBus Adapter"
+ZINWELLOEM1.DeviceDesc      = "AT&T Plug&Share 54 Mbps Wireless PCI Adapter"
+ZINWELLOEM2.DeviceDesc      = "AT&T Plug&Share 54 Mbps Wireless Cardbus Adapter"
+
+AMIT.DeviceDesc             = "AMIT 802.11 g Wireless LAN PC Card"
+AMITMINI.DeviceDesc         = "AMIT MINI 802.11 g Wireless LAN PC Card"
+AMITPCI.DeviceDesc          = "AMIT PCI 802.11 g Wireless LAN PC Card"
+AMIT0100.DeviceDesc         = "802.11g MIMO Wireless Mini-PCI Adapter"
+AMIT0200.DeviceDesc         = "802.11g MIMO Wireless Cardbus Adapter"
+AMIT0300.DeviceDesc         = "802.11g MIMO Wireless PCI Adapter"
+AMIT0202.DeviceDesc         = "AirLive MIMO-G Wireless Cardbus Adapter"
+AMIT0302.DeviceDesc         = "AirLive MIMO-G Wireless PCI Adapter"
+AMIT0203.DeviceDesc         = "802.11g MIMO Wireless Cardbus Adapter"
+AMIT0303.DeviceDesc         = "802.11g MIMO Wireless PCI Adapter"
+AMIT0204.DeviceDesc         = "802.11g MIMO Wireless Cardbus Adapter"
+AMIT0304.DeviceDesc         = "802.11g MIMO Wireless PCI Adapter"
+AMITCG.DeviceDesc           = "CG-WLCBGMO, corega MISO Wireless Cardbus Adapter"
+AMIT0006.DeviceDesc         = "CG-WLPCIGMO, corega MISO Wireless PCI Adapter"
+
+CASTLENET.DeviceDesc        = "CastleNet WP1280 802.11 g Wireless LAN Card"
+
+WN4306A.DeviceDesc          = "802.11g 54Mbps Wireless PC Card SE"
+
+SurecomPCI.DeviceDesc       = "802.11g Wireless LAN PCI Adapter"
+SurecomCardbus.DeviceDesc   = "802.11g 54M Wireless CardBus Adapter"
+
+Belkin.DeviceDesc           = "Belkin 802.11g Wireless Card"
+Belkin_901B.DeviceDesc      = "Belkin Wireless G Plus MIMO Notebook Card"
+Belkin_901C.DeviceDesc      = "Belkin Wireless G Plus MIMO Notebook Card"
+Belkin_700E.DeviceDesc      = "Belkin Wireless G PCI Adapter"
+Belkin_701E.DeviceDesc      = "Belkin Wireless G Notebook Card"
+
+VTechPCI.DeviceDesc         = "VTech Wireless 802.11g PCI Adapter"
+VTechCARD.DeviceDesc        = "VTech Wireless 802.11g PCMCIA Adapter"
+
+Siemens.DeviceDesc          = "Siemens 802.11g PC Card Wireless Network Adapter"
+
+Qcom.DeviceDesc             = "Ralink Wireless LAN Card V2"
+
+M61_B833T.DeviceDesc        = "802.11g MiniPCI Turbo Wireless Adapter"
+M61_B834T.DeviceDesc        = "802.11g PCI Turbo Wireless Adapter"
+M61_B835T.DeviceDesc        = "802.11g CardBus Turbo Wireless Adapter"
+M61_B833.DeviceDesc         = "802.11g MiniPCI Wireless Adapter"
+M61_B834.DeviceDesc         = "802.11g PCI Wireless Adapter"
+M61_B835.DeviceDesc         = "802.11g CardBus Wireless Adapter"
+M61_C855.DeviceDesc         = "802.11b/g MiniPCI Wireless Adapter"
+
+WLANm.DeviceDesc            = "WLAN 802.11g miniPCI module"
+WLANc.DeviceDesc            = "WLAN 802.11g Cardbus module"
+
+Amigo_9142.DeviceDesc       = "Turbo Wireless PC Card"
+Amigo_9222.DeviceDesc       = "Turbo Wireless miniPCI Adapter"
+Amigo_9262.DeviceDesc       = "Turbo Wireless PCI Adapter"
+AMIGO_9142V2.DeviceDesc     = "802.11G Wireless PC Card"
+Amigo_9221.DeviceDesc       = "802.11G Wireless miniPCI Adapter"
+Amigo_9261.DeviceDesc       = "802.11G Wireless PCI Adapter"
+Amigo_9223.DeviceDesc       = "MIMO Wireless miniPCI Adapter"
+
+CNetPCI.DeviceDesc          = "802.11a/g Wireless LAN PCI"
+CNetMPCI.DeviceDesc         = "802.11a/g Wireless LAN Mini-PCI"
+CNetCardbus.DeviceDesc      = "802.11a/g Wireless LAN CardBus"
+
+Conceptronic_PCCard.DeviceDesc = "Conceptronic 54g Wireless PC-Card"
+Conceptronic_PCICard.DeviceDesc = "Conceptronic 54g Wireless PCI Card"
+
+SMC_EE04.DeviceDesc         = "SMC SMCWCB-GM EZ Connect TM 802.11g Wireless Cardbus Adapter with MIMO Technology"
+SMC_EE05.DeviceDesc         = "SMC SMCWPCI-GM EZ Connect TM 802.11g Wireless PCI Adapter with MIMO Technology"
+
+CNet_6221.DeviceDesc        = "CNet Turbo Wireless-G PCI Adapter"
+CNet_7221.DeviceDesc        = "CNet Turbo Wireless-G miniPCI Adapter"
+CNet_8221.DeviceDesc        = "CNet Turbo Wireless-G Cardbus Adapter"
+CNet_6121.DeviceDesc        = "CNet Wireless-G PCI Adapter"
+CNet_7121.DeviceDesc        = "CNet Wireless-G miniPCI Adapter"
+CNet_8121.DeviceDesc        = "CNet Wireless-G Cardbus Adapter"
+CNet_6321.DeviceDesc        = "CNet Wireless-G PCI Adapter"
+CNet_7321.DeviceDesc        = "CNet Wireless-G miniPCI Adapter"
+CNet_8321.DeviceDesc        = "CNet Wireless-G Cardbus Adapter"
+
+Corega.DeviceDesc           = "CG-WLCB54AGM"
+
+Netopia.DeviceDesc          = "Wireless PC Card"
+
+AboCom_0301_ABA1.DeviceDesc = "802.11b/g Wireless LAN miniPCI Card"
+AboCom_0301_ABA2.DeviceDesc = "802.11b/g High Power Wireless LAN miniPCI Card"
+AboCom_0301_ABA4.DeviceDesc = "802.11b/g Wireless LAN PCI Card"
+AboCom_0301_ABA5.DeviceDesc = "802.11b/g Wireless LAN Cardbus Card"
+AboCom_0301_ABE3.DeviceDesc = "802.11a/b/g Wireless LAN miniPCI Card"
+AboCom_0301_ABE4.DeviceDesc = "802.11a/b/g High Power Wireless LAN miniPCI Card"
+AboCom_0302_ABA1.DeviceDesc = "802.11b/g Wireless LAN miniPCI Card V2"
+AboCom_0401_ABA7.DeviceDesc = "PCI MIMO Wireless LAN Card"
+AboCom_0401_ABA1.DeviceDesc = "802.11b/g MIMO Wireless LAN miniPCI Card"
+AboCom_0401_ABA3.DeviceDesc = "802.11b/g MIMO Wireless LAN miniPCI Card"
+AboCom_0401_ABE5.DeviceDesc = "802.11a/b/g MIMO Wireless LAN miniPCI Card"
+AboCom_0401_ABA6.DeviceDesc = "802.11b/g MIMO Wireless LAN Cardbus Card"
+
+Planex.DeviceDesc           = "PCI GW-DSMM"
+
+Logitec.DeviceDesc          = "Logitec LAN-WG/CBB Wireless LAN Adapter"
+
+Corega2_C123.DeviceDesc     = "CG-WLCB54GPX"
+
+D-Link_0301_3C08.DeviceDesc = "D-Link AirPlus G DWL-G630 Wireless Cardbus Adapter(rev.E)"
+D-Link_0301_3C09.DeviceDesc = "D-Link AirPlus G DWL-G510 Wireless PCI Adapter(rev.C)"
+D-Link_0302_3C08.DeviceDesc = "D-Link AirPlus G DWL-G630 Wireless Cardbus Adapter(rev.E)"
+D-Link_0302_3C09.DeviceDesc = "D-Link AirPlus G DWL-G510 Wireless PCI Adapter(rev.C)"
+D-Link_0302_3C10.DeviceDesc = "D-Link AirPlus G DWL-G650+A Wireless Cardbus Adapter(rev.E)"
+D-Link_0302_3C11.DeviceDesc = "D-Link AirPlus G DWL-G520+A Wireless PCI Adapter(rev.C)"
+D-Link_0302_3A71.DeviceDesc = "D-Link Wireless G DWA-510 Desktop Adapter"
+D-Link_0302_3A72.DeviceDesc = "D-Link Wireless G DWA-610 Notebook Adapter"
+D-Link_0302_3C12.DeviceDesc = "D-Link AirPlus G DWL-G630M Wireless Cardbus Adapter(rev.A)"
+D-Link_0302_3C13.DeviceDesc = "D-Link AirPlus G DWL-G510M Wireless PCI Adapter(rev.A)"
+
+INSTALL_DISK_STR            = "Ralink Wireless LAN Installation Disk"
+
+General.Service.DispName    = "RT61 Wireless Driver for Windows Vista"
+RALINK.Service.DispName     = "Ralink RT61 Wireless Driver for Windows Vista"
+GIGABYTE.Service.DispName   = "Gigabyte RT61 Wireless Driver for Windows Vista"
+EDIMAX.Service.DispName     = "Edimax RT61 Wireless Driver for Windows Vista"
+SITECOM.Service.DispName    = "Sitecom RT61 Wireless Network Driver for Windows Vista"
+DELTA.Service.DispName      = "Delta Networks RT61 Wireless Driver for Windows Vista"
+HAWKING.Service.DispName    = "Hawking RT61 Wireless Driver for Windows Vista"
+BILLIONTON.Service.DispName = "Billionton RT61 Wireless Driver for Windows Vista"
+ASUS.Service.DispName       = "AsusTek RT61 Wireless Driver for Windows Vista"
+ZINWELL.Service.DispName    = "ZINWELL RT61 Wireless Driver for Windows Vista"
+AMIT.Service.DispName       = "AMIT RT61 Wireless Driver for Windows Vista"
+CASTLENET.Service.DispName  = "CastleNet RT61 Wireless Driver for Windows Vista"
+WN4306A.Service.DispName    = "RT61 802.11g 54Mbps Wireless PC Card SE Driver for Windows Vista"
+Surecom.Service.DispName    = "Surecom RT61 Wireless Driver for Windows Vista"
+BELKIN.Service.DispName     = "Belkin RT61 Wireless Driver for Windows Vista"
+VTECH.Service.DispName      = "VTech RT61 802.11g Wireless Driver for Windows Vista"
+SIEMENS.Service.DispName    = "Siemens RT61 Wireless 802.11b/g Driver(RT61) for Windows Vista"
+Conceptronic.Service.DispName = "Conceptronic RT61 54g Wireless Driver for Windows Vista"
+SMC.Service.DispName        = "SMC RT61 Wireless Driver for Windows Vista"
+CNET.Service.DispName       = "CNET RT61 Wireless Driver for Windows Vista"
+COREGA.Service.DispName     = "COREGA Wireless Driver for Windows Vista"
+Netopia.Service.DispName    = "Netopia RT61 Wireless Driver for Windows Vista"
+
+;
+; Parameters
+;
+CountryRegion24G            = "Country Region 11G"
+CountryRegion24G_0          = "#0 (Channel 1 - 11)"
+CountryRegion24G_1          = "#1 (Channel 1 - 13)"
+CountryRegion24G_2          = "#2 (Channel 10 - 11)"
+CountryRegion24G_3          = "#3 (Channel 10 - 13)"
+CountryRegion24G_4          = "#4 (Channel 14)"
+CountryRegion24G_5          = "#5 (Channel 1 - 14)"
+CountryRegion24G_6          = "#6 (Channel 3 - 9)"
+CountryRegion24G_7          = "#7 (Channel 5 - 13)"
+CountryRegion5G             = "Country Region 11A"
+CountryRegion5G_0           = "#0 Ch(36 - 64,149 - 165)"
+CountryRegion5G_1           = "#1 Ch(36 - 140)"
+CountryRegion5G_2           = "#2 Ch(36 - 64)"
+CountryRegion5G_3           = "#3 Ch(52 - 64,149 - 161)"
+CountryRegion5G_4           = "#4 Ch(149 - 165)"
+CountryRegion5G_5           = "#5 Ch(149 - 161)"
+CountryRegion5G_6           = "#6 Ch(36 - 48)"
+CountryRegion5G_7           = "#7 Ch(36 - 165)"
+CountryRegion5G_8           = "#8 Ch(52 - 64)"
+CountryRegion5G_9           = "#9 Ch(34 - 46)"
+CountryRegion5G_10          = "#10 Ch(34 - 64)"
+TXBurst                     = "TX Burst"
+Disable                     = "Disable"
+Enable                      = "Enable"
+FrameAggregation            = "Frame Aggregation"
+RadioOnOff                  = "Radio On/Off"
+IEEE802_11h                 = "IEEE802.11h"
+BGProtection                = "B/G Protection"
+Auto                        = "Auto"
+On                          = "On"
+Off                         = "Off"
+SmartScan                   = "SmartScan"
+CarrierDetect               = "Carrier Detect"
+
+CHANNEL                     = "1"
+WPS_DEVNAME_DEF_STR         = "Ralink Client"
+WPS_DEVNAME_CUSTOMER1       = "Corega Client"

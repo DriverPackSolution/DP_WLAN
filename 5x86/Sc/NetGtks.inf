@@ -1,0 +1,1619 @@
+;***********************************************************************
+;
+; NetGtks.INF
+;
+;   This installation script supports Windows 95,98,Me,2000 and XP for the
+;   Sitecom Wireless LAN Adapters.
+;
+;   Copyright (c) 2001-2002 Sitecom Corporation
+;   All Rights Reserved.
+;   
+;
+;***********************************************************************
+
+[Version]
+ DriverVer = 11/20/2001,1.0.0.9
+ Signature           = "$Chicago$"
+ Compatible          = 1
+ Class               = Net
+ ClassGUID           = {4d36e972-e325-11ce-bfc1-08002be10318}
+ Provider            = %VER_VENDOR_STR%
+
+
+
+
+[ControlFlags]
+ ExcludeFromSelect   = *
+
+;====================== Broadcom ===============================================
+ExcludeFromSelect   = PCI\VEN_14E4&DEV_4320&SUBSYS_00131737  ;PCI
+ExcludeFromSelect   = PCI\VEN_14E4&DEV_4320&SUBSYS_906E182D  ;PCI
+ExcludeFromSelect   = PCI\VEN_14E4&DEV_4320&SUBSYS_9064182D  ;Cardbus
+ExcludeFromSelect   = PCI\VEN_14E4&DEV_4320&SUBSYS_041714E4  ;PCI
+ExcludeFromSelect   = PCI\VEN_14E4&DEV_4320&SUBSYS_041814E4
+ExcludeFromSelect   = PCI\VEN_14E4&DEV_4309
+ExcludeFromSelect   = PCI\VEN_14E4&DEV_4321
+ExcludeFromSelect   = PCI\VEN_14E4&DEV_4324
+ExcludeFromSelect   = PCMCIA\Broadcom-02D0-0406
+ExcludeFromSelect   = PCMCIA\Broadcom-802.11b_PCMCIA-02D0-0406
+;----------------------------------------------------------------------------------------------------------
+ExcludeFromSelect  =  PCI\VEN_1814&DEV_0101&SUBSYS_9010182D  
+
+
+[Manufacturer]
+ %VER_VENDOR_NAME_STR% = Adapters
+ 
+ 
+[Adapters]
+ 
+ %PCMCIAFVNET3V.DeviceDesc% = PCMCIAFVNETRXP,PCMCIA\ATMEL-AT76C502-0FBF
+ %PCMCIAFVNETR5V.DeviceDesc% = PCMCIAFVNETRXP,PCMCIA\ATMEL-AT76C502AR-59BD
+ %PCMCIAFVNETR5V.DeviceDesc% = PCMCIAFVNETRXP,PCMCIA\Linksys-Instant_Wireless_Network_PC_Card-5CD2
+ %PCMCIAFVNETR5V.DeviceDesc% = PCMCIAFVNETRXP,PCMCIA\ATMEL-AT76C502AR_E-F543
+ %USBNET.DeviceDesc% = USBNETXP.NT,      USB\VID_03eb&PID_7605
+
+;============================ Broadcom ===================================
+        %BCM430B.DeviceDesc% = BCM43XX, PCI\VEN_14E4&DEV_4320&SUBSYS_00131737
+	%BCM430B.DeviceDesc% = BCM43XG, PCI\VEN_14E4&DEV_4320&SUBSYS_906E182D
+	%BCM430G.DeviceDesc% = BCM43XG, PCI\VEN_14E4&DEV_4320&SUBSYS_9064182D  ;Cardbus
+	%BCM430B.DeviceDesc% = BCM43XG, PCI\VEN_14E4&DEV_4320&SUBSYS_041714E4
+	%BCM430G.DeviceDesc% = BCM43XG, PCI\VEN_14E4&DEV_4320&SUBSYS_041814E4
+	%BCM430A.DeviceDesc% = BCM43XA, PCI\VEN_14E4&DEV_4309
+	%BCM430A.DeviceDesc% = BCM43XA, PCI\VEN_14E4&DEV_4321
+	%BCM430M.DeviceDesc% = BCM43XM, PCI\VEN_14E4&DEV_4324
+	%BCM43pc.DeviceDesc% = BCM43PCM, PCMCIA\Broadcom-02D0-0406
+	%BCM43pc.DeviceDesc% = BCM43PCM, PCMCIA\Broadcom-802.11b_PCMCIA-02D0-0406
+
+;==========================================================
+%RT2400.DeviceDesc%=RT2400.ndi,  PCI\VEN_1814&DEV_0101&SUBSYS_9010182D
+
+
+;*********************************** ATMEL PCCARD2K98 ***************************************
+;*******************************************************************************
+; Win 2000 main sections
+;*******************************************************************************
+
+
+[PCMCIAFVNETR.Ndi.NT]
+Characteristics = 0x84 	; NCF_HAS_UI | NCF_PHYSICAL
+BusType         = 8 	; PCMCIA
+AddReg          = PCMCIAFVNETR.NT.Reg, PCMCIAFVNETR.Params
+CopyFiles       = CopyFile.NT.Sys
+DriverVer  	= 4/30/2002,4.2.3.40
+
+[PCMCIAFVNETR.Ndi.NT.Services]
+AddService = PCMCIAFVNETR, 2, PCMCIAFVNETR.Service, Common.EventLog
+
+
+
+;*******************************************************************************
+; Win98 main sections
+
+
+[PCMCIAFVNETR.Ndi]
+AddReg   = PCMCIAFVNETR.Reg, PCMCIAFVNETR.Params
+CopyFiles=CopyFile.Sys
+DriverVer  = 4/30/2002,4.2.3.40
+
+;*******************************************************************************
+; Windows 98 section
+;*******************************************************************************
+
+[PCMCIAFVNETR.Reg]
+HKR,Ndi,DeviceID,,PCMCIA\ATMEL-AT76C502-0FBF
+HKR,Ndi,DeviceID,,PCMCIA\ATMEL-AT76C502AR-59BD
+HKR,Ndi,CardType,,"PNP"
+
+HKR,,DevLoader,,*ndis,*ntkern,*ndis
+HKR,,DeviceVxDs,,fvnetr.sys
+
+; NDIS Info
+HKR,NDIS,MajorNdisVersion,1,05
+HKR,NDIS,MinorNdisVersion,1,00
+HKR,NDIS,LogDriverName,,VNETPCMCIAR
+
+; Interfaces
+HKR,Ndi\Interfaces,DefUpper,,"ndis3"
+HKR,Ndi\Interfaces,DefLower,,"ethernet"
+HKR,Ndi\Interfaces,UpperRange,,"ndis3"
+HKR,Ndi\Interfaces,LowerRange,,"ethernet"
+
+HKR,Ndi,HelpText,,%Help_Text%
+
+
+
+
+
+;######################################################################################
+
+;***********************************ATMEL PCCARD XP************************************
+;*******************************************************************************
+; Win XP main sections
+;*******************************************************************************
+
+
+[PCMCIAFVNETR.Ndi.NT]
+Characteristics = 0x84 	; NCF_HAS_UI | NCF_PHYSICAL
+BusType         = 8 	; PCMCIA
+AddReg          = PCMCIAFVNETR.NT.Reg, PCMCIAFVNETRXP.Params
+CopyFiles       = CopyFile.NT.Sys
+DriverVer  	= 4/30/2002,4.2.3.40
+
+[PCMCIAFVNETR.Ndi.NT.Services]
+AddService = PCMCIAFVNETR, 2, PCMCIAFVNETR.Service, Common.EventLog
+
+
+
+;######################################################################################
+
+;***********************************ATMEL USB ******************************************
+;================982k main section=====================================================
+[USBNET.Ndi]
+AddReg     = USBNET.Reg, USBNET.Params
+CopyFiles  = CopyFile.Sys
+ 
+[USBNET.Ndi.NT]
+Characteristics = 0x84  ; NCF_HAS_UI | NCF_PHYSICAL
+BusType         = 15    ; USB
+AddReg          = USBNET.NT.Reg, USBNET.Params
+CopyFiles       = CopyFile.NT.Sys
+DriverVer  = 12/10/2001,1.2.2.58
+
+
+[USBNET.Ndi.NT.Services]
+AddService = USBNET, 2, USBNET.Service, Common.EventLog
+
+[USBNETXP.NT]
+Characteristics = 0x84  ; NCF_HAS_UI | NCF_PHYSICAL
+BusType         = 15    ; USB
+AddReg          = USBNETXP.Reg, USBNETXP.Params
+CopyFiles       = CopyFile.XP.Sys
+
+[USBNETXP.NT.Services]
+AddService = USBNET_XP, 2, USBNETXP.Service, Common.EventLog
+
+[USBNETXP.Reg]
+HKR, Ndi\Interfaces, LowerRange, 0, "ethernet"
+HKR, Ndi\Interfaces, UpperRange, 0, "ndis5"
+HKR, Ndi,            Service,    0, "USBNET_XP"
+
+
+[USBNET.Service]
+DisplayName    = %USBNET.DisplayName%
+ServiceType    = 1
+StartType      = 3
+ErrorControl   = 1
+ServiceBinary  = %12%\netusb.sys
+LoadOrderGroup = NDIS
+
+
+[USBNETXP.Service]
+DisplayName    = %USBNETXP.DisplayName%
+ServiceType    = 1
+StartType      = 3
+ErrorControl   = 1
+ServiceBinary  = %12%\netusbxp.sys
+LoadOrderGroup = NDIS
+
+
+[USBNET.Reg]
+HKR,Ndi,DeviceID,,USB\VID_03ebA&PID_7605
+HKR,Ndi,CardType,,"PNP"
+
+HKR,,DevLoader,,*ndis,*ntkern,*ndis
+HKR,,DeviceVxDs,,netusb.sys
+
+HKR,NDIS,MajorNdisVersion,1,05
+HKR,NDIS,MinorNdisVersion,1,00
+HKR,NDIS,LogDriverName,,netusb
+
+HKR,Ndi\Interfaces,DefUpper,,"ndis3"
+HKR,Ndi\Interfaces,DefLower,,"ethernet"
+HKR,Ndi\Interfaces,UpperRange,,"ndis3"
+HKR,Ndi\Interfaces,LowerRange,,"ethernet"
+
+
+[USBNET.NT.Reg]
+HKR, Ndi\Interfaces, LowerRange, 0, "ethernet"
+HKR, Ndi\Interfaces, UpperRange, 0, "ndis5"
+HKR, Ndi,            Service,    0, "USBNET"
+
+
+;=====================ralink==============================
+
+;*********************************************************************
+; Windows 9X specific entries
+;*********************************************************************
+
+[RT2400.ndi]
+AddReg=Common.reg, RT2400.ndi.reg
+CopyFiles=win9x.CopyFiles,RT2400.Apps
+
+
+;********************************************************************
+; NT specific entries
+;**********************************************************************
+
+[RT2400.ndi.NT]
+AddReg=Common.reg, RT2400.ndi.NT.reg
+Characteristics=0x84              ; NCF_REMOVABLE | NCF_HAS_UI | NCF_PHYSICAL
+BusType=5
+CopyFiles=NT.CopyFiles,RT2400.Apps
+
+; NT services sections
+[RT2400.ndi.NT.Services]
+AddService=RT2400, 2, RT2400.Service, common.EventLog
+
+[RT2400.ndi.NT.CoInstallers]
+CopyFiles = RT2400CoInstallFile
+AddReg = RT2400.CoInstallers_AddReg
+
+[RT2400CoInstallFile]
+;coccu.dll,,,2
+
+[win9x.CopyFiles]
+;rt2400.sys,,,2
+
+[NT.CopyFiles]
+rt2400.sys,,,2
+
+[RT2400.Apps]
+;CCS.exe,,,2
+
+[RT2400.ndi.reg]
+HKR, ,                            NTMPDriver,      0, RT2400.sys
+HKR, Ndi,                         DeviceID,        0, "PCI\VEN_1814&DEV_0101&SUBSYS_24601814"
+
+HKR, ,                            RunningWin9X,    0, "1"
+HKR, ,                            DevLoader,       0, *ndis
+HKR, ,                            DeviceVxDs,      0, RT2400.sys
+HKR, ,                            EnumPropPages,   0, "netdi.dll,EnumPropPages"
+
+;
+; NDIS Info
+;
+HKR, NDIS,                        LogDriverName,   0, "RT2400"
+HKR, NDIS,                        MajorNdisVersion,1, 03
+HKR, NDIS,                        MinorNdisVersion,1, 0A
+
+HKR, ,                            BusType,         0, 5
+HKR, NDI,                         CardType,        0, "PCI"
+
+;
+; Interfaces
+;
+HKR, Ndi\Interfaces,              DefUpper,        0, "ndis3"
+HKR, Ndi\Interfaces,              DefLower,        0, "ethernet"
+HKR, Ndi\Interfaces,              UpperRange,      0, "ndis3"
+HKR, Ndi\Interfaces,              LowerRange,      0, "ethernet"
+
+;
+; Install sections
+;HKR,Ndi\Install,ndis3,,"RT2400.install"
+
+
+[win9x.CopyFiles]
+;RT2400.sys ; Win9x Installation
+
+;*******************************************************************************************
+; common regs for NT and W9x
+;*******************************************************************************************
+
+[Common.reg]
+
+;
+; SSID
+;
+HKR, ,                            SSID,            0, %SSID_DEF_STR%
+HKR, Default,                     SSID,            0, %SSID_DEF_STR%
+HKR, NDI\params\SSID,             ParamDesc,       0, "SSID"
+HKR, NDI\params\SSID,             type,            0, "edit"
+HKR, NDI\params\SSID,             limitText,       0, "32"
+HKR, NDI\params\SSID,             default,         0, %SSID_DEF_STR%
+
+;
+; Network Type
+;
+HKR, ,                            NetworkType,     0, %NETWORK_TYPE_DEF_STR%
+HKR, Default,                     NetworkType,     0, %NETWORK_TYPE_DEF_STR%
+HKR, NDI\params\NetworkType,      ParamDesc,       0, "Network Type"
+HKR, NDI\params\NetworkType,      type,            0, "enum"
+HKR, NDI\params\NetworkType,      default,         0, %NETWORK_TYPE_DEF_STR%
+HKR, NDI\params\NetworkType\enum, 0,               0, "802.11 Ad Hoc"
+HKR, NDI\params\NetworkType\enum, 1,               0, "Infrastructure"
+
+;
+; Channel
+;
+HKR, ,                            Channel,         0, %CHANNEL%
+HKR, Default,                     Channel,         0, %CHANNEL%
+HKR, NDI\params\Channel,          ParamDesc,       0, "Channel"
+HKR, NDI\params\Channel,          type,            0, "enum"
+HKR, NDI\params\Channel,          default,         0, %CHANNEL%
+HKR, NDI\params\Channel\enum,     1,               0, "01"
+HKR, NDI\params\Channel\enum,     2,               0, "02"
+HKR, NDI\params\Channel\enum,     3,               0, "03"
+HKR, NDI\params\Channel\enum,     4,               0, "04"
+HKR, NDI\params\Channel\enum,     5,               0, "05"
+HKR, NDI\params\Channel\enum,     6,               0, "06"
+HKR, NDI\params\Channel\enum,     7,               0, "07"
+HKR, NDI\params\Channel\enum,     8,               0, "08"
+HKR, NDI\params\Channel\enum,     9,               0, "09"
+HKR, NDI\params\Channel\enum,     10,              0, "10"
+HKR, NDI\params\Channel\enum,     11,              0, "11"
+
+
+;*******************************************************************************************
+; System Configuration Page
+
+;
+; Local Administration MAC Network Address
+;
+HKR, ,                            NetworkAddress,  0, ""
+HKR, Default,                     NetworkAddress,  0, ""
+HKR, NDI\params\NetworkAddress,   ParamDesc,       0, "Local Administration MAC Network Address"
+HKR, NDI\params\NetworkAddress,   type,            0, "edit"
+HKR, NDI\params\NetworkAddress,   limitText,       0, "12"
+HKR, NDI\params\NetworkAddress,   default,         0, ""
+
+;
+; First Run (Setup Country Region)
+;
+HKR, ,                            FirstRun,	   0, "0"
+
+;
+; Select Config Utility
+;
+HKR, ,                            RaConfig,	   0, "1"      ;1=RaConfig , 0=ZeroConfig for MiniPCI
+
+;
+; Country Region
+;
+HKR, ,                            	CountryRegion,		0, "2"
+;HKR, Default,                     	CountryRegion,      	0, "0"
+HKR, NDI\params\CountryRegion,          ParamDesc,       	0, "Country Region"
+HKR, NDI\params\CountryRegion,          type,            	0, "enum"
+HKR, NDI\params\CountryRegion,          default,         	0, "0"
+HKR, NDI\params\CountryRegion\enum,     0,               	0, "FCC (Channel 1 - 11)"
+HKR, NDI\params\CountryRegion\enum,	1,               	0, "IC (Channel 1 - 11)"
+HKR, NDI\params\CountryRegion\enum,     2,               	0, "ETSI (Channel 1 - 13)"
+HKR, NDI\params\CountryRegion\enum,     3,               	0, "Spain (Channel 10 - 11)"
+HKR, NDI\params\CountryRegion\enum,	4,               	0, "France (Channel 10 - 13)"
+HKR, NDI\params\CountryRegion\enum,     5,               	0, "MKK (Channel 14)"
+HKR, NDI\params\CountryRegion\enum,     6,               	0, "MKK1 (Channel 1 - 14)"
+HKR, NDI\params\CountryRegion\enum,	7,               	0, "Israel (Channel 3 - 9)"
+
+
+;
+; Power Saving Mode
+;
+HKR, ,                            PSMode,          0, "0"
+HKR, Default,                     PSMode,          0, "0"
+HKR, NDI\params\PSMode,           ParamDesc,       0, "Power Saving Mode"
+HKR, NDI\params\PSMode,           type,            0, "enum"
+HKR, NDI\params\PSMode,           default,         0, "0"
+HKR, NDI\params\PSMode\enum,      0,               0, "CAM (Constantly Awake Mode)"
+HKR, NDI\params\PSMode\enum,      1,               0, "Max_PSP (Max Power Savings)"
+HKR, NDI\params\PSMode\enum,      2,               0, "Fast_PSP (Power Save Mode)"
+
+;
+; CAM when AC Power
+;
+HKR, ,                            ACPowerCam,      0, "0"
+HKR, Default,                     ACPowerCam,      0, "0"
+HKR, NDI\params\ACPowerCam,       ParamDesc,       0, "CAM when AC Power"
+HKR, NDI\params\ACPowerCam,       type,            0, "enum"
+HKR, NDI\params\ACPowerCam,       default,         0, "0"
+HKR, NDI\params\ACPowerCam\enum,  0,               0, "Disable"
+HKR, NDI\params\ACPowerCam\enum,  1,               0, "Enable"
+
+;
+; Antenna Tx Diversity 
+;
+HKR, ,                            AntennaTx,       0, "0"
+HKR, Default,                     AntennaTx,       0, "0"
+HKR, NDI\params\AntennaTx,        ParamDesc,       0, "Antenna Tx Diversity"
+HKR, NDI\params\AntennaTx,        type,            0, "enum"
+HKR, NDI\params\AntennaTx,        default,         0, "0"
+HKR, NDI\params\AntennaTx\enum,   0,               0, "Diversity"
+HKR, NDI\params\AntennaTx\enum,   1,               0, "Antenna A Only"
+HKR, NDI\params\AntennaTx\enum,   2,               0, "Antenna B Only"
+
+;
+; Antenna Rx Diversity 
+;
+HKR, ,                            AntennaRx,       0, "0"
+HKR, Default,                     AntennaRx,       0, "0"
+HKR, NDI\params\AntennaRx,        ParamDesc,       0, "Antenna Rx Diversity"
+HKR, NDI\params\AntennaRx,        type,            0, "enum"
+HKR, NDI\params\AntennaRx,        default,         0, "0"
+HKR, NDI\params\AntennaRx\enum,   0,               0, "Diversity"
+HKR, NDI\params\AntennaRx\enum,   1,               0, "Antenna A Only"
+HKR, NDI\params\AntennaRx\enum,   2,               0, "Antenna B Only"
+
+;
+; Transmit Rate
+;
+HKR, ,                            TransRate,       0, "0"
+HKR, Default,                     TransRate,       0, "0"
+HKR, NDI\params\TransRate,        ParamDesc,       0, "Transmit Rate"
+HKR, NDI\params\TransRate,        type,            0, "enum"
+HKR, NDI\params\TransRate,        default,         0, "0"
+HKR, NDI\params\TransRate\enum,   0,               0, "Auto"
+HKR, NDI\params\TransRate\enum,   1,               0, "11 Mb/s"
+HKR, NDI\params\TransRate\enum,   2,               0, "5.5 Mb/s"
+HKR, NDI\params\TransRate\enum,   3,               0, "2 Mb/s"
+HKR, NDI\params\TransRate\enum,   4,               0, "1 Mb/s"
+
+
+;
+; Preamble Type
+;
+HKR, ,                            PreambleType,    0, "2"
+HKR, Default,                     PreambleType,    0, "2"
+HKR, NDI\params\PreambleType,     ParamDesc,       0, "Preamble Type"
+HKR, NDI\params\PreambleType,     type,            0, "enum"
+HKR, Ndi\params\PreambleType,     default,         0, "2"
+HKR, NDI\params\PreambleType\enum,0,               0, "Long"
+HKR, NDI\params\PreambleType\enum,1,               0, "Short"
+HKR, NDI\params\PreambleType\enum,2,               0, "Auto"
+HKR, NDI\params\PreambleType,     optional,        0, "0"
+
+;
+; RTS Threshold
+;
+HKR, ,                            RTSThresh,       0, "2347"
+HKR, Default,                     RTSThresh,       0, "2347"
+HKR, NDI\params\RTSThresh,        ParamDesc,       0, "RTS Threshold"
+HKR, NDI\params\RTSThresh,        type,            0, "int"
+HKR, Ndi\params\RTSThresh,        default,         0, "2347"
+HKR, NDI\params\RTSThresh,        min,             0, "0"
+HKR, NDI\params\RTSThresh,        max,             0, "2347"
+HKR, NDI\params\RTSThresh,        step,            0, "32"
+HKR, NDI\params\RTSThresh,        optional,        0, "0"
+
+;
+; Fragment Threshold
+;
+HKR, ,                            FragThresh,      0, "2346"
+HKR, Default,                     FragThresh,      0, "2346"
+HKR, NDI\params\FragThresh,       ParamDesc,       0, "Fragment Threshold"
+HKR, NDI\params\FragThresh,       type,            0, "int"
+HKR, Ndi\params\FragThresh,       default,         0, "2346"
+HKR, NDI\params\FragThresh,       min,             0, "256"
+HKR, NDI\params\FragThresh,       max,             0, "2346"
+HKR, NDI\params\FragThresh,       step,            0, "32"
+HKR, NDI\params\FragThresh,       optional,        0, "0"
+
+;
+; Radio Status
+;
+HKR, ,                            Radio,      0, "0"
+HKR, NDI\params\Radio,       ParamDesc,       0, "Radio Status"
+HKR, NDI\params\Radio,       type,            0, "enum"
+HKR, NDI\params\Radio,       default,         0, "0"
+HKR, NDI\params\Radio\enum,  1,               0, "Disable"
+HKR, NDI\params\Radio\enum,  0,               0, "Enable"
+
+;*******************************************************************************************
+; Authentication & Security Page
+
+;
+; Authentication Type
+;
+HKR, ,				  AuthenType,      0, "0"
+HKR, Default,			  AuthenType,      0, "0"
+HKR, NDI\params\AuthenType,       ParamDesc,	   0, "Authentication Type"
+HKR, NDI\params\AuthenType,       type,		   0, "enum"
+HKR, NDI\params\AuthenType,       default,	   0, "0"
+HKR, NDI\params\AuthenType\enum,  0,		   0, "Open System"
+HKR, NDI\params\AuthenType\enum,  1,		   0, "Shared Key"
+
+;
+; Encryption
+;
+HKR, ,                            Encryption,      0, "0"
+HKR, Default,                     Encryption,      0, "0"
+
+;
+; WEP Keys Length
+;
+HKR, ,                            WEPKeyLen,       0, "0"
+HKR, Default,                     WEPKeyLen,       0, "0"
+
+;
+; WEP Key to use
+;
+HKR, ,                            WEPKeyUse,       0,"1"
+HKR, Default,                     WEPKeyUse,       0,"1"
+
+;
+; WEP Key1
+;
+HKR, , 				  WEPKey1,         0,""
+HKR, Default, 			  WEPKey1,         0,""
+
+;
+; WEP Key2
+;
+HKR, , 				  WEPKey2,         0,""
+HKR, Default, 			  WEPKey2,         0,""
+
+;
+; WEP Key3
+;
+HKR, , 				  WEPKey3,         0,""
+HKR, Default, 			  WEPKey3,         0,""
+
+;
+; WEP Key4
+;
+HKR, , 				  WEPKey4,         0,""
+HKR, Default, 			  WEPKey4,         0,""
+
+;
+; Current Profile
+;
+HKR, , 				  CurProfile,      0,""
+HKR, Default, 			  CurProfile,      0,""
+
+
+;*******************************************************************************************
+; NT specific
+;*******************************************************************************************
+
+[RT2400.ndi.NT.reg]
+HKR, Ndi,                         Service,         0, "RT2400"
+HKR, Ndi\Interfaces,              UpperRange,      0, "ndis5"
+HKR, Ndi\Interfaces,              LowerRange,      0, "ethernet"
+
+[RT2400.Service]
+DisplayName=%RT2400.Service.DispName%
+ServiceType=1                	;%SERVICE_KERNEL_DRIVER%
+StartType=3                	;%SERVICE_AUTO_START%
+ErrorControl=1                	;%SERVICE_ERROR_NORMAL%
+ServiceBinary=%12%\RT2400.sys
+LoadOrderGroup=NDIS
+
+[common.EventLog]
+AddReg=common.AddEventLog.reg
+
+[common.AddEventLog.reg]
+HKR, , EventMessageFile, 0x00020000,"%%SystemRoot%%\System32\netevent.dll,%%SystemRoot%%\System32\drivers\RT2400.sys"
+HKR, , TypesSupported,   0x00010001, 7
+
+[RT2400.CoInstallers_AddReg]
+;HKR,,CoInstallers32,0x10000,"coccu.dll, CoCCU"
+
+;===============================================================================
+
+;*******************************************************************************
+; Driver parameters
+;*******************************************************************************
+[USBNET.Params]
+
+HKR, Ndi\params\PreambleType,           ParamDesc,              0, "Preamble Type"
+HKR, Ndi\params\PreambleType,           default,                0, "0"
+HKR, Ndi\params\PreambleType,           type,                   0, "enum"
+HKR, Ndi\params\PreambleType\enum,      0,                      0, "Long"
+HKR, Ndi\params\PreambleType\enum,      1,                      0, "Short"
+HKR, Ndi\params\PreambleType\enum,      2,                      0, "Auto"
+HKR, ,                                  PreambleType,           0, "0"
+
+HKR, Ndi\params\Channel,                ParamDesc,              0, "Channel"
+HKR, Ndi\params\Channel,                default,                0, "3"
+HKR, Ndi\params\Channel,                type,                   0, "int"
+HKR, Ndi\params\Channel,                min,                    0, "1"
+HKR, Ndi\params\Channel,                max,                    0, "14"
+HKR, Ndi\params\Channel,                step,                   0, "1"
+HKR, ,                                  Channel,                0, "3"
+
+HKR, Ndi\params\Rate,                   ParamDesc,              0, "Rate (Mbps)"
+HKR, Ndi\params\Rate,                   default,                0, "3"
+HKR, Ndi\params\Rate,                   type,                   0, "enum"
+HKR, Ndi\params\Rate\enum,              0,                      0, "1"
+HKR, Ndi\params\Rate\enum,              1,                      0, "2"
+HKR, Ndi\params\Rate\enum,              2,                      0, "5.5"
+HKR, Ndi\params\Rate\enum,              3,                      0, "11"
+HKR, Ndi\params\Rate\enum,              4,                      0, "Auto"
+HKR, ,                                  Rate,                   0, "3"
+
+HKR, Ndi\params\RTS_Threshold,          ParamDesc,              0, "RTS Threshold"
+HKR, Ndi\params\RTS_Threshold,          default,                0, "2347"
+HKR, Ndi\params\RTS_Threshold,          type,                   0, "int"
+HKR, Ndi\params\RTS_Threshold,          min,                    0, "0"
+HKR, Ndi\params\RTS_Threshold,          max,                    0, "2347"
+HKR, Ndi\params\RTS_Threshold,          step,                   0, "1"
+HKR, ,                                  RTS_Threshold,          0, "2347"
+
+HKR, Ndi\params\Frag_Threshold,         ParamDesc,              0, "Fragmentation Threshold"
+HKR, Ndi\params\Frag_Threshold,         default,                0, "2346"
+HKR, Ndi\params\Frag_Threshold,         type,                   0, "int"
+HKR, Ndi\params\Frag_Threshold,         min,                    0, "256"
+HKR, Ndi\params\Frag_Threshold,         max,                    0, "2346"
+HKR, Ndi\params\Frag_Threshold,         step,                   0, "1"
+HKR, ,                                  Frag_Threshold,         0, "2346"
+
+HKR, Ndi\params\Operating_Mode,         ParamDesc,              0, "Operating Mode"
+HKR, Ndi\params\Operating_Mode,         default,                0, "1"
+HKR, Ndi\params\Operating_Mode,         type,                   0, "enum"
+HKR, Ndi\params\Operating_Mode\enum,    0,                      0, "Ad-Hoc"
+HKR, Ndi\params\Operating_Mode\enum,    1,                      0, "Infrastructure"
+HKR, ,                                  Operating_Mode,         0, "1"
+
+HKR, Ndi\params\ESSID,                  ParamDesc,              0, "ESSID"
+HKR, Ndi\params\ESSID,                  default,                0, "ANY"
+HKR, Ndi\params\ESSID,                  type,                   0, "edit"
+HKR, Ndi\params\ESSID,                  LimitText,              0, "32"
+HKR, Ndi\params\ESSID,                  UpperCase,              0, "0"
+HKR, ,                                  ESSID,                  0, "ANY"
+
+HKR, Ndi\params\AuthenticationType,     ParamDesc,              0, "Authentication Type"
+HKR, Ndi\params\AuthenticationType,     default,                0, "0"
+HKR, Ndi\params\AuthenticationType,     type,                   0, "enum"
+HKR, Ndi\params\AuthenticationType\enum,0,                      0, "Open System"
+HKR, Ndi\params\AuthenticationType\enum,1,                      0, "Shared Key"
+HKR, Ndi\params\AuthenticationType\enum,2,                      0, "Auto"
+HKR, ,                                  AuthenticationType,     0, "0"
+
+HKR, Ndi\params\WEP_Mode,               ParamDesc,              0, "WEP Mode"
+HKR, Ndi\params\WEP_Mode,               default,                0, "0"
+HKR, Ndi\params\WEP_Mode,               type,                   0, "enum"
+HKR, Ndi\params\WEP_Mode\enum,          0,                      0, "Mandatory"
+HKR, Ndi\params\WEP_Mode\enum,          1,                      0, "Optional"
+HKR, ,                                  WEP_Mode,               0, "0"
+
+HKR,Ndi\params\EncryptionLevel,         ParamDesc,              0,"Encryption Level"
+HKR,Ndi\params\EncryptionLevel,         type,                   0,"enum"
+HKR,Ndi\params\EncryptionLevel,         default,                0,"0"
+HKR,Ndi\params\EncryptionLevel\enum,    0,                      0,"None"
+HKR,Ndi\params\EncryptionLevel\enum,    1,                      0,"64-bit encryption"
+HKR,Ndi\params\EncryptionLevel\enum,    2,                      0,"128-bit encryption"
+HKR,,                                   EncryptionLevel,        0,"0"
+
+HKR,Ndi\params\WEP_KEY_INDEX,           ParamDesc,              0,"WEP Key to use"
+HKR,Ndi\params\WEP_KEY_INDEX,           type,                   0,"enum"
+HKR,Ndi\params\WEP_KEY_INDEX,           default,                0,"0"
+HKR,Ndi\params\WEP_KEY_INDEX\enum,      0,                      0,"1"
+HKR,Ndi\params\WEP_KEY_INDEX\enum,      1,                      0,"2"
+HKR,Ndi\params\WEP_KEY_INDEX\enum,      2,                      0,"3"
+HKR,Ndi\params\WEP_KEY_INDEX\enum,      3,                      0,"4"
+HKR,,                                   WEP_KEY_INDEX,          0,"0"
+
+HKR,Ndi\params\WEP_KEY_1,               ParamDesc,              0,"WEP KEY #1"
+HKR,Ndi\params\WEP_KEY_1,               default,                0,"00000000000000000000000000"
+HKR,Ndi\params\WEP_KEY_1,               type,                   0,"edit"
+HKR,Ndi\params\WEP_KEY_1,               LimitText,              0,"26"
+HKR,Ndi\params\WEP_KEY_1,               UpperCase,              0,"1"
+HKR,,                                   WEP_KEY_1,              0,"00000000000000000000000000"
+
+HKR,Ndi\params\WEP_KEY_2,               ParamDesc,              0,"WEP KEY #2"
+HKR,Ndi\params\WEP_KEY_2,               default,                0,"00000000000000000000000000"
+HKR,Ndi\params\WEP_KEY_2,               type,                   0,"edit"
+HKR,Ndi\params\WEP_KEY_2,               LimitText,              0,"26"
+HKR,Ndi\params\WEP_KEY_2,               UpperCase,              0,"1"
+HKR,,                                   WEP_KEY_2,              0,"00000000000000000000000000"
+
+HKR,Ndi\params\WEP_KEY_3,               ParamDesc,              0,"WEP KEY #3"
+HKR,Ndi\params\WEP_KEY_3,               default,                0,"00000000000000000000000000"
+HKR,Ndi\params\WEP_KEY_3,               type,                   0,"edit"
+HKR,Ndi\params\WEP_KEY_3,               LimitText,              0,"26"
+HKR,Ndi\params\WEP_KEY_3,               UpperCase,              0,"1"
+HKR,,                                   WEP_KEY_3,              0,"00000000000000000000000000"
+
+HKR,Ndi\params\WEP_KEY_4,               ParamDesc,              0,"WEP KEY #4"
+HKR,Ndi\params\WEP_KEY_4,               default,                0,"00000000000000000000000000"
+HKR,Ndi\params\WEP_KEY_4,               type,                   0,"edit"
+HKR,Ndi\params\WEP_KEY_4,               LimitText,              0,"26"
+HKR,Ndi\params\WEP_KEY_4,               UpperCase,              0,"1"
+HKR,,                                   WEP_KEY_4,              0,"00000000000000000000000000"
+
+
+[PCMCIAFVNETR.Params]
+
+HKR, Ndi\params\Channel,	      	ParamDesc,     	0, %ChannelStr%
+HKR, Ndi\params\Channel,	      	type,		0, "int"
+HKR, Ndi\params\Channel,		default,	0, "3"
+HKR, Ndi\params\Channel,		min,		0, "1"
+HKR, Ndi\params\Channel,		max,		0, "14"
+HKR, Ndi\params\Channel,		step,		0, "1"
+HKR, ,                                	Channel,    	0, "3"
+
+HKR, Ndi\params\Rate,	      		ParamDesc,     	0, %RateStr%
+HKR, Ndi\params\Rate,	      		type,		0, "enum"
+HKR, Ndi\params\Rate,			default,	0, "3"
+HKR, Ndi\params\Rate\enum,		0,		0, %Fixed1Str%
+HKR, Ndi\params\Rate\enum,		1,		0, %Fixed2Str%
+HKR, Ndi\params\Rate\enum,		2,		0, %Fixed55Str%
+HKR, Ndi\params\Rate\enum,		3,		0, %Fixed11Str%
+HKR, Ndi\params\Rate\enum,		4,		0, %AutoStr%
+HKR, ,                                	Rate,    	0, "3"
+
+HKR, Ndi\params\RTS_Threshold,	      	ParamDesc,     	0, %RTS_Str%
+HKR, Ndi\params\RTS_Threshold,	      	type,		0, "int"
+HKR, Ndi\params\RTS_Threshold,		default,	0, "2347"
+HKR, Ndi\params\RTS_Threshold,		min,		0, "0"
+HKR, Ndi\params\RTS_Threshold,		max,		0, "2347"
+HKR, Ndi\params\RTS_Threshold,		step,		0, "1"
+HKR, ,                                	RTS_Threshold,  0, "2347"
+
+HKR, Ndi\params\Frag_Threshold,	      	ParamDesc,     	0, %FragmentationStr%
+HKR, Ndi\params\Frag_Threshold,	      	type,		0, "int"
+HKR, Ndi\params\Frag_Threshold,		default,	0, "2346"
+HKR, Ndi\params\Frag_Threshold,		min,		0, "256"
+HKR, Ndi\params\Frag_Threshold,		max,		0, "2346"
+HKR, Ndi\params\Frag_Threshold,		step,		0, "1"
+HKR, ,                                	Frag_Threshold, 0, "2346"
+
+HKR, Ndi\params\Operating_Mode,	      	ParamDesc,     	0, %OperatingModeStr%
+HKR, Ndi\params\Operating_Mode,	      	type,		0, "enum"
+HKR, Ndi\params\Operating_Mode,		default,	0, "1"
+HKR, Ndi\params\Operating_Mode\enum,	0,		0, %AdHocStr%
+HKR, Ndi\params\Operating_Mode\enum,	1,		0, %InfrastructureStr%
+HKR, ,                                	Operating_Mode, 0, "1"
+
+HKR, Ndi\params\ESSID,			ParamDesc,	0, %ESSID_Str%
+HKR, Ndi\params\ESSID,           	type,          	0, "edit"
+HKR, Ndi\params\ESSID,           	default,       	0, ""
+HKR, Ndi\params\ESSID,           	LimitText,	0, "32"
+HKR, Ndi\params\ESSID,           	UpperCase,	0, "0"
+HKR, ,                                	ESSID,    	0, ""
+
+
+HKR,Ndi\params\WEP_KEY_INDEX,		ParamDesc,	0,%WEP_Key_Str%
+HKR,Ndi\params\WEP_KEY_INDEX,		type,		0,"enum"
+HKR,Ndi\params\WEP_KEY_INDEX,		default,	0,"0"
+HKR,Ndi\params\WEP_KEY_INDEX\enum,	0,		0,%Key1Str%
+HKR,Ndi\params\WEP_KEY_INDEX\enum,	1,		0,%Key2Str%
+HKR,Ndi\params\WEP_KEY_INDEX\enum,	2,		0,%Key3Str%
+HKR,Ndi\params\WEP_KEY_INDEX\enum,	3,		0,%Key4Str%
+HKR,,					WEP_KEY_INDEX,	0,"0"
+
+HKR,Ndi\params\EncryptionLevel,		ParamDesc,	0,"Encryption Level"
+HKR,Ndi\params\EncryptionLevel,		type,		0,"enum"
+HKR,Ndi\params\EncryptionLevel,		default,	0,"0"
+HKR,Ndi\params\EncryptionLevel\enum,	0,		0,%DisabledStr%
+HKR,Ndi\params\EncryptionLevel\enum,	1,		0,%64bit%
+HKR,Ndi\params\EncryptionLevel\enum,	2,		0,%128bit%
+HKR,,					EncryptionLevel,0,"0"
+
+HKR,Ndi\params\WEP_KEY_1,		ParamDesc,	0,%KEY1_Str%
+HKR,Ndi\params\WEP_KEY_1,		type,		0,"edit"
+HKR,Ndi\params\WEP_KEY_1,		default,	0,"0000000000"
+HKR,Ndi\params\WEP_KEY_1,		LimitText,	0,"10"
+HKR,Ndi\params\WEP_KEY_1,		UpperCase,	0,"1"
+HKR,,					WEP_KEY_1,	0,"0000000000"
+
+HKR,Ndi\params\WEP_KEY_2,		ParamDesc,	0,%KEY2_Str%
+HKR,Ndi\params\WEP_KEY_2,		type,		0,"edit"
+HKR,Ndi\params\WEP_KEY_2,		default,	0,"0000000000"
+HKR,Ndi\params\WEP_KEY_2,		LimitText,	0,"10"
+HKR,Ndi\params\WEP_KEY_2,		UpperCase,	0,"1"
+HKR,,					WEP_KEY_2,	0,"0000000000"
+
+HKR,Ndi\params\WEP_KEY_3,		ParamDesc,	0,%KEY3_Str%
+HKR,Ndi\params\WEP_KEY_3,		type,		0,"edit"
+HKR,Ndi\params\WEP_KEY_3,		default,	0,"0000000000"
+HKR,Ndi\params\WEP_KEY_3,		LimitText,	0,"10"
+HKR,Ndi\params\WEP_KEY_3,		UpperCase,	0,"1"
+HKR,,					WEP_KEY_3,	0,"0000000000"
+
+HKR,Ndi\params\WEP_KEY_4,		ParamDesc,	0,%KEY4_Str%
+HKR,Ndi\params\WEP_KEY_4,		type,		0,"edit"
+HKR,Ndi\params\WEP_KEY_4,		default,	0,"0000000000"
+HKR,Ndi\params\WEP_KEY_4,		LimitText,	0,"10"
+HKR,Ndi\params\WEP_KEY_4,		UpperCase,	0,"1"
+HKR,,					WEP_KEY_4,	0,"0000000000"
+
+HKR,Ndi\params\WEP_Mode,		ParamDesc,	0,%WEP_Mode_Str%
+HKR,Ndi\params\WEP_Mode,		type,		0,"enum"
+HKR,Ndi\params\WEP_Mode,		default,	0,"0"
+HKR,Ndi\params\WEP_Mode\enum,		0,		0,%WepMandatoryStr%
+HKR,Ndi\params\WEP_Mode\enum,		1,		0,%WepOptionalStr%
+HKR,,					WEP_Mode,	0,"0"
+
+HKR,Ndi\params\AuthenticationType,	ParamDesc,	0,%AuthTypeStr%
+HKR,Ndi\params\AuthenticationType,	type,		0,"enum"
+HKR,Ndi\params\AuthenticationType,	default,	0,"2"
+HKR,Ndi\params\AuthenticationType\enum,	0,		0,%OpenSystemStr%
+HKR,Ndi\params\AuthenticationType\enum,	1,		0,%SharedKeyStr%
+HKR,Ndi\params\AuthenticationType\enum,	2,		0,%AutoAuthStr%
+HKR,,				AuthenticationType,	0,"2"
+
+HKR,Ndi\params\PreambleType,		ParamDesc,	0,%PreambleStr%
+HKR,Ndi\params\PreambleType,		type,		0,"enum"
+HKR,Ndi\params\PreambleType,		default,	0,"2"
+HKR,Ndi\params\PreambleType\enum,	0,		0,%LongPreambleStr%
+HKR,Ndi\params\PreambleType\enum,	1,		0,%ShortPreambleStr%
+HKR,Ndi\params\PreambleType\enum,	2,		0,%AutoPreambleStr%
+HKR,,					PreambleType,	0,"2"
+
+HKR,Ndi\params\PowerMgmtMode,		ParamDesc,	0,%PowerMgmtStr%
+HKR,Ndi\params\PowerMgmtMode,		type,		0,"enum"
+HKR,Ndi\params\PowerMgmtMode,		default,	0,"0"
+HKR,Ndi\params\PowerMgmtMode\enum,	0,		0,%ActiveStr%
+HKR,Ndi\params\PowerMgmtMode\enum,	1,		0,%PSStr%
+HKR,,					PowerMgmtMode,	0,"0"
+
+HKR,Ndi\params\BasicRates,		ParamDesc,	0,%BasicRatesStr%
+HKR,Ndi\params\BasicRates,		type,		0,"enum"
+HKR,Ndi\params\BasicRates,		default,	0,"0"
+HKR,Ndi\params\BasicRates\enum,	0,			0,%BR1Str%
+HKR,Ndi\params\BasicRates\enum,	1,			0,%BR2Str%
+HKR,,					BasicRates,	0,"0"
+
+HKR, Ndi\params\BeaconPeriod,	      	ParamDesc,     	0, %BeaconPeriodStr%
+HKR, Ndi\params\BeaconPeriod,	      	type,		0, "int"
+HKR, Ndi\params\BeaconPeriod,		default,	0, "100"
+HKR, Ndi\params\BeaconPeriod,		min,		0, "20"
+HKR, Ndi\params\BeaconPeriod,		max,		0, "1000"
+HKR, Ndi\params\BeaconPeriod,		step,		0, "1"
+HKR, ,                                	BeaconPeriod,   0, "100"
+
+HKR,Ndi\params\RadioOnOff,		ParamDesc,	0,%RadioOnOffStr%
+HKR,Ndi\params\RadioOnOff,		type,		0,"enum"
+HKR,Ndi\params\RadioOnOff,		default,	0,"1"
+HKR,Ndi\params\RadioOnOff\enum,	0,			0,%RadioOffStr%
+HKR,Ndi\params\RadioOnOff\enum,	1,			0,%RadioOnStr%
+HKR,,					RadioOnOff,	0,"1"
+
+[PCMCIAFVNETRXP.Params]
+
+HKR, Ndi\params\Rate,	      		ParamDesc,     	0, %RateStr%
+HKR, Ndi\params\Rate,	      		type,		0, "enum"
+HKR, Ndi\params\Rate,			default,	0, "3"
+HKR, Ndi\params\Rate\enum,		0,		0, %Fixed1Str%
+HKR, Ndi\params\Rate\enum,		1,		0, %Fixed2Str%
+HKR, Ndi\params\Rate\enum,		2,		0, %Fixed55Str%
+HKR, Ndi\params\Rate\enum,		3,		0, %Fixed11Str%
+HKR, Ndi\params\Rate\enum,		4,		0, %AutoStr%
+HKR, ,                                	Rate,    	0, "3"
+
+HKR, Ndi\params\RTS_Threshold,	      	ParamDesc,     	0, %RTS_Str%
+HKR, Ndi\params\RTS_Threshold,	      	type,		0, "int"
+HKR, Ndi\params\RTS_Threshold,		default,	0, "2347"
+HKR, Ndi\params\RTS_Threshold,		min,		0, "0"
+HKR, Ndi\params\RTS_Threshold,		max,		0, "2347"
+HKR, Ndi\params\RTS_Threshold,		step,		0, "1"
+HKR, ,                                	RTS_Threshold,  0, "2347"
+
+HKR, Ndi\params\Frag_Threshold,	      	ParamDesc,     	0, %FragmentationStr%
+HKR, Ndi\params\Frag_Threshold,	      	type,		0, "int"
+HKR, Ndi\params\Frag_Threshold,		default,	0, "2346"
+HKR, Ndi\params\Frag_Threshold,		min,		0, "256"
+HKR, Ndi\params\Frag_Threshold,		max,		0, "2346"
+HKR, Ndi\params\Frag_Threshold,		step,		0, "1"
+HKR, ,                                	Frag_Threshold, 0, "2346"
+
+HKR,Ndi\params\PreambleType,		ParamDesc,	0,%PreambleStr%
+HKR,Ndi\params\PreambleType,		type,		0,"enum"
+HKR,Ndi\params\PreambleType,		default,	0,"2"
+HKR,Ndi\params\PreambleType\enum,	0,		0,%LongPreambleStr%
+HKR,Ndi\params\PreambleType\enum,	1,		0,%ShortPreambleStr%
+HKR,Ndi\params\PreambleType\enum,	2,		0,%AutoPreambleStr%
+HKR,,					PreambleType,	0,"2"
+
+HKR,Ndi\params\RadioOnOff,		ParamDesc,	0,%RadioOnOffStr%
+HKR,Ndi\params\RadioOnOff,		type,		0,"enum"
+HKR,Ndi\params\RadioOnOff,		default,	0,"1"
+HKR,Ndi\params\RadioOnOff\enum,	0,			0,%RadioOffStr%
+HKR,Ndi\params\RadioOnOff\enum,	1,			0,%RadioOnStr%
+HKR,,
+
+[USBNETXP.Params]
+HKR,                   ,GTKSIOC               ,0      ,"1"
+HKR, Ndi\params\Rate,               ParamDesc,          0, "Rate (Mbps)"
+HKR, Ndi\params\Rate,               default,            0, "3"
+HKR, Ndi\params\Rate,               type,               0, "enum"
+HKR, Ndi\params\Rate\enum,          0,                  0, "1"
+HKR, Ndi\params\Rate\enum,          1,                  0, "2"
+HKR, Ndi\params\Rate\enum,          2,                  0, "5.5"
+HKR, Ndi\params\Rate\enum,          3,                  0, "11"
+HKR, Ndi\params\Rate\enum,          4,                  0, "Auto"
+HKR, ,                              Rate,               0, "3"
+
+HKR, Ndi\params\RTS_Threshold,      ParamDesc,          0, "RTS Threshold"
+HKR, Ndi\params\RTS_Threshold,      default,            0, "2347"
+HKR, Ndi\params\RTS_Threshold,      type,               0, "int"
+HKR, Ndi\params\RTS_Threshold,      min,                0, "0"
+HKR, Ndi\params\RTS_Threshold,      max,                0, "2347"
+HKR, Ndi\params\RTS_Threshold,      step,               0, "1"
+HKR, ,                              RTS_Threshold,      0, "2347"
+
+HKR, Ndi\params\Frag_Threshold,     ParamDesc,          0, "Fragmentation Threshold"
+HKR, Ndi\params\Frag_Threshold,     default,            0, "2346"
+HKR, Ndi\params\Frag_Threshold,     type,               0, "int"
+HKR, Ndi\params\Frag_Threshold,     min,                0, "256"
+HKR, Ndi\params\Frag_Threshold,     max,                0, "2346"
+HKR, Ndi\params\Frag_Threshold,     step,               0, "1"
+HKR, ,                              Frag_Threshold,     0, "2346"
+
+HKR, Ndi\params\PreambleType,       ParamDesc,          0, "Preamble Type"
+HKR, Ndi\params\PreambleType,       default,            0, "0"
+HKR, Ndi\params\PreambleType,       type,               0, "enum"
+HKR, Ndi\params\PreambleType\enum,  0,                  0, "Long"
+HKR, Ndi\params\PreambleType\enum,  1,                  0, "Short"
+HKR, Ndi\params\PreambleType\enum,  2,                  0, "Auto"
+HKR, ,                              PreambleType,       0, "2"
+
+HKR,Ndi\params\PowerMgmtMode,       ParamDesc,          0,"802.11 Power Save"
+HKR,Ndi\params\PowerMgmtMode,       type,               0,"enum"
+HKR,Ndi\params\PowerMgmtMode,       default,            0,"0"
+HKR,Ndi\params\PowerMgmtMode\enum,  0,                  0,"Disabled"
+HKR,Ndi\params\PowerMgmtMode\enum,  1,                  0,"Enabled"
+HKR,,                               PowerMgmtMode,      0,"0"
+;*******************************************************************************
+; Install section Windows 
+;*******************************************************************************
+[CopyFile.Sys]
+
+
+[PCMCIAFVNETR.NT.Reg]
+; Interfaces
+HKR, Ndi\Interfaces, LowerRange, 0, "ethernet"
+HKR, Ndi\Interfaces, UpperRange, 0, "ndis5"
+HKR, Ndi,            Service,    0, "PCMCIAFVNETR"
+
+[PCMCIAFVNETR.Service]
+DisplayName    = %PCMCIAFVNETR.DisplayName%
+ServiceType    = 1
+StartType      = 3
+ErrorControl   = 1
+ServiceBinary  = %12%\fvnetr.sys
+LoadOrderGroup = NDIS
+
+
+[Common.EventLog]
+AddReg = Common.AddEventLog.Reg
+
+[Common.AddEventLog.Reg]
+HKR, , EventMessageFile, 0x00020000, %%SystemRoot%%\System32\netevent.dll, %%SystemRoot%%\System32\drivers\netusbxp.sys
+HKR, , TypesSupported  , 0x00010001, 7
+
+
+[CopyFile.NT.Sys]
+
+netusb.sys
+fvnetr.sys
+
+
+;=======================================================================================
+;******************************broadcom*************************************************
+;---------------------------------------------------------------------------------------
+; Win9x specific
+;
+[BCM43XX]
+	AddReg		= BCM43XX.win.reg, BCM43XX.win.brcm.reg, common.reg, b.options.reg, bg.options.reg
+	CopyFiles	= BCM43XX.sys.files
+DriverVer=05/26/2003, 3.20.21.0
+
+[BCM43PCM]
+	AddReg		= BCM43XX.win.reg, BCM43XX.win.brcm.reg, common.reg, b.options.reg, bg.options.reg
+	CopyFiles	= BCM43XX.sys.files
+DriverVer=05/26/2003, 3.20.21.0
+
+[BCM43XG]
+	AddReg		= BCM43XX.win.reg, BCM43XX.win.brcm.reg, common.reg, g.options.reg, bg.options.reg
+	CopyFiles	= BCM43XX.sys.files
+DriverVer=05/26/2003, 3.20.21.0
+
+[BCM43XA]
+	AddReg		= BCM43XX.win.reg, BCM43XX.win.brcm.reg, common.reg, a.options.reg
+	CopyFiles	= BCM43XX.sys.files
+DriverVer=05/26/2003, 3.20.21.0
+
+[BCM43XM]
+	AddReg		= BCM43XX.win.reg, BCM43XX.win.brcm.reg, common.reg, bag.options.reg
+	CopyFiles	= BCM43XX.sys.files
+DriverVer=05/26/2003, 3.20.21.0
+
+[BCM43XX.win.reg]
+	HKR,	Ndi,	DeviceID,		,	"PCI\VEN_14E4&DEV_4320&SUBSYS_00131737"
+	HKR,	Ndi,	DeviceID,		,	"PCI\VEN_14E4&DEV_4320&SUBSYS_906E182D"
+	HKR,	Ndi,	DeviceID,		,	"PCI\VEN_14E4&DEV_4320&SUBSYS_9064182D"
+	HKR,	Ndi,	DeviceID,		,	"PCI\VEN_14E4&DEV_4320&SUBSYS_041714E4"
+	HKR,	Ndi,	DeviceID,		,	"PCI\VEN_14E4&DEV_4320&SUBSYS_041814E4"
+	; Ndis Info
+	HKR,	,		EnumPropPages,		0,	"netdi.dll,EnumPropPages"
+	HKR,	NDIS,	MajorNdisVersion,	1,	03
+	HKR,	NDIS,	MinorNdisVersion,	1,	0A
+	HKR,	NDIS,	LogDriverName,		,	"BCM43XX"
+	HKR,	NDIS,	MajorDriverVersion,	1,	1
+	HKR,	NDIS,	MinorDriverVersion,	1,	0
+	;Install sections
+	HKR,	Ndi\Install,	,		,	"BCM43XX.ndi.install"
+	; Interfaces
+	HKR,	Ndi\Interfaces,	DefUpper,	0,	"ndis3"
+	HKR,	Ndi\Interfaces,	DefLower,	0,	"ethernet"
+	HKR,	Ndi\Interfaces,	UpperRange,	0,	"ndis3"
+	HKR,	Ndi\Interfaces,	LowerRange,	0,	"ethernet"
+
+[BCM43XX.win.brcm.reg]
+	HKR,	Ndi,	HelpText,		,	%BCM43XX_HELP%
+
+[BCM43XX.ndi.install]
+	AddReg		= BCM43XX.ndi.reg
+
+[BCM43XX.ndi.reg]
+	HKR,	,	DevLoader,		0,	"*ndis"
+	HKR,	,	DeviceVxDs,		0,	%DEFAULT_WIN9X_SYS%
+; Flag = 2 is COPYFLG_NOSKIP (2)
+; Flag = 33 is COPYFLG_WARN_IF_SKIP (1) | COPYFLG_NO_VERSION_DIALOG (32)
+[BCM43XX.sys.files]
+;	BCMWL5.SYS,,,2
+
+;-----------------------------------------------------------------
+; Win2k specific
+;
+[BCM43XX.NT]
+	Characteristics	= 0x84	; NCF_PHYSICAL | NCF_HAS_UI
+	BusType		= 5			; PCI bus
+	AddReg		= BCM43XX.reg, BCM43XX.brcm.reg, common.reg, b.options.reg, bg.options.reg
+	CopyFiles	= BCM43XX.files.NT
+DriverVer=05/26/2003, 3.20.21.0
+
+[BCM43PCM.NT]
+	Characteristics	= 0x84	; NCF_PHYSICAL | NCF_HAS_UI
+	BusType		= 8		; PCMCIA bus
+	AddReg		= BCM43XX.reg, BCM43XX.brcm.reg, common.reg, b.options.reg, bg.options.reg
+	CopyFiles	= BCM43XX.files.NT
+DriverVer=05/26/2003, 3.20.21.0
+
+[BCM43XG.NT]
+	Characteristics	= 0x84	; NCF_PHYSICAL | NCF_HAS_UI
+	BusType		= 5			; PCI bus
+	AddReg		= BCM43XX.reg, BCM43XX.brcm.reg, common.reg, g.options.reg, bg.options.reg
+	CopyFiles	= BCM43XX.files.NT
+DriverVer=05/26/2003, 3.20.21.0
+
+[BCM43XA.NT]
+	Characteristics	= 0x84	; NCF_PHYSICAL | NCF_HAS_UI
+	BusType		= 5			; PCI bus
+	AddReg		= BCM43XX.reg, BCM43XX.brcm.reg, common.reg, a.options.reg
+	CopyFiles	= BCM43XX.files.NT
+DriverVer=05/26/2003, 3.20.21.0
+
+[BCM43XM.NT]
+	Characteristics	= 0x84	; NCF_PHYSICAL | NCF_HAS_UI
+	BusType		= 5			; PCI bus
+	AddReg		= BCM43XX.reg, BCM43XX.brcm.reg, common.reg, bag.options.reg
+	CopyFiles	= BCM43XX.files.NT
+DriverVer=05/26/2003, 3.20.21.0
+
+[BCM43XX.NT.Services]
+	AddService = BCM43XX, 2, BCM43XX.Service, common.EventLog
+
+[BCM43PCM.NT.Services]
+	AddService = BCM43XX, 2, BCM43XX.Service, common.EventLog
+
+[BCM43XG.NT.Services]
+	AddService = BCM43XX, 2, BCM43XX.Service, common.EventLog
+
+[BCM43XA.NT.Services]
+	AddService = BCM43XX, 2, BCM43XX.Service, common.EventLog
+
+[BCM43XM.NT.Services]
+	AddService = BCM43XX, 2, BCM43XX.Service, common.EventLog
+
+[BCM43XX.reg]
+	; Ndis Info
+	; Interfaces
+	HKR,	Ndi\Interfaces,	UpperRange,	,	"ndis5"
+	HKR,	Ndi\Interfaces,	LowerRange,	,	"ethernet"
+
+[BCM43XX.brcm.reg]
+	HKR,	Ndi,	HelpText,		,	%BCM43XX_HELP%
+	HKR,	Ndi,	Service,		0,	"BCM43XX"
+
+[BCM43XX.Service]
+	DisplayName	= %BCM43XX.Service.DispName%
+	ServiceType	= 1			; %SERVICE_KERNEL_DRIVER%
+	StartType	= 3			; %SERVICE_DEMAND_START%
+	ErrorControl	= 1			; %SERVICE_ERROR_NORMAL%
+	ServiceBinary	= %12%\bcmwl5.sys
+	LoadOrderGroup	= NDIS
+
+[common.EventLog]
+	AddReg = common.AddEventLog.reg
+
+[common.AddEventLog.reg]
+	HKR,	,	EventMessageFile,	0x00020000,	"%%SystemRoot%%\System32\netevent.dll"
+	HKR,	,	TypesSupported,		0x00010001,	7
+
+[BCM43XX.files.NT]
+	BCMWL5.SYS,,,2
+
+;-----------------------------------------------------------------
+; Both Win9x & Win2k
+;
+
+[common.reg]
+	HKR,	Ndi\params\RadioState, ParamDesc,	0,	"Radio Enable/Disable"
+	HKR,	Ndi\params\RadioState, type,		0,	"enum"
+	HKR,	Ndi\params\RadioState\enum, "1",		0,	"Disabled"
+	HKR,	Ndi\params\RadioState\enum, "0",		0,	"Enabled"
+	HKR,    Ndi\params\RadioState,default,,"0"	
+
+	HKR,	Ndi\params\PowerSaveMode, ParamDesc,	0,	"Power Save Mode"
+	HKR,	Ndi\params\PowerSaveMode, type,		0,	"enum"
+	HKR,	Ndi\params\PowerSaveMode\enum, "0",		0,	"Disabled"
+	HKR,	Ndi\params\PowerSaveMode\enum, "1",		0,	"Enabled"
+	HKR,    Ndi\params\PowerSaveMode,default,,"0"	
+
+	HKR,	Ndi\params\frag, ParamDesc,	0,	"Fragmentation Threshold"
+	HKR,	Ndi\params\frag,type,0,"dword"
+	HKR,	Ndi\params\frag,min,,"256"
+	HKR,	Ndi\params\frag,max,,"2346"
+	HKR,	Ndi\params\frag,default,,"2346"
+
+	HKR,	Ndi\params\rts, ParamDesc,	0,	"RTS Threshold"
+	HKR,	Ndi\params\rts,type,0,"dword"
+	HKR,	Ndi\params\rts,min,,"0"
+	HKR,	Ndi\params\rts,max,,"2347"
+	HKR,	Ndi\params\rts,default,,"2347"
+
+	HKR,	Ndi\params\NetworkAddress, ParamDesc,	0, "Locally Administered MAC Address"
+	HKR,	Ndi\params\NetworkAddress, type,	0, "edit"
+	HKR,	Ndi\params\NetworkAddress, LimitText,	0, "12"
+	HKR,	Ndi\params\NetworkAddress, UpperCase,  0, "1"
+	HKR,	Ndi\params\NetworkAddress, default,	0, ""
+	HKR,	Ndi\params\NetworkAddress, optional,	0, "1"
+
+	HKR,	Ndi\params\PwrOut, ParamDesc,	0,	"Power Output"
+	HKR,	Ndi\params\PwrOut, type,		0,	"enum"
+	HKR,	Ndi\params\PwrOut\enum, "100",	0,	"100%"
+	HKR,	Ndi\params\PwrOut\enum, "75",	0,	"75%"
+	HKR,	Ndi\params\PwrOut\enum, "50",	0,	"50%"
+	HKR,	Ndi\params\PwrOut\enum, "25",	0,	"25%"
+	HKR,	Ndi\params\PwrOut,default,,"100"
+
+	HKR,					,"EnableAutoConnect", 0,	"0"
+	HKR,					,"WEP",	0,	""
+	HKR,					,"NetworkType",	0,	"-1"
+	HKR,					,"SSID",	0,	""
+
+	HKR,					,"gpio0",	0,	"-1"
+	HKR,					,"gpio1",	0,	"-1"
+	HKR,					,"gpio2",	0,	"-1"
+	HKR,					,"gpio3",	0,	"-1"
+
+	HKR,					,"scan_channel_time",	0,	"-1"
+	HKR,					,"scan_unassoc_time",	0,	"-1"
+	HKR,					,"scan_home_time",		0,	"-1"
+	HKR,					,"scan_passes",			0,	"-1"
+
+	HKR,					,"BadFramePreempt",		0,	"0"
+
+	HKR,					,"Interference_Mode",		0,	"-1"
+
+	HKR,	Ndi\params\antdiv, ParamDesc,	0,	"Antenna Diversity"
+	HKR,	Ndi\params\antdiv, type,	0,	"enum"
+	HKR,	Ndi\params\antdiv\enum, "-1",	0,	"Auto"
+	HKR,	Ndi\params\antdiv,default,,"-1"
+
+[b.options.reg]
+	HKR,	Ndi\params\PLCPHeader, ParamDesc,	0,	"PLCP Header"
+	HKR,	Ndi\params\PLCPHeader, type,		0,	"enum"
+	HKR,	Ndi\params\PLCPHeader\enum, "-1",	0,	"Long"
+	HKR,	Ndi\params\PLCPHeader\enum, "0",	0,	"Auto (Short/Long)"
+	HKR,	Ndi\params\PLCPHeader,default,,"0"
+
+	HKR,	Ndi\params\Rate, ParamDesc,	0,	"Rate"
+	HKR,	Ndi\params\Rate, type,		0,	"enum"
+	HKR,	Ndi\params\Rate\enum, "0",	0,	"Use best rate"
+	HKR,	Ndi\params\Rate\enum, "2",	0,	" 1"
+	HKR,	Ndi\params\Rate\enum, "4",	0,	" 2"
+	HKR,	Ndi\params\Rate\enum, "11",	0,	" 5.5"
+	HKR,	Ndi\params\Rate\enum, "22",	0,	"11"
+	HKR,	Ndi\params\Rate,default,,"0"
+
+	HKR,	Ndi\params\Locale, ParamDesc,	0,	"Locale"
+	HKR,	Ndi\params\Locale, type,		0,	"enum"
+	HKR,	Ndi\params\Locale\enum, "0",		0,	"Worldwide"
+	HKR,	Ndi\params\Locale\enum, "1",		0,	"Thailand"
+	HKR,	Ndi\params\Locale\enum, "2",		0,	"Israel"
+	HKR,	Ndi\params\Locale\enum, "3",		0,	"Jordan"
+	HKR,	Ndi\params\Locale\enum, "5",		0,	"Japan"
+	HKR,    Ndi\params\Locale,default,,"15"	
+
+[g.options.reg]
+	HKR,	Ndi\params\RoamTrigger, ParamDesc,	0,	"Roaming Decision"
+	HKR,	Ndi\params\RoamTrigger, type,		0,	"enum"
+	HKR,	Ndi\params\RoamTrigger\enum, "-60",	0,	"Optimize Bandwidth"
+	HKR,	Ndi\params\RoamTrigger\enum, "-70",	0,	"Default"
+	HKR,	Ndi\params\RoamTrigger\enum, "-80",	0,	"Optimize Distance"
+	HKR,	Ndi\params\RoamTrigger,default,,"-70"
+
+	HKR,	Ndi\params\PLCPHeader, ParamDesc,	0,	"BSS PLCP Header"
+	HKR,	Ndi\params\PLCPHeader, type,		0,	"enum"
+	HKR,	Ndi\params\PLCPHeader\enum, "-1",	0,	"Long"
+	HKR,	Ndi\params\PLCPHeader\enum, "0",	0,	"Auto (Short/Long)"
+	HKR,	Ndi\params\PLCPHeader,default,,"0"
+
+	HKR,    Ndi\params\IBSSGMode, ParamDesc,	0,      "IBSS 54g(tm) Mode"
+	HKR,    Ndi\params\IBSSGMode, type,         0,      "enum"
+	HKR,    Ndi\params\IBSSGMode\enum, "0",     0,      "802.11b Only"
+	HKR,    Ndi\params\IBSSGMode\enum, "1",     0,      "54g - LRS"
+	HKR,    Ndi\params\IBSSGMode\enum, "2",     0,      "54g - Auto"
+	HKR,    Ndi\params\IBSSGMode\enum, "4",     0,      "54g - Performance"
+	HKR,    Ndi\params\IBSSGMode,default,,"0"
+
+	HKR,    Ndi\params\IBSSGProtection, ParamDesc,	0,      "IBSS 54g(tm) Protection Mode"
+	HKR,    Ndi\params\IBSSGProtection, type,       0,      "enum"
+	HKR,    Ndi\params\IBSSGProtection\enum, "0",   0,      "Disabled"
+	HKR,    Ndi\params\IBSSGProtection\enum, "2",   0,      "Auto"
+	HKR,    Ndi\params\IBSSGProtection,default,,"2"
+
+	HKR,	Ndi\params\Locale, ParamDesc,	0,	"Locale"
+	HKR,	Ndi\params\Locale, type,		0,	"enum"
+	HKR,	Ndi\params\Locale\enum, "0",		0,	"Worldwide"
+	HKR,	Ndi\params\Locale\enum, "1",		0,	"Thailand"
+	HKR,	Ndi\params\Locale\enum, "2",		0,	"Israel"
+	HKR,	Ndi\params\Locale\enum, "3",		0,	"Jordan"
+	HKR,	Ndi\params\Locale\enum, "5",		0,	"Japan"
+	HKR,	Ndi\params\Locale\enum, "6",		0,	"USA"
+	HKR,    Ndi\params\Locale,default,,"15"	
+
+	HKR,	Ndi\params\Rate, ParamDesc,	0,	"Rate"
+	HKR,	Ndi\params\Rate, type,		0,	"enum"
+	HKR,	Ndi\params\Rate\enum, "0",	0,	"Use best rate"
+	HKR,	Ndi\params\Rate\enum, "2",	0,	" 1"
+	HKR,	Ndi\params\Rate\enum, "4",	0,	" 2"
+	HKR,	Ndi\params\Rate\enum, "11",	0,	" 5.5"
+	HKR,	Ndi\params\Rate\enum, "12",	0,	" 6"
+	HKR,	Ndi\params\Rate\enum, "18",	0,	" 9"
+	HKR,	Ndi\params\Rate\enum, "22",	0,	"11"
+	HKR,	Ndi\params\Rate\enum, "24",	0,	"12"
+	HKR,	Ndi\params\Rate\enum, "36",	0,	"18"
+	HKR,	Ndi\params\Rate\enum, "48",	0,	"24"
+	HKR,	Ndi\params\Rate\enum, "72",	0,	"36"
+	HKR,	Ndi\params\Rate\enum, "96",	0,	"48"
+	HKR,	Ndi\params\Rate\enum, "108",0,	"54"
+	HKR,	Ndi\params\Rate,default,,"0"
+
+; options common to both b and g
+[bg.options.reg]
+	HKR,	Ndi\params\Channel, ParamDesc, 0, "IBSS Channel Number"
+	HKR,	Ndi\params\Channel, default,   0, "11"
+	HKR,	Ndi\params\Channel, min,       0, "1"
+	HKR,	Ndi\params\Channel, max,       0, "14"
+	HKR,	Ndi\params\Channel, step,      0, "1"
+	HKR,	Ndi\params\Channel, base,      0, "10"
+	HKR,	Ndi\params\Channel, type,      0, "int"
+
+[a.options.reg]
+	HKR,	Ndi\params\Locale, ParamDesc,	0,	"Locale"
+	HKR,	Ndi\params\Locale, type,		0,	"enum"
+	HKR,	Ndi\params\Locale\enum, "0",		0,	"Worldwide"
+	HKR,	Ndi\params\Locale\enum, "1",		0,	"Thailand"
+	HKR,	Ndi\params\Locale\enum, "2",		0,	"Israel"
+	HKR,	Ndi\params\Locale\enum, "3",		0,	"Jordan"
+	HKR,	Ndi\params\Locale\enum, "5",		0,	"Japan"
+	HKR,	Ndi\params\Locale\enum, "6",		0,	"USA"
+	HKR,    Ndi\params\Locale,default,,"15"	
+
+	HKR,	Ndi\params\Rate, ParamDesc,	0,	"Rate"
+	HKR,	Ndi\params\Rate, type,		0,	"enum"
+	HKR,	Ndi\params\Rate\enum, "0",	0,	"Use best rate"
+	HKR,	Ndi\params\Rate\enum, "12",	0,	" 6"
+	HKR,	Ndi\params\Rate\enum, "18",	0,	" 9"
+	HKR,	Ndi\params\Rate\enum, "24",	0,	"12"
+	HKR,	Ndi\params\Rate\enum, "36",	0,	"18"
+	HKR,	Ndi\params\Rate\enum, "48",	0,	"24"
+	HKR,	Ndi\params\Rate\enum, "72",	0,	"36"
+	HKR,	Ndi\params\Rate\enum, "96",	0,	"48"
+	HKR,	Ndi\params\Rate\enum, "108",0,	"54"
+	HKR,	Ndi\params\Rate,default,,"0"
+
+	; USA Low Band
+	HKR,	Ndi\params\Channel, ParamDesc, 0, "IBSS Channel Number"
+	HKR,	Ndi\params\Channel, type,      0, "enum"
+	HKR,	Ndi\params\Channel\enum, "36",   0, " 36"
+	HKR,	Ndi\params\Channel\enum, "40",   0, " 40"
+	HKR,	Ndi\params\Channel\enum, "44",   0, " 44"
+	HKR,	Ndi\params\Channel\enum, "48",   0, " 48"
+	HKR,	Ndi\params\Channel\enum, "52",   0, " 52"
+	HKR,	Ndi\params\Channel\enum, "56",   0, " 56"
+	HKR,	Ndi\params\Channel\enum, "60",   0, " 60"
+	HKR,	Ndi\params\Channel\enum, "64",   0, " 64"
+	; Europe
+	HKR,	Ndi\params\Channel\enum, "100",   0, "100"
+	HKR,	Ndi\params\Channel\enum, "104",   0, "104"
+	HKR,	Ndi\params\Channel\enum, "108",   0, "108"
+	HKR,	Ndi\params\Channel\enum, "112",   0, "112"
+	HKR,	Ndi\params\Channel\enum, "116",   0, "116"
+	HKR,	Ndi\params\Channel\enum, "120",   0, "120"
+
+	HKR,	Ndi\params\Channel\enum, "124",   0, "124"
+	HKR,	Ndi\params\Channel\enum, "128",   0, "128"
+	HKR,	Ndi\params\Channel\enum, "132",   0, "132"
+	HKR,	Ndi\params\Channel\enum, "136",   0, "136"
+	HKR,	Ndi\params\Channel\enum, "140",   0, "140"
+	; Japan
+	HKR,	Ndi\params\Channel\enum, "184",   0, "184"
+	HKR,	Ndi\params\Channel\enum, "188",   0, "188"
+	HKR,	Ndi\params\Channel\enum, "192",   0, "192"
+	HKR,	Ndi\params\Channel\enum, "196",   0, "196"
+	HKR,	Ndi\params\Channel\enum, "200",   0, "200"
+	HKR,	Ndi\params\Channel\enum, "204",   0, "204"
+	HKR,	Ndi\params\Channel\enum, "208",   0, "208"
+	HKR,	Ndi\params\Channel\enum, "212",   0, "212"
+	HKR,	Ndi\params\Channel\enum, "216",   0, "216"
+	HKR,	Ndi\params\Channel, default,   0, "36"
+
+[bag.options.reg]
+	HKR,	Ndi\params\RoamTrigger, ParamDesc,	0,	"Roaming Decision"
+	HKR,	Ndi\params\RoamTrigger, type,		0,	"enum"
+	HKR,	Ndi\params\RoamTrigger\enum, "-60",	0,	"Optimize Bandwidth"
+	HKR,	Ndi\params\RoamTrigger\enum, "-70",	0,	"Default"
+	HKR,	Ndi\params\RoamTrigger\enum, "-80",	0,	"Optimize Distance"
+	HKR,	Ndi\params\RoamTrigger,default,,"-70"
+
+	HKR,	Ndi\params\PLCPHeader, ParamDesc,	0,	"BSS PLCP Header"
+	HKR,	Ndi\params\PLCPHeader, type,		0,	"enum"
+	HKR,	Ndi\params\PLCPHeader\enum, "-1",	0,	"Long"
+	HKR,	Ndi\params\PLCPHeader\enum, "0",	0,	"Auto (Short/Long)"
+	HKR,	Ndi\params\PLCPHeader,default,,"0"
+
+	HKR,	Ndi\params\band, ParamDesc,	0,	"Disable Bands"
+	HKR,	Ndi\params\band, type,		0,	"enum"
+	HKR,	Ndi\params\band\enum, "0",	0,	"None"
+	HKR,	Ndi\params\band\enum, "1",	0,	"Disable 802.11g/b"
+	HKR,	Ndi\params\band\enum, "2",	0,	"Disable 802.11a"
+	HKR,	Ndi\params\band,default,,"0"
+
+	HKR,	Ndi\params\Locale, ParamDesc,	0,	"Locale"
+	HKR,	Ndi\params\Locale, type,		0,	"enum"
+	HKR,	Ndi\params\Locale\enum, "0",		0,	"Worldwide"
+	HKR,	Ndi\params\Locale\enum, "1",		0,	"Thailand"
+	HKR,	Ndi\params\Locale\enum, "2",		0,	"Israel"
+	HKR,	Ndi\params\Locale\enum, "3",		0,	"Jordan"
+	HKR,	Ndi\params\Locale\enum, "5",		0,	"Japan"
+	HKR,	Ndi\params\Locale\enum, "6",		0,	"USA"
+	HKR,    Ndi\params\Locale,default,,"15"	
+
+	HKR,	Ndi\params\AssocPref, ParamDesc,	0,	"Association Preference"
+	HKR,	Ndi\params\AssocPref, type,		0,	"enum"
+	HKR,	Ndi\params\AssocPref\enum, "0",	0,	"None"
+	HKR,	Ndi\params\AssocPref\enum, "1",	0,	"Prefer 802.11a"
+	HKR,	Ndi\params\AssocPref\enum, "2",	0,	"Prefer 802.11g/b"
+	HKR,	Ndi\params\AssocPref,default,,"0"
+
+	HKR,	Ndi\params\RoamPref, ParamDesc,	0,	"Roaming Preference"
+	HKR,	Ndi\params\RoamPref, type,		0,	"enum"
+	HKR,	Ndi\params\RoamPref\enum, "0",	0,	"None"
+	HKR,	Ndi\params\RoamPref\enum, "1",	0,	"Stay In Band"
+	HKR,	Ndi\params\RoamPref,default,,"0"
+
+	HKR,    Ndi\params\IBSSGMode, ParamDesc,	0,      "IBSS 54g(tm) Mode"
+	HKR,    Ndi\params\IBSSGMode, type,         0,      "enum"
+	HKR,    Ndi\params\IBSSGMode\enum, "0",     0,      "802.11b Only"
+	HKR,    Ndi\params\IBSSGMode\enum, "1",     0,      "54g - LRS"
+	HKR,    Ndi\params\IBSSGMode\enum, "2",     0,      "54g - Auto"
+	HKR,    Ndi\params\IBSSGMode\enum, "4",     0,      "54g - Performance"
+	HKR,    Ndi\params\IBSSGMode,default,,"2"
+
+	HKR,    Ndi\params\IBSSGProtection, ParamDesc,	0,      "IBSS 54g(tm) Protection Mode"
+	HKR,    Ndi\params\IBSSGProtection, type,       0,      "enum"
+	HKR,    Ndi\params\IBSSGProtection\enum, "0",   0,      "Disabled"
+	HKR,    Ndi\params\IBSSGProtection\enum, "2",   0,      "Auto"
+	HKR,    Ndi\params\IBSSGProtection,default,,"2"
+
+	HKR,	Ndi\params\Rate, ParamDesc,	0,	"Rate"
+	HKR,	Ndi\params\Rate, type,		0,	"enum"
+	HKR,	Ndi\params\Rate\enum, "0",	0,	"Use best rate"
+	HKR,	Ndi\params\Rate\enum, "2",	0,	" 1"
+	HKR,	Ndi\params\Rate\enum, "4",	0,	" 2"
+	HKR,	Ndi\params\Rate\enum, "11",	0,	" 5.5"
+	HKR,	Ndi\params\Rate\enum, "12",	0,	" 6"
+	HKR,	Ndi\params\Rate\enum, "18",	0,	" 9"
+	HKR,	Ndi\params\Rate\enum, "22",	0,	"11"
+	HKR,	Ndi\params\Rate\enum, "24",	0,	"12"
+	HKR,	Ndi\params\Rate\enum, "36",	0,	"18"
+	HKR,	Ndi\params\Rate\enum, "48",	0,	"24"
+	HKR,	Ndi\params\Rate\enum, "72",	0,	"36"
+	HKR,	Ndi\params\Rate\enum, "96",	0,	"48"
+	HKR,	Ndi\params\Rate\enum, "108",0,	"54"
+	HKR,	Ndi\params\Rate,default,,"0"
+
+	HKR,	Ndi\params\Channel, ParamDesc, 0, "IBSS Channel Number"
+	HKR,	Ndi\params\Channel, type,      0, "enum"
+	HKR,	Ndi\params\Channel\enum, "1",   0, "  1"
+	HKR,	Ndi\params\Channel\enum, "2",   0, "  2"
+	HKR,	Ndi\params\Channel\enum, "3",   0, "  3"
+	HKR,	Ndi\params\Channel\enum, "4",   0, "  4"
+	HKR,	Ndi\params\Channel\enum, "5",   0, "  5"
+	HKR,	Ndi\params\Channel\enum, "6",   0, "  6"
+	HKR,	Ndi\params\Channel\enum, "7",   0, "  7"
+	HKR,	Ndi\params\Channel\enum, "8",   0, "  8"
+	HKR,	Ndi\params\Channel\enum, "9",   0, "  9"
+	HKR,	Ndi\params\Channel\enum, "10",   0, " 10"
+	HKR,	Ndi\params\Channel\enum, "11",   0, " 11"
+	HKR,	Ndi\params\Channel\enum, "12",   0, " 12"
+	HKR,	Ndi\params\Channel\enum, "13",   0, " 13"
+	HKR,	Ndi\params\Channel\enum, "14",   0, " 14"
+	; USA Low Band
+	HKR,	Ndi\params\Channel\enum, "36",   0, " 36"
+	HKR,	Ndi\params\Channel\enum, "40",   0, " 40"
+	HKR,	Ndi\params\Channel\enum, "44",   0, " 44"
+	HKR,	Ndi\params\Channel\enum, "48",   0, " 48"
+	HKR,	Ndi\params\Channel\enum, "52",   0, " 52"
+	HKR,	Ndi\params\Channel\enum, "56",   0, " 56"
+	HKR,	Ndi\params\Channel\enum, "60",   0, " 60"
+	HKR,	Ndi\params\Channel\enum, "64",   0, " 64"
+	; Europe
+	HKR,	Ndi\params\Channel\enum, "100",   0, "100"
+	HKR,	Ndi\params\Channel\enum, "104",   0, "104"
+	HKR,	Ndi\params\Channel\enum, "108",   0, "108"
+	HKR,	Ndi\params\Channel\enum, "112",   0, "112"
+	HKR,	Ndi\params\Channel\enum, "116",   0, "116"
+	HKR,	Ndi\params\Channel\enum, "120",   0, "120"
+	HKR,	Ndi\params\Channel\enum, "124",   0, "124"
+	HKR,	Ndi\params\Channel\enum, "128",   0, "128"
+	HKR,	Ndi\params\Channel\enum, "132",   0, "132"
+	HKR,	Ndi\params\Channel\enum, "136",   0, "136"
+	HKR,	Ndi\params\Channel\enum, "140",   0, "140"
+	; Japan
+	HKR,	Ndi\params\Channel\enum, "184",   0, "184"
+	HKR,	Ndi\params\Channel\enum, "188",   0, "188"
+	HKR,	Ndi\params\Channel\enum, "192",   0, "192"
+	HKR,	Ndi\params\Channel\enum, "196",   0, "196"
+	HKR,	Ndi\params\Channel\enum, "200",   0, "200"
+	HKR,	Ndi\params\Channel\enum, "204",   0, "204"
+	HKR,	Ndi\params\Channel\enum, "208",   0, "208"
+	HKR,	Ndi\params\Channel\enum, "212",   0, "212"
+	HKR,	Ndi\params\Channel\enum, "216",   0, "216"
+	HKR,	Ndi\params\Channel, default,   0, "11"
+
+
+[CopyFile.XP.Sys]
+fvnetrxp.sys
+netusbxp.sys
+
+
+
+[DestinationDirs]
+DefaultDestDir    = 11
+BCM43XX.sys.files = 11
+BCM43XX.files.NT  = 12
+CopyFile.Sys      = 11
+CopyFile.NT.Sys   = 12
+CopyFile.XP.Sys   = 12
+NT.CopyFiles=12    ; system32\drivers subdirectory on NT
+win9x.CopyFiles=11    ; system32 subdirectory on win9x
+RT2400.Apps           = 11
+RT2400CoInstallFile   = 11
+	
+
+[NT.CopyFiles]
+RT2400.sys ; NT Installation
+ 
+[SourceDisksNames]
+1=%BCM43XX.DiskName%,,
+1=%DriverDisketteName%,,
+1= %INSTALL_DISK_STR%,,
+
+[SourceDisksFiles]
+BCMWL5.SYS=1
+
+netusb.sys=1
+netusbxp.sys=1
+fvnetr.sys=1
+fvnetrxp.sys=1
+
+RT2400.sys=1
+
+[SourceDisksFiles.X86]  ; Win2k/Xp
+
+
+;###############################################################################
+[Strings]
+;String ID              = String Text
+;---------                -----------
+ VER_VENDOR_STR         = "Sitecom"
+ VER_VENDOR_NAME_STR    = "Sitecom Corporation"
+ 
+;********************ATMEL String*****************************************************
+PCMCIAFVNET3V.DeviceDesc = "IEEE 802.11b Network LAN PC Card 2.6"
+PCMCIAFVNET5V.DeviceDesc = "IEEE 802.11 Wireless LAN PC Card 2.6"
+PCMCIAFVNETR5V.DeviceDesc = "IEEE 802.11 Wireless LAN PC Card 2.6"
+PCMCIAFVNETR.DisplayName = "IEEE 802.11 Wireless LAN PC Card 2.6"
+PCMCIAFVNETRXP.DisplayName = "IEEE 802.11 Wireless LAN PC Card 2.6"
+USBNET.DeviceDesc = "IEEE 802.11 Wireless LAN USB 2.6"
+USBNET.DisplayName = "Instant Wireless USB Network Adapter ver.2.6 Driver"
+USBNETXP.DisplayName = "Instant Wireless USB XP Network Adapter ver.2.6 Driver"
+USBFVNETR.DisplayName = "Instant Wireless USB Network Adapter ver.2.6 Driver"
+
+DriverDisketteName      = "ATMEL PCMCIA FastVNET-R Drivers Disk"
+Help_Text = "VirtualNET lets you set up easily and operate a Wireless LAN compliant with 802.11 Standard. It operates in the license free 2.4 GHz ISM band and achieves a peak data rate of 11 Mbs."
+ChannelStr		= "Channel"
+RateStr			= "Rate"
+Fixed1Str		= "Fixed 1 Mbps"
+Fixed2Str		= "Fixed 2 Mbps"
+Fixed55Str		= "Fixed 5.5 Mbps"
+Fixed11Str		= "Fixed 11 Mbps"
+AutoStr			= "Auto"
+RTS_Str			= "RTS Threshold"
+FragmentationStr	= "Fragmentation Threshold"
+OperatingModeStr	= "Operating Mode"
+AdHocStr		= "Ad-Hoc"
+InfrastructureStr	= "Infrastructure"
+ESSID_Str		= "ESSID"
+WEP_Key_Str		= "WEP Key To Use"
+KEY1_Str		= "WEP Key 1"
+KEY2_Str		= "WEP Key 2"
+KEY3_Str		= "WEP Key 3"
+KEY4_Str		= "WEP Key 4"
+WEP_Mode_Str		= "WEP Mode"
+Key1Str			= "Key 1"
+Key2Str			= "Key 2"
+Key3Str			= "Key 3"
+Key4Str			= "Key 4"
+DisabledStr		= "Disabled"
+64bit			= "64-bit"
+128bit			= "128-bit"	
+WepMandatoryStr		= "Mandatory"
+WepOptionalStr		= "Optional"
+AuthTypeStr		= "Authentication Type"
+OpenSystemStr		= "Open System"
+SharedKeyStr		= "Shared Key"
+AutoAuthStr		= "Auto"	
+PreambleStr		= "Preamble Type"
+LongPreambleStr		= "Long"
+ShortPreambleStr	= "Short"
+AutoPreambleStr		= "Auto"
+PowerMgmtStr		= "Power Mgmt Mode"
+ActiveStr		= "Active"
+PSStr			= "Power Save"
+BasicRatesStr		= "Basic Rates"
+BR1Str			= "1, 2 Mbps"
+BR2Str			= "1, 2, 5.5, 11 Mbps"
+BeaconPeriodStr		= "Beacon Period"
+
+;=======================Sitecom String==========================================================
+	
+	; Provider
+	V_BCM = "Sitecom"
+	; PNP Devices
+	BCM430B.DeviceDesc	= "Sitecom Wireless Network PCI Card 54 Mbps WL-110b"
+	BCM430G.DeviceDesc      = "Sitecom Wireless Network Cardbus PC Card 54 Mbps WL-100b"
+	BCM430A.DeviceDesc      = "Sitecom 802.11a Network Adapter"
+	BCM430M.DeviceDesc      = "Sitecom 802.11 Multiband Network Adapter"
+	BCM43pc.DeviceDesc	= "Sitecom 802.11b PCMCIA Network Adapter"
+	
+	; General Strings
+	BCM43XX_HELP		= "The Mot 802.11b Network Adapter provides wireless local area networking."
+	BCM43XX.Service.DispName = "Mot 802.11b Network Adapter Driver"
+	BCM43XX.DiskName = "802.11b Network Adapter Install Disk"
+	DEFAULT_WIN9X_SYS = "BCMWL5.SYS"
+	
+	ADHOC_DEMO_STR         = "Adhoc Demo Mode"
+	 SHORT_PREAM_STR        = "Preamble Mode"
+	 RTSTHRESH_STR          = "RTS Threshold"
+	 FRAGTHRESH_STR         = "Fragmentation Threshold"
+	 AUTHENT_TYPE_STR       = "Authentication Algorithm"
+	 LISTENINTERVAL_STR     = "Listen Interval"
+	 POWER_SAVE_STR         = "Power Save Mode"
+	 POWER_LEVEL_STR        = "Power Save Level"
+	
+
+;#####################ralink##################################################
+
+
+RT2400.DeviceDesc=		"Sitecom Wireless PCI Adapter 11Mbps WL-016"
+RT2400.Service.DispName=	"Sitecom Wireless Driver"
+INSTALL_DISK_STR=		"Sitecom Wireless LAN Installation Disk"
+
+
+SSID_DEF_STR		= "any"
+NETWORK_TYPE_DEF_STR	= "1"
+CHANNEL			= "1"
+
+ 
+
+
+
+
+
+
+

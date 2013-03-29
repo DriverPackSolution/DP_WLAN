@@ -1,0 +1,276 @@
+;; net8187b.inf (For Win 7)
+;;
+;; Realtek RTL8187B Wireless 802.11g 54Mbps USB 2.0 Network Adapter
+;;
+;; Copyright (C) 2012 Realtek Semiconductor Corp.
+;;
+;; this release is primarily for WHQL test.
+;;
+
+[Version]
+Signature	= "$Windows NT$"
+Class		= Net
+ClassGUID	= {4d36e972-e325-11ce-bfc1-08002be10318}
+Provider	= %Realtek%
+CatalogFile.NT	= net8187b.cat		;; for WHQL certified
+DriverVer	= 05/31/2012,62.1185.0531.2012
+
+[Manufacturer]
+%Realtek% = Realtek,NTx86.6.1
+
+[ControlFlags]
+ExcludeFromSelect = USB\VID_0BDA&PID_8187&REV_0200
+
+;;****************************************************************************
+;; IDs for X86
+;;****************************************************************************
+[Realtek.NTx86.6.1]
+%RTL8187B.DeviceDesc% = RTL8187B.ndi, USB\VID_0BDA&PID_8187&REV_0200
+%RTL8187B.DeviceDesc% = RTL8187B.ndi, USB\VID_0BDA&PID_8189&REV_0200
+%RTL8187B.DeviceDesc% = RTL8187B.ndi, USB\VID_0BDA&PID_8197&REV_0200
+%RTL8187B.DeviceDesc% = RTL8187B.ndi, USB\VID_0BDA&PID_8198&REV_0200
+%RTL8187B.DeviceDesc% = RTL8187B.ndi, USB\VID_0BDA&PID_8199&REV_0200
+
+[RTL8187B.ndi.NT]
+AddReg          	= RTL8187B.common.reg, RTLWLAN.reg, RTL8187B_os61.reg
+Characteristics	= 0x84
+BusType			= 15 
+CopyFiles		= RTL8187B.CopyFiles
+*IfType			= 71            ; IF_TYPE_IEEE80211
+*MediaType		= 16            ; NdisMediumNative802_11
+*PhysicalMediaType	= 9          ; NdisPhysicalMediumNative802_11
+
+[RTL8187B.ndi.NT.Services]
+AddService		= RTL8187B, 2, RTL8187B.nt61.Service, RTL8187B.nt61.EventLog
+
+[RTL8187B.ndi.NT.HW]
+AddReg = RTL8187B_os61.vwifi.reg
+
+;;****************************************************************************
+;; register for Win 7 x86
+;;****************************************************************************
+[RTL8187B_os61.reg]
+HKR, Ndi,				Service,    0, "RTL8187B"
+HKR, Ndi\Interfaces,                	UpperRange, 0, "ndis5,mdcwifi,wifipro"
+HKR, Ndi\Interfaces,                	LowerRange, 0, "wlan,ethernet,vwifi"
+
+[RTL8187B.nt61.Service]
+DisplayName     = %RTL8187B.DeviceDesc.DispName%
+ServiceType     = 1 		;SERVICE_KERNEL_DRIVER
+StartType       = 3 		;SERVICE_DEMAND_START
+ErrorControl    = 1 		;SERVICE_ERROR_NORMAL
+ServiceBinary   = %12%\rtl8187B.sys
+LoadOrderGroup  = NDIS
+
+[RTL8187B.nt61.EventLog]
+AddReg = RTL8187B.nt61.AddEventLog.reg
+
+[RTL8187B.nt61.AddEventLog.reg]
+HKR, , EventMessageFile, 0x00020000, "%%SystemRoot%%\System32\netevent.dll"
+HKR, , TypesSupported,   0x00010001, 7
+
+;; Adds the VWiFi PNP filter
+[RTL8187B_os61.vwifi.reg]
+HKR,,"UpperFilters",0x00010000,"vwifibus"
+
+
+;*******************************************************************************
+; RTL8187B common paramters
+;*******************************************************************************
+[RTL8187B.common.reg]
+;HKR,Ndi\params\LedCtrl,        ParamDesc,  0, %LED_CONTROL_STR%
+;HKR,Ndi\params\LedCtrl,        type,       0, "enum"
+;HKR,Ndi\params\LedCtrl,        default,    0, "1"
+;HKR,Ndi\params\LedCtrl\enum,   "0",        0, %Disable_STR%
+;HKR,Ndi\params\LedCtrl\enum,   "1",        0, %ENABLE_STR%
+;HKR,defaults,LedCtrl,0,"1"
+HKR,,LedCtrl,0,"1"
+
+;HKR,NDI\params\PowerSaveMode,      ParamDesc,  0, %POWER_SAVE_STR%
+;HKR,NDI\params\PowerSaveMode,      type,       0, "enum"
+;HKR,Ndi\params\PowerSaveMode,      default,    0, "0"
+;HKR,NDI\params\PowerSaveMode\enum, "0",        0, %CAM_STR%
+;HKR,NDI\params\PowerSaveMode\enum, "1",        0, %MAX_PSP_STR%
+;HKR,NDI\params\PowerSaveMode\enum, "2",        0, %FAST_PSP_STR%
+;HKR,defaults,PowerSaveMode,0,"0"
+HKR,,PowerSaveMode,0,"0"
+
+;HKR,Ndi\params\WiFi11bIbss,        ParamDesc,  0, %WIFI_IBSS_STR%
+;HKR,Ndi\params\WiFi11bIbss,        type,       0, "enum"
+;HKR,Ndi\params\WiFi11bIbss,        default,    0, "0"
+;HKR,Ndi\params\WiFi11bIbss\enum,   "0",        0, %DISABLE_STR%
+;HKR,Ndi\params\WiFi11bIbss\enum,   "1",        0, %ENABLE_STR%
+;HKR,defaults,WiFi11bIbss,0,"0"
+HKR,,WiFi11bIbss,0,"0"
+
+;HKR,Ndi\params\bRateAdaptive,        ParamDesc,  0, %RATE_ADAPTIVE_STR%
+;HKR,Ndi\params\bRateAdaptive,        type,       0, "enum"
+;HKR,Ndi\params\bRateAdaptive,        default,    0, "1"
+;HKR,Ndi\params\bRateAdaptive\enum,   "0",        0, %DISABLE_STR%
+;HKR,Ndi\params\bRateAdaptive\enum,   "1",        0, %ENABLE_STR%
+;HKR,defaults,bRateAdaptive,0,"1"
+HKR,,bRateAdaptive,0,"1"
+
+;HKR,Ndi\params\QoS,        ParamDesc,  0, %QOS_STR%
+;HKR,Ndi\params\QoS,        type,       0, "enum"
+;HKR,Ndi\params\QoS,        default,    0, "0"
+;HKR,Ndi\params\QoS\enum,   "0",        0, %DISABLE_STR%
+;HKR,Ndi\params\QoS\enum,   "1",        0, %ENABLE_STR%
+;HKR,defaults,QoS,0,"0"
+HKR,,QoS,0,"0"
+
+HKR,,CcxRm,0,"0"
+
+;;----------------------------------------------------------------------------
+;; Realtek WLAN NIC parameters
+;;----------------------------------------------------------------------------
+[RTLWLAN.reg]
+HKR,,SSID,0,""
+
+;HKR,Ndi\params\Channel,       ParamDesc,  0, %CHANNEL_STR%
+;HKR,Ndi\params\Channel,       type,       0, "int"
+;HKR,Ndi\params\Channel,       default,    0, "1"
+;HKR,Ndi\params\Channel,       Min,        0, "1"
+;HKR,Ndi\params\Channel,       Max,        0, "14"
+;HKR,Ndi\params\Channel,       Step,       0, "1"
+;HKR,Ndi\params\Channel,       Base,       0, "10"
+;HKR,defaults,Channel,0,"10"
+HKR,,Channel,0,"10"
+
+;HKR,Ndi\params\NetworkType,        ParamDesc,  0, %NETWORK_TYPE_STR%
+;HKR,Ndi\params\NetworkType,        type,       0, "enum"
+;HKR,Ndi\params\NetworkType,        default,    0, "1"
+;HKR,Ndi\params\NetworkType\enum,   "0",        0, %AD_HOC_STR%
+;HKR,Ndi\params\NetworkType\enum,   "1",        0, %INFRA_STR%
+;HKR,Ndi\params\NetworkType\enum,   "2",        0, %AUTO_SELECT_STR%
+;HKR,defaults,NetworkType,0,"1"
+HKR,,NetworkType,0,"1"
+
+;HKR,Ndi\params\WirelessMode, ParamDesc, 0, %WL_MODE_STR%
+;HKR,Ndi\params\WirelessMode, type, 0, "enum"
+;HKR,Ndi\params\WirelessMode, default, 0, "4"
+;HKR,Ndi\params\WirelessMode\enum, "1", 0, %11A_STR%
+;HKR,Ndi\params\WirelessMode\enum, "2", 0, %11B_STR%
+;HKR,Ndi\params\WirelessMode\enum, "4", 0, %11BG_STR%
+;HKR,Ndi\params\WirelessMode\enum, "8", 0, %AUTO_STR%
+;HKR,defaults,WirelessMode, 0, "4"
+HKR,,WirelessMode, 0, "4"
+
+; Preamble mode, 2006.11.30, by shien chang.
+;HKR,Ndi\params\PreambleMode, ParamDesc, 0, %PREAMBLE_MODE_STR%
+;HKR,Ndi\params\PreambleMode, type, 0, "enum"
+;HKR,Ndi\params\PreambleMode, default, 0, "2"
+;HKR,Ndi\params\PreambleMode\enum, "1", 0, %LONG_PREAMBLE_STR%
+;HKR,Ndi\params\PreambleMode\enum, "2", 0, %AUTO_STR%
+;HKR,Ndi\params\PreambleMode\enum, "3", 0, %SHORT_PREAMBLE_STR%
+;HKR,defaults,PreambleMode, 0, "2"
+HKR,,PreambleMode, 0, "2"
+
+HKR,Ndi\params\FragThresh, ParamDesc, 0, %FRAGTHRESH_STR%
+HKR,Ndi\params\FragThresh, default, 0, "2346"
+HKR,Ndi\params\FragThresh, type, 0, "int"
+HKR,Ndi\params\FragThresh, min, 0, "256"
+HKR,Ndi\params\FragThresh, max, 0, "2346"
+HKR,Ndi\params\FragThresh, step, 0, "1"
+HKR,defaults,FragThresh, 0, "2346"
+HKR,,FragThresh, 0, "2346"
+
+HKR,Ndi\params\RTSThresh, ParamDesc, 0, %RTSTHRESH_STR%
+HKR,Ndi\params\RTSThresh, default, 0, "2347"
+HKR,Ndi\params\RTSThresh, type, 0, "int"
+HKR,Ndi\params\RTSThresh, min, 0, "0"
+HKR,Ndi\params\RTSThresh, max, 0, "2347"
+HKR,Ndi\params\RTSThresh, step, 0, "1"
+HKR,defaults,RTSThresh, 0, "2347"
+HKR,,RTSThresh, 0, "2347"
+
+HKR,Ndi\params\Dot11dEnable,        ParamDesc,  0, %DOT11_ENABLE_STR%
+HKR,Ndi\params\Dot11dEnable,        type,       0, "enum"
+HKR,Ndi\params\Dot11dEnable,        default,    0, "0"
+HKR,Ndi\params\Dot11dEnable\enum,   "0",        0, %Disable_STR%
+HKR,Ndi\params\Dot11dEnable\enum,   "1",        0, %Enable_STR%
+HKR,defaults,Dot11dEnable,0,"0"
+HKR,,Dot11dEnable,0,"0"
+
+;Inactive Power Save
+HKR,,bInactivePs,0,"1"
+
+HKR,,DefaultKeyID,,"0"
+HKR,,DefaultKey0,,""
+HKR,,DefaultKey1,,""
+HKR,,DefaultKey2,,""
+HKR,,DefaultKey3,,""
+
+;*******************************************************************************
+; Destination Directory
+;*******************************************************************************
+[RTL8187B.CopyFiles]
+RTL8187B.sys,,,2
+
+[DestinationDirs]
+DefaultDestDir     = 11
+RTL8187B.CopyFiles		= 12
+
+;;****************************************************************************
+;; Source Files
+;;****************************************************************************
+[SourceDisksFiles]
+RTL8187B.sys = 1
+
+[SourceDisksNames]
+1=%DISKNAME%,,,
+
+;*******************************************************************************
+; Strings
+;*******************************************************************************
+[Strings]
+Realtek 			= "Realtek Semiconductor Corp."
+SSID_STR			= "SSID"
+CHANNEL_STR			= "Channel"
+NETWORK_TYPE_STR		= "Network Type"
+LED_CONTROL_STR			= "LED Control" 
+POWER_SAVE_STR			= "Power Save Mode"
+WIFI_IBSS_STR			= "IBSS Default 11b Mode"
+RATE_ADAPTIVE_STR		= "Rate Adaptive"
+QOS_STR				= "QoS"
+TransmitBuffers              	= "Transmit Buffers"
+ReceiveBuffers               	= "Receive Buffers"
+FORCE_PRIORITY_STR		= "Forced Priority"
+HW_PARA_STR			= "Init from HwParaFile"
+THREE_WIRE_MODE_STR		= "Three Wire Programming Mode"
+BOARD_TYPE_STR			= "Board Type"
+PROTECTION_MODE_STR		= "Protection Mode"
+TPC_STR				= "Transmit Power Control"
+TPC_POLARITY_STR		= "TPC Polarity Select"
+HIGH_POWER_STR			= "High Power Mechanism"
+INIT_GAIN_STR			= "Initial Gain State"
+CW_MAX_MIN_STR			= "Contention Window"
+PSP_XLINK_STR			= "PSP XLink Mode"
+ANTENNA_DIVERSITY_STR		= "SW Antenna Diversity"
+INACTIVE_POWER_SAVE		= "Inactive Power Save"
+B_MODE_INIT_GAIN_STR		= "B Mode Initial Gain"
+WL_MODE_STR			= "Wireless Mode"
+PREAMBLE_MODE_STR		= "Preamble Mode"
+FRAGTHRESH_STR			= "Fragmentation Threshold"
+RTSTHRESH_STR			= "RTS Threshold"
+DOT11_ENABLE_STR		= "802.11d"
+CAM_STR				= "CAM"
+MAX_PSP_STR			= "MAX_PSP"
+FAST_PSP_STR			= "Fast_PSP"
+DISABLE_STR			= "Disable"
+ENABLE_STR			= "Enable"
+AD_HOC_STR			= "Ad Hoc"
+INFRA_STR			= "Infrastructure"
+AUTO_SELECT_STR			= "Auto select"
+11A_STR				= "IEEE 802.11 a"
+11B_STR				= "IEEE 802.11 b"
+11BG_STR			= "IEEE 802.11 b/g"
+LONG_PREAMBLE_STR		= "Long Preamble"
+SHORT_PREAMBLE_STR		= "Short Preamble"
+AUTO_STR			= "Auto"
+
+;; Source disk name
+DISKNAME			= "Realtek RTL8187B Wireless 802.11b/g 54Mbps USB 2.0 Network Adapter Driver Disk"
+RTL8187B.DeviceDesc 		= "Realtek RTL8187B Wireless 802.11b/g 54Mbps USB 2.0 Network Adapter"
+RTL8187B.DeviceDesc.DispName	= "Realtek RTL8187B Wireless 802.11b/g 54Mbps USB 2.0 Network Adapter"
+

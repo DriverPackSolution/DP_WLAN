@@ -1,0 +1,255 @@
+;***********************************************************************
+;Netgear WG121
+;***********************************************************************
+
+[Version]
+ DriverVer           = 11/13/2003, 1.0.5.1000
+ Signature           = "$Chicago$"
+ Compatible          = 1
+ Class               = Net
+ ClassGUID           = {4d36e972-e325-11ce-bfc1-08002be10318}
+ Provider            = %VER_VENDOR_STR%
+;CatalogFile         = netwg121.cat
+
+[ControlFlags]
+;Exclude all PNP adapters from user selection
+ ExcludeFromSelect   = *
+
+[Manufacturer]
+ %VER_VENDOR_NAME_STR% = DeviceList,NTx86
+
+[DeviceList]
+;==========
+[DeviceList.NTx86]
+ %A021_DESC_STR%     = WG121_A021,        USB\VID_0846&PID_4200
+ %A021_DESC_STR%     = WG121_A022,        USB\VID_0846&PID_4210
+[WG121_A021]       ; Win9x
+ AddReg         = WG121_A021.reg, COMMON_A02.reg, COMMON_NDIS.reg, COMMON.reg
+ CopyFiles      = WG121_DRIVER.copy
+
+[WG121_A022]       ; Win9x
+ AddReg         = WG121_A022.reg, COMMON_A02.reg, COMMON_NDIS.reg, COMMON.reg
+ CopyFiles      = WG121_DRIVER.copy
+
+[WG121_A021.NT]    ; Win2k
+ AddReg         = WG121_A021.reg, COMMON_A02.reg.NT, COMMON_NDIS.reg.NT, COMMON.reg
+ CopyFiles      = WG121_DRIVER.copy.NT
+ BusType        = 0
+ Characteristics= 0x84
+
+[WG121_A022.NT]    ; Win2k
+ AddReg         = WG121_A022.reg, COMMON_A02.reg.NT, COMMON_NDIS.reg.NT, COMMON.reg
+ CopyFiles      = WG121_DRIVER.copy.NT
+ BusType        = 0
+ Characteristics= 0x84
+
+[WG121_A021.NT.Services]
+ AddService= "wg121", 2, WG121_DRIVER_A02.Service, WG121_DRIVER.EventLog
+
+[WG121_A022.NT.Services]
+ AddService= "wg121", 2, WG121_DRIVER_A02.Service, WG121_DRIVER.EventLog
+
+[WG121_A021.reg]
+ HKR,Ndi,DeviceID,0,"USB\VID_0846&PID_4200"
+; 0x3890 = 14480
+ HKR,,PlatformID,0,14480
+ HKR,,VendorDesc,0,%A021_DESC_STR%
+ HKR,,FWFileName,0,"PRISMA02.arm"
+
+[WG121_A022.reg]
+ HKR,Ndi,DeviceID,0,"USB\VID_0846&PID_4210"
+; 0x3890 = 14480
+ HKR,,PlatformID,0,14480
+ HKR,,VendorDesc,0,%A021_DESC_STR%
+ HKR,,FWFileName,0,"PRISMA02.arm"
+ 
+;###############################################################################
+[WG121_DRIVER_A02.Service]
+ DisplayName    = %A02_SERVICE_STR%
+ ServiceType    = 1    ; SERVICE_KERNEL_DRIVER
+ StartType      = 3    ; SERVICE_DEMAND_START
+ ErrorControl   = 1    ; NORMAL
+ ServiceBinary  = %12%\wg121nd5.sys
+ LoadOrderGroup = NDIS
+ 
+[WG121_DRIVER.EventLog]
+ AddReg         = WG121_DRIVER.EventLog.reg
+
+[WG121_DRIVER.EventLog.reg]
+ HKR,           ,EventMessageFile       ,0x00020000     ,"%%SystemRoot%%\System32\netevent.dll"
+ HKR,           ,TypesSupported         ,0x00010001     ,7
+
+;###############################################################################
+
+[COMMON_A02.reg]
+ HKR,NDI                ,Service                ,0      ,"wg121"
+ HKR,NDI                ,CardType               ,0      ,"USB"
+ HKR,                   ,BusType                ,0      ,"0"
+ HKR,                   ,DeviceVxDs             ,0      ,"wg121_9x.sys"
+
+[COMMON_A02.reg.NT]
+ HKR,NDI                ,Service                ,0      ,"wg121"
+ HKR,NDI                ,CardType               ,0      ,"USB"
+ HKR,                   ,BusType                ,0      ,"0"
+ HKR,                   ,DeviceVxDs             ,0      ,"wg121nd5.sys"
+
+[COMMON_NDIS.reg]
+; Win9X
+ HKR,                   ,RunningWin9X           ,0      ,"1"
+ HKR,                   ,DevLoader              ,0      ,"*ndis"
+ HKR,                   ,EnumPropPages          ,0      ,"netdi.dll,EnumPropPages"
+ HKR,NDI\Interfaces     ,UpperRange             ,0      ,"ndis3"
+ HKR,NDI\Interfaces     ,LowerRange             ,0      ,"ethernet"
+ HKR,NDI\Interfaces     ,DefUpper               ,0      ,"ndis3"
+ HKR,NDI\Interfaces     ,DefLower               ,0      ,"ethernet"
+ HKR,NDIS               ,LogDriverName          ,0      ,"wg121_9x"
+ HKR,NDIS               ,MajorNdisVersion       ,1      ,03
+ HKR,NDIS               ,MinorNdisVersion       ,1      ,0a
+
+[COMMON_NDIS.reg.NT]
+ HKR,NDI\Interfaces     ,UpperRange             ,0      ,"ndis5"
+ HKR,NDI\Interfaces     ,LowerRange             ,0      ,"ethernet"
+
+[COMMON.reg]
+ HKR,                   ,wg121                  ,0      ,"1"
+ HKR,                   ,SilentInstall          ,0      ,"1"
+;Uncomment the line above to install without user interface prompts
+
+;; HKR,NDI\params\RTSThresh,,0,2347
+;; HKR,Ndi\params\RTSThresh,default,0,2347
+;; HKR,NDI\params\RTSThresh,ParamDesc,0,%RTSTHRESH_STR%
+;; HKR,NDI\params\RTSThresh,type,0,int
+;; HKR,NDI\params\RTSThresh,flag,1,20,00,00,00
+;; HKR,NDI\params\RTSThresh,min,0,0
+;; HKR,NDI\params\RTSThresh,max,0,2347
+;; HKR,NDI\params\RTSThresh,step,0,1
+;; HKR,NDI\params\RTSThresh,optional,0,1
+
+;; HKR,NDI\params\FragThresh,,0,2346
+;; HKR,Ndi\params\FragThresh,default,0,2346
+;; HKR,NDI\params\FragThresh,ParamDesc,0,%FRAGTHRESH_STR%
+;; HKR,NDI\params\FragThresh,type,0,int
+;; HKR,NDI\params\FragThresh,flag,1,20,00,00,00
+;; HKR,NDI\params\FragThresh,min,0,256
+;; HKR,NDI\params\FragThresh,max,0,2346
+;; HKR,NDI\params\FragThresh,step,0,2
+;; HKR,NDI\params\FragThresh,optional,0,1
+
+ HKR,NDI\params\ShortRetryLimit,,0,7
+ HKR,NDI\params\ShortRetryLimit,default,0,7
+ HKR,NDI\params\ShortRetryLimit,ParamDesc,,%SHORT_RETRY_STR%
+ HKR,NDI\params\ShortRetryLimit,type,,int
+ HKR,NDI\params\ShortRetryLimit,min,0,1
+ HKR,NDI\params\ShortRetryLimit,max,0,255
+ HKR,NDI\params\ShortRetryLimit,step,0,1
+ HKR,NDI\params\ShortRetryLimit,optional,0,1
+
+ HKR,NDI\params\LongRetryLimit,,0,4
+ HKR,NDI\params\LongRetryLimit,default,0,4
+ HKR,NDI\params\LongRetryLimit,ParamDesc,,%LONG_RETRY_STR%
+ HKR,NDI\params\LongRetryLimit,type,0,int
+ HKR,NDI\params\LongRetryLimit,min,0,1
+ HKR,NDI\params\LongRetryLimit,max,0,255
+ HKR,NDI\params\LongRetryLimit,step,0,1
+ HKR,NDI\params\LongRetryLimit,optional,0,1
+
+; HKR,,ConfigProfile,0,1
+; HKR,NDI\params\ConfigProfile,,0,1
+; HKR,NDI\params\ConfigProfile,default,0,1
+; HKR,NDI\params\ConfigProfile,ParamDesc,,%CONFIG_PROFILE%
+; HKR,NDI\params\ConfigProfile,type,,enum
+; HKR,NDI\params\ConfigProfile,flag,1,30,00,00,00
+; HKR,NDI\params\ConfigProfile\enum,0,,%CONFIG_PROF_B_ONLY%
+; HKR,NDI\params\ConfigProfile\enum,1,,%CONFIG_PROF_MIXED%
+; HKR,NDI\params\ConfigProfile\enum,2,,%CONFIG_PROF_MIXED_LONG%
+; HKR,NDI\params\ConfigProfile\enum,3,,%CONFIG_PROF_G_ONLY%
+; HKR,NDI\params\ConfigProfile\enum,4,,%CONFIG_PROF_TEST%
+; HKR,NDI\params\ConfigProfile\enum,5,,%CONFIG_PROF_B_WIFI%
+; HKR,NDI\params\ConfigProfile\enum,6,,%CONFIG_PROF_MIXED_SHORT%
+; HKR,NDI\params\ConfigProfile\enum,256,,%CONFIG_PROF_WIFI_SPEC%
+; HKR,NDI\params\ConfigProfile,optional,0,1
+ 
+ HKR,                   ,ConfigProfile          ,0      ,"256"
+
+;; HKR,,NitroMode,0,"1"
+;; HKR,NDI\params\NitroMode,,0,1
+;; HKR,NDI\params\NitroMode,default,0,1
+;; HKR,NDI\params\NitroMode,ParamDesc,,%NITRO_MODE%
+;; HKR,NDI\params\NitroMode,type,,enum
+;; HKR,NDI\params\NitroMode,flag,1,30,00,00,00
+;; HKR,NDI\params\NitroMode\enum,0,,%OFF_STR%
+;; HKR,NDI\params\NitroMode\enum,1,,%ON_STR%
+;; HKR,NDI\params\NitroMode,optional,0,1
+
+;; HKR,,PSMode,0,1
+;; HKR,NDI\params\PSMode,,0,1
+;; HKR,Ndi\params\PSMode,default,0,1
+;; HKR,NDI\params\PSMode,ParamDesc,,%POWER_SAVE_STR%
+;; HKR,NDI\params\PSMode,type,,enum
+;; HKR,NDI\params\PSMode,flag,1,30,00,00,00
+;; HKR,NDI\params\PSMode\enum,1,,%POWER_SAVE_OFF_STR%
+;; HKR,NDI\params\PSMode\enum,2,,%POWER_SAVE_DYN_STR%
+;; HKR,NDI\params\PSMode\enum,3,,%POWER_SAVE_MAX_STR%
+;; HKR,NDI\params\PSMode,optional,0,1
+
+;###############################################################################
+[DestinationDirs]
+;CopyFiles Section      = Destination Directory ID -- see layout.inf
+;-----------------        ------------------------
+ DefaultDestDir         = 11 ; Win9x=%windir%\system Win2k=%windir%\system32
+ WG121_DRIVER.copy      = 11 ; Win9x=%windir%\system
+ WG121_DRIVER.copy.NT   = 12 ; Win2k=%windir%\system32\drivers
+
+[WG121_DRIVER.copy]
+ wg121_9x.sys
+ wg121.vxd         ; Win9x Ioctl interface
+
+[WG121_DRIVER.copy.NT]
+ wg121nd5.sys
+
+[SourceDisksNames]
+;Source Disk ID         = Disk Name
+;--------------           ---------
+ 1                      = %INSTALL_DISK_STR%,,,
+
+[SourceDisksFiles]      ; Win9x
+;File Name              = Source Disk ID
+;---------                --------------
+ wg121.vxd              = 1
+ wg121_9x.sys           = 1
+
+[SourceDisksFiles.X86]  ; Win2k/Xp
+ wg121nd5.sys           = 1
+
+;###############################################################################
+[Strings]
+;String ID               = String Text
+;---------                 -----------
+ VER_VENDOR_STR          = "NETGEAR, Inc."
+ VER_VENDOR_NAME_STR     = "NETGEAR, Inc."
+ INSTALL_DISK_STR        = "NETGEAR WG121 Wireless LAN Install Disk"
+ 
+ A021_DESC_STR           = "NETGEAR WG121 802.11g Wireless USB2.0 Adapter"
+ A02_SERVICE_STR         = "NETGEAR WG121 802.11g Wireless USB2.0 Adapter"
+ 
+ ON_STR                  = "On"
+ OFF_STR                 = "Off"
+;; RTSTHRESH_STR           = "RTS Threshold"
+;; FRAGTHRESH_STR          = "Fragmentation Threshold"
+;; AUTHENT_TYPE_STR        = "Authentication Algorithm"
+;; POWER_SAVE_STR          = "Power Save Mode"
+;; POWER_SAVE_OFF_STR      = "Disabled"
+;; POWER_SAVE_DYN_STR      = "Dynamic"
+;; POWER_SAVE_MAX_STR      = "Maximum"
+ SHORT_RETRY_STR         = "Short Retry Limit"
+ LONG_RETRY_STR          = "Long Retry Limit"
+ CONFIG_PROFILE          = "Configuration Profile"
+ CONFIG_PROF_B_ONLY      = "B only"
+ CONFIG_PROF_MIXED       = "Mixed"
+ CONFIG_PROF_MIXED_LONG  = "Mixed Long"
+ CONFIG_PROF_G_ONLY      = "G only"
+ CONFIG_PROF_TEST        = "Test"
+ CONFIG_PROF_B_WIFI      = "B WiFi"
+ CONFIG_PROF_MIXED_SHORT = "Mixed Short"
+ CONFIG_PROF_WIFI_SPEC	 = "WiFi Spec"
+;; NITRO_MODE              = "Nitro Mode"

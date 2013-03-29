@@ -1,0 +1,168 @@
+;*****************************************************************************
+;
+; qcombus.inf   -- Install the Qualcomm Gobi 2000 USB Composite Device Filter Driver
+;
+; Copyright (c) 1997-2010 by MCCI Corporation 
+;
+; MCCI is a registered trademark of MCCI Corporation.
+;
+; NOTICE: This software is licensed, not sold.  Any modification of this
+; inf file to change the reference to an operating system or to change the
+; reference to a device is not permitted unless authorized in writing by
+; MCCI Corporation.
+;
+;*****************************************************************************
+
+[version]
+signature   = "$WINDOWS NT$"
+Class       = USB
+ClassGuid   = {36FC9E60-c465-11cf-8056-444553540000}
+Provider    = %Provider%
+DriverVer   = 04/19/2010,5.20.1.0
+CatalogFile = qcombushp.cat
+
+[ControlFlags]
+ExcludeFromSelect = *
+
+;-----------------------------------------------------------------------------
+; Specify target paths...
+;-----------------------------------------------------------------------------
+[DestinationDirs]
+DefaultDestDir                  = 11                    ; LDID_SYS
+QualcommWdm.CopyFiles           = 12                    ; system32\drivers
+PropPages.CopyFiles             = 11                    ; system
+
+;-----------------------------------------------------------------------------
+; Specify the install disks.  A bit unwieldy during development.
+;-----------------------------------------------------------------------------
+[SourceDisksNames.x86]
+; diskid = description[, [tagfile] [, <unused>, subdir]]
+1 = %DiskString%,"qcombushp.sys",,
+
+[SourceDisksNames.amd64]
+; diskid = description[, [tagfile] [, <unused>, subdir]]
+1 = %DiskString%,"qcombushp.sys",,
+
+[SourceDisksFiles]
+; filename = diskid[, [subdir] [, size]]
+qcombushp.sys    = 1
+qcomwhnthp.sys   = 1
+qcfilterhp2k.sys = 1
+
+;-----------------------------------------------------------------------------
+; Table of Contents:  manufacturer, then devices.
+;-----------------------------------------------------------------------------
+[Manufacturer]
+%QcUsbBus% = Qualcomm, NTamd64
+
+;-----------------------------------------------------------------------------
+; The devices
+;-----------------------------------------------------------------------------
+[Qualcomm]
+%Qualcomm.CdcBus.Desc% = QualcommWdm.Install, USB\VID_03F0&PID_251D
+
+[Qualcomm.NTamd64]
+%Qualcomm.CdcBus.Desc% = QualcommWdm.Install, USB\VID_03F0&PID_251D
+
+;-----------------------------------------------------------------------------
+; Diagnostics Files CopyFiles List Section
+;-----------------------------------------------------------------------------
+[Qualcomm.CopyFiles]
+
+;-----------------------------------------------------------------------------
+; XXX when we have a property page DLL, add it to the following section.
+;-----------------------------------------------------------------------------
+[PropPages.CopyFiles]
+
+;-----------------------------------------------------------------------------
+;       How to install the WDM driver on NT
+;-----------------------------------------------------------------------------
+[QualcommWdm.Install]
+CopyFiles       = QualcommWdm.CopyFiles
+AddReg          = QualcommWdm.AddReg
+FeatureScore    = 0x20
+
+;-----------------------------------------------------------------------------
+;       How to start the WDM driver on NT
+;-----------------------------------------------------------------------------
+[QualcommWdm.Install.HW]
+AddReg      = UpperFilterAddReg
+AddService  = qcfilterhp2k,, QualcommWdm.Install.AddFilter
+
+[UpperFilterAddReg]
+HKR,,"UpperFilters",0x00010000,"qcfilterhp2k"
+
+[QualcommWdm.Install.AddFilter]
+DisplayName             = %QualcommWdm.Filter.Name%
+Description             = %QualcommWdm.Filter.Desc%
+ServiceType             = 1                        ;%SERVICE_KERNEL_DRIVER%
+StartType               = 3                        ;%SERVICE_DEMAND_START%
+ErrorControl            = 1                        ;%SERVICE_ERROR_NORMAL%
+ServiceBinary           = %12%\qcfilterhp2k.sys
+
+
+[QualcommWdm.Install.Services]
+AddService      = qcombushp, 2, QualcommWdm.AddService, QualcommWdm.Install.EventLog
+AddService      = qcfilterhp2k,, QualcommWdm.Install.AddFilter
+
+[QualcommWdm.AddService]
+DisplayName             = %Qualcomm.Service.Desc%
+ServiceType             = 1                        ; SERVICE_KERNEL_DRIVER
+StartType               = 3                        ; SERVICE_DEMAND_START
+ErrorControl            = 1                        ; SERVICE_ERROR_NORMAL
+ServiceBinary           = %12%\qcombushp.sys
+LoadOrderGroup          = Base
+
+;-----------------------------------------------------------------------------
+;       Setup event logging, if driver supports it
+;-----------------------------------------------------------------------------
+[QualcommWdm.Install.EventLog]
+Addreg = QualcommWdm.EventLog.AddReg
+
+[QualcommWdm.EventLog.AddReg]
+HKR,,EventMessageFile, 0x20000, "%%SystemRoot%%\System32\drivers\qcombushp.sys"
+HKR,,TypesSupported, 0x10001, 7
+
+;-----------------------------------------------------------------------------
+;       WDM registry entries (all platforms)
+;-----------------------------------------------------------------------------
+[QualcommWdm.AddReg]
+HKR,,IdDescriptorHashPolicy, 0x10001, 02, 00, 00, 00	;Heuristic policy
+HKR,,EnableSelectiveSuspend, 0x10001, 01,00,00,00
+HKR,,AllowRemoteWakeup, 0x10001, 01,00,00,00
+HKR,,MCCIUSB_DebugLevel, 0x10001, ff,ff,ff,ff
+HKR,,EnableCR9111, 0x10001, 01,00,00,00
+HKR,,EnableCR3840, 0x10001, 01,00,00,00
+
+;-----------------------------------------------------------------------------
+;       The WDM copy list for NT -- different because things go in
+;       different places.
+;-----------------------------------------------------------------------------
+[QualcommWdm.CopyFiles]
+qcombushp.sys
+qcomwh.sys,qcomwhnthp.sys
+qcfilterhp2k.sys
+
+;****************************************************************************
+; Localizable Strings
+;****************************************************************************
+[strings]
+;BEGIN ENG - US English Strings
+Provider                = "MCCI Corporation"
+QcUsbBus                = "QUALCOMM, Inc. "
+DiskString              = "Qualcomm Gobi 2000 USB Composite Device Filter Driver Installation Disk"
+Qualcomm.CdcBus.Desc    = "HP un2420 Mobile Broadband Module USB Device"
+Qualcomm.Service.Desc   = "Gobi 2000 USB Composite Device Driver(03F0-251D)"
+QualcommWdm.Filter.Name = "HP un2420 Mobile Broadband Module USB Device Filter"
+QualcommWdm.Filter.Desc = "Gobi 2000 USB Composite Device Filter Driver(03F0-251D)"
+CustomerDataPath        = "Qualcomm Gobi 2000 USB Kit"
+DriverSet               = "Qualcomm Gobi 2000 USB Software"
+McciOptions             = "Uninstallable"
+
+;END ENG - US English Strings
+
+;-----------------------------------------------------------------------------
+; Following are symbolic constants which don't change per locale.
+;-----------------------------------------------------------------------------
+
+;*** end of file ***

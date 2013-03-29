@@ -1,0 +1,514 @@
+;-------------------------------------------------------------------------------
+; Novatel Wireless Merlin USB Serial Port
+; Module Name -- NWUsbSr2.inf
+; Copyright (c) 2004-2005 Novatel Wireless Inc.
+;-------------------------------------------------------------------------------
+;
+;when          who   what, where, why
+;-----------   ---   -----------------------------------------------------------
+;19 Aug 2004   SK    Added Resident mode
+;24 Aug 2004   SK    Removed upperfilters
+;30 Aug 2004   SK    Removed resident mode
+;24 Feb 2005   SK    Fixed HT issue
+;01 Apr 2005   SK    Driver Fix + Device list
+;28 Sep 2005   SK    Updated driver 
+;19 Oct 2005   SK    Added PowerMgt and updated driver
+;15 Dec 2005   SK    Added Modem response strings
+;08 Mar 2006   SK    Fixed standby BSOD
+;-------------------------------------------------------------------------------
+
+;-------------------------------------------------------------------------------
+; INF Version Section
+;-------------------------------------------------------------------------------
+[Version]
+signature  = "$WINDOWS NT$"
+Class      = Ports
+Provider   = %NW%
+ClassGuid  = {4D36E978-E325-11CE-BFC1-08002BE10318}
+DriverVer   = 09/14/2006,3.0.0.3
+CatalogFile.NT = NWUsbMdm.cat
+CatalogFile.NTAMD64 = nwusbx64.cat
+
+;-------------------------------------------------------------------------------
+; INF Manufactuerer Section
+;-------------------------------------------------------------------------------
+[Manufacturer]
+%NW% = Models,NTamd64
+
+;-------------------------------------------------------------------------------
+; INF ControlFlags Section
+;-------------------------------------------------------------------------------
+[ControlFlags]
+ExcludeFromSelect = *
+
+;-------------------------------------------------------------------------------
+; INF Models Section
+;-------------------------------------------------------------------------------
+
+[Models]
+%NW000_2% = Port,  USB\VID_1410&PID_1000&MI_02
+%NW000_2% = Port,  USB\VID_1410&PID_1010&MI_02
+%NW000_2% = Port,  USB\VID_1410&PID_1020&MI_02
+%NW000_2% = Port,  USB\VID_1410&PID_1030&MI_02
+%NW001_2% = Port,  USB\VID_1410&PID_1100&MI_02
+%NW001_2% = Port,  USB\VID_1410&PID_1110&MI_02
+%NW001_2% = Port,  USB\VID_1410&PID_1120&MI_02
+%NW001_2% = Port,  USB\VID_1410&PID_1130&MI_02
+%NW002_2% = Port,  USB\VID_1410&PID_1200&MI_02
+%NW002_2% = Port,  USB\VID_1410&PID_1210&MI_02
+%NW002_2% = Port,  USB\VID_1410&PID_1220&MI_02
+%NW002_2% = Port,  USB\VID_1410&PID_1230&MI_02
+%NW003_2% = Port,  USB\VID_1410&PID_1300&MI_02
+%NW003_2% = Port,  USB\VID_1410&PID_1310&MI_02
+%NW003_2% = Port,  USB\VID_1410&PID_1320&MI_02
+%NW003_2% = Port,  USB\VID_1410&PID_1330&MI_02
+%NW004_2% = Port,  USB\VID_1410&PID_1400&MI_02
+%NW004_2% = Port,  USB\VID_1410&PID_1410&MI_02
+%NW004_2% = Port,  USB\VID_1410&PID_1420&MI_02
+%NW004_2% = Port,  USB\VID_1410&PID_1430&MI_02
+%NW005_2% = Port,  USB\VID_1410&PID_2000&MI_02
+%NW005_2% = Port,  USB\VID_1410&PID_2010&MI_02
+%NW005_2% = Port,  USB\VID_1410&PID_2020&MI_02
+%NW005_2% = Port,  USB\VID_1410&PID_2030&MI_02
+%NW006_2% = Port,  USB\VID_1410&PID_2100&MI_02
+%NW006_2% = Port,  USB\VID_1410&PID_2110&MI_02
+%NW006_2% = Port,  USB\VID_1410&PID_2120&MI_02
+%NW006_2% = Port,  USB\VID_1410&PID_2130&MI_02
+%NW007_2% = Port,  USB\VID_1410&PID_2200&MI_02
+%NW007_2% = Port,  USB\VID_1410&PID_2210&MI_02
+%NW007_2% = Port,  USB\VID_1410&PID_2220&MI_02
+%NW007_2% = Port,  USB\VID_1410&PID_2230&MI_02
+%NW008_2% = Port,  USB\VID_1410&PID_2300&MI_02
+%NW008_2% = Port,  USB\VID_1410&PID_2310&MI_02
+%NW008_2% = Port,  USB\VID_1410&PID_2320&MI_02
+%NW008_2% = Port,  USB\VID_1410&PID_2330&MI_02
+%NW009_2% = Port,  USB\VID_1410&PID_2400&MI_02
+%NW009_2% = Port,  USB\VID_1410&PID_2410&MI_02
+%NW009_2% = Port,  USB\VID_1410&PID_2420&MI_02
+%NW009_2% = Port,  USB\VID_1410&PID_2430&MI_02
+%NW010_2% = Port,  USB\VID_1410&PID_3000&MI_02
+%NW010_2% = Port,  USB\VID_1410&PID_3010&MI_02
+%NW010_2% = Port,  USB\VID_1410&PID_3020&MI_02
+%NW010_2% = Port,  USB\VID_1410&PID_3030&MI_02
+%NW011_2% = Port,  USB\VID_1410&PID_3100&MI_02
+%NW011_2% = Port,  USB\VID_1410&PID_3110&MI_02
+%NW011_2% = Port,  USB\VID_1410&PID_3120&MI_02
+%NW011_2% = Port,  USB\VID_1410&PID_3130&MI_02
+%NW012_2% = Port,  USB\VID_1410&PID_3200&MI_02
+%NW012_2% = Port,  USB\VID_1410&PID_3210&MI_02
+%NW012_2% = Port,  USB\VID_1410&PID_3220&MI_02
+%NW012_2% = Port,  USB\VID_1410&PID_3230&MI_02
+%NW013_2% = Port,  USB\VID_1410&PID_3300&MI_02
+%NW013_2% = Port,  USB\VID_1410&PID_3310&MI_02
+%NW013_2% = Port,  USB\VID_1410&PID_3320&MI_02
+%NW013_2% = Port,  USB\VID_1410&PID_3330&MI_02
+%NW014_2% = Port,  USB\VID_1410&PID_3400&MI_02
+%NW014_2% = Port,  USB\VID_1410&PID_3410&MI_02
+%NW014_2% = Port,  USB\VID_1410&PID_3420&MI_02
+%NW014_2% = Port,  USB\VID_1410&PID_3430&MI_02
+%NW015_2% = Port,  USB\VID_1410&PID_4000&MI_02
+%NW015_2% = Port,  USB\VID_1410&PID_4010&MI_02
+%NW015_2% = Port,  USB\VID_1410&PID_4020&MI_02
+%NW015_2% = Port,  USB\VID_1410&PID_4030&MI_02
+%NW016_2% = Port,  USB\VID_1410&PID_4100&MI_02
+%NW016_2% = Port,  USB\VID_1410&PID_4110&MI_02
+%NW016_2% = Port,  USB\VID_1410&PID_4120&MI_02
+%NW016_2% = Port,  USB\VID_1410&PID_4130&MI_02
+%NW017_2% = Port,  USB\VID_1410&PID_4200&MI_02
+%NW017_2% = Port,  USB\VID_1410&PID_4210&MI_02
+%NW017_2% = Port,  USB\VID_1410&PID_4220&MI_02
+%NW017_2% = Port,  USB\VID_1410&PID_4230&MI_02
+%NW018_2% = Port,  USB\VID_1410&PID_4300&MI_02
+%NW018_2% = Port,  USB\VID_1410&PID_4310&MI_02
+%NW018_2% = Port,  USB\VID_1410&PID_4320&MI_02
+%NW018_2% = Port,  USB\VID_1410&PID_4330&MI_02
+%NW019_2% = Port,  USB\VID_1410&PID_4400&MI_02
+%NW019_2% = Port,  USB\VID_1410&PID_4410&MI_02
+%NW019_2% = Port,  USB\VID_1410&PID_4420&MI_02
+%NW019_2% = Port,  USB\VID_1410&PID_4430&MI_02
+%NW020_2% = Port,  USB\VID_1410&PID_0001&MI_02
+%NW020_2% = Port,  USB\VID_1410&PID_0002&MI_02
+%NW020_2% = Port,  USB\VID_1410&PID_0003&MI_02
+%NW020_2% = Port,  USB\VID_1410&PID_0004&MI_02
+
+%NW000_3% = Port,  USB\VID_1410&PID_1000&MI_03
+%NW000_3% = Port,  USB\VID_1410&PID_1010&MI_03
+%NW000_3% = Port,  USB\VID_1410&PID_1020&MI_03
+%NW000_3% = Port,  USB\VID_1410&PID_1030&MI_03
+%NW001_3% = Port,  USB\VID_1410&PID_1100&MI_03
+%NW001_3% = Port,  USB\VID_1410&PID_1110&MI_03
+%NW001_3% = Port,  USB\VID_1410&PID_1120&MI_03
+%NW001_3% = Port,  USB\VID_1410&PID_1130&MI_03
+%NW002_3% = Port,  USB\VID_1410&PID_1200&MI_03
+%NW002_3% = Port,  USB\VID_1410&PID_1210&MI_03
+%NW002_3% = Port,  USB\VID_1410&PID_1220&MI_03
+%NW002_3% = Port,  USB\VID_1410&PID_1230&MI_03
+%NW003_3% = Port,  USB\VID_1410&PID_1300&MI_03
+%NW003_3% = Port,  USB\VID_1410&PID_1310&MI_03
+%NW003_3% = Port,  USB\VID_1410&PID_1320&MI_03
+%NW003_3% = Port,  USB\VID_1410&PID_1330&MI_03
+%NW004_3% = Port,  USB\VID_1410&PID_1400&MI_03
+%NW004_3% = Port,  USB\VID_1410&PID_1410&MI_03
+%NW004_3% = Port,  USB\VID_1410&PID_1420&MI_03
+%NW004_3% = Port,  USB\VID_1410&PID_1430&MI_03
+%NW005_3% = Port,  USB\VID_1410&PID_2000&MI_03
+%NW005_3% = Port,  USB\VID_1410&PID_2010&MI_03
+%NW005_3% = Port,  USB\VID_1410&PID_2020&MI_03
+%NW005_3% = Port,  USB\VID_1410&PID_2030&MI_03
+%NW006_3% = Port,  USB\VID_1410&PID_2100&MI_03
+%NW006_3% = Port,  USB\VID_1410&PID_2110&MI_03
+%NW006_3% = Port,  USB\VID_1410&PID_2120&MI_03
+%NW006_3% = Port,  USB\VID_1410&PID_2130&MI_03
+%NW007_3% = Port,  USB\VID_1410&PID_2200&MI_03
+%NW007_3% = Port,  USB\VID_1410&PID_2210&MI_03
+%NW007_3% = Port,  USB\VID_1410&PID_2220&MI_03
+%NW007_3% = Port,  USB\VID_1410&PID_2230&MI_03
+%NW008_3% = Port,  USB\VID_1410&PID_2300&MI_03
+%NW008_3% = Port,  USB\VID_1410&PID_2310&MI_03
+%NW008_3% = Port,  USB\VID_1410&PID_2320&MI_03
+%NW008_3% = Port,  USB\VID_1410&PID_2330&MI_03
+%NW009_3% = Port,  USB\VID_1410&PID_2400&MI_03
+%NW009_3% = Port,  USB\VID_1410&PID_2410&MI_03
+%NW009_3% = Port,  USB\VID_1410&PID_2420&MI_03
+%NW009_3% = Port,  USB\VID_1410&PID_2430&MI_03
+%NW010_3% = Port,  USB\VID_1410&PID_3000&MI_03
+%NW010_3% = Port,  USB\VID_1410&PID_3010&MI_03
+%NW010_3% = Port,  USB\VID_1410&PID_3020&MI_03
+%NW010_3% = Port,  USB\VID_1410&PID_3030&MI_03
+%NW011_3% = Port,  USB\VID_1410&PID_3100&MI_03
+%NW011_3% = Port,  USB\VID_1410&PID_3110&MI_03
+%NW011_3% = Port,  USB\VID_1410&PID_3120&MI_03
+%NW011_3% = Port,  USB\VID_1410&PID_3130&MI_03
+%NW012_3% = Port,  USB\VID_1410&PID_3200&MI_03
+%NW012_3% = Port,  USB\VID_1410&PID_3210&MI_03
+%NW012_3% = Port,  USB\VID_1410&PID_3220&MI_03
+%NW012_3% = Port,  USB\VID_1410&PID_3230&MI_03
+%NW013_3% = Port,  USB\VID_1410&PID_3300&MI_03
+%NW013_3% = Port,  USB\VID_1410&PID_3310&MI_03
+%NW013_3% = Port,  USB\VID_1410&PID_3320&MI_03
+%NW013_3% = Port,  USB\VID_1410&PID_3330&MI_03
+%NW014_3% = Port,  USB\VID_1410&PID_3400&MI_03
+%NW014_3% = Port,  USB\VID_1410&PID_3410&MI_03
+%NW014_3% = Port,  USB\VID_1410&PID_3420&MI_03
+%NW014_3% = Port,  USB\VID_1410&PID_3430&MI_03
+%NW015_3% = Port,  USB\VID_1410&PID_4000&MI_03
+%NW015_3% = Port,  USB\VID_1410&PID_4010&MI_03
+%NW015_3% = Port,  USB\VID_1410&PID_4020&MI_03
+%NW015_3% = Port,  USB\VID_1410&PID_4030&MI_03
+%NW016_3% = Port,  USB\VID_1410&PID_4100&MI_03
+%NW016_3% = Port,  USB\VID_1410&PID_4110&MI_03
+%NW016_3% = Port,  USB\VID_1410&PID_4120&MI_03
+%NW016_3% = Port,  USB\VID_1410&PID_4130&MI_03
+%NW017_3% = Port,  USB\VID_1410&PID_4200&MI_03
+%NW017_3% = Port,  USB\VID_1410&PID_4210&MI_03
+%NW017_3% = Port,  USB\VID_1410&PID_4220&MI_03
+%NW017_3% = Port,  USB\VID_1410&PID_4230&MI_03
+%NW018_3% = Port,  USB\VID_1410&PID_4300&MI_03
+%NW018_3% = Port,  USB\VID_1410&PID_4310&MI_03
+%NW018_3% = Port,  USB\VID_1410&PID_4320&MI_03
+%NW018_3% = Port,  USB\VID_1410&PID_4330&MI_03
+%NW019_3% = Port,  USB\VID_1410&PID_4400&MI_03
+%NW019_3% = Port,  USB\VID_1410&PID_4410&MI_03
+%NW019_3% = Port,  USB\VID_1410&PID_4420&MI_03
+%NW019_3% = Port,  USB\VID_1410&PID_4430&MI_03
+%NW020_3% = Port,  USB\VID_1410&PID_0001&MI_03
+%NW020_3% = Port,  USB\VID_1410&PID_0002&MI_03
+%NW020_3% = Port,  USB\VID_1410&PID_0003&MI_03
+%NW020_3% = Port,  USB\VID_1410&PID_0004&MI_03
+
+[Models.NTamd64]
+%NW000_2% = Port,  USB\VID_1410&PID_1000&MI_02
+%NW000_2% = Port,  USB\VID_1410&PID_1010&MI_02
+%NW000_2% = Port,  USB\VID_1410&PID_1020&MI_02
+%NW000_2% = Port,  USB\VID_1410&PID_1030&MI_02
+%NW001_2% = Port,  USB\VID_1410&PID_1100&MI_02
+%NW001_2% = Port,  USB\VID_1410&PID_1110&MI_02
+%NW001_2% = Port,  USB\VID_1410&PID_1120&MI_02
+%NW001_2% = Port,  USB\VID_1410&PID_1130&MI_02
+%NW002_2% = Port,  USB\VID_1410&PID_1200&MI_02
+%NW002_2% = Port,  USB\VID_1410&PID_1210&MI_02
+%NW002_2% = Port,  USB\VID_1410&PID_1220&MI_02
+%NW002_2% = Port,  USB\VID_1410&PID_1230&MI_02
+%NW003_2% = Port,  USB\VID_1410&PID_1300&MI_02
+%NW003_2% = Port,  USB\VID_1410&PID_1310&MI_02
+%NW003_2% = Port,  USB\VID_1410&PID_1320&MI_02
+%NW003_2% = Port,  USB\VID_1410&PID_1330&MI_02
+%NW004_2% = Port,  USB\VID_1410&PID_1400&MI_02
+%NW004_2% = Port,  USB\VID_1410&PID_1410&MI_02
+%NW004_2% = Port,  USB\VID_1410&PID_1420&MI_02
+%NW004_2% = Port,  USB\VID_1410&PID_1430&MI_02
+%NW005_2% = Port,  USB\VID_1410&PID_2000&MI_02
+%NW005_2% = Port,  USB\VID_1410&PID_2010&MI_02
+%NW005_2% = Port,  USB\VID_1410&PID_2020&MI_02
+%NW005_2% = Port,  USB\VID_1410&PID_2030&MI_02
+%NW006_2% = Port,  USB\VID_1410&PID_2100&MI_02
+%NW006_2% = Port,  USB\VID_1410&PID_2110&MI_02
+%NW006_2% = Port,  USB\VID_1410&PID_2120&MI_02
+%NW006_2% = Port,  USB\VID_1410&PID_2130&MI_02
+%NW007_2% = Port,  USB\VID_1410&PID_2200&MI_02
+%NW007_2% = Port,  USB\VID_1410&PID_2210&MI_02
+%NW007_2% = Port,  USB\VID_1410&PID_2220&MI_02
+%NW007_2% = Port,  USB\VID_1410&PID_2230&MI_02
+%NW008_2% = Port,  USB\VID_1410&PID_2300&MI_02
+%NW008_2% = Port,  USB\VID_1410&PID_2310&MI_02
+%NW008_2% = Port,  USB\VID_1410&PID_2320&MI_02
+%NW008_2% = Port,  USB\VID_1410&PID_2330&MI_02
+%NW009_2% = Port,  USB\VID_1410&PID_2400&MI_02
+%NW009_2% = Port,  USB\VID_1410&PID_2410&MI_02
+%NW009_2% = Port,  USB\VID_1410&PID_2420&MI_02
+%NW009_2% = Port,  USB\VID_1410&PID_2430&MI_02
+%NW010_2% = Port,  USB\VID_1410&PID_3000&MI_02
+%NW010_2% = Port,  USB\VID_1410&PID_3010&MI_02
+%NW010_2% = Port,  USB\VID_1410&PID_3020&MI_02
+%NW010_2% = Port,  USB\VID_1410&PID_3030&MI_02
+%NW011_2% = Port,  USB\VID_1410&PID_3100&MI_02
+%NW011_2% = Port,  USB\VID_1410&PID_3110&MI_02
+%NW011_2% = Port,  USB\VID_1410&PID_3120&MI_02
+%NW011_2% = Port,  USB\VID_1410&PID_3130&MI_02
+%NW012_2% = Port,  USB\VID_1410&PID_3200&MI_02
+%NW012_2% = Port,  USB\VID_1410&PID_3210&MI_02
+%NW012_2% = Port,  USB\VID_1410&PID_3220&MI_02
+%NW012_2% = Port,  USB\VID_1410&PID_3230&MI_02
+%NW013_2% = Port,  USB\VID_1410&PID_3300&MI_02
+%NW013_2% = Port,  USB\VID_1410&PID_3310&MI_02
+%NW013_2% = Port,  USB\VID_1410&PID_3320&MI_02
+%NW013_2% = Port,  USB\VID_1410&PID_3330&MI_02
+%NW014_2% = Port,  USB\VID_1410&PID_3400&MI_02
+%NW014_2% = Port,  USB\VID_1410&PID_3410&MI_02
+%NW014_2% = Port,  USB\VID_1410&PID_3420&MI_02
+%NW014_2% = Port,  USB\VID_1410&PID_3430&MI_02
+%NW015_2% = Port,  USB\VID_1410&PID_4000&MI_02
+%NW015_2% = Port,  USB\VID_1410&PID_4010&MI_02
+%NW015_2% = Port,  USB\VID_1410&PID_4020&MI_02
+%NW015_2% = Port,  USB\VID_1410&PID_4030&MI_02
+%NW016_2% = Port,  USB\VID_1410&PID_4100&MI_02
+%NW016_2% = Port,  USB\VID_1410&PID_4110&MI_02
+%NW016_2% = Port,  USB\VID_1410&PID_4120&MI_02
+%NW016_2% = Port,  USB\VID_1410&PID_4130&MI_02
+%NW017_2% = Port,  USB\VID_1410&PID_4200&MI_02
+%NW017_2% = Port,  USB\VID_1410&PID_4210&MI_02
+%NW017_2% = Port,  USB\VID_1410&PID_4220&MI_02
+%NW017_2% = Port,  USB\VID_1410&PID_4230&MI_02
+%NW018_2% = Port,  USB\VID_1410&PID_4300&MI_02
+%NW018_2% = Port,  USB\VID_1410&PID_4310&MI_02
+%NW018_2% = Port,  USB\VID_1410&PID_4320&MI_02
+%NW018_2% = Port,  USB\VID_1410&PID_4330&MI_02
+%NW019_2% = Port,  USB\VID_1410&PID_4400&MI_02
+%NW019_2% = Port,  USB\VID_1410&PID_4410&MI_02
+%NW019_2% = Port,  USB\VID_1410&PID_4420&MI_02
+%NW019_2% = Port,  USB\VID_1410&PID_4430&MI_02
+%NW020_2% = Port,  USB\VID_1410&PID_0001&MI_02
+%NW020_2% = Port,  USB\VID_1410&PID_0002&MI_02
+%NW020_2% = Port,  USB\VID_1410&PID_0003&MI_02
+%NW020_2% = Port,  USB\VID_1410&PID_0004&MI_02
+
+%NW000_3% = Port,  USB\VID_1410&PID_1000&MI_03
+%NW000_3% = Port,  USB\VID_1410&PID_1010&MI_03
+%NW000_3% = Port,  USB\VID_1410&PID_1020&MI_03
+%NW000_3% = Port,  USB\VID_1410&PID_1030&MI_03
+%NW001_3% = Port,  USB\VID_1410&PID_1100&MI_03
+%NW001_3% = Port,  USB\VID_1410&PID_1110&MI_03
+%NW001_3% = Port,  USB\VID_1410&PID_1120&MI_03
+%NW001_3% = Port,  USB\VID_1410&PID_1130&MI_03
+%NW002_3% = Port,  USB\VID_1410&PID_1200&MI_03
+%NW002_3% = Port,  USB\VID_1410&PID_1210&MI_03
+%NW002_3% = Port,  USB\VID_1410&PID_1220&MI_03
+%NW002_3% = Port,  USB\VID_1410&PID_1230&MI_03
+%NW003_3% = Port,  USB\VID_1410&PID_1300&MI_03
+%NW003_3% = Port,  USB\VID_1410&PID_1310&MI_03
+%NW003_3% = Port,  USB\VID_1410&PID_1320&MI_03
+%NW003_3% = Port,  USB\VID_1410&PID_1330&MI_03
+%NW004_3% = Port,  USB\VID_1410&PID_1400&MI_03
+%NW004_3% = Port,  USB\VID_1410&PID_1410&MI_03
+%NW004_3% = Port,  USB\VID_1410&PID_1420&MI_03
+%NW004_3% = Port,  USB\VID_1410&PID_1430&MI_03
+%NW005_3% = Port,  USB\VID_1410&PID_2000&MI_03
+%NW005_3% = Port,  USB\VID_1410&PID_2010&MI_03
+%NW005_3% = Port,  USB\VID_1410&PID_2020&MI_03
+%NW005_3% = Port,  USB\VID_1410&PID_2030&MI_03
+%NW006_3% = Port,  USB\VID_1410&PID_2100&MI_03
+%NW006_3% = Port,  USB\VID_1410&PID_2110&MI_03
+%NW006_3% = Port,  USB\VID_1410&PID_2120&MI_03
+%NW006_3% = Port,  USB\VID_1410&PID_2130&MI_03
+%NW007_3% = Port,  USB\VID_1410&PID_2200&MI_03
+%NW007_3% = Port,  USB\VID_1410&PID_2210&MI_03
+%NW007_3% = Port,  USB\VID_1410&PID_2220&MI_03
+%NW007_3% = Port,  USB\VID_1410&PID_2230&MI_03
+%NW008_3% = Port,  USB\VID_1410&PID_2300&MI_03
+%NW008_3% = Port,  USB\VID_1410&PID_2310&MI_03
+%NW008_3% = Port,  USB\VID_1410&PID_2320&MI_03
+%NW008_3% = Port,  USB\VID_1410&PID_2330&MI_03
+%NW009_3% = Port,  USB\VID_1410&PID_2400&MI_03
+%NW009_3% = Port,  USB\VID_1410&PID_2410&MI_03
+%NW009_3% = Port,  USB\VID_1410&PID_2420&MI_03
+%NW009_3% = Port,  USB\VID_1410&PID_2430&MI_03
+%NW010_3% = Port,  USB\VID_1410&PID_3000&MI_03
+%NW010_3% = Port,  USB\VID_1410&PID_3010&MI_03
+%NW010_3% = Port,  USB\VID_1410&PID_3020&MI_03
+%NW010_3% = Port,  USB\VID_1410&PID_3030&MI_03
+%NW011_3% = Port,  USB\VID_1410&PID_3100&MI_03
+%NW011_3% = Port,  USB\VID_1410&PID_3110&MI_03
+%NW011_3% = Port,  USB\VID_1410&PID_3120&MI_03
+%NW011_3% = Port,  USB\VID_1410&PID_3130&MI_03
+%NW012_3% = Port,  USB\VID_1410&PID_3200&MI_03
+%NW012_3% = Port,  USB\VID_1410&PID_3210&MI_03
+%NW012_3% = Port,  USB\VID_1410&PID_3220&MI_03
+%NW012_3% = Port,  USB\VID_1410&PID_3230&MI_03
+%NW013_3% = Port,  USB\VID_1410&PID_3300&MI_03
+%NW013_3% = Port,  USB\VID_1410&PID_3310&MI_03
+%NW013_3% = Port,  USB\VID_1410&PID_3320&MI_03
+%NW013_3% = Port,  USB\VID_1410&PID_3330&MI_03
+%NW014_3% = Port,  USB\VID_1410&PID_3400&MI_03
+%NW014_3% = Port,  USB\VID_1410&PID_3410&MI_03
+%NW014_3% = Port,  USB\VID_1410&PID_3420&MI_03
+%NW014_3% = Port,  USB\VID_1410&PID_3430&MI_03
+%NW015_3% = Port,  USB\VID_1410&PID_4000&MI_03
+%NW015_3% = Port,  USB\VID_1410&PID_4010&MI_03
+%NW015_3% = Port,  USB\VID_1410&PID_4020&MI_03
+%NW015_3% = Port,  USB\VID_1410&PID_4030&MI_03
+%NW016_3% = Port,  USB\VID_1410&PID_4100&MI_03
+%NW016_3% = Port,  USB\VID_1410&PID_4110&MI_03
+%NW016_3% = Port,  USB\VID_1410&PID_4120&MI_03
+%NW016_3% = Port,  USB\VID_1410&PID_4130&MI_03
+%NW017_3% = Port,  USB\VID_1410&PID_4200&MI_03
+%NW017_3% = Port,  USB\VID_1410&PID_4210&MI_03
+%NW017_3% = Port,  USB\VID_1410&PID_4220&MI_03
+%NW017_3% = Port,  USB\VID_1410&PID_4230&MI_03
+%NW018_3% = Port,  USB\VID_1410&PID_4300&MI_03
+%NW018_3% = Port,  USB\VID_1410&PID_4310&MI_03
+%NW018_3% = Port,  USB\VID_1410&PID_4320&MI_03
+%NW018_3% = Port,  USB\VID_1410&PID_4330&MI_03
+%NW019_3% = Port,  USB\VID_1410&PID_4400&MI_03
+%NW019_3% = Port,  USB\VID_1410&PID_4410&MI_03
+%NW019_3% = Port,  USB\VID_1410&PID_4420&MI_03
+%NW019_3% = Port,  USB\VID_1410&PID_4430&MI_03
+%NW020_3% = Port,  USB\VID_1410&PID_0001&MI_03
+%NW020_3% = Port,  USB\VID_1410&PID_0002&MI_03
+%NW020_3% = Port,  USB\VID_1410&PID_0003&MI_03
+%NW020_3% = Port,  USB\VID_1410&PID_0004&MI_03
+
+;-------------------------------------------------------------------------------
+; INF SourceDisksNames Section
+;-------------------------------------------------------------------------------
+[SourceDisksNames]
+1000 = %NWSrcDisk%,"",,
+
+;-------------------------------------------------------------------------------
+; INF SourceDisksFiles Section
+;-------------------------------------------------------------------------------
+[SourceDisksFiles]
+nwusbmdm.sys = 1000
+
+[SourceDisksFiles.amd64]
+nwusbx64.sys = 1000
+
+[NWUsbDriverFiles]
+nwusbser2.sys,nwusbmdm.sys,,0x20 
+
+[NWUsbDriverFilesamd64]
+nwusbser2.sys,nwusbx64.sys,,0x20
+
+;-------------------------------------------------------------------------------
+; INF DestinationDirs Section
+;-------------------------------------------------------------------------------
+[DestinationDirs]
+DefaultDestDir = 12
+
+;-------------------------------------------------------------------------------
+; INF DDInstall Section
+;-------------------------------------------------------------------------------
+[Port.NT]
+CopyFiles = NWUsbDriverFiles
+AddReg    = All, AddReg.NT, Debug
+
+[Port.NTamd64]
+CopyFiles = NWUsbDriverFilesamd64
+AddReg    = All, AddReg.NT, Debug
+
+;-------------------------------------------------------------------------------
+; INF DDInstall.Services Section
+;-------------------------------------------------------------------------------
+[Port.NT.Services]
+AddService = NWUSBPort2,  0x00000002, NWPort_Service_Inst
+
+[Port.NTamd64.Services]
+AddService = NWUSBPort2,  0x00000002, NWPort_Service_Inst
+
+[NWPort_Service_Inst]
+DisplayName   = %NWPortSvcName%
+ServiceType   = 1
+StartType     = 3
+ErrorControl  = 1
+ServiceBinary = %12%\nwusbser2.sys
+AddReg	      = PowerMgt
+
+;-------------------------------------------------------------------------------
+; INF DDInstall Addreg Sections
+;-------------------------------------------------------------------------------
+[All]
+HKR,,NTMPDriver,,nwusbser2.sys
+
+[AddReg.NT]
+HKR,,PortSubClass,1,01
+HKR,,EnumPropPages32,,"MsPorts.dll,SerialPortPropPageProvider"
+
+[Debug]
+HKR,,QCDriverConfig,0x00010001,0x00000000
+HKR,,QCDriverLoggingDirectory,0,"\??\C:\"
+HKR,,QCDriverDebugMask,0x00010001,0x00000000
+
+[PowerMgt]
+HKR,,QCDriverPowerManagementEnabled,0x00010001,0x00000001
+HKR,,QCDriverWaitWakeEnabled,0x00010001,0x00000001
+
+;-------------------------------------------------------------------------------
+; INF Strings Section
+;-------------------------------------------------------------------------------
+[Strings]
+NW               = "Novatel Wireless Inc"
+NWSrcDisk        = "Novatel Wireless USB Driver Disk"
+NWPortSvcName    = "Novatel Wireless USB Status2 Port Driver"
+
+NW000_2            = "Novatel Wireless Merlin CDMA 1X Diagnostics Port"
+NW001_2            = "Novatel Wireless Merlin CDMA EV-DO Diagnostics Port"
+NW002_2            = "Novatel Wireless Merlin EV-DV Diagnostics Port"
+NW003_2            = "Novatel Wireless Merlin UMTS Diagnostics Port"
+NW004_2            = "Novatel Wireless Merlin HSDPA Diagnostics Port"
+NW005_2            = "Novatel Wireless Expedite CDMA 1X Diagnostics Port"
+NW006_2            = "Novatel Wireless Expedite EV-DO Diagnostics Port"
+NW007_2            = "Novatel Wireless Expedite EV-DV Diagnostics Port"
+NW008_2            = "Novatel Wireless Expedite UMTS Diagnostics Port"
+NW009_2            = "Novatel Wireless Expedite HSDPA Diagnostics Port"
+NW010_2            = "Novatel Wireless Freedom Box CDMA 1X Diagnostics Port"
+NW011_2            = "Novatel Wireless Freedom Box EV-DO Diagnostics Port"
+NW012_2            = "Novatel Wireless Freedom Box EV-DV Diagnostics Port"
+NW013_2            = "Novatel Wireless Freedom Box UMTS Diagnostics Port"
+NW014_2            = "Novatel Wireless Freedom Box HSDPA Diagnostics Port"
+NW015_2            = "Novatel Wireless Ovation CDMA 1X Diagnostics Port"
+NW016_2            = "Novatel Wireless Ovation EV-DO Diagnostics Port"
+NW017_2            = "Novatel Wireless Ovation EV-DV Diagnostics Port"
+NW018_2            = "Novatel Wireless Ovation UMTS Diagnostics Port"
+NW019_2            = "Novatel Wireless Ovation HSDPA Diagnostics Port"
+NW020_2            = "Novatel Wireless Diagnostics Port"
+
+NW000_3            = "Novatel Wireless Merlin CDMA 1X GPS Port"
+NW001_3            = "Novatel Wireless Merlin CDMA EV-DO GPS Port"
+NW002_3            = "Novatel Wireless Merlin EV-DV GPS Port"
+NW003_3            = "Novatel Wireless Merlin EAP-SIM Port"
+NW004_3            = "Novatel Wireless Merlin EAP-SIM Port"
+NW005_3            = "Novatel Wireless Expedite CDMA 1X GPS Port"
+NW006_3            = "Novatel Wireless Expedite EV-DO GPS Port"
+NW007_3            = "Novatel Wireless Expedite EV-DV GPS Port"
+NW008_3            = "Novatel Wireless Expedite UMTS EAP-SIM Port"
+NW009_3            = "Novatel Wireless Expedite EAP-SIM Port"
+NW010_3            = "Novatel Wireless Freedom Box CDMA 1X GPS Port"
+NW011_3            = "Novatel Wireless Freedom Box EV-DO GPS Port"
+NW012_3            = "Novatel Wireless Freedom Box EV-DV GPS Port"
+NW013_3            = "Novatel Wireless Freedom Box EAP-SIM Port"
+NW014_3            = "Novatel Wireless Freedom Box EAP-SIM Port"
+NW015_3            = "Novatel Wireless Ovation CDMA 1X GPS Port"
+NW016_3            = "Novatel Wireless Ovation EV-DO GPS Port"
+NW017_3            = "Novatel Wireless Ovation EV-DV GPS Port"
+NW018_3            = "Novatel Wireless Ovation EAP-SIM Port"
+NW019_3            = "Novatel Wireless Ovation EAP-SIM Port"
+NW020_3            = "Novatel Wireless Application Port"

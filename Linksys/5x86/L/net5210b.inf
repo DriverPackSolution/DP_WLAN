@@ -1,0 +1,209 @@
+;****************************************************************************************
+;
+;FILE:
+;
+;    net5210b.inf
+;
+;DESCRIPTION:
+;    Linksys Instant WPC54A Wireless Network Adapter
+;
+;
+;*******************************************************************************************
+
+[Version]
+Signature   = "$CHICAGO$"
+Class       = Net
+ClassGUID   = {4d36e972-e325-11ce-bfc1-08002be10318}
+Provider    = %ATHEROS%
+Compatible  = 1
+DriverVer   = 12/03/2001,1.04.0.39
+Catalogfile = net5210b.cat
+
+[Manufacturer]
+%ATHEROS%     = Atheros
+
+[ControlFlags]
+ExcludeFromSelect = *
+
+
+[Atheros]
+; DisplayName           Section       DeviceID
+; -----------           -------       --------
+%ATHER.DeviceDesc%  = ATHER_DEV_0007.ndi,    PCI\VEN_168C&DEV_0007&SUBSYS_0007168C
+%ATHER.DeviceDesc%  = ATHER_DEV_0007.ndi,    PCI\VEN_168C&DEV_0007&SUBSYS_00071737
+
+; Windows 9X specific entries
+
+[ATHER_DEV_0007.ndi]
+AddReg          = ATHER_DEV_0007.id.reg, 5210.reg, ATHER.win.reg
+CopyFiles       = ATHER.win.CopyFiles
+
+[ATHER_DEV_0007.ndi.NT]
+Characteristics = 0x84 ; NCF_PHYSICAL | NCF_HAS_UI
+BusType         = 5
+AddReg          = 5210.reg, ATHER.reg, 5210.reg
+CopyFiles       = ATHER.CopyFiles.NT
+
+
+[ATHER_DEV_0007.ndi.NT.Services]
+AddService      = ATHER, 2, ATHER.Service, common.EventLog
+
+
+;----------------------------------------------------------------------------
+; Win9x id registry sections
+; These are not needed by NT
+
+
+[ATHER_DEV_0007.id.reg]
+HKR, Ndi, DeviceID, 0, "PCI\VEN_168C&DEV_0007"
+
+
+
+;-----------------------------------------------------------------------------
+; 5210 common
+;
+[5210.reg]
+
+HKR, Ndi\params\MapRegisters,           ParamDesc,                      0,  %MapRegisters%
+HKR, Ndi\params\MapRegisters,           default,                        0,  "256"
+HKR, Ndi\params\MapRegisters,           min,                            0,  "32"
+HKR, Ndi\params\MapRegisters,           max,                            0,  "512"
+HKR, Ndi\params\MapRegisters,           step,                           0,  "8"
+HKR, Ndi\params\MapRegisters,           base,                           0,  "10"
+HKR, Ndi\params\MapRegisters,           type,                           0,  "int"
+HKR, ,                                  clist,                          0,  ""
+HKR, ,                                  HwTxRetries,                    0,  "5"
+HKR, ,                                  SwTxRetryScale,                 0,  "2"
+
+HKR, Ndi\params\QoS,                    ParamDesc,                      0,  %QoS%
+HKR, Ndi\params\QoS,                    Base,                           0,  "10"
+HKR, Ndi\params\QoS,                    default,                        0,  "0"
+HKR, Ndi\params\QoS,                    type,                           0,  "enum"
+HKR, Ndi\params\QoS\enum,               "1",                            0,  "Enabled"
+HKR, Ndi\params\QoS\enum,               "0",                            0,  "Disabled"
+
+HKR, Ndi\params\tpc,                    ParamDesc,                      0,  %tpc%
+HKR, Ndi\params\tpc,                    Base,                           0,  "10"
+HKR, Ndi\params\tpc,                    default,                        0,  "0"
+HKR, Ndi\params\tpc,                    type,                           0,  "enum"
+HKR, Ndi\params\tpc\enum,               "4",                            0,  "Lowest Power"
+HKR, Ndi\params\tpc\enum,               "3",                            0,  "12% Power"
+HKR, Ndi\params\tpc\enum,               "2",                            0,  "25% Power"
+HKR, Ndi\params\tpc\enum,               "1",                            0,  "50% Power"
+HKR, Ndi\params\tpc\enum,               "0",                            0,  "Highest Power"
+
+HKR, ,                                  TurboEnable,                    0x00002,    "0"
+HKR, ,                                  beaconInterval,                 0x00002,    "100"
+HKR, ,                                  bssType,                        0x00002,    "1"
+HKR, ,                                  privacyInvoked,                 0x00002,    "0"
+HKR, ,                                  sleepMode,                      0x00002,    "2"
+HKR, ,                                  FragThreshold,                  0x00002,    "2346"
+HKR, ,                                  RTSThreshold,                   0x00002,    "2346"
+HKR, ,                                  rateCtrlEnable,                 0x00002,    "1"
+HKR, ,                                  SmeEnable,                      0x00002,    "1"
+HKR, ,                                  TransmitRate,                   0x00002,    "5"    ;; 36 Mbps
+HKR, ,                                  bkScanEnable,                   0x00002,    "1"
+
+HKR, CustomParams\Configurations,       MajorVersion,                   0x10003,    1
+HKR, CustomParams\Configurations,       MinorVersion,                   0x10003,    0
+
+HKR, CustomParams\Configurations,       SelectedConfigurationIndex,     0x10003,    0
+HKR, CustomParams\Configurations,       SelectedConfigurationName,      0x00002,    "Default"
+HKR, CustomParams\Configurations\Cfg0,  ConfigurationName,              0x00002,    "Default"
+HKR, CustomParams\Configurations\Cfg0,  DefaultKey,                     0x10003,    0
+HKR, CustomParams\Configurations\Cfg0,  EnableMacAddress,               0x10003,    0
+HKR, CustomParams\Configurations\Cfg0,  EnableSecurity,                 0x10003,    0
+HKR, CustomParams\Configurations\Cfg0,  EnableTurbo,                    0x10003,    0
+HKR, CustomParams\Configurations\Cfg0,  MacAddress,                     0x00002,    ""
+HKR, CustomParams\Configurations\Cfg0,  NetworkConnectionType,          0x10003,    1
+HKR, CustomParams\Configurations\Cfg0,  NetworkName,                    0x00002,    ""
+HKR, CustomParams\Configurations\Cfg0,  PowerManagement,                0x10003,    1
+
+
+;-----------------------------------------------------------------------------
+;NT specific
+;
+
+[ATHER.reg]
+HKR, Ndi,             Service,      0, "ATHER"
+HKR, Ndi\Interfaces,  UpperRange,   0, "ndis5"
+HKR, Ndi\Interfaces,  LowerRange,   0, "ethernet"
+HKR, ,                InitFile,     0, %InitFile%
+HKR, ,                aifs,         0, "2"
+HKR, ,                cwmin,        0, "15"
+
+
+[ATHER.Service]
+DisplayName     = %ATHER.Service.DispName%
+ServiceType     = 1 ;%SERVICE_KERNEL_DRIVER%
+StartType       = 3 ;%SERVICE_DEMAND_START%
+ErrorControl    = 1 ;%SERVICE_ERROR_NORMAL%
+ServiceBinary   = %12%\ar5210b.sys
+LoadOrderGroup  = NDIS
+
+[common.EventLog]
+AddReg = common.AddEventLog.reg
+
+[common.AddEventLog.reg]
+HKR, ,                  EventMessageFile,   0x00020000,   "%%SystemRoot%%\System32\netevent.dll"
+HKR, ,                  TypesSupported,     0x00010001,   7
+
+;----------------------------------------------------------------------------
+; Win9x specific
+;
+[ATHER.win.reg]
+HKR, ,                  DevLoader,          0,    "*ndis"
+HKR, ,                  DeviceVxDs,         0,    "ar5210b.sys"
+HKR, ,                  EnumPropPages,      0,    "netdi.dll,EnumPropPages"
+
+HKR, Ndi\Interfaces,    DefUpper,           0,    "ndis3"
+HKR, Ndi\Interfaces,    DefLower,           0,    "ethernet"
+HKR, Ndi\Interfaces,    UpperRange,         0,    "ndis3"
+HKR, Ndi\Interfaces,    LowerRange,         0,    "ethernet"
+
+
+HKR, NDIS,              LogDriverName,      0,    "AR5210b"
+HKR, NDIS,              MajorNdisVersion,   1,    03
+HKR, NDIS,              MinorNdisVersion,   1,    0A
+HKR, ,                  InitFile,           0,    %InitFile%
+HKR, ,                  aifs,               0,    2
+HKR, ,                  cwmin,              0,    15
+
+HKR, Ndi\Install,       ndis3,              0,    "ATHER.install"
+
+;-----------------------------------------------------------------------------
+; DestinationDirs
+;
+
+[DestinationDirs]
+ATHER.win.CopyFiles          	= 11
+ATHER.CopyFiles.NT		= 12
+
+[ATHER.win.CopyFiles]
+ar5210b.sys
+
+
+[ATHER.CopyFiles.NT]
+ar5210b.sys
+
+
+[SourceDisksNames]
+1 = %Atheros_Disk%,,,
+
+[SourceDisksFiles]
+ar5210b.sys = 1
+
+
+
+
+[Strings]
+Atheros                      = "Atheros"
+MapRegisters                 = "Map Registers"
+InitFile                     = "Athnic.ini"
+Qos                          = "QoS (802.11e)"
+tpc                          = "Transmit Power Control"
+Atheros_Disk                 = "Atheros Driver Disk 1"
+ATHER.DeviceDesc             = "WPC54A Wireless Network Adapter"
+ATHER.Service.DispName       = "WPC54A Wireless Network Adapter Service"
+
+

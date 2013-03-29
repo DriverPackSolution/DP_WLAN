@@ -1,0 +1,378 @@
+;***********************************************************************
+; WlanBZG.INF
+;
+;   This installation script supports Windows 98SE, ME, 2000, XP for the
+;   Wireless LAN Adapters.
+;
+;   Copyright (c) 1998 - 2004 Sagem, SA
+;   All Rights Reserved.
+;
+;***********************************************************************
+
+[Version]
+DriverVer		= 10/28/2005,6.3.0.0
+Signature		= "$Chicago$"
+Compatible		= 1
+Class			= Net
+ClassGUID		= {4d36e972-e325-11ce-bfc1-08002be10318}
+MillenniumPreferred	= .ME
+Provider		= %DRV_PROVIDER_STR%
+CatalogFile.NT		= WlanBZG.cat
+
+
+[Manufacturer]
+%MANUFACTURER_STR%	= DeviceList, NTx86.5.1, NTAMD64
+
+;[ControlFlags]
+;Exclude all PNP adapters from user selection
+;ExcludeFromSelect   = *
+
+
+[DeviceList]
+;DisplayName              Section           Hardware ID
+;-----------              -------           --------------------------
+%WLAN_XG762_DESC_STR%         	= WLAN_USB1,     	USB\Vid_079B&Pid_0062
+
+[DeviceList.NTx86.5.1]
+%WLAN_XG762_DESC_STR%       	= WLAN_USB1.XP,    	USB\Vid_079B&Pid_0062
+
+[DeviceList.NTAMD64]
+%WLAN_XG762_DESC_STR%       	= WLAN_USB1.NTAMD64, 	USB\Vid_079B&Pid_0062
+
+;*********************************************************************
+;   Microsoft Windows 98 section
+;*********************************************************************
+[WLAN_USB1]
+AddReg		= WLAN_USB1.reg, WLAN_USB_9X_COMMON, WLAN_USB_Common.reg
+CopyFiles       = WLAN_USB_DRIVER_COPY_9X
+
+[WLAN_USB1.reg]
+HKR,NDI,              DeviceID,           0, "USB\Vid_079B&Pid_0062"
+HKR,,                 VendorDesc,         0, %WLAN_XG762_DESC_STR%
+
+;*********************************************************************
+;   Microsoft Windows Me section
+;*********************************************************************
+[WLAN_USB1.ME]
+Characteristics = 0x84
+BusType         = 15
+AddReg		= WLAN_USB1_ME, WLAN_USB_Me.reg, WLAN_USB_Common.reg
+CopyFiles       = WLAN_USB_DRIVER_COPY_ME
+
+[WLAN_USB1_ME]
+HKR,,                 VendorDesc,         0, %WLAN_XG762_DESC_STR%
+
+[WLAN_USB1.ME.Services]
+AddService = "SG762_ME", 2, WLAN_USB_ME.Service, WLAN_USB.EventLog
+
+;========================================================================
+[WLAN_USB_Me.reg]
+HKR,NDI,              Service,            0, "SG762_ME"
+HKR,,                 DevLoader,          0, "*ndis"
+HKR,,                 DeviceVxDs,         0, "WlanBZME.sys"
+HKR,,                 EnumPropPages,      0, "netdi.dll,EnumPropPages"
+
+; NDIS Info
+HKR,NDIS,             MajorNdisVersion,   1, 05
+HKR,NDIS,             MinorNdisVersion,   1, 00
+HKR,NDIS,             LogDriverName,      0, "WlanBZME"
+
+; Interfaces Info
+HKR,NDI\Interfaces,   DefUpper,           0, "ndis5"
+HKR,NDI\Interfaces,   DefLower,           0, "ethernet"
+HKR,NDI\Interfaces,   UpperRange,         0, "ndis5"
+HKR,NDI\Interfaces,   LowerRange,         0, "ethernet"
+
+; Install Sections
+HKR,NDI\Install,      ndis3,              0, "ZD1211.ndis5me"
+
+
+[WLAN_USB_ME.Service]
+DisplayName     = %WLAN_USB_SERVICE_STR%
+ServiceType     = 1                             ; %SERVICE_KERNEL_DRIVER%
+StartType       = 3                             ; %SERVICE_DEMAND_START%
+ErrorControl    = 1                             ; %SERVICE_ERROR_NORMAL%
+ServiceBinary   = %11%\"WlanBZME.sys"		; %11%\WlanBZME.sys
+LoadOrderGroup  = NDIS
+
+;*********************************************************************
+;   Microsoft Windows 2000 section
+;*********************************************************************
+[WLAN_USB1.NT]
+Characteristics = 0x84
+BusType         = 15
+AddReg		= WLAN_USB1_2K, WLAN_USB_2K.reg, WLAN_USB_Common.reg
+CopyFiles       = WLAN_USB_DRIVER_COPY_2K
+
+[WLAN_USB1_2K]
+HKR,,                 VendorDesc,         0, %WLAN_XG762_DESC_STR%
+
+[WLAN_USB1.NT.Services]
+AddService = "SG762_2K", 2, WLAN_USB_2K.Service, WLAN_USB.EventLog
+
+
+;======================================================================
+
+[WLAN_USB_2K.reg]
+; Interfaces Info
+HKR,NDI\Interfaces,   UpperRange,         0, "ndis5"
+HKR,NDI\Interfaces,   LowerRange,         0, "ethernet"
+HKR,NDI,              Service,            0, "SG762_2K"
+
+
+[WLAN_USB_2K.Service]
+DisplayName     = %WLAN_USB_SERVICE_STR%
+ServiceType     = 1                             ; %SERVICE_KERNEL_DRIVER%
+StartType       = 3                             ; %SERVICE_DEMAND_START%
+ErrorControl    = 1                             ; %SERVICE_ERROR_NORMAL%
+ServiceBinary   = %12%\WlanBZ2K.sys		; 
+LoadOrderGroup  = NDIS
+
+;*********************************************************************
+;   Microsoft Windows XP section
+;*********************************************************************
+[WLAN_USB1.XP.NT]
+Characteristics = 0x84
+BusType         = 15
+AddReg		= WLAN_USB1_XP, WLAN_USB_XP.reg, WLAN_USB_Common.reg
+CopyFiles       = WLAN_USB_DRIVER_COPY_XP
+
+[WLAN_USB1_XP]
+HKR,,                 VendorDesc,         0, %WLAN_XG762_DESC_STR%
+
+[WLAN_USB1.XP.NT.Services]
+AddService = "SG762_XP", 2, WLAN_USB_XP.Service, WLAN_USB.EventLog
+
+;*********************************************************************
+;   Microsoft Windows XP AMD64 section
+;*********************************************************************
+[WLAN_USB1.NTAMD64]
+Characteristics = 0x84
+BusType         = 15
+AddReg		= WLAN_USB1_64,WLAN_USB_64.reg, WLAN_USB_Common.reg
+CopyFiles       = WLAN_USB_DRIVER_COPY_XP64
+
+[WLAN_USB1_64]
+HKR,,                 VendorDesc,         0, %WLAN_XG762_DESC_STR%
+
+[WLAN_USB1.NTAMD64.Services]
+AddService = "SG762_64", 2, WLAN_USB_NTAMD64.Service, WLAN_USB.EventLog
+
+;=========================winxp common=======================================
+[WLAN_USB_XP.reg]
+; Interfaces Info
+HKR,NDI\Interfaces,   UpperRange,         0, "ndis5"
+HKR,NDI\Interfaces,   LowerRange,         0, "ethernet"
+HKR,NDI,              Service,            0, "SG762_XP"
+
+[WLAN_USB_64.reg]
+; Interfaces Info
+HKR,NDI\Interfaces,   UpperRange,         0, "ndis5"
+HKR,NDI\Interfaces,   LowerRange,         0, "ethernet"
+HKR,NDI,              Service,            0, "SG762_64"
+
+[WLAN_USB_XP.Service]
+DisplayName     = %WLAN_USB_SERVICE_STR%
+ServiceType     = 1                             ; %SERVICE_KERNEL_DRIVER%
+StartType       = 3                             ; %SERVICE_DEMAND_START%
+ErrorControl    = 1                             ; %SERVICE_ERROR_NORMAL%
+ServiceBinary   = %12%\WlanBZXP.sys		; 
+LoadOrderGroup  = NDIS
+
+[WLAN_USB_NTAMD64.Service]
+DisplayName     = %WLAN_USB_SERVICE_STR%
+ServiceType     = 1                             ; %SERVICE_KERNEL_DRIVER%
+StartType       = 3                             ; %SERVICE_DEMAND_START%
+ErrorControl    = 1                             ; %SERVICE_ERROR_NORMAL%
+ServiceBinary   = %12%\WlanBZ64.sys		; 
+LoadOrderGroup  = NDIS
+
+;*********************************************************************
+;   Microsoft Windows ME/2000/XP Common Section
+;*********************************************************************
+[WLAN_USB.EventLog]
+Addreg = WLAN_USB.AddEventLog.reg
+
+[WLAN_USB.AddEventLog.reg]
+HKR,,                               EventMessageFile,  0x00020000, "%%SystemRoot%%\System32\netevent.dll"
+HKR,,                               TypesSupported,    0x00010001, 7
+
+
+;******************************************************************************
+
+[WLAN_USB_9X_COMMON]
+
+ HKR,NDI,              CardType,           0, "PNP"
+ HKR,,                 DevLoader,          0, "*ndis"
+ HKR,,                 DeviceVxDs,         0, "WlanBZ98.sys"
+
+ ; NDIS Info
+ HKR,NDIS,             MajorNdisVersion,   1, 03
+ HKR,NDIS,             MinorNdisVersion,   1, 0A
+ HKR,NDIS,             LogDriverName,      0, "WlanBZ98"
+
+ ; Interfaces Info
+ HKR,NDI\Interfaces,   DefUpper,           0, "ndis3"
+ HKR,NDI\Interfaces,   DefLower,           0, "ethernet"
+ HKR,NDI\Interfaces,   UpperRange,         0, "ndis3"
+ HKR,NDI\Interfaces,   LowerRange,         0, "ethernet"
+
+ ; Other Info
+ HKR,,                 BusType,            0, 15
+ HKR,,                 IOBaseAddress,      1, 02,00,00,00
+ HKR,,                 InterruptNumber,    1, 04,00,00,00
+ HKR,,                 EnumPropPages,      0, "netdi.dll,EnumPropPages"
+
+ ; Install Sections
+ HKR,NDI\Install,      ndis3,              0, "ZD1211.ndis3"
+
+[WLAN_USB_Common.reg]
+ HKR,                   		,WLANIOC			,0      ,"XG-760N"
+
+HKR, Ndi\params\NumRfd,         ParamDesc,  	0, "%ReceiveFrameDescriptors%"
+HKR, Ndi\params\NumRfd,         default,    	0, "32"
+HKR, Ndi\params\NumRfd,         min,        	0, "1"
+HKR, Ndi\params\NumRfd,         max,        	0, "00001024"
+HKR, Ndi\params\NumRfd,         step,       	0, "1"
+HKR, Ndi\params\NumRfd,         Base,       	0, "10"
+HKR, Ndi\params\NumRfd,         type,       	0, "int"
+HKR, Ndi\params\NumRfd,         flag, 		1, 20,00,00,00
+
+HKR, Ndi\params\NumTcb,         ParamDesc,  	0, "%TransmitControlBlocks%"
+HKR, Ndi\params\NumTcb,         default,    	0, "32"
+HKR, Ndi\params\NumTcb,         min,        	0, "1"
+HKR, Ndi\params\NumTcb,         max,        	0, "00000064"
+HKR, Ndi\params\NumTcb,         step,       	0, "1"
+HKR, Ndi\params\NumTcb,         Base,       	0, "10"
+HKR, Ndi\params\NumTcb,         type,		0, "int"
+HKR, Ndi\params\NumTcb,         flag,		1, 20,00,00,00
+
+HKR, Ndi\params\NumCoalesce,    ParamDesc,  	0, "%CoalesceBuffers%"
+HKR, Ndi\params\NumCoalesce,    default,    	0, "128"
+HKR, Ndi\params\NumCoalesce,    min,        	0, "1"
+HKR, Ndi\params\NumCoalesce,    max,        	0, "00000128"
+HKR, Ndi\params\NumCoalesce,    step,       	0, "1"
+HKR, Ndi\params\NumCoalesce,    Base,       	0, "10"
+HKR, Ndi\params\NumCoalesce,    type,       	0, "int"
+HKR, Ndi\params\NumCoalesce,    flag, 		1, 20,00,00,00
+
+HKR,,                           	PreambleMode,   0, "0"
+HKR,NDI\params\PreambleMode,    	ParamDesc,      0, "PreambleMode"
+HKR,NDI\params\PreambleMode,       	type,           0, "enum"
+HKR,NDI\params\PreambleMode,           	flag,           1, 30,00,00,00
+HKR,Ndi\params\PreambleMode,           	default,        0, "3"
+HKR,NDI\params\PreambleMode\enum,      	1,              0, "Long"
+HKR,NDI\params\PreambleMode\enum,      	2,              0, "Short"
+HKR,NDI\params\PreambleMode\enum,      	3,              0, "Auto"
+
+HKR,,                           	IBSS_G_Mode,    0, "0"
+HKR,NDI\params\IBSS_G_Mode,    	        ParamDesc,      0, "IBSS_G_Mode"
+HKR,NDI\params\IBSS_G_Mode,       	type,           0, "enum"
+HKR,NDI\params\IBSS_G_Mode,           	flag,           1, 30,00,00,00
+HKR,Ndi\params\IBSS_G_Mode,           	default,        0, "0"
+HKR,NDI\params\IBSS_G_Mode\enum,      	0,              0, "Disable"
+HKR,NDI\params\IBSS_G_Mode\enum,      	1,              0, "Enable"
+
+HKR,,                           	IBSS_PureG_Mode,0, "0"
+HKR,NDI\params\IBSS_PureG_Mode,    	ParamDesc,      0, "IBSS_PureG_Mode"
+HKR,NDI\params\IBSS_PureG_Mode,       	type,           0, "enum"
+HKR,NDI\params\IBSS_PureG_Mode,         flag,           1, 30,00,00,00
+HKR,Ndi\params\IBSS_PureG_Mode,         default,        0, "0"
+HKR,NDI\params\IBSS_PureG_Mode\enum,    0,              0, "Disable"
+HKR,NDI\params\IBSS_PureG_Mode\enum,    1,              0, "Enable"
+
+HKR,,                           	             Use_G_Mode_in_Usb1.1,0, "0"
+HKR,NDI\params\Use_G_Mode_in_Usb1.1,    	     ParamDesc,      0, "Use_G_Mode_in_Usb1.1"
+HKR,NDI\params\Use_G_Mode_in_Usb1.1,             type,           0, "enum"
+HKR,NDI\params\Use_G_Mode_in_Usb1.1,             flag,           1, 30,00,00,00
+HKR,Ndi\params\Use_G_Mode_in_Usb1.1,             default,        0, "0"
+HKR,NDI\params\Use_G_Mode_in_Usb1.1\enum,        0,              0, "Disable"
+HKR,NDI\params\Use_G_Mode_in_Usb1.1\enum,        1,              0, "Enable"
+
+HKR,,                           	PSPXLinkMode,   0, "0"
+HKR,NDI\params\PSPXLinkMode,    	        ParamDesc,      0, "PSPXLinkMode"
+HKR,NDI\params\PSPXLinkMode,       	type,           0, "enum"
+HKR,NDI\params\PSPXLinkMode,           	flag,           1, 30,00,00,00
+HKR,Ndi\params\PSPXLinkMode,           	default,        0, "0"
+HKR,NDI\params\PSPXLinkMode\enum,      	0,              0, "Disable"
+HKR,NDI\params\PSPXLinkMode\enum,      	1,              0, "Enable"
+
+HKR,,                           	QosTagPolicy,   0, "0"
+HKR,NDI\params\QosTagPolicy,    	ParamDesc,      0, "QosTagPolicy"
+HKR,NDI\params\QosTagPolicy,       	type,           0, "enum"
+HKR,NDI\params\QosTagPolicy,           	flag,           1, 30,00,00,00
+HKR,Ndi\params\QosTagPolicy,           	default,        0, "0"
+HKR,NDI\params\QosTagPolicy\enum,      	0,              0, "Auto"
+HKR,NDI\params\QosTagPolicy\enum,      	1,              0, "802.1Q Tag"
+HKR,NDI\params\QosTagPolicy\enum,      	2,              0, "DSCP Tag"
+
+HKR,,                           	WMMQosSupport,   0, "0"
+HKR,NDI\params\WMMQosSupport,    	        ParamDesc,      0, "WMMQosSupport"
+HKR,NDI\params\WMMQosSupport,       	type,           0, "enum"
+HKR,NDI\params\WMMQosSupport,           	flag,           1, 30,00,00,00
+HKR,Ndi\params\WMMQosSupport,           	default,        0, "0"
+HKR,NDI\params\WMMQosSupport\enum,      	0,              0, "Disable"
+HKR,NDI\params\WMMQosSupport\enum,      	1,              0, "Enable"
+
+HKR,,                           PHY_A_6M_Setpoint_Value,	0x10001, 0x28
+HKR,,                           PHY_A_6M_CR128_Value,	0x10001, 0x17
+HKR,,                           PHY_A_1dBm_Value,	0x10001, 0x08
+
+HKR,,                           EnableAntennaDiversity, 0, "0"
+HKR,,                           DefaultAntenna, 0, "0"
+HKR,,                           DefaultWirelessMode, 0, "0"
+
+;*********************************************************************
+;   Destination Directories
+;*********************************************************************
+[DestinationDirs]
+WLAN_USB_DRIVER_COPY_9X		= 11			; system subdirectory on Win 98
+WLAN_USB_DRIVER_COPY_ME		= 11			; system subdirectory on Win Me
+WLAN_USB_DRIVER_COPY_2K		= 12			; system32\drivers subdirectory on Win NT/2000
+WLAN_USB_DRIVER_COPY_XP		= 12			; system32\drivers subdirectory on Win XP
+WLAN_USB_DRIVER_COPY_XP64	= 12			; system32\drivers subdirectory on Win XP
+
+
+[PreCopySection]
+HKR,,NoSetupUI,,1
+
+[WLAN_USB_DRIVER_COPY_9X]
+WlanBZ98.sys
+
+[WLAN_USB_DRIVER_COPY_ME]
+WlanBZME.sys
+
+[WLAN_USB_DRIVER_COPY_2K]
+WlanBZ2K.sys
+
+[WLAN_USB_DRIVER_COPY_XP]
+WlanBZXP.sys
+
+[WLAN_USB_DRIVER_COPY_XP64]
+WlanBZ64.sys
+
+[SourceDisksNames]
+;Source Disk ID         = Disk Name
+;--------------           ---------
+ 1                      = %INSTALL_DISK_STR%,,,
+
+[SourceDisksFiles]      
+;File Name              = Source Disk ID
+;---------                --------------
+
+WlanBZ2K.sys 	        = 1
+WlanBZXP.sys 		= 1
+
+;###############################################################################
+[Strings]
+DRV_PROVIDER_STR	= "Sagem, SA"
+MANUFACTURER_STR	= "Sagem, SA"
+
+INSTALL_DISK_STR	= "SAGEM Wi-Fi 11g USB adapter Install Disk"
+
+WLAN_XG762_DESC_STR	= "SAGEM Wi-Fi 11g USB adapter"
+WLAN_USB_SERVICE_STR 	= "SAGEM 802.11g XG762 1211B Driver"
+
+ReceiveFrameDescriptors = "ReceiveFrameDescriptors"
+TransmitControlBlocks = "TransmitControlBlocks"
+CoalesceBuffers = "CoalesceBuffers"

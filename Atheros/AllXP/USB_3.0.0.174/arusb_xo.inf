@@ -1,0 +1,1666 @@
+;+-----------------------------------------------------------------------+
+;| Device name    : Atheros USB 802.11n Wireless LAN card.               |
+;| Platform	  : Microsoft Windows 98 / Me / 2000 / XP                |
+;| Host interface : USB                                                  |
+;|                                                                       |
+;| Copyright (c) 2000-2007 Atheros Communications.                       |
+;| All Rights Reserved.                                                  |
+;+-----------------------------------------------------------------------+
+; modded to add support for Ovislink
+[Version]
+Signature		= "$Chicago$"
+Compatible		= 1
+Class			= Net
+ClassGUID		= {4d36e972-e325-11ce-bfc1-08002be10318}
+Provider		= %ATHEROS%
+CatalogFile.NT		= arusb_xp.cat			; for WHQL certified
+DriverVer		= 12/21/2010,3.0.0.174
+
+[Manufacturer]
+%ATHEROS%	= Atheros, NT.5.1, ntamd64
+;%NETGEAR%	= NETGEAR, NT.5.1
+;%DLINK%		= Dlink, NT.5.1, ntamd64
+;%Arcadyan%	= Arcadyan, NT.5.1, ntamd64
+;%Proxim%		= Proxim, NT.5.1, ntamd64
+;%WNC%		= WNC, NT.5.1, ntamd64
+%Ovislink%	= Ovislink, NT.5.1, ntamd64 
+
+[ControlFlags]
+ExcludeFromSelect = *
+
+[Atheros]
+;DisplayName              Section           Hardware ID
+;-----------              -------           --------------------------
+;%ATHR.DeviceDesc.1001%       = ATHR_1001.ndi,      USB\VID_0CF3&PID_1001
+;%ATHR.DeviceDesc.1002%       = ATHR_1002.ndi,      USB\VID_0CF3&PID_1002
+;%ATHR.DeviceDesc.9170%       = ATHR_9170.ndi,      USB\VID_0CF3&PID_9170
+;%ATHR.DeviceDesc.5304%       = ATHR_5304.ndi,      USB\VID_2019&PID_5304
+;%ATHR.DeviceDesc.093F%       = ATHR_093F.ndi,      USB\VID_04BB&PID_093F
+;%ZCOM.DeviceDesc.0023%       = ATHR_0023.ndi,      USB\VID_0CDE&PID_0023
+;%ZCOM.DeviceDesc.0026%       = ATHR_0026.ndi,      USB\VID_0CDE&PID_0026
+;%HP.DeviceDesc.1010%         = HP_1010.ndi,        USB\VID_0CF3&PID_1010
+;%H3C.DeviceDesc.1011%        = H3C_1011.ndi,       USB\VID_0CF3&PID_1011
+
+[Atheros.NT.5.1]
+;DisplayName              Section           Hardware ID
+;-----------              -------           --------------------------
+;%ATHR.DeviceDesc.1001%       = ATHRXP1001.ndi,    USB\VID_0CF3&PID_1001
+;%ATHR.DeviceDesc.1002%       = ATHRXP1002.ndi,    USB\VID_0CF3&PID_1002
+;%ATHR.DeviceDesc.9170%       = ATHRXP9170.ndi,    USB\VID_0CF3&PID_9170
+;%ATHR.DeviceDesc.5304%       = ATHRXP5304.ndi,    USB\VID_2019&PID_5304
+;%ATHR.DeviceDesc.093F%       = ATHRXP093F.ndi,    USB\VID_04BB&PID_093F
+;%ZCOM.DeviceDesc.0023%       = ATHRXP0023.ndi,    USB\VID_0CDE&PID_0023
+;%ZCOM.DeviceDesc.0026%       = ATHRXP0026.ndi,    USB\VID_0CDE&PID_0026
+;%HP.DeviceDesc.1010%         = HPXP1010.ndi,      USB\VID_0CF3&PID_1010
+;%H3C.DeviceDesc.1011%        = H3CXP1011.ndi,     USB\VID_0CF3&PID_1011
+
+[Atheros.ntamd64]
+;DisplayName              Section           Hardware ID
+;-----------              -------           --------------------------
+;%ATHR.DeviceDesc.1001%       = ATHRXP1001.ntamd64,    USB\VID_0CF3&PID_1001
+;%ATHR.DeviceDesc.1002%       = ATHRXP1002.ntamd64,    USB\VID_0CF3&PID_1002
+;%ATHR.DeviceDesc.9170%       = ATHRXP9170.ntamd64,    USB\VID_0CF3&PID_9170
+;%ATHR.DeviceDesc.5304%       = ATHRXP5304.ntamd64,    USB\VID_2019&PID_5304
+;%ATHR.DeviceDesc.093F%       = ATHRXP093F.ntamd64,    USB\VID_04BB&PID_093F
+;%ZCOM.DeviceDesc.0023%       = ATHRXP0023.ntamd64,    USB\VID_0CDE&PID_0023
+;%ZCOM.DeviceDesc.0026%       = ATHRXP0026.ntamd64,    USB\VID_0CDE&PID_0026
+;%HP.DeviceDesc.1010%         = HPXP1010.ntamd64,      USB\VID_0CF3&PID_1010
+;%H3C.DeviceDesc.1011%        = H3CXP1011.ntamd64,     USB\VID_0CF3&PID_1011
+
+[Arcadyan]
+;DisplayName              Section           Hardware ID
+;-----------              -------           --------------------------
+;%ARCA.DeviceDesc.F522%       = ARCA_F522.ndi,      USB\VID_083A&PID_F522
+
+
+[Arcadyan.NT.5.1]
+;DisplayName              Section           Hardware ID
+;-----------              -------           --------------------------
+;%ARCA.DeviceDesc.F522%       = ARCAXPF522.ndi,    USB\VID_083A&PID_F522
+
+[Arcadyan.ntamd64]
+;DisplayName              Section           Hardware ID
+;-----------              -------           --------------------------
+;%ARCA.DeviceDesc.F522%       = ARCAXPF522.ntamd64,    USB\VID_083A&PID_F522
+
+
+[NETGEAR]
+;DisplayName              Section           Hardware ID
+;-----------              -------           --------------------------
+;%NTGR.DeviceDesc.9010%       = NTGR_9010.ndi,      USB\VID_0846&PID_9010
+;%NTGR.DeviceDesc.9001%       = NTGR_9001.ndi,      USB\VID_0846&PID_9001
+;%NTGR.DeviceDesc.9040%       = NTGR_9040.ndi,      USB\VID_0846&PID_9040
+
+[NETGEAR.NT.5.1]
+;DisplayName              Section           Hardware ID
+;-----------              -------           --------------------------
+;%NTGR.DeviceDesc.9010%       = NTGRXP9010.ndi,    USB\VID_0846&PID_9010
+;%NTGR.DeviceDesc.9001%       = NTGRXP9001.ndi,    USB\VID_0846&PID_9001
+;%NTGR.DeviceDesc.9040%       = NTGRXP9040.ndi,    USB\VID_0846&PID_9040
+
+[Dlink]
+;DisplayName              Section           Hardware ID
+;-----------              -------           --------------------------
+;%DWA160.DeviceDesc%       = DLINK_50U.ndi,      USB\VID_07D1&PID_3C10
+;%DWA160A2.DeviceDesc%     = DLINK_50UA2.ndi,    USB\VID_07D1&PID_3A09
+
+[Dlink.NT.5.1]
+;DisplayName              Section           Hardware ID
+;-----------              -------           --------------------------
+;%DWA160.DeviceDesc%       = DLINKXP50U.ndi,    USB\VID_07D1&PID_3C10
+;%DWA160A2.DeviceDesc%     = DLINKXP50UA2.ndi,  USB\VID_07D1&PID_3A09
+
+[Dlink.ntamd64]
+;DisplayName              Section           Hardware ID
+;-----------              -------           --------------------------
+;%DWA160.DeviceDesc%       = DLINKXP50U.ntamd64,    USB\VID_07D1&PID_3C10
+;%DWA160A2.DeviceDesc%     = DLINKXP50UA2.ntamd64,  USB\VID_07D1&PID_3A09
+
+
+[Proxim]
+;DisplayName              Section           Hardware ID
+;-----------              -------           --------------------------
+;%DNUA0804.DeviceDesc%      = DNUA_0804.ndi,      USB\VID_1435&PID_0804
+
+[Proxim.NT.5.1]
+;DisplayName              Section           Hardware ID
+;-----------              -------           --------------------------
+;%DNUA0804.DeviceDesc%       = DNUAXP0804.ndi,    USB\VID_1435&PID_0804
+
+[Proxim.ntamd64]
+;DisplayName              Section           Hardware ID
+;-----------              -------           --------------------------
+;%DNUA0804.DeviceDesc%       = DNUAXP0804.ntamd64,    USB\VID_1435&PID_0804
+
+[WNC]
+;DisplayName              Section           Hardware ID
+;-----------              -------           --------------------------
+;%DNUA0326.DeviceDesc%      = DNUA_0326.ndi,      USB\VID_1435&PID_0326
+
+[WNC.NT.5.1]
+;DisplayName              Section           Hardware ID
+;-----------              -------           --------------------------
+;%DNUA0326.DeviceDesc%       = DNUAXP0326.ndi,    USB\VID_1435&PID_0326
+
+[WNC.ntamd64]
+;DisplayName              Section           Hardware ID
+;-----------              -------           --------------------------
+;%DNUA0326.DeviceDesc%       = DNUAXP0326.ntamd64,    USB\VID_1435&PID_0326
+
+[Ovislink]
+;DisplayName              Section           Hardware ID
+;-----------              -------           --------------------------
+%OVIK.DeviceDesc.9170%      = OVIK_9170.ndi,      USB\VID_1B75&PID_9170
+
+[Ovislink.NT.5.1]
+;DisplayName              Section           Hardware ID
+;-----------              -------           --------------------------
+%OVIK.DeviceDesc.9170%      = OVIKXP9170.ndi,      USB\VID_1B75&PID_9170
+
+[Ovislink.ntamd64]
+;DisplayName              Section           Hardware ID
+;-----------              -------           --------------------------
+%OVIK.DeviceDesc.9170%      = OVIKXP9170.ntamd64,      USB\VID_1B75&PID_9170
+
+;*********************************************************************
+;   Microsoft Windows 2000 section
+;*********************************************************************
+;---------- 5.0 volt ----------
+[ATHR_1001.ndi.NTx86]
+Characteristics = 0x84
+BusType         = 15
+AddReg		    = ATHR_Win2K.reg, ATHR_Common.reg, ATHR_1001.reg
+CopyFiles       = ATHR.CopyFiles2K
+
+[ATHR_1001.ndi.NTx86.Services]
+AddService = %CustomServiceName%(%Atheros%), 2, ATHR_NT.Service, ATHR.EventLog
+
+[ATHR_1002.ndi.NTx86]
+Characteristics = 0x84
+BusType         = 15
+AddReg		    = ATHR_Win2K.reg, ATHR_Common.reg, ATHR_1002.reg, ATHR_HwButtonSupport.reg, htDisableWepTkip.reg
+CopyFiles       = ATHR.CopyFiles2K
+
+[ATHR_1002.ndi.NTx86.Services]
+AddService = %CustomServiceName%(%Atheros%), 2, ATHR_NT.Service, ATHR.EventLog
+
+[ATHR_9170.ndi.NTx86]
+Characteristics = 0x84
+BusType         = 15
+AddReg		= ATHR_Win2K.reg, ATHR_Common.reg, ATHR_9170.reg
+CopyFiles       = ATHR.CopyFiles2K
+
+[ATHR_9170.ndi.NTx86.Services]
+AddService = %CustomServiceName%(%Atheros%), 2, ATHR_NT.Service, ATHR.EventLog
+
+[ARCA_F522.ndi.NTx86]
+Characteristics = 0x84
+BusType         = 15
+AddReg		= ATHR_Win2K.reg, ATHR_Common.reg, ARCA_F522.reg
+CopyFiles       = ATHR.CopyFiles2K
+
+[ARCA_F522.ndi.NTx86.Services]
+AddService = %CustomServiceName%(%Atheros%), 2, ATHR_NT.Service, ATHR.EventLog
+
+
+[ATHR_5304.ndi.NTx86]
+Characteristics = 0x84
+BusType         = 15
+AddReg		= ATHR_Win2K.reg, ATHR_Common.reg, ATHR_5304.reg
+CopyFiles       = ATHR.CopyFiles2K
+
+[ATHR_5304.ndi.NTx86.Services]
+AddService = %CustomServiceName%(%Atheros%), 2, ATHR_NT.Service, ATHR.EventLog
+
+[ATHR_093F.ndi.NTx86]
+Characteristics = 0x84
+BusType         = 15
+AddReg		= ATHR_Win2K.reg, ATHR_Common.reg, ATHR_093F.reg, IO-DATA.reg
+CopyFiles       = ATHR.CopyFiles2K
+
+[ATHR_093F.ndi.NTx86.Services]
+AddService = %CustomServiceName%(%Atheros%), 2, ATHR_NT.Service, ATHR.EventLog
+
+
+[ATHR_0023.ndi.NTx86]
+Characteristics = 0x84
+BusType         = 15
+AddReg		= ATHR_Win2K.reg, ATHR_Common.reg, ATHR_0023.reg
+CopyFiles       = ATHR.CopyFiles2K
+
+[ATHR_0023.ndi.NTx86.Services]
+AddService = %CustomServiceName%(%Atheros%), 2, ATHR_NT.Service, ATHR.EventLog
+
+[ATHR_0026.ndi.NTx86]
+Characteristics = 0x84
+BusType         = 15
+AddReg		= ATHR_Win2K.reg, ATHR_Common.reg, ATHR_0026.reg
+CopyFiles       = ATHR.CopyFiles2K
+
+[ATHR_0026.ndi.NTx86.Services]
+AddService = %CustomServiceName%(%Atheros%), 2, ATHR_NT.Service, ATHR.EventLog
+
+[ATHR_Win2K.reg]
+; Interfaces Info
+HKR,NDI\Interfaces,   UpperRange,         0, "ndis5"
+HKR,NDI\Interfaces,   LowerRange,         0, "ethernet, wifi"
+HKR,NDI,              Service,            0, %CustomServiceName%(%Atheros%)
+
+HKR,,                 VendorDesc,         0, %VendorDesc%
+HKR,,                 WEPCapability,      0x00010001, 0x3
+
+HKLM, SYSTEM\CurrentControlSet\Services\Tcpip\Parameters, Tcp1323Opts,   0x00010001, 0x00000003
+HKLM, SYSTEM\CurrentControlSet\Services\Tcpip\Parameters, TcpWindowSize, 0x00010001, 0x00040000
+
+;*********************************************************************
+;   Microsoft Windows 2000 section (DLINK)
+;*********************************************************************
+;---------- 5.0 volt ----------
+[DLINK_50U.ndi.NTx86]
+Characteristics = 0x84
+BusType         = 15
+AddReg		= ATHR_Win2K.reg, ATHR_Common.reg, DLINK_Win2K.reg, DLINK_07D1.reg, htDisableWepTkip.reg
+CopyFiles       = ATHR.CopyFiles2K
+
+[DLINK_50U.ndi.NTx86.Services]
+AddService = %CustomServiceName%(%Atheros%), 2, ATHR_NT.Service, ATHR.EventLog
+
+[DLINK_50UA2.ndi.NTx86]
+Characteristics = 0x84
+BusType         = 15
+AddReg		= ATHR_Win2K.reg, ATHR_Common.reg, DLINK_Win2K.reg, DLINK_07D1.reg, htDisableWepTkip.reg, dlinkA2.reg
+CopyFiles       = ATHR.CopyFiles2K
+
+[DLINK_50UA2.ndi.NTx86.Services]
+AddService = %CustomServiceName%(%Atheros%), 2, ATHR_NT.Service, ATHR.EventLog
+
+[ATHR.CopyFiles2K]
+arusb.sys,arusb_2k.sys,2
+
+;*********************************************************************
+;   Microsoft Windows 2000 section (Proxim)
+;*********************************************************************
+;---------- 5.0 volt ----------
+[DNUA_0804.ndi.NTx86]
+Characteristics = 0x84
+BusType         = 15
+AddReg		= ATHR_Win2K.reg, ATHR_Common.reg, DNUA_1435.reg
+CopyFiles       = ATHR.CopyFiles2K
+
+[DNUA_0804.ndi.NTx86.Services]
+AddService = %CustomServiceName%(%Atheros%), 2, ATHR_NT.Service, ATHR.EventLog
+
+[ATHR.CopyFiles2K]
+arusb.sys,arusb_2k.sys,2
+
+;*********************************************************************
+;   Microsoft Windows 2000 section (WNC)
+;*********************************************************************
+;---------- 5.0 volt ----------
+[DNUA_0326.ndi.NTx86]
+Characteristics = 0x84
+BusType         = 15
+AddReg		= ATHR_Win2K.reg, ATHR_Common.reg, DNUA_1435.reg
+CopyFiles       = ATHR.CopyFiles2K
+
+[DNUA_0326.ndi.NTx86.Services]
+AddService = %CustomServiceName%(%Atheros%), 2, ATHR_NT.Service, ATHR.EventLog
+
+[ATHR.CopyFiles2K]
+arusb.sys,arusb_2k.sys,2
+
+;*********************************************************************
+;   Microsoft Windows 2000 section (HP)
+;*********************************************************************
+;---------- 5.0 volt ----------
+[HP_1010.ndi.NTx86]
+Characteristics = 0x84
+BusType         = 15
+AddReg		= ATHR_Win2K.reg, ATHR_Common.reg, HP_1010.reg, htDisableWepTkip.reg
+CopyFiles       = ATHR.CopyFiles2K
+
+[HP_1010.ndi.NTx86.Services]
+AddService = %CustomServiceName%(%Atheros%), 2, ATHR_NT.Service, ATHR.EventLog
+
+[ATHR.CopyFiles2K]
+arusb.sys,arusb_2k.sys,2
+
+;*********************************************************************
+;   Microsoft Windows 2000 section (H3C)
+;*********************************************************************
+;---------- 5.0 volt ----------
+[H3C_1011.ndi.NTx86]
+Characteristics = 0x84
+BusType         = 15
+AddReg		= ATHR_Win2K.reg, ATHR_Common.reg, H3C_1011.reg, htDisableWepTkip.reg
+CopyFiles       = ATHR.CopyFiles2K
+
+[H3C_1011.ndi.NTx86.Services]
+AddService = %CustomServiceName%(%Atheros%), 2, ATHR_NT.Service, ATHR.EventLog
+
+[ATHR.CopyFiles2K]
+arusb.sys,arusb_2k.sys,2
+
+;*********************************************************************
+;   Microsoft Windows 2000 section (Ovislink)
+;*********************************************************************
+;---------- 5.0 volt ----------
+[OVIK_9170.ndi.NTx86]
+Characteristics = 0x84
+BusType         = 15
+AddReg		= ATHR_Win2K.reg, ATHR_Common.reg
+CopyFiles       = ATHR.CopyFiles2K
+
+[OVIK_9170.ndi.NTx86.Services]
+AddService = %CustomServiceName%(%Atheros%), 2, ATHR_NT.Service, ATHR.EventLog
+
+[ATHR.CopyFiles2K]
+arusb.sys,arusb_2k.sys,2
+
+;*********************************************************************
+;   Microsoft Windows XP section
+;*********************************************************************
+;---------- 5.0 volt ----------
+[ATHRXP1001.ndi.NTx86]
+Characteristics = 0x84
+BusType         = 15
+AddReg		    = ATHR_WinXP.reg, ATHR_SingleBand_24.reg, ATHR_Common.reg, ATHR_SurpriseRemoveOk.reg, ATHR_1001.reg
+CopyFiles       = ATHR.CopyFilesXP
+
+[ATHRXP1001.ndi.NTx86.Services]
+AddService = %CustomServiceName%(%Atheros%), 2, ATHR_NT.Service, ATHR.EventLog
+
+[ATHRXP1002.ndi.NTx86]
+Characteristics = 0x84
+BusType         = 15
+AddReg		    = ATHR_WinXP.reg, ATHR_DualBand.reg, ATHR_Common.reg, ATHR_1002.reg, ATHR_HwButtonSupport.reg, htDisableWepTkip.reg
+CopyFiles       = ATHR.CopyFilesXP
+
+[ATHRXP1002.ndi.NTx86.Services]
+AddService = %CustomServiceName%(%Atheros%), 2, ATHR_NT.Service, ATHR.EventLog
+
+[ARCAXPF522.ndi.NTx86]
+Characteristics = 0x84
+BusType         = 15
+AddReg		= ATHR_WinXP.reg, ATHR_SingleBand_24.reg, ATHR_Common.reg, ATHR_SurpriseRemoveOk.reg, ARCA_F522.reg
+CopyFiles       = ATHR.CopyFilesXP
+
+[ARCAXPF522.ndi.NTx86.Services]
+AddService = %CustomServiceName%(%Atheros%), 2, ATHR_NT.Service, ATHR.EventLog
+
+[ATHRXP9170.ndi.NTx86]
+Characteristics = 0x84
+BusType         = 15
+AddReg		= ATHR_WinXP.reg, ATHR_DualBand.reg, ATHR_Common.reg, ATHR_9170.reg
+CopyFiles       = ATHR.CopyFilesXP
+
+[ATHRXP9170.ndi.NTx86.Services]
+AddService = %CustomServiceName%(%Atheros%), 2, ATHR_NT.Service, ATHR.EventLog
+
+[ATHRXP5304.ndi.NTx86]
+Characteristics = 0x84
+BusType         = 15
+AddReg		= ATHR_WinXP.reg, ATHR_SingleBand_24.reg, ATHR_Common.reg, ATHR_5304.reg
+CopyFiles       = ATHR.CopyFilesXP
+
+[ATHRXP5304.ndi.NTx86.Services]
+AddService = %CustomServiceName%(%Atheros%), 2, ATHR_NT.Service, ATHR.EventLog
+
+[ATHRXP093F.ndi.NTx86]
+Characteristics = 0x84
+BusType         = 15
+AddReg		= ATHR_WinXP.reg, ATHR_SingleBand_24.reg, ATHR_Common.reg, ATHR_093F.reg, IO-DATA.reg
+CopyFiles       = ATHR.CopyFilesXP
+
+[ATHRXP093F.ndi.NTx86.Services]
+AddService = %CustomServiceName%(%Atheros%), 2, ATHR_NT.Service, ATHR.EventLog
+
+[ATHRXP0023.ndi.NTx86]
+Characteristics = 0x84
+BusType         = 15
+AddReg		= ATHR_WinXP.reg, ATHR_SingleBand_24.reg, ATHR_Common.reg, ATHR_0023.reg
+CopyFiles       = ATHR.CopyFilesXP
+
+[ATHRXP0023.ndi.NTx86.Services]
+AddService = %CustomServiceName%(%Atheros%), 2, ATHR_NT.Service, ATHR.EventLog
+
+[ATHRXP0026.ndi.NTx86]
+Characteristics = 0x84
+BusType         = 15
+AddReg		= ATHR_WinXP.reg, ATHR_DualBand.reg, ATHR_Common.reg, ATHR_0026.reg
+CopyFiles       = ATHR.CopyFilesXP
+
+[ATHRXP0026.ndi.NTx86.Services]
+AddService = %CustomServiceName%(%Atheros%), 2, ATHR_NT.Service, ATHR.EventLog
+
+[ATHRXP1001.ntamd64]
+Characteristics = 0x84
+BusType         = 15
+AddReg		    = ATHR_WinXP.reg, ATHR_SingleBand_24.reg, ATHR_Common.reg, ATHR_SurpriseRemoveOk.reg, ATHR_1001.reg
+CopyFiles       = ATHR.CopyFilesXP64
+
+[ATHRXP1001.ntamd64.Services]
+AddService = %CustomServiceName%(%Atheros%), 2, ATHR_NT.Service, ATHR.EventLog
+
+[ATHRXP1002.ntamd64]
+Characteristics = 0x84
+BusType         = 15
+AddReg		    = ATHR_WinXP.reg, ATHR_DualBand.reg, ATHR_Common.reg, ATHR_1002.reg, ATHR_HwButtonSupport.reg, htDisableWepTkip.reg
+CopyFiles       = ATHR.CopyFilesXP64
+
+[ATHRXP1002.ntamd64.Services]
+AddService = %CustomServiceName%(%Atheros%), 2, ATHR_NT.Service, ATHR.EventLog
+
+[ARCAXPF522.ntamd64]
+Characteristics = 0x84
+BusType         = 15
+AddReg		    = ATHR_WinXP.reg, ATHR_SingleBand_24.reg, ATHR_Common.reg, ATHR_SurpriseRemoveOk.reg, ARCA_F522.reg
+CopyFiles       = ATHR.CopyFilesXP64
+
+[ARCAXPF522.ntamd64.Services]
+AddService = %CustomServiceName%(%Atheros%), 2, ATHR_NT.Service, ATHR.EventLog
+
+
+[ATHRXP9170.ntamd64]
+Characteristics = 0x84
+BusType         = 15
+AddReg		= ATHR_WinXP.reg, ATHR_DualBand.reg, ATHR_Common.reg, ATHR_9170.reg
+CopyFiles       = ATHR.CopyFilesXP64
+
+[ATHRXP9170.ntamd64.Services]
+AddService = %CustomServiceName%(%Atheros%), 2, ATHR_NT.Service, ATHR.EventLog
+
+[ATHRXP5304.ntamd64]
+Characteristics = 0x84
+BusType         = 15
+AddReg		= ATHR_WinXP.reg, ATHR_SingleBand_24.reg, ATHR_Common.reg, ATHR_5304.reg
+CopyFiles       = ATHR.CopyFilesXP64
+
+[ATHRXP5304.ntamd64.Services]
+AddService = %CustomServiceName%(%Atheros%), 2, ATHR_NT.Service, ATHR.EventLog
+
+[ATHRXP093F.ntamd64]
+Characteristics = 0x84
+BusType         = 15
+AddReg		= ATHR_WinXP.reg, ATHR_SingleBand_24.reg, ATHR_Common.reg, ATHR_093F.reg, IO-DATA.reg
+CopyFiles       = ATHR.CopyFilesXP64
+
+[ATHRXP093F.ntamd64.Services]
+AddService = %CustomServiceName%(%Atheros%), 2, ATHR_NT.Service, ATHR.EventLog
+
+[ATHRXP0023.ntamd64]
+Characteristics = 0x84
+BusType         = 15
+AddReg		= ATHR_WinXP.reg, ATHR_SingleBand_24.reg, ATHR_Common.reg, ATHR_0023.reg
+CopyFiles       = ATHR.CopyFilesXP64
+
+[ATHRXP0023.ntamd64.Services]
+AddService = %CustomServiceName%(%Atheros%), 2, ATHR_NT.Service, ATHR.EventLog
+
+[ATHRXP0026.ntamd64]
+Characteristics = 0x84
+BusType         = 15
+AddReg		= ATHR_WinXP.reg, ATHR_DualBand.reg, ATHR_Common.reg, ATHR_0026.reg
+CopyFiles       = ATHR.CopyFilesXP64
+
+[ATHRXP0026.ntamd64.Services]
+AddService = %CustomServiceName%(%Atheros%), 2, ATHR_NT.Service, ATHR.EventLog
+
+
+;*********************************************************************
+;   Microsoft Windows XP section (DLINK)
+;*********************************************************************
+;---------- 5.0 volt ----------
+[DLINKXP50U.ndi.NTx86]
+Characteristics = 0x84
+BusType         = 15
+AddReg		= ATHR_WinXP.reg, ATHR_DualBand.reg, ATHR_Common.reg, DLINK_WinXP.reg, DLINK_07D1.reg, htDisableWepTkip.reg
+CopyFiles       = ATHR.CopyFilesXP
+
+[DLINKXP50U.ndi.NTx86.Services]
+AddService = %CustomServiceName%(%Atheros%), 2, ATHR_NT.Service, ATHR.EventLog
+
+[DLINKXP50U.ntamd64]
+Characteristics = 0x84
+BusType         = 15
+AddReg		= ATHR_WinXP.reg, ATHR_DualBand.reg, ATHR_Common.reg, DLINK_WinXP.reg, DLINK_07D1.reg, htDisableWepTkip.reg
+CopyFiles       = ATHR.CopyFilesXP64
+
+[DLINKXP50U.ntamd64.Services]
+AddService = %CustomServiceName%(%Atheros%), 2, ATHR_NT.Service, ATHR.EventLog
+
+[DLINKXP50UA2.ndi.NTx86]
+Characteristics = 0x84
+BusType         = 15
+AddReg		= ATHR_WinXP.reg, ATHR_DualBand.reg, ATHR_Common.reg, DLINK_WinXP.reg, DLINK_07D1.reg, htDisableWepTkip.reg, dlinkA2.reg
+CopyFiles       = ATHR.CopyFilesXP
+
+[DLINKXP50UA2.ndi.NTx86.Services]
+AddService = %CustomServiceName%(%Atheros%), 2, ATHR_NT.Service, ATHR.EventLog
+
+[DLINKXP50UA2.ntamd64]
+Characteristics = 0x84
+BusType         = 15
+AddReg		= ATHR_WinXP.reg, ATHR_DualBand.reg, ATHR_Common.reg, DLINK_WinXP.reg, DLINK_07D1.reg, htDisableWepTkip.reg, dlinkA2.reg
+CopyFiles       = ATHR.CopyFilesXP64
+
+[DLINKXP50UA2.ntamd64.Services]
+AddService = %CustomServiceName%(%Atheros%), 2, ATHR_NT.Service, ATHR.EventLog
+
+;*********************************************************************
+;   Microsoft Windows XP section (Proxim)
+;*********************************************************************
+;---------- 5.0 volt ----------
+[DNUAXP0804.ndi.NTx86]
+Characteristics = 0x84
+BusType         = 15
+AddReg		= ATHR_WinXP.reg, ATHR_DualBand.reg, ATHR_Common.reg, DNUA_1435.reg, ATHR_SurpriseRemoveOk.reg
+CopyFiles       = ATHR.CopyFilesXP
+
+[DNUAXP0804.ndi.NTx86.Services]
+AddService = %CustomServiceName%(%Atheros%), 2, ATHR_NT.Service, ATHR.EventLog
+
+[DNUAXP0804.ntamd64]
+Characteristics = 0x84
+BusType         = 15
+AddReg		= ATHR_WinXP.reg, ATHR_DualBand.reg, ATHR_Common.reg, DNUA_1435.reg, ATHR_SurpriseRemoveOk.reg
+CopyFiles       = ATHR.CopyFilesXP64
+
+[DNUAXP0804.ntamd64.Services]
+AddService = %CustomServiceName%(%Atheros%), 2, ATHR_NT.Service, ATHR.EventLog
+
+;*********************************************************************
+;   Microsoft Windows XP section (WNC)
+;*********************************************************************
+;---------- 5.0 volt ----------
+[DNUAXP0326.ndi.NTx86]
+Characteristics = 0x84
+BusType         = 15
+AddReg		= ATHR_WinXP.reg, ATHR_DualBand.reg, ATHR_Common.reg, DNUA_1435.reg, ATHR_SurpriseRemoveOk.reg
+CopyFiles       = ATHR.CopyFilesXP
+
+[DNUAXP0326.ndi.NTx86.Services]
+AddService = %CustomServiceName%(%Atheros%), 2, ATHR_NT.Service, ATHR.EventLog
+
+[DNUAXP0326.ntamd64]
+Characteristics = 0x84
+BusType         = 15
+AddReg		= ATHR_WinXP.reg, ATHR_DualBand.reg, ATHR_Common.reg, DNUA_1435.reg, ATHR_SurpriseRemoveOk.reg
+CopyFiles       = ATHR.CopyFilesXP64
+
+[DNUAXP0326.ntamd64.Services]
+AddService = %CustomServiceName%(%Atheros%), 2, ATHR_NT.Service, ATHR.EventLog
+
+;*********************************************************************
+;   Microsoft Windows XP section (HP)
+;*********************************************************************
+;---------- 5.0 volt ----------
+[HPXP1010.ndi.NTx86]
+Characteristics = 0x84
+BusType         = 15
+AddReg		= ATHR_WinXP.reg, ATHR_DualBand.reg, ATHR_Common.reg, HP_1010.reg, htDisableWepTkip.reg
+CopyFiles       = ATHR.CopyFilesXP
+
+[HPXP1010.ndi.NTx86.Services]
+AddService = %CustomServiceName%(%Atheros%), 2, ATHR_NT.Service, ATHR.EventLog
+
+[HPXP1010.ntamd64]
+Characteristics = 0x84
+BusType         = 15
+AddReg		= ATHR_WinXP.reg, ATHR_DualBand.reg, ATHR_Common.reg, HP_1010.reg, htDisableWepTkip.reg
+CopyFiles       = ATHR.CopyFilesXP64
+
+[HPXP1010.ntamd64.Services]
+AddService = %CustomServiceName%(%Atheros%), 2, ATHR_NT.Service, ATHR.EventLog
+
+;*********************************************************************
+;   Microsoft Windows XP section (H3C)
+;*********************************************************************
+;---------- 5.0 volt ----------
+[H3CXP1011.ndi.NTx86]
+Characteristics = 0x84
+BusType         = 15
+AddReg		= ATHR_WinXP.reg, ATHR_DualBand.reg, ATHR_Common.reg, H3C_1011.reg, htDisableWepTkip.reg
+CopyFiles       = ATHR.CopyFilesXP
+
+[H3CXP1011.ndi.NTx86.Services]
+AddService = %CustomServiceName%(%Atheros%), 2, ATHR_NT.Service, ATHR.EventLog
+
+[H3CXP1011.ntamd64]
+Characteristics = 0x84
+BusType         = 15
+AddReg		= ATHR_WinXP.reg, ATHR_DualBand.reg, ATHR_Common.reg, H3C_1011.reg, htDisableWepTkip.reg
+CopyFiles       = ATHR.CopyFilesXP64
+
+[H3CXP1011.ntamd64.Services]
+AddService = %CustomServiceName%(%Atheros%), 2, ATHR_NT.Service, ATHR.EventLog
+
+;*********************************************************************
+;   Microsoft Windows XP section (Ovislink)
+;*********************************************************************
+;---------- 5.0 volt ----------
+[OVIKXP9170.ndi.NTx86]
+Characteristics = 0x84
+BusType         = 15
+AddReg		= ATHR_WinXP.reg, ATHR_DualBand.reg, ATHR_Common.reg
+CopyFiles       = ATHR.CopyFilesXP
+
+[OVIKXP9170.ndi.NTx86.Services]
+AddService = %CustomServiceName%(%Atheros%), 2, ATHR_NT.Service, ATHR.EventLog
+
+[OVIKXP9170.ntamd64]
+Characteristics = 0x84
+BusType         = 15
+AddReg		= ATHR_WinXP.reg, ATHR_DualBand.reg, ATHR_Common.reg, OVIS_1B75.reg
+CopyFiles       = ATHR.CopyFilesXP64
+
+[OVIKXP9170.ntamd64.Services]
+AddService = %CustomServiceName%(%Atheros%), 2, ATHR_NT.Service, ATHR.EventLog
+
+[ATHR_WinXP.reg]
+; Interfaces Info
+HKR,NDI\Interfaces,   UpperRange,         0, "ndis5"
+HKR,NDI\Interfaces,   LowerRange,         0, "ethernet, wifi"
+HKR,NDI,              Service,            0, %CustomServiceName%(%Atheros%)
+HKR,,                 VendorDesc,         0, %VendorDesc%
+HKR,,                 MaxRxUrb,           0, %MaxRxUrb%
+HKR,,                 MaxTxUrb,           0, %MaxTxUrb%
+HKR,,                 MaxTxUrbDK,         0, %MaxTxUrbDK%
+HKR,,                 MaxRxUrbDK,         0, %MaxRxUrbDK%
+HKR,,                 MDKEnable,          0, "0"
+HKR,,                 WEPCapability,      0x00010001, 0x3
+
+HKLM, SYSTEM\CurrentControlSet\Services\Tcpip\Parameters, Tcp1323Opts,   0x00010001, 0x00000003
+HKLM, SYSTEM\CurrentControlSet\Services\Tcpip\Parameters, TcpWindowSize, 0x00010001, 0x00040000
+
+[ATHR_SingleBand_24.reg]
+HKR, Ndi\params\*WirelessMode24G,           ParamDesc,  0, "%WirelessMode24G%"
+HKR, Ndi\params\*WirelessMode24G,           Base,       0, "10"
+HKR, Ndi\params\*WirelessMode24G,           default,    0, "8"
+HKR, Ndi\params\*WirelessMode24G,           type,       0, "enum"
+HKR, Ndi\params\*WirelessMode24G\enum,      "1",        0, %non24G%
+HKR, Ndi\params\*WirelessMode24G\enum,      "2",        0, %802_11b%
+HKR, Ndi\params\*WirelessMode24G\enum,      "3",        0, %802_11g%
+HKR, Ndi\params\*WirelessMode24G\enum,      "4",        0, %802_11n_24%
+HKR, Ndi\params\*WirelessMode24G\enum,      "5",        0, %802_11bg%
+HKR, Ndi\params\*WirelessMode24G\enum,      "6",        0, %802_11bn%
+HKR, Ndi\params\*WirelessMode24G\enum,      "7",        0, %802_11gn%
+HKR, Ndi\params\*WirelessMode24G\enum,      "8",        0, %802_11bgn%
+
+;HKR, Ndi\params\*WirelessMode,              ParamDesc,  0, "%WirelessMode%"
+;HKR, Ndi\params\*WirelessMode,              Base,       0, "10"
+;HKR, Ndi\params\*WirelessMode,              default,    0, "2"
+;HKR, Ndi\params\*WirelessMode,              type,       0, "enum"
+;HKR, Ndi\params\*WirelessMode\enum,         "2",        0, %Extend802_11bgn%
+;HKR, Ndi\params\*WirelessMode\enum,         "4",        0, %Extend802_11bg%
+
+HKR, Ndi\params\*AdHocMode,                 ParamDesc,  0, "%AdHocMode%"
+HKR, Ndi\params\*AdHocMode,                 Base,       0, "10"
+HKR, Ndi\params\*AdHocMode,                 default,    0, "4"
+HKR, Ndi\params\*AdHocMode,                 type,       0, "enum"
+HKR, Ndi\params\*AdHocMode\enum,            "2",        0, %80211b%
+HKR, Ndi\params\*AdHocMode\enum,            "3",        0, %80211g%
+HKR, Ndi\params\*AdHocMode\enum,            "4",        0, %80211bg%
+
+HKR, Ndi\params\*AdHoc80211bgChannel,       ParamDesc,  0, "%AdHoc80211bgChannel%"
+HKR, Ndi\params\*AdHoc80211bgChannel,       Base,       0, "10"
+HKR, Ndi\params\*AdHoc80211bgChannel,       default,    0, "2437"
+HKR, Ndi\params\*AdHoc80211bgChannel,       type,       0, "enum"
+HKR, Ndi\params\*AdHoc80211bgChannel\enum,  "2412",     0, %80211bgchannel1%
+HKR, Ndi\params\*AdHoc80211bgChannel\enum,  "2417",     0, %80211bgchannel2%
+HKR, Ndi\params\*AdHoc80211bgChannel\enum,  "2422",     0, %80211bgchannel3%
+HKR, Ndi\params\*AdHoc80211bgChannel\enum,  "2427",     0, %80211bgchannel4%
+HKR, Ndi\params\*AdHoc80211bgChannel\enum,  "2432",     0, %80211bgchannel5%
+HKR, Ndi\params\*AdHoc80211bgChannel\enum,  "2437",     0, %80211bgchannel6%
+HKR, Ndi\params\*AdHoc80211bgChannel\enum,  "2442",     0, %80211bgchannel7%
+HKR, Ndi\params\*AdHoc80211bgChannel\enum,  "2447",     0, %80211bgchannel8%
+HKR, Ndi\params\*AdHoc80211bgChannel\enum,  "2452",     0, %80211bgchannel9%
+HKR, Ndi\params\*AdHoc80211bgChannel\enum,  "2457",     0, %80211bgchannel10%
+HKR, Ndi\params\*AdHoc80211bgChannel\enum,  "2462",     0, %80211bgchannel11%
+
+HKR, Ndi\params\*RoamingMode,              ParamDesc,  0, "%RoamingMode%"
+HKR, Ndi\params\*RoamingMode,              Base,       0, "10"
+HKR, Ndi\params\*RoamingMode,              default,    0, "1"
+HKR, Ndi\params\*RoamingMode,              type,       0, "enum"
+HKR, Ndi\params\*RoamingMode\enum,         "0",        0, %RSSIRoamDisable%
+HKR, Ndi\params\*RoamingMode\enum,         "1",        0, %RSSIRoamLow%
+HKR, Ndi\params\*RoamingMode\enum,         "2",        0, %RSSIRoamHigh%
+
+[ATHR_DualBand.reg]
+HKR, Ndi\params\*WirelessMode24G,           ParamDesc,  0, "%WirelessMode24G%"
+HKR, Ndi\params\*WirelessMode24G,           Base,       0, "10"
+HKR, Ndi\params\*WirelessMode24G,           default,    0, "8"
+HKR, Ndi\params\*WirelessMode24G,           type,       0, "enum"
+HKR, Ndi\params\*WirelessMode24G\enum,      "1",        0, %non24G%
+HKR, Ndi\params\*WirelessMode24G\enum,      "2",        0, %802_11b%
+HKR, Ndi\params\*WirelessMode24G\enum,      "3",        0, %802_11g%
+HKR, Ndi\params\*WirelessMode24G\enum,      "4",        0, %802_11n_24%
+HKR, Ndi\params\*WirelessMode24G\enum,      "5",        0, %802_11bg%
+HKR, Ndi\params\*WirelessMode24G\enum,      "6",        0, %802_11bn%
+HKR, Ndi\params\*WirelessMode24G\enum,      "7",        0, %802_11gn%
+HKR, Ndi\params\*WirelessMode24G\enum,      "8",        0, %802_11bgn%
+
+HKR, Ndi\params\*WirelessMode5G,            ParamDesc,  0, "%WirelessMode5G%"
+HKR, Ndi\params\*WirelessMode5G,            Base,       0, "10"
+HKR, Ndi\params\*WirelessMode5G,            default,    0, "4"
+HKR, Ndi\params\*WirelessMode5G,            type,       0, "enum"
+HKR, Ndi\params\*WirelessMode5G\enum,       "1",        0, %non5G%
+HKR, Ndi\params\*WirelessMode5G\enum,       "2",        0, %802_11a%
+HKR, Ndi\params\*WirelessMode5G\enum,       "3",        0, %802_11n_5%
+HKR, Ndi\params\*WirelessMode5G\enum,       "4",        0, %802_11an%
+
+;HKR, Ndi\params\*WirelessMode,              ParamDesc,  0, "%WirelessMode%"
+;HKR, Ndi\params\*WirelessMode,              Base,       0, "10"
+;HKR, Ndi\params\*WirelessMode,              default,    0, "1"
+;HKR, Ndi\params\*WirelessMode,              type,       0, "enum"
+;HKR, Ndi\params\*WirelessMode\enum,         "1",        0, %Extend802_11anbgn%
+;HKR, Ndi\params\*WirelessMode\enum,         "2",        0, %Extend802_11bgn%
+;HKR, Ndi\params\*WirelessMode\enum,         "3",        0, %Extend802_11an%
+;HKR, Ndi\params\*WirelessMode\enum,         "4",        0, %Extend802_11bg%
+;HKR, Ndi\params\*WirelessMode\enum,         "5",        0, %Extend802_11a%
+;HKR, Ndi\params\*WirelessMode\enum,         "6",        0, %Extend802_11abgn%
+;HKR, Ndi\params\*WirelessMode\enum,         "7",        0, %Extend802_11anbg%
+
+HKR, Ndi\params\*AdHocMode,                 ParamDesc,  0, "%AdHocMode%"
+HKR, Ndi\params\*AdHocMode,                 Base,       0, "10"
+HKR, Ndi\params\*AdHocMode,                 default,    0, "4"
+HKR, Ndi\params\*AdHocMode,                 type,       0, "enum"
+HKR, Ndi\params\*AdHocMode\enum,            "1",        0, %80211a%
+HKR, Ndi\params\*AdHocMode\enum,            "2",        0, %80211b%
+HKR, Ndi\params\*AdHocMode\enum,            "3",        0, %80211g%
+HKR, Ndi\params\*AdHocMode\enum,            "4",        0, %80211bg%
+HKR, Ndi\params\*AdHocMode\enum,            "5",        0, %80211abg%
+
+HKR, Ndi\params\*AdHoc80211aChannel,        ParamDesc,  0, "%AdHoc80211aChannel%"
+HKR, Ndi\params\*AdHoc80211aChannel,        Base,       0, "10"
+HKR, Ndi\params\*AdHoc80211aChannel,        default,    0, "5180"
+HKR, Ndi\params\*AdHoc80211aChannel,        type,       0, "enum"
+HKR, Ndi\params\*AdHoc80211aChannel\enum,   "5180",     0, %80211achannel36%
+HKR, Ndi\params\*AdHoc80211aChannel\enum,   "5200",     0, %80211achannel40%
+HKR, Ndi\params\*AdHoc80211aChannel\enum,   "5220",     0, %80211achannel44%
+HKR, Ndi\params\*AdHoc80211aChannel\enum,   "5240",     0, %80211achannel48%
+HKR, Ndi\params\*AdHoc80211aChannel\enum,   "5260",     0, %80211achannel52%
+HKR, Ndi\params\*AdHoc80211aChannel\enum,   "5280",     0, %80211achannel56%
+HKR, Ndi\params\*AdHoc80211aChannel\enum,   "5300",     0, %80211achannel60%
+HKR, Ndi\params\*AdHoc80211aChannel\enum,   "5320",     0, %80211achannel64%
+HKR, Ndi\params\*AdHoc80211aChannel\enum,   "5745",     0, %80211achannel149%
+HKR, Ndi\params\*AdHoc80211aChannel\enum,   "5765",     0, %80211achannel153%
+HKR, Ndi\params\*AdHoc80211aChannel\enum,   "5785",     0, %80211achannel157%
+HKR, Ndi\params\*AdHoc80211aChannel\enum,   "5805",     0, %80211achannel161%
+HKR, Ndi\params\*AdHoc80211aChannel\enum,   "5825",     0, %80211achannel165%
+
+HKR, Ndi\params\*AdHoc80211bgChannel,       ParamDesc,  0, "%AdHoc80211bgChannel%"
+HKR, Ndi\params\*AdHoc80211bgChannel,       Base,       0, "10"
+HKR, Ndi\params\*AdHoc80211bgChannel,       default,    0, "2437"
+HKR, Ndi\params\*AdHoc80211bgChannel,       type,       0, "enum"
+HKR, Ndi\params\*AdHoc80211bgChannel\enum,  "2412",     0, %80211bgchannel1%
+HKR, Ndi\params\*AdHoc80211bgChannel\enum,  "2417",     0, %80211bgchannel2%
+HKR, Ndi\params\*AdHoc80211bgChannel\enum,  "2422",     0, %80211bgchannel3%
+HKR, Ndi\params\*AdHoc80211bgChannel\enum,  "2427",     0, %80211bgchannel4%
+HKR, Ndi\params\*AdHoc80211bgChannel\enum,  "2432",     0, %80211bgchannel5%
+HKR, Ndi\params\*AdHoc80211bgChannel\enum,  "2437",     0, %80211bgchannel6%
+HKR, Ndi\params\*AdHoc80211bgChannel\enum,  "2442",     0, %80211bgchannel7%
+HKR, Ndi\params\*AdHoc80211bgChannel\enum,  "2447",     0, %80211bgchannel8%
+HKR, Ndi\params\*AdHoc80211bgChannel\enum,  "2452",     0, %80211bgchannel9%
+HKR, Ndi\params\*AdHoc80211bgChannel\enum,  "2457",     0, %80211bgchannel10%
+HKR, Ndi\params\*AdHoc80211bgChannel\enum,  "2462",     0, %80211bgchannel11%
+
+HKR, Ndi\params\*AdHoc80211abgChannel,      ParamDesc,  0, "%AdHoc80211abgChannel%"
+HKR, Ndi\params\*AdHoc80211abgChannel,      Base,       0, "10"
+HKR, Ndi\params\*AdHoc80211abgChannel,      default,    0, "2437"
+HKR, Ndi\params\*AdHoc80211abgChannel,      type,       0, "enum"
+HKR, Ndi\params\*AdHoc80211abgChannel\enum, "2412",     0, %80211bgchannel1%
+HKR, Ndi\params\*AdHoc80211abgChannel\enum, "2417",     0, %80211bgchannel2%
+HKR, Ndi\params\*AdHoc80211abgChannel\enum, "2422",     0, %80211bgchannel3%
+HKR, Ndi\params\*AdHoc80211abgChannel\enum, "2427",     0, %80211bgchannel4%
+HKR, Ndi\params\*AdHoc80211abgChannel\enum, "2432",     0, %80211bgchannel5%
+HKR, Ndi\params\*AdHoc80211abgChannel\enum, "2437",     0, %80211bgchannel6%
+HKR, Ndi\params\*AdHoc80211abgChannel\enum, "2442",     0, %80211bgchannel7%
+HKR, Ndi\params\*AdHoc80211abgChannel\enum, "2447",     0, %80211bgchannel8%
+HKR, Ndi\params\*AdHoc80211abgChannel\enum, "2452",     0, %80211bgchannel9%
+HKR, Ndi\params\*AdHoc80211abgChannel\enum, "2457",     0, %80211bgchannel10%
+HKR, Ndi\params\*AdHoc80211abgChannel\enum, "2462",     0, %80211bgchannel11%
+HKR, Ndi\params\*AdHoc80211abgChannel\enum, "5180",     0, %80211achannel36%
+HKR, Ndi\params\*AdHoc80211abgChannel\enum, "5200",     0, %80211achannel40%
+HKR, Ndi\params\*AdHoc80211abgChannel\enum, "5220",     0, %80211achannel44%
+HKR, Ndi\params\*AdHoc80211abgChannel\enum, "5240",     0, %80211achannel48%
+HKR, Ndi\params\*AdHoc80211abgChannel\enum, "5260",     0, %80211achannel52%
+HKR, Ndi\params\*AdHoc80211abgChannel\enum, "5280",     0, %80211achannel56%
+HKR, Ndi\params\*AdHoc80211abgChannel\enum, "5300",     0, %80211achannel60%
+HKR, Ndi\params\*AdHoc80211abgChannel\enum, "5320",     0, %80211achannel64%
+HKR, Ndi\params\*AdHoc80211abgChannel\enum, "5745",     0, %80211achannel149%
+HKR, Ndi\params\*AdHoc80211abgChannel\enum, "5765",     0, %80211achannel153%
+HKR, Ndi\params\*AdHoc80211abgChannel\enum, "5785",     0, %80211achannel157%
+HKR, Ndi\params\*AdHoc80211abgChannel\enum, "5805",     0, %80211achannel161%
+HKR, Ndi\params\*AdHoc80211abgChannel\enum, "5825",     0, %80211achannel165%
+
+HKR, Ndi\params\*PSPXLinkMode,              ParamDesc,  0, "%PSPXLinkMode%"
+HKR, Ndi\params\*PSPXLinkMode,              Base,       0, "10"
+HKR, Ndi\params\*PSPXLinkMode,              default,    0, "0"
+HKR, Ndi\params\*PSPXLinkMode,              type,       0, "enum"
+HKR, Ndi\params\*PSPXLinkMode\enum,         "0",        0, %disablePSPMode%
+HKR, Ndi\params\*PSPXLinkMode\enum,         "1",        0, %enablePSPMode%
+
+HKR, Ndi\params\*RoamingMode,              ParamDesc,  0, "%RoamingMode%"
+HKR, Ndi\params\*RoamingMode,              Base,       0, "10"
+HKR, Ndi\params\*RoamingMode,              default,    0, "1"
+HKR, Ndi\params\*RoamingMode,              type,       0, "enum"
+HKR, Ndi\params\*RoamingMode\enum,         "0",        0, %RSSIRoamDisable%
+HKR, Ndi\params\*RoamingMode\enum,         "1",        0, %RSSIRoamLow%
+HKR, Ndi\params\*RoamingMode\enum,         "2",        0, %RSSIRoamHigh%
+HKR,,                 *RoamingMode,         0, "1"
+
+[DLINK_DualBand.reg]
+HKR, Ndi\params\*WirelessMode24G,           ParamDesc,  0, "%WirelessMode24G%"
+HKR, Ndi\params\*WirelessMode24G,           Base,       0, "10"
+HKR, Ndi\params\*WirelessMode24G,           default,    0, "5"
+HKR, Ndi\params\*WirelessMode24G,           type,       0, "enum"
+HKR, Ndi\params\*WirelessMode24G\enum,      "1",        0, %non24G%
+HKR, Ndi\params\*WirelessMode24G\enum,      "2",        0, %802_11b%
+HKR, Ndi\params\*WirelessMode24G\enum,      "3",        0, %802_11g%
+HKR, Ndi\params\*WirelessMode24G\enum,      "5",        0, %802_11bg%
+
+
+HKR, Ndi\params\*WirelessMode5G,            ParamDesc,  0, "%WirelessMode5G%"
+HKR, Ndi\params\*WirelessMode5G,            Base,       0, "10"
+HKR, Ndi\params\*WirelessMode5G,            default,    0, "2"
+HKR, Ndi\params\*WirelessMode5G,            type,       0, "enum"
+HKR, Ndi\params\*WirelessMode5G\enum,       "1",        0, %non5G%
+HKR, Ndi\params\*WirelessMode5G\enum,       "2",        0, %802_11a%
+
+
+
+HKR, Ndi\params\*AdHocMode,                 ParamDesc,  0, "%AdHocMode%"
+HKR, Ndi\params\*AdHocMode,                 Base,       0, "10"
+HKR, Ndi\params\*AdHocMode,                 default,    0, "4"
+HKR, Ndi\params\*AdHocMode,                 type,       0, "enum"
+HKR, Ndi\params\*AdHocMode\enum,            "1",        0, %80211a%
+HKR, Ndi\params\*AdHocMode\enum,            "2",        0, %80211b%
+HKR, Ndi\params\*AdHocMode\enum,            "3",        0, %80211g%
+HKR, Ndi\params\*AdHocMode\enum,            "4",        0, %80211bg%
+HKR, Ndi\params\*AdHocMode\enum,            "5",        0, %80211abg%
+
+HKR, Ndi\params\*AdHoc80211aChannel,        ParamDesc,  0, "%AdHoc80211aChannel%"
+HKR, Ndi\params\*AdHoc80211aChannel,        Base,       0, "10"
+HKR, Ndi\params\*AdHoc80211aChannel,        default,    0, "5180"
+HKR, Ndi\params\*AdHoc80211aChannel,        type,       0, "enum"
+HKR, Ndi\params\*AdHoc80211aChannel\enum,   "5180",     0, %80211achannel36%
+HKR, Ndi\params\*AdHoc80211aChannel\enum,   "5200",     0, %80211achannel40%
+HKR, Ndi\params\*AdHoc80211aChannel\enum,   "5220",     0, %80211achannel44%
+HKR, Ndi\params\*AdHoc80211aChannel\enum,   "5240",     0, %80211achannel48%
+HKR, Ndi\params\*AdHoc80211aChannel\enum,   "5260",     0, %80211achannel52%
+HKR, Ndi\params\*AdHoc80211aChannel\enum,   "5280",     0, %80211achannel56%
+HKR, Ndi\params\*AdHoc80211aChannel\enum,   "5300",     0, %80211achannel60%
+HKR, Ndi\params\*AdHoc80211aChannel\enum,   "5320",     0, %80211achannel64%
+HKR, Ndi\params\*AdHoc80211aChannel\enum,   "5745",     0, %80211achannel149%
+HKR, Ndi\params\*AdHoc80211aChannel\enum,   "5765",     0, %80211achannel153%
+HKR, Ndi\params\*AdHoc80211aChannel\enum,   "5785",     0, %80211achannel157%
+HKR, Ndi\params\*AdHoc80211aChannel\enum,   "5805",     0, %80211achannel161%
+HKR, Ndi\params\*AdHoc80211aChannel\enum,   "5825",     0, %80211achannel165%
+
+HKR, Ndi\params\*AdHoc80211bgChannel,       ParamDesc,  0, "%AdHoc80211bgChannel%"
+HKR, Ndi\params\*AdHoc80211bgChannel,       Base,       0, "10"
+HKR, Ndi\params\*AdHoc80211bgChannel,       default,    0, "2437"
+HKR, Ndi\params\*AdHoc80211bgChannel,       type,       0, "enum"
+HKR, Ndi\params\*AdHoc80211bgChannel\enum,  "2412",     0, %80211bgchannel1%
+HKR, Ndi\params\*AdHoc80211bgChannel\enum,  "2417",     0, %80211bgchannel2%
+HKR, Ndi\params\*AdHoc80211bgChannel\enum,  "2422",     0, %80211bgchannel3%
+HKR, Ndi\params\*AdHoc80211bgChannel\enum,  "2427",     0, %80211bgchannel4%
+HKR, Ndi\params\*AdHoc80211bgChannel\enum,  "2432",     0, %80211bgchannel5%
+HKR, Ndi\params\*AdHoc80211bgChannel\enum,  "2437",     0, %80211bgchannel6%
+HKR, Ndi\params\*AdHoc80211bgChannel\enum,  "2442",     0, %80211bgchannel7%
+HKR, Ndi\params\*AdHoc80211bgChannel\enum,  "2447",     0, %80211bgchannel8%
+HKR, Ndi\params\*AdHoc80211bgChannel\enum,  "2452",     0, %80211bgchannel9%
+HKR, Ndi\params\*AdHoc80211bgChannel\enum,  "2457",     0, %80211bgchannel10%
+HKR, Ndi\params\*AdHoc80211bgChannel\enum,  "2462",     0, %80211bgchannel11%
+
+HKR, Ndi\params\*AdHoc80211abgChannel,      ParamDesc,  0, "%AdHoc80211abgChannel%"
+HKR, Ndi\params\*AdHoc80211abgChannel,      Base,       0, "10"
+HKR, Ndi\params\*AdHoc80211abgChannel,      default,    0, "2437"
+HKR, Ndi\params\*AdHoc80211abgChannel,      type,       0, "enum"
+HKR, Ndi\params\*AdHoc80211abgChannel\enum, "2412",     0, %80211bgchannel1%
+HKR, Ndi\params\*AdHoc80211abgChannel\enum, "2417",     0, %80211bgchannel2%
+HKR, Ndi\params\*AdHoc80211abgChannel\enum, "2422",     0, %80211bgchannel3%
+HKR, Ndi\params\*AdHoc80211abgChannel\enum, "2427",     0, %80211bgchannel4%
+HKR, Ndi\params\*AdHoc80211abgChannel\enum, "2432",     0, %80211bgchannel5%
+HKR, Ndi\params\*AdHoc80211abgChannel\enum, "2437",     0, %80211bgchannel6%
+HKR, Ndi\params\*AdHoc80211abgChannel\enum, "2442",     0, %80211bgchannel7%
+HKR, Ndi\params\*AdHoc80211abgChannel\enum, "2447",     0, %80211bgchannel8%
+HKR, Ndi\params\*AdHoc80211abgChannel\enum, "2452",     0, %80211bgchannel9%
+HKR, Ndi\params\*AdHoc80211abgChannel\enum, "2457",     0, %80211bgchannel10%
+HKR, Ndi\params\*AdHoc80211abgChannel\enum, "2462",     0, %80211bgchannel11%
+HKR, Ndi\params\*AdHoc80211abgChannel\enum, "5180",     0, %80211achannel36%
+HKR, Ndi\params\*AdHoc80211abgChannel\enum, "5200",     0, %80211achannel40%
+HKR, Ndi\params\*AdHoc80211abgChannel\enum, "5220",     0, %80211achannel44%
+HKR, Ndi\params\*AdHoc80211abgChannel\enum, "5240",     0, %80211achannel48%
+HKR, Ndi\params\*AdHoc80211abgChannel\enum, "5260",     0, %80211achannel52%
+HKR, Ndi\params\*AdHoc80211abgChannel\enum, "5280",     0, %80211achannel56%
+HKR, Ndi\params\*AdHoc80211abgChannel\enum, "5300",     0, %80211achannel60%
+HKR, Ndi\params\*AdHoc80211abgChannel\enum, "5320",     0, %80211achannel64%
+HKR, Ndi\params\*AdHoc80211abgChannel\enum, "5745",     0, %80211achannel149%
+HKR, Ndi\params\*AdHoc80211abgChannel\enum, "5765",     0, %80211achannel153%
+HKR, Ndi\params\*AdHoc80211abgChannel\enum, "5785",     0, %80211achannel157%
+HKR, Ndi\params\*AdHoc80211abgChannel\enum, "5805",     0, %80211achannel161%
+HKR, Ndi\params\*AdHoc80211abgChannel\enum, "5825",     0, %80211achannel165%
+
+HKR, Ndi\params\*PSPXLinkMode,              ParamDesc,  0, "%PSPXLinkMode%"
+HKR, Ndi\params\*PSPXLinkMode,              Base,       0, "10"
+HKR, Ndi\params\*PSPXLinkMode,              default,    0, "0"
+HKR, Ndi\params\*PSPXLinkMode,              type,       0, "enum"
+HKR, Ndi\params\*PSPXLinkMode\enum,         "0",        0, %disablePSPMode%
+HKR, Ndi\params\*PSPXLinkMode\enum,         "1",        0, %enablePSPMode%
+
+[ATHR.CopyFilesXP]
+arusb.sys,arusb_xp.sys,2
+
+[ATHR.CopyFilesXP64]
+arusb.sys,arusb_xpx.sys,2
+
+
+;===========================NETGEAR SECTION=====================================
+;---------------------------NETGEAR 9010 2K-------------------------------------
+[NTGR_9010.ndi.NTx86]
+Characteristics = 0x84
+BusType         = 15
+AddReg		= NTGR9010_Win2K.reg, NTGR_0846.reg, htDisableWepTkip.reg
+CopyFiles       = NTGR9010.CopyFiles2K
+
+[NTGR_9010.ndi.NTx86.Services]
+AddService = WNDA3100, 2, NTGR9010_NT.Service, ATHR.EventLog
+
+[NTGR9010_Win2K.reg]
+; Interfaces Info
+HKR,NDI\Interfaces,   UpperRange,         0, "ndis5"
+HKR,NDI\Interfaces,   LowerRange,         0, "ethernet, NETGEAR"
+HKR,NDI,              Service,            0, "WNDA3100"
+HKR,,                 VendorDesc,         0, "NETGEAR RangeMax Duo Wireless-N USB Adapter WNDA3100"
+HKR,,                 WEPCapability,      0x00010001, 0x3
+
+HKLM, SYSTEM\CurrentControlSet\Services\Tcpip\Parameters, Tcp1323Opts,   0x00010001, 0x00000003
+HKLM, SYSTEM\CurrentControlSet\Services\Tcpip\Parameters, TcpWindowSize, 0x00010001, 0x00040000
+
+;HKR, Ndi\params\*WirelessMode,              ParamDesc,  0, "%WirelessMode%"
+;HKR, Ndi\params\*WirelessMode,              Base,       0, "10"
+;HKR, Ndi\params\*WirelessMode,              default,    0, "1"
+;HKR, Ndi\params\*WirelessMode,              type,       0, "enum"
+;HKR, Ndi\params\*WirelessMode\enum,         "1",        0, %Extend802_11anbgn%
+;HKR, Ndi\params\*WirelessMode\enum,         "2",        0, %Extend802_11bgn%
+;HKR, Ndi\params\*WirelessMode\enum,         "3",        0, %Extend802_11an%
+;HKR, Ndi\params\*WirelessMode\enum,         "4",        0, %Extend802_11bg%
+;HKR, Ndi\params\*WirelessMode\enum,         "5",        0, %Extend802_11a%
+;HKR, Ndi\params\*WirelessMode\enum,         "6",        0, %Extend802_11abgn%
+;HKR, Ndi\params\*WirelessMode\enum,         "7",        0, %Extend802_11anbg%
+
+HKR,,                 *WirelessMode,      0, 1
+HKR,,                 LEDCtrlType,        0, 2
+HKR,,                 BGScan,             0, 0
+
+[NTGR9010.CopyFiles2K]
+WNDA31.sys,arusb_2k.sys,2
+
+;---------------------------NETGEAR 9001 2K-------------------------------------
+[NTGR_9001.ndi.NTx86]
+Characteristics = 0x84
+BusType         = 15
+AddReg		= NTGR9001_Win2K.reg, NTGR_0846.reg, htDisableWepTkip.reg
+CopyFiles       = NTGR9001.CopyFiles2K
+
+[NTGR_9001.ndi.NTx86.Services]
+AddService = WN111v2, 2, NTGR9001_NT.Service, ATHR.EventLog
+
+[NTGR9001_Win2K.reg]
+; Interfaces Info
+HKR,NDI\Interfaces,   UpperRange,         0, "ndis5"
+HKR,NDI\Interfaces,   LowerRange,         0, "ethernet, NETGEAR"
+HKR,NDI,              Service,            0, "WN111v2"
+HKR,,                 VendorDesc,         0, "NETGEAR RangeMax Wireless USB 2.0 Adapter WN111v2"
+HKR,,                 WEPCapability,      0x00010001, 0x3
+
+HKLM, SYSTEM\CurrentControlSet\Services\Tcpip\Parameters, Tcp1323Opts,   0x00010001, 0x00000003
+HKLM, SYSTEM\CurrentControlSet\Services\Tcpip\Parameters, TcpWindowSize, 0x00010001, 0x00040000
+
+;HKR, Ndi\params\*WirelessMode,              ParamDesc,  0, "%WirelessMode%"
+;HKR, Ndi\params\*WirelessMode,              Base,       0, "10"
+;HKR, Ndi\params\*WirelessMode,              default,    0, "2"
+;HKR, Ndi\params\*WirelessMode,              type,       0, "enum"
+;HKR, Ndi\params\*WirelessMode\enum,         "1",        0, %Extend802_11anbgn%
+;HKR, Ndi\params\*WirelessMode\enum,         "2",        0, %Extend802_11bgn%
+;HKR, Ndi\params\*WirelessMode\enum,         "3",        0, %Extend802_11an%
+;HKR, Ndi\params\*WirelessMode\enum,         "4",        0, %Extend802_11bg%
+;HKR, Ndi\params\*WirelessMode\enum,         "5",        0, %Extend802_11a%
+;HKR, Ndi\params\*WirelessMode\enum,         "6",        0, %Extend802_11abgn%
+;HKR, Ndi\params\*WirelessMode\enum,         "7",        0, %Extend802_11anbg%
+
+HKR,,                 *WirelessMode,      0, 2
+HKR,,                 LEDCtrlType,        0, 3
+
+[NTGR9001.CopyFiles2K]
+WN111v2.sys,arusb_2k.sys,2
+
+;---------------------------NETGEAR 9040 2K-------------------------------------
+[NTGR_9040.ndi.NTx86]
+Characteristics = 0x84
+BusType         = 15
+AddReg		= NTGR9040_Win2K.reg, NTGR_0846.reg, htDisableWepTkip.reg
+CopyFiles       = NTGR9040.CopyFiles2K
+
+[NTGR_9040.ndi.NTx86.Services]
+AddService = WNA1000, 2, NTGR9040_NT.Service, ATHR.EventLog
+
+[NTGR9040_Win2K.reg]
+; Interfaces Info
+HKR,NDI\Interfaces,   UpperRange,         0, "ndis5"
+HKR,NDI\Interfaces,   LowerRange,         0, "ethernet, NETGEAR"
+HKR,NDI,              Service,            0, "WNA1000"
+HKR,,                 VendorDesc,         0, "NETGEAR RangeMax Wireless USB 2.0 Adapter WNA1000"
+HKR,,                 WEPCapability,      0x00010001, 0x3
+
+HKLM, SYSTEM\CurrentControlSet\Services\Tcpip\Parameters, Tcp1323Opts,   0x00010001, 0x00000003
+HKLM, SYSTEM\CurrentControlSet\Services\Tcpip\Parameters, TcpWindowSize, 0x00010001, 0x00040000
+
+;HKR, Ndi\params\*WirelessMode,              ParamDesc,  0, "%WirelessMode%"
+;HKR, Ndi\params\*WirelessMode,              Base,       0, "10"
+;HKR, Ndi\params\*WirelessMode,              default,    0, "2"
+;HKR, Ndi\params\*WirelessMode,              type,       0, "enum"
+;HKR, Ndi\params\*WirelessMode\enum,         "1",        0, %Extend802_11anbgn%
+;HKR, Ndi\params\*WirelessMode\enum,         "2",        0, %Extend802_11bgn%
+;HKR, Ndi\params\*WirelessMode\enum,         "3",        0, %Extend802_11an%
+;HKR, Ndi\params\*WirelessMode\enum,         "4",        0, %Extend802_11bg%
+;HKR, Ndi\params\*WirelessMode\enum,         "5",        0, %Extend802_11a%
+;HKR, Ndi\params\*WirelessMode\enum,         "6",        0, %Extend802_11abgn%
+;HKR, Ndi\params\*WirelessMode\enum,         "7",        0, %Extend802_11anbg%
+
+HKR,,                 *WirelessMode,      0, 2
+HKR,,                 LEDCtrlType,        0, 3
+
+[NTGR9040.CopyFiles2K]
+WNA1000.sys,arusb_2k.sys,2
+
+;---------------------------NETGEAR 9010 XP-------------------------------------
+[NTGRXP9010.ndi.NTx86]
+Characteristics = 0x84
+BusType         = 15
+AddReg		= NTGR9010_WinXP.reg, NTGR_0846.reg, htDisableWepTkip.reg
+CopyFiles       = NTGR9010.CopyFilesXP
+
+[NTGRXP9010.ndi.NTx86.Services]
+AddService = WNDA3100, 2, NTGR9010_NT.Service, ATHR.EventLog
+
+[NTGR9010.CopyFilesXP]
+WNDA31.sys,arusb_xp.sys,2
+
+[NTGR9010_WinXP.reg]
+; Interfaces Info
+HKR,NDI\Interfaces,   UpperRange,         0, "ndis5"
+HKR,NDI\Interfaces,   LowerRange,         0, "ethernet, NETGEAR"
+HKR,NDI,              Service,            0, "WNDA3100"
+HKR,,                 VendorDesc,         0, "NETGEAR RangeMax Duo Wireless-N USB Adapter WNDA3100"
+HKR,,                 MaxRxUrb,           0, %MaxRxUrb%
+HKR,,                 MaxTxUrb,           0, %MaxTxUrb%
+HKR,,                 MaxTxUrbDK,         0, %MaxTxUrbDK%
+HKR,,                 MaxRxUrbDK,         0, %MaxRxUrbDK%
+HKR,,                 MDKEnable,          0, "0"
+HKR,,                 WEPCapability,      0x00010001, 0x3
+
+HKLM, SYSTEM\CurrentControlSet\Services\Tcpip\Parameters, Tcp1323Opts,   0x00010001, 0x00000003
+HKLM, SYSTEM\CurrentControlSet\Services\Tcpip\Parameters, TcpWindowSize, 0x00010001, 0x00040000
+
+;HKR, Ndi\params\*WirelessMode,              ParamDesc,  0, "%WirelessMode%"
+;HKR, Ndi\params\*WirelessMode,              Base,       0, "10"
+;HKR, Ndi\params\*WirelessMode,              default,    0, "1"
+;HKR, Ndi\params\*WirelessMode,              type,       0, "enum"
+;HKR, Ndi\params\*WirelessMode\enum,         "1",        0, %Extend802_11anbgn%
+;HKR, Ndi\params\*WirelessMode\enum,         "2",        0, %Extend802_11bgn%
+;HKR, Ndi\params\*WirelessMode\enum,         "3",        0, %Extend802_11an%
+;HKR, Ndi\params\*WirelessMode\enum,         "4",        0, %Extend802_11bg%
+;HKR, Ndi\params\*WirelessMode\enum,         "5",        0, %Extend802_11a%
+;HKR, Ndi\params\*WirelessMode\enum,         "6",        0, %Extend802_11abgn%
+;HKR, Ndi\params\*WirelessMode\enum,         "7",        0, %Extend802_11anbg%
+
+HKR,,                 *WirelessMode,          0, 1
+HKR,,                 LEDCtrlType,            0, 2
+HKR,,                 bSurpriseRemoveOK,      0, 0
+HKR,,                 BGScan,                 0, 0
+
+;---------------------------NETGEAR 9001 XP-------------------------------------
+[NTGRXP9001.ndi.NTx86]
+Characteristics = 0x84
+BusType         = 15
+AddReg		= NTGR9001_WinXP.reg, NTGR_0846.reg, htDisableWepTkip.reg
+CopyFiles       = NTGR9001.CopyFilesXP
+
+[NTGRXP9001.ndi.NTx86.Services]
+AddService = WN111v2, 2, NTGR9001_NT.Service, ATHR.EventLog
+
+[NTGR9001.CopyFilesXP]
+WN111v2.sys,arusb_xp.sys,2
+
+[NTGR9001_WinXP.reg]
+; Interfaces Info
+HKR,NDI\Interfaces,   UpperRange,         0, "ndis5"
+HKR,NDI\Interfaces,   LowerRange,         0, "ethernet, NETGEAR"
+HKR,NDI,              Service,            0, "WN111v2"
+HKR,,                 VendorDesc,         0, "NETGEAR RangeMax Wireless USB 2.0 Adapter WN111v2"
+HKR,,                 MaxRxUrb,           0, %MaxRxUrb%
+HKR,,                 MaxTxUrb,           0, %MaxTxUrb%
+HKR,,                 MaxTxUrbDK,         0, %MaxTxUrbDK%
+HKR,,                 MaxRxUrbDK,         0, %MaxRxUrbDK%
+HKR,,                 MDKEnable,          0, "0"
+HKR,,                 WEPCapability,      0x00010001, 0x3
+
+HKLM, SYSTEM\CurrentControlSet\Services\Tcpip\Parameters, Tcp1323Opts,   0x00010001, 0x00000003
+HKLM, SYSTEM\CurrentControlSet\Services\Tcpip\Parameters, TcpWindowSize, 0x00010001, 0x00040000
+
+;HKR, Ndi\params\*WirelessMode,              ParamDesc,  0, "%WirelessMode%"
+;HKR, Ndi\params\*WirelessMode,              Base,       0, "10"
+;HKR, Ndi\params\*WirelessMode,              default,    0, "2"
+;HKR, Ndi\params\*WirelessMode,              type,       0, "enum"
+;HKR, Ndi\params\*WirelessMode\enum,         "1",        0, %Extend802_11anbgn%
+;HKR, Ndi\params\*WirelessMode\enum,         "2",        0, %Extend802_11bgn%
+;HKR, Ndi\params\*WirelessMode\enum,         "3",        0, %Extend802_11an%
+;HKR, Ndi\params\*WirelessMode\enum,         "4",        0, %Extend802_11bg%
+;HKR, Ndi\params\*WirelessMode\enum,         "5",        0, %Extend802_11a%
+;HKR, Ndi\params\*WirelessMode\enum,         "6",        0, %Extend802_11abgn%
+;HKR, Ndi\params\*WirelessMode\enum,         "7",        0, %Extend802_11anbg%
+
+HKR,,                 *WirelessMode,          0, 2
+HKR,,                 LEDCtrlType,            0, 3
+HKR,,                 bSurpriseRemoveOK,      0, 0
+
+;---------------------------NETGEAR 9040 XP-------------------------------------
+[NTGRXP9040.ndi.NTx86]
+Characteristics = 0x84
+BusType         = 15
+AddReg		= NTGR9040_WinXP.reg, NTGR_0846.reg, htDisableWepTkip.reg
+CopyFiles       = NTGR9040.CopyFilesXP
+
+[NTGRXP9040.ndi.NTx86.Services]
+AddService = WNA1000, 2, NTGR9040_NT.Service, ATHR.EventLog
+
+[NTGR9040.CopyFilesXP]
+WNA1000.sys,arusb_xp.sys,2
+
+[NTGR9040_WinXP.reg]
+; Interfaces Info
+HKR,NDI\Interfaces,   UpperRange,         0, "ndis5"
+HKR,NDI\Interfaces,   LowerRange,         0, "ethernet, NETGEAR"
+HKR,NDI,              Service,            0, "WNA1000"
+HKR,,                 VendorDesc,         0, "NETGEAR RangeMax Wireless USB 2.0 Adapter WNA1000"
+HKR,,                 MaxRxUrb,           0, %MaxRxUrb%
+HKR,,                 MaxTxUrb,           0, %MaxTxUrb%
+HKR,,                 MaxTxUrbDK,         0, %MaxTxUrbDK%
+HKR,,                 MaxRxUrbDK,         0, %MaxRxUrbDK%
+HKR,,                 MDKEnable,          0, "0"
+HKR,,                 WEPCapability,      0x00010001, 0x3
+
+HKLM, SYSTEM\CurrentControlSet\Services\Tcpip\Parameters, Tcp1323Opts,   0x00010001, 0x00000003
+HKLM, SYSTEM\CurrentControlSet\Services\Tcpip\Parameters, TcpWindowSize, 0x00010001, 0x00040000
+
+;HKR, Ndi\params\*WirelessMode,              ParamDesc,  0, "%WirelessMode%"
+;HKR, Ndi\params\*WirelessMode,              Base,       0, "10"
+;HKR, Ndi\params\*WirelessMode,              default,    0, "2"
+;HKR, Ndi\params\*WirelessMode,              type,       0, "enum"
+;HKR, Ndi\params\*WirelessMode\enum,         "1",        0, %Extend802_11anbgn%
+;HKR, Ndi\params\*WirelessMode\enum,         "2",        0, %Extend802_11bgn%
+;HKR, Ndi\params\*WirelessMode\enum,         "3",        0, %Extend802_11an%
+;HKR, Ndi\params\*WirelessMode\enum,         "4",        0, %Extend802_11bg%
+;HKR, Ndi\params\*WirelessMode\enum,         "5",        0, %Extend802_11a%
+;HKR, Ndi\params\*WirelessMode\enum,         "6",        0, %Extend802_11abgn%
+;HKR, Ndi\params\*WirelessMode\enum,         "7",        0, %Extend802_11anbg%
+
+HKR,,                 *WirelessMode,          0, 2
+HKR,,                 LEDCtrlType,            0, 3
+HKR,,                 bSurpriseRemoveOK,      0, 0
+
+;---------------------------NETGEAR 9010 COMMON---------------------------------
+[NTGR9010_NT.Service]
+DisplayName     = NETGEAR WNDA3100 USB2.0 Wireless Card Service
+ServiceType     = 1                             ; %SERVICE_KERNEL_DRIVER%
+StartType       = 3                             ; %SERVICE_DEMAND_START%
+ErrorControl    = 1                             ; %SERVICE_ERROR_NORMAL%
+ServiceBinary   = %12%\WNDA31.sys		; %12%\%DriverFileName%
+LoadOrderGroup  = NDIS
+
+;---------------------------NETGEAR 9001 COMMON---------------------------------
+[NTGR9001_NT.Service]
+DisplayName     = NETGEAR WN111v2 USB2.0 Wireless Card Service
+ServiceType     = 1                             ; %SERVICE_KERNEL_DRIVER%
+StartType       = 3                             ; %SERVICE_DEMAND_START%
+ErrorControl    = 1                             ; %SERVICE_ERROR_NORMAL%
+ServiceBinary   = %12%\WN111v2.sys		; %12%\%DriverFileName%
+LoadOrderGroup  = NDIS
+
+;---------------------------NETGEAR 9040 COMMON---------------------------------
+[NTGR9040_NT.Service]
+DisplayName     = NETGEAR WNA1000 USB2.0 Wireless Card Service
+ServiceType     = 1                             ; %SERVICE_KERNEL_DRIVER%
+StartType       = 3                             ; %SERVICE_DEMAND_START%
+ErrorControl    = 1                             ; %SERVICE_ERROR_NORMAL%
+ServiceBinary   = %12%\WNA1000.sys		; %12%\%DriverFileName%
+LoadOrderGroup  = NDIS
+;===============================================================================
+
+;*********************************************************************
+;   Microsoft Windows 2000/XP Common Section
+;*********************************************************************
+;---------- 5.0 volt ----------
+[ATHR_NT.Service]
+DisplayName     = %ATHR.Service.DispName%(%Atheros%)
+ServiceType     = 1                             ; %SERVICE_KERNEL_DRIVER%
+StartType       = 3                             ; %SERVICE_DEMAND_START%
+ErrorControl    = 1                             ; %SERVICE_ERROR_NORMAL%
+ServiceBinary   = %12%\%DriverFileName%		; %12%\%DriverFileName%
+LoadOrderGroup  = NDIS
+
+
+;*********************************************************************
+;   Microsoft Windows ME/2000/XP Common Section
+;*********************************************************************
+;---------- 5.0 volt ----------
+[ATHR.EventLog]
+Addreg = ATHR.AddEventLog.reg
+
+[ATHR.AddEventLog.reg]
+HKR,,                               EventMessageFile,  0x00020000, "%%SystemRoot%%\System32\netevent.dll"
+HKR,,                               TypesSupported,    0x00010001, 7
+
+
+;*********************************************************************
+;   Destination Directories
+;*********************************************************************
+[DestinationDirs]
+ATHR.CopyFiles2K	= 12			; system32\drivers subdirectory on Win NT/2000
+ATHR.CopyFilesXP	= 12			; system32\drivers subdirectory on Win XP
+ATHR.CopyFilesXP64	= 12			; system32\drivers subdirectory on Win XP
+NTGR9010.CopyFiles2K    = 12
+NTGR9010.CopyFilesXP    = 12
+NTGR9001.CopyFiles2K    = 12
+NTGR9001.CopyFilesXP    = 12
+NTGR9040.CopyFiles2K    = 12
+NTGR9040.CopyFilesXP    = 12
+
+
+[SourceDisksNames]
+1=%DISKNAME%,,,
+
+
+[SourceDisksFiles]
+arusb_2k.sys = 1
+arusb_xp.sys = 1
+arusb_xpx.sys = 1
+;WNDA312k.sys = 1 ;NETGEAR 2K
+;WNDA31xp.sys = 1 ;NETGEAR XP 32bit
+
+;******************************************************************************
+[ATHR_Common.reg]
+
+[ATHR_SurpriseRemoveOk.reg]
+HKR,,                 bSurpriseRemoveOK,     0, 0
+
+[ATHR_HwButtonSupport.reg]
+HKR,,                 HwBtnSupport,          0, 1
+
+[htDisableWepTkip.reg]
+HKR,,                 DisableNRateEncryption, 0, 1
+
+;******************************************************************************
+[DLINK_Win2K.reg]
+HKR,,                 DSIFS,                 0, 1
+HKR,,                 ShowZeroLengthSSID,    0, 1
+
+;******************************************************************************
+[DLINK_Win2KA2.reg]
+HKR,,                 DSIFS,                 0, 1
+HKR,,                 *WirelessMode24G,      0, 5
+HKR,,                 *WirelessMode5G,       0, 2
+HKR,,                 ShowZeroLengthSSID,    0, 1
+
+;******************************************************************************
+[DLINK_WinXP.reg]
+HKR,,                 bSurpriseRemoveOK,     0, 0
+HKR,,                 LEDCtrlFlag,           0, %LEDCtrlFlag%
+HKR,,                 DSIFS,                 0, 1
+HKR,,                 ShowZeroLengthSSID,    0, 1
+
+;******************************************************************************
+[dlinkA2.reg]
+HKR,,                 maxTxPower,            0x10001,       0x1824
+
+;******************************************************************************
+[IO-DATA.reg]
+HKR,,                 ShowZeroLengthSSID,     0, 1
+
+[HP_1010.reg]
+HKR,,                 ForceTxLegacyOneStream, 0, 1
+HKR,,                 displayCountry,         0, 1
+HKR,,                 LEDCtrlType,            0, 4
+HKR,,                 BGScan,                 0, 0
+
+HKR, Ndi\params\sleepMode,                     ParamDesc,  0, "%sleepMode%"
+HKR, Ndi\params\sleepMode,                     Base,       0, "10"
+HKR, Ndi\params\sleepMode,                     default,    0, "2"
+HKR, Ndi\params\sleepMode,                     type,       0, "enum"
+HKR, Ndi\params\sleepMode\enum,                "0",        0, %sleepModeOff%
+HKR, Ndi\params\sleepMode\enum,                "1",        0, %sleepModeMax%
+HKR, Ndi\params\sleepMode\enum,                "2",        0, %sleepModeNormal%
+
+HKR, Ndi\params\supportPSInACOnline,           ParamDesc,  0, "%acOnlinePSProperty%"
+HKR, Ndi\params\supportPSInACOnline,           Base,       0, "10"
+HKR, Ndi\params\supportPSInACOnline,           default,    0, "0"
+HKR, Ndi\params\supportPSInACOnline,           type,       0, "enum"
+HKR, Ndi\params\supportPSInACOnline\enum,      "0",        0, %acOnlinePSOff%
+HKR, Ndi\params\supportPSInACOnline\enum,      "1",        0, %acOnlinePSSupport%
+
+HKR, Ndi\params\shortPreamble,                 ParamDesc,  0, "%shortPreamble%"
+HKR, Ndi\params\shortPreamble,                 Base,       0, "10"
+HKR, Ndi\params\shortPreamble,                 default,    0, "1"
+HKR, Ndi\params\shortPreamble,                 type,       0, "enum"
+HKR, Ndi\params\shortPreamble\enum,            "0",        0, %shortPreambleDisable%
+HKR, Ndi\params\shortPreamble\enum,            "1",        0, %shortPreambleEnable%
+
+HKR, NDI\params\FragThreshold,                 ParamDesc,  0, "%FragThreshold%"
+HKR, NDI\params\FragThreshold,                 type,       0, "int"
+HKR, Ndi\params\FragThreshold,                 default,    0, "2346"
+HKR, NDI\params\FragThreshold,                 min,        0, "256"
+HKR, NDI\params\FragThreshold,                 max,        0, "2346"
+HKR, NDI\params\FragThreshold,                 step,       0, "2"
+
+HKR, NDI\params\RTSThreshold,                  ParamDesc,  0, "%RTSThreshold%"
+HKR, NDI\params\RTSThreshold,                  type,       0, "int"
+HKR, Ndi\params\RTSThreshold,                  default,    0, "2346"
+HKR, NDI\params\RTSThreshold,                  min,        0, "0"
+HKR, NDI\params\RTSThreshold,                  max,        0, "2346"
+HKR, NDI\params\RTSThreshold,                  step,       0, "1"
+
+HKR, Ndi\params\enable2GHzHt40Cap,             ParamDesc,  0, "%enable2GHzHt40Cap%"
+HKR, Ndi\params\enable2GHzHt40Cap,             Base,       0, "10"
+HKR, Ndi\params\enable2GHzHt40Cap,             default,    0, "1"
+HKR, Ndi\params\enable2GHzHt40Cap,             type,       0, "enum"
+HKR, Ndi\params\enable2GHzHt40Cap\enum,        "0",        0, %ht40Disable%
+HKR, Ndi\params\enable2GHzHt40Cap\enum,        "1",        0, %ht40Enable%
+
+HKR, Ndi\params\enable5GHzHt40Cap,             ParamDesc,  0, "%enable5GHzHt40Cap%"
+HKR, Ndi\params\enable5GHzHt40Cap,             Base,       0, "10"
+HKR, Ndi\params\enable5GHzHt40Cap,             default,    0, "1"
+HKR, Ndi\params\enable5GHzHt40Cap,             type,       0, "enum"
+HKR, Ndi\params\enable5GHzHt40Cap\enum,        "0",        0, %ht40Disable%
+HKR, Ndi\params\enable5GHzHt40Cap\enum,        "1",        0, %ht40Enable%
+
+HKR, Ndi\params\WmmEnabled,                    ParamDesc,  0, "%WmmCapable%"
+HKR, Ndi\params\WmmEnabled,                    Base,       0, "10"
+HKR, Ndi\params\WmmEnabled,                    default,    0, "1"
+HKR, Ndi\params\WmmEnabled,                    type,       0, "enum"
+HKR, Ndi\params\WmmEnabled\enum,               "0",        0, %WmmDisable%
+HKR, Ndi\params\WmmEnabled\enum,               "1",        0, %WmmEnable%
+
+HKR, Ndi\params\radioEnable,                   ParamDesc,  0, "%radioEnable%"
+HKR, Ndi\params\radioEnable,                   Base,       0, "10"
+HKR, Ndi\params\radioEnable,                   default,    0, "1"
+HKR, Ndi\params\radioEnable,                   type,       0, "enum"
+HKR, Ndi\params\radioEnable\enum,              "0",        0, %radioEnableOff%
+HKR, Ndi\params\radioEnable\enum,              "1",        0, %radioEnableOn%
+
+HKR, Ndi\params\TransmitPower,                 ParamDesc,  0, "%TransmitPower%"
+HKR, Ndi\params\TransmitPower,                 Base,       0, "10"
+HKR, Ndi\params\TransmitPower,                 default,    0, "1"
+HKR, Ndi\params\TransmitPower,                 type,       0, "enum"
+HKR, Ndi\params\TransmitPower\enum,            "1",        0, %TransmitPowerHigh%
+HKR, Ndi\params\TransmitPower\enum,            "2",        0, %TransmitPowerMid%
+HKR, Ndi\params\TransmitPower\enum,            "3",        0, %TransmitPowerLow%
+
+[H3C_1011.reg]
+HKR,,                 ForceTxLegacyOneStream, 0, 1
+HKR,,                 displayCountry,         0, 1
+HKR,,                 LEDCtrlType,            0, 4
+HKR,,                 BGScan,                 0, 0
+
+HKR, Ndi\params\sleepMode,                     ParamDesc,  0, "%sleepMode%"
+HKR, Ndi\params\sleepMode,                     Base,       0, "10"
+HKR, Ndi\params\sleepMode,                     default,    0, "2"
+HKR, Ndi\params\sleepMode,                     type,       0, "enum"
+HKR, Ndi\params\sleepMode\enum,                "0",        0, %sleepModeOff%
+HKR, Ndi\params\sleepMode\enum,                "1",        0, %sleepModeMax%
+HKR, Ndi\params\sleepMode\enum,                "2",        0, %sleepModeNormal%
+
+HKR, Ndi\params\supportPSInACOnline,           ParamDesc,  0, "%acOnlinePSProperty%"
+HKR, Ndi\params\supportPSInACOnline,           Base,       0, "10"
+HKR, Ndi\params\supportPSInACOnline,           default,    0, "0"
+HKR, Ndi\params\supportPSInACOnline,           type,       0, "enum"
+HKR, Ndi\params\supportPSInACOnline\enum,      "0",        0, %acOnlinePSOff%
+HKR, Ndi\params\supportPSInACOnline\enum,      "1",        0, %acOnlinePSSupport%
+
+HKR, Ndi\params\shortPreamble,                 ParamDesc,  0, "%shortPreamble%"
+HKR, Ndi\params\shortPreamble,                 Base,       0, "10"
+HKR, Ndi\params\shortPreamble,                 default,    0, "1"
+HKR, Ndi\params\shortPreamble,                 type,       0, "enum"
+HKR, Ndi\params\shortPreamble\enum,            "0",        0, %shortPreambleDisable%
+HKR, Ndi\params\shortPreamble\enum,            "1",        0, %shortPreambleEnable%
+
+HKR, NDI\params\FragThreshold,                 ParamDesc,  0, "%FragThreshold%"
+HKR, NDI\params\FragThreshold,                 type,       0, "int"
+HKR, Ndi\params\FragThreshold,                 default,    0, "2346"
+HKR, NDI\params\FragThreshold,                 min,        0, "256"
+HKR, NDI\params\FragThreshold,                 max,        0, "2346"
+HKR, NDI\params\FragThreshold,                 step,       0, "2"
+
+HKR, NDI\params\RTSThreshold,                  ParamDesc,  0, "%RTSThreshold%"
+HKR, NDI\params\RTSThreshold,                  type,       0, "int"
+HKR, Ndi\params\RTSThreshold,                  default,    0, "2346"
+HKR, NDI\params\RTSThreshold,                  min,        0, "0"
+HKR, NDI\params\RTSThreshold,                  max,        0, "2346"
+HKR, NDI\params\RTSThreshold,                  step,       0, "1"
+
+HKR, Ndi\params\enable2GHzHt40Cap,             ParamDesc,  0, "%enable2GHzHt40Cap%"
+HKR, Ndi\params\enable2GHzHt40Cap,             Base,       0, "10"
+HKR, Ndi\params\enable2GHzHt40Cap,             default,    0, "1"
+HKR, Ndi\params\enable2GHzHt40Cap,             type,       0, "enum"
+HKR, Ndi\params\enable2GHzHt40Cap\enum,        "0",        0, %ht40Disable%
+HKR, Ndi\params\enable2GHzHt40Cap\enum,        "1",        0, %ht40Enable%
+
+HKR, Ndi\params\enable5GHzHt40Cap,             ParamDesc,  0, "%enable5GHzHt40Cap%"
+HKR, Ndi\params\enable5GHzHt40Cap,             Base,       0, "10"
+HKR, Ndi\params\enable5GHzHt40Cap,             default,    0, "1"
+HKR, Ndi\params\enable5GHzHt40Cap,             type,       0, "enum"
+HKR, Ndi\params\enable5GHzHt40Cap\enum,        "0",        0, %ht40Disable%
+HKR, Ndi\params\enable5GHzHt40Cap\enum,        "1",        0, %ht40Enable%
+
+HKR, Ndi\params\WmmEnabled,                    ParamDesc,  0, "%WmmCapable%"
+HKR, Ndi\params\WmmEnabled,                    Base,       0, "10"
+HKR, Ndi\params\WmmEnabled,                    default,    0, "1"
+HKR, Ndi\params\WmmEnabled,                    type,       0, "enum"
+HKR, Ndi\params\WmmEnabled\enum,               "0",        0, %WmmDisable%
+HKR, Ndi\params\WmmEnabled\enum,               "1",        0, %WmmEnable%
+
+HKR, Ndi\params\radioEnable,                   ParamDesc,  0, "%radioEnable%"
+HKR, Ndi\params\radioEnable,                   Base,       0, "10"
+HKR, Ndi\params\radioEnable,                   default,    0, "1"
+HKR, Ndi\params\radioEnable,                   type,       0, "enum"
+HKR, Ndi\params\radioEnable\enum,              "0",        0, %radioEnableOff%
+HKR, Ndi\params\radioEnable\enum,              "1",        0, %radioEnableOn%
+
+HKR, Ndi\params\TransmitPower,                 ParamDesc,  0, "%TransmitPower%"
+HKR, Ndi\params\TransmitPower,                 Base,       0, "10"
+HKR, Ndi\params\TransmitPower,                 default,    0, "1"
+HKR, Ndi\params\TransmitPower,                 type,       0, "enum"
+HKR, Ndi\params\TransmitPower\enum,            "1",        0, %TransmitPowerHigh%
+HKR, Ndi\params\TransmitPower\enum,            "2",        0, %TransmitPowerMid%
+HKR, Ndi\params\TransmitPower\enum,            "3",        0, %TransmitPowerLow%
+
+;*********************************************************************
+;   Atheros Client Installation Program
+;*********************************************************************
+[ATHR_1001.reg]
+HKLM,SOFTWARE\Atheros\Atheros Client Installation Program,  USBVIDPID,  0, "%ATHR_VID_0CF3%"
+
+[ATHR_1002.reg]
+HKLM,SOFTWARE\Atheros\Atheros Client Installation Program,  USBVIDPID,  0, "%ATHR_VID_0CF3%"
+
+[ATHR_9170.reg]
+HKLM,SOFTWARE\Atheros\Atheros Client Installation Program,  USBVIDPID,  0, "%ATHR_VID_0CF3%"
+
+[ARCA_F522.reg]
+HKLM,SOFTWARE\Atheros\Atheros Client Installation Program,  USBVIDPID,  0, "%ARCA_VID_F522%"
+
+[ATHR_5304.reg]
+HKLM,SOFTWARE\Atheros\Atheros Client Installation Program,  USBVIDPID,  0, "%ATHR_VID_2019%"
+
+[ATHR_093F.reg]
+HKLM,SOFTWARE\Atheros\Atheros Client Installation Program,  USBVIDPID,  0, "%ATHR_VID_04BB%"
+
+[ATHR_0023.reg]
+HKLM,SOFTWARE\Atheros\Atheros Client Installation Program,  USBVIDPID,  0, "%ATHR_VID_0CDE%"
+
+[ATHR_0026.reg]
+HKLM,SOFTWARE\Atheros\Atheros Client Installation Program,  USBVIDPID, 0, "%ATHR_VID_0CDE%"
+
+[DLINK_07D1.reg]
+HKLM,SOFTWARE\Atheros\Atheros Client Installation Program,  USBVIDPID,  0, "%DLINK_VID_07D1%"
+
+[NTGR_0846.reg]
+HKLM,SOFTWARE\Atheros\Atheros Client Installation Program,  USBVIDPID,  0, "%NTGR_VID_0846%"
+
+[DNUA_1435.reg]
+HKLM,SOFTWARE\Atheros\Atheros Client Installation Program,  USBVIDPID,  0, "%DNUA_VID_1435%"
+
+[OVIS_1B75.reg]
+HKLM,SOFTWARE\Atheros\Atheros Client Installation Program,  USBVIDPID,  0, "%OVIS_VID_1B75%"
+
+;*********************************************************************
+[Strings]
+Atheros         = "Atheros"
+NETGEAR         = "NETGEAR Inc"
+DLINK           = "D-Link"
+Proxim          = "Proxim"
+WNC             = "WNC" 
+Ovislink        = "AirLive, OvisLink Corp" 
+Arcadyan        = "Arcadyan Technology Corporation"
+DISKNAME	= "802.11n Wireless LAN Driver (USB) Installation Disk"
+DriverFileName	= "arusb.sys"
+InterfaceType	= "USB"
+CardType	= "PNP"
+VendorDesc	= "Atheros OTUS Wireless Network Adapter"
+CustomServiceName = "arusb"
+ATHR_VID_0CF3   = "VID_0CF3"
+ATHR_VID_2019   = "VID_2019"
+ATHR_VID_0CDE   = "VID_0CDE"
+NTGR_VID_0846   = "VID_0846"
+DLINK_VID_07D1  = "VID_07D1"
+ARCA_VID_F522 	= "VID_F522"
+DNUA_VID_1435   = "VID_1435"
+OVIS_VID_1B75  = "VID_1B75"
+MaxRxUrb        = 8
+MaxTxUrb        = 8
+MaxTxUrbDK      = 64
+MaxRxUrbDK      = 64
+bSurpriseRemoveOK = 1
+LEDCtrlFlag     = 1
+ReceiveFrameDescriptors = "ReceiveFrameDescriptors"
+TransmitControlBlocks = "TransmitControlBlocks"
+CoalesceBuffers = "CoalesceBuffers"
+WirelessMode24G          = "Wireless Mode 2.4GHz"
+WirelessMode5G           = "Wireless Mode 5GHz"
+non24G                   = "Non support 2.4GHz"
+802_11b                  = "802.11b"
+802_11g                  = "802.11g"
+802_11n_24               = "802.11n"
+802_11bg                 = "802.11bg"
+802_11bn                 = "802.11bn"
+802_11gn                 = "802.11gn"
+802_11bgn                = "802.11bgn"
+non5G                    = "Non support 5GHz"
+802_11a                  = "802.11a"
+802_11n_5                = "802.11n"
+802_11an                 = "802.11an"
+WirelessMode             = "Wireless Mode"
+AdHocMode                = "Ad Hoc Mode"
+80211a                   = "802.11a"
+80211b                   = "802.11b"
+80211g                   = "802.11g"
+80211bg                  = "802.11b+g"
+80211abg                 = "802.11a+b+g"
+AdHoc80211aChannel       = "Ad Hoc 802.11a Channel"
+AdHoc80211bgChannel      = "Ad Hoc 802.11b/g Channel"
+AdHoc80211abgChannel     = "Ad Hoc 802.11a/b/g Channel"
+80211achannel36          = "80211a  36"
+80211achannel40          = "80211a  40"
+80211achannel44          = "80211a  44"
+80211achannel48          = "80211a  48"
+80211achannel52          = "80211a  52"
+80211achannel56          = "80211a  56"
+80211achannel60          = "80211a  60"
+80211achannel64          = "80211a  64"
+80211achannel149         = "80211a 149"
+80211achannel153         = "80211a 153"
+80211achannel157         = "80211a 157"
+80211achannel161         = "80211a 161"
+80211achannel165         = "80211a 165"
+80211bgchannel1          = "80211bg  1"
+80211bgchannel2          = "80211bg  2"
+80211bgchannel3          = "80211bg  3"
+80211bgchannel4          = "80211bg  4"
+80211bgchannel5          = "80211bg  5"
+80211bgchannel6          = "80211bg  6"
+80211bgchannel7          = "80211bg  7"
+80211bgchannel8          = "80211bg  8"
+80211bgchannel9          = "80211bg  9"
+80211bgchannel10         = "80211bg 10"
+80211bgchannel11         = "80211bg 11"
+Extend802_11anbgn        = "300Mpbs(2.4/5GHz)" 
+Extend802_11bgn          = "300Mpbs(2.4GHz)"
+Extend802_11an           = "300Mpbs(5GHz)"
+Extend802_11bg           = "54Mbps(2.4GHz)"
+Extend802_11a            = "54Mbps(5GHz)"
+Extend802_11abgn         = "300Mbps(2.4GHz)/54Mbps(5GHz)"
+Extend802_11anbg         = "300Mbps(5GHz)/54Mbps(2.4GHz)"
+PSPXLinkMode             = "PSPXLinkMode"
+disablePSPMode           = "Disable"
+enablePSPMode            = "Enable"
+RoamingMode	             = "Roaming Mode"
+RSSIRoamDisable          = "Off"
+RSSIRoamHigh             = "High"
+RSSIRoamLow              = "Low"
+sleepMode                = "Power Save Mode"
+sleepModeOff             = "Off"
+sleepModeNormal          = "Normal"
+sleepModeMax             = "Maximum"
+acOnlinePSProperty       = "CAM when AC Power"
+acOnlinePSOff            = "Enable"
+acOnlinePSSupport        = "Disable"
+shortPreamble            = "802.11b Preamble"
+shortPreambleEnable      = "Long and Short"
+shortPreambleDisable     = "Long only"
+FragThreshold            = "Fragment Threshold"
+RTSThreshold             = "RTS Threshold"
+enable2GHzHt40Cap        = "2.4 GHz Channel Width"
+enable5GHzHt40Cap        = "5 GHz Channel Width"
+ht40Enable               = "20/40 MHz(Auto)"
+ht40Disable              = "20 MHz"
+WmmCapable               = "WMM Capable"
+WmmDisable               = "Disable"
+WmmEnable                = "Enable"
+radioEnable              = "Radio On/Off"
+radioEnableOn            = "On"
+radioEnableOff           = "Off"
+TransmitPower            = "Transmit Power"
+TransmitPowerHigh        = "Highest"
+TransmitPowerMid         = "Medium"
+TransmitPowerLow         = "Lowest"
+ATHR.Service.DispName    = "Atheros Wireless Network Adapter Service"
+;ATHR.DeviceDesc.1001     = "TG121n USB Wireless Adapter"
+;ATHR.DeviceDesc.1002     = "TP-LINK TL-WN821N 11N Wireless Adapter"
+ATHR.DeviceDesc.9170     = "Atheros OTUS Wireless Network Adapter"
+;ATHR.DeviceDesc.5304     = "PCI GW-US300GXS"
+;ATHR.DeviceDesc.093F     = "IO-DATA WN-GDN/US2"
+;ARCA.DeviceDesc.F522     = "802.11N Wireless USB Network Adapter"
+;ZCOM.DeviceDesc.0023     = "NB 802.11n BG Wireless LAN USB Adapter(UB81)"
+;ZCOM.DeviceDesc.0026     = "NB 802.11n ABG Wireless LAN USB Adapter(UB82)"
+;NTGR.DeviceDesc.9010     = "RangeMax Dual Band Wireless-N USB Adapter"
+;DWA160.DeviceDesc        = "D-Link DWA-160 Xtreme N Dual Band USB Adapter(rev.A)"
+;DWA160A2.DeviceDesc      = "D-Link DWA-160 Xtreme N Dual Band USB Adapter(rev.A2)"
+;NTGR.DeviceDesc.9001     = "RangeMax Wireless-N USB Adapter WN111v2"
+;NTGR.DeviceDesc.9040     = "Wireless-N 150 USB Adapter WNA1000"
+;DNUA0804.DeviceDesc      = "ORiNOCO 802.11n USB "
+;DNUA0326.DeviceDesc      = "11n generic USB dongle "
+;HP.DeviceDesc.1010       = "HP Dual Band 802.11n Wireless USB Adapter"
+;H3C.DeviceDesc.1011      = "H3C Dual Band 802.11n USB Adapter"
+OVIK.DeviceDesc.9170     = "AirLive X.USB 11a/b/g/n USB Adapter"

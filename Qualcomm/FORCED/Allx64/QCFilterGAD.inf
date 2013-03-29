@@ -1,0 +1,86 @@
+;/*++
+;
+;Module Name:
+;
+;    QCfilter.INF
+;
+;Abstract:
+;    Sample INF file for installing an upper filter device driver for Qualcomm USB composite device
+;
+;--*/
+[Version]
+Signature="$WINDOWS NT$"
+Class=USB
+Provider=%QUALCOMM%
+ClassGUID={36FC9E60-C465-11CF-8056-444553540000}
+DriverVer=03/12/2008,6.0.0.1
+CatalogFile=qcfilterGAD.cat
+
+[Manufacturer]
+%QUALCOMM%=QualcommFilter, NTia64, NTamd64
+
+[ControlFlags]
+ExcludeFromSelect = *
+
+[SourceDisksNames]
+  1000 = %QcomSrcDisk%,"",,
+
+[SourceDisksFiles]
+  qcfilterGAD.sys  = 1000
+
+[QualcommFilter]
+%QCFilterGAD.DeviceDesc%=QCFilterGAD,USB\VID_05C6&PID_9212
+%QCFilterGAD.DeviceDesc%=QCFilterGAD,USB\VID_05C6&PID_9213
+
+[QualcommFilter.NTamd64]
+%QCFilterGAD.DeviceDesc%=QCFilterGAD,USB\VID_05C6&PID_9212
+%QCFilterGAD.DeviceDesc%=QCFilterGAD,USB\VID_05C6&PID_9213
+
+[QualcommFilter.NTia64]
+%QCFilterGAD.DeviceDesc%=QCFilterGAD,USB\VID_05C6&PID_9212
+%QCFilterGAD.DeviceDesc%=QCFilterGAD,USB\VID_05C6&PID_9213
+
+;=====================================================================
+[QCFilterGAD.NT]  
+;=============== Get the standard stuff from USB.inf==============
+Include=USB.inf
+Needs=Composite.Dev.NT
+CopyFiles=QCFilterGAD.NT.Copy
+
+[QCFilterGAD.NT.Copy]
+qcfilterGAD.sys
+
+[DestinationDirs]
+QCFilterGAD.NT.Copy = 12
+
+[QCFilterGAD.NT.HW]
+AddReg=UpperFilterAddReg
+
+[UpperFilterAddReg]
+HKR,,"UpperFilters",0x00010000,"QCFilterGAD"
+
+;*****************************************
+; QC Filter Device Filter Service Section
+;*****************************************
+
+[QCFilterGAD.NT.Services]
+Include=USB.inf
+Needs=Composite.Dev.NT.Services
+AddService = QCFilterGAD,, filter_Service_Inst 
+
+[filter_Service_Inst]
+DisplayName    = %filter.SvcDesc%                            
+ServiceType    = 1                  ; SERVICE_KERNEL_DRIVER
+StartType      = 3                  ; SERVICE_DEMAND_START
+ErrorControl   = 1                  ; SERVICE_ERROR_NORMAL
+ServiceBinary  = %12%\qcfilterGAD.sys                            
+;LoadOrderGroup = Base
+
+[Strings]
+;SPSVCINST_ASSOCSERVICE= 0x00000002
+QUALCOMM   = "Qualcomm Incorporated"
+QcomSrcDisk = "Gobi AD USB Driver Disk"
+QCFilterGAD.DeviceDesc = "Gobi AD USB Composite Device"
+filter.SvcDesc = "Gobi AD USB Composite Device Filter Driver"
+
+

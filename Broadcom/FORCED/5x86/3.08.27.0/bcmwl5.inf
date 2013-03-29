@@ -1,0 +1,150 @@
+;;
+;; bcmwl5.inf
+;;
+;; Copyright 1998-2002, Broadcom Corporation.
+;; All Rights Reserved.
+;;
+;; This is UNPUBLISHED PROPRIETARY SOURCE CODE of Broadcom Corporation;
+;; the contents of this file may not be disclosed to third parties, copied or
+;; duplicated in any form, in whole or in part, without the prior written
+;; permission of Broadcom Corporation.
+;;
+
+[version]
+	Signature	= "$Windows NT$"
+	Class=Net
+	ClassGUID	= {4d36e972-e325-11ce-bfc1-08002be10318}
+	Provider	= %V_BCM%
+DriverVer=07/09/2002, 3.08.27.0
+	CatalogFile=BCM43XX.CAT
+
+[Manufacturer]
+	%V_BCM% = BROADCOM
+
+[ControlFlags] 
+	ExcludeFromSelect = *
+
+[BROADCOM]
+	%BCM430X.DeviceDesc% = BCM43XX, PCI\VEN_14E4&DEV_4301&SUBSYS_00011028
+
+
+[BCM43XX.NT]
+	Characteristics	= 0x84	; NCF_PHYSICAL | NCF_HAS_UI
+	BusType		= 5			; PCI bus
+	AddReg		= BCM43XX.reg, common.reg
+	CopyFiles	= BCM43XX.files.NT
+DriverVer=07/09/2002, 3.08.27.0
+
+[BCM43XX.NT.Services]
+	AddService = BCM43XX, 2, BCM43XX.Service, common.EventLog
+
+[BCM43XX.reg]
+	HKR,	Ndi,	Service,		0,	"BCM43XX"
+	; Ndis Info
+	; Interfaces
+	HKR,	Ndi\Interfaces,	UpperRange,	,	"ndis5"
+	HKR,	Ndi\Interfaces,	LowerRange,	,	"ethernet"
+	HKR,	Ndi,	HelpText,		,	%BCM43XX_HELP%
+
+[BCM43XX.Service]
+	DisplayName	= %BCM43XX.Service.DispName%
+	ServiceType	= 1			; %SERVICE_KERNEL_DRIVER%
+	StartType	= 3			; %SERVICE_DEMAND_START%
+	ErrorControl	= 1			; %SERVICE_ERROR_NORMAL%
+	ServiceBinary	= %12%\bcmwl5.sys
+	LoadOrderGroup	= NDIS
+
+[common.EventLog]
+	AddReg = common.AddEventLog.reg
+
+[common.AddEventLog.reg]
+	HKR,	,	EventMessageFile,	0x00020000,	"%%SystemRoot%%\System32\netevent.dll"
+	HKR,	,	TypesSupported,		0x00010001,	7
+
+[BCM43XX.files.NT]
+	BCMWL5.SYS,,,2
+
+[common.reg]
+	; Properties added to the advanced tab 
+	HKR,,	MaxParamIndex, 0, "5"
+
+	HKR,	Ndi\params\RadioState, ParamDesc,	0,	"Radio Enable/Disable"
+	HKR,	Ndi\params\RadioState, type,		0,	"enum"
+	HKR,	Ndi\params\RadioState\enum, "1",		0,	"Disabled"
+	HKR,	Ndi\params\RadioState\enum, "0",		0,	"Enabled"
+	HKR,    Ndi\params\RadioState,default,,"0"	
+
+	HKR,	Ndi\params\Channel, ParamDesc, 0, "IBSS Channel Number"
+	HKR,	Ndi\params\Channel, default,   0, "11"
+	HKR,	Ndi\params\Channel, min,       0, "1"
+	HKR,	Ndi\params\Channel, max,       0, "11"
+	HKR,	Ndi\params\Channel, step,      0, "1"
+	HKR,	Ndi\params\Channel, base,      0, "10"
+	HKR,	Ndi\params\Channel, type,      0, "int"
+
+	HKR,	Ndi\params\PowerSaveMode, ParamDesc,	0,	"Power Save Mode"
+	HKR,	Ndi\params\PowerSaveMode, type,		0,	"enum"
+	HKR,	Ndi\params\PowerSaveMode\enum, "0",		0,	"Disabled"
+	HKR,	Ndi\params\PowerSaveMode\enum, "1",		0,	"Enabled"
+	HKR,    Ndi\params\PowerSaveMode,default,,"0"	
+
+	HKR,	Ndi\params\Rate, ParamDesc,	0,	"Rate"
+	HKR,	Ndi\params\Rate, type,		0,	"enum"
+	HKR,	Ndi\params\Rate\enum, "0",	0,	"Use best rate"
+	HKR,	Ndi\params\Rate\enum, "2",	0,	"1"
+	HKR,	Ndi\params\Rate\enum, "4",	0,	"2"
+	HKR,	Ndi\params\Rate\enum, "11",	0,	"5.5"
+	HKR,	Ndi\params\Rate\enum, "22",	0,	"11"
+	HKR,	Ndi\params\Rate,default,,"0"
+
+	HKR,	Ndi\params\PLCPHeader, ParamDesc,	0,	"PLCP Header"
+	HKR,	Ndi\params\PLCPHeader, type,		0,	"enum"
+	HKR,	Ndi\params\PLCPHeader\enum, "-1",	0,	"Long"
+	HKR,	Ndi\params\PLCPHeader\enum, "0",	0,	"Auto (Short/Long)"
+	HKR,	Ndi\params\PLCPHeader,default,,"0"
+
+	HKR,	Ndi\params\antdiv, ParamDesc,	0,	"Antenna Diversity"
+	HKR,	Ndi\params\antdiv, type,	0,	"enum"
+	HKR,	Ndi\params\antdiv\enum, "-1",	0,	"Default"
+	HKR,	Ndi\params\antdiv\enum, "0",	0,	"Disabled"
+	HKR,	Ndi\params\antdiv\enum, "3",	0,	"Enabled"
+	HKR,	Ndi\params\antdiv,default,,"-1"
+
+	HKR,	Ndi\params\frag, ParamDesc,	0,	"Fragmentation Threshold"
+	HKR,	Ndi\params\frag,type,0,"dword"
+	HKR,	Ndi\params\frag,min,,"256"
+	HKR,	Ndi\params\frag,max,,"2346"
+	HKR,	Ndi\params\frag,default,,"2346"
+
+	HKR,	Ndi\params\rts, ParamDesc,	0,	"RTS Threshold"
+	HKR,	Ndi\params\rts,type,0,"dword"
+	HKR,	Ndi\params\rts,min,,"0"
+	HKR,	Ndi\params\rts,max,,"2347"
+	HKR,	Ndi\params\rts,default,,"2347"
+
+	HKR,	Ndi\params\NetworkAddress, ParamDesc,	0, "Locally Administered MAC Address"
+	HKR,	Ndi\params\NetworkAddress, type,	0, "edit"
+	HKR,	Ndi\params\NetworkAddress, LimitText,	0, "12"
+	HKR,	Ndi\params\NetworkAddress, UpperCase,  0, "1"
+	HKR,	Ndi\params\NetworkAddress, default,	0, ""
+	HKR,	Ndi\params\NetworkAddress, optional,	0, "1"
+
+[DestinationDirs]
+	DefaultDestDir=12
+	BCM43XX.files.NT = 12
+
+[SourceDisksNames]
+	1=%BCM43XX.DiskName%,,
+
+[SourceDisksFiles]
+	BCMWL5.SYS=1
+
+[strings]
+	; Provider
+	V_BCM = "Broadcom"
+	; PNP Devices
+	BCM430X.DeviceDesc	= "Dell TrueMobile 1180 Internal 802.11b Mini PCI Card"
+	; General Strings
+	BCM43XX_HELP		= "The TrueMobile 1180 Internal 802.11b Mini PCI Network Adapter provides local area networking over thin air."
+	BCM43XX.Service.DispName = "Dell TrueMobile 1180 Internal 802.11b Mini PCI Adapter Driver"
+	BCM43XX.DiskName = "Dell TrueMobile 1180 Internal 802.11b Mini PCI Adapter Install Disk"

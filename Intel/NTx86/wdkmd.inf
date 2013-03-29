@@ -1,0 +1,117 @@
+;
+; WiDiCaptureDriver INF file
+; Kannan Ramanathan (Mar 22, 2009)
+;
+
+; TODO: Add a COPYRIGHT directive
+
+;--------------------------------------------------------------------------------------
+[Version]
+Signature 	= "$WINDOWS NT$"
+Class		= WIDI
+ClassGUID	= {034F6FB2-1BCC-41c9-9FD2-DBB357DE0838} ;{1BE71309-9E9D-4e2c-827C-006D6B3297A0}
+Provider	= %IntelCorporation%
+DriverPackageDisplayName = %WiDi.PkgDesc%
+CatalogFile.ntx86 = wdkmdx86.cat ; 32bit
+CatalogFile.ntamd64 = wdkmdx64.cat ; 64bit
+DriverVer=03/09/2011,2.1.31.0
+
+
+;--------------------------------------------------------------------------------------
+[DestinationDirs]
+DefaultDestDir = 12
+
+;--------------------------------------------------------------------------------------
+; Class Installer section
+;--------------------------------------------------------------------------------------
+[ClassInstall]
+Addreg=WiDiClassReg     
+
+[ClassInstall32]
+Addreg=WiDiClassReg     
+
+[WiDiClassReg]
+HKR,,,0,%ClassName%
+HKR,,Icon,,-5
+HKR,,DeviceCharacteristics,0x10001,0x100     ;Use same security checks on relative opens
+HKR,,Security,,"D:P(A;;GA;;;SY)(A;;GA;;;BA)" ;Allow generic all access to system and built-in Admin. 
+                                             ;This one overrides the security set by the driver
+;HKR,,NoUseClass,,1	;Class will not be seen anywhere
+;HKR,,NoInstallClass,,1	;Class is not shown in New Device Wizard
+HKR,,NoDisplayClass,,1	;Class will not be displayed by Device Manager
+;HKR,,SilentInstall,,1	;Class is installed without any user interaction
+
+;--------------------------------------------------------------------------------------
+; Device installation section											 
+;--------------------------------------------------------------------------------------											 
+[Manufacturer]
+%StdMfg%=Standard, NTx86
+
+; For 32bit/64bit XP and later
+[Standard.NTx86]
+%WiDi.DeviceDesc%=WiDi_Device, {034F6FB2-1BCC-41c9-9FD2-DBB357DE0838}\IntelWiDi
+
+[WiDi_Device.NT]
+CopyFiles=WiDi_Device.NT.Copy
+
+[WiDi_Device.NT.Copy]
+WDKMD.sys
+
+;--------------------------------------------------------------------------------------
+; Service installation section
+;--------------------------------------------------------------------------------------
+[WiDi_Device.NT.Services]
+AddService = wdkmd, %SPSVCINST_ASSOCSERVICE%, wdkmd_Service_Inst
+
+[wdkmd_Service_Inst]
+DisplayName    = %WiDi.SVCDESC%
+ServiceType    = 1               ; SERVICE_KERNEL_DRIVER
+StartType      = 3               ; SERVICE_DEMAND_START 
+ErrorControl   = 1               ; SERVICE_ERROR_NORMAL
+ServiceBinary  = %12%\WDKMD.sys
+LoadOrderGroup = Extended Base
+
+;--------------------------------------------------------------------------------------
+; Coinstaller section
+;--------------------------------------------------------------------------------------
+[DestinationDirs]
+WiDi_Device_CoInstaller_CopyFiles = 11
+
+[WiDi_Device.NT.CoInstallers]
+AddReg          = WiDi_Device_CoInstaller_AddReg
+CopyFiles       = WiDi_Device_CoInstaller_CopyFiles
+
+[WiDi_Device_CoInstaller_AddReg]
+HKR,,CoInstallers32,0x00010000, "WdfCoInstaller01009.dll,WdfCoInstaller"
+
+[WiDi_Device_CoInstaller_CopyFiles]
+WdfCoInstaller01009.dll
+
+[WiDi_Device.NT.Wdf]
+KmdfService              = wdkmd, wdkmd_wdfsect
+
+[wdkmd_wdfsect]
+KmdfLibraryVersion       = 1.9
+
+;--------------------------------------------------------------------------------------
+; Media section
+;--------------------------------------------------------------------------------------
+[SourceDisksNames]
+1 = %DiskId1%,,,""
+
+[SourceDisksFiles]
+WDKMD.sys  = 1
+WdfCoInstaller01009.dll=1 ; make sure the number matches with SourceDisksNames
+
+;--------------------------------------------------------------------------------------
+; Misc sections
+;--------------------------------------------------------------------------------------
+[Strings]
+SPSVCINST_ASSOCSERVICE	= 0x00000002
+IntelCorporation 	= "Intel Corporation"
+StdMfg 			= "(Standard system devices)"
+ClassName 		= "Intel® WiDi"
+DiskId1 		= "WDKMD Installation CD"
+WiDi.DeviceDesc = "WDKMD"
+WiDi.PkgDesc	= "WDKMD Installation package"
+WiDi.SVCDESC 	= "Intel WiDi KMD"

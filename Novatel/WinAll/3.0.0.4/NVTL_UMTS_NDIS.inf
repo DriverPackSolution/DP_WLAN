@@ -1,0 +1,158 @@
+;------------------------------------------------------------------------------
+; Novatel Wireless UMTS Network Adapter
+; Installation file (.inf).
+; (c) Copyright 2004 Novatel Wireless Inc. 
+;------------------------------------------------------------------------------
+;
+;when       who     what, where, why
+;--------   -----   -----------------------------------------------------------
+;02/25/04   SKhale  Added UMTS related registry settings
+;10/22/03   SKhale  Updated for NVTL NDIS drivers
+;------------------------------------------------------------------------------
+
+;-------------------------------------------------------------------------------
+; INF Version Section
+;-------------------------------------------------------------------------------
+[version]
+signature      = "$Chicago$"
+Class          = Net
+ClassGUID      = {4D36E972-E325-11CE-BFC1-08002BE10318}
+Compatible     = 1
+Provider       = %nwProvider%
+CatalogFile.NT = nwtumts.cat
+DriverVer      = 11/22/2004,1.6.1.0
+
+;-------------------------------------------------------------------------------
+; INF ControlFlags Section
+;-------------------------------------------------------------------------------
+[ControlFlags]
+ExcludeFromSelect = MF\NOVATEL_WIRELESS-MERLIN_UMTS_NDIS-D022
+
+;-------------------------------------------------------------------------------
+; INF Manufacturer Section
+;-------------------------------------------------------------------------------
+[Manufacturer]
+%nwProvider% = nwModelSectionList
+
+;-------------------------------------------------------------------------------
+; INF Models Section
+;-------------------------------------------------------------------------------
+[nwModelSectionList]
+%*NOVATEL.devicedesc% = *novatel.ndi, MF\NOVATEL_WIRELESS-MERLIN_UMTS_NDIS-D022
+
+;-------------------------------------------------------------------------------
+; File Copy Section 
+;-------------------------------------------------------------------------------
+[SourceDisksNames]
+1 = %novatel_disk%,,,""
+
+[SourceDisksFiles]
+NWU530.sys = 1,,
+
+[DestinationDirs]
+DefaultDestDir = 11 ; system dir
+NDIS_NT_DRIVER = 12 ; system32\drivers
+
+[NDIS_NT_DRIVER]
+NWU530.sys,,,2
+
+;-------------------------------------------------------------------------------
+; INF DDInstall Section
+;-------------------------------------------------------------------------------
+[*novatel.ndi.NT]
+AddReg          = novatel.w2k.reg, NOVATEL.params.reg
+CopyFiles       = NDIS_NT_DRIVER
+Characteristics = 0x84 ; NCF_ flags
+BusType         = 8
+
+;-------------------------------------------------------------------------------
+; INF DDInstall.Services Section
+;-------------------------------------------------------------------------------
+[*novatel.ndi.NT.Services]
+AddService = %Novatel.Service.Name%, 2, novatel.Service, novatel.EventLog
+
+;------------------------------------------------------------------------------
+; INF DDInstall.Services Service Section
+;-------------------------------------------------------------------------------
+[novatel.Service]
+DisplayName     = %novatel.Service.DispName%
+ServiceType     = 1 ;%SERVICE_KERNEL_DRIVER%
+StartType       = 3 ;%SERVICE_DEMAND_START%
+ErrorControl    = 1 ;%SERVICE_ERROR_NORMAL%
+ServiceBinary   = %12%\NWU530.sys
+LoadOrderGroup  = NDIS
+
+;------------------------------------------------------------------------------
+; INF DDInstall.Services Eventlog Section
+;-------------------------------------------------------------------------------
+[novatel.EventLog]
+AddReg = novatel.AddEventLog.reg
+
+[novatel.AddEventLog.reg]
+HKR, , EventMessageFile, 0x00020000, "%%SystemRoot%%\System32\netevent.dll"
+HKR, , TypesSupported,   0x00010001, 7
+
+;-------------------------------------------------------------------------------
+; INF DDInstall AddReg Section
+;-------------------------------------------------------------------------------
+[novatel.w2k.reg]
+HKR, Ndi, Service, 0,%Novatel.Service.Name%
+HKR, Ndi\Interfaces, UpperRange, 0, "ndis5"
+HKR, Ndi\Interfaces, LowerRange, 0, "ethernet"
+
+;-------------------------------------------------------------------------------
+; INF DDInstall AddReg Section - Optional Custom Parameters
+;-------------------------------------------------------------------------------
+[NOVATEL.params.reg]
+HKR, NDI\params\NetworkAddress, ParamDesc, 0, %NetworkAddress%
+HKR, NDI\params\NetworkAddress, type,      0, "edit"
+HKR, NDI\params\NetworkAddress, LimitText, 0, "12"
+HKR, NDI\params\NetworkAddress, UpperCase, 0, "1"
+HKR, NDI\params\NetworkAddress, default,   0, " "
+HKR, NDI\params\NetworkAddress, optional,  0, "1"
+
+;-------------------------------------------------------------------------------
+; INF W9x DDInstall Section 
+;-------------------------------------------------------------------------------
+[*NOVATEL.ndi]
+AddReg    = *NOVATEL.ndi.reg, NOVATEL.ndi.reg, NOVATEL.params.reg
+CopyFiles = NDIS_NT_DRIVER
+
+;-------------------------------------------------------------------------------
+; INF W9x DDInstall AddReg Section - PnP ID
+;-------------------------------------------------------------------------------
+[*NOVATEL.ndi.reg]
+HKR,Ndi,DeviceID,,"*NOVATEL"	
+
+;-------------------------------------------------------------------------------
+; INF W9x DDInstall AddReg Section 
+;-------------------------------------------------------------------------------
+[NOVATEL.ndi.reg]
+HKR,,DevLoader    ,, *ndis
+HKR,,DeviceVxDs   ,, NWU530.sys
+HKR,,EnumPropPages,, "netdi.dll,EnumPropPages"
+; NDIS Info
+HKR,NDIS,LogDriverName,,"novatel"
+HKR,NDIS,MajorNdisVersion,1,05
+HKR,NDIS,MinorNdisVersion,1,00
+; Interfaces
+HKR, Ndi\Interfaces, DefUpper   ,, "ndis3,ndis4,ndis5"
+HKR, Ndi\Interfaces, UpperRange ,, "ndis3,ndis4,ndis5"
+HKR, Ndi\Interfaces, LowerRange ,, "ethernet"
+HKR, Ndi\Interfaces, DefLower   ,, "ethernet"
+; Install sections
+HKR,Ndi\Install,ndis5,,"novatel.ndis5"
+
+;-------------------------------------------------------------------------------
+; INF Strings Section
+;-------------------------------------------------------------------------------
+[strings]
+nwProvider               = "Novatel Wireless Inc"
+*NOVATEL.DeviceDesc      = "Novatel Wireless UMTS Network Adapter"
+Novatel.Service.Name     = "NWU530"
+novatel.Service.DispName = "Novatel Wireless UMTS Network Adapter"
+NetworkAddress           = "Network Address (MAC)"
+novatel_disk             = "Novatel Wireless UMTS Driver Install Disk"
+
+
+ 

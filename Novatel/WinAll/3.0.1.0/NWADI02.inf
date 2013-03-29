@@ -1,0 +1,91 @@
+;-------------------------------------------------------------------------------
+; Novatel Wireless Additional Device Interface Bus Enumerator  
+; Module Name -- NWADIEnum.inf
+; Copyright (c) 2004 Novatel Wireless Inc.
+;-------------------------------------------------------------------------------
+;
+;when          who   what, where, why
+;-----------   ---   -----------------------------------------------------------
+; 2 Feb 2005    SK   Initial release for EVDO NDIS
+;29 Jul 2005    SK   Updated drivers
+;12/02/05	SK   Fixed I/O Conflict
+;-------------------------------------------------------------------------------
+
+;-------------------------------------------------------------------------------
+; INF Version Section
+;-------------------------------------------------------------------------------
+[Version]
+Signature      ="$WINDOWS NT$"
+Class          =System
+ClassGuid      ={4D36E97D-E325-11CE-BFC1-08002BE10318}
+Provider       =%NW%
+DriverVer      =02/03/2006,1.0.1.8
+CatalogFile.NT = NWADI02.cat
+
+;-------------------------------------------------------------------------------
+; INF Manufactuerer Section
+;-------------------------------------------------------------------------------
+[Manufacturer]
+%NW%=Models
+
+;-------------------------------------------------------------------------------
+; INF ControlFlags Section
+;-------------------------------------------------------------------------------
+[ControlFlags]
+ExcludeFromSelect = *
+
+;-------------------------------------------------------------------------------
+; INF Models Section
+;-------------------------------------------------------------------------------
+[Models]
+%NWADIEnumDesc%=NWADI, ROOT\NWADI
+
+;-------------------------------------------------------------------------------
+; INF SourceDisksNames Section
+;-------------------------------------------------------------------------------
+[SourceDisksNames]
+1 = %NWSRCDISK%,,,""
+
+;-------------------------------------------------------------------------------
+; INF SourceDisksFiles Section
+;-------------------------------------------------------------------------------
+[SourceDisksFiles]
+nwadi02.sys  = 1,,
+
+[NWDriverFiles]
+NWADIenum.sys,nwadi02.sys
+
+;-------------------------------------------------------------------------------
+; INF DestinationDirs Section
+;-------------------------------------------------------------------------------
+[DestinationDirs]
+NWDriverFiles  = 12
+DefaultDestDir = 12
+
+;-------------------------------------------------------------------------------
+; INF DDInstall Section
+;-------------------------------------------------------------------------------
+[NWADI.NT]
+CopyFiles = NWDriverFiles
+
+;-------------------------------------------------------------------------------
+; INF DDInstall.Services Section
+;-------------------------------------------------------------------------------
+[NWADI.NT.Services]
+AddService = NWADI,0x00000002,NWADIEnum_Service_Inst
+
+[NWADIEnum_Service_Inst]
+DisplayName    = %NWADIEnumDesc%
+ServiceType    = 1               ; SERVICE_KERNEL_DRIVER
+StartType      = 3               ; SERVICE_DEMAND_START 
+ErrorControl   = 1               ; SERVICE_ERROR_NORMAL
+ServiceBinary  = %12%\NWADIenum.sys
+LoadOrderGroup = Extended Base
+
+;-------------------------------------------------------------------------------
+; INF Strings Section
+;-------------------------------------------------------------------------------
+[Strings]
+NW                    = "Novatel Wireless Inc"
+NWSRCDISK             = "Novatel Wireless Driver Disk"
+NWADIEnumDesc         = "NWADI Bus Enumerator"

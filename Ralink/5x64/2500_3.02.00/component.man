@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<assembly xmlns="urn:schemas-microsoft-com:asm.v3" manifestVersion="1.0">
+  <assemblyIdentity name="rt2500.inf" version="3.2.0.0" processorArchitecture="amd64" language="neutral" publicKeyToken="43EFBDAC24E217D94ABAD9C98E0C3EF23E5FA346" type="driver" xmlns:cmiv3ns="urn:schemas-microsoft-com:asm.v3" cmiv3ns:date="06/01/2006" />
+  <file name="rt2500.inf" sourceName="rt2500.inf">
+    <infFile xmlns="urn:schemas-microsoft-com:asm.v3" />
+  </file>
+  <file name="RT2500.CAT" sourceName="">
+    <catalog xmlns="urn:schemas-microsoft-com:asm.v3" />
+  </file>
+  <file name="RT2500.sys" destinationPath="$(runtime.drivers)\" sourceName="RT2500.sys" />
+  <memberships>
+    <categoryMembership>
+      <id name="Microsoft.Windows.Categories.Services" version="1.0.0.0" typeName="Service" />
+      <categoryInstance subcategory="RT2500">
+        <serviceData name="RT2500" displayName="RT2500 Wireless Driver" errorControl="normal" group="NDIS" imagePath="\SystemRoot\system32\drivers\rt2500.sys" start="demand" type="kernelDriver" />
+      </categoryInstance>
+    </categoryMembership>
+  </memberships>
+  <registryKeys>
+    <registryKey keyName="HKLM\System\CurrentControlSet\Services\EventLog\System\RT2500" owner="false">
+      <registryValue name="EventMessageFile" valueType="REG_EXPAND_SZ" value="%SystemRoot%\System32\netevent.dll,%SystemRoot%\System32\drivers\RT2500.sys" operationHint="replace" owner="true" />
+      <registryValue name="TypesSupported" valueType="REG_DWORD" value="0x00000007" operationHint="replace" owner="true" />
+    </registryKey>
+  </registryKeys>
+  <pnpInfo xmlns="urn:schemas-microsoft-com:asm.v3" xmlns:p1="urn:schemas-microsoft-com:asm.v3" p1:isCriticalDevice="false" p1:classGuid="{4d36e972-e325-11ce-bfc1-08002be10318}">
+    <pnpID p1:pnpID="PCI\VEN_1814&amp;DEV_0201&amp;SUBSYS_25601814" p1:isOriginalID="true" p1:isCompatibleID="false" p1:serviceName="RT2500" p1:lowerFilter="" p1:upperFilter="" />
+    <pnpID p1:pnpID="PCI\VEN_1814&amp;DEV_0201&amp;SUBSYS_615118E8" p1:isOriginalID="true" p1:isCompatibleID="false" p1:serviceName="RT2500" p1:lowerFilter="" p1:upperFilter="" />
+    <pnpID p1:pnpID="PCI\VEN_1814&amp;DEV_0201&amp;SUBSYS_614618E8" p1:isOriginalID="true" p1:isCompatibleID="false" p1:serviceName="RT2500" p1:lowerFilter="" p1:upperFilter="" />
+    <pnpID p1:pnpID="PCI\VEN_1814&amp;DEV_0201&amp;SUBSYS_68331462" p1:isOriginalID="true" p1:isCompatibleID="false" p1:serviceName="RT2500" p1:lowerFilter="" p1:upperFilter="" />
+    <pnpID p1:pnpID="PCI\VEN_1814&amp;DEV_0201&amp;SUBSYS_68341462" p1:isOriginalID="true" p1:isCompatibleID="false" p1:serviceName="RT2500" p1:lowerFilter="" p1:upperFilter="" />
+    <pnpID p1:pnpID="PCI\VEN_1814&amp;DEV_0201&amp;SUBSYS_68351462" p1:isOriginalID="true" p1:isCompatibleID="false" p1:serviceName="RT2500" p1:lowerFilter="" p1:upperFilter="" />
+    <pnpID p1:pnpID="PCI\VEN_1814&amp;DEV_0201&amp;SUBSYS_12A0185F" p1:isOriginalID="true" p1:isCompatibleID="false" p1:serviceName="RT2500" p1:lowerFilter="" p1:upperFilter="" />
+    <pnpID p1:pnpID="PCI\VEN_1814&amp;DEV_0201&amp;SUBSYS_22A0185F" p1:isOriginalID="true" p1:isCompatibleID="false" p1:serviceName="RT2500" p1:lowerFilter="" p1:upperFilter="" />
+    <pnpID p1:pnpID="PCI\VEN_1814&amp;DEV_0201&amp;SUBSYS_914016EF&amp;REV_01" p1:isOriginalID="true" p1:isCompatibleID="false" p1:serviceName="RT2500" p1:lowerFilter="" p1:upperFilter="" />
+    <pnpID p1:pnpID="PCI\VEN_1814&amp;DEV_0201&amp;SUBSYS_922016EF&amp;REV_01" p1:isOriginalID="true" p1:isCompatibleID="false" p1:serviceName="RT2500" p1:lowerFilter="" p1:upperFilter="" />
+    <pnpID p1:pnpID="PCI\VEN_1814&amp;DEV_0201&amp;SUBSYS_923016EF&amp;REV_01" p1:isOriginalID="true" p1:isCompatibleID="false" p1:serviceName="RT2500" p1:lowerFilter="" p1:upperFilter="" />
+    <pnpID p1:pnpID="PCI\VEN_1814&amp;DEV_0201&amp;SUBSYS_001E1371" p1:isOriginalID="true" p1:isCompatibleID="false" p1:serviceName="RT2500" p1:lowerFilter="" p1:upperFilter="" />
+    <pnpID p1:pnpID="PCI\VEN_1814&amp;DEV_0201&amp;SUBSYS_00201371" p1:isOriginalID="true" p1:isCompatibleID="false" p1:serviceName="RT2500" p1:lowerFilter="" p1:upperFilter="" />
+    <pnpID p1:pnpID="PCI\VEN_1814&amp;DEV_0201&amp;SUBSYS_001F1371" p1:isOriginalID="true" p1:isCompatibleID="false" p1:serviceName="RT2500" p1:lowerFilter="" p1:upperFilter="" />
+    <pnpID p1:pnpID="PCI\VEN_1814&amp;DEV_0201&amp;SUBSYS_107F1043" p1:isOriginalID="true" p1:isCompatibleID="false" p1:serviceName="RT2500" p1:lowerFilter="" p1:upperFilter="" />
+    <pnpID p1:pnpID="PCI\VEN_1814&amp;DEV_0201&amp;SUBSYS_127F1043" p1:isOriginalID="true" p1:isCompatibleID="false" p1:serviceName="RT2500" p1:lowerFilter="" p1:upperFilter="" />
+    <pnpID p1:pnpID="PCI\VEN_1814&amp;DEV_0201&amp;SUBSYS_130F1043" p1:isOriginalID="true" p1:isCompatibleID="false" p1:serviceName="RT2500" p1:lowerFilter="" p1:upperFilter="" />
+    <pnpID p1:pnpID="PCI\VEN_1814&amp;DEV_0201&amp;SUBSYS_137F1043" p1:isOriginalID="true" p1:isCompatibleID="false" p1:serviceName="RT2500" p1:lowerFilter="" p1:upperFilter="" />
+    <pnpID p1:pnpID="PCI\VEN_1814&amp;DEV_0201&amp;SUBSYS_137E1043" p1:isOriginalID="true" p1:isCompatibleID="false" p1:serviceName="RT2500" p1:lowerFilter="" p1:upperFilter="" />
+    <pnpID p1:pnpID="PCI\VEN_1814&amp;DEV_0201&amp;SUBSYS_70104033" p1:isOriginalID="true" p1:isCompatibleID="false" p1:serviceName="RT2500" p1:lowerFilter="" p1:upperFilter="" />
+    <pnpID p1:pnpID="PCI\VEN_1814&amp;DEV_0201&amp;SUBSYS_03615A57" p1:isOriginalID="true" p1:isCompatibleID="false" p1:serviceName="RT2500" p1:lowerFilter="" p1:upperFilter="" />
+    <pnpID p1:pnpID="PCI\VEN_1814&amp;DEV_0201&amp;SUBSYS_03605A57" p1:isOriginalID="true" p1:isCompatibleID="false" p1:serviceName="RT2500" p1:lowerFilter="" p1:upperFilter="" />
+    <pnpID p1:pnpID="PCI\VEN_1814&amp;DEV_0201&amp;SUBSYS_01605A57" p1:isOriginalID="true" p1:isCompatibleID="false" p1:serviceName="RT2500" p1:lowerFilter="" p1:upperFilter="" />
+    <pnpID p1:pnpID="PCI\VEN_1814&amp;DEV_0201&amp;SUBSYS_300918A3" p1:isOriginalID="true" p1:isCompatibleID="false" p1:serviceName="RT2500" p1:lowerFilter="" p1:upperFilter="" />
+    <pnpID p1:pnpID="PCI\VEN_1814&amp;DEV_0201&amp;SUBSYS_301018A3" p1:isOriginalID="true" p1:isCompatibleID="false" p1:serviceName="RT2500" p1:lowerFilter="" p1:upperFilter="" />
+    <pnpID p1:pnpID="PCI\VEN_1814&amp;DEV_0201&amp;SUBSYS_531018EB" p1:isOriginalID="true" p1:isCompatibleID="false" p1:serviceName="RT2500" p1:lowerFilter="" p1:upperFilter="" />
+    <pnpID p1:pnpID="PCI\VEN_1814&amp;DEV_0201&amp;SUBSYS_531118EB" p1:isOriginalID="true" p1:isCompatibleID="false" p1:serviceName="RT2500" p1:lowerFilter="" p1:upperFilter="" />
+    <pnpID p1:pnpID="PCI\VEN_1814&amp;DEV_0201&amp;SUBSYS_531218EB" p1:isOriginalID="true" p1:isCompatibleID="false" p1:serviceName="RT2500" p1:lowerFilter="" p1:upperFilter="" />
+    <pnpID p1:pnpID="PCI\VEN_1814&amp;DEV_0201&amp;SUBSYS_12801688" p1:isOriginalID="true" p1:isCompatibleID="false" p1:serviceName="RT2500" p1:lowerFilter="" p1:upperFilter="" />
+    <pnpID p1:pnpID="PCI\VEN_1814&amp;DEV_0201&amp;SUBSYS_43061113" p1:isOriginalID="true" p1:isCompatibleID="false" p1:serviceName="RT2500" p1:lowerFilter="" p1:upperFilter="" />
+    <pnpID p1:pnpID="PCI\VEN_1814&amp;DEV_0201&amp;SUBSYS_71081432" p1:isOriginalID="true" p1:isCompatibleID="false" p1:serviceName="RT2500" p1:lowerFilter="" p1:upperFilter="" />
+    <pnpID p1:pnpID="PCI\VEN_1814&amp;DEV_0201&amp;SUBSYS_71281432" p1:isOriginalID="true" p1:isCompatibleID="false" p1:serviceName="RT2500" p1:lowerFilter="" p1:upperFilter="" />
+    <pnpID p1:pnpID="PCI\VEN_1814&amp;DEV_0201&amp;SUBSYS_0C541432" p1:isOriginalID="true" p1:isCompatibleID="false" p1:serviceName="RT2500" p1:lowerFilter="" p1:upperFilter="" />
+    <pnpID p1:pnpID="PCI\VEN_1814&amp;DEV_0201&amp;SUBSYS_0B541432" p1:isOriginalID="true" p1:isCompatibleID="false" p1:serviceName="RT2500" p1:lowerFilter="" p1:upperFilter="" />
+    <pnpID p1:pnpID="PCI\VEN_1814&amp;DEV_0201&amp;SUBSYS_942810bd" p1:isOriginalID="true" p1:isCompatibleID="false" p1:serviceName="RT2500" p1:lowerFilter="" p1:upperFilter="" />
+    <pnpID p1:pnpID="PCI\VEN_1814&amp;DEV_0201&amp;SUBSYS_932110bd" p1:isOriginalID="true" p1:isCompatibleID="false" p1:serviceName="RT2500" p1:lowerFilter="" p1:upperFilter="" />
+    <pnpID p1:pnpID="PCI\VEN_1814&amp;DEV_0201&amp;SUBSYS_932210bd" p1:isOriginalID="true" p1:isCompatibleID="false" p1:serviceName="RT2500" p1:lowerFilter="" p1:upperFilter="" />
+    <pnpID p1:pnpID="PCI\VEN_1814&amp;DEV_0201&amp;SUBSYS_E8311458" p1:isOriginalID="true" p1:isCompatibleID="false" p1:serviceName="RT2500" p1:lowerFilter="" p1:upperFilter="" />
+    <pnpID p1:pnpID="PCI\VEN_1814&amp;DEV_0201&amp;SUBSYS_E9311458" p1:isOriginalID="true" p1:isCompatibleID="false" p1:serviceName="RT2500" p1:lowerFilter="" p1:upperFilter="" />
+    <pnpID p1:pnpID="PCI\VEN_1814&amp;DEV_0201&amp;SUBSYS_E9321458" p1:isOriginalID="true" p1:isCompatibleID="false" p1:serviceName="RT2500" p1:lowerFilter="" p1:upperFilter="" />
+    <pnpID p1:pnpID="PCI\VEN_1814&amp;DEV_0201&amp;SUBSYS_011014CB" p1:isOriginalID="true" p1:isCompatibleID="false" p1:serviceName="RT2500" p1:lowerFilter="" p1:upperFilter="" />
+    <pnpID p1:pnpID="PCI\VEN_1814&amp;DEV_0201&amp;SUBSYS_011114CB" p1:isOriginalID="true" p1:isCompatibleID="false" p1:serviceName="RT2500" p1:lowerFilter="" p1:upperFilter="" />
+    <pnpID p1:pnpID="PCI\VEN_1814&amp;DEV_0201&amp;SUBSYS_301118A3" p1:isOriginalID="true" p1:isCompatibleID="false" p1:serviceName="RT2500" p1:lowerFilter="" p1:upperFilter="" />
+    <pnpID p1:pnpID="PCI\VEN_1814&amp;DEV_0201&amp;SUBSYS_301318A3" p1:isOriginalID="true" p1:isCompatibleID="false" p1:serviceName="RT2500" p1:lowerFilter="" p1:upperFilter="" />
+    <pnpID p1:pnpID="PCI\VEN_1814&amp;DEV_0201&amp;SUBSYS_9070182D" p1:isOriginalID="true" p1:isCompatibleID="false" p1:serviceName="RT2500" p1:lowerFilter="" p1:upperFilter="" />
+    <pnpID p1:pnpID="PCI\VEN_1814&amp;DEV_0201&amp;SUBSYS_9073182D" p1:isOriginalID="true" p1:isCompatibleID="false" p1:serviceName="RT2500" p1:lowerFilter="" p1:upperFilter="" />
+    <pnpID p1:pnpID="PCI\VEN_1814&amp;DEV_0201&amp;SUBSYS_3C800681" p1:isOriginalID="true" p1:isCompatibleID="false" p1:serviceName="RT2500" p1:lowerFilter="" p1:upperFilter="" />
+    <pnpID p1:pnpID="PCI\VEN_1814&amp;DEV_0201&amp;SUBSYS_3C001948" p1:isOriginalID="true" p1:isCompatibleID="false" p1:serviceName="RT2500" p1:lowerFilter="" p1:upperFilter="" />
+    <pnpID p1:pnpID="PCI\VEN_1814&amp;DEV_0201&amp;SUBSYS_3C011948" p1:isOriginalID="true" p1:isCompatibleID="false" p1:serviceName="RT2500" p1:lowerFilter="" p1:upperFilter="" />
+    <pnpID p1:pnpID="PCI\VEN_1814&amp;DEV_0201&amp;SUBSYS_61201371" p1:isOriginalID="true" p1:isCompatibleID="false" p1:serviceName="RT2500" p1:lowerFilter="" p1:upperFilter="" />
+    <pnpID p1:pnpID="PCI\VEN_1814&amp;DEV_0201&amp;SUBSYS_71201371" p1:isOriginalID="true" p1:isCompatibleID="false" p1:serviceName="RT2500" p1:lowerFilter="" p1:upperFilter="" />
+    <pnpID p1:pnpID="PCI\VEN_1814&amp;DEV_0201&amp;SUBSYS_81201371" p1:isOriginalID="true" p1:isCompatibleID="false" p1:serviceName="RT2500" p1:lowerFilter="" p1:upperFilter="" />
+  </pnpInfo>
+  <driverPackage xmlns="urn:schemas-microsoft-com:asm.v3" />
+</assembly>

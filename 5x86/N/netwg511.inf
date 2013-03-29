@@ -1,0 +1,343 @@
+;***********************************************************************
+;
+; NETWG511.INF
+;
+;   This installation script supports Windows 98se,Me,2000&XP for the
+;   WG511 Wireless LAN Adapters.
+;
+;   Copyright (c) 2004.
+;   All Rights Reserved.
+;
+;***********************************************************************
+
+[Version]
+ DriverVer = 09/06/2004, 2.1.25
+ Signature           = "$Chicago$"
+ Compatible          = 1
+ Class               = Net
+ ClassGUID           = {4d36e972-e325-11ce-bfc1-08002be10318}
+ Provider            = %VER_VENDOR_STR%
+ ;CatalogFile         = NETWG511.cat
+ MillenniumPreferred = .ME
+
+[ControlFlags]
+;Exclude all PNP adapters from user selection
+ ExcludeFromSelect   = *
+
+[Manufacturer]
+ %VER_VENDOR_NAME_STR% = DeviceList
+
+[DeviceList]
+ %DCB_DESC_STR%     = PRISM_DCB2,        PCI\VEN_1260&DEV_3890&SUBSYS_00001260
+ %DCB_DESC_STR%     = PRISM_DCB1,        PCI\VEN_1260&DEV_3890&SUBSYS_48001385
+
+;==========================================
+[PRISM_DCB1]       ; Win9x
+ DelReg         = COMMON_A00_DEL.reg
+ AddReg         = PRISM_DCB1.reg, COMMON_ICB.reg, COMMON_NDIS.reg, COMMON.reg
+ CopyFiles      = PRISM_DRIVER.copy
+ DelFiles       = PRISM_FW.del
+ 
+[PRISM_DCB1.ME]    ; WinMe
+ DelReg         = COMMON_A00_DEL.reg
+ AddReg         = PRISM_DCB1.reg, COMMON_ICB.reg, COMMON_NDIS.reg.ME, COMMON.reg
+ CopyFiles      = PRISM_DRIVER.copy.ME
+ DelFiles       = PRISM_FW.del.ME
+
+[PRISM_DCB1.ME.ME] ; WinMe - Same as .ME (Needed for Update Driver)
+ DelReg         = COMMON_A00_DEL.reg
+ AddReg         = PRISM_DCB1.reg, COMMON_ICB.reg, COMMON_NDIS.reg.ME, COMMON.reg
+ CopyFiles      = PRISM_DRIVER.copy.ME
+ DelFiles       = PRISM_FW.del.ME
+
+[PRISM_DCB1.NT]    ; Win2k
+ DelReg         = COMMON_A00_DEL.reg
+ AddReg         = PRISM_DCB1.reg, COMMON_ICB.reg, COMMON_NDIS.reg.NT, COMMON.reg
+ CopyFiles      = PRISM_DRIVER.copy.NT
+ DelFiles       = PRISM_FW.del.NT
+ BusType        = 5     ; PCI
+ Characteristics= 0x84  ; NCF_PHYSICAL | NCF_HAS_UI
+ 
+[PRISM_DCB1.NT.Services]
+ AddService     = "PRISM_ICB", 2, PRISM_DRIVER_DCB.Service, PRISM_DRIVER.EventLog
+
+[PRISM_DCB1.reg]
+ HKR,Ndi,DeviceID,0,"PCI\VEN_1260&DEV_3890&SUBSYS_48001385"
+; 0x3890 = 14480, 0 = GT
+ HKR,,PlatformID,0,14480
+ HKR,,VendorDesc,0,%DCB_DESC_STR%
+ 
+;==========================================
+[PRISM_DCB2]       ; Win9x
+ DelReg         = COMMON_A00_DEL.reg
+ AddReg         = PRISM_DCB2.reg, COMMON_ICB.reg, COMMON_NDIS.reg, COMMON.reg
+ CopyFiles      = PRISM_DRIVER.copy
+ DelFiles       = PRISM_FW.del
+
+[PRISM_DCB2.ME]    ; WinMe
+ DelReg         = COMMON_A00_DEL.reg
+ AddReg         = PRISM_DCB2.reg, COMMON_ICB.reg, COMMON_NDIS.reg.ME, COMMON.reg
+ CopyFiles      = PRISM_DRIVER.copy.ME
+ DelFiles       = PRISM_FW.del.ME
+
+[PRISM_DCB2.ME.ME] ; WinMe - Same as .ME (Needed for Update Driver)
+ DelReg         = COMMON_A00_DEL.reg
+ AddReg         = PRISM_DCB2.reg, COMMON_ICB.reg, COMMON_NDIS.reg.ME, COMMON.reg
+ CopyFiles      = PRISM_DRIVER.copy.ME
+ DelFiles       = PRISM_FW.del.ME
+
+[PRISM_DCB2.NT]    ; Win2k
+ DelReg         = COMMON_A00_DEL.reg
+ AddReg         = PRISM_DCB2.reg, COMMON_ICB.reg, COMMON_NDIS.reg.NT, COMMON.reg
+ CopyFiles      = PRISM_DRIVER.copy.NT
+ DelFiles       = PRISM_FW.del.NT
+ BusType        = 5     ; PCI
+ Characteristics= 0x84  ; NCF_PHYSICAL | NCF_HAS_UI
+ 
+[PRISM_DCB2.NT.Services]
+ AddService     = "PRISM_ICB", 2, PRISM_DRIVER_DCB.Service, PRISM_DRIVER.EventLog
+
+[PRISM_DCB2.reg]
+ HKR,Ndi,DeviceID,0,"PCI\VEN_1260&DEV_3890&SUBSYS_00001260"
+; 0x3890 = 14480, 0 = GT
+; HKR,,PlatformID,0,14480
+ HKR,,PlatformID,0,0
+ HKR,,VendorDesc,0,%DCB_DESC_STR%
+
+;###############################################################################
+[PRISM_DRIVER_DCB.Service]
+ DisplayName    = %PRISM_SERVICE_DISPLAY_DCB%
+ ServiceType    = 1    ; SERVICE_KERNEL_DRIVER
+ StartType      = 3    ; SERVICE_DEMAND_START
+ ErrorControl   = 1    ; NORMAL
+ ServiceBinary  = %12%\WG511ICB.sys
+ LoadOrderGroup = NDIS
+ 
+[PRISM_DRIVER.EventLog]
+ AddReg         = PRISM_DRIVER.EventLog.reg
+
+[PRISM_DRIVER.EventLog.reg]
+ HKR,           ,EventMessageFile       ,0x00020000     ,"%%SystemRoot%%\System32\netevent.dll"
+ HKR,           ,TypesSupported         ,0x00010001     ,7
+
+;###############################################################################
+;RegKey,SubKey          ,Name                   ,Type   ,Value
+;-------------          -----                   -----   ------
+[COMMON_ICB.reg]
+ HKR,NDI                ,Service                ,0      ,"PRISM_ICB"
+ HKR,                   ,BusType                ,0      ,"5"
+ HKR,                   ,DeviceVxDs             ,0      ,"WG511ICB.sys"
+ HKR,                   ,EnableIRQSharing       ,1      ,01,00,00,00
+ HKR,                   ,IOBaseAddress          ,1      ,02,00,00,00
+ HKR,                   ,InterruptNumber        ,1      ,04,00,00,00
+ HKR,                   ,CardBusBridgeLatencyTimer  ,0  ,"32"
+ HKR,                   ,CardBusBridgeCacheLineSize ,0  ,"8"
+
+[COMMON_NDIS.reg]
+ HKR,                   ,RunningWin9X           ,0      ,"1"
+ HKR,                   ,DevLoader              ,0      ,"*ndis"
+ HKR,                   ,EnumPropPages          ,0      ,"netdi.dll,EnumPropPages"
+ HKR,NDI\Interfaces     ,UpperRange             ,0      ,"ndis3"
+ HKR,NDI\Interfaces     ,LowerRange             ,0      ,"ethernet"
+ HKR,NDI\Interfaces     ,DefUpper               ,0      ,"ndis3"
+ HKR,NDI\Interfaces     ,DefLower               ,0      ,"ethernet"
+ HKR,NDIS               ,LogDriverName          ,0      ,"PRISM"
+ HKR,NDIS               ,MajorNdisVersion       ,1      ,04
+ HKR,NDIS               ,MinorNdisVersion       ,1      ,00
+
+[COMMON_NDIS.reg.ME]
+ HKR,                   ,RunningWin9X           ,0      ,"1"
+ HKR,                   ,DevLoader              ,0      ,"*ndis"
+ HKR,                   ,EnumPropPages          ,0      ,"netdi.dll,EnumPropPages"
+ HKR,NDI\Interfaces     ,UpperRange             ,0      ,"ndis5"
+ HKR,NDI\Interfaces     ,LowerRange             ,0      ,"ethernet"
+ HKR,NDI\Interfaces     ,DefUpper               ,0      ,"ndis5"
+ HKR,NDI\Interfaces     ,DefLower               ,0      ,"ethernet"
+ HKR,NDIS               ,LogDriverName          ,0      ,"PRISM"
+ HKR,NDIS               ,MajorNdisVersion       ,1      ,04
+ HKR,NDIS               ,MinorNdisVersion       ,1      ,00
+
+[COMMON_NDIS.reg.NT]
+ HKR,NDI\Interfaces     ,UpperRange             ,0      ,"ndis5"
+ HKR,NDI\Interfaces     ,LowerRange             ,0      ,"ethernet"
+ 
+[COMMON_A00_DEL.reg]
+ HKR,,FWFileName
+ 
+[COMMON.reg]
+ HKR,                   ,PRISMIOC 	        ,0      ,"1"
+ HKR,                   ,SilentInstall          ,0      ,"1"
+;Uncomment the line above to install without user interface prompts
+
+ HKR,			,SSID			,0	,%SSID_DEF_STR%
+ HKR,			,DefaultSSID		,0	,%UI_SSID_DEF_STR%
+ HKR,			,LanExpress		,0	,%LanExpress_STR%
+;11dMode, 0=Disable, 1=Strict, 2=Flexible
+ HKR,			,11dMode		,0	,"0"
+;Band, 0=Auto, 1=2.4G, 2=5G
+ HKR,			,Band			,0	,"1"
+;BandPreference, 0=Any, 1=2.4Over5G, 2=5Over2.4G
+ HKR,			,BandPreference		,0	,"0"
+ HKR,			,DSFreq			,0	,"2457000"
+ HKR,			,RTSThresh		,0	,"2347"
+ HKR,			,FragThresh		,0	,"2346"
+  
+;CountryCode
+ HKR,,CountryCode,0,%CCode_DEFAULT%
+ HKR,NDI\params\CountryCode,default,0,%CCode_DEFAULT%
+ HKR,NDI\params\CountryCode,ParamDesc,0,%CCode_Description%
+ HKR,NDI\params\CountryCode,type,0,enum
+ HKR,NDI\params\CountryCode,flag,1,30,00,00,00
+ HKR,NDI\params\CountryCode\enum,"DK",0,%CCode_Africa%
+ HKR,NDI\params\CountryCode\enum,"CH",0,%CCode_Asia%
+ HKR,NDI\params\CountryCode\enum,"AT",0,%CCode_Australia%
+ HKR,NDI\params\CountryCode\enum,"CA",0,%CCode_Canada%
+ HKR,NDI\params\CountryCode\enum,"GB",0,%CCode_Europe%
+ HKR,NDI\params\CountryCode\enum,"FR",0,%CCode_France%
+ ;HKR,NDI\params\CountryCode\enum,"IL",0,%CCode_Israel%
+ HKR,NDI\params\CountryCode\enum,"JP",0,%CCode_Japan%
+ ;HKR,NDI\params\CountryCode\enum,"MX",0,%CCode_Mexico%
+ HKR,NDI\params\CountryCode\enum,"BR",0,%CCode_SourthAmerica%
+ ;HKR,NDI\params\CountryCode\enum,"TW",0,%CCode_Taiwan%
+ HKR,NDI\params\CountryCode\enum,"US",0,%CCode_UnitedStates%
+ HKR,NDI\params\CountryCode,optional,0,0
+
+ HKR,,ConfigProfile,0,256
+ HKR,NDI\params\ConfigProfile,default,0,256
+ HKR,NDI\params\ConfigProfile,ParamDesc,,%CONFIG_PROFILE%
+ HKR,NDI\params\ConfigProfile,type,,enum
+ HKR,NDI\params\ConfigProfile,flag,1,30,00,00,00
+ HKR,NDI\params\ConfigProfile\enum,0,,%CONFIG_PROF_B_ONLY%
+ HKR,NDI\params\ConfigProfile\enum,1,,%CONFIG_PROF_MIXED%
+ ;HKR,NDI\params\ConfigProfile\enum,2,,%CONFIG_PROF_MIXED_LONG%
+ HKR,NDI\params\ConfigProfile\enum,3,,%CONFIG_PROF_G_ONLY%
+ ;HKR,NDI\params\ConfigProfile\enum,4,,%CONFIG_PROF_TEST%
+ ;HKR,NDI\params\ConfigProfile\enum,5,,%CONFIG_PROF_B_WIFI%
+ HKR,NDI\params\ConfigProfile\enum,256,,%CONFIG_PROF_WIFI_SPEC%
+ HKR,NDI\params\ConfigProfile,optional,0,0
+
+ HKR,,NitroMode,0,"1"
+
+ HKR,defaults,PSMode,0,1
+ HKR,,PSMode,0,1
+ HKR,Ndi\params\PSMode,default,0,1
+ HKR,NDI\params\PSMode,ParamDesc,,%POWER_SAVE_STR%
+ HKR,NDI\params\PSMode,type,,enum
+ HKR,NDI\params\PSMode,flag,1,30,00,00,00
+ HKR,NDI\params\PSMode\enum,1,,%POWER_SAVE_OFF_STR%
+ HKR,NDI\params\PSMode\enum,2,,%POWER_SAVE_DYN_STR%
+ HKR,NDI\params\PSMode\enum,3,,%POWER_SAVE_MAX_STR%
+ HKR,NDI\params\PSMode,optional,0,0
+
+; Allow non admin uses to switch profiles
+[COMMON.reg.security]
+"D:ARAI(A;;GA;;;BA)(A;;GA;;;SY)(A;CI;GA;;;IU)"
+
+;###############################################################################
+[DestinationDirs]
+;CopyFiles Section      = Destination Directory ID -- see layout.inf
+;-----------------        ------------------------
+ DefaultDestDir         = 11 ; Win9x=%windir%\system Win2k=%windir%\system32
+ PRISM_DRIVER.copy      = 11 ; Win9x=%windir%\system
+ PRISM_DRIVER.copy.ME   = 11 ; Win9x=%windir%\system
+ PRISM_DRIVER.copy.NT   = 12 ; Win2k=%windir%\system32\drivers
+ PRISM_FW.del        	= 11 ; Win9x=%windir%\system
+ PRISM_FW.del.ME     	= 11 ; Win9x=%windir%\system
+ PRISM_FW.del.NT     	= 12 ; Win2k=%windir%\system32\drivers
+ 
+[PRISM_DRIVER.copy]
+ WG511ICB.sys
+
+[PRISM_DRIVER.copy.ME]
+ WG511ICB.sys
+
+[PRISM_DRIVER.copy.NT]
+ WG511ICB.sys
+
+[PRISM_FW.del]
+ WG511DCB.arm
+
+[PRISM_FW.del.ME]
+ WG511DCB.arm
+
+[PRISM_FW.del.NT]
+ WG511DCB.arm
+
+[SourceDisksNames]
+;Source Disk ID         = Disk Name
+;--------------           ---------
+ 1                      = %INSTALL_DISK_STR%,,,
+
+[SourceDisksFiles]      ; Win9x
+;File Name              = Source Disk ID
+;---------                --------------
+ WG511ICB.sys           = 1
+
+[SourceDisksFiles.ME]   ; WinMe
+ WG511ICB.sys           = 1
+
+[SourceDisksFiles.X86]  ; Win2k/Xp
+ WG511ICB.sys           = 1
+
+;###############################################################################
+[Strings]
+;String ID              = String Text
+;---------                -----------
+ VER_VENDOR_STR         = "NETGEAR"
+ VER_VENDOR_NAME_STR    = "NETGEAR"
+
+ PRISM_SERVICE_DISPLAY_DCB = "NETGEAR WG511 Wireless LAN Driver"
+ 
+ INSTALL_DISK_STR       = "NETGEAR WG511 Wireless LAN Install Disk"
+
+ ADHOC_DEMO_STR          = "Adhoc Demo Mode"
+ SHORT_PREAM_STR         = "Preamble Mode"
+ RTSTHRESH_STR           = "RTS Threshold"
+ FRAGTHRESH_STR          = "Fragmentation Threshold"
+ AUTHENT_TYPE_STR        = "Authentication Algorithm"
+ LISTENINTERVAL_STR      = "Listen Interval"
+ POWER_SAVE_STR          = "Power Save Mode"
+ POWER_SAVE_OFF_STR      = "Disabled"
+ POWER_SAVE_DYN_STR      = "Dynamic"
+ POWER_SAVE_MAX_STR      = "Maximum"
+ POWER_SAVE_AUTO_DYN_STR = "Auto Dynamic"
+ POWER_SAVE_AUTO_MAX_STR = "Auto Maximum"
+ LOAD_FIRMWARE_STR       = "Firmware Download"
+ SHORT_RETRY_STR         = "Short Retry Limit"
+ LONG_RETRY_STR          = "Long Retry Limit"
+ CHANNEL_STR             = "Channel"
+ DATARATES_STR           = "Data Rate"
+ DATARATES_AUTO          = "Fully Automatic"
+ ALSR_STR                = "Auto Long Slot Reassociation"
+ CONFIG_PROFILE          = "Configuration Profile"
+ CONFIG_PROF_B_ONLY      = "11b only"
+ CONFIG_PROF_MIXED       = "Auto(11g+11b)"
+ CONFIG_PROF_MIXED_LONG  = "Mixed Long"
+ CONFIG_PROF_G_ONLY      = "11g only"
+ CONFIG_PROF_TEST        = "Test Mode"
+ CONFIG_PROF_B_WIFI      = "B WIFI"
+ CONFIG_PROF_WIFI_SPEC   = "WIFI Spec"
+ NITRO_MODE              = "Nitro Mode"
+ NITRO_DISABLED		 = "Disabled"
+ NITRO_ENABLED		 = "Enabled"
+
+ SSID_DEF_STR            = "NETGEAR"
+ UI_SSID_DEF_STR         = "NETGEAR"
+ LanExpress_STR          = "IL00"
+ CCode_DEFAULT		 = "US"
+ CCode_Description	 = "Country/Domain"
+ CCode_Africa		 = "Africa"
+ CCode_Asia		 = "Asia"
+ CCode_Australia	 = "Australia"
+ CCode_Canada		 = "Canada"
+ CCode_Europe		 = "Europe"
+ CCode_France		 = "France"
+ CCode_Israel		 = "Israel"
+ CCode_Mexico		 = "Mexico"
+ CCode_Japan		 = "Japan"
+ CCode_Taiwan		 = "Taiwan"
+ CCode_SourthAmerica	 = "Sourth America"
+ CCode_UnitedStates	 = "United States"
+
+ DCB_DESC_STR            = "NETGEAR WG511 54 Mbps Wireless PC Card"
+

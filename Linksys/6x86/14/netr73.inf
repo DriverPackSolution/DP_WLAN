@@ -1,0 +1,121 @@
+;****************************************************************************************
+;
+; netr73.inf
+;
+;    DESCRIPTION:(Vista x86)
+;            Wireless-G USB Network Adapter with RangeBooster
+;            Copyright (C) 2006, Cisco System, Inc. All rights reserved.
+;
+;****************************************************************************************
+
+[Version]
+Signature       = "$Chicago$"
+Class           = Net
+ClassGUID       = {4d36e972-e325-11ce-bfc1-08002be10318}
+Provider        = %VENDOR%
+Compatible      = 1
+CatalogFile     = netr73.cat
+DriverVer       = 09/28/2006, 3.00.01.0000
+
+[ControlFlags]
+;***********Linksys 802.11g board  ***********
+;ExcludeFromSelect = USB\VID_13B1&PID_0023
+
+[Manufacturer]
+%VENDOR%        = Linksys
+
+[Linksys]
+; DisplayName               Section                 DeviceID
+; -----------               -------                 --------
+%Linksys.DeviceDesc%         = Linksys.ndi,           USB\VID_13B1&PID_0023
+
+;*******************************************************************************************
+; NT specific entries
+;*******************************************************************************************
+
+[Linksys.ndi.NT]
+AddReg                  = Common.reg, RTUSB.ndi.NT.reg
+Characteristics         = 0x84                      ; NCF_REMOVABLE | NCF_HAS_UI | NCF_PHYSICAL
+BusType                 = 15                        ;USB
+CopyFiles               = NT.CopyFiles
+*IfType = 71              ; IF_TYPE_IEEE80211
+*MediaType = 16           ; NdisMediumNative802_11
+*PhysicalMediaType = 9    ; NdisPhysicalMediumNative802_11
+
+; NT services sections
+[Linksys.ndi.NT.Services]
+AddService              = netr73, 2, Linksys.Service, common.EventLog
+
+;*******************************************************************************************
+
+; common regs for NT
+;*******************************************************************************************
+
+[Common.reg]
+HKR, Ndi\params\*ReceiveBuffers,  ParamDesc,  0, "ReceiveBuffers"
+HKR, Ndi\params\*ReceiveBuffers,  default,    0, "64"
+HKR, Ndi\params\*ReceiveBuffers,  min,        0, "1"
+HKR, Ndi\params\*ReceiveBuffers,  max,        0, "00000128"
+HKR, Ndi\params\*ReceiveBuffers,  step,       0, "1"
+HKR, Ndi\params\*ReceiveBuffers,  Base,       0, "10"
+HKR, Ndi\params\*ReceiveBuffers,  type,       0, "int"
+
+HKR, Ndi\params\*TransmitBuffers, ParamDesc,  0, "TransmitBuffers"
+HKR, Ndi\params\*TransmitBuffers, default,    0, "64"
+HKR, Ndi\params\*TransmitBuffers, min,        0, "1"
+HKR, Ndi\params\*TransmitBuffers, max,        0, "00000064"
+HKR, Ndi\params\*TransmitBuffers, step,       0, "1"
+HKR, Ndi\params\*TransmitBuffers, Base,       0, "10"
+HKR, Ndi\params\*TransmitBuffers, type,       0, "int"
+
+;*******************************************************************************************
+; DestinationDirs
+;*******************************************************************************************
+[NT.CopyFiles]
+netr73.sys,,,2
+
+[SourceDisksNames]
+1 = %INSTALL_DISK_STR%,netr73.sys,,
+
+[SourceDisksFiles]
+netr73.sys                = 1,,
+
+[DestinationDirs]
+NT.CopyFiles     = 12     ; system32\drivers subdirectory on NT
+DefaultDestDir   = 11
+
+;*******************************************************************************************
+; NT specific
+;*******************************************************************************************
+[RTUSB.ndi.NT.reg]
+HKR, Ndi,                   Service,            0, "netr73"
+HKR, Ndi\Interfaces,        UpperRange,         0, "ndis5"
+HKR, Ndi\Interfaces,        LowerRange,         0, "wlan, ethernet"
+
+[Linksys.Service]
+DisplayName                 = %Linksys.Service.DispName%
+ServiceType                 = 1                             ;%SERVICE_KERNEL_DRIVER%
+StartType                   = 3                             ;%SERVICE_AUTO_START%
+ErrorControl                = 1                             ;%SERVICE_ERROR_NORMAL%
+ServiceBinary               = %12%\netr73.sys
+LoadOrderGroup              = NDIS
+
+[common.EventLog]
+AddReg=common.AddEventLog.reg
+
+[common.AddEventLog.reg]
+HKR, , EventMessageFile, 0x00020000, "%%SystemRoot%%\System32\netevent.dll,%%SystemRoot%%\System32\drivers\netr73.sys"
+HKR, , TypesSupported,   0x00010001, 7
+
+;*******************************************************************************************
+; Strings
+;*******************************************************************************************
+[strings]
+VENDOR                      = "Linksys, A Division of Cisco Systems, Inc."
+
+Linksys.DeviceDesc          = "Linksys Wireless-G USB Network Adapter with RangeBooster"
+
+INSTALL_DISK_STR            = "Wireless 11g USB Installation Disk"
+
+Linksys.Service.DispName     = "Linksys Wireless-G USB Network Adapter with RangeBooster Driver for Vista"
+

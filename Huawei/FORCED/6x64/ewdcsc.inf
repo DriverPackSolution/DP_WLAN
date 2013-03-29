@@ -1,0 +1,103 @@
+; Windows USB Smart Card Setup File
+; Copyright (c) 2002,2003 Huawei Incorporated
+; Manufacturer: Huawei Incorporated
+;
+; This INF file installs a USB Smart Card on Vista system.
+
+[Version]
+Signature   = "$Windows NT$"
+Class       = SmartCardReader
+ClassGuid   = {50DD5230-BA8A-11D1-BF5D-0000F805F530}
+Provider    = %HUAWEI%
+DriverVer   = 06/10/2009,1.0.0.0
+CatalogFile = ewdcsc.cat
+
+[DestinationDirs]
+DefaultDestDir = 12
+Huawei.Install.CopyFiles = 12
+
+[SourceDisksNames]
+1 = %InstallDisk%,ewdcsc.sys,,
+
+[SourceDisksFiles]
+ewdcsc.sys = 1
+
+[Manufacturer]
+%HUAWEI%=HUAWEI, NTamd64
+
+[HUAWEI.NTamd64]
+; DisplayName       	Section          DeviceId
+; -----------       	-------          --------
+%Huawei.DeviceDesc% = 	Huawei.Install, USB\VID_12d1&PID_1004&MI_03
+%Huawei.DeviceDesc% = 	Huawei.Install, USB\VID_12d1&PID_1403&MI_03
+%Huawei.DeviceDesc% = 	Huawei.Install, USB\VID_12d1&PID_1405&MI_02
+%Huawei.DeviceDesc% = 	Huawei.Install, USB\VID_12d1&PID_1406&MI_02
+%Huawei.DeviceDesc% = 	Huawei.Install, USB\VID_12d1&PID_1411&MI_04
+%Huawei.DeviceDesc% = 	Huawei.Install, USB\VID_12d1&PID_1415&MI_04
+%Huawei.DeviceDesc% = 	Huawei.Install, USB\VID_12d1&PID_1416&MI_05
+%Huawei.DeviceDesc% = 	Huawei.Install, USB\VID_12d1&PID_1417&MI_04
+%Huawei.DeviceDesc% = 	Huawei.Install, USB\VID_12d1&PID_1418&MI_05
+%Huawei.DeviceDesc% = 	Huawei.Install, USB\VID_12d1&PID_1419&MI_03
+%Huawei.DeviceDesc% = 	Huawei.Install, USB\VID_12d1&PID_141E&MI_02
+%Huawei.DeviceDesc% = 	Huawei.Install, USB\VID_12d1&PID_141F&MI_01
+%Huawei.DeviceDesc% = 	Huawei.Install, USB\VID_12d1&PID_1420&MI_02
+%Huawei.DeviceDesc% = 	Huawei.Install, USB\VID_12d1&PID_1421&MI_01
+%Huawei.DeviceDesc% = 	Huawei.Install, USB\VID_12d1&PID_1422&MI_03
+%Huawei.DeviceDesc% = 	Huawei.Install, USB\VID_12d1&PID_140A&MI_03
+%Huawei.DeviceDesc% = 	Huawei.Install, USB\VID_12d1&PID_140E&MI_03
+%Huawei.DeviceDesc% = 	Huawei.Install, USB\VID_12d1&PID_1428&MI_05
+%Huawei.DeviceDesc% = 	Huawei.Install, USB\VID_12d1&PID_142A&MI_03
+
+%Huawei.DeviceDesc% = 	Huawei.Install, USB\VID_12d1&PID_1430&MI_03
+%Huawei.DeviceDesc% = 	Huawei.Install, USB\VID_12d1&PID_1431&MI_02
+%Huawei.DeviceDesc% = 	Huawei.Install, USB\VID_12d1&PID_1433&MI_04
+%Huawei.DeviceDesc% = 	Huawei.Install, USB\VID_12d1&PID_1434&MI_05
+%Huawei.DeviceDesc% = 	Huawei.Install, USB\VID_12d1&PID_1435&MI_01
+%Huawei.DeviceDesc% = 	Huawei.Install, USB\VID_12d1&PID_1437&MI_03
+%Huawei.DeviceDesc% = 	Huawei.Install, USB\VID_12d1&PID_1438&MI_03
+%Huawei.DeviceDesc% = 	Huawei.Install, USB\VID_12d1&PID_1439&MI_05
+%Huawei.DeviceDesc% = 	Huawei.Install, USB\VID_12d1&PID_143B&MI_03
+%Huawei.DeviceDesc% = 	Huawei.Install, USB\VID_12d1&PID_1435&MI_01
+
+%Huawei.DeviceDesc% = 	Huawei.Install, USB\VID_12d1&PID_144C&MI_03
+%Huawei.DeviceDesc% = 	Huawei.Install, USB\VID_12d1&PID_144D&MI_04
+
+;for logo test
+%Huawei.DeviceDesc% = 	Huawei.Install, USB\VID_12d1&PID_15FF&MI_04
+
+[Huawei.Install]
+AddReg      = Huawei.Install.AddReg
+CopyFiles	= Huawei.Install.CopyFiles
+
+[Huawei.Install.AddReg]
+HKR,, AdapterType, 0, "0100"
+HKR,, PortIdentify,,HWDCSC
+
+[Huawei.Install.CopyFiles]
+ewdcsc.sys,,,2
+
+[Huawei.Install.Services]
+AddService = Huawei, 2, Huawei.Service, Huawei.EventLog
+
+[Huawei.Service]
+DisplayName     = %Huawei.DeviceDesc%
+ServiceType     = 1 ;%SERVICE_KERNEL_DRIVER%
+StartType       = 3 ;%SERVICE_AUTO_START%
+ErrorControl    = 1 ;%SERVICE_ERROR_NORMAL%
+ServiceBinary   = %12%\ewdcsc.sys
+
+[Huawei.EventLog]
+AddReg = Huawei.AddEventLog.reg
+
+[Huawei.AddEventLog.reg]
+HKR,, EventMessageFile, 0x00020000, "%%SystemRoot%%\System32\drivers\ewdcsc.sys"
+HKR,, TypesSupported,   0x00010001, 7
+
+
+
+; ================= Strings =====================
+
+[Strings]
+HUAWEI			    = "Huawei Incorporated"
+InstallDisk         = "HUAWEI Multimedia USB Driver Disk"
+Huawei.DeviceDesc	= "HUAWEI Mobile Connect - USB Smart Card Reader"

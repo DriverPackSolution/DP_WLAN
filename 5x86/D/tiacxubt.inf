@@ -1,0 +1,76 @@
+;
+; TIAUXBT.INF
+;
+; Win2k/Win9x Installation file for WLAN USB Boot Device
+; 
+; Copyright (c) 2000-2002 All Rights Reserved 
+;     
+
+[Version]
+Signature="$CHICAGO$"
+;CatalogFile=tiacxubt.cat
+Class=USB
+ClassGUID={36FC9E60-C465-11CF-8056-444553540000}
+provider=%TI%
+DriverVer=08/08/2003,3.0.32.1
+
+[SourceDisksNames]
+1=%DiskName%,,,
+
+[SourceDisksFiles]
+tiacxubt.sys = 1
+acx100.bin = 1
+
+[Manufacturer]
+%MfgName%=TI
+
+[ControlFlags]
+ExcludeFromSelect = USB\VID_2001&PID_3B01
+
+[TI]
+%usbloader.DeviceDesc%=usbloader.Dev, USB\VID_2001&PID_3B01
+
+[DestinationDirs]
+usbloader.Files.Ext = 10,System32\Drivers
+
+;
+; This section is necessary for the tool
+;
+[TI3000P.ndi]
+AddReg=usbloader.AddReg
+
+[usbloader.Dev]
+CopyFiles=usbloader.Files.Ext
+AddReg=usbloader.AddReg
+
+[usbloader.Dev.NT]
+CopyFiles=usbloader.Files.Ext
+AddReg=usbloader.AddReg
+
+[usbloader.Dev.NT.Services]
+Addservice = TIAcxubt, 0x00000002, usbloader.AddService
+
+[usbloader.AddService]
+DisplayName    = %usbloader.SvcDesc%
+ServiceType    = 1                  ; SERVICE_KERNEL_DRIVER
+StartType      = 3                  ; SERVICE_DEMAND_START
+ErrorControl   = 1                  ; SERVICE_ERROR_NORMAL
+ServiceBinary  = %10%\System32\Drivers\tiacxubt.sys
+LoadOrderGroup = Base
+
+[usbloader.AddReg]
+HKR,,DevLoader,,*ntkern
+HKR,,NTMPDriver,,tiacxubt.sys
+
+[usbloader.Files.Ext]
+;tiacxubt.sys
+;acx100.bin
+
+;---------------------------------------------------------------;
+
+[Strings]
+TI="D-link"
+DiskName="D-Link WLAN USB Boot Device Installation Disk"
+MfgName="D-Link"
+usbloader.DeviceDesc="D-Link WLAN USB Boot Device"
+usbloader.SvcDesc="D-Link WLAN USB Boot Device"

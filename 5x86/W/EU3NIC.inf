@@ -1,0 +1,394 @@
+;***********************************************************************
+; Copyright (c) 2000 WNC Corporation
+; All Rights Reserved.
+;
+; EU3NIC.INF
+;
+;   This installation script supports Windows XP for the
+;   WLAN miniUSB Adapters.
+;
+;***********************************************************************
+
+[Version]
+ DriverVer = 11/01/2001, 2.00.09 ; Updated by build scripts
+ Signature           = "$Chicago$"
+ Compatible          = 1
+ Class               = Net
+ ClassGUID           = {4d36e972-e325-11ce-bfc1-08002be10318}
+ Provider            = %VER_VENDOR_STR%
+ CatalogFile         = EU3NIC.cat
+ MillenniumPreferred = .ME
+
+[ControlFlags]
+;Exclude all PNP adapters from user selection
+ ExcludeFromSelect   = USB\VID_0967&PID_0204
+
+[Manufacturer]
+ %VER_VENDOR_NAME_STR% = DeviceList
+
+[DeviceList]
+ %PRISM_USB1_STR%    = PRISM_USB1,    USB\VID_0967&PID_0204
+
+;==========================================
+[PRISM_USB1.NT]         ; Win2k
+ AddReg         = PRISM_USB1.reg, COMMON_USB.reg, COMMON_NDIS.reg.NT, COMMON.reg, COMMON_AWLAN.reg
+ CopyFiles      = PRISM_DRIVER.copy.NT, PRISM_APPLET.copy.NT
+ BusType        = 15     ; USB
+ Characteristics= 0x84  ; NCF_PHYSICAL | NCF_HAS_UI
+
+[PRISM_USB1.NT.Services]
+ AddService     = "EU3_USB", 2, PRISM_USB_DRIVER.Service, PRISM_DRIVER.EventLog
+
+[PRISM_USB1.reg]
+ HKR,Ndi        ,DeviceID,0,"USB\VID_0967&PID_0204"
+; added by robert 2002/05/23
+ HKR,           ,PlatformId,0,"0"
+ HKR,           ,VendorDesc,0,%USB_DESC_STR%
+ HKR,           ,LoadFirmware,0,1
+ HKR, NDI\params\LoadFirmware,default,0,1
+
+;###############################################################################
+
+[PRISM_USB_DRIVER.Service]
+ DisplayName    = %PRISM_USB_SERVICE_DISPLAY%
+ ServiceType    = 1    ; SERVICE_KERNEL_DRIVER
+ StartType      = 3    ; SERVICE_DEMAND_START
+ ErrorControl   = 1    ; NORMAL
+ ServiceBinary  = %12%\EU3USB.sys
+ LoadOrderGroup = NDIS
+
+[PRISM_DRIVER.EventLog]
+ AddReg         = PRISM_DRIVER.EventLog.reg
+
+[PRISM_DRIVER.EventLog.reg]
+ HKR,           ,EventMessageFile       ,0x00020000     ,"%%SystemRoot%%\System32\netevent.dll"
+ HKR,           ,TypesSupported         ,0x00010001     ,7
+
+;###############################################################################
+[COMMON_USB.reg]
+ HKR,NDI                ,Service                ,0      ,"EU3_USB"
+ HKR,NDI                ,CardType               ,0      ,"USB"
+ HKR,                   ,BusType                ,0      ,"0"
+ HKR,                   ,DeviceVxDs             ,0      ,"EU3USB.sys"
+
+[COMMON_NDIS.reg.NT]
+ ;HKR,                   ,EnumPropPages32        ,0      ,"EU3CFG.cpl,NetPropPageProvider"
+ HKR,NDI\Interfaces     ,UpperRange             ,0      ,"ndis5"
+ HKR,NDI\Interfaces     ,LowerRange             ,0      ,"ethernet"
+
+ HKR,defaults,PSMode,0,1
+ HKR,Ndi\params\PSMode,default,0,1
+ HKR,NDI\params\PSMode,ParamDesc,,%POWER_SAVE_STR%
+ HKR,NDI\params\PSMode,type,,enum
+ HKR,NDI\params\PSMode,flag,1,30,00,00,00
+ HKR,NDI\params\PSMode\enum,1,,"Disable"
+ HKR,NDI\params\PSMode\enum,2,,"Always Enable"
+ HKR,NDI\params\PSMode\enum,3,,"Auto Enable"
+ HKR,NDI\params\PSMode,optional,0,1
+
+[COMMON.reg]
+ HKR,                   ,EU3IOC               ,0      ,"1"
+ HKR,                   ,SilentInstall          ,0      ,"1"
+;Uncomment the line above to install without user interface prompts
+
+ HKR,defaults,ListenInterval,0,3
+ HKR,Ndi\params\ListenInterval,default,0,3
+ HKR,NDI\params\ListenInterval,ParamDesc,,%LISTENINTERVAL_STR%
+ HKR,NDI\params\ListenInterval,type,,int
+ HKR,NDI\params\ListenInterval,flag,1,30,00,00,00
+ HKR,NDI\params\ListenInterval,min,0,0
+ HKR,NDI\params\ListenInterval,max,0,77
+ HKR,NDI\params\ListenInterval,step,0,1
+ HKR,NDI\params\ListenInterval,optional,0,1
+
+ HKR,defaults,RTSThresh,0,2432
+ HKR,Ndi\params\RTSThresh,default,0,2432
+ HKR,NDI\params\RTSThresh,ParamDesc,0,%RTSTHRESH_STR%
+ HKR,NDI\params\RTSThresh,type,0,int
+ HKR,NDI\params\RTSThresh,flag,1,20,00,00,00
+ HKR,NDI\params\RTSThresh,min,0,0
+ HKR,NDI\params\RTSThresh,max,0,2432
+ HKR,NDI\params\RTSThresh,step,0,64
+ HKR,NDI\params\RTSThresh,optional,0,1
+
+ HKR,defaults,FragThresh,0,2432
+ HKR,Ndi\params\FragThresh,default,0,2432
+ HKR,NDI\params\FragThresh,ParamDesc,0,%FRAGTHRESH_STR%
+ HKR,NDI\params\FragThresh,type,0,int
+ HKR,NDI\params\FragThresh,flag,1,20,00,00,00
+ HKR,NDI\params\FragThresh,min,0,256
+ HKR,NDI\params\FragThresh,max,0,2432
+ HKR,NDI\params\FragThresh,step,0,128
+ HKR,NDI\params\FragThresh,optional,0,1
+
+ HKR,defaults,PreambleMode,0,1
+ HKR,Ndi\params\PreambleMode,default,0,1
+ HKR,NDI\params\PreambleMode,ParamDesc,,%SHORT_PREAM_STR%
+ HKR,NDI\params\PreambleMode,type,,enum
+ HKR,NDI\params\PreambleMode,flag,1,30,00,00,00
+ HKR,NDI\params\PreambleMode\enum,1,,"Long Tx Preamble"
+ HKR,NDI\params\PreambleMode\enum,2,,"Short Tx Preamble"
+ HKR,NDI\params\PreambleMode\enum,3,,"Auto Tx Preamble"
+ HKR,NDI\params\PreambleMode,optional,0,1
+
+ HKR,defaults,AuthentAlg,0,65535
+ HKR,NDI\params\AuthentAlg,default,0,65535
+ HKR,NDI\params\AuthentAlg,ParamDesc,,%AUTHENT_TYPE_STR%
+ HKR,NDI\params\AuthentAlg,type,,enum
+ HKR,NDI\params\AuthentAlg,flag,1,30,00,00,00
+ HKR,NDI\params\AuthentAlg\enum,1,,"WECA Compliant (always use Open)"
+ HKR,NDI\params\AuthentAlg\enum,2,,"Must use Shared with WEP"
+ HKR,NDI\params\AuthentAlg\enum,65535,,"Automatic based on WEP setting"
+ HKR,NDI\params\AuthentAlg,optional,0,1
+
+ HKR,defaults,AdhocDemoMode,0,0
+ HKR,Ndi\params\AdhocDemoMode,default,0,0
+ HKR,NDI\params\AdhocDemoMode,ParamDesc,,%ADHOC_DEMO_STR%
+ HKR,NDI\params\AdhocDemoMode,type,,enum
+ HKR,NDI\params\AdhocDemoMode,flag,1,30,00,00,00
+ HKR,NDI\params\AdhocDemoMode\enum,0,,"Disable"
+ HKR,NDI\params\AdhocDemoMode\enum,1,,"Enable"
+ HKR,NDI\params\AdhocDemoMode,optional,0,1
+
+;added by robert 2002/05/24
+ HKR,defaults,LoadFirmware,0,1
+;HKR,NDI\params\LoadFirmware,,0,1 ; Moved to device specific entry
+ HKR,Ndi\params\LoadFirmware,default,0,1
+ HKR,NDI\params\LoadFirmware,ParamDesc,,%LOAD_FIRMWARE_STR%
+ HKR,NDI\params\LoadFirmware,type,,enum
+ HKR,NDI\params\LoadFirmware,flag,1,30,00,00,00
+ HKR,NDI\params\LoadFirmware\enum,0,,"Disable"
+ HKR,NDI\params\LoadFirmware\enum,1,,"Enable"
+ HKR,NDI\params\LoadFirmware,optional,0,1
+
+[COMMON_AWLAN.reg]
+;
+;	ProfileName
+;
+HKR,,ProfileName,,%PROFILE1%				;0924
+HKR,defaults,ProfileName,,%PROFILE1%			;0924
+
+HKR,ProfileList\1,ProfileName,,%PROFILE1%		; 0920
+HKR,ProfileList\2,ProfileName,,%PROFILE2%		; 0920	
+HKR,ProfileList\3,ProfileName,,%PROFILE3%		; 0920
+HKR,ProfileList\4,ProfileName,,%PROFILE4%		; 0920
+HKR,ProfileList\5,ProfileName,,%PROFILE5%		; 0920
+;
+; SSID
+; 
+HKR,,SSID,,%SSID_DEF_STR%
+HKR,defaults,SSID,,%SSID_DEF_STR%
+
+HKR,ProfileList\1,SSID,,%SSID_DEF_STR%		; 0920
+HKR,ProfileList\2,SSID,,%SSID_DEF_STR%		; 0920	
+HKR,ProfileList\3,SSID,,%SSID_DEF_STR%		; 0920
+HKR,ProfileList\4,SSID,,%SSID_DEF_STR%		; 0920
+HKR,ProfileList\5,SSID,,%SSID_DEF_STR%		; 0920
+HKR,NDI\params\SSID,ParamDesc,,"SSID"
+HKR,NDI\params\SSID,type,,edit
+HKR,NDI\params\SSID,limitText,,32
+HKR,NDI\params\SSID,default,,%SSID_DEF_STR%
+HKR,NDI\params\SSID,flag,1,30,00,00,00
+;
+; Channel
+; 
+HKR,,DSChannel,,%DSCHANNEL_DEF_STR%
+HKR,defaults,DSChannel,,%DSCHANNEL_DEF_STR%
+
+HKR,ProfileList\1,DSChannel,,%DSCHANNEL_DEF_STR%		; 0920
+HKR,ProfileList\2,DSChannel,,%DSCHANNEL_DEF_STR%		; 0920	
+HKR,ProfileList\3,DSChannel,,%DSCHANNEL_DEF_STR%		; 0920
+HKR,ProfileList\4,DSChannel,,%DSCHANNEL_DEF_STR%		; 0920
+HKR,ProfileList\5,DSChannel,,%DSCHANNEL_DEF_STR%		; 0920
+;
+; Network Type
+;
+HKR,,NetworkType,,%NETWORK_TYPE_DEF_STR%
+HKR,defaults,NetworkType,,%NETWORK_TYPE_DEF_STR%
+
+HKR,ProfileList\1,NetworkType,,%NETWORK_TYPE_DEF_STR%		; 0920
+HKR,ProfileList\2,NetworkType,,%NETWORK_TYPE_DEF_STR%		; 0920	
+HKR,ProfileList\3,NetworkType,,%NETWORK_TYPE_DEF_STR%		; 0920
+HKR,ProfileList\4,NetworkType,,%NETWORK_TYPE_DEF_STR%		; 0920
+HKR,ProfileList\5,NetworkType,,%NETWORK_TYPE_DEF_STR%		; 0920
+
+HKR,NDI\params\NetworkType,ParamDesc,,"Network Type"
+HKR,NDI\params\NetworkType,type,,enum
+HKR,NDI\params\NetworkType,default,,%NETWORK_TYPE_DEF_STR%
+HKR,NDI\params\NetworkType,flag,1,30,00,00,00
+HKR,NDI\params\NetworkType\enum,0,,"802.11 Ad Hoc"
+HKR,NDI\params\NetworkType\enum,1,,"Infrastructure"
+HKR,NDI\params\NetworkType\enum,3,,"Ad Hoc"
+;
+;	Wep Required
+;
+HKR,,WepReq,0,0
+HKR,defaults,WepReq,0,0
+
+HKR,ProfileList\1,WepReq,0,0			; 0920
+HKR,ProfileList\2,WepReq,0,0			; 0920	
+HKR,ProfileList\3,WepReq,0,0			; 0920
+HKR,ProfileList\4,WepReq,0,0			; 0920
+HKR,ProfileList\5,WepReq,0,0			; 0920
+
+HKR,NDI\params\WepReq,default,0,0
+HKR,NDI\params\WepReq,ParamDesc,,%WEPREQ_STR%
+HKR,NDI\params\WepReq,flag,1,30,00,00,00
+HKR,NDI\params\WepReq,type,,enum
+HKR,Ndi\params\WepReq,default,,0
+HKR,NDI\params\WepReq\enum,0,,"Disabled"
+HKR,NDI\params\WepReq\enum,2,,"64 bit"
+HKR,NDI\params\WepReq\enum,6,,"128 bit"
+HKR,NDI\params\WepReq,optional,0,0
+;
+; TxRate
+;
+HKR,,TxRate,,15
+HKR,defaults,TxRate,,15
+
+HKR,ProfileList\1,TxRate,,15			; 0920
+HKR,ProfileList\2,TxRate,,15			; 0920	
+HKR,ProfileList\3,TxRate,,15			; 0920
+HKR,ProfileList\4,TxRate,,15			; 0920
+HKR,ProfileList\5,TxRate,,15			; 0920
+
+HKR,NDI\params\TxRate,ParamDesc,,"Transmit Rate"
+HKR,NDI\params\TxRate,type,,enum
+HKR,NDI\params\TxRate,default,,15
+HKR,NDI\params\TxRate,flag,1,30,00,00,00
+HKR,NDI\params\TxRate\enum,1,,"Fixed 1 Mb/s"
+HKR,NDI\params\TxRate\enum,2,,"Fixed 2 Mb/s"
+HKR,NDI\params\TxRate\enum,3,,"Auto Select 1 or 2"
+HKR,NDI\params\TxRate\enum,4,,"Fixed 5.5 Mb/s"
+HKR,NDI\params\TxRate\enum,8,,"Fixed 11 Mb/s"
+HKR,NDI\params\TxRate\enum,15,,"Fully Auto"
+;
+; PS Mode
+;
+HKR,,PSMode,0,1						;12/01
+HKR,defaults,PSMode,0,1					;12/01
+
+HKR,ProfileList\1,PSMode,0,1			; 0920
+HKR,ProfileList\2,PSMode,0,1			; 0920	
+HKR,ProfileList\3,PSMode,0,1			; 0920
+HKR,ProfileList\4,PSMode,0,1			; 0920
+HKR,ProfileList\5,PSMode,0,1			; 0920
+
+HKR,NDI\params\PSMode,default,0,1				;12/01
+HKR,NDI\params\PSMode,ParamDesc,,"Power Save Mode"
+HKR,NDI\params\PSMode,type,,enum
+HKR,NDI\params\PSMode,default,,1
+HKR,NDI\params\PSMode,flag,1,30,00,00,00
+HKR,NDI\params\PSMode\enum,1,,"Disabled"
+HKR,NDI\params\PSMode\enum,2,,"Enabled"
+;
+; Enable Radio
+;
+; // added by robert 2002/06/20
+HKR,,EnableRadio,0,1
+HKR,defaults,EnableRadio,0,1
+
+HKR,ProfileList\1,EnableRadio,0,1
+HKR,ProfileList\2,EnableRadio,0,1
+HKR,ProfileList\3,EnableRadio,0,1
+HKR,ProfileList\4,EnableRadio,0,1
+HKR,ProfileList\5,EnableRadio,0,1
+
+HKR,NDI\params\EnableRadio,default,0,1
+HKR,NDI\params\EnableRadio,ParamDesc,,"Enable Radio"
+HKR,NDI\params\EnableRadio,type,,enum
+HKR,NDI\params\EnableRadio,default,,1
+HKR,NDI\params\EnableRadio,flag,1,30,00,00,00
+HKR,NDI\params\EnableRadio\enum,0,,"Disabled"
+HKR,NDI\params\EnableRadio\enum,1,,"Enabled"
+;
+;	Country
+;
+HKR,,Country,,%COUNTRY_DEF_STR%				; 0920
+HKR,ProfileList\1,Country,,%COUNTRY_DEF_STR%		; 0920
+HKR,ProfileList\2,Country,,%COUNTRY_DEF_STR%		; 0920	
+HKR,ProfileList\3,Country,,%COUNTRY_DEF_STR%		; 0920
+HKR,ProfileList\4,Country,,%COUNTRY_DEF_STR%		; 0920
+HKR,ProfileList\5,Country,,%COUNTRY_DEF_STR%		; 0920
+
+;
+;	DefaultKeyID
+;
+HKR,ProfileList\1,DefaultKeyID,,1			; 0920
+HKR,ProfileList\2,DefaultKeyID,,1			; 0920	
+HKR,ProfileList\3,DefaultKeyID,,1			; 0920
+HKR,ProfileList\4,DefaultKeyID,,1			; 0920
+HKR,ProfileList\5,DefaultKeyID,,1			; 0920
+
+;###############################################################################
+[DestinationDirs]
+;CopyFiles Section      = Destination Directory ID -- see layout.inf
+;-----------------        ------------------------
+ DefaultDestDir         = 11 ; Win9x=%windir%\system Win2k=%windir%\system32
+ PRISM_DRIVER.copy.NT   = 12 ; Win2k=%windir%\system32\drivers
+
+[PRISM_DRIVER.copy.NT]
+ EU3USB.sys
+
+[PRISM_APPLET.copy.NT]
+;EU3RES.dll           ; Copied by coinstaller
+;EU3IOC.dll           ; Copied by coinstaller
+;EU3CFG.cpl           ; Copied by coinstaller
+;EU3CFG.hlp           ; Copied by coinstaller
+;EU3CSH.dll           ; Copied by coinstaller
+ ;EU3STA.exe
+
+[SourceDisksNames]
+;Source Disk ID         = Disk Name
+;--------------           ---------
+ 1                      = %INSTALL_DISK_STR%,,,
+
+[SourceDisksFiles.X86]  ; Win2k/Xp
+ ;EU3RES.dll           = 1
+ ;EU3IOC.dll           = 1
+ ;EU3CFG.cpl           = 1
+ EU3USB.sys           = 1
+ ;EU3STA.exe           = 1
+; FIXME - Add context sensitive help
+;EU3CFG.hlp           = 1
+;EU3CSH.dll           = 1
+
+;###############################################################################
+[Strings]
+;String ID              = String Text
+;---------                -----------
+ VER_VENDOR_STR         = "WNC"
+ VER_VENDOR_NAME_STR    = "WNC Corporation"
+
+ PRISM_USB1_STR         = "WNC 802.11b USB300"
+
+ PRISM_SERVICE_DISPLAY  = "WNC 802.11b USB300 Driver"
+ PRISM_USB_SERVICE_DISPLAY  = "WNC 802.11b USB300 Driver"
+ INSTALL_DISK_STR       = "WNC 802.11b USB300 Install Disk"
+
+ ADHOC_DEMO_STR         = "Adhoc Demo Mode"
+ SHORT_PREAM_STR        = "Preamble Mode"
+ RTSTHRESH_STR          = "RTS Threshold"
+ FRAGTHRESH_STR         = "Fragmentation Threshold"
+ AUTHENT_TYPE_STR       = "Authentication Algorithm"
+ LISTENINTERVAL_STR     = "Listen Interval"
+ POWER_SAVE_STR         = "Power Save Mode"
+ POWER_LEVEL_STR        = "Power Save Level"
+;added by robert 2002/05/24
+ LOAD_FIRMWARE_STR      = "Firmware Download"
+ USB_DESC_STR           = "WNC 802.11b USB300"
+
+
+;for AWLAN 
+;---------                -----------
+PROFILE1		= "Default"
+PROFILE2		= "Default 1"		
+PROFILE3		= "Default 2"
+PROFILE4		= "Default 3"
+PROFILE5		= "Default 4"
+WEPREQ_STR		= "Use Wep"	
+SSID_DEF_STR		= "any"
+NETWORK_TYPE_DEF_STR	= "1"
+AUTHENT_TYPE_DEF_STR	= "2"
+DSCHANNEL_DEF_STR	= "6"
+COUNTRY_DEF_STR 	= "USA/Canada"

@@ -1,0 +1,97 @@
+;
+[Version]
+Signature="$WINDOWS NT$"
+Class=System
+ClassGuid={4D36E97D-E325-11CE-BFC1-08002BE10318}
+DriverVer = 07/31/2008, 2.1.10.0003
+CatalogFile=TDSPBus.cat
+Provider=%3DSP%
+
+[ControlFlags]
+ExcludeFromSelect = *
+
+[Manufacturer]
+%3DSP%=ThreeDSP
+
+[ThreeDSP]
+%TDSP.DeviceDesc%       = TDSP, PCI\VEN_1A47&DEV_0003&SUBSYS_00000000   
+%OTHERMFR1.DeviceDesc%      = TDSP, PCI\VEN_1A47&DEV_0003&SUBSYS_00020000	  
+%OTHERMFR2.DeviceDesc%      = TDSP, PCI\VEN_1A47&DEV_0003&SUBSYS_00030000	 
+%OTHERMFR3.DeviceDesc%      = TDSP, PCI\VEN_1A47&DEV_0003&SUBSYS_00040000	  
+
+%TDSP_OLD.DeviceDesc%       = TDSP, PCI\VEN_3D5B&DEV_0003&SUBSYS_00000000   
+%OTHERMFR1_OLD.DeviceDesc%      = TDSP, PCI\VEN_3D5B&DEV_0003&SUBSYS_00020000	  
+%OTHERMFR2_OLD.DeviceDesc%      = TDSP, PCI\VEN_3D5B&DEV_0003&SUBSYS_00030000	 
+%OTHERMFR3_OLD.DeviceDesc%      = TDSP, PCI\VEN_3D5B&DEV_0003&SUBSYS_00040000	  
+
+;SUBSYS convention: v4coexist = 01; bt = 02; wlan = 03 ; bt or wlan = 04;  
+;bt or wlan or coexist = 00;
+%TDSP2230.DeviceDesc%        = TDSP, PCI\VEN_1A47&DEV_0003&SUBSYS_02000000
+%TDSP2230.DeviceDesc%        = TDSP, PCI\VEN_1A47&DEV_0003&SUBSYS_02040000
+%TDSP2230.DeviceDesc%        = TDSP, PCI\VEN_1A47&DEV_0003&SUBSYS_03000000
+%TDSP2230.DeviceDesc%        = TDSP, PCI\VEN_1A47&DEV_0003&SUBSYS_04000000
+%TDSP2230.DeviceDesc%        = TDSP, PCI\VEN_1A47&DEV_0003&SUBSYS_02000001
+
+
+[TDSP.NT]
+CopyFiles	= TDSP.NT.CopyFiles
+
+[TDSP.NT.CopyFiles]
+tdspbus.sys,,,2
+
+[TDSP.NT.Services]
+AddService = MFCARD, 2, TDSPMF.Service, TDSPMF.EventLog
+
+[TDSPMF.Service]
+DisplayName     = %MFCard.DeviceDesc%
+ServiceType     = 1 ;%SERVICE_KERNEL_DRIVER%
+StartType       = 3 ;%SERVICE_AUTO_START%
+ErrorControl    = 1 ;%SERVICE_ERROR_NORMAL%
+ServiceBinary   = %12%\tdspbus.sys
+AddReg = TDSP.NT.REG
+
+[TDSPMF.EventLog]
+AddReg = TDSPMF.AddEventLog.reg
+
+[TDSPMF.AddEventLog.reg]
+HKR,, EventMessageFile, 0x00020000, "%%SystemRoot%%\System32\drivers\tdspbus.sys"
+HKR,, TypesSupported,   0x00010001, 7
+
+[SourceDisksNames]
+1=%DiskId%,,
+
+[SourceDisksFiles]
+tdspbus.sys=1
+
+[DestinationDirs]
+DefaultDestDir=12
+TDSP.CopyFiles = 12
+
+[TDSP.NT.REG]
+HKR,, EnumMode,0x00010001, 0
+HKR,, HotKeyFlag,0x00010001, 0
+HKR,, Device1,0x00000000, %Devcie1Desc%
+HKR,, Device2,0x00000000, %Devcie2Desc%
+
+[Strings]
+3DSP = "3DSP Corporation"
+TDSP.DeviceDesc = "3DSP WLAN and Bluetooth Card"
+
+TDSP_OLD.DeviceDesc        = "3DSP WLAN and Bluetooth Card"
+
+
+TDSP2230.DeviceDesc        = "3DSP WLAN and Bluetooth Card"
+OTHERMFR1.DeviceDesc     = "3DSP WLAN and Bluetooth Card"	  
+OTHERMFR2.DeviceDesc      = "3DSP WLAN and Bluetooth Card" 
+OTHERMFR3.DeviceDesc      = "3DSP WLAN and Bluetooth Card"	  
+
+OTHERMFR1_OLD.DeviceDesc      = "3DSP WLAN and Bluetooth Card"	  
+OTHERMFR2_OLD.DeviceDesc      = "3DSP WLAN and Bluetooth Card"	 
+OTHERMFR3_OLD.DeviceDesc      = "3DSP WLAN and Bluetooth Card"	  
+
+
+Devcie1Desc     = "3DSP Bluetooth Card v2.0"
+Devcie2Desc     = "3DSP WLAN Card"
+
+MFCard.DeviceDesc = "3DSP WLAN and BlueTooth Card"
+DiskId = "Install disk (1)"

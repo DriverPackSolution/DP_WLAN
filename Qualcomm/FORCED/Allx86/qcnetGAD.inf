@@ -1,0 +1,116 @@
+;-------------------------------------------------------------------------------
+; QCNET.INF
+;
+; Qualcomm Wireless Network Device
+;
+; Copyright (c) 2007 Qualcomm Inc.  All rights reserved.
+
+
+[version]
+Signature   = "$Windows NT$"
+Class       = Net
+ClassGUID   = {4d36e972-e325-11ce-bfc1-08002be10318}
+Provider    = %QCOM%
+DriverVer   = 03/12/2008,6.0.3.2
+Catalogfile = qcusbnetGAD.cat
+
+[ControlFlags]
+ExcludeFromSelect = *
+
+[SourceDisksNames]
+  1000 = %QcomSrcDisk%,"",,
+
+[SourceDisksFiles]
+  qcusbnetGAD.sys = 1000
+
+[Manufacturer]
+%QCOM% = QCOM, NTia64, NTamd64
+
+[QCOM]
+%qcwwan.DeviceDesc92123%    = qcwwan.ndi, USB\VID_05C6&PID_9212&MI_03
+%qcwwan.DeviceDesc92133%    = qcwwan.ndi, USB\VID_05C6&PID_9213&MI_03
+
+[QCOM.NTia64]
+%qcwwan.DeviceDesc92123%    = qcwwan.ndi, USB\VID_05C6&PID_9212&MI_03
+%qcwwan.DeviceDesc92133%    = qcwwan.ndi, USB\VID_05C6&PID_9213&MI_03
+
+
+[QCOM.NTamd64]
+%qcwwan.DeviceDesc92123%    = qcwwan.ndi, USB\VID_05C6&PID_9212&MI_03
+%qcwwan.DeviceDesc92133%    = qcwwan.ndi, USB\VID_05C6&PID_9213&MI_03
+
+;-------------------------------------------------------------------------------
+; Virtual Ethernet Adapter
+;
+[qcwwan.ndi]
+Characteristics = 0x4 ; NCF_PHYSICAL
+BusType         = 15  ; PNPBus
+AddReg          = qcwwan.Reg
+CopyFiles       = qcwwan.CopyFiles
+
+[qcwwan.ndi.Services]
+AddService      = qcusbnetGAD, 2, qcwwan.Service, qcwwan.EventLog
+
+;-----------------------------------------------------------------------------
+; Virtual Miniport Common
+;
+[qcwwan.Reg]
+HKR,    ,                         BusNumber,           0, "0" 
+HKR, Ndi,                         Service,             0, "qcusbnetGAD"
+HKR, Ndi\Interfaces,              UpperRange,          0, "ndis5"
+HKR, Ndi\Interfaces,              LowerRange,          0, "ethernet"
+; HKR, Ndi\params\VlanID,     ParamDesc,       0, %VlanID%
+; HKR, Ndi\params\VlanID,     default,         0, "777"
+; HKR, Ndi\params\VlanID,     type,            0, "long"
+; HKR, Ndi\params\VlanID,     min,             0, "0"
+; HKR, Ndi\params\VlanID,     max,             0, "4095"
+; HKR, Ndi\params\VlanID,     step,            0, "1"
+; HKR, Ndi\params\VlanID,     base,            0, "10"
+
+;-----------------------------------------------------------------------------
+; Driver and Service Section
+;
+[qcwwan.CopyFiles]
+qcusbnetGAD.sys,,,2
+
+[qcwwan.Service]
+DisplayName     = %qcwwan.Service.DispName%
+ServiceType     = 1 ;%SERVICE_KERNEL_DRIVER%
+StartType       = 3 ;%SERVICE_DEMAND_START%
+ErrorControl    = 1 ;%SERVICE_ERROR_NORMAL%
+ServiceBinary   = %12%\qcusbnetGAD.sys
+LoadOrderGroup  = NDIS
+AddReg          = TextModeFlags.Reg
+
+[qcwwan.EventLog]
+AddReg = qcwwan.AddEventLog.Reg
+
+[qcwwan.AddEventLog.Reg]
+HKR, , EventMessageFile, 0x00020000, "%%SystemRoot%%\System32\netevent.dll"
+HKR, , TypesSupported,   0x00010001, 7
+
+[TextModeFlags.Reg]
+HKR, , TextModeFlags,    0x00010001, 0x0001
+
+[SourceDisksNames]
+1 = %DiskId1%,,,""
+
+[SourceDisksFiles]
+qcusbnetGAD.sys  = 1,,
+
+;-----------------------------------------------------------------------------
+; DestinationDirs
+;
+[DestinationDirs]
+qcwwan.CopyFiles = 12
+
+;-----------------------------------------------------------------------------
+; Localizable Strings
+;
+[Strings]
+QcomSrcDisk = "Gobi AD USB Driver Disk"
+QCOM                       = "Qualcomm Incorporated" 
+qcwwan.DeviceDesc92123      = "Qualcomm HS-USB Ethernet Adaptor 9212"
+qcwwan.DeviceDesc92133      = "Qualcomm HS-USB Ethernet Adaptor 9213"
+qcwwan.Service.DispName     = "Gobi AD USB-NDIS miniport"
+DiskId1 = "Gobi AD USB-NDIS Miniport Device Installation Disk #1"

@@ -1,0 +1,326 @@
+;++
+;
+;Copyright (c) 2005 LANCOM Systems GmbH, All Rights Reserved
+;
+;Module Name:
+;
+;    AirLnc54.inf
+;
+;Abstract:
+;    INF file for installing AirLancer 54 Wireless Network Adapters
+;
+;    Installs ar5211.sys (NDIS 5/5.1 driver) on NT platforms (2000, XP and greater)
+;    Installs ar5523.sys (NDIS 5/5.1 driver) on NT platforms (2000, XP and greater)
+;
+;--
+
+;-- Search key: "LANCOMAL54abNoDisk1000002"
+
+[Version]
+Signature  = "$CHICAGO$"
+Class      = Net
+ClassGUID  = {4d36e972-e325-11ce-bfc1-08002be10318}
+Provider   = %DispName.LANCOM%
+Compatible = 1
+DriverVer  = 8/2/2005,4.1.2.82                                            ; is PCI - USB is 1.5.0.88
+
+[Manufacturer]
+%DispName.LANCOM% = LANCOM.Devices
+
+[ControlFlags]
+ExcludeFromSelect = *
+
+[LANCOM.Devices]
+; DisplayName                 Section              DeviceID
+; -----------                 -------              --------
+; Generic
+%DeviceDesc.MC54ab%  = NDI.PCI_A_, PCI\VEN_168C&DEV_0012&SUBSYS_10221668
+%DeviceDesc.MC54ab%  = NDI.PCI_A_, PCI\VEN_168C&DEV_0012&SUBSYS_001117cf
+%DeviceDesc.MC54ab%  = NDI.PCI_A_, PCI\VEN_168C&DEV_0012&SUBSYS_001217cf
+%DeviceDesc.MC54ag%  = NDI.PCI_AG, PCI\VEN_168C&DEV_0013&SUBSYS_200814cd
+%DeviceDesc.MC54ag%  = NDI.PCI_AG, PCI\VEN_168C&DEV_0013&SUBSYS_210314cd
+%DeviceDesc.MC54ag%  = NDI.PCI_AG, PCI\VEN_168C&DEV_0013&SUBSYS_3a011948
+%DeviceDesc.MC54g%   = NDI.PCI_AG, PCI\VEN_168C&DEV_0013&SUBSYS_210414cd
+
+%DeviceDesc.PCI54a%  = NDI.PCI_A_, PCI\VEN_168C&DEV_0012&SUBSYS_20221668
+%DeviceDesc.PCI54ag% = NDI.PCI_AG, PCI\VEN_168C&DEV_0013&SUBSYS_1012185f
+
+%DeviceDesc.USB54ag% = NDI.USB_AG, USB\VID_0CF3&PID_0001&REV_0001
+
+;----------------------------------------------------------------------------------------------------------------------------------
+; Devices
+;----------------------------------------------------------------------------------------------------------------------------------
+
+;----------------------------------------------------------------------------------------------------------------------------------
+; Devices - Windows NT specific
+
+[NDI.PCI_A_.NT]
+Characteristics = 0x84 ; NCF_PHYSICAL | NCF_HAS_UI
+BusType         = 5
+DelReg          = DR.5211
+
+AddReg          = AR.5xxx, AR.oahu, AR.5211.NT, AR.5211.acb
+
+[NDI.PCI_A_.NT.Services]
+AddService      = AR5211, 2, 5211.Service, EventLog
+
+[NDI.PCI_AG.NT]
+Characteristics = 0x84 ; NCF_PHYSICAL | NCF_HAS_UI
+BusType         = 5
+DelReg          = DR.5211
+
+AddReg          = AR.5xxx, AR.5211.NT, AR.5212.abgcb
+
+[NDI.PCI_AG.NT.Services]
+AddService      = AR5211, 2, 5211.Service, EventLog
+
+[NDI.USB_AG.NT]
+Characteristics = 0x84 ; NCF_PHYSICAL | NCF_HAS_UI
+BusType         = 15
+DelReg          = DR.5523
+
+AddReg          = AR.5xxx, AR.5523.NT, AR.5212.abgmp
+
+[NDI.USB_AG.NT.Services]
+AddService      = AR5523, 2, 5523.Service, EventLog
+
+;----------------------------------------------------------------------------------------------------------------------------------
+; Registry
+;----------------------------------------------------------------------------------------------------------------------------------
+
+;----------------------------------------------------------------------------------------------------------------------------------
+; Registry - Windows NT
+
+[AR.5211.NT]
+HKR, Ndi,             Service,      0, "AR5211"
+HKR, Ndi\Interfaces,  UpperRange,   0, "wifipro,ndis5"
+HKR, Ndi\Interfaces,  LowerRange,   0, "ethernet"
+
+[5211.Service]
+DisplayName     = %DispName.Service.5211%
+ServiceType     = 1 ;%SERVICE_KERNEL_DRIVER%
+StartType       = 3 ;%SERVICE_DEMAND_START%
+ErrorControl    = 1 ;%SERVICE_ERROR_NORMAL%
+ServiceBinary   = %12%\ar5211.sys
+LoadOrderGroup  = NDIS
+
+[AR.5523.NT]
+HKR, Ndi,             Service,      0, "AR5523"
+HKR, Ndi\Interfaces,  UpperRange,   0, "wifipro,ndis5"
+HKR, Ndi\Interfaces,  LowerRange,   0, "ethernet"
+
+[5523.Service]
+DisplayName     = %DispName.Service.5523%
+ServiceType     = 1 ;%SERVICE_KERNEL_DRIVER%
+StartType       = 3 ;%SERVICE_DEMAND_START%
+ErrorControl    = 1 ;%SERVICE_ERROR_NORMAL%
+ServiceBinary   = %12%\ar5523.sys
+LoadOrderGroup  = NDIS
+
+;----------------------------------------------------------------------------------------------------------------------------------
+; Registry - Windows NT/XP common
+;
+[EventLog]
+AddReg = AR.EventLog
+
+[AR.EventLog]
+HKR, ,                  EventMessageFile,   0x00020000,   "%%SystemRoot%%\System32\netevent.dll"
+HKR, ,                  TypesSupported,     0x00010001,   7
+
+;----------------------------------------------------------------------------------------------------------------------------------
+; Registry - Common Registry Enumerated Types
+
+[AR.5211.acb]
+HKR, ,                                  NetBand,                        0x00002,  "7"
+HKR, CustomParams\Configurations,       NicType,                        0x10003,  0
+
+[AR.5212.abgcb]
+HKR, ,                                  NetBand,                        0x00002,  "15"
+HKR, CustomParams\Configurations,       NicType,                        0x10003,  1
+
+[AR.5212.abgmp]
+HKR, ,                                  NetBand,                        0x00002,  "15"
+HKR, CustomParams\Configurations,       NicType,                        0x10003,  2
+
+;----------------------------------------------------------------------------------------------------------------------------------
+; Registry - Common Registry 5211
+
+[DR.5211]
+HKR,,NetBand
+HKR,,ssid
+HKR,,ssid2
+HKR,,ssid3
+HKR,,prefBssid1
+HKR,,prefBssid2
+HKR,,prefBssid3
+HKR,,prefBssid4
+HKR,Ndi\Params\tpc
+HKR,,tpc
+HKR,Ndi\Params\authTypeUseOnly
+HKR,,authTypeUseOnly
+HKR,,AdHocBand
+HKR,,AwakeTimePerf
+HKR,,beaconInterval
+HKR,,bkScanEnable
+HKR,,bssType
+HKR,,ccode
+HKR,,clist
+HKR,,defaultKey
+HKR,,EncryptionAlg
+HKR,,FragThreshold
+HKR,,HwTxRetries
+HKR,,privacyInvoked
+HKR,,QoS
+HKR,,rateCtrlEnable
+HKR,,RTSThreshold
+HKR,,scanType
+HKR,,SwTxRetryScale
+HKR,,SmeEnable
+HKR,,aifs
+HKR,,cwmin
+
+;----------------------------------------------------------------------------------------------------------------------------------
+; Registry - Common Registry 5523
+
+[DR.5523]
+HKR,,NetBand
+HKR,,ssid
+HKR,,ssid2
+HKR,,ssid3
+HKR,,prefBssid1
+HKR,,prefBssid2
+HKR,,prefBssid3
+HKR,,prefBssid4
+HKR,Ndi\Params\tpc
+HKR,,tpc
+HKR,Ndi\Params\authTypeUseOnly
+HKR,,authTypeUseOnly
+
+;----------------------------------------------------------------------------------------------------------------------------------
+; Registry - Common Registry
+
+[AR.oahu]
+HKR, ,                                  WmmEnabled,                     0x00002,  "0"
+
+[AR.5xxx]
+
+HKR, Ndi\params\MapRegisters,           ParamDesc,                      0,  %MapRegisters%
+HKR, Ndi\params\MapRegisters,           default,                        0,  "256"
+HKR, Ndi\params\MapRegisters,           min,                            0,  "32"
+HKR, Ndi\params\MapRegisters,           max,                            0,  "512"
+HKR, Ndi\params\MapRegisters,           step,                           0,  "8"
+HKR, Ndi\params\MapRegisters,           base,                           0,  "10"
+HKR, Ndi\params\MapRegisters,           type,                           0,  "int"
+
+HKR, Ndi\params\NetworkAddress,         ParamDesc,                      0,  %NetworkAddress%
+HKR, Ndi\params\NetworkAddress,         default,                        0,  ""
+HKR, Ndi\params\NetworkAddress,         LimitText,                      0,  "12"
+HKR, Ndi\params\NetworkAddress,         UpperCase,                      0,  "1"
+HKR, Ndi\params\NetworkAddress,         optional,                       0,  "1"
+HKR, Ndi\params\NetworkAddress,         type,                           0,  "edit"
+
+HKR, Ndi\params\sleepMode,              ParamDesc,                      0,  %sleepMode%
+HKR, Ndi\params\sleepMode,              Base,                           0,  "10"
+HKR, Ndi\params\sleepMode,              default,                        0,  "2"
+HKR, Ndi\params\sleepMode,              type,                           0,  "enum"
+HKR, Ndi\params\sleepMode\enum,         "0",                            0,  %sleepModeOff%
+HKR, Ndi\params\sleepMode\enum,         "2",                            0,  %sleepModeNormal%
+HKR, Ndi\params\sleepMode\enum,         "1",                            0,  %sleepModeMax%
+
+HKR, Ndi\params\shortPreamble,          ParamDesc,                      0,  %shortPreamble%
+HKR, Ndi\params\shortPreamble,          Base,                           0,  "10"
+HKR, Ndi\params\shortPreamble,          default,                        0,  "1"
+HKR, Ndi\params\shortPreamble,          type,                           0,  "enum"
+HKR, Ndi\params\shortPreamble\enum,     "1",                            0,  %shortPreambleEnable%
+HKR, Ndi\params\shortPreamble\enum,     "0",                            0,  %shortPreambleDisable%
+
+HKR, Ndi\params\radioEnable,            ParamDesc,                      0,  %radioEnable%
+HKR, Ndi\params\radioEnable,            Base,                           0,  "10"
+HKR, Ndi\params\radioEnable,            default,                        0,  "1"
+HKR, Ndi\params\radioEnable,            type,                           0,  "enum"
+HKR, Ndi\params\radioEnable\enum,       "1",                            0,  %radioEnableOn%
+HKR, Ndi\params\radioEnable\enum,       "0",                            0,  %radioEnableOff%
+
+HKR, Ndi\params\scanTimeValid,          ParamDesc,                      0,  %scanTimeValid%
+HKR, Ndi\params\scanTimeValid,          default,                        0,  "60"
+HKR, Ndi\params\scanTimeValid,          min,                            0,  "20"
+HKR, Ndi\params\scanTimeValid,          max,                            0,  "120"
+HKR, Ndi\params\scanTimeValid,          step,                           0,  "5"
+HKR, Ndi\params\scanTimeValid,          base,                           0,  "10"
+HKR, Ndi\params\scanTimeValid,          type,                           0,  "int"
+
+HKR, CustomParams\Configurations,       MajorVersion,                   0x10003,  2
+HKR, CustomParams\Configurations,       MinorVersion,                   0x10003,  0
+
+HKR, CustomParams\Configurations,       SelectedConfigurationIndex,     0x10003,  0
+HKR, CustomParams\Configurations,       SelectedConfigurationName,      0x00002,  "Default"
+
+HKR, ,                                  ccode,                          0x00002,  "DE"
+;HKR, ,                                  disableTurboG,                  0x10001,  0
+
+; Allow non-admin users to switch profiles
+[AR.5xxx.security]
+"D:ARAI(A;;GA;;;BA)(A;;GA;;;SY)(A;CI;GA;;;IU)"
+
+;----------------------------------------------------------------------------------------------------------------------------------
+; Common
+;----------------------------------------------------------------------------------------------------------------------------------
+
+[Strings]
+DispName.LANCOM       = "LANCOM Systems"
+
+DeviceDesc.MC54ab     = "AirLancer MC-54ab"
+DeviceDesc.PCI54a     = "AirLancer PCI-54a"
+DeviceDesc.MC54ag     = "AirLancer MC-54ag"
+DeviceDesc.PCI54ag    = "AirLancer PCI-54ag"
+DeviceDesc.MC54g      = "AirLancer MC-54g"
+DeviceDesc.PCI54g     = "AirLancer PCI-54g"
+DeviceDesc.USB54ag    = "AirLancer USB-54ag"
+
+DispName.Service.5211 = "AirLancer MC/PCI-54 Wireless - Network Adapter Service"
+DispName.Service.5523 = "AirLancer USB-54 Wireless - Network Adapter Service"
+
+MapRegisters          = "Map Registers"
+NetworkAddress        = "Network Address"
+sleepMode             = "Power Save Mode"
+sleepModeOff          = "Off"
+sleepModeNormal       = "Normal"
+sleepModeMax          = "Maximum"
+shortPreamble         = "802.11b Preamble"
+shortPreambleEnable   = "Long and Short"
+shortPreambleDisable  = "Long only"
+radioEnable           = "Radio On/Off"
+radioEnableOn         = "On"
+radioEnableOff        = "Off"
+scanTimeValid         = "Scan Valid Interval"
+
+[Strings.0407]
+DispName.LANCOM       = "LANCOM Systems"
+
+DeviceDesc.MC54ab     = "AirLancer MC-54ab"
+DeviceDesc.PCI54a     = "AirLancer PCI-54a"
+DeviceDesc.MC54ag     = "AirLancer MC-54ag"
+DeviceDesc.PCI54ag    = "AirLancer PCI-54ag"
+DeviceDesc.MC54g      = "AirLancer MC-54g"
+DeviceDesc.PCI54g     = "AirLancer PCI-54g"
+DeviceDesc.USB54ag    = "AirLancer USB-54ag"
+
+DispName.Service.5211 = "AirLancer MC/PCI-54 Wireless - Netzwerk-Adapter-Dienst"
+DispName.Service.5523 = "AirLancer USB-54 Wireless - Netzwerk-Adapter-Dienst"
+
+MapRegisters          = "Map-Register"
+NetworkAddress        = "Netzwerk-Adresse"
+sleepMode             = "Power-Spar-Modus"
+sleepModeOff          = "Aus"
+sleepModeNormal       = "Normal"
+sleepModeMax          = "Maximum"
+shortPreamble         = "802.11b Preamble"
+shortPreambleEnable   = "Lang und Kurz"
+shortPreambleDisable  = "Nur lang"
+radioEnable           = "Radio An/Aus"
+radioEnableOn         = "An"
+radioEnableOff        = "Aus"
+scanTimeValid         = "Netzwerk-Prüf-Interval"
+
+;eof
+

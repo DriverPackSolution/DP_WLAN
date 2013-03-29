@@ -1,0 +1,65 @@
+; INF file for installing an upper filter device driver for 
+; Qualcomm USB composite device
+; Copyright (c) 2010 Qualcomm Inc.  All rights reserved.
+
+[Version]
+Signature   = "$WINDOWS NT$"
+Class       = USB
+Provider    = %QUALCOMM%
+ClassGUID   = {36FC9E60-C465-11CF-8056-444553540000}
+DriverVer   = 05/19/2009,1.0.0.0
+CatalogFile = qcfilterhp2k.cat
+
+[Manufacturer]
+%MFG% = QualcommFilter2k, NTamd64
+
+[ControlFlags]
+ExcludeFromSelect = *
+
+[SourceDisksNames]
+1000 = %QcomSrcDisk%,"",,
+
+[SourceDisksFiles]
+qcfilterhp2k.sys  = 1000
+
+[QualcommFilter2k]
+%qcfilterhp2k.DeviceDesc% = qcfilterhp2k,USB\VID_03F0&PID_251D
+
+[QualcommFilter2k.NTamd64]
+%qcfilterhp2k.DeviceDesc% = qcfilterhp2k,USB\VID_03F0&PID_251D
+
+[qcfilterhp2k]  
+Include    = USB.inf
+Needs      = Composite.Dev.NT
+CopyFiles  = qcfilterhp2k.Copy
+
+[qcfilterhp2k.Copy]
+qcfilterhp2k.sys
+
+[DestinationDirs]
+qcfilterhp2k.Copy = 12
+
+[qcfilterhp2k.HW]
+AddReg = UpperFilterAddReg
+
+[UpperFilterAddReg]
+HKR,,"UpperFilters",0x00010000,"qcfilterhp2k"
+
+[qcfilterhp2k.Services]
+Include    = USB.inf
+Needs      = Composite.Dev.NT.Services
+AddService = qcfilterhp2k,, filter_Service_Inst 
+
+[filter_Service_Inst]
+DisplayName    = %filter2k.SvcDesc%                            
+ServiceType    = 1                  ; SERVICE_KERNEL_DRIVER
+StartType      = 3                  ; SERVICE_DEMAND_START
+ErrorControl   = 1                  ; SERVICE_ERROR_NORMAL
+ServiceBinary  = %12%\qcfilterhp2k.sys                            
+
+[Strings]
+MFG                     = "Qualcomm Incorporated"
+QUALCOMM                = "Qualcomm Incorporated"
+QcomSrcDisk             = "Qualcomm USB Driver Disk"
+QCFilterhp2k.DeviceDesc = "HP un2420 Mobile Broadband Module USB Device"
+filter2k.SvcDesc        = "Gobi 2000 USB Composite Device Filter Driver(03F0-251D)"

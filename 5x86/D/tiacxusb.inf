@@ -1,0 +1,259 @@
+;
+; Win2k installation file for D-Link AirPlus DWL-120+ ACX USB WLAN Adapter
+;
+; Copyright (c) 2001, 2002, All Rights Reserved
+
+[Version]
+Signature="$Windows NT$"
+;Catalogfile=tiacxusb.cat
+Class=Net
+ClassGUID={4d36e972-e325-11ce-bfc1-08002be10318}
+Provider=%TI%
+DriverVer=08/08/2003,3.0.32.1
+
+[Manufacturer]
+%TI%=AIRPLUS
+
+[ControlFlags]
+ExcludeFromSelect = USB\VID_2001&PID_3B00
+
+[AIRPLUS]
+%acx.DeviceDesc%=acx.Ndi,USB\VID_2001&PID_3B00
+
+;****************************************************************************
+; Windows 9x section
+;****************************************************************************
+
+[acx.Ndi]
+AddReg=acx.AddReg.Ndi,acx.AddReg.Pars
+CopyFiles=acx.CopyFiles
+
+
+[acx.AddReg.Ndi]
+;
+; Base Information
+;
+HKR,,DevLoader,,*ndis,*ntkern,*ndis
+HKR,,DeviceVxDs,,tiacxusb.sys
+HKR,,EnumPropPages,,"netdi.dll,EnumPropPages"
+;
+; NDIS Information
+;
+HKR,NDIS,LogDriverName,,"tiacxusb"
+HKR,NDIS,MajorNdisVersion,1,05
+HKR,NDIS,MinorNdisVersion,1,00
+;
+;	Interface definitions
+;
+HKR,Ndi\Interfaces,DefUpper,,"ndis3,ndis4,ndis5"
+HKR,Ndi\Interfaces,DefLower,,"ethernet"
+HKR,Ndi\Interfaces,UpperRange,,"ndis3,ndis4,ndis5"
+HKR,Ndi\Interfaces,LowerRange,,"ethernet"
+HKR,NDI,CardType,,"USB"
+;
+HKR,Ndi,DeviceID,,"USB\VID_0451&PID_60c1"
+
+;****************************************************************************
+; Windows 2K section
+;****************************************************************************
+[acx.Ndi.NT]
+BusType         = 15
+AddReg          = acx.AddReg.Ndi.NT, acx.AddReg.Pars
+Characteristics = 0x84
+CopyFiles       = acx.CopyFiles
+
+[acx.Ndi.NT.Services]
+Addservice = TIACXUSB, 0x00000002, acx.AddService, acx.EventLog
+
+[acx.AddService]
+DisplayName    = %acx.SvcDesc%
+ServiceType    = 1                  ; SERVICE_KERNEL_DRIVER
+StartType      = 3                  ; SERVICE_DEMAND_START
+ErrorControl   = 1                  ; SERVICE_ERROR_NORMAL
+ServiceBinary  = %10%\System32\Drivers\tiacxusb.sys
+LoadOrderGroup = NDIS
+ 
+[acx.EventLog]
+AddReg = acx.AddEventLog.reg
+
+[acx.AddEventLog.reg]
+HKR, ,EventMessageFile, 0x00020000, "%%SystemRoot%%\System32\netevent.dll"
+HKR, ,TypesSupported,   0x00010001, 7
+
+[acx.AddReg.Ndi.NT]
+HKR, Ndi,               Service,    0,  "TIACXUSB"
+HKR, Ndi\Interfaces,    LowerRange, 0,  "ethernet"
+HKR, Ndi\Interfaces,    UpperRange, 0,  "ndis5"
+
+
+;****************************************************************************
+; Common sections
+;****************************************************************************
+
+[acx.AddReg.Pars]
+
+; PermAddress
+HKR,,PermAddress,,112233
+
+; HardwareID
+HKR, ,HardwareID, ,"ACX101"
+
+; Desired channel
+HKR, ,dot11DesiredChannel, ,1
+
+; Tx/Rx descriptors
+
+HKR, ,NumACXRxDescriptors, ,10
+HKR, ,NumACXTxDescriptors, ,10
+
+; LEAP User password
+HKR, ,LeapUserPassword, ,""
+
+
+HKR,NDI\params\dot11DesiredBSSType,ParamDesc,,"Desired BSS Type"
+HKR,NDI\params\dot11DesiredBSSType,type,,"enum"
+HKR,NDI\params\dot11DesiredBSSType,default,,"1"
+HKR,NDI\params\dot11DesiredBSSType\enum,"0",,"Ad-Hoc"
+HKR,NDI\params\dot11DesiredBSSType\enum,"1",,"Infrastructure"
+;HKR,NDI\params\dot11DesiredBSSType\enum,"3",,"High Speed Ad-Hoc"
+
+
+HKR, Ndi\Params\dot11DesiredSSID, ParamDesc, ,"Desired SSID"
+HKR, Ndi\Params\dot11DesiredSSID, Type, ,"edit"
+HKR, Ndi\Params\dot11DesiredSSID, LimitText, ,"32"
+HKR, Ndi\Params\dot11DesiredSSID, Default,,"default"
+HKR, Ndi\Params\dot11DesiredSSID, UpperCase,,"0"
+
+HKR,NDI\params\dot11PowerMode,ParamDesc,,"Power Mode"
+HKR,NDI\params\dot11PowerMode,type,,"enum"
+HKR,NDI\params\dot11PowerMode,default,,"0"
+HKR,NDI\params\dot11PowerMode\enum,"0",,"Continuous Access Mode"
+HKR,NDI\params\dot11PowerMode\enum,"1",,"Maximum Power Save"
+HKR,NDI\params\dot11PowerMode\enum,"2",,"Fast Power Save"
+
+; Desired Tx Rate 
+HKR,NDI\params\dot11DesiredTxRate,ParamDesc,, "Desired Tx Rate"
+HKR,NDI\params\dot11DesiredTxRate,type,,"enum"
+HKR,NDI\params\dot11DesiredTxRate,default,,"0"
+HKR,NDI\params\dot11DesiredTxRate\enum,"0",,"Auto"
+HKR,NDI\params\dot11DesiredTxRate\enum,"1",,"1 Mbps"
+HKR,NDI\params\dot11DesiredTxRate\enum,"2",,"2 Mbps"
+HKR,NDI\params\dot11DesiredTxRate\enum,"3",,"5.5 Mbps"
+HKR,NDI\params\dot11DesiredTxRate\enum,"4",,"5.5 Mbps PBCC"
+HKR,NDI\params\dot11DesiredTxRate\enum,"5",,"11 Mbps"
+HKR,NDI\params\dot11DesiredTxRate\enum,"6",,"11 Mbps PBCC"
+HKR,NDI\params\dot11DesiredTxRate\enum,"7",,"22 Mbps PBCC"
+
+; Desired supported Rate Set 
+;HKR,NDI\params\dot11SupportedRateMask,ParamDesc,, "Desired Supported Rate Set"
+;HKR,NDI\params\dot11SupportedRateMask,type,,"enum"
+;HKR,NDI\params\dot11SupportedRateMask,default,,"2"
+;HKR,NDI\params\dot11SupportedRateMask\enum,"0",,"1,2 Mbps"
+;HKR,NDI\params\dot11SupportedRateMask\enum,"1",,"1,2,5.5,11 Mbps"
+;HKR,NDI\params\dot11SupportedRateMask\enum,"2",,"1,2,5.5,11,22 Mbps"
+
+; Desired Basic Rate Set 
+;HKR,NDI\params\dot11BasicRateMask,ParamDesc,, "Desired Basic Rate Set"
+;HKR,NDI\params\dot11BasicRateMask,type,,"enum"
+;HKR,NDI\params\dot11BasicRateMask,default,,"0"
+;HKR,NDI\params\dot11BasicRateMask\enum,"0",,"1,2,5.5,11 Mbps"
+;HKR,NDI\params\dot11BasicRateMask\enum,"1",,"1,2 Mbps"
+
+
+; Fragmentation Threshold 
+;HKR, Ndi\Params\dot11FragmentationThreshold, ParamDesc, ,"Fragmentation Threshold"
+;HKR, Ndi\Params\dot11FragmentationThreshold, Type, , "int"
+;HKR, Ndi\Params\dot11FragmentationThreshold, Default, , "4096"
+;HKR, Ndi\Params\dot11FragmentationThreshold, Min, , "256"
+;HKR, Ndi\Params\dot11FragmentationThreshold, Max, , "6000"
+;HKR, Ndi\Params\dot11FragmentationThreshold, Step, , "1"
+;HKR, Ndi\Params\dot11FragmentationThreshold, Base, , "10"
+
+; RTS Threshold 
+;HKR, Ndi\Params\dot11RTSThreshold, ParamDesc, ,"RTS Threshold"
+;HKR, Ndi\Params\dot11RTSThreshold, Type, , "int"
+;HKR, Ndi\Params\dot11RTSThreshold, Default, , "4096"
+;HKR, Ndi\Params\dot11RTSThreshold, Min, , "0"
+;HKR, Ndi\Params\dot11RTSThreshold, Max, , "6000"
+;HKR, Ndi\Params\dot11RTSThreshold, Step, , "1"
+;HKR, Ndi\Params\dot11RTSThreshold, Base, , "10"
+
+HKR,NDI\params\dot11WEPStatus,ParamDesc,,"WEP Option"
+HKR,NDI\params\dot11WEPStatus,type,,"enum"
+HKR,NDI\params\dot11WEPStatus,default,,"1"
+HKR,NDI\params\dot11WEPStatus\enum,"0",,"WEP Enabled"
+HKR,NDI\params\dot11WEPStatus\enum,"1",,"WEP Disabled"
+
+HKR,NDI\params\dot11AuthMode,ParamDesc,,"Authentication Mode"
+HKR,NDI\params\dot11AuthMode,type,,"enum"
+HKR,NDI\params\dot11AuthMode,default,,"2"
+HKR,NDI\params\dot11AuthMode\enum,"0",,"Open Authentication"
+HKR,NDI\params\dot11AuthMode\enum,"1",,"Shared Authentication"
+HKR,NDI\params\dot11AuthMode\enum,"2",,"Auto Switch"
+
+HKR,NDI\params\dot11ShortPreambleInvoked,ParamDesc,,"Short Preamble"
+HKR,NDI\params\dot11ShortPreambleInvoked,type,,"enum"
+HKR,NDI\params\dot11ShortPreambleInvoked,default,,"0"
+HKR,NDI\params\dot11ShortPreambleInvoked\enum,"0",,"Off"
+HKR,NDI\params\dot11ShortPreambleInvoked\enum,"1",,"On"
+
+;HKR,NDI\params\ELPSupport,ParamDesc,,"ELP Support"
+;HKR,NDI\params\ELPSupport,type,,"enum"
+;HKR,NDI\params\ELPSupport,default,,"0"
+;HKR,NDI\params\ELPSupport\enum,"1",,"Enabled"
+;HKR,NDI\params\ELPSupport\enum,"0",,"Disabled"
+
+;HKR, Ndi\Params\LeapUserName, ParamDesc, ,"LeapUserName"
+;HKR, Ndi\Params\LeapUserName, Type, ,"edit"
+;HKR, Ndi\Params\LeapUserName, LimitText, ,"32"
+;HKR, Ndi\Params\LeapUserName, Default,,"tiwlan"
+;HKR, Ndi\Params\LeapUserName, UpperCase,,"0"
+
+;HKR,NDI\params\LeapEnabled,ParamDesc,,"LeapEnabled"
+;HKR,NDI\params\LeapEnabled,type,,"enum"
+;HKR,NDI\params\LeapEnabled,default,,"0"
+;HKR,NDI\params\LeapEnabled\enum,"1",,"Enabled"
+;HKR,NDI\params\LeapEnabled\enum,"0",,"Disabled"
+
+
+; Desired channel
+HKR, Ndi\Params\dot11DesiredChannel, ParamDesc, ,"Desired Channel"
+HKR, Ndi\Params\dot11DesiredChannel, Type, , "int"
+HKR, Ndi\Params\dot11DesiredChannel, Default, , "6"
+HKR, Ndi\Params\dot11DesiredChannel, Min, , "1"
+HKR, Ndi\Params\dot11DesiredChannel, Max, , "14"
+HKR, Ndi\Params\dot11DesiredChannel, Step, , "1"
+HKR, Ndi\Params\dot11DesiredChannel, Base, , "10"
+
+[acx.CopyFiles]
+;tiacxusb.sys
+
+;****************************************************************************
+; Destination information
+;****************************************************************************
+[DestinationDirs]
+acx.CopyFiles        = 10,System32\Drivers ; Compatible with both 9x and 2K
+
+;****************************************************************************
+; Source Disk Names
+;****************************************************************************
+[SourceDisksNames]
+1 = %DISKID%,,
+
+;****************************************************************************
+; Source Disk Files
+;****************************************************************************
+[SourceDisksFiles]
+tiacxusb.sys=1
+
+;****************************************************************************
+; Localizable Strings
+;****************************************************************************
+[strings]
+TI="D-link"
+DISKID="AIRPLUS WLAN USB Installation Disk"
+acx.DeviceDesc="D-Link AirPlus DWL-120+ Wireless USB Adapter"
+acx.SvcDesc="D-Link AirPlus DWL-120+ Wireless USB Adapter"
+acx.Service.DispName  = "D-Link AirPlus DWL-120+ Wireless USB Adapter"
+
+

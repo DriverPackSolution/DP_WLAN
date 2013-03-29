@@ -1,0 +1,402 @@
+;+-----------------------------------------------------------------------+
+;| Device name    : ZD1211 USB 802.11b+g Wireless LAN card. (ZD1211B)    |
+;| Platform	  : Microsoft Windows 98 / Me / 2000 / XP                |
+;| Host interface : USB                                                  |
+;|                                                                       |
+;| Copyright (c) 2005-2006 ASUSTeK Corporation.                 |
+;| All Rights Reserved.                                                  |
+;+-----------------------------------------------------------------------+
+
+;-------------------------------------------------------------------------
+[Version]
+Signature		= "$Chicago$"
+Compatible		= 1
+Class			= Net
+ClassGUID		= {4d36e972-e325-11ce-bfc1-08002be10318}
+MillenniumPreferred	= .ME
+Provider		= %INFProvider%
+;CatalogFile		= zd1211Bu.cat			; for WHQL certified
+CatalogFile.NT		= zd1211Bu.cat			; for WHQL certified
+DriverVer		= 06/14/2006,6.4.6.8
+
+
+[Manufacturer]
+%Manufacturer%	= ASUS, NT.5.1, ntamd64
+
+
+[ControlFlags]
+
+
+[ASUS]
+;DisplayName              Section           Hardware ID
+;-----------              -------           --------------------------
+%ZD1211B_50U_DESC%       = ZD1211B_50U.ndi,   USB\VID_0B05&PID_171B
+%ZD1211B_50U_OEM_DESC%   = ZD1211B_50U.ndi,   USB\VID_0B05&PID_171C
+
+
+[ASUS.NT.5.1]
+;DisplayName              Section           Hardware ID
+;-----------              -------           --------------------------
+%ZD1211B_50U_DESC%       = ZD1211BXP50U.ndi, USB\VID_0B05&PID_171B
+%ZD1211B_50U_OEM_DESC%   = ZD1211BXP50U.ndi, USB\VID_0B05&PID_171C
+
+[ASUS.ntamd64]
+;DisplayName              Section           Hardware ID
+;-----------              -------           --------------------------
+%ZD1211B_50U_DESC%       = ZD1211BXP50U.ntamd64, USB\VID_0B05&PID_171B
+%ZD1211B_50U_OEM_DESC%   = ZD1211BXP50U.ntamd64, USB\VID_0B05&PID_171C
+
+
+;*********************************************************************
+;   Microsoft Windows 98 section
+;*********************************************************************
+;---------- 5.0 volt ----------
+[ZD1211B_50U.ndi]
+AddReg		= ZD1211B_Win9x.reg, ZD1211B_Common.reg, UnZDRegistryUSB.reg
+CopyFiles       = ZD1211B.CopyFiles98
+DriverVer	= 06/14/2006,6.4.6.8
+
+
+[ZD1211B_Win9x.reg]
+HKR,NDI,              DeviceID,           0, %ZD1211B_50U_PNP%
+HKR,NDI,              CardType,           0, %CardType%
+HKR,,                 DevLoader,          0, "*ndis"
+HKR,,                 DeviceVxDs,         0, %DriverFileName%
+
+; NDIS Info
+HKR,NDIS,             MajorNdisVersion,   1, 03
+HKR,NDIS,             MinorNdisVersion,   1, 0A
+HKR,NDIS,             LogDriverName,      0, %CustomServiceName%(%Manufacturer%)
+
+; Interfaces Info
+HKR,NDI\Interfaces,   DefUpper,           0, "ndis3"
+HKR,NDI\Interfaces,   DefLower,           0, "ethernet"
+HKR,NDI\Interfaces,   UpperRange,         0, "ndis3"
+HKR,NDI\Interfaces,   LowerRange,         0, "ethernet"
+
+; Other Info
+HKR,,                 BusType,            0, 15
+HKR,,                 IOBaseAddress,      1, 02,00,00,00
+HKR,,                 InterruptNumber,    1, 04,00,00,00
+HKR,,                 EnumPropPages,      0, "netdi.dll,EnumPropPages"
+
+; Install Sections
+HKR,NDI\Install,      ndis3,              0, "ZD1211B.ndis3"
+
+HKR,,                 VendorDesc,         0, %VendorDesc%
+
+
+[ZD1211B.CopyFiles98]
+ZD1211BU.sys,ZD11BU98.sys,,2
+
+
+;*********************************************************************
+;   Microsoft Windows Me section
+;*********************************************************************
+;---------- 5.0 volt ----------
+[ZD1211B_50U.ndi.ME]
+Characteristics = 0x84
+BusType         = 15
+AddReg		= ZD1211B_WinMe.reg, ZD1211B_Common.reg, UnZDRegistryUSB.reg
+CopyFiles       = ZD1211B.CopyFilesMe
+
+
+[ZD1211B_50U.ndi.ME.Services]
+AddService = %CustomServiceName%(%Manufacturer%), 2, ZD1211BU_ME.Service, ZD1211BU.EventLog
+
+
+[ZD1211B_WinMe.reg]
+HKR,NDI,              Service,            0, %CustomServiceName%(%Manufacturer%)
+HKR,,                 DevLoader,          0, "*ndis"
+HKR,,                 DeviceVxDs,         0, %DriverFileName%
+HKR,,                 EnumPropPages,      0, "netdi.dll,EnumPropPages"
+
+; NDIS Info
+HKR,NDIS,             MajorNdisVersion,   1, 05
+HKR,NDIS,             MinorNdisVersion,   1, 00
+HKR,NDIS,             LogDriverName,      0, %CustomServiceName%(%Manufacturer%)
+
+; Interfaces Info
+HKR,NDI\Interfaces,   DefUpper,           0, "ndis5"
+HKR,NDI\Interfaces,   DefLower,           0, "ethernet"
+HKR,NDI\Interfaces,   UpperRange,         0, "ndis5"
+HKR,NDI\Interfaces,   LowerRange,         0, "ethernet"
+
+; Install Sections
+HKR,NDI\Install,      ndis3,              0, "ZD1211B.ndis5me"
+
+HKR,,                 VendorDesc,         0, %VendorDesc%
+
+
+[ZD1211B.ndis5me]
+CopyFiles       = ZD1211B.CopyFilesMe
+
+
+[ZD1211B.CopyFilesMe]
+ZD1211BU.sys,ZD11BUME.sys,,2
+
+
+[ZD1211BU_ME.Service]
+DisplayName     = %ZD1211BU.Service.DispName%(%Manufacturer%)
+ServiceType     = 1                             ; %SERVICE_KERNEL_DRIVER%
+StartType       = 3                             ; %SERVICE_DEMAND_START%
+ErrorControl    = 1                             ; %SERVICE_ERROR_NORMAL%
+ServiceBinary   = %11%\%DriverFileName%		; %11%\zd1211Bu.sys
+LoadOrderGroup  = NDIS
+
+
+;*********************************************************************
+;   Microsoft Windows 2000 section
+;*********************************************************************
+;---------- 5.0 volt ----------
+[ZD1211B_50U.ndi.NTx86]
+Characteristics = 0x84
+BusType         = 15
+AddReg		= ZD1211B_Win2K.reg, ZD1211B_Common.reg
+CopyFiles       = ZD1211B.CopyFiles2K
+
+[ZD1211B_50U.ndi.NTx86.Services]
+AddService = %CustomServiceName%(%Manufacturer%), 2, ZD1211BU_NT.Service, ZD1211BU.EventLog
+
+[ZD1211B_Win2K.reg]
+; Interfaces Info
+HKR,NDI\Interfaces,   UpperRange,         0, "ndis5"
+HKR,NDI\Interfaces,   LowerRange,         0, "ethernet"
+HKR,NDI,              Service,            0, %CustomServiceName%(%Manufacturer%)
+
+HKR,,                 VendorDesc,         0, %VendorDesc%
+
+
+[ZD1211B.CopyFiles2K]
+ZD1211BU.sys,ZD11BU2K.sys,,2
+
+
+;*********************************************************************
+;   Microsoft Windows XP section
+;*********************************************************************
+;---------- 5.0 volt ----------
+[ZD1211BXP50U.ndi.NTx86]
+Characteristics = 0x84
+BusType         = 15
+AddReg		= ZD1211B_WinXP.reg, ZD1211B_Common.reg
+CopyFiles       = ZD1211B.CopyFilesXP
+
+
+[ZD1211BXP50U.ndi.NTx86.Services]
+AddService = %CustomServiceName%(%Manufacturer%), 2, ZD1211BU_NT.Service, ZD1211BU.EventLog
+
+[ZD1211BXP50U.ntamd64]
+Characteristics = 0x84
+BusType         = 15
+AddReg		= ZD1211B_WinXP.reg, ZD1211B_Common.reg
+CopyFiles       = ZD1211B.CopyFilesXP64
+
+[ZD1211BXP50U.ntamd64.Services]
+AddService = %CustomServiceName%(%Manufacturer%), 2, ZD1211BU_NT.Service, ZD1211BU.EventLog
+
+[ZD1211B_WinXP.reg]
+; Interfaces Info
+HKR,NDI\Interfaces,   UpperRange,         0, "ndis5"
+HKR,NDI\Interfaces,   LowerRange,         0, "ethernet"
+HKR,NDI,              Service,            0, %CustomServiceName%(%Manufacturer%)
+HKR,,                 VendorDesc,         0, %VendorDesc%
+
+
+[ZD1211B.CopyFilesXP]
+ZD1211BU.sys,ZD11BUXP.sys,,2
+
+[ZD1211B.CopyFilesXP64]
+ZD1211BU.sys,ZD11BU64.sys,,2
+
+;*********************************************************************
+;   Microsoft Windows 2000/XP Common Section
+;*********************************************************************
+;---------- 5.0 volt ----------
+[ZD1211BU_NT.Service]
+DisplayName     = %ZD1211BU.Service.DispName%(%Manufacturer%)
+ServiceType     = 1                             ; %SERVICE_KERNEL_DRIVER%
+StartType       = 3                             ; %SERVICE_DEMAND_START%
+ErrorControl    = 1                             ; %SERVICE_ERROR_NORMAL%
+ServiceBinary   = %12%\%DriverFileName%		; %12%\%DriverFileName%
+LoadOrderGroup  = NDIS
+
+
+;*********************************************************************
+;   Microsoft Windows ME/2000/XP Common Section
+;*********************************************************************
+;---------- 5.0 volt ----------
+[ZD1211BU.EventLog]
+Addreg = ZD1211BU.AddEventLog.reg
+
+[ZD1211BU.AddEventLog.reg]
+HKR,,                               EventMessageFile,  0x00020000, "%%SystemRoot%%\System32\netevent.dll"
+HKR,,                               TypesSupported,    0x00010001, 7
+
+
+;*********************************************************************
+;   Destination Directories
+;*********************************************************************
+[DestinationDirs]
+ZD1211B.CopyFiles98	= 11			; system subdirectory on Win 98
+ZD1211B.CopyFilesMe	= 11			; system subdirectory on Win Me
+ZD1211B.CopyFiles2K	= 12			; system32\drivers subdirectory on Win NT/2000
+ZD1211B.CopyFilesXP	= 12			; system32\drivers subdirectory on Win XP
+ZD1211B.CopyFilesXP64	= 12			; system32\drivers subdirectory on Win XP
+
+
+[PreCopySection]
+HKR,,NoSetupUI,,1
+
+
+[SourceDisksNames]
+1=%DISKNAME%,,,
+
+
+[SourceDisksFiles]
+ZD11BU98.sys = 1
+ZD11BUME.sys = 1
+ZD11BU2K.sys = 1
+ZD11BUXP.sys = 1
+ZD11BU64.sys = 1
+
+
+
+;******************************************************************************
+[ZD1211B_Common.reg]
+HKR, Ndi\params\NumRfd,         ParamDesc,  	0, "%ReceiveFrameDescriptors%"
+HKR, Ndi\params\NumRfd,         default,    	0, "32"
+HKR, Ndi\params\NumRfd,         min,        	0, "1"
+HKR, Ndi\params\NumRfd,         max,        	0, "00001024"
+HKR, Ndi\params\NumRfd,         step,       	0, "1"
+HKR, Ndi\params\NumRfd,         Base,       	0, "10"
+HKR, Ndi\params\NumRfd,         type,       	0, "int"
+HKR, Ndi\params\NumRfd,         flag, 		1, 20,00,00,00
+
+HKR, Ndi\params\NumTcb,         ParamDesc,  	0, "%TransmitControlBlocks%"
+HKR, Ndi\params\NumTcb,         default,    	0, "32"
+HKR, Ndi\params\NumTcb,         min,        	0, "1"
+HKR, Ndi\params\NumTcb,         max,        	0, "00000064"
+HKR, Ndi\params\NumTcb,         step,       	0, "1"
+HKR, Ndi\params\NumTcb,         Base,       	0, "10"
+HKR, Ndi\params\NumTcb,         type,		0, "int"
+HKR, Ndi\params\NumTcb,         flag,		1, 20,00,00,00
+
+HKR, Ndi\params\NumCoalesce,    ParamDesc,  	0, "%CoalesceBuffers%"
+HKR, Ndi\params\NumCoalesce,    default,    	0, "128"
+HKR, Ndi\params\NumCoalesce,    min,        	0, "1"
+HKR, Ndi\params\NumCoalesce,    max,        	0, "00000128"
+HKR, Ndi\params\NumCoalesce,    step,       	0, "1"
+HKR, Ndi\params\NumCoalesce,    Base,       	0, "10"
+HKR, Ndi\params\NumCoalesce,    type,       	0, "int"
+HKR, Ndi\params\NumCoalesce,    flag, 		1, 20,00,00,00
+
+HKR,,                           	PreambleMode,   0, "0"
+HKR,NDI\params\PreambleMode,    	ParamDesc,      0, "PreambleMode"
+HKR,NDI\params\PreambleMode,       	type,           0, "enum"
+HKR,NDI\params\PreambleMode,           	flag,           1, 30,00,00,00
+HKR,Ndi\params\PreambleMode,           	default,        0, "3"
+HKR,NDI\params\PreambleMode\enum,      	1,              0, "Long"
+HKR,NDI\params\PreambleMode\enum,      	2,              0, "Short"
+HKR,NDI\params\PreambleMode\enum,      	3,              0, "Auto"
+
+HKR,,                           	IBSS_G_Mode,    0, "0"
+HKR,NDI\params\IBSS_G_Mode,    	        ParamDesc,      0, "IBSS_G_Mode"
+HKR,NDI\params\IBSS_G_Mode,       	type,           0, "enum"
+HKR,NDI\params\IBSS_G_Mode,           	flag,           1, 30,00,00,00
+HKR,Ndi\params\IBSS_G_Mode,           	default,        0, "0"
+HKR,NDI\params\IBSS_G_Mode\enum,      	0,              0, "Disable"
+HKR,NDI\params\IBSS_G_Mode\enum,      	1,              0, "Enable"
+
+HKR,,                           	IBSS_PureG_Mode,0, "0"
+HKR,NDI\params\IBSS_PureG_Mode,    	ParamDesc,      0, "IBSS_PureG_Mode"
+HKR,NDI\params\IBSS_PureG_Mode,       	type,           0, "enum"
+HKR,NDI\params\IBSS_PureG_Mode,         flag,           1, 30,00,00,00
+HKR,Ndi\params\IBSS_PureG_Mode,         default,        0, "0"
+HKR,NDI\params\IBSS_PureG_Mode\enum,    0,              0, "Disable"
+HKR,NDI\params\IBSS_PureG_Mode\enum,    1,              0, "Enable"
+
+HKR,,                           	             Use_G_Mode_in_Usb1.1,0, "0"
+HKR,NDI\params\Use_G_Mode_in_Usb1.1,    	     ParamDesc,      0, "Use_G_Mode_in_Usb1.1"
+HKR,NDI\params\Use_G_Mode_in_Usb1.1,             type,           0, "enum"
+HKR,NDI\params\Use_G_Mode_in_Usb1.1,             flag,           1, 30,00,00,00
+HKR,Ndi\params\Use_G_Mode_in_Usb1.1,             default,        0, "0"
+HKR,NDI\params\Use_G_Mode_in_Usb1.1\enum,        0,              0, "Disable"
+HKR,NDI\params\Use_G_Mode_in_Usb1.1\enum,        1,              0, "Enable"
+
+HKR,,                           	PSPXLinkMode,   0, "0"
+HKR,NDI\params\PSPXLinkMode,    	        ParamDesc,      0, "PSPXLinkMode"
+HKR,NDI\params\PSPXLinkMode,       	type,           0, "enum"
+HKR,NDI\params\PSPXLinkMode,           	flag,           1, 30,00,00,00
+HKR,Ndi\params\PSPXLinkMode,           	default,        0, "0"
+HKR,NDI\params\PSPXLinkMode\enum,      	0,              0, "Disable"
+HKR,NDI\params\PSPXLinkMode\enum,      	1,              0, "Enable"
+
+HKR,,                           	QosTagPolicy,   0, "0"
+HKR,NDI\params\QosTagPolicy,    	ParamDesc,      0, "QosTagPolicy"
+HKR,NDI\params\QosTagPolicy,       	type,           0, "enum"
+HKR,NDI\params\QosTagPolicy,           	flag,           1, 30,00,00,00
+HKR,Ndi\params\QosTagPolicy,           	default,        0, "0"
+HKR,NDI\params\QosTagPolicy\enum,      	0,              0, "Auto"
+HKR,NDI\params\QosTagPolicy\enum,      	1,              0, "802.1Q Tag"
+HKR,NDI\params\QosTagPolicy\enum,      	2,              0, "DSCP Tag"
+
+HKR,,                           	WMMQosSupport,   0, "0"
+HKR,NDI\params\WMMQosSupport,    	        ParamDesc,      0, "WMMQosSupport"
+HKR,NDI\params\WMMQosSupport,       	type,           0, "enum"
+HKR,NDI\params\WMMQosSupport,           	flag,           1, 30,00,00,00
+HKR,Ndi\params\WMMQosSupport,           	default,        0, "0"
+HKR,NDI\params\WMMQosSupport\enum,      	0,              0, "Disable"
+HKR,NDI\params\WMMQosSupport\enum,      	1,              0, "Enable"
+
+HKR,,                           PHY_A_6M_Setpoint_Value,	0x10001, 0x28
+HKR,,                           PHY_A_6M_CR128_Value,	0x10001, 0x17
+HKR,,                           PHY_A_1dBm_Value,	0x10001, 0x08
+
+;HKR,,                           FirmwareName,	0, %FirmwareFileName%
+HKR,,                           EnableAntennaDiversity, 0, "0"
+HKR,,                           DefaultAntenna, 0, "1"
+HKR,,                           DefaultWirelessMode, 0, "0"
+HKR,,                           SaveDefaultConnection, 0, "1"
+HKR,,                           RFSwitch, 0, "0"
+; FastRoaming: 1000(1sec) <= value <= 4000(4 sec)
+HKR,,                           FastRoaming, 0, "4000" 
+HKR,,                           EnableFastRoaming, 0, "1" 
+
+HKR,, SurpriseRemoveOK,       0, "1"
+
+HKR,,                           Radio,0, "0"
+HKR,NDI\params\Radio,     	ParamDesc,      0, "Radio Enable/Disable"
+HKR,NDI\params\Radio,        	type,           0, "enum"
+HKR,NDI\params\Radio,          	flag,           1, 30,00,00,00
+HKR,Ndi\params\Radio,          	default,        0, "0"
+HKR,NDI\params\Radio\enum,     	0,              0, "Enable"
+HKR,NDI\params\Radio\enum,     	1,              0, "Disable"
+
+;*********************************************************************
+[UnZDRegistryUSB.reg]
+HKLM,SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\UNZD1211B%InterfaceType%,DEL_HKR_0000,0,"ENUM\"%ZD1211B_50U_PNP%
+
+
+;*********************************************************************
+[Strings]
+INFProvider	= "ASUS"
+Manufacturer	= "ASUS"
+
+DISKNAME	= "ASUS ZD1211B IEEE 802.11 b+g Wireless LAN Driver (USB) Installation Disk"
+
+DriverFileName	= "zd1211Bu.sys"
+InterfaceType	= "USB"
+CardType	= "PNP"
+VendorDesc	= "ASUS ZD1211B 802.11 b+g Wireless LAN"
+CustomServiceName = "ZD1211BU"
+
+ZD1211B_50U_DESC	= "ASUS USB Wireless Network Adapter"
+ZD1211B_50U_OEM_DESC	= "802.11b/g USB Wireless Network Adapter"
+ZD1211B_50U_PNP  	= "USB\VID_0B05&PID_171B"
+
+ReceiveFrameDescriptors = "ReceiveFrameDescriptors"
+TransmitControlBlocks = "TransmitControlBlocks"
+CoalesceBuffers = "CoalesceBuffers"
+
+
+ZD1211BU.Service.DispName = "ASUS ZD1211B IEEE 802.11 b+g Wireless LAN Driver (USB)"

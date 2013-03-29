@@ -1,0 +1,280 @@
+;***********************************************************************
+;
+; WLA11USB.INF
+;
+;   This installation script supports 98,Me,2000&XP for the
+;   Wireless LAN Adapters.
+;
+;
+;***********************************************************************
+
+[Version]
+ DriverVer = 12/03/2001, 1.2.2.55
+ Signature           = "$Chicago$"
+ Compatible          = 1
+ Class               = Net
+ ClassGUID           = {4d36e972-e325-11ce-bfc1-08002be10318}
+ Provider            = %VER_VENDOR_STR%
+; CatalogFile         = wla11usb.cat
+ MillenniumPreferred = .ME
+
+[ControlFlags]
+;Exclude all PNP adapters from user selection
+ ExcludeFromSelect   = USB\VID_0cde&PID_0001
+ ExcludeFromSelect   = USB\Vid_03eb&Pid_7603
+
+[Manufacturer]
+ %VER_VENDOR_NAME_STR% = DeviceList
+
+[DeviceList]
+ %WLANUSB1_STR%    = WLANUSB1,    USB\VID_0cde&PID_0001
+ %WLANUSB1_STR%    = WLANUSB1,    USB\Vid_03eb&Pid_7603
+
+;==========================================
+[WLANUSB1]            ; Win9x
+ AddReg         = WLANUSB1.reg, COMMON_USB.reg, COMMON_NDIS.reg, COMMON.reg
+ CopyFiles      = WLAN_DRIVER.copy
+
+[WLANUSB1.ME]         ; WinMe
+ AddReg         = WLANUSB1.reg, COMMON_USB.reg, COMMON_NDIS.reg.ME, COMMON.reg
+ CopyFiles      = WLAN_DRIVER.copy.ME
+
+[WLANUSB1.ME.ME]      ; WinMe - Same as .ME (Needed for Update Driver)
+ AddReg         = WLANUSB1.reg, COMMON_USB.reg, COMMON_NDIS.reg.ME, COMMON.reg
+ CopyFiles      = WLAN_DRIVER.copy.ME
+
+[WLANUSB1.NT]         ; Win2k
+ AddReg         = WLANUSB1.reg, COMMON_USB.reg, COMMON_NDIS.reg.NT, COMMON.reg
+ CopyFiles      = WLAN_DRIVER.copy.NT
+ BusType        = 15     ; USB
+ Characteristics= 0x84  ; NCF_PHYSICAL | NCF_HAS_UI
+
+[WLANUSB1.NT.Services]
+ AddService     = "WLANUSB", 2, WLANUSB_DRIVER.Service, WLAN_DRIVER.EventLog
+
+[WLANUSB1.reg]
+ HKR,Ndi        ,DeviceID,0,"USB\VID_0cde&PID_0001"
+ HKR,,VendorDesc,0,"Wireless LAN USB Adapter"
+
+;###############################################################################
+
+[WLANUSB_DRIVER.Service]
+ DisplayName    = %WLANUSB_SERVICE_DISPLAY%
+ ServiceType    = 1    ; SERVICE_KERNEL_DRIVER
+ StartType      = 3    ; SERVICE_DEMAND_START
+ ErrorControl   = 1    ; NORMAL
+ ServiceBinary  = %12%\vnetusba.sys
+ LoadOrderGroup = NDIS
+
+[WLAN_DRIVER.EventLog]
+ AddReg         = WLAN_DRIVER.EventLog.reg
+
+[WLAN_DRIVER.EventLog.reg]
+ HKR,           ,EventMessageFile       ,0x00020000     ,"%%SystemRoot%%\System32\netevent.dll"
+ HKR,           ,TypesSupported         ,0x00010001     ,7
+
+[COMMON_USB.reg]
+ HKR,NDI                ,Service                ,0      ,"WLANUSB"
+ HKR,NDI                ,CardType               ,0      ,"USB"
+ HKR,                   ,BusType                ,0      ,"0"
+ HKR,                   ,DeviceVxDs             ,0      ,"vnetusba.sys"
+
+[COMMON_NDIS.reg]
+ HKR,                   ,DevLoader              ,0      ,"*ndis"
+ HKR,                   ,EnumPropPages          ,0      ,"netdi.dll,EnumPropPages"
+ HKR,NDI\Interfaces     ,UpperRange             ,0      ,"ndis3"
+ HKR,NDI\Interfaces     ,LowerRange             ,0      ,"ethernet"
+ HKR,NDI\Interfaces     ,DefUpper               ,0      ,"ndis3"
+ HKR,NDI\Interfaces     ,DefLower               ,0      ,"ethernet"
+ HKR,NDIS               ,LogDriverName          ,0      ,"WLAN"
+ HKR,NDIS               ,MajorNdisVersion       ,1      ,03
+ HKR,NDIS               ,MinorNdisVersion       ,1      ,0a
+
+[COMMON_NDIS.reg.ME]
+ HKR,                   ,DevLoader              ,0      ,"*ndis"
+ HKR,                   ,EnumPropPages          ,0      ,"netdi.dll,EnumPropPages"
+ HKR,NDI\Interfaces     ,UpperRange             ,0      ,"ndis3"
+ HKR,NDI\Interfaces     ,LowerRange             ,0      ,"ethernet"
+ HKR,NDI\Interfaces     ,DefUpper               ,0      ,"ndis3"
+ HKR,NDI\Interfaces     ,DefLower               ,0      ,"ethernet"
+ HKR,NDIS               ,LogDriverName          ,0      ,"WLAN"
+ HKR,NDIS               ,MajorNdisVersion       ,1      ,03
+ HKR,NDIS               ,MinorNdisVersion       ,1      ,0a
+
+[COMMON_NDIS.reg.NT]
+ HKR,NDI\Interfaces     ,UpperRange             ,0      ,"ndis5"
+ HKR,NDI\Interfaces     ,LowerRange             ,0      ,"ethernet"
+
+[COMMON.reg]
+HKR,,NetworkType750,0,"1"
+
+HKR, Ndi\params\PreambleType,	      	ParamDesc,     		0, "Preamble Type"
+HKR, Ndi\params\PreambleType,		default,		0, "2"
+HKR, Ndi\params\PreambleType,	      	type,			0, "enum"
+HKR, Ndi\params\PreambleType\enum,	0,			0, "Long"
+HKR, Ndi\params\PreambleType\enum,	1,			0, "Short"
+HKR, Ndi\params\PreambleType\enum,	2,			0, "Auto"
+HKR, ,                                	PreambleType,   	0, "2"
+
+HKR, Ndi\params\Channel,	      	ParamDesc,     		0, "Channel"
+HKR, Ndi\params\Channel,		default,		0, "3"
+HKR, Ndi\params\Channel,	      	type,			0, "int"
+HKR, Ndi\params\Channel,		min,			0, "1"
+HKR, Ndi\params\Channel,		max,			0, "14"
+HKR, Ndi\params\Channel,		step,			0, "1"
+HKR, ,                                	Channel,    		0, "3"
+
+HKR, Ndi\params\Rate,	      		ParamDesc,     		0, "Rate (Mbps)"
+HKR, Ndi\params\Rate,			default,		0, "4"
+HKR, Ndi\params\Rate,	      		type,			0, "enum"
+HKR, Ndi\params\Rate\enum,		0,			0, "1"
+HKR, Ndi\params\Rate\enum,		1,			0, "2"
+HKR, Ndi\params\Rate\enum,		2,			0, "5.5"
+HKR, Ndi\params\Rate\enum,		3,			0, "11"
+HKR, Ndi\params\Rate\enum,		4,			0, "Auto"
+HKR, ,                                	Rate,    		0, "4"
+
+HKR, Ndi\params\RTS_Threshold,	      	ParamDesc,     		0, "RTS Threshold"
+HKR, Ndi\params\RTS_Threshold,		default,		0, "2347"
+HKR, Ndi\params\RTS_Threshold,	      	type,			0, "int"
+HKR, Ndi\params\RTS_Threshold,		min,			0, "0"
+HKR, Ndi\params\RTS_Threshold,		max,			0, "2347"
+HKR, Ndi\params\RTS_Threshold,		step,			0, "1"
+HKR, ,                                	RTS_Threshold,  	0, "2347"
+
+HKR, Ndi\params\Frag_Threshold,	      	ParamDesc,     		0, "Fragmentation Threshold"
+HKR, Ndi\params\Frag_Threshold,		default,		0, "2346"
+HKR, Ndi\params\Frag_Threshold,	      	type,			0, "int"
+HKR, Ndi\params\Frag_Threshold,		min,			0, "256"
+HKR, Ndi\params\Frag_Threshold,		max,			0, "2346"
+HKR, Ndi\params\Frag_Threshold,		step,			0, "1"
+HKR, ,                                	Frag_Threshold, 	0, "2346"
+
+HKR, Ndi\params\Operating_Mode,	      	ParamDesc,     		0, "Operating Mode"
+HKR, Ndi\params\Operating_Mode,		default,		0, "1"
+HKR, Ndi\params\Operating_Mode,	      	type,			0, "enum"
+HKR, Ndi\params\Operating_Mode\enum,	0,			0, "Ad-Hoc"
+HKR, Ndi\params\Operating_Mode\enum,	1,			0, "Infrastructure"
+HKR, ,                                	Operating_Mode, 	0, "1"
+
+HKR, Ndi\params\ESSID,			ParamDesc,		0, "ESSID"
+HKR, Ndi\params\ESSID,           	default,       		0, "ANY"
+HKR, Ndi\params\ESSID,           	type,          		0, "edit"
+HKR, Ndi\params\ESSID,           	LimitText,		0, "32"
+HKR, Ndi\params\ESSID,           	UpperCase,		0, "0"
+HKR, ,                                	ESSID,    		0, "ANY"
+
+HKR, Ndi\params\AuthenticationType,	ParamDesc,              0, "Authentication Type"
+HKR, Ndi\params\AuthenticationType,	default,                0, "0"
+HKR, Ndi\params\AuthenticationType,	type,                   0, "enum"
+HKR, Ndi\params\AuthenticationType\enum,0,                      0, "Open System"
+HKR, Ndi\params\AuthenticationType\enum,1,                      0, "Shared Key"
+HKR, Ndi\params\AuthenticationType\enum,2,                      0, "Auto"
+HKR, ,                                	AuthenticationType,     0, "0"
+
+HKR, Ndi\params\WEP_Mode,	      	ParamDesc,              0, "WEP Mode"
+HKR, Ndi\params\WEP_Mode,		default,                0, "0"
+HKR, Ndi\params\WEP_Mode,	      	type,                   0, "enum"
+HKR, Ndi\params\WEP_Mode\enum,		0,                      0, "Mandatory"
+HKR, Ndi\params\WEP_Mode\enum,		1,                      0, "Optional"
+HKR, ,                                	WEP_Mode,               0, "0"
+
+HKR,Ndi\params\EncryptionLevel,		ParamDesc,		0,"Encryption Level"
+HKR,Ndi\params\EncryptionLevel,		type,			0,"enum"
+HKR,Ndi\params\EncryptionLevel,		default,		0,"0"
+HKR,Ndi\params\EncryptionLevel\enum,	0,			0,"None"
+HKR,Ndi\params\EncryptionLevel\enum,	1,			0,"64-bit encryption"
+HKR,Ndi\params\EncryptionLevel\enum,	2,			0,"128-bit encryption"
+HKR,,					EncryptionLevel,	0,"0"
+
+HKR,Ndi\params\WEP_KEY_INDEX,		ParamDesc,		0,"WEP Key to use"
+HKR,Ndi\params\WEP_KEY_INDEX,		type,			0,"enum"
+HKR,Ndi\params\WEP_KEY_INDEX,		default,		0,"0"
+HKR,Ndi\params\WEP_KEY_INDEX\enum,	0,			0,"1"
+HKR,Ndi\params\WEP_KEY_INDEX\enum,	1,			0,"2"
+HKR,Ndi\params\WEP_KEY_INDEX\enum,	2,			0,"3"
+HKR,Ndi\params\WEP_KEY_INDEX\enum,	3,			0,"4"
+HKR,,					WEP_KEY_INDEX,		0,"0"
+
+;HKR,Ndi\params\WEP_KEY_1,		ParamDesc,		0,"WEP KEY #1"
+;HKR,Ndi\params\WEP_KEY_1,		default,		0,"00000000000000000000000000"
+;HKR,Ndi\params\WEP_KEY_1,		type,			0,"edit"
+;HKR,Ndi\params\WEP_KEY_1,		LimitText,		0,"26"
+;HKR,Ndi\params\WEP_KEY_1,		UpperCase,		0,"1"
+;HKR,,					WEP_KEY_1,		0,"00000000000000000000000000"
+
+;HKR ,defaults,WEP_KEY_1,0,"00000000000000000000000000"
+
+;HKR,Ndi\params\WEP_KEY_2,		ParamDesc,		0,"WEP KEY #2"
+;HKR,Ndi\params\WEP_KEY_2,		default,		0,"00000000000000000000000000"
+;HKR,Ndi\params\WEP_KEY_2,		type,			0,"edit"
+;HKR,Ndi\params\WEP_KEY_2,		LimitText,		0,"26"
+;HKR,Ndi\params\WEP_KEY_2,		UpperCase,		0,"1"
+;HKR,,					WEP_KEY_2,		0,"00000000000000000000000000"
+
+;HKR ,defaults,WEP_KEY_2,0,"00000000000000000000000000"
+
+;HKR,Ndi\params\WEP_KEY_3,		ParamDesc,		0,"WEP KEY #3"
+;HKR,Ndi\params\WEP_KEY_3,		default,		0,"00000000000000000000000000"
+;HKR,Ndi\params\WEP_KEY_3,		type,			0,"edit"
+;HKR,Ndi\params\WEP_KEY_3,		LimitText,		0,"26"
+;HKR,Ndi\params\WEP_KEY_3,		UpperCase,		0,"1"
+;HKR,,					WEP_KEY_3,		0,"00000000000000000000000000"
+
+;HKR ,defaults,WEP_KEY_3,0,"00000000000000000000000000"
+
+;HKR,Ndi\params\WEP_KEY_4,		ParamDesc,		0,"WEP KEY #4"
+;HKR,Ndi\params\WEP_KEY_4,		default,		0,"00000000000000000000000000"
+;HKR,Ndi\params\WEP_KEY_4,		type,			0,"edit"
+;HKR,Ndi\params\WEP_KEY_4,		LimitText,		0,"26"
+;HKR,Ndi\params\WEP_KEY_4,		UpperCase,		0,"1"
+;HKR,,					WEP_KEY_4,		0,"00000000000000000000000000"
+
+;HKR ,defaults,WEP_KEY_4,0,"00000000000000000000000000"
+
+;###############################################################################
+[DestinationDirs]
+;CopyFiles Section      = Destination Directory ID -- see layout.inf
+;-----------------        ------------------------
+ DefaultDestDir         = 11 ; Win9x=%windir%\system Win2k=%windir%\system32
+ WLAN_DRIVER.copy      = 11 ; Win9x=%windir%\system
+ WLAN_DRIVER.copy.ME   = 11 ; Win9x=%windir%\system
+ WLAN_DRIVER.copy.NT   = 12 ; Win2k=%windir%\system32\drivers
+
+[WLAN_DRIVER.copy]
+ vnetusba.sys
+
+[WLAN_DRIVER.copy.ME]
+ vnetusba.sys
+
+[WLAN_DRIVER.copy.NT]
+ vnetusba.sys
+
+[SourceDisksNames]
+;Source Disk ID         = Disk Name
+;--------------           ---------
+ 1                      = %INSTALL_DISK_STR%,,,
+
+[SourceDisksFiles]      ; Win9x
+ vnetusba.sys           = 1
+
+[SourceDisksFiles.ME]   ; WinMe
+ vnetusba.sys           = 1
+
+[SourceDisksFiles.X86]  ; Win2k/winXP
+ ;vnetusba.sys           = 1,winxp
+  vnetusba.sys           = 1
+
+;###############################################################################
+[Strings]
+;String ID              = String Text
+;---------                -----------
+VER_VENDOR_STR         = " "
+VER_VENDOR_NAME_STR    = "Wireless LAN USB Adapter"
+
+WLANUSB1_STR         = "Wireless LAN USB Adapter"
+
+WLAN_SERVICE_DISPLAY  = "Wireless LAN USB Adapter Driver"
+WLANUSB_SERVICE_DISPLAY  = "Wireless LAN USB Adapter Driver"
+INSTALL_DISK_STR       = "Wireless LAN USB Adapter Install Disk"
+

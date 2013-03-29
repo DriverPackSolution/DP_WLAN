@@ -1,0 +1,66 @@
+; -- odysseyIM3.INF --
+;
+; Funk Odyssey Service
+;
+; Copyright (c) 2001, 2002 Funk Software
+;
+[Version]
+Signature   = "$Windows NT$"
+Class       = NetService
+ClassGUID   = {4D36E974-E325-11CE-BFC1-08002BE10318}
+Provider    = %Funk%
+DriverVer   = 12/19/2003,3.0.0.0
+CatalogFile = OdysseyIM3.cat
+
+[Manufacturer]
+%Funk% = FUNK
+
+[ControlFlags]
+ExcludeFromSelect   = odysseyIM3
+
+[FUNK]
+%odysseyIM3_Desc%   = odysseyIM3.ndi, odysseyIM3
+
+[odysseyIM3.ndi]
+AddReg          = odysseyIM3.ndi.AddReg, odysseyIM3.AddReg
+Characteristics = 0x4430 ; NCF_FILTER | NCF_NO_SERVICE | NCF_NDIS_PROTOCOL | NCF_NOT_USER_REMOVABLE
+CopyFiles       = odysseyIM3.Files.Sys
+CopyInf         = odysseyIM3_m.inf
+
+;--------------------------------------------------------------------------
+; File copy
+;
+[SourceDisksNames]
+1   = %DiskDescription%,"",,
+
+[SourceDisksFiles]
+odysseyIM3.sys  = 1
+
+[DestinationDirs]
+DefaultDestDir          = 12
+odysseyIM3.Files.Sys    = 12   ; %windir%\System32\drivers
+
+[odysseyIM3.Files.Sys]
+odysseyIM3.sys,,,2
+
+;--------------------------------------------------------------------------
+; Filter Install
+;
+[odysseyIM3.ndi.AddReg]
+HKR, Ndi,               HelpText,           , %odysseyIM3_HELP%
+HKR, Ndi,               FilterClass,        , odysseyIM3
+HKR, Ndi,               FilterDeviceInfId,  , odysseyIM3_mp
+HKR, Ndi,               Service,            , odysseyIM3
+HKR, Ndi\Interfaces,    UpperRange,         , noupper
+HKR, Ndi\Interfaces,    LowerRange,         , nolower
+HKR, Ndi\Interfaces,    FilterMediaTypes,   , "ethernet, tokenring, fddi"
+
+[odysseyIM3.AddReg]
+;None
+
+;--------------------------------------------------------------------------
+[Strings]
+Funk            = "Funk Software"
+DiskDescription = "Odyssey Network Services Installation Disk"
+odysseyIM3_Desc = "Odyssey Network Services"
+odysseyIM3_HELP = "Odyssey Network Services"

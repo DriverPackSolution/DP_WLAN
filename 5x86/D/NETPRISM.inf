@@ -1,0 +1,399 @@
+;***********************************************************************
+;
+; NETPRISM.INF
+;
+;   This installation script supports Windows 95,98,Me&2000 for the
+;   Wireless LAN Card.
+;
+;   Copyright (c) 2003
+;   All Rights Reserved.
+;
+;***********************************************************************
+
+[Version]
+DriverVer = 10/02/2003, 3.1.3
+Signature           = "$Chicago$"
+Compatible          = 1
+Class               = Net
+ClassGUID           = {4d36e972-e325-11ce-bfc1-08002be10318}
+Provider            = %VER_VENDOR_STR%
+CatalogFile         = PRISMNIC.cat
+
+
+[ControlFlags]
+;Exclude all PNP adapters from user selection
+ExcludeFromSelect   = D-Link-DWL-650_Wireless_PC_Card_RevP-DC64
+ExcludeFromSelect   = VEN_1260&DEV_3873&SUBSYS_37001186
+ExcludeFromSelect   = VID_2001&PID_3700
+ExcludeFromSelect   = VID_2001&PID_3702
+ 
+[Manufacturer]
+%VER_VENDOR_NAME_STR% = DeviceList
+
+[DeviceList]
+%PRISM_PCMCIA_STR%  = PRISM_PCMCIA,  PCMCIA\D-Link-DWL-650_Wireless_PC_Card_RevP-DC64
+%PCI_DESC_STR%      = PRISM_PCI1,    PCI\VEN_1260&DEV_3873&SUBSYS_37001186
+%PRISM_USB1_STR%    = PRISM_USB1,    USB\VID_2001&PID_3700
+%PRISM_USB2_STR%    = PRISM_USB2,    USB\VID_2001&PID_3702
+
+;==========================================
+
+[PRISM_PCMCIA]
+ AddReg    = PRISM_PCMCIA.reg, COMMON_PCMCIA.reg, COMMON_NDIS.reg, COMMON.reg
+ CopyFiles = PRISM_DRIVER.copy
+
+[PRISM_PCMCIA.NT]
+ AddReg    = PRISM_PCMCIA.reg, COMMON_PCMCIA.reg, COMMON_NDIS.reg.NT, COMMON.reg
+ CopyFiles = PRISM_DRIVER.copy.NT
+ BusType   = 8
+ Characteristics= 0x84
+
+[PRISM_PCMCIA.NT.Services]
+ AddService=  PRISM, 2, PRISM_DRIVER.Service, PRISM_DRIVER.EventLog
+
+[PRISM_PCMCIA.reg]
+ HKR,Ndi         ,DeviceID,0,"PCMCIA\D-Link-DWL-650_Wireless_PC_Card_RevP-DC64"
+ HKR,            ,PlatformId,0,"32797"
+ HKR,            ,VendorDesc,0,%PRISM_PCMCIA_STR%
+ HKR,            ,LoadFirmware,0,"1"
+ ;HKR,NDI\params\LoadFirmware,,0,1
+
+;==========================================
+
+[PRISM_PCI1]
+ AddReg    = PRISM_PCI1.reg, COMMON_PCI.reg, COMMON_NDIS.reg, COMMON.reg
+ CopyFiles = PRISM_DRIVER.copy
+
+[PRISM_PCI1.NT]
+ AddReg    = PRISM_PCI1.reg, COMMON_PCI.reg, COMMON_NDIS.reg.NT, COMMON.reg
+ CopyFiles = PRISM_DRIVER.copy.NT
+ BusType   = 5
+ Characteristics= 0x84
+
+[PRISM_PCI1.NT.Services]
+ AddService=  PRISM, 2, PRISM_DRIVER.Service, PRISM_DRIVER.EventLog
+
+[PRISM_PCI1.reg]
+ HKR,Ndi         ,DeviceID,0,"PCI\VEN_1260&DEV_3873&SUBSYS_37001186"
+ HKR,            ,PlatformId,0,"32804"
+ HKR,            ,VendorDesc,0,%PCI_DESC_STR%
+ HKR,            ,LoadFirmware,0,"1"
+ ;HKR,NDI\params\LoadFirmware,,0,1 
+
+;==========================================
+[PRISM_USB1]            ; Win9x
+ AddReg         = PRISM_USB1.reg, COMMON_USB.reg, COMMON_NDIS.reg, COMMON.reg
+ CopyFiles      = PRISM_DRIVER.copy 
+
+[PRISM_USB1.NT]         ; Win2k
+ AddReg         = PRISM_USB1.reg, COMMON_USB.reg, COMMON_NDIS.reg.NT, COMMON.reg
+ CopyFiles      = PRISM_DRIVER.copy.NT
+ BusType        = 15     ; USB
+ Characteristics= 0x84  ; NCF_PHYSICAL | NCF_HAS_UI
+
+[PRISM_USB1.NT.Services]
+ AddService     = PRISM_USB, 2, PRISM_USB_DRIVER.Service, PRISM_DRIVER.EventLog
+
+[PRISM_USB1.reg]
+ HKR,Ndi        ,DeviceID,0,"USB\VID_2001&PID_3700"
+ HKR,           ,PlatformId,0,"0"
+ HKR,           ,VendorDesc,0,%PRISM_USB1_STR%
+ HKR,           ,LoadFirmware,0,"1"
+ ;HKR, NDI\params\LoadFirmware,,0,"1"
+ 
+;==========================================
+[PRISM_USB2]            ; Win9x
+ AddReg         = PRISM_USB2.reg, COMMON_USB.reg, COMMON_NDIS.reg, COMMON.reg
+ CopyFiles      = PRISM_DRIVER.copy 
+
+[PRISM_USB2.NT]         ; Win2k
+ AddReg         = PRISM_USB2.reg, COMMON_USB.reg, COMMON_NDIS.reg.NT, COMMON.reg
+ CopyFiles      = PRISM_DRIVER.copy.NT
+ BusType        = 15     ; USB
+ Characteristics= 0x84  ; NCF_PHYSICAL | NCF_HAS_UI
+
+[PRISM_USB2.NT.Services]
+ AddService     = PRISM_USB, 2, PRISM_USB_DRIVER.Service, PRISM_DRIVER.EventLog
+
+[PRISM_USB2.reg]
+ HKR,Ndi        ,DeviceID,0,"USB\VID_2001&PID_3702"
+ HKR,           ,PlatformId,0,"0"
+ HKR,           ,VendorDesc,0,%PRISM_USB2_STR%
+ HKR,           ,LoadFirmware,0,"1"
+ ;HKR, NDI\params\LoadFirmware,,0,"1"
+
+;==========================================
+
+[PRISM_DRIVER.Service]
+ DisplayName    = %PRISM_SERVICE_DISPLAY%
+ ServiceType    = 1    ; SERVICE_KERNEL_DRIVER
+ StartType      = 3    ; SERVICE_DEMAND_START
+ ErrorControl   = 1    ; NORMAL
+ ServiceBinary  = %12%\PRISMNDS.sys
+ LoadOrderGroup = NDIS
+
+[PRISM_USB_DRIVER.Service]
+ DisplayName    = %PRISM_USB_SERVICE_DISPLAY%
+ ServiceType    = 1    ; SERVICE_KERNEL_DRIVER
+ StartType      = 3    ; SERVICE_DEMAND_START
+ ErrorControl   = 1    ; NORMAL
+ ServiceBinary  = %12%\PRISMUSB.sys
+ LoadOrderGroup = NDIS
+
+[PRISM_DRIVER.EventLog]
+ AddReg         = PRISM_DRIVER.EventLog.reg
+
+[PRISM_DRIVER.EventLog.reg]
+ HKR,           ,EventMessageFile       ,0x00020000     ,"%%SystemRoot%%\System32\netevent.dll"
+ HKR,           ,TypesSupported         ,0x00010001     ,7
+
+;###############################################################################
+
+[COMMON_PCMCIA.reg]
+;RegKey,SubKey          ,Name                   ,Type   ,Value
+;-------------          -----                   -----   ------
+ HKR,NDI                ,Service                ,0      ,"PRISM"
+ HKR,NDI                ,CardType               ,0      ,"PCMCIA"
+ HKR,                   ,BusType                ,0      ,"8"
+ HKR,                   ,DeviceVxDs             ,0      ,"PRISMNDS.sys"
+ HKR,                   ,EnableIRQSharing       ,1      ,"01","00","00","00"
+ HKR,                   ,IOBaseAddress          ,1      ,"02","00","00","00"
+ HKR,                   ,InterruptNumber        ,1      ,"04","00","00","00"
+
+[COMMON_PCI.reg]
+ HKR,NDI                ,Service                ,0      ,"PRISM"
+ HKR,NDI                ,CardType               ,0      ,"PCI"
+ HKR,                   ,BusType                ,0      ,"5"
+ HKR,                   ,DeviceVxDs             ,0      ,"PRISMNDS.sys"
+ HKR,                   ,EnableIRQSharing       ,1      ,"01","00","00","00"
+ HKR,                   ,IOBaseAddress          ,1      ,"02","00","00","00"
+ HKR,                   ,InterruptNumber        ,1      ,"04","00","00","00"
+ 
+[COMMON_USB.reg]
+ HKR,NDI                ,Service                ,0      ,"PRISM_USB"
+ HKR,NDI                ,CardType               ,0      ,"USB"
+ HKR,                   ,BusType                ,0      ,"15"
+ HKR,                   ,DeviceVxDs             ,0      ,"PRISMUSB.sys"
+
+[COMMON_NDIS.reg]
+ HKR,                   ,RunningWin9X           ,0      ,"1"
+ HKR,                   ,DevLoader              ,0      ,"*ndis"
+ HKR,                   ,EnumPropPages          ,0      ,"netdi.dll,EnumPropPages"
+ HKR,NDI\Interfaces     ,UpperRange             ,0      ,"ndis3"
+ HKR,NDI\Interfaces     ,LowerRange             ,0      ,"ethernet"
+ HKR,NDI\Interfaces     ,DefUpper               ,0      ,"ndis3"
+ HKR,NDI\Interfaces     ,DefLower               ,0      ,"ethernet"
+ HKR,NDIS               ,LogDriverName          ,0      ,"PRISM"
+ HKR,NDIS               ,MajorNdisVersion       ,1      ,03
+ HKR,NDIS               ,MinorNdisVersion       ,1      ,0a
+
+ HKR,defaults,PSMode,0,"1"
+ ;HKR,NDI\params\PSMode,,0,"1"
+ HKR,Ndi\params\PSMode,default,0,"1"
+ HKR,NDI\params\PSMode,ParamDesc,,%POWER_SAVE_STR%
+ HKR,NDI\params\PSMode,type,,"enum"
+ HKR,NDI\params\PSMode,flag,1,"30","00","00","00"
+ HKR,NDI\params\PSMode\enum,1,,"Disable"
+ HKR,NDI\params\PSMode\enum,2,,"Always Enable"
+ HKR,NDI\params\PSMode,optional,0,"1"
+ 
+[COMMON_NDIS.reg.NT]
+ HKR,NDI\Interfaces     ,UpperRange             ,0      ,"ndis5"
+ HKR,NDI\Interfaces     ,LowerRange             ,0      ,"ethernet"
+
+ HKR,defaults,PSMode,0,"1"
+ ;HKR,NDI\params\PSMode,,0,"1"
+ HKR,Ndi\params\PSMode,default,0,"1"
+ HKR,NDI\params\PSMode,ParamDesc,,%POWER_SAVE_STR%
+ HKR,NDI\params\PSMode,type,,"enum"
+ HKR,NDI\params\PSMode,flag,1,"30","00","00","00"
+ HKR,NDI\params\PSMode\enum,1,,"Disable"
+ HKR,NDI\params\PSMode\enum,2,,"Always Enable"
+ HKR,NDI\params\PSMode\enum,3,,"Auto Enable"
+ HKR,NDI\params\PSMode,optional,0,"1"
+ 
+[COMMON.reg]
+ HKR,                   ,SilentInstall          ,0      ,"1"
+;Uncomment the line above to install without user interface prompts
+
+ HKR,defaults,ListenInterval,0,"3"
+ ;HKR,NDI\params\ListenInterval,,0,"3"
+ HKR,Ndi\params\ListenInterval,default,0,"3"
+ HKR,NDI\params\ListenInterval,ParamDesc,,%LISTENINTERVAL_STR%
+ HKR,NDI\params\ListenInterval,type,,"int"
+ HKR,NDI\params\ListenInterval,flag,1,"30","00","00","00"
+ HKR,NDI\params\ListenInterval,min,0,"0"
+ HKR,NDI\params\ListenInterval,max,0,"77"
+ HKR,NDI\params\ListenInterval,step,0,"1"
+ HKR,NDI\params\ListenInterval,optional,0,"1"
+ 
+ HKR,defaults,RTSThresh,0,"2432"
+ ;HKR,NDI\params\RTSThresh,,0,"2432"
+ HKR,Ndi\params\RTSThresh,default,0,"2432"
+ HKR,NDI\params\RTSThresh,ParamDesc,0,%RTSTHRESH_STR%
+ HKR,NDI\params\RTSThresh,type,0,"int"
+ HKR,NDI\params\RTSThresh,flag,1,"20","00","00","00"
+ HKR,NDI\params\RTSThresh,min,0,"0"
+ HKR,NDI\params\RTSThresh,max,0,"2432"
+ HKR,NDI\params\RTSThresh,step,0,"64"
+ HKR,NDI\params\RTSThresh,optional,0,"1"
+ 
+ HKR,defaults,FragThresh,0,"2432"
+ ;HKR,NDI\params\FragThresh,,0,"2432"
+ HKR,Ndi\params\FragThresh,default,0,"2432"
+ HKR,NDI\params\FragThresh,ParamDesc,0,%FRAGTHRESH_STR%
+ HKR,NDI\params\FragThresh,type,0,"int"
+ HKR,NDI\params\FragThresh,flag,1,"20","00","00","00"
+ HKR,NDI\params\FragThresh,min,0,"256"
+ HKR,NDI\params\FragThresh,max,0,"2432"
+ HKR,NDI\params\FragThresh,step,0,"128"
+ HKR,NDI\params\FragThresh,optional,0,"1"
+ 
+ HKR,defaults,PreambleMode,0,"1"
+ ;HKR,NDI\params\PreambleMode,,0,"1"
+ HKR,Ndi\params\PreambleMode,default,0,"1"
+ HKR,NDI\params\PreambleMode,ParamDesc,,%SHORT_PREAM_STR%
+ HKR,NDI\params\PreambleMode,type,,"enum"
+ HKR,NDI\params\PreambleMode,flag,1,"30","00","00","00"
+ HKR,NDI\params\PreambleMode\enum,1,,"Long Tx Preamble"
+ HKR,NDI\params\PreambleMode\enum,2,,"Short Tx Preamble"
+ HKR,NDI\params\PreambleMode\enum,3,,"Auto Tx Preamble"
+ HKR,NDI\params\PreambleMode,optional,0,"1"
+ 
+ HKR,defaults,AuthentAlg,0,"65535"
+ ;HKR,NDI\params\AuthentAlg,,0,"65535"
+ HKR,NDI\params\AuthentAlg,default,0,"65535"
+ HKR,NDI\params\AuthentAlg,ParamDesc,,%AUTHENT_TYPE_STR%
+ HKR,NDI\params\AuthentAlg,type,,"enum"
+ HKR,NDI\params\AuthentAlg,flag,1,"30","00","00","00"
+ HKR,NDI\params\AuthentAlg\enum,1,,"WECA Compliant (always use Open)"
+ HKR,NDI\params\AuthentAlg\enum,2,,"Must use Shared with WEP"
+ HKR,NDI\params\AuthentAlg\enum,65535,,"Automatic based on WEP setting"
+ HKR,NDI\params\AuthentAlg,optional,0,"1"
+ 
+ HKR,defaults,AdhocDemoMode,0,"0"
+ ;HKR,NDI\params\AdhocDemoMode,,0,"0"
+ ;HKR,Ndi\params\AdhocDemoMode,default,0,"0"
+ ;HKR,NDI\params\AdhocDemoMode,ParamDesc,,%ADHOC_DEMO_STR%
+ ;HKR,NDI\params\AdhocDemoMode,type,,"enum"
+ ;HKR,NDI\params\AdhocDemoMode,flag,1,"30","00","00","00"
+ ;HKR,NDI\params\AdhocDemoMode\enum,0,,"Disable"
+ ;HKR,NDI\params\AdhocDemoMode\enum,1,,"Enable"
+ ;HKR,NDI\params\AdhocDemoMode,optional,0,"1"
+ 
+
+;
+; Channel
+; 
+ HKR, ,DSChannel,0,"6"
+ HKR,defaults,DSChannel,0,"10"
+ ;HKR,NDI\params\Channel,ParamDesc,,"Channel"
+ ;HKR,NDI\params\Channel,type,,"enum"
+ ;HKR,NDI\params\Channel,default,0,"10"
+ ;HKR,NDI\params\Channel,flag,1,"30","00","00","00"
+ ;HKR,NDI\params\Channel\enum,0,,"Channel  1"
+ ;HKR,NDI\params\Channel\enum,1,,"Channel  2"
+ ;HKR,NDI\params\Channel\enum,2,,"Channel  3"
+ ;HKR,NDI\params\Channel\enum,3,,"Channel  4"
+ ;HKR,NDI\params\Channel\enum,4,,"Channel  5"
+ ;HKR,NDI\params\Channel\enum,5,,"Channel  6"
+ ;HKR,NDI\params\Channel\enum,6,,"Channel  7"
+ ;HKR,NDI\params\Channel\enum,7,,"Channel  8"
+ ;HKR,NDI\params\Channel\enum,8,,"Channel  9"
+ ;HKR,NDI\params\Channel\enum,9,,"Channel 10"
+ ;HKR,NDI\params\Channel\enum,10,,"Channel 11"
+ ;HKR,NDI\params\Channel\enum,11,,"Channel 12"
+ ;HKR,NDI\params\Channel\enum,12,,"Channel 13"
+ ;HKR,NDI\params\Channel\enum,13,,"Channel 14"
+ 
+ HKR,defaults,LoadFirmware,0,"1"
+ ;HKR,NDI\params\LoadFirmware,,0,"1" ; Moved to device specific entry
+ HKR,Ndi\params\LoadFirmware,default,0,"1"
+ HKR,NDI\params\LoadFirmware,ParamDesc,,%LOAD_FIRMWARE_STR%
+ HKR,NDI\params\LoadFirmware,type,,"enum"
+ HKR,NDI\params\LoadFirmware,flag,1,"30","00","00","00"
+ HKR,NDI\params\LoadFirmware\enum,0,,"Disable"
+ HKR,NDI\params\LoadFirmware\enum,1,,"Enable"
+ HKR,NDI\params\LoadFirmware,optional,0,"1"
+ 
+ HKR,defaults,PDwellTime,0,"120"
+ ;HKR,NDI\params\PDwellTime,,0,"120"
+ HKR,Ndi\params\PDwellTime,default,0,"120"
+ HKR,NDI\params\PDwellTime,ParamDesc,0,%PDWELL_STR%
+ HKR,NDI\params\PDwellTime,type,0,"int"
+ HKR,NDI\params\PDwellTime,flag,1,"20","00","00","00"
+ HKR,NDI\params\PDwellTime,min,0,"0"
+ HKR,NDI\params\PDwellTime,max,0,"1000"
+ HKR,NDI\params\PDwellTime,step,0,"10"
+ HKR,NDI\params\PDwellTime,optional,0,"1"
+ 
+ HKR,defaults,11dMode,0,"0"
+ ;HKR,NDI\params\11dMode,,0,"0"
+ HKR,Ndi\params\11dMode,default,0,"0"
+ HKR,NDI\params\11dMode,ParamDesc,,%MDC_CONTROL_STR%
+ HKR,NDI\params\11dMode,type,,"enum"
+ HKR,NDI\params\11dMode,flag,1,"30","00","00","00"
+ HKR,NDI\params\11dMode\enum,0,,"None"
+ HKR,NDI\params\11dMode\enum,1,,"Strict"
+ HKR,NDI\params\11dMode\enum,2,,"Flexible"
+ HKR,NDI\params\11dMode,optional,0,"1"
+
+ 
+;###############################################################################
+[DestinationDirs]
+;CopyFiles Section      = Destination Directory ID -- see layout.inf
+;-----------------        ------------------------
+ DefaultDestDir         = 11 ; Win9x=%windir%\system Win2k=%windir%\system32
+ PRISM_DRIVER.copy      = 11 ; Win9x=%windir%\system
+ PRISM_DRIVER.copy.NT   = 12 ; Win2k=%windir%\system32\drivers
+
+[PRISM_DRIVER.copy]
+ PRISMNDS.sys
+ PRISMUSB.sys
+
+[PRISM_DRIVER.copy.NT]
+ PRISMNDS.sys
+ PRISMUSB.sys
+
+[SourceDisksNames]
+;Source Disk ID         = Disk Name
+;--------------           ---------
+ 1                      = %INSTALL_DISK_STR%,,,
+
+[SourceDisksFiles]      ; Win9x
+;File Name              = Source Disk ID
+;---------                --------------
+ PRISMNDS.sys           = 1
+ PRISMUSB.sys           = 1
+
+[SourceDisksFiles.X86]  ; Win2k/Xp
+ PRISMNDS.sys           = 1
+ PRISMUSB.sys           = 1
+
+;###############################################################################
+[Strings]
+;String ID              = String Text
+;---------                -----------
+ VER_VENDOR_STR         = "D-Link"
+ VER_VENDOR_NAME_STR    = "D-Link"
+
+ PRISM_PCMCIA_STR      = "D-Link Air DWL-650 Wireless PC Card(rev.P)"
+ PCI_DESC_STR		= "D-Link Air DWL-520 Wireless PCI Adapter(rev.E)"
+ PRISM_USB1_STR         = "D-Link Air DWL-122 Wireless USB Adapter"
+ PRISM_USB2_STR         = "D-Link Air DWL-120 Wireless USB Adapter(rev.F)"
+
+ PRISM_SERVICE_DISPLAY  = "D-Link Air Wireless Prism3 Adapter Driver"
+ PRISM_USB_SERVICE_DISPLAY  = "D-Link Air Wireless USB Adapter Driver"
+ 
+ INSTALL_DISK_STR       = "D-Link Air Wireless Adapter Install Disk"
+
+ ADHOC_DEMO_STR         = "Adhoc Demo Mode"
+ SHORT_PREAM_STR        = "Preamble Mode"
+ RTSTHRESH_STR          = "RTS Threshold"
+ FRAGTHRESH_STR         = "Fragmentation Threshold"
+ AUTHENT_TYPE_STR       = "Authentication Algorithm"
+ LISTENINTERVAL_STR     = "Listen Interval"
+ POWER_SAVE_STR         = "Power Save"
+ PDWELL_STR             = "Passive Scan Dwell Time"
+ LOAD_FIRMWARE_STR      = "Firmware Download"
+ MDC_CONTROL_STR        = "802.11D Control"

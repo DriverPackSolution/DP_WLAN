@@ -1,0 +1,133 @@
+;****************************************************************
+; USB200M2.INF for windows VISTA
+;
+; Linksys USB 2.0 Network Adapter ver.2
+; Copyright 2003-2005
+;
+; Version: 3.8.3.5	for windows vista
+;****************************************************************
+[Version]
+Signature  = "$Windows NT$"
+CatalogFile = USB200M.cat
+Class      = Net
+ClassGUID  = {4d36e972-e325-11ce-bfc1-08002be10318}
+Provider   = %USB2%
+DriverVer = 01/20/2007, 3.8.3.5
+
+[Manufacturer]
+%USB2%   = USB
+
+[ControlFlags]
+ExcludeFromSelect = USB\VID_13B1&PID_0018
+
+[USB]
+%USB200M.DeviceDesc% = USB200M.Ndi,USB\VID_13B1&PID_0018
+
+;****************************************************************
+[USB200M.Ndi]
+AddReg          = USB200M.NT.Reg, USB200M.Con.Reg
+Characteristics = 0x84
+BusType         = 15
+CopyFiles       = CopyFile.Sys
+*IfType         = 6		; IF_TYPE_ETHERNET_CSMACD 
+*MediaType      = 0		; NdisMedium802_3
+*PhysicalMediaType = 14		; NdisPhysicalMedium802_3
+
+[USB200M.Ndi.Services]
+AddService = USB200M, 2, USB200M.Service, Common.EventLog
+
+;****************************************************************
+; Driver parameters
+;****************************************************************
+[USB200M.Con.Reg]
+; Connection Type
+HKR,Ndi\params\*SpeedDuplex,ParamDesc,,"Connection Type"
+HKR,Ndi\params\*SpeedDuplex,default,,"0"
+HKR,Ndi\params\*SpeedDuplex,type,,"enum"
+HKR,Ndi\params\*SpeedDuplex\enum,0,,"AutoSense"
+HKR,Ndi\params\*SpeedDuplex\enum,1,,"10BaseT Half_Duplex"
+HKR,Ndi\params\*SpeedDuplex\enum,2,,"10BaseT Full_Duplex"
+HKR,Ndi\params\*SpeedDuplex\enum,3,,"100BaseTx Half_Duplex"
+HKR,Ndi\params\*SpeedDuplex\enum,4,,"100BaseTx Full_Duplex"
+
+; Mac Address
+HKR,Ndi\params\NetworkAddress,ParamDesc,0,"NetworkAddress"
+HKR,Ndi\params\NetworkAddress,type,0,"edit"
+HKR,Ndi\params\NetworkAddress,default,0, "000000000000"
+HKR,Ndi\params\NetworkAddress,LimitText,0,"12"
+HKR,Ndi\params\NetworkAddress,UpperCase,0,"1"
+HKR,Ndi\params\NetworkAddress,Optional,0,"1"
+
+; Flow Control
+HKR,Ndi\params\*FlowControl,ParamDesc,,"Flow Control"
+HKR,Ndi\params\*FlowControl,default,,"3"
+HKR,Ndi\params\*FlowControl,type,,"enum"
+HKR,Ndi\params\*FlowControl\enum,0,,"Disable"
+HKR,Ndi\params\*FlowControl\enum,1,,"Tx Enable"
+HKR,Ndi\params\*FlowControl\enum,2,,"Rx Enable"
+HKR,Ndi\params\*FlowControl\enum,3,,"Rx & Tx Enable"
+
+; Wake Up
+HKR,Ndi\params\WakeUp,ParamDesc,,"Wake Up"
+HKR,Ndi\params\WakeUp,default,,"0"
+HKR,Ndi\params\WakeUp,type,,"enum"
+HKR,Ndi\params\WakeUp\enum,0,,"Disable"
+HKR,Ndi\params\WakeUp\enum,2,,"Link Up"
+HKR,Ndi\params\WakeUp\enum,4,,"Magic Packet"
+HKR,Ndi\params\WakeUp\enum,6,,"Both"
+
+; Qos Packet Tagging
+HKR,Ndi\params\QosTag,ParamDesc,,"QoS Packet Tagging"
+HKR,Ndi\params\QosTag,default,,"0"
+HKR,Ndi\params\QosTag,type,,"enum"
+HKR,Ndi\params\QosTag\enum,0,,"Disable"
+HKR,Ndi\params\QosTag\enum,1,,"Enable"
+
+;****************************************************************
+; Install section for Windows NT 5
+;****************************************************************
+[USB200M.NT.Reg]
+; Interfaces
+HKR, Ndi\Interfaces, LowerRange, 0, "ethernet"
+HKR, Ndi\Interfaces, UpperRange, 0, "ndis5"
+HKR, Ndi,            Service,    0, "USB200M"
+
+HKR,,LogErrorMessages, 0, "1"
+
+[USB200M.Service]
+DisplayName    = %USB200M.DeviceDesc%
+ServiceType    = 1
+StartType      = 3
+ErrorControl   = 1
+ServiceBinary  = %12%\USB200M2.sys
+LoadOrderGroup = NDIS
+
+[Common.EventLog]
+AddReg = Common.AddEventLog.Reg
+
+[Common.AddEventLog.Reg]
+HKR, , EventMessageFile, 0x00020000,"%%SystemRoot%%\System32\netevent.dll;%%SystemRoot%%\system32\drivers\USB200M.sys"
+HKR, , TypesSupported  , 0x00010001, 7
+
+[CopyFile.Sys]
+USB200M2.sys,,,2
+
+;**********************************************************************
+; Destination directories
+;**********************************************************************
+[DestinationDirs]
+CopyFile.Sys	= 12
+
+[SourceDisksNames]
+1=%USB200M.DiskName%,,
+
+[SourceDisksFiles]
+USB200M2.sys=1,,USB200M2.sys,10000
+
+;**********************************************************************
+; Localizable strings
+;**********************************************************************
+[Strings]
+USB2 = "Linksys"
+USB200M.DiskName = "Linksys USB 2.0 Network Adapter ver.2 CD"
+USB200M.DeviceDesc = "Linksys USB 2.0 Network Adapter ver.2"

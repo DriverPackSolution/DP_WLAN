@@ -1,0 +1,306 @@
+;*******************************************************************************************
+;
+;FILE:
+;
+;    net5211.inf
+;
+;DESCRIPTION:
+;    Linksys Dual Band Wireless A+B Notebook Adapter
+;
+;
+;*******************************************************************************************
+
+[Version]
+Signature   = "$CHICAGO$"
+Class       = Net
+ClassGUID   = {4d36e972-e325-11ce-bfc1-08002be10318}
+Provider    = %ATHEROS%
+Compatible  = 1
+DriverVer   = 07/14/2002,2.0.1.254
+Catalogfile = net5211.cat
+
+[Manufacturer]
+%ATHEROS%     = Atheros
+
+[ControlFlags]
+ExcludeFromSelect = *
+
+
+[Atheros]
+; DisplayName               Section                 DeviceID
+; -----------               -------                 --------
+%ATHER.DeviceDesc.1022%  = ATHER_DEV_1022.ndi,    PCI\VEN_168C&DEV_0012&SUBSYS_10221154&REV_01
+%ATHER.DeviceDesc.1022%  = ATHER_DEV_1022.ndi,    PCI\VEN_168C&DEV_0007&SUBSYS_000717F9&REV_01
+%ATHER.DeviceDesc.1022%  = ATHER_DEV_1022.ndi,    PCI\VEN_168C&DEV_0007&SUBSYS_00071737&REV_01
+%ATHER.DeviceDesc.1022%  = ATHER_DEV_1022.ndi,    PCI\VEN_168C&DEV_0012&SUBSYS_2022168C&REV_01
+%ATHER.DeviceDesc.1022%  = ATHER_DEV_1022.ndi,    PCI\VEN_168C&DEV_0012&SUBSYS_00081737&REV_01
+%ATHER.DeviceDesc.2022%  = ATHER_DEV_2022.ndi,    PCI\VEN_168C&DEV_0012&SUBSYS_00111737&REV_01 ;MiniPCI
+
+
+; Windows 9X specific entries
+[ATHER_DEV_1022.ndi]
+AddReg          = ATHER_DEV_1022.id.reg, 5211.reg, ATHER.win.reg, 5211.abcb.reg
+CopyFiles       = ATHER.win.CopyFiles, DEFAULTDESTDIRS
+
+[ATHER_DEV_2022.ndi]
+AddReg          = ATHER_DEV_2022.id.reg, 5211.reg, ATHER.win.reg, 5211.abmp.reg
+CopyFiles       = ATHER.win.CopyFiles, DEFAULTDESTDIRS
+
+; Windows NT specific entry
+
+[ATHER_DEV_1022.ndi.NT]
+Characteristics = 0x84 ; NCF_PHYSICAL | NCF_HAS_UI
+BusType         = 5
+AddReg          = 5211.reg, ATHER.reg, 5211.reg, 5211.abcb.reg
+CopyFiles       = ATHER.CopyFiles, DEFAULTDESTDIRS
+
+[ATHER_DEV_2022.ndi.NT]
+Characteristics = 0x84 ; NCF_PHYSICAL | NCF_HAS_UI
+BusType         = 5
+AddReg          = 5211.reg, ATHER.reg, 5211.reg, 5211.abmp.reg
+CopyFiles       = ATHER.CopyFiles, DEFAULTDESTDIRS
+
+[ATHER_DEV_1022.ndi.NT.Services]
+AddService      = AR5211, 2, ATHER.Service, common.EventLog
+
+[ATHER_DEV_2022.ndi.NT.Services]
+AddService      = AR5211, 2, ATHER.Service, common.EventLog
+
+
+;----------------------------------------------------------------------------
+; Win9x id registry sections
+; These are not needed by NT
+
+
+[ATHER_DEV_1022.id.reg]
+HKR, Ndi, DeviceID, 0, "PCI\VEN_168C&DEV_0012&SUBSYS_10221154&REV_01"
+
+[ATHER_DEV_2022.id.reg]
+HKR, Ndi, DeviceID, 0, "PCI\VEN_168C&DEV_0012&SUBSYS_00111737&REV_01"
+
+[5211.abcb.reg]
+HKR, ,                                  NetBand,                        0x00002,  "7"
+HKR, CustomParams\Configurations,       NicType,                        0x10003,  1
+HKR, CustomParams\Configurations\Cfg0,  NetBand,                        0x10003,  2
+
+[5211.abmp.reg]
+HKR, ,                                  NetBand,                        0x00002,  "7"
+HKR, CustomParams\Configurations,       NicType,                        0x10003,  2
+HKR, CustomParams\Configurations\Cfg0,  NetBand,                        0x10003,  2
+
+[5211.reg]
+
+HKR, Ndi\params\MapRegisters,           ParamDesc,                      0,  %MapRegisters%
+HKR, Ndi\params\MapRegisters,           default,                        0,  "256"
+HKR, Ndi\params\MapRegisters,           min,                            0,  "32"
+HKR, Ndi\params\MapRegisters,           max,                            0,  "512"
+HKR, Ndi\params\MapRegisters,           step,                           0,  "8"
+HKR, Ndi\params\MapRegisters,           base,                           0,  "10"
+HKR, Ndi\params\MapRegisters,           type,                           0,  "int"
+
+HKR, Ndi\params\roamRssiA,              ParamDesc,                      0,  %roamRssiA%
+HKR, Ndi\params\roamRssiA,              default,                        0,  "24"
+HKR, Ndi\params\roamRssiA,              min,                            0,  "0"
+HKR, Ndi\params\roamRssiA,              max,                            0,  "100"
+HKR, Ndi\params\roamRssiA,              step,                           0,  "1"
+HKR, Ndi\params\roamRssiA,              base,                           0,  "10"
+HKR, Ndi\params\roamRssiA,              type,                           0,  "int"
+
+HKR, Ndi\params\roamRssiB,              ParamDesc,                      0,  %roamRssiB%
+HKR, Ndi\params\roamRssiB,              default,                        0,  "24"
+HKR, Ndi\params\roamRssiB,              min,                            0,  "0"
+HKR, Ndi\params\roamRssiB,              max,                            0,  "100"
+HKR, Ndi\params\roamRssiB,              step,                           0,  "1"
+HKR, Ndi\params\roamRssiB,              base,                           0,  "10"
+HKR, Ndi\params\roamRssiB,              type,                           0,  "int"
+
+HKR, Ndi\params\roamRateA,              ParamDesc,                      0,  %roamRateA%
+HKR, Ndi\params\roamRateA,              Base,                           0,  "10"
+HKR, Ndi\params\roamRateA,              default,                        0,  "4"
+HKR, Ndi\params\roamRateA,              type,                           0,  "enum"
+HKR, Ndi\params\roamRateA\enum,         "0",                            0,  "6 Mbps"
+HKR, Ndi\params\roamRateA\enum,         "1",                            0,  "9 Mbps"
+HKR, Ndi\params\roamRateA\enum,         "2",                            0,  "12 Mbps"
+HKR, Ndi\params\roamRateA\enum,         "3",                            0,  "18 Mbps"
+HKR, Ndi\params\roamRateA\enum,         "4",                            0,  "24 Mbps"
+HKR, Ndi\params\roamRateA\enum,         "5",                            0,  "36 Mbps"
+HKR, Ndi\params\roamRateA\enum,         "6",                            0,  "48 Mbps"
+HKR, Ndi\params\roamRateA\enum,         "7",                            0,  "54 Mbps"
+
+HKR, Ndi\params\roamRateB,              ParamDesc,                      0,  %roamRateB%
+HKR, Ndi\params\roamRateB,              Base,                           0,  "10"
+HKR, Ndi\params\roamRateB,              default,                        0,  "1"
+HKR, Ndi\params\roamRateB,              type,                           0,  "enum"
+HKR, Ndi\params\roamRateB\enum,         "0",                            0,  "1 Mbps"
+HKR, Ndi\params\roamRateB\enum,         "1",                            0,  "2 Mbps / short preamble"
+HKR, Ndi\params\roamRateB\enum,         "2",                            0,  "5.5 Mbps / short preamble"
+HKR, Ndi\params\roamRateB\enum,         "3",                            0,  "11 Mbps / short preamble"
+
+HKR, Ndi\params\shortPreamble,              ParamDesc,                      0,  "Preamble Mode"
+HKR, Ndi\params\shortPreamble,              Base,                           0,  "10"
+HKR, Ndi\params\shortPreamble,              default,                        0,  "1"
+HKR, Ndi\params\shortPreamble,              type,                           0,  "enum"
+HKR, Ndi\params\shortPreamble\enum,         "0",                            0,  "0"
+HKR, Ndi\params\shortPreamble\enum,         "1",                            0,  "1"
+
+HKR, Ndi\params\Qos,              ParamDesc,                      0,  "Qos"
+HKR, Ndi\params\Qos,              Base,                           0,  "10"
+HKR, Ndi\params\Qos,              default,                        0,  "0"
+HKR, Ndi\params\Qos,              type,                           0,  "enum"
+HKR, Ndi\params\Qos\enum,         "0",                            0,  "0"
+HKR, Ndi\params\Qos\enum,         "1",                            0,  "1"
+
+HKR, Ndi\params\FragThreshold,           ParamDesc,                      0,  "Fragmentation"
+HKR, Ndi\params\FragThreshold,           default,                        0,  "2346"
+HKR, Ndi\params\FragThreshold,           min,                            0,  "256"
+HKR, Ndi\params\FragThreshold,           max,                            0,  "32767"
+HKR, Ndi\params\FragThreshold,           step,                           0,  "128"
+HKR, Ndi\params\FragThreshold,           base,                           0,  "10"
+HKR, Ndi\params\FragThreshold,           type,                           0,  "int"
+
+
+HKR, ,                                  AdHocBand,                      0x00002,  "1"
+HKR, ,                                  AwakeTimePerf,                  0x00002,  "200"
+HKR, ,                                  beaconInterval,                 0x00002,  "100"
+HKR, ,                                  bkScanEnable,                   0x00002,  "1"
+HKR, ,                                  bssType,                        0x00002,  "1"
+HKR, ,                                  ccode,                          0x00002,  "US"
+HKR, ,                                  clist,                          0x00002,  ""
+HKR, ,                                  defaultKey,                     0x00002,  "0"
+HKR, ,                                  EncryptionAlg,                  0x00002,  "2"
+HKR, ,                                  FragThreshold,                  0x00002,  "2346"
+HKR, ,                                  HwTxRetries,                    0x00002,  "5"
+HKR, ,                                  privacyInvoked,                 0x00002,  "0"
+HKR, ,                                  QoS,                            0x00002,  "0"
+HKR, ,                                  rateCtrlEnable,                 0x00002,  "1"
+HKR, ,                                  RTSThreshold,                   0x00002,  "2346"
+HKR, ,                                  scanType,                       0x00002,  "2"
+;HKR, ,                                  shortPreamble,                  0x00002,  "1"
+HKR, ,                                  sleepMode,                      0x00002,  "2"
+HKR, ,                                  SwTxRetryScale,                 0x00002,  "1"
+HKR, ,                                  SmeEnable,                      0x00002,  "1"
+HKR, ,                                  tpc,                            0x00002,  "0"
+HKR, ,                                  TransmitRate11a,                0x00002,  "5"    ; 36 Mbps
+HKR, ,                                  TransmitRate11b,                0x00002,  "1"    ; 2 Mbps
+HKR, ,                                  Ssid,                           0,        "Linksys"    ; 
+
+HKR, CustomParams\Configurations,       MajorVersion,                   0x10003,  2
+HKR, CustomParams\Configurations,       MinorVersion,                   0x10003,  0
+
+HKR, CustomParams\Configurations,       SelectedConfigurationIndex,     0x10003,  0
+HKR, CustomParams\Configurations,       SelectedConfigurationName,      0x00002,  "Default"
+HKR, CustomParams\Configurations\Cfg0,  AdHocBand,                      0x10003,  1
+HKR, CustomParams\Configurations\Cfg0,  ConfigurationName,              0x00002,  "Default"
+HKR, CustomParams\Configurations\Cfg0,  DefaultKey,                     0x10003,  0
+HKR, CustomParams\Configurations\Cfg0,  Enable11g,                      0x10003,  0
+HKR, CustomParams\Configurations\Cfg0,  EnableMacAddress,               0x10003,  0
+HKR, CustomParams\Configurations\Cfg0,  EnableRange,                    0x10003,  0
+HKR, CustomParams\Configurations\Cfg0,  EnableSecurity,                 0x10003,  0
+HKR, CustomParams\Configurations\Cfg0,  EnableTurbo,                    0x10003,  0
+HKR, CustomParams\Configurations\Cfg0,  EncryptionAlg,                  0x10003,  2
+HKR, CustomParams\Configurations\Cfg0,  MacAddress,                     0x00002,  ""
+HKR, CustomParams\Configurations\Cfg0,  NetworkConnectionType,          0x10003,  1
+HKR, CustomParams\Configurations\Cfg0,  NetworkName,                    0x00002,  ""
+HKR, CustomParams\Configurations\Cfg0,  PowerManagement,                0x10003,  1
+HKR, CustomParams\Configurations\Cfgo,  Preamble,                       0x10003,  1
+HKR, CustomParams\Configurations\Cfg0,  QoS,                            0x10003,  0
+HKR, CustomParams\Configurations\Cfg0,  scanType,                       0x10003,  2
+HKR, CustomParams\Configurations\Cfg0,  tpc,                            0x10003,  0
+
+
+;-----------------------------------------------------------------------------
+; ATHER NT specific
+;
+
+[ATHER.reg]
+HKR, Ndi,             Service,      0, "AR5211"
+HKR, Ndi\Interfaces,  UpperRange,   0, "ndis5"
+HKR, Ndi\Interfaces,  LowerRange,   0, "ethernet"
+HKR, ,                InitFile,     0, %InitFile%
+HKR, ,                aifs,         0, "2"
+HKR, ,                cwmin,        0, "15"
+
+
+[ATHER.Service]
+DisplayName     = %ATHER.Service.DispName%
+ServiceType     = 1 ;%SERVICE_KERNEL_DRIVER%
+StartType       = 3 ;%SERVICE_DEMAND_START%
+ErrorControl    = 1 ;%SERVICE_ERROR_NORMAL%
+ServiceBinary   = %12%\ar5211.sys
+LoadOrderGroup  = NDIS
+
+[common.EventLog]
+AddReg = common.AddEventLog.reg
+
+[common.AddEventLog.reg]
+HKR, ,                  EventMessageFile,   0x00020000,   "%%SystemRoot%%\System32\netevent.dll"
+HKR, ,                  TypesSupported,     0x00010001,   7
+
+;----------------------------------------------------------------------------
+; ATHER Win9x specific
+;
+[ATHER.win.reg]
+HKR, ,                  DevLoader,          0,    "*ndis"
+HKR, ,                  DeviceVxDs,         0,    "ar5211.sys"
+HKR, ,                  EnumPropPages,      0,    "netdi.dll,EnumPropPages"
+
+HKR, Ndi\Interfaces,    DefUpper,           0,    "ndis3"
+HKR, Ndi\Interfaces,    DefLower,           0,    "ethernet"
+HKR, Ndi\Interfaces,    UpperRange,         0,    "ndis3"
+HKR, Ndi\Interfaces,    LowerRange,         0,    "ethernet"
+
+
+HKR, NDIS,              LogDriverName,      0,    "AR5211"
+HKR, NDIS,              MajorNdisVersion,   1,    03
+HKR, NDIS,              MinorNdisVersion,   1,    0A
+HKR, ,                  InitFile,           0,    %InitFile%
+HKR, ,                  aifs,               0,    2
+HKR, ,                  cwmin,              0,    15
+
+HKR, Ndi\Install,       ndis3,              0,    "ATHER.install"
+
+;-----------------------------------------------------------------------------
+; DestinationDirs
+;
+[ATHER.win.CopyFiles]
+ar5211.sys
+
+[ATHER.CopyFiles]
+ar5211.sys
+
+
+[SourceDisksNames]
+;
+; diskid = description[, [tagfile] [, <unused>, subdir]]
+;
+1 = %Atheros_Disk%,,,
+
+[SourceDisksFiles]
+;
+; filename_on_source = diskID[, [subdir][, size]]
+;
+ar5211.sys					 = 1,, ; on distribution disk 1
+
+
+
+[DestinationDirs]
+ATHER.CopyFiles              = 12
+ATHER.win.CopyFiles          = 11
+DefaultDestDir               = 11
+
+[DEFAULTDESTDIRS]
+;
+
+
+[Strings]
+Atheros                      = "Linksys"
+MapRegisters                 = "Map Registers"
+InitFile                     = "Athnic.ini"
+Atheros_Disk                 = "Dual Band Wireless A+B Notebook Adapter Disk"
+ATHER.DeviceDesc.1022        = "Dual Band Wireless A+B Notebook Adapter"
+ATHER.DeviceDesc.2022        = "Dual Band Wireless A+B Notebook Adapter"
+ATHER.Service.DispName       = "Dual Band Wireless A+B Notebook Adapter Service"
+roamRssiA                    = "11a Network Rssi Threshold for Roaming"
+roamRssiB                    = "11b Network Rssi Threshold for Roaming"
+roamRateA                    = "11a Network Rate Threshold for Roaming"
+roamRateB                    = "11b Network Rate Threshold for Roaming"

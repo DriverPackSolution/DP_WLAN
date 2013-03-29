@@ -1,0 +1,27 @@
+End-User Software License Agreement
+
+IMPORTANT: Please read the Agreement carefully prior to installing the software.
+This Guillemot Corporation End-User Licensed Agreement is a legal agreement between you ("purchaser") and Guillemot Corporation for the Guillemot Corporation software identified above, which include computer program(s) (such as drivers, executable programs, libraries and data files), and may include related materials, associated media, and/or documentation ("Software"). The Software enclosed in this package is licensed, not sold, and is only available under the terms of the present license Agreement. BY INSTALLING, COPYING OR OTHERWISE USING THE SOFTWARE, YOU AGREE TO BE BOUND TO THE TERMS SET FORTH IN THIS LICENSE AGREEMENT. If you do not agree with the terms hereafter, you must promptly return the Software within 15 days, together with the entire contents of the box, to the place of purchase.
+
+The Software is protected by copyright laws and international copyright treaties, as well as other intellectual property laws and treaties.
+
+The Guillemot Corporation software is copyrighted by Guillemot Corporation. All rights are reserved. The purchaser is granted  the following limited, non-exclusive license to use the Software only. The purchaser also agrees to be bound by the terms and conditions of the present Agreement concerning copyright and all other proprietary rights for any third party software, documentation and related material included in the software package. 
+Guillemot Corporation reserves the right to terminate this license in the event of failure to comply with any of the terms or conditions laid out in the present Agreement. On termination, all copies of the Software shall immediately be returned to Guillemot Corporation; the purchaser remaining liable for any and all resulting damages.
+
+GRANT OF LICENSE:
+1. The license is granted for the original purchaser only. Guillemot Corporation retains all title to and ownership of the Software and reserves all rights not expressly granted. The purchaser is not permitted to sub-license or lease any of the rights that are hereby granted.
+Transfer of the license is permitted, provided that the transferor does not retain any part or copy of the Software and the transferee accepts to be bound by the terms and conditions of the present Agreement.
+2. The purchaser may only use the Software on a single computer at any time. The machine-readable portion of the Software may be transferred to another computer provided it is previously erased from the first machine and there is no possibility that the Software can be used on more than one machine at any one time.
+3. The purchaser acknowledges the copyright protection belonging to Guillemot Corporation. The copyright notice must not be removed from the Software, nor from any copy thereof, nor from any documentation, written or electronic, accompanying the Software.
+4. The purchaser is granted the right to make one back-up copy of the machine-readable portion of the Software on the condition that all copyright and proprietary notices are also reproduced.
+5. Except where the present Agreement expressly permits, the purchaser is strictly prohibited from engaging in, nor may it permit third parties to engage in, the following:
+* Providing or disclosing the Software to third parties.
+* Providing use of the Software through a network, multiple computers, multi-user or time-sharing arrangement where the users are not individual licensees.
+* Making alterations or copies of any kind of the Software.
+* Making any attempt to disassemble, de-compile or reverse engineer the Software in any way or form, or engaging in any activity aimed at obtaining underlying information not visible to the user during normal use of the Software.
+* Making copies or translations of the user manual.
+
+LIMITED WARRANTY. Guillemot Corporation expressly disclaims any warranty for the Software. The Software is provided "AS IS" and Guillemot Corporation makes no warranty as to its use or performance. The use or performance of the Software remains under your entire responsibility and Guillemot Corporation does not and cannot warrant the performance or results you may obtain by using the Software. Guillemot Corporation makes no warranty, express or implied, as to non-infringement of third party rights, merchantability, or fitness for particular purposes.
+In no event shall Guillemot Corporation be liable for any damages whatsoever arising out of the use of or inability to use the Software.
+
+GOVERNING LAW.  This Agreement shall be governed by the laws of France.

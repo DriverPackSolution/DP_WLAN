@@ -1,0 +1,669 @@
+;; net8192su.inf 
+;;
+;; Realtek RTL8192S Wireless 802.11b/g/n USB 2.0 Network Adapter
+;;
+;; Copyright (C) 2008 Realtek Semiconductor Corp.
+;;
+;; this release is primarily for WHQL test.
+;;
+
+[Version]
+Signature	= "$Windows NT$"
+Class		= Net
+ClassGUID	= {4d36e972-e325-11ce-bfc1-08002be10318}
+Provider	= %Realtek%
+CatalogFile.NT	= net8192su.cat		;; for WHQL certified
+DriverVer = 08/09/2011,1084.53.0809.2011
+
+[Manufacturer]
+%Realtek% = Realtek,NTamd64.6.0
+%Corega% = Corega,NTamd64.6.0
+%DLink% = DLink,NTamd64.6.0
+%EnGenius% = EnGenius,NTamd64.6.0
+%Belkin% = Belkin,NTamd64.6.0
+%Guillemot% = Guillemot,NTamd64.6.0
+%Edimax% = Edimax,NTamd64.6.0
+%Sitecom% = Sitecom,NTamd64.6.0
+%Hawking% = Hawking,NTamd64.6.0
+%ASUSTeK% = ASUSTeK,NTamd64.6.0
+%Amigo% = Amigo,NTamd64.6.0
+%AirLive% = AirLive,NTamd64.6.0
+%Zinwell% = Zinwell,NTamd64.6.0
+%Sweex% = Sweex,NTamd64.6.0
+%Logitec% = Logitec,NTamd64.6.0
+%PCI% = PCI,NTamd64.6.0
+%Abocom% = Abocom,NTamd64.6.0
+%Sagemcom% = Sagemcom,NTamd64.6.0
+%Z-com% = Z-com,NTamd64.6.0
+%Hercules% = Hercules,NTamd64.6.0
+%TRENDnet% = TRENDnet,NTamd64.6.0
+
+
+[ControlFlags]
+ExcludeFromSelect = *
+
+;;****************************************************************************
+;; IDs for X86
+;;****************************************************************************
+[Realtek.NTx86.6.0]
+;%RTL8192su.DeviceDesc% = RTL8192su.ndi, USB\VID_0BDA&PID_8192&REV_0100
+;%RTL8192su.DeviceDesc% = RTL8192su.ndi, USB\VID_0BDA&PID_8192&REV_0200
+%RTL8188su.DeviceDesc% = RTL8192su.ndi, USB\VID_0BDA&PID_8171
+%RTL8188su.DeviceDesc% = RTL8192su.ndi, USB\VID_1690&PID_0752
+%RTL8188su.DeviceDesc% = RTL8192su.ndi, USB\VID_13D3&PID_3334
+%RTL8188su.DeviceDesc% = RTL8192su.ndi, USB\VID_13D3&PID_3339
+%RTL8188su.DeviceDesc% = RTL8192su.ndi, USB\VID_0BDA&PID_C047
+%RTLG8188su.DeviceDesc% = RTLG8192su.ndi, USB\VID_13D3&PID_3336
+%RTLG8188su.DeviceDesc% = RTLG8192su.ndi, USB\VID_13D3&PID_3340
+%RTLG8188su.DeviceDesc% = RTLG8192su.ndi, USB\VID_13D3&PID_3342
+%RTL8191su.DeviceDesc% = RTL8192su.ndi, USB\VID_0BDA&PID_8172
+%RTLG8191su.DeviceDesc% = RTLG8192su.ndi, USB\VID_0BDA&PID_8175
+%RTL8191su.DeviceDesc% = RTL8192su.ndi, USB\VID_13D3&PID_3306
+%RTL8191su.DeviceDesc% = RTL8192su.ndi, USB\VID_13D3&PID_3309
+%RTL8191su.DeviceDesc% = RTL8192su.ndi, USB\VID_13D3&PID_3310
+%RTLG8191su.DeviceDesc% = RTLG8192su.ndi, USB\VID_13D3&PID_3311
+%RTL8191su.DeviceDesc% = RTL8192su.ndi, USB\VID_13D3&PID_3323
+%RTL8191su.DeviceDesc% = RTL8192su.ndi, USB\VID_13D3&PID_3325
+%RTL8191su.DeviceDesc% = RTL8192su.ndi, USB\VID_13D3&PID_3333
+%RTLG8191su.DeviceDesc% = RTLG8192su.ndi, USB\VID_13D3&PID_3335
+%RTLG8191su.DeviceDesc% = RTLG8192su.ndi, USB\VID_13D3&PID_3341
+%RTL8192gu.DeviceDesc% = RTL8192su.ndi, USB\VID_0BDA&PID_8173
+%RTL8192su.DeviceDesc% = RTL8192su.ndi, USB\VID_0BDA&PID_8174
+%RTL8712.DeviceDesc% = RTL8192su.ndi, USB\VID_0BDA&PID_8712
+%RTL8191su.DeviceDesc% = RTL8192su.ndi, USB\VID_04F2&PID_AFF2
+%RTL8191su.DeviceDesc% = RTL8192su.ndi, USB\VID_04F2&PID_AFF5
+%RTL8191su.DeviceDesc% = RTL8192su.ndi, USB\VID_04F2&PID_AFF6
+
+[Corega.NTx86.6.0]
+%CG-WLUSBNM.DeviceDesc% = Corega8192su.ndi, USB\VID_07AA&PID_0047
+%CG-WLUSB300NM.DeviceDesc% = Corega8192su.ndi, USB\VID_07AA&PID_0051
+
+[Dlink.NTx86.6.0]
+%DWA-130-1.DeviceDesc% = Dlink8192su.ndi, USB\VID_14B2&PID_3300
+%DWA-130-2.DeviceDesc% = Dlink8192su.ndi, USB\VID_14B2&PID_3301
+%DWA-130-3.DeviceDesc% = Dlink8192su.ndi, USB\VID_14B2&PID_3302
+%DWA-130C2.DeviceDesc% = Dlink8192su.ndi, USB\VID_07D1&PID_3302
+%DWA-130E1.DeviceDesc% = Dlink8192su.ndi, USB\VID_07D1&PID_3300
+%DWA-131A1.DeviceDesc% = Dlink8192su.ndi, USB\VID_07D1&PID_3303
+%DWL-G122.DeviceDesc% = RTLG8192su.ndi, USB\VID_07D1&PID_3306
+%DWL-G122.DeviceDesc% = Dlink8192su.ndi, USB\VID_2001&PID_3306
+
+
+[EnGenius.NTx86.6.0]
+%EnGenius.DeviceDesc% = CustWEP8192su.ndi, USB\VID_1740&PID_9603
+%EnGenius.DeviceDesc% = CustWEP8192su.ndi, USB\VID_1740&PID_9605
+
+[Belkin.NTx86.6.0]
+%Belkin.DeviceDesc% = RTL8192su.ndi, USB\VID_050D&PID_815F
+%BelkinB.DeviceDesc% = RTL8192su.ndi, USB\VID_050D&PID_945A
+%BelkinC.DeviceDesc% = RTL8192su.ndi, USB\VID_050D&PID_845A
+
+[Guillemot.NTx86.6.0]
+%Guillemot.DeviceDesc% = RTL8192su.ndi, USB\VID_06F8&PID_E031
+
+[Edimax.NTx86.6.0]
+%Edimax.DeviceDesc% = CustWEP8192su.ndi, USB\VID_7392&PID_7611
+%Edimax.DeviceDesc% = CustWEP8192su.ndi, USB\VID_7392&PID_7612
+%Edimax.DeviceDesc% = CustWEP8192su.ndi, USB\VID_7392&PID_7622
+
+[Sitecom.NTx86.6.0]
+%WL-353.DeviceDesc% = CustWEP8192su.ndi, USB\VID_0DF6&PID_0045
+%WL-356.DeviceDesc% = CustWEP8192su.ndi, USB\VID_0DF6&PID_0049
+%WL-349v2.DeviceDesc% = RTL8192su.ndi, USB\VID_0DF6&PID_0057
+%WL-349v3.DeviceDesc% = RTL8192su.ndi, USB\VID_0DF6&PID_004B
+%WL-352v2.DeviceDesc% = RTL8192su.ndi, USB\VID_0DF6&PID_0058
+%WL-352v3.DeviceDesc% = RTL8192su.ndi, USB\VID_0DF6&PID_004C
+%WL-608v3.DeviceDesc% = RTLG8192su.ndi, USB\VID_0DF6&PID_0059
+%WL-349v4.DeviceDesc% = RTL8192su.ndi, USB\VID_0DF6&PID_0063
+%WL-352v4.DeviceDesc% = RTL8192su.ndi, USB\VID_0DF6&PID_0064
+%WL-1000v1.DeviceDesc% = RTL8192su.ndi, USB\VID_0DF6&PID_005B
+%WL-2000v1.DeviceDesc% = RTL8192su.ndi, USB\VID_0DF6&PID_005D
+%WL-4000v1.DeviceDesc% = RTL8192su.ndi, USB\VID_0DF6&PID_0061
+
+[Hawking.NTx86.6.0]
+%HawkingN.DeviceDesc% = CustWEP8192su.ndi, USB\VID_0E66&PID_0015
+%HawkingG.DeviceDesc% = CustWEP8192su.ndi, USB\VID_0E66&PID_0016
+
+[ASUSTeK.NTx86.6.0]
+%ASUS1786.DeviceDesc% = RTL8192su.ndi, USB\VID_0B05&PID_1786
+%ASUS1791.DeviceDesc% = RTL8192su.ndi, USB\VID_0B05&PID_1791
+
+[Amigo.NTx86.6.0]
+%Amigo1.DeviceDesc% = RTL8192su.ndi, USB\VID_0EB0&PID_9061
+%Amigo2.DeviceDesc% = RTL8192su.ndi, USB\VID_0E0B&PID_9063
+
+[AirLive.NTx86.6.0]
+%WN-370.DeviceDesc% = RTL8192su.ndi, USB\VID_1B75&PID_8171
+%WN-380.DeviceDesc% = RTL8192su.ndi, USB\VID_1B75&PID_8172
+
+[Zinwell.NTx86.6.0]
+%Zinwell.DeviceDesc% = RTL8192su.ndi, USB\VID_5A57&PID_0291
+
+[Sweex.NTx86.6.0]
+%Sweex.DeviceDesc% = CustWEP8192su.ndi, USB\VID_177F&PID_0154
+
+[Logitec.NTx86.6.0]
+%Logitec.DeviceDesc% = RTL8192su.ndi, USB\VID_0789&PID_0167
+
+[PCI.NTx86.6.0]
+%PCI.DeviceDesc% = RTL8192su.ndi, USB\VID_2019&PID_AB28
+%PCI-300.DeviceDesc% = RTL8192su.ndi, USB\VID_2019&PID_4901
+
+[Abocom.NTx86.6.0]
+%Abocom.DeviceDesc% = RTL8192su.ndi, USB\VID_07B8&PID_8188
+
+[Sagemcom.NTx86.6.0]
+%Sagemcom.DeviceDesc% = RTL8192su.ndi, USB\VID_0009&PID_21E7
+
+[Z-com.NTx86.6.0]
+%Z-com.DeviceDesc% = RTL8192su.ndi, USB\VID_0CDE&PID_0030
+
+[Hercules.NTx86.6.0]
+%HWNUp-150.DeviceDesc% = RTL8192su.ndi, USB\VID_06F8&PID_E034
+%HWGUn-54.DeviceDesc% = RTL8192su.ndi, USB\VID_06F8&PID_E032
+
+[TRENDnet.NTx86.6.0]
+%TRENDnet.DeviceDesc% = RTL8192su.ndi, USB\VID_20F4&PID_646B
+
+;;****************************************************************************
+;; IDs for X64
+;;****************************************************************************
+[Realtek.NTamd64.6.0]
+;%RTL8192su.DeviceDesc% = RTL8192su.ndi, USB\VID_0BDA&PID_8192&REV_0100
+;%RTL8192su.DeviceDesc% = RTL8192su.ndi, USB\VID_0BDA&PID_8192&REV_0200
+%RTL8188su.DeviceDesc% = RTL8192su.ndi, USB\VID_0BDA&PID_8171
+%RTL8188su.DeviceDesc% = RTL8192su.ndi, USB\VID_1690&PID_0752
+%RTL8188su.DeviceDesc% = RTL8192su.ndi, USB\VID_13D3&PID_3334
+%RTL8188su.DeviceDesc% = RTL8192su.ndi, USB\VID_13D3&PID_3339
+%RTL8188su.DeviceDesc% = RTL8192su.ndi, USB\VID_0BDA&PID_C047
+%RTLG8188su.DeviceDesc% = RTLG8192su.ndi, USB\VID_13D3&PID_3336
+%RTLG8188su.DeviceDesc% = RTLG8192su.ndi, USB\VID_13D3&PID_3340
+%RTLG8188su.DeviceDesc% = RTLG8192su.ndi, USB\VID_13D3&PID_3342
+%RTL8191su.DeviceDesc% = RTL8192su.ndi, USB\VID_0BDA&PID_8172
+%RTLG8191su.DeviceDesc% = RTLG8192su.ndi, USB\VID_0BDA&PID_8175
+%RTL8191su.DeviceDesc% = RTL8192su.ndi, USB\VID_13D3&PID_3306
+%RTL8191su.DeviceDesc% = RTL8192su.ndi, USB\VID_13D3&PID_3309
+%RTL8191su.DeviceDesc% = RTL8192su.ndi, USB\VID_13D3&PID_3310
+%RTLG8191su.DeviceDesc% = RTLG8192su.ndi, USB\VID_13D3&PID_3311
+%RTL8191su.DeviceDesc% = RTL8192su.ndi, USB\VID_13D3&PID_3323
+%RTL8191su.DeviceDesc% = RTL8192su.ndi, USB\VID_13D3&PID_3325
+%RTL8191su.DeviceDesc% = RTL8192su.ndi, USB\VID_13D3&PID_3333
+%RTLG8191su.DeviceDesc% = RTLG8192su.ndi, USB\VID_13D3&PID_3335
+%RTLG8191su.DeviceDesc% = RTLG8192su.ndi, USB\VID_13D3&PID_3341
+%RTL8192gu.DeviceDesc% = RTL8192su.ndi, USB\VID_0BDA&PID_8173
+%RTL8192su.DeviceDesc% = RTL8192su.ndi, USB\VID_0BDA&PID_8174
+%RTL8712.DeviceDesc% = RTL8192su.ndi, USB\VID_0BDA&PID_8712
+%RTL8191su.DeviceDesc% = RTL8192su.ndi, USB\VID_04F2&PID_AFF2
+%RTL8191su.DeviceDesc% = RTL8192su.ndi, USB\VID_04F2&PID_AFF5
+%RTL8191su.DeviceDesc% = RTL8192su.ndi, USB\VID_04F2&PID_AFF6
+
+[Corega.NTamd64.6.0]
+%CG-WLUSBNM.DeviceDesc% = Corega8192su.ndi, USB\VID_07AA&PID_0047
+%CG-WLUSB300NM.DeviceDesc% = Corega8192su.ndi, USB\VID_07AA&PID_0051
+
+[Dlink.NTamd64.6.0]
+%DWA-130-1.DeviceDesc% = Dlink8192su.ndi, USB\VID_14B2&PID_3300
+%DWA-130-2.DeviceDesc% = Dlink8192su.ndi, USB\VID_14B2&PID_3301
+%DWA-130-3.DeviceDesc% = Dlink8192su.ndi, USB\VID_14B2&PID_3302
+%DWA-130C2.DeviceDesc% = Dlink8192su.ndi, USB\VID_07D1&PID_3302
+%DWA-130E1.DeviceDesc% = Dlink8192su.ndi, USB\VID_07D1&PID_3300
+%DWA-131A1.DeviceDesc% = Dlink8192su.ndi, USB\VID_07D1&PID_3303
+%DWL-G122.DeviceDesc% = RTLG8192su.ndi, USB\VID_07D1&PID_3306
+%DWL-G122.DeviceDesc% = Dlink8192su.ndi, USB\VID_2001&PID_3306
+
+[EnGenius.NTamd64.6.0]
+%EnGenius.DeviceDesc% = CustWEP8192su.ndi, USB\VID_1740&PID_9603
+%EnGenius.DeviceDesc% = CustWEP8192su.ndi, USB\VID_1740&PID_9605
+
+[Belkin.NTamd64.6.0]
+%Belkin.DeviceDesc% = RTL8192su.ndi, USB\VID_050D&PID_815F
+%BelkinB.DeviceDesc% = RTL8192su.ndi, USB\VID_050D&PID_945A
+%BelkinC.DeviceDesc% = RTL8192su.ndi, USB\VID_050D&PID_845A
+
+[Guillemot.NTamd64.6.0]
+%Guillemot.DeviceDesc% = RTL8192su.ndi, USB\VID_06F8&PID_E031
+
+[Edimax.NTamd64.6.0]
+%Edimax.DeviceDesc% = CustWEP8192su.ndi, USB\VID_7392&PID_7611
+%Edimax.DeviceDesc% = CustWEP8192su.ndi, USB\VID_7392&PID_7612
+%Edimax.DeviceDesc% = CustWEP8192su.ndi, USB\VID_7392&PID_7622
+
+[Sitecom.NTamd64.6.0]
+%WL-353.DeviceDesc% = CustWEP8192su.ndi, USB\VID_0DF6&PID_0045
+%WL-356.DeviceDesc% = CustWEP8192su.ndi, USB\VID_0DF6&PID_0049
+%WL-349v2.DeviceDesc% = RTL8192su.ndi, USB\VID_0DF6&PID_0057
+%WL-349v3.DeviceDesc% = RTL8192su.ndi, USB\VID_0DF6&PID_004B
+%WL-352v2.DeviceDesc% = RTL8192su.ndi, USB\VID_0DF6&PID_0058
+%WL-352v3.DeviceDesc% = RTL8192su.ndi, USB\VID_0DF6&PID_004C
+%WL-608v3.DeviceDesc% = RTLG8192su.ndi, USB\VID_0DF6&PID_0059
+%WL-349v4.DeviceDesc% = RTL8192su.ndi, USB\VID_0DF6&PID_0063
+%WL-352v4.DeviceDesc% = RTL8192su.ndi, USB\VID_0DF6&PID_0064
+
+[Hawking.NTamd64.6.0]
+%HawkingN.DeviceDesc% = CustWEP8192su.ndi, USB\VID_0E66&PID_0015
+%HawkingG.DeviceDesc% = CustWEP8192su.ndi, USB\VID_0E66&PID_0016
+
+[ASUSTeK.NTamd64.6.0]
+%ASUS1786.DeviceDesc% = RTL8192su.ndi, USB\VID_0B05&PID_1786
+%ASUS1791.DeviceDesc% = RTL8192su.ndi, USB\VID_0B05&PID_1791
+
+[Amigo.NTamd64.6.0]
+%Amigo1.DeviceDesc% = RTL8192su.ndi, USB\VID_0EB0&PID_9061
+%Amigo2.DeviceDesc% = RTL8192su.ndi, USB\VID_0E0B&PID_9063
+
+[Zinwell.NTamd64.6.0]
+%Zinwell.DeviceDesc% = RTL8192su.ndi, USB\VID_5A57&PID_0291
+
+[Sweex.NTamd64.6.0]
+%Sweex.DeviceDesc% = CustWEP8192su.ndi, USB\VID_177F&PID_0154
+
+[Logitec.NTamd64.6.0]
+%Logitec.DeviceDesc% = RTL8192su.ndi, USB\VID_0789&PID_0167
+
+[PCI.NTamd64.6.0]
+%PCI.DeviceDesc% = RTL8192su.ndi, USB\VID_2019&PID_AB28
+%PCI-300.DeviceDesc% = RTL8192su.ndi, USB\VID_2019&PID_4901
+
+[Abocom.NTamd64.6.0]
+%Abocom.DeviceDesc% = RTL8192su.ndi, USB\VID_07B8&PID_8188
+
+[Sagemcom.NTamd64.6.0]
+%Sagemcom.DeviceDesc% = RTL8192su.ndi, USB\VID_0009&PID_21E7
+
+[Z-com.NTamd64.6.0]
+%Z-com.DeviceDesc% = RTL8192su.ndi, USB\VID_0CDE&PID_0030
+
+[Hercules.NTamd64.6.0]
+%HWNUp-150.DeviceDesc% = RTL8192su.ndi, USB\VID_06F8&PID_E034
+%HWGUn-54.DeviceDesc% = RTL8192su.ndi, USB\VID_06F8&PID_E032
+
+[TRENDnet.NTamd64.6.0]
+%TRENDnet.DeviceDesc% = RTL8192su.ndi, USB\VID_20F4&PID_646B
+
+[AirLive.NTamd64.6.0]
+%WN-370.DeviceDesc% = RTL8192su.ndi, USB\VID_1B75&PID_8171
+%WN-380.DeviceDesc% = RTL8192su.ndi, USB\VID_1B75&PID_8172
+
+;;****************************************************************************
+;; Windows 2000/XP
+;;****************************************************************************
+;;----------------------------------------------------------------------------
+;; Realtek default installation
+;;----------------------------------------------------------------------------
+[RTL8192su.ndi.NT]
+AddReg			= RTL8192su.nt5.reg, RTL8192su.common.reg, RTLWLAN.reg, 11nWirelessMode.reg
+Characteristics		= 0x84
+BusType			= 15 
+CopyFiles		= RTL8192su.CopyFiles
+*IfType			= 71            ; IF_TYPE_IEEE80211
+*MediaType		= 16            ; NdisMediumNative802_11
+*PhysicalMediaType	= 9          ; NdisPhysicalMediumNative802_11
+
+[RTL8192su.ndi.NT.Services]
+AddService		= RTL8192su, 2, RTL8192su.nt5.Service, RTL8192su.nt5.EventLog
+
+;;----------------------------------------------------------------------------
+;; Realtek G mode sku installation
+;;----------------------------------------------------------------------------
+[RTLG8192su.ndi.NT]
+AddReg			= RTL8192su.nt5.reg, RTL8192su.common.reg, RTLWLAN.reg, 11gWirelessMode.reg
+Characteristics		= 0x84
+BusType			= 15 
+CopyFiles		= RTL8192su.CopyFiles
+*IfType			= 71            ; IF_TYPE_IEEE80211
+*MediaType		= 16            ; NdisMediumNative802_11
+*PhysicalMediaType	= 9          ; NdisPhysicalMediumNative802_11
+
+[RTLG8192su.ndi.NT.Services]
+AddService		= RTL8192su, 2, RTL8192su.nt5.Service, RTL8192su.nt5.EventLog
+
+;;----------------------------------------------------------------------------
+;; Corega customized installation
+;;----------------------------------------------------------------------------
+[Corega8192su.ndi.NT]
+AddReg			= RTL8192su.nt5.reg, RTL8192su.common.reg, Corega.reg, 11nWirelessMode.reg
+Characteristics		= 0x84
+BusType			= 15 
+CopyFiles		= RTL8192su.CopyFiles
+*IfType			= 71            ; IF_TYPE_IEEE80211
+*MediaType		= 16            ; NdisMediumNative802_11
+*PhysicalMediaType	= 9          ; NdisPhysicalMediumNative802_11
+
+[Corega8192su.ndi.NT.Services]
+AddService		= RTL8192su, 2, RTL8192su.nt5.Service, RTL8192su.nt5.EventLog
+
+;;----------------------------------------------------------------------------
+;; EnGenius/Edimax customized installation
+;;----------------------------------------------------------------------------
+[CustWEP8192su.ndi.NT]
+AddReg			= RTL8192su.nt5.reg, RTL8192su.common.reg, RTLWLAN.reg, WEPinGmode.reg, 11nWirelessMode.reg
+Characteristics		= 0x84
+BusType			= 15 
+CopyFiles		= RTL8192su.CopyFiles
+*IfType			= 71            ; IF_TYPE_IEEE80211
+*MediaType		= 16            ; NdisMediumNative802_11
+*PhysicalMediaType	= 9          ; NdisPhysicalMediumNative802_11
+
+[CustWEP8192su.ndi.NT.Services]
+AddService		= RTL8192su, 2, RTL8192su.nt5.Service, RTL8192su.nt5.EventLog
+
+;;----------------------------------------------------------------------------
+;; Dlink default installation
+;;----------------------------------------------------------------------------
+[Dlink8192su.ndi.NT]
+AddReg			= RTL8192su.nt5.reg, RTL8192su.common.reg, RTLWLAN.reg, WEPinGmode.reg, 11nWirelessMode.reg
+Characteristics		= 0x84
+BusType			= 15 
+CopyFiles		= RTL8192su.CopyFiles
+*IfType			= 71            ; IF_TYPE_IEEE80211
+*MediaType		= 16            ; NdisMediumNative802_11
+*PhysicalMediaType	= 9          ; NdisPhysicalMediumNative802_11
+
+[Dlink8192su.ndi.NT.Services]
+AddService		= RTL8192su, 2, RTL8192su.nt5.Service, RTL8192su.nt5.EventLog
+
+;;****************************************************************************
+;; Windows 2000/XP parameters
+;;****************************************************************************
+[RTL8192su.nt5.reg]
+HKR, Ndi\Interfaces,	UpperRange, 0, "ndis5,mdcwifi"
+HKR, Ndi\Interfaces,	LowerRange, 0, "wlan, ethernet"
+HKR, Ndi,		Service,    0, "RTL8192su"
+
+[RTL8192su.nt5.Service]
+DisplayName    = %RTL8192su.DeviceDesc.DispName%
+ServiceType    = 1		; %SERVICE_KERNEL_DRIVER%
+StartType      = 3		; %SERRVICE_DEMAND_START%
+ErrorControl   = 1		; %SERRVICE_ERROR_NORMAL%
+ServiceBinary  = %12%\RTL8192su.sys
+LoadOrderGroup = NDIS
+
+[RTL8192su.nt5.EventLog]
+AddReg = RTL8192su.nt5.AddEventLog.reg
+
+[RTL8192su.nt5.AddEventLog.reg]
+HKR, , EventMessageFile, 0x00020000, "%%SystemRoot%%\System32\netevent.dll"
+HKR, , TypesSupported  , 0x00010001, 7
+
+;*******************************************************************************
+; RTL8192su common paramters
+;*******************************************************************************
+[RTL8192su.common.reg]
+HKR,,CcxRm,0,"0"
+
+HKR,defaults,			AH_BcnIntv, 	0, "1000"
+HKR,Ndi\params\AH_BcnIntv, 	default, 	0, "100"
+HKR,Ndi\params\AH_BcnIntv,	ParamDesc, 	0, %AH_BCNINTV_STR%
+HKR,Ndi\params\AH_BcnIntv, 	type, 		0, "int"
+HKR,Ndi\params\AH_BcnIntv, 	min, 		0, "20"
+HKR,Ndi\params\AH_BcnIntv, 	max, 		0, "1000"
+HKR,Ndi\params\AH_BcnIntv, 	step, 		0, "1"
+
+HKR,,SSID,0,""
+
+;Inactive Power Save
+HKR,,bInactivePs,0,"1"
+
+HKR,,LedCtrl,0,"1"
+
+HKR,,DefaultKeyID,,"0"
+HKR,,DefaultKey0,,""
+HKR,,DefaultKey1,,""
+HKR,,DefaultKey2,,""
+HKR,,DefaultKey3,,""
+
+;;----------------------------------------------------------------------------
+;; Realtek WLAN NIC parameters
+;;----------------------------------------------------------------------------
+[RTLWLAN.reg]
+HKR,,Channel,0,"10"
+
+HKR,Ndi\params\Dot11dEnable,        ParamDesc,  0, %DOT11_ENABLE_STR%
+HKR,Ndi\params\Dot11dEnable,        type,       0, "enum"
+HKR,Ndi\params\Dot11dEnable,        default,    0, "0"
+HKR,Ndi\params\Dot11dEnable\enum,   "0",        0, %DISABLE_STR%
+HKR,Ndi\params\Dot11dEnable\enum,   "1",        0, %ENABLE_STR%
+HKR,defaults,Dot11dEnable,0,"0"
+HKR,,Dot11dEnable,0,"0"
+
+;;----------------------------------------------------------------------------
+;; Corega WLAN NIC parameters
+;;----------------------------------------------------------------------------
+[Corega.reg]
+HKR,Ndi\params\Channel,       ParamDesc,  0, %CHANNEL_STR%
+HKR,Ndi\params\Channel,       type,       0, "int"
+HKR,Ndi\params\Channel,       default,    0, "1"
+HKR,Ndi\params\Channel,       Min,        0, "1"
+HKR,Ndi\params\Channel,       Max,        0, "13"
+HKR,Ndi\params\Channel,       Step,       0, "1"
+HKR,Ndi\params\Channel,       Base,       0, "10"
+HKR,defaults,Channel,0,"1"
+HKR,,Channel,0,"1"
+
+HKR,,TKIPinNmode,0,"1"
+
+;;----------------------------------------------------------------------------
+;; EnGenius WLAN NIC parameters
+;;----------------------------------------------------------------------------
+[WEPinGmode.reg]
+HKR,,WEPinNmode,0,"0"
+
+;;----------------------------------------------------------------------------
+;; Wireless mode option parameters
+;;----------------------------------------------------------------------------
+[11gWirelessMode.reg]
+HKR,Ndi\params\WirelessMode, 		ParamDesc, 	0, %WL_MODE_STR%
+HKR,Ndi\params\WirelessMode, 		type, 		0, "enum"
+HKR,Ndi\params\WirelessMode, 		default, 	0, "8"
+HKR,Ndi\params\WirelessMode\enum, 	"2", 		0, %IEEE_802_11B_STR%
+HKR,Ndi\params\WirelessMode\enum, 	"4", 		0, %IEEE_802_11BG_STR%
+HKR,defaults,WirelessMode, 0, "4"
+HKR,,WirelessMode, 0, "4"
+
+HKR,,WirelessBgSku,0,"1"
+
+[11nWirelessMode.reg]
+HKR,Ndi\params\WirelessMode, 		ParamDesc, 	0, %WL_MODE_STR%
+HKR,Ndi\params\WirelessMode, 		type, 		0, "enum"
+HKR,Ndi\params\WirelessMode, 		default, 	0, "8"
+HKR,Ndi\params\WirelessMode\enum, 	"2", 		0, %IEEE_802_11B_STR%
+HKR,Ndi\params\WirelessMode\enum, 	"4", 		0, %IEEE_802_11BG_STR%
+HKR,Ndi\params\WirelessMode\enum, 	"8", 		0, %IEEE_802_11BGN_STR%
+HKR,defaults,WirelessMode, 0, "8"
+HKR,,WirelessMode, 0, "8"
+
+
+;*******************************************************************************
+; Destination Directory
+;*******************************************************************************
+[RTL8192su.CopyFiles]
+RTL8192su.sys,,,2
+
+[DestinationDirs]
+DefaultDestDir     = 11
+RTL8192su.CopyFiles		= 12
+
+;;****************************************************************************
+;; Source Files
+;;****************************************************************************
+[SourceDisksFiles]
+RTL8192su.sys = 1
+
+[SourceDisksNames]
+1=%DISKNAME%,,,
+
+;*******************************************************************************
+; Strings
+;*******************************************************************************
+[Strings]
+Realtek 			= "Realtek Semiconductor Corp."
+SSID_STR			= "SSID"
+CHANNEL_STR			= "Channel"
+NETWORK_TYPE_STR		= "Network Type"
+LED_CONTROL_STR			= "LED Control" 
+POWER_SAVE_STR			= "Power Save Mode"
+WIFI_IBSS_STR			= "IBSS Default 11b Mode"
+RATE_ADAPTIVE_STR		= "Rate Adaptive"
+QOS_STR				= "QoS"
+WMM_APSD			= "WMM APSD"
+CCX_RM_STR			= "CCX Radio Measurement"
+CCX_OFF_LINE_DUR_UP_LIMIT_STR	= "CCX Max Off-Line Measurement (0: unlimited)"
+FORCE_PRIORITY_STR		= "Forced Priority"
+HW_PARA_STR			= "Init from HwParaFile"
+THREE_WIRE_MODE_STR		= "Three Wire Programming Mode"
+BOARD_TYPE_STR			= "Board Type"
+PROTECTION_MODE_STR		= "Protection Mode"
+TPC_STR				= "Transmit Power Control"
+TPC_POLARITY_STR		= "TPC Polarity Select"
+HIGH_POWER_STR			= "High Power Mechanism"
+INIT_GAIN_STR			= "Initial Gain State"
+CW_MAX_MIN_STR			= "Contention Window"
+PSP_XLINK_STR			= "PSP XLink Mode"
+CHANNEL_PLAN_STR		= "Channel Plan"
+WL_MODE_STR			= "Wireless Mode"
+PREAMBLE_MODE_STR		= "Preamble Mode"
+FRAGTHRESH_STR			= "Fragmentation Threshold"
+RTSTHRESH_STR			= "RTS Threshold"
+DOT11_ENABLE_STR		= "802.11d"
+Corega		                = "Allied Telesis K.K."
+DLink				= "D-Link Corporation"
+EnGenius			= "EnGenius Technologies"
+Belkin				= "Belkin International, Inc."
+Guillemot			= "Guillemot Corporation S.A"
+Edimax				= "Edimax Technology Co., Ltd"
+Sitecom				= "Sitecom Europe BV"
+Hawking				= "Hawking Technologies, Inc."
+ASUSTeK				= "ASUSTeK Computer Inc."
+Amigo				= "Amigo Technology Inc."
+AirLive				= "AirLive Corp."
+Zinwell				= "Zinwell Corporation"
+Sweex				= "Sweex"
+Logitec				= "Logitec Corp."
+PCI				= "PLANEX COMMUNICATIONS INC."
+Abocom				= "AboCom System, Inc."
+Sagemcom			= "Sagemcom"
+Z-com				= "Z-com"
+Hercules			= "Hercules"
+TRENDnet			= "TRENDnet"
+AH_BCNINTV_STR 			= "Beacon Interval"
+DISABLE_STR 			= "Disable"
+ENABLE_STR 			= "Enable"
+IEEE_802_11B_STR 		= "IEEE 802.11b"
+IEEE_802_11BG_STR 		= "IEEE 802.11b/g"
+IEEE_802_11BGN_STR 		= "IEEE 802.11b/g/n"
+TX_PWR_CONTROL_STR		= "Tx Power Control"
+TX_PWR_PERCENTAGE_1_STR 	= "12.5%"
+TX_PWR_PERCENTAGE_2_STR 	= "25%"
+TX_PWR_PERCENTAGE_3_STR 	= "50%"
+TX_PWR_PERCENTAGE_4_STR 	= "100%"
+
+;; Source disk name
+DISKNAME			= "Realtek RTL8192SU Wireless LAN 802.11n USB 2.0 Network Adapter Driver Disk"
+RTL8188su.DeviceDesc 		= "Realtek RTL8188SU Wireless LAN 802.11n USB 2.0 Network Adapter"
+RTL8188su.DeviceDesc.DispName	= "Realtek RTL8188SU Wireless LAN 802.11n USB 2.0 Network Adapter"
+RTL8191su.DeviceDesc 		= "Realtek RTL8191SU Wireless LAN 802.11n USB 2.0 Network Adapter"
+RTL8191su.DeviceDesc.DispName	= "Realtek RTL8191SU Wireless LAN 802.11n USB 2.0 Network Adapter"
+RTL8192gu.DeviceDesc 		= "Realtek RTL8192GU Wireless LAN 802.11n USB 2.0 Network Adapter"
+RTL8192gu.DeviceDesc.DispName	= "Realtek RTL8192GU Wireless LAN 802.11n USB 2.0 Network Adapter"
+RTL8192su.DeviceDesc 		= "Realtek RTL8192SU Wireless LAN 802.11n USB 2.0 Network Adapter"
+RTL8192su.DeviceDesc.DispName	= "Realtek RTL8192SU Wireless LAN 802.11n USB 2.0 Network Adapter"
+RTL8712.DeviceDesc 		= "Realtek RTL8712 Wireless LAN 802.11n USB 2.0 Network Adapter"
+RTL8712.DeviceDesc.DispName	= "Realtek RTL8712 Wireless LAN 802.11n USB 2.0 Network Adapter"
+RTLG8188su.DeviceDesc 		= "Realtek RTL8188SU Wireless LAN 802.11 USB 2.0 Network Adapter"
+RTLG8188su.DeviceDesc.DispName	= "Realtek RTL8188SU Wireless LAN 802.11 USB 2.0 Network Adapter"
+RTLG8191su.DeviceDesc 		= "Realtek RTL8191SU Wireless LAN 802.11 USB 2.0 Network Adapter"
+RTLG8191su.DeviceDesc.DispName	= "Realtek RTL8191SU Wireless LAN 802.11 USB 2.0 Network Adapter"
+CG-WLUSBNM.DeviceDesc		= "CG-WLUSBNM"
+CG-WLUSBNM.DeviceDesc.DispName	= "CG-WLUSBNM"
+CG-WLUSB300NM.DeviceDesc	= "CG-WLUSB300NM"
+CG-WLUSB300NM.DeviceDesc.DispName= "CG-WLUSB300NM"
+DWA-130-1.DeviceDesc 		= "Skyworth DWA-130-1 Wireless N USB Adapter (rev.C2)"
+DWA-130-1.DeviceDesc.DispName	= "Skyworth DWA-130-1 Wireless N USB Adapter (rev.C2)"
+DWA-130-2.DeviceDesc 		= "Skyworth DWA-130-2 Wireless N USB Adapter (rev.C2)"
+DWA-130-2.DeviceDesc.DispName	= "Skyworth DWA-130-2 Wireless N USB Adapter (rev.C2)"
+DWA-130-3.DeviceDesc 		= "Skyworth DWA-130-3 Wireless N USB Adapter (rev.C2)"
+DWA-130-3.DeviceDesc.DispName	= "Skyworth DWA-130-3 Wireless N USB Adapter (rev.C2)"
+DWA-130C2.DeviceDesc		= "D-Link DWA-130 Wireless N USB Adapter(rev.C2)"
+DWA-130C2.DeviceDesc.DispName	= "D-Link DWA-130 Wireless N USB Adapter(rev.C2)"
+DWA-130E1.DeviceDesc		= "D-Link DWA-130 Wireless N USB Adapter"
+DWA-130E1.DeviceDesc.DispName	= "D-Link DWA-130 Wireless N USB Adapter"
+DWA-131A1.DeviceDesc		= "D-Link DWA-131 Wireless N Nano USB Adapter"
+DWA-131A1.DeviceDesc.DispName	= "D-Link DWA-131 Wireless N Nano USB Adapter"
+DWL-G122.DeviceDesc		= "D-Link DWL-G122 Wireless G USB Adapter (rev.F1)"
+DWL-G122.DeviceDesc.DispName	= "D-Link DWL-G122 Wireless G USB Adapter (rev.F1)"
+EnGenius.DeviceDesc		= "EnGenius 802.11n Wireless USB Adapter"
+EnGenius.DeviceDesc.DispName	= "EnGenius 802.11n Wireless USB Adapter"
+Belkin.DeviceDesc		= "Belkin N Wireless USB Adapter"
+Belkin.DeviceDesc.DispName	= "Belkin N Wireless USB Adapter"
+BelkinB.DeviceDesc		= "Belkin USB Wireless Adaptor"
+BelkinB.DeviceDesc.DispName	= "Belkin USB Wireless Adaptor"
+BelkinC.DeviceDesc		= "Belkin USB Wireless Adaptor"
+BelkinC.DeviceDesc.DispName	= "Belkin USB Wireless Adaptor"
+Guillemot.DeviceDesc		= "Hercules Wireless N Mini USB Key"
+Guillemot.DeviceDesc.DispName	= "Hercules Wireless N Mini USB Key"
+Edimax.DeviceDesc		= "Edimax 802.11n Wireless USB Adapter"
+Edimax.DeviceDesc.DispName	= "Edimax 802.11n Wireless USB Adapter"
+WL-353.DeviceDesc		= "Sitecom Wireless Nano USB Adapter 150N WL-353"
+WL-353.DeviceDesc.DispName	= "Sitecom Wireless Nano USB Adapter 150N WL-353"
+WL-356.DeviceDesc		= "Sitecom Wireless High-Gain USB Adapter 300N X2 WL-356"
+WL-356.DeviceDesc.DispName	= "Sitecom Wireless High-Gain USB Adapter 300N X2 WL-356"
+WL-349v2.DeviceDesc		= "Sitecom 150N Wireless USB Adapter WL-349v2 001"
+WL-349v2.DeviceDesc.DispName	= "Sitecom 150N Wireless USB Adapter WL-349v2 001"
+WL-349v3.DeviceDesc		= "Sitecom 150N Wireless USB Adapter WL-349v3"
+WL-349v3.DeviceDesc.DispName	= "Sitecom 150N Wireless USB Adapter WL-349v3"
+WL-352v2.DeviceDesc		= "Sitecom 300N Wireless USB Adapter WL-352v2 001"
+WL-352v2.DeviceDesc.DispName	= "Sitecom 300N Wireless USB Adapter WL-352v2 001"
+WL-352v3.DeviceDesc		= "Sitecom 300N Wireless USB Adapter WL-352v3"
+WL-352v3.DeviceDesc.DispName	= "Sitecom 300N Wireless USB Adapter WL-352v3"
+WL-352v4.DeviceDesc		= "Wireless Network USB Adapter 300N X2"
+WL-352v4.DeviceDesc.DispName	= "Wireless Network USB Adapter 300N X2"
+WL-349v4.DeviceDesc		= "Wireless Network USB Adapter 150N X1"
+WL-349v4.DeviceDesc.DispName	= "Wireless Network USB Adapter 150N X1"
+WL-608v3.DeviceDesc		= "Sitecom Wireless Network Micro USB Adapter 54g WL-608v3_001"
+WL-608v3.DeviceDesc.DispName	= "Sitecom Wireless Network Micro USB Adapter 54g WL-608v3_001"
+WL-1000v1.DeviceDesc		= "Wireless Network USB Adapter 150N X1"
+WL-1000v1.DeviceDesc.DispName	= "Wireless Network USB Adapter 150N X1"
+WL-2000v1.DeviceDesc		= "Wireless Network USB Adapter 300N X2"
+WL-2000v1.DeviceDesc.DispName	= "Wireless Network USB Adapter 300N X2"
+WL-4000v1.DeviceDesc		= "Wireless High-gain Network Adapter 300N"
+WL-4000v1.DeviceDesc.DispName	= "Wireless High-gain Network Adapter 300N"
+HawkingN.DeviceDesc		= "Hawking Hi-Gain USB Wireless-N Dish Adapter"
+HawkingN.DeviceDesc.DispName	= "Hawking Hi-Gain USB Wireless-N Dish Adapter"
+HawkingG.DeviceDesc		= "Hawking Hi-Gain USB Wireless-G Dish Adapter"
+HawkingG.DeviceDesc.DispName	= "Hawking Hi-Gain USB Wireless-G Dish Adapter"
+ASUS1786.DeviceDesc		= "ASUS EZ N 802.11b/g/n Wireless USB Adapter"
+ASUS1786.DeviceDesc.DispName	= "ASUS EZ N 802.11b/g/n Wireless USB Adapter"
+ASUS1791.DeviceDesc		= "ASUS WL-167G V3"
+ASUS1791.DeviceDesc.DispName	= "ASUS WL-167G V3"
+Amigo1.DeviceDesc		= "802.11n Wireless USB Card"
+Amigo1.DeviceDesc.DispName	= "802.11n Wireless USB Card"
+Amigo2.DeviceDesc		= "Wireless LAN 802.11n USB2.0 Network Adapter"
+Amigo2.DeviceDesc.DispName	= "Wireless LAN 802.11n USB2.0 Network Adapter"
+Zinwell.DeviceDesc		= "802.11b/g/n USB Wireless LAN Card"
+Zinwell.DeviceDesc.DispName	= "802.11b/g/n USB Wireless LAN Card"
+Sweex.DeviceDesc		= "Sweex LW154 Wireless 150N Nano Adapter USB"
+Sweex.DeviceDesc.DispName	= "Sweex LW154 Wireless 150N Nano Adapter USB"
+Logitec.DeviceDesc		= "Logitec LAN-W150N/U2 Wireless LAN Adapter"
+Logitec.DeviceDesc.DispName	= "Logitec LAN-W150N/U2 Wireless LAN Adapter"
+PCI.DeviceDesc 			= "GW-USNano"
+PCI.DeviceDesc.DispName		= "GW-USNano"
+PCI-300.DeviceDesc 		= "GW-USSuper300"
+PCI-300.DeviceDesc.DispName	= "GW-USSuper300"
+Abocom.DeviceDesc 		= "802.11n/b/g 2cm Wireless LAN USB2.0 Adapter"
+Abocom.DeviceDesc.DispName	= "802.11n/b/g 2cm Wireless LAN USB2.0 Adapter"
+Sagemcom.DeviceDesc 		= "Sagemcom"
+Sagemcom.DeviceDesc.DispName	= "Sagemcom"
+Z-com.DeviceDesc 		= "Z-com"
+Z-com.DeviceDesc.DispName	= "Z-com"
+HWNUp-150.DeviceDesc 		= "Wireless N LB USB"
+HWNUp-150.DeviceDesc.DispName	= "Wireless N LB USB"
+HWGUn-54.DeviceDesc 		= "Wireless G USB Mini"
+HWGUn-54.DeviceDesc.DispName	= "Wireless G USB Mini"
+HWNUm-300.DeviceDesc 		= "Wireless N USB Mini"
+HWNUm-300.DeviceDesc.DispName	= "Wireless N USB Mini"
+TRENDnet.DeviceDesc		= "High Power 150Mbps Wireless N USB Adapter"
+TRENDnet.DeviceDesc.DispName	= "High Power 150Mbps Wireless N USB Adapter"
+WN-370.DeviceDesc		= "WN-370USB Wireless LAN 802.11n USB 2.0 Network Adapter"
+WN-370.DeviceDesc.DispName	= "WN-370USB Wireless LAN 802.11n USB 2.0 Network Adapter"
+WN-380.DeviceDesc		= "WN-380USB Wireless LAN 802.11n USB 2.0 Network Adapter"
+WN-380.DeviceDesc.DispName	= "WN-380USB Wireless LAN 802.11n USB 2.0 Network Adapter"

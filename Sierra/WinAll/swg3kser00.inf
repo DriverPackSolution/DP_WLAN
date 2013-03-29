@@ -1,0 +1,178 @@
+;-------------------------------------------------------------------------------
+; swg3kser00.INF
+;
+; Qualcomm Windows Serial Port Setup File
+;
+; Copyright (c) 2010 Qualcomm Inc.  All rights reserved.
+;-------------------------------------------------------------------------------
+
+[Version]
+signature     = "$WINDOWS NT$"
+Class         = Ports
+Provider      = %SWI%
+ClassGuid     = {4D36E978-E325-11CE-BFC1-08002BE10318}
+DriverVer     = 08/18/2011,11.8.1005.7
+Catalogfile   = swg3kser00.cat
+
+[ControlFlags]
+ExcludeFromSelect = *
+
+[Manufacturer]
+%SWI% = QcomSerialPort, NTamd64
+
+[SourceDisksNames]
+1000 = %QcomSrcDisk%,"",,\sys\x86
+2000 = %QcomSrcDisk%,"",,\sys\amd64
+
+[SourceDisksFiles.x86]
+swg3kser00.sys = 1000
+
+[SourceDisksFiles.amd64]
+swg3kser00.sys = 2000
+
+[QcomSerialPort]
+%SWIDevice90100%  = QportInstall00, USB\VID_1199&PID_9010
+%SWIDevice90111%  = QportInstall01, USB\VID_1199&PID_9011&MI_01
+%SierraDevice68A21%  = QportInstall01, USB\VID_1199&PID_68A2&MI_00
+%SierraDevice68A4%   = QportInstall00, USB\VID_1199&PID_68A4
+%SierraDevice68A51%  = QportInstall01, USB\VID_1199&PID_68A5&MI_01
+%SierraDevice68A8%   = QportInstall00, USB\VID_1199&PID_68A8
+%SierraDevice68A91%  = QportInstall01, USB\VID_1199&PID_68A9&MI_01
+
+%SierraDevice68A30%  = QportInstall02, USB\VID_1199&PID_68A3&MI_00
+%SierraDevice68A31%  = QportInstall02, USB\VID_1199&PID_68A3&MI_01
+%SierraDevice68A32%  = QportInstall03, USB\VID_1199&PID_68A3&MI_02
+%SierraDevice68A33%  = QportInstall04, USB\VID_1199&PID_68A3&MI_03
+
+%SierraDevice68A30%  = QportInstall02, USB\VID_0F3D&PID_68A3&MI_00
+%SierraDevice68A31%  = QportInstall02, USB\VID_0F3D&PID_68A3&MI_01
+%SierraDevice68A32%  = QportInstall03, USB\VID_0F3D&PID_68A3&MI_02
+%SierraDevice68A33%  = QportInstall04, USB\VID_0F3D&PID_68A3&MI_03
+
+%SierraDevice68AA0%  = QportInstall02, USB\VID_1199&PID_68AA&MI_00
+%SierraDevice68AA1%  = QportInstall02, USB\VID_1199&PID_68AA&MI_01
+%SierraDevice68AA2%  = QportInstall03, USB\VID_1199&PID_68AA&MI_02
+%SierraDevice68AA3%  = QportInstall04, USB\VID_1199&PID_68AA&MI_03
+
+%SierraDevice68AA0%  = QportInstall02, USB\VID_0F3D&PID_68AA&MI_00
+%SierraDevice68AA1%  = QportInstall02, USB\VID_0F3D&PID_68AA&MI_01
+%SierraDevice68AA2%  = QportInstall03, USB\VID_0F3D&PID_68AA&MI_02
+%SierraDevice68AA3%  = QportInstall04, USB\VID_0F3D&PID_68AA&MI_03
+
+[QcomSerialPort.NTamd64]
+%SWIDevice90100%  = QportInstall00, USB\VID_1199&PID_9010
+%SWIDevice90111%  = QportInstall01, USB\VID_1199&PID_9011&MI_01
+%SierraDevice68A21%  = QportInstall01, USB\VID_1199&PID_68A2&MI_00
+%SierraDevice68A4%   = QportInstall00, USB\VID_1199&PID_68A4
+%SierraDevice68A51%  = QportInstall01, USB\VID_1199&PID_68A5&MI_01
+%SierraDevice68A8%   = QportInstall00, USB\VID_1199&PID_68A8
+%SierraDevice68A91%  = QportInstall01, USB\VID_1199&PID_68A9&MI_01
+
+%SierraDevice68A30%  = QportInstall02, USB\VID_1199&PID_68A3&MI_00
+%SierraDevice68A31%  = QportInstall02, USB\VID_1199&PID_68A3&MI_01
+%SierraDevice68A32%  = QportInstall03, USB\VID_1199&PID_68A3&MI_02
+%SierraDevice68A33%  = QportInstall04, USB\VID_1199&PID_68A3&MI_03
+
+%SierraDevice68A30%  = QportInstall02, USB\VID_0F3D&PID_68A3&MI_00
+%SierraDevice68A31%  = QportInstall02, USB\VID_0F3D&PID_68A3&MI_01
+%SierraDevice68A32%  = QportInstall03, USB\VID_0F3D&PID_68A3&MI_02
+%SierraDevice68A33%  = QportInstall04, USB\VID_0F3D&PID_68A3&MI_03
+
+%SierraDevice68AA0%  = QportInstall02, USB\VID_1199&PID_68AA&MI_00
+%SierraDevice68AA1%  = QportInstall02, USB\VID_1199&PID_68AA&MI_01
+%SierraDevice68AA2%  = QportInstall03, USB\VID_1199&PID_68AA&MI_02
+%SierraDevice68AA3%  = QportInstall04, USB\VID_1199&PID_68AA&MI_03
+
+%SierraDevice68AA0%  = QportInstall02, USB\VID_0F3D&PID_68AA&MI_00
+%SierraDevice68AA1%  = QportInstall02, USB\VID_0F3D&PID_68AA&MI_01
+%SierraDevice68AA2%  = QportInstall03, USB\VID_0F3D&PID_68AA&MI_02
+%SierraDevice68AA3%  = QportInstall04, USB\VID_0F3D&PID_68AA&MI_03
+
+[QportInstall00.NT]
+CopyFiles = gobiUsbDriverFiles
+AddReg    = All00, QCAddReg, DevFunction2
+
+[QportInstall01.NT]
+CopyFiles = gobiUsbDriverFiles
+AddReg    = All00, QCAddReg
+
+[QportInstall02.NT]
+CopyFiles = gobiUsbDriverFiles
+AddReg    = All00, QCAddReg, DevType
+
+[QportInstall03.NT]
+CopyFiles = gobiUsbDriverFiles
+AddReg    = All00, QCAddReg, DevType, DevFunction1
+
+[QportInstall04.NT]
+CopyFiles = gobiUsbDriverFiles
+AddReg    = All00, QCAddReg, DevType, DevFunction3
+
+[gobiUsbDriverFiles]
+swg3kser00.sys
+
+[DestinationDirs]
+DefaultDestDir = 12
+
+[QportInstall00.NT.Services]
+AddService = swg3kser00,  0x00000002, gobi_USBSerialService
+
+[QportInstall01.NT.Services]
+AddService = swg3kser00,  0x00000002, gobi_USBSerialService
+
+[QportInstall02.NT.Services]
+AddService = swg3kser00,  0x00000002, gobi_USBSerialService
+
+[QportInstall03.NT.Services]
+AddService = swg3kser00,  0x00000002, gobi_USBSerialService
+
+[QportInstall04.NT.Services]
+AddService = swg3kser00,  0x00000002, gobi_USBSerialService
+
+[gobi_USBSerialService]
+DisplayName   = %GOBI3KSER%
+ServiceType   = 1
+StartType     = 3
+ErrorControl  = 1
+ServiceBinary = %12%\swg3kser00.sys
+
+[All00]
+HKR,,NTMPDriver,,swg3kser00.sys
+
+[DevFunction1]
+HKR,,QCDeviceFunction,0x00010001,1
+
+[DevFunction2]
+HKR,,QCDeviceFunction,0x00010001,2
+
+[DevFunction3]
+HKR,,QCDeviceFunction,0x00010001,3
+
+[DevType]
+HKR,,QCDeviceType,0x00010001,1
+
+[QCAddReg]
+HKR,,PortSubClass,1,01
+HKR,,EnumPropPages32,,"MsPorts.dll,SerialPortPropPageProvider"
+
+[Strings]
+GOBI3KSER       = "Sierra Wireless QMI USB Device for Legacy Serial Communication"
+QcomSrcDisk     = "Sierra Wireless USB Driver Disk"
+SWI             = "Sierra Wireless Incorporated"
+SWIDevice90100  = "Sierra Wireless QDLoader Port"
+SWIDevice90111  = "Sierra Wireless DM Port"
+SierraDevice68A21  = "Sierra Wireless DM Port"
+SierraDevice68A4  = "Sierra Wireless QDLoader Port"
+SierraDevice68A51  = "Sierra Wireless DM Port"
+SierraDevice68A8   = "Sierra Wireless QDLoader Port"
+SierraDevice68A91  = "Sierra Wireless DM Port"
+
+SierraDevice68A30 = "Sierra Wireless CNS Port (UMTS)"
+SierraDevice68A31 = "Sierra Wireless DM Port (UMTS)"
+SierraDevice68A32 = "Sierra Wireless NMEA Port (UMTS)"
+SierraDevice68A33 = "Sierra Wireless AT Command Port (UMTS)"
+
+SierraDevice68AA0  = "Sierra Wireless CNS Port"
+SierraDevice68AA1  = "Sierra Wireless DM Port"
+SierraDevice68AA2  = "Sierra Wireless NMEA Port"
+SierraDevice68AA3  = "Sierra Wireless AT Command Port"

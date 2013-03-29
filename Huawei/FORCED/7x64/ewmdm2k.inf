@@ -1,0 +1,668 @@
+; Windows Modem Setup File
+; Copyright (c) 2002,2003 Huawei Incorporated
+; Manufacturer: Huawei Incorporated
+;
+; This INF file installs Huawei USB modem device on Win2K system.
+; This INF file installs a proprietary USB CDC driver
+
+[Version]
+Signature  = "$WINDOWS NT$"
+Class      = Modem
+Provider   = %HUAWEI%
+CLASSGUID  = {4D36E96D-E325-11CE-BFC1-08002BE10318}
+DriverVer  = 12/05/2009,2.0.3.828
+CatalogFile= ewmdm2k.cat
+
+[SourceDisksNames]
+1000 = %HWSRCDISK%,"",,
+
+[SourceDisksFiles]
+ewusbmdm.sys = 1000
+
+[DestinationDirs]
+; FakeModemCopyFileSection=12
+DefaultDestDir = 12
+
+[Manufacturer]
+%HUAWEI%=Models,NTamd64
+
+[ControlFlags]
+ExcludeFromSelect = *
+
+[Models.NTamd64]
+%HUAWEI00% = Modem0,  USB\VID_12d1&PID_1001&MI_00
+%HUAWEI00% = Modem0,  USB\VID_12d1&PID_1003&MI_00
+%HUAWEI00% = Modem0,  USB\VID_12d1&PID_1004&MI_00
+%HUAWEI00% = Modem0,  USB\VID_12d1&PID_1402&MI_00
+%HUAWEI00% = Modem0,  USB\VID_12d1&PID_1406&MI_00
+%HUAWEI00% = Modem0,  USB\VID_12d1&PID_1411&MI_00
+%HUAWEI00% = Modem0,  USB\VID_12d1&PID_1412&MI_00
+%HUAWEI00% = Modem0,  USB\VID_12d1&PID_1413&MI_00
+%HUAWEI00% = Modem0,  USB\VID_12d1&PID_1414&MI_00
+%HUAWEI00% = Modem0,  USB\VID_12d1&PID_1416&MI_00
+%HUAWEI00% = Modem0,  USB\VID_12d1&PID_1417&MI_00
+%HUAWEI00% = Modem0,  USB\VID_12d1&PID_1418&MI_00
+%HUAWEI00% = Modem0,  USB\VID_12d1&PID_1419&MI_00
+%HUAWEI00% = Modem0,  USB\VID_12d1&PID_141A&MI_00
+%HUAWEI00% = Modem0,  USB\VID_12d1&PID_141B&MI_00
+%HUAWEI00% = Modem0,  USB\VID_12d1&PID_141E&MI_00
+%HUAWEI00% = Modem0,  USB\VID_12d1&PID_1420&MI_00
+%HUAWEI00% = Modem0,  USB\VID_12d1&PID_1422&MI_00
+%HUAWEI00% = Modem0,  USB\VID_12d1&PID_140A&MI_00
+%HUAWEI00% = Modem0,  USB\VID_12d1&PID_140C&MI_00
+%HUAWEI00% = Modem0,  USB\VID_12d1&PID_14AC&MI_00
+%HUAWEI01% = Modem1,  USB\VID_12d1&PID_140B&MI_00
+%HUAWEI00% = Modem0,  USB\VID_12d1&PID_1427&MI_00
+%HUAWEI00% = Modem0,  USB\VID_12d1&PID_1428&MI_00
+%HUAWEI00% = Modem0,  USB\VID_12d1&PID_1429&MI_00
+%HUAWEI00% = Modem0,  USB\VID_12d1&PID_142A&MI_00
+%HUAWEI00% = Modem0,  USB\VID_12d1&PID_1404&MI_00
+%HUAWEI00% = Modem0,  USB\VID_12d1&PID_1407&MI_00
+%HUAWEI00% = Modem0,  USB\VID_12d1&PID_142B&MI_00
+
+%HUAWEI00% = Modem0,  USB\VID_12d1&PID_1433&MI_00
+%HUAWEI00% = Modem0,  USB\VID_12d1&PID_1434&MI_00
+%HUAWEI00% = Modem0,  USB\VID_12d1&PID_1436&MI_00
+%HUAWEI00% = Modem0,  USB\VID_12d1&PID_1438&MI_00
+%HUAWEI00% = Modem0,  USB\VID_12d1&PID_1439&MI_00
+%HUAWEI00% = Modem0,  USB\VID_12d1&PID_143A&MI_00
+%HUAWEI00% = Modem0,  USB\VID_12d1&PID_143B&MI_00
+%HUAWEI00% = Modem0,  USB\VID_12d1&PID_143E&MI_00
+
+%HUAWEI00% = Modem0,  USB\VID_12d1&PID_1448&MI_00
+
+%HUAWEI00% = Modem0,  USB\VID_12d1&PID_144A&MI_00
+%HUAWEI00% = Modem0,  USB\VID_12d1&PID_144B&MI_00
+%HUAWEI00% = Modem0,  USB\VID_12d1&PID_144C&MI_00
+%HUAWEI00% = Modem0,  USB\VID_12d1&PID_144D&MI_00
+
+%HUAWEI00% = Modem0,  USB\VID_12d1&PID_143F&MI_00
+;for logo test
+%HUAWEI00% = Modem0,  USB\VID_12d1&PID_15FF&MI_00
+
+
+[Modem0]
+CopyFiles=FakeModemCopyFileSection
+AddReg = All00, MfgAddReg, Modem.AddReg, USB
+
+
+[Modem1]
+CopyFiles=FakeModemCopyFileSection
+AddReg = All01, MfgAddReg, Modem.AddReg, USB
+
+[Modem0.Services]
+AddService=hwdatacard, 0x00000000, LowerFilter_Service_Inst0
+
+[Modem1.Services]
+AddService=hwdatacard, 0x00000000, LowerFilter_Service_Inst0
+
+[Modem0.HW]
+AddReg=LowerFilterAddReg0
+
+[Modem1.HW]
+AddReg=LowerFilterAddReg0
+
+[LowerFilterAddReg0]
+HKR,,"LowerFilters",0x00010000,"hwdatacard"
+
+[LowerFilter_Service_Inst0]
+DisplayName   = "Huawei DataCard USB Modem and USB Serial"
+ServiceType   = 1
+StartType     = 3
+ErrorControl  = 1
+ServiceBinary = %12%\ewusbmdm.sys
+AddReg	      = PowerReg
+
+[FakeModemCopyFileSection]
+ewusbmdm.sys,,,0x20
+
+[Strings]
+HUAWEI           = "HUAWEI Incorporated"
+HWSRCDISK        = "HUAWEI Multimedia USB Driver Disk"
+HUAWEI00         = "HUAWEI Mobile Connect - 3G Modem"
+HUAWEI01         = "HUAWEI Mobile Connect - Modem"
+
+[All00]
+HKR,,PortIdentify,,HWMODEM
+HKR,,FriendlyDriver,0,Unimodem.vxd
+HKR,,DevLoader,0,*vcomm
+HKR,,ConfigDialog,0,modemui.dll
+HKR,,EnumPropPages,0,modemui.dll,EnumPropPages
+HKR,,PortSubClass,1,02
+HKR, Init,      1,, "AT<cr>"
+
+[All01]
+HKR,,PortIdentify,,HWMODEM_N3G
+HKR,,FriendlyDriver,0,Unimodem.vxd
+HKR,,DevLoader,0,*vcomm
+HKR,,ConfigDialog,0,modemui.dll
+HKR,,EnumPropPages,0,modemui.dll,EnumPropPages
+HKR,,PortSubClass,1,02
+HKR, Init,      1,, "AT<cr>"
+
+[Modem.AddReg]
+HKR,, Properties, 1, 80,01,00,00, 00,00,00,00, 00,00,00,00, 00,00,00,00, 00,00,00,00,00,01,00,00, 00,08,07,00, 00,08,07,00
+
+[USB]
+HKR,, DeviceType, 1, 01
+HKR,,Contention,,""
+
+[PowerReg]
+HKR,,QCDriverPowerManagementEnabled,0x00010001,1
+HKR,,QCDriverResident,0x00010001,1
+HKR,,QCDriverWaitWakeEnabled,0x00010001,1
+
+[MfgAddReg]
+HKR,, InactivityScale,1, 3c,00,00,00
+HKR, Init, 1,, "AT<cr>" 
+HKR, Init, 2,, "AT&FE0V1X1&D2&C1S0=0<cr>"
+HKR, Monitor, 1,, "ATS0=0<cr>"
+HKR, Monitor, 2,, "None"
+HKR, Answer,    1,, "ATA<cr>"
+HKR, Hangup,    1,, "ATH E1<cr>"
+HKR,, Reset,, "AT&F<cr>"   
+HKR, Settings, Prefix,, "AT"
+HKR, Settings, Terminator,, "<cr>"
+HKR, Settings, DialPrefix,, "D"
+HKR, Settings, DialSuffix,, ""
+;HKR, Settings, CallSetupFailTimer,, ""
+HKR, Settings, Pulse,, "P"
+HKR, Settings, Tone,, "T"
+;HKR, Settings, InactivityTimeOut,, ""
+
+HKR, Responses, "0<cr>",                       1, 00, 00, 00,00,00,00, 00,00,00,00 ; OK - Command executed
+HKR, Responses, "1<cr>",                       1, 02, 00, 00,00,00,00, 00,00,00,00 ; CONNECT - Connection
+HKR, Responses, "2<cr>",                       1, 08, 00, 00,00,00,00, 00,00,00,00 ; RING - Ring signal indicated
+HKR, Responses, "3<cr>",                       1, 04, 00, 00,00,00,00, 00,00,00,00 ; NO CARRIER 
+HKR, Responses, "4<cr>",                       1, 03, 00, 00,00,00,00, 00,00,00,00 ; ERROR - Invalid command
+HKR, Responses, "5<cr>",                       1, 02, 00, B0,04,00,00, 00,00,00,00 ; CONNECT 1200
+HKR, Responses, "6<cr>",                       1, 05, 00, 00,00,00,00, 00,00,00,00 ; NO DIALTONE - No dial tone detected
+HKR, Responses, "7<cr>",                       1, 06, 00, 00,00,00,00, 00,00,00,00 ; BUSY - Engaged (busy) signal
+HKR, Responses, "8<cr>",                       1, 07, 00, 00,00,00,00, 00,00,00,00 ; NO ANSWER
+HKR, Responses, "<cr><lf>OK<cr><lf>",          1, 00, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>RING<cr><lf>",        1, 08, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>ERROR<cr><lf>",       1, 03, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>NO DIALTONE<cr><lf>",  1, 05, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>NO DIAL TONE<cr><lf>",1, 05, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>BUSY<cr><lf>",        1, 06, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>NO CARRIER<cr><lf>",  1, 04, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>NO ANSWER<cr><lf>",   1, 07, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>FAX<cr><lf>",         1, 03, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>DATA<cr><lf>",        1, 03, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>VOICE<cr><lf>",       1, 03, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>DELAYED<cr><lf>",     1, 03, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>BLACKLISTED<cr><lf>", 1, 03, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>+FCERROR<cr><lf>",    1, 03, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT<cr><lf>",                 1, 02, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 300<cr><lf>",             1, 02, 00, 2C,01,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 300 NoEC<cr><lf>",        1, 02, 00, 2C,01,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 300 MNP4<cr><lf>",        1, 02, 02, 2C,01,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 300 MNP5<cr><lf>",        1, 02, 03, 2C,01,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 300 V42<cr><lf>",         1, 02, 02, 2C,01,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 300 V42bis<cr><lf>",      1, 02, 03, 2C,01,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 600<cr><lf>",             1, 02, 00, 58,02,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 600 NoEC<cr><lf>",        1, 02, 00, 58,02,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 600 MNP4<cr><lf>",        1, 02, 02, 58,02,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 600 MNP5<cr><lf>",        1, 02, 03, 58,02,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 600 V42<cr><lf>",         1, 02, 02, 58,02,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 600 V42bis<cr><lf>",      1, 02, 03, 58,02,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 1200<cr><lf>",            1, 02, 00, B0,04,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 1200 NoEC<cr><lf>",       1, 02, 00, B0,04,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 1200 MNP4<cr><lf>",       1, 02, 02, B0,04,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 1200 MNP5<cr><lf>",       1, 02, 03, B0,04,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 1200 V42<cr><lf>",        1, 02, 02, B0,04,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 1200 V42bis<cr><lf>",     1, 02, 03, B0,04,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 1200 V42 Cellular Protocol<cr><lf>",     1, 02, 0a, B0,04,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 1200 V42bis Cellular Protocol<cr><lf>",     1, 02, 0b, B0,04,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 1200/75<cr><lf>",         1, 02, 00, B0,04,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 1200/75 NoEC<cr><lf>",         1, 02, 00, B0,04,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 1200/75 MNP4<cr><lf>",    1, 02, 02, B0,04,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 1200/75 MNP5<cr><lf>",    1, 02, 03, B0,04,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 1200/75 V42<cr><lf>",     1, 02, 02, B0,04,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 1200/75 V42bis<cr><lf>",  1, 02, 03, B0,04,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 1200TX/75RX<cr><lf>",     1, 02, 00, B0,04,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 1200TX/75RX NoEC<cr><lf>",     1, 02, 00, B0,04,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 1200TX/75RX MNP4<cr><lf>",1, 02, 02, B0,04,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 1200TX/75RX MNP5<cr><lf>",1, 02, 03, B0,04,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 1200TX/75RX V42<cr><lf>", 1, 02, 02, B0,04,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 1200TX/75RX V42bis<cr><lf>",1, 02, 03, B0,04,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 75/1200<cr><lf>",    1, 02, 00, B0,04,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 75/1200 NoEC<cr><lf>",    1, 02, 00, B0,04,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 75/1200 MNP4<cr><lf>",    1, 02, 02, B0,04,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 75/1200 MNP5<cr><lf>",    1, 02, 03, B0,04,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 75/1200 V42<cr><lf>",     1, 02, 02, B0,04,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 75/1200 V42bis<cr><lf>",  1, 02, 03, B0,04,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 75TX/1200RX<cr><lf>",     1, 02, 00, B0,04,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 75TX/1200RX NoEC<cr><lf>",     1, 02, 00, B0,04,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 75TX/1200RX MNP4<cr><lf>",1, 02, 02, B0,04,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 75TX/1200RX MNP5<cr><lf>",1, 02, 03, B0,04,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 75TX/1200RX V42<cr><lf>", 1, 02, 02, B0,04,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 75TX/1200RX V42bis<cr><lf>",1, 02, 03, B0,04,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 2400<cr><lf>",       1, 02, 00, 60,09,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 2400 NoEC<cr><lf>",       1, 02, 00, 60,09,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 2400 MNP4<cr><lf>",       1, 02, 02, 60,09,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 2400 MNP5<cr><lf>",       1, 02, 03, 60,09,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 2400 V42<cr><lf>",        1, 02, 02, 60,09,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 2400 V42bis<cr><lf>",     1, 02, 03, 60,09,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 2400 V42 Cellular Protocol<cr><lf>",     1, 02, 0a, 60,09,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 2400 V42bis Cellular Protocol<cr><lf>",     1, 02, 0b, 60,09,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 4800<cr><lf>",       1, 02, 00, C0,12,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 4800 NoEC<cr><lf>",       1, 02, 00, C0,12,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 4800 MNP4<cr><lf>",       1, 02, 02, C0,12,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 4800 MNP5<cr><lf>",       1, 02, 03, C0,12,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 4800 V42<cr><lf>",        1, 02, 02, C0,12,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 4800 V42bis<cr><lf>",     1, 02, 03, C0,12,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 4800 V42 Cellular Protocol<cr><lf>",     1, 02, 0a, C0,12,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 4800 V42bis Cellular Protocol<cr><lf>",     1, 02, 0b, C0,12,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 4800 V42 DSVD<cr><lf>",        1, 02, 02, C0,12,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 4800 V42bis DSVD<cr><lf>",     1, 02, 03, C0,12,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 7200<cr><lf>",       1, 02, 00, 20,1C,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 7200 NoEC<cr><lf>",       1, 02, 00, 20,1C,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 7200 MNP4<cr><lf>",       1, 02, 02, 20,1C,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 7200 MNP5<cr><lf>",       1, 02, 03, 20,1C,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 7200 V42<cr><lf>",        1, 02, 02, 20,1C,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 7200 V42bis<cr><lf>",     1, 02, 03, 20,1C,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 7200 V42 Cellular Protocol<cr><lf>",     1, 02, 0a, 20,1C,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 7200 V42bis Cellular Protocol<cr><lf>",     1, 02, 0b, 20,1C,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 7200 V42 DSVD<cr><lf>",        1, 02, 02, 20,1C,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 7200 V42bis DSVD<cr><lf>",     1, 02, 03, 20,1C,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 9600<cr><lf>",       1, 02, 00, 80,25,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 9600 NoEC<cr><lf>",       1, 02, 00, 80,25,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 9600 MNP4<cr><lf>",       1, 02, 02, 80,25,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 9600 MNP5<cr><lf>",       1, 02, 03, 80,25,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 9600 V42<cr><lf>",        1, 02, 02, 80,25,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 9600 V42bis<cr><lf>",     1, 02, 03, 80,25,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 9600 V42 Cellular Protocol<cr><lf>",     1, 02, 0a, 80,25,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 9600 V42bis Cellular Protocol<cr><lf>",     1, 02, 0b, 80,25,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 9600 V42 DSVD<cr><lf>",        1, 02, 02, 80,25,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 9600 V42bis DSVD<cr><lf>",     1, 02, 03, 80,25,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 12000<cr><lf>",      1, 02, 00, E0,2E,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 12000 NoEC<cr><lf>",      1, 02, 00, E0,2E,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 12000 MNP4<cr><lf>",      1, 02, 02, E0,2E,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 12000 MNP5<cr><lf>",      1, 02, 03, E0,2E,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 12000 V42<cr><lf>",       1, 02, 02, E0,2E,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 12000 V42bis<cr><lf>",    1, 02, 03, E0,2E,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 12000 V42 Cellular Protocol<cr><lf>",    1, 02, 0a, E0,2E,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 12000 V42bis Cellular Protocol<cr><lf>",    1, 02, 0b, E0,2E,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 12000 V42 DSVD<cr><lf>",       1, 02, 02, E0,2E,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 12000 V42bis DSVD<cr><lf>",    1, 02, 03, E0,2E,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 14400<cr><lf>",      1, 02, 00, 40,38,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 14400 NoEC<cr><lf>",      1, 02, 00, 40,38,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 14400 MNP4<cr><lf>",      1, 02, 02, 40,38,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 14400 MNP5<cr><lf>",      1, 02, 03, 40,38,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 14400 V42<cr><lf>",       1, 02, 02, 40,38,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 14400 V42bis<cr><lf>",    1, 02, 03, 40,38,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 14400 V42 Cellular Protocol<cr><lf>",    1, 02, 0a, 40,38,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 14400 V42bis Cellular Protocol<cr><lf>",    1, 02, 0b, 40,38,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 14400 V42 DSVD<cr><lf>",       1, 02, 02, 40,38,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 14400 V42bis DSVD<cr><lf>",    1, 02, 03, 40,38,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 16800<cr><lf>",      1, 02, 00, A0,41,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 16800 NoEC<cr><lf>",      1, 02, 00, A0,41,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 16800 MNP4<cr><lf>",      1, 02, 02, A0,41,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 16800 MNP5<cr><lf>",      1, 02, 03, A0,41,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 16800 V42<cr><lf>",       1, 02, 02, A0,41,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 16800 V42bis<cr><lf>",    1, 02, 03, A0,41,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 16800 V42 Cellular Protocol<cr><lf>",    1, 02, 0a, A0,41,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 16800 V42bis Cellular Protocol<cr><lf>",    1, 02, 0b, A0,41,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 16800 V42 DSVD<cr><lf>",       1, 02, 02, A0,41,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 16800 V42bis DSVD<cr><lf>",    1, 02, 03, A0,41,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 19200<cr><lf>",      1, 02, 00, 00,4B,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 19200 NoEC<cr><lf>",      1, 02, 00, 00,4B,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 19200 MNP4<cr><lf>",      1, 02, 02, 00,4B,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 19200 MNP5<cr><lf>",      1, 02, 03, 00,4B,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 19200 V42<cr><lf>",       1, 02, 02, 00,4B,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 19200 V42bis<cr><lf>",    1, 02, 03, 00,4B,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 19200 V42 Cellular Protocol<cr><lf>",    1, 02, 0a, 00,4B,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 19200 V42bis Cellular Protocol<cr><lf>",    1, 02, 0b, 00,4B,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 19200 V42 DSVD<cr><lf>",       1, 02, 02, 00,4B,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 19200 V42bis DSVD<cr><lf>",    1, 02, 03, 00,4B,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 21600<cr><lf>",      1, 02, 00, 60,54,00,00, 00,00,00,00 
+HKR, Responses, "<cr><lf>CONNECT 21600 NoEC<cr><lf>",      1, 02, 00, 60,54,00,00, 00,00,00,00 
+HKR, Responses, "<cr><lf>CONNECT 21600 MNP4<cr><lf>",      1, 02, 02, 60,54,00,00, 00,00,00,00 
+HKR, Responses, "<cr><lf>CONNECT 21600 MNP5<cr><lf>",      1, 02, 03, 60,54,00,00, 00,00,00,00 
+HKR, Responses, "<cr><lf>CONNECT 21600 V42<cr><lf>",       1, 02, 02, 60,54,00,00, 00,00,00,00 
+HKR, Responses, "<cr><lf>CONNECT 21600 V42bis<cr><lf>",    1, 02, 03, 60,54,00,00, 00,00,00,00 
+HKR, Responses, "<cr><lf>CONNECT 21600 V42 Cellular Protocol<cr><lf>",    1, 02, 0a, 60,54,00,00, 00,00,00,00 
+HKR, Responses, "<cr><lf>CONNECT 21600 V42bis Cellular Protocol<cr><lf>",    1, 02, 0b, 60,54,00,00, 00,00,00,00 
+HKR, Responses, "<cr><lf>CONNECT 21600 V42 DSVD<cr><lf>",       1, 02, 02, 60,54,00,00, 00,00,00,00 
+HKR, Responses, "<cr><lf>CONNECT 21600 V42bis DSVD<cr><lf>",    1, 02, 03, 60,54,00,00, 00,00,00,00 
+HKR, Responses, "<cr><lf>CONNECT 24000<cr><lf>",      1, 02, 00, C0,5D,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 24000 NoEC<cr><lf>",      1, 02, 00, C0,5D,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 24000 MNP4<cr><lf>",      1, 02, 02, C0,5D,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 24000 MNP5<cr><lf>",      1, 02, 03, C0,5D,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 24000 V42<cr><lf>",       1, 02, 02, C0,5D,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 24000 V42bis<cr><lf>",    1, 02, 03, C0,5D,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 24000 V42 Cellular Protocol<cr><lf>",    1, 02, 0a, C0,5D,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 24000 V42bis Cellular Protocol<cr><lf>",    1, 02, 0b, C0,5D,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 24000 V42 DSVD<cr><lf>",       1, 02, 02, C0,5D,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 24000 V42bis DSVD<cr><lf>",    1, 02, 03, C0,5D,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 26400<cr><lf>",      1, 02, 00, 20,67,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 26400 NoEC<cr><lf>",      1, 02, 00, 20,67,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 26400 MNP4<cr><lf>",      1, 02, 02, 20,67,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 26400 MNP5<cr><lf>",      1, 02, 03, 20,67,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 26400 V42<cr><lf>",       1, 02, 02, 20,67,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 26400 V42bis<cr><lf>",    1, 02, 03, 20,67,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 26400 V42 Cellular Protocol<cr><lf>",    1, 02, 0a, 20,67,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 26400 V42bis Cellular Protocol<cr><lf>",    1, 02, 0b, 20,67,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 26400 V42 DSVD<cr><lf>",       1, 02, 02, 20,67,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 26400 V42bis DSVD<cr><lf>",    1, 02, 03, 20,67,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 28800<cr><lf>",      1, 02, 00, 80,70,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 28800 NoEC<cr><lf>",      1, 02, 00, 80,70,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 28800 MNP4<cr><lf>",      1, 02, 02, 80,70,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 28800 MNP5<cr><lf>",      1, 02, 03, 80,70,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 28800 V42<cr><lf>",       1, 02, 02, 80,70,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 28800 V42bis<cr><lf>",    1, 02, 03, 80,70,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 28800 V42 Cellular Protocol<cr><lf>",    1, 02, 0a, 80,70,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 28800 V42bis Cellular Protocol<cr><lf>",    1, 02, 0b, 80,70,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 28800 V42 DSVD<cr><lf>",       1, 02, 02, 80,70,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 28800 V42bis DSVD<cr><lf>",    1, 02, 03, 80,70,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 31200<cr><lf>",      1, 02, 00, e0,79,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 31200 NoEC<cr><lf>",      1, 02, 00, e0,79,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 31200 MNP4<cr><lf>",      1, 02, 02, e0,79,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 31200 MNP5<cr><lf>",      1, 02, 03, e0,79,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 31200 V42<cr><lf>",       1, 02, 02, e0,79,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 31200 V42bis<cr><lf>",    1, 02, 03, e0,79,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 31200 V42 Cellular Protocol<cr><lf>",    1, 02, 0a, e0,79,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 31200 V42bis Cellular Protocol<cr><lf>",    1, 02, 0b, e0,79,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 31200 V42 DSVD<cr><lf>",       1, 02, 02, e0,79,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 31200 V42bis DSVD<cr><lf>",    1, 02, 03, e0,79,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 33600<cr><lf>",      1, 02, 00, 40,83,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 33600 NoEC<cr><lf>",      1, 02, 00, 40,83,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 33600 MNP4<cr><lf>",      1, 02, 02, 40,83,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 33600 MNP5<cr><lf>",      1, 02, 03, 40,83,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 33600 V42<cr><lf>",       1, 02, 02, 40,83,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 33600 V42bis<cr><lf>",    1, 02, 03, 40,83,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 33600 V42 Cellular Protocol<cr><lf>",    1, 02, 0a, 40,83,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 33600 V42bis Cellular Protocol<cr><lf>",    1, 02, 0b, 40,83,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 33600 V42 DSVD<cr><lf>",       1, 02, 02, 40,83,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 33600 V42bis DSVD<cr><lf>",    1, 02, 03, 40,83,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 38400<cr><lf>",      1, 02, 00, 00,96,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 38400 NoEC<cr><lf>",      1, 02, 00, 00,96,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 38400 MNP4<cr><lf>",      1, 02, 02, 00,96,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 38400 MNP5<cr><lf>",      1, 02, 03, 00,96,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 38400 V42<cr><lf>",       1, 02, 02, 00,96,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 38400 V42bis<cr><lf>",    1, 02, 03, 00,96,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 38400 V42 DSVD<cr><lf>",       1, 02, 02, 00,96,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 38400 V42bis DSVD<cr><lf>",    1, 02, 03, 00,96,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 57600<cr><lf>",      1, 02, 00, 00,e1,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 57600 NoEC<cr><lf>",      1, 02, 00, 00,e1,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 57600 MNP4<cr><lf>",      1, 02, 02, 00,e1,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 57600 MNP5<cr><lf>",      1, 02, 03, 00,e1,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 57600 V42<cr><lf>",       1, 02, 02, 00,e1,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 57600 V42bis<cr><lf>",    1, 02, 03, 00,e1,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 57600 V42 DSVD<cr><lf>",       1, 02, 02, 00,e1,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 57600 V42bis DSVD<cr><lf>",    1, 02, 03, 00,e1,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 115200<cr><lf>",      1, 02, 00, 00,c2,01,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 115200 NoEC<cr><lf>",      1, 02, 00, 00,c2,01,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 115200 MNP4<cr><lf>",      1, 02, 02, 00,c2,01,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 115200 MNP5<cr><lf>",      1, 02, 03, 00,c2,01,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 115200 V42<cr><lf>",       1, 02, 02, 00,c2,01,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 115200 V42bis<cr><lf>",    1, 02, 03, 00,c2,01,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 115200 V42 DSVD<cr><lf>",       1, 02, 02, 00,c2,01,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 115200 V42bis DSVD<cr><lf>",    1, 02, 03, 00,c2,01,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 28000<cr><lf>",      1, 02, 00, 60,6d,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 28000 NoEC<cr><lf>",      1, 02, 00, 60,6d,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 28000 MNP4<cr><lf>",      1, 02, 02, 60,6d,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 28000 MNP5<cr><lf>",      1, 02, 03, 60,6d,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 28000 V42<cr><lf>",       1, 02, 02, 60,6d,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 28000 V42bis<cr><lf>",    1, 02, 03, 60,6d,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 29333<cr><lf>",      1, 02, 00, 95,72,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 29333 NoEC<cr><lf>",      1, 02, 00, 95,72,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 29333 MNP4<cr><lf>",      1, 02, 02, 95,72,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 29333 MNP5<cr><lf>",      1, 02, 03, 95,72,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 29333 V42<cr><lf>",       1, 02, 02, 95,72,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 29333 V42bis<cr><lf>",    1, 02, 03, 95,72,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 30666<cr><lf>",      1, 02, 00, ca,77,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 30666 NoEC<cr><lf>",      1, 02, 00, ca,77,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 30666 MNP4<cr><lf>",      1, 02, 02, ca,77,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 30666 MNP5<cr><lf>",      1, 02, 03, ca,77,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 30666 V42<cr><lf>",       1, 02, 02, ca,77,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 30666 V42bis<cr><lf>",    1, 02, 03, ca,77,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 32000<cr><lf>",      1, 02, 00, 00,7d,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 32000 NoEC<cr><lf>",      1, 02, 00, 00,7d,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 32000 MNP4<cr><lf>",      1, 02, 02, 00,7d,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 32000 MNP5<cr><lf>",      1, 02, 03, 00,7d,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 32000 V42<cr><lf>",       1, 02, 02, 00,7d,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 32000 V42bis<cr><lf>",    1, 02, 03, 00,7d,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 32000 V42 DSVD<cr><lf>",       1, 02, 02, 00,7d,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 32000 V42bis DSVD<cr><lf>",    1, 02, 03, 00,7d,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 33333<cr><lf>",      1, 02, 00, 35,82,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 33333 NoEC<cr><lf>",      1, 02, 00, 35,82,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 33333 MNP4<cr><lf>",      1, 02, 02, 35,82,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 33333 MNP5<cr><lf>",      1, 02, 03, 35,82,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 33333 V42<cr><lf>",       1, 02, 02, 35,82,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 33333 V42bis<cr><lf>",    1, 02, 03, 35,82,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 34000<cr><lf>",      1, 02, 00, d0,84,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 34000 NoEC<cr><lf>",      1, 02, 00, d0,84,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 34000 MNP4<cr><lf>",      1, 02, 02, d0,84,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 34000 MNP5<cr><lf>",      1, 02, 03, d0,84,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 34000 V42<cr><lf>",       1, 02, 02, d0,84,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 34000 V42bis<cr><lf>",    1, 02, 03, d0,84,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 34000 V42 DSVD<cr><lf>",       1, 02, 02, d0,84,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 34000 V42bis DSVD<cr><lf>",    1, 02, 03, d0,84,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 34666<cr><lf>",      1, 02, 00, 6a,87,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 34666 NoEC<cr><lf>",      1, 02, 00, 6a,87,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 34666 MNP4<cr><lf>",      1, 02, 02, 6a,87,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 34666 MNP5<cr><lf>",      1, 02, 03, 6a,87,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 34666 V42<cr><lf>",       1, 02, 02, 6a,87,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 34666 V42bis<cr><lf>",    1, 02, 03, 6a,87,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 36000<cr><lf>",      1, 02, 00, a0,8c,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 36000 NoEC<cr><lf>",      1, 02, 00, a0,8c,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 36000 MNP4<cr><lf>",      1, 02, 02, a0,8c,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 36000 MNP5<cr><lf>",      1, 02, 03, a0,8c,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 36000 V42<cr><lf>",       1, 02, 02, a0,8c,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 36000 V42bis<cr><lf>",    1, 02, 03, a0,8c,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 36000 V42 DSVD<cr><lf>",       1, 02, 02, a0,8c,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 36000 V42bis DSVD<cr><lf>",    1, 02, 03, a0,8c,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 37333 <cr><lf>",      1, 02, 00, d5,91,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 37333 NoEC<cr><lf>",      1, 02, 00, d5,91,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 37333 MNP4<cr><lf>",      1, 02, 02, d5,91,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 37333 MNP5<cr><lf>",      1, 02, 03, d5,91,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 37333 V42<cr><lf>",       1, 02, 02, d5,91,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 37333 V42bis<cr><lf>",    1, 02, 03, d5,91,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 38000<cr><lf>",      1, 02, 00, 70,94,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 38000 NoEC<cr><lf>",      1, 02, 00, 70,94,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 38000 MNP4<cr><lf>",      1, 02, 02, 70,94,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 38000 MNP5<cr><lf>",      1, 02, 03, 70,94,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 38000 V42<cr><lf>",       1, 02, 02, 70,94,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 38000 V42bis<cr><lf>",    1, 02, 03, 70,94,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 38000 V42 DSVD<cr><lf>",       1, 02, 02, 70,94,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 38000 V42bis DSVD<cr><lf>",    1, 02, 03, 70,94,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 38666<cr><lf>",      1, 02, 00, 0a,97,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 38666 NoEC<cr><lf>",      1, 02, 00, 0a,97,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 38666 MNP4<cr><lf>",      1, 02, 02, 0a,97,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 38666 MNP5<cr><lf>",      1, 02, 03, 0a,97,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 38666 V42<cr><lf>",       1, 02, 02, 0a,97,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 38666 V42bis<cr><lf>",    1, 02, 03, 0a,97,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 40000<cr><lf>",      1, 02, 00, 40,9c,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 40000 NoEC<cr><lf>",      1, 02, 00, 40,9c,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 40000 MNP4<cr><lf>",      1, 02, 02, 40,9c,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 40000 MNP5<cr><lf>",      1, 02, 03, 40,9c,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 40000 V42<cr><lf>",       1, 02, 02, 40,9c,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 40000 V42bis<cr><lf>",    1, 02, 03, 40,9c,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 40000 V42 DSVD<cr><lf>",       1, 02, 02, 40,9c,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 40000 V42bis DSVD<cr><lf>",    1, 02, 03, 40,9c,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 41333<cr><lf>",      1, 02, 00, 75,a1,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 41333 NoEC<cr><lf>",      1, 02, 00, 75,a1,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 41333 MNP4<cr><lf>",      1, 02, 02, 75,a1,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 41333 MNP5<cr><lf>",      1, 02, 03, 75,a1,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 41333 V42<cr><lf>",       1, 02, 02, 75,a1,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 41333 V42bis<cr><lf>",    1, 02, 03, 75,a1,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 42000<cr><lf>",      1, 02, 00, 10,a4,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 42000 NoEC<cr><lf>",      1, 02, 00, 10,a4,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 42000 MNP4<cr><lf>",      1, 02, 02, 10,a4,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 42000 MNP5<cr><lf>",      1, 02, 03, 10,a4,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 42000 V42<cr><lf>",       1, 02, 02, 10,a4,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 42000 V42bis<cr><lf>",    1, 02, 03, 10,a4,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 42000 V42 DSVD<cr><lf>",       1, 02, 02, 10,a4,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 42000 V42bis DSVD<cr><lf>",    1, 02, 03, 10,a4,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 42666<cr><lf>",      1, 02, 00, aa,a6,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 42666 NoEC<cr><lf>",      1, 02, 00, aa,a6,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 42666 MNP4<cr><lf>",      1, 02, 02, aa,a6,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 42666 MNP5<cr><lf>",      1, 02, 03, aa,a6,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 42666 V42<cr><lf>",       1, 02, 02, aa,a6,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 42666 V42bis<cr><lf>",    1, 02, 03, aa,a6,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 44000<cr><lf>",      1, 02, 00, e0,ab,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 44000 NoEC<cr><lf>",      1, 02, 00, e0,ab,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 44000 MNP4<cr><lf>",      1, 02, 02, e0,ab,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 44000 MNP5<cr><lf>",      1, 02, 03, e0,ab,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 44000 V42<cr><lf>",       1, 02, 02, e0,ab,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 44000 V42bis<cr><lf>",    1, 02, 03, e0,ab,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 44000 V42 DSVD<cr><lf>",       1, 02, 02, e0,ab,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 44000 V42bis DSVD<cr><lf>",    1, 02, 03, e0,ab,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 45333<cr><lf>",      1, 02, 00, 15,b1,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 45333 NoEC<cr><lf>",      1, 02, 00, 15,b1,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 45333 MNP4<cr><lf>",      1, 02, 02, 15,b1,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 45333 MNP5<cr><lf>",      1, 02, 03, 15,b1,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 45333 V42<cr><lf>",       1, 02, 02, 15,b1,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 45333 V42bis<cr><lf>",    1, 02, 03, 15,b1,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 46000<cr><lf>",      1, 02, 00, b0,b3,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 46000 NoEC<cr><lf>",      1, 02, 00, b0,b3,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 46000 MNP4<cr><lf>",      1, 02, 02, b0,b3,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 46000 MNP5<cr><lf>",      1, 02, 03, b0,b3,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 46000 V42<cr><lf>",       1, 02, 02, b0,b3,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 46000 V42bis<cr><lf>",    1, 02, 03, b0,b3,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 46000 V42 DSVD<cr><lf>",       1, 02, 02, b0,b3,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 46000 V42bis DSVD<cr><lf>",    1, 02, 03, b0,b3,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 46666<cr><lf>",      1, 02, 00, 4a,b6,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 46666 NoEC<cr><lf>",      1, 02, 00, 4a,b6,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 46666 MNP4<cr><lf>",      1, 02, 02, 4a,b6,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 46666 MNP5<cr><lf>",      1, 02, 03, 4a,b6,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 46666 V42<cr><lf>",       1, 02, 02, 4a,b6,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 46666 V42bis<cr><lf>",    1, 02, 03, 4a,b6,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 48000<cr><lf>",      1, 02, 00, 80,bb,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 48000 NoEC<cr><lf>",      1, 02, 00, 80,bb,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 48000 MNP4<cr><lf>",      1, 02, 02, 80,bb,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 48000 MNP5<cr><lf>",      1, 02, 03, 80,bb,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 48000 V42<cr><lf>",       1, 02, 02, 80,bb,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 48000 V42bis<cr><lf>",    1, 02, 03, 80,bb,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 48000 V42 DSVD<cr><lf>",       1, 02, 02, 80,bb,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 48000 V42bis DSVD<cr><lf>",    1, 02, 03, 80,bb,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 49333<cr><lf>",      1, 02, 00, b5,c0,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 49333 NoEC<cr><lf>",      1, 02, 00, b5,c0,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 49333 MNP4<cr><lf>",      1, 02, 02, b5,c0,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 49333 MNP5<cr><lf>",      1, 02, 03, b5,c0,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 49333 V42<cr><lf>",       1, 02, 02, b5,c0,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 49333 V42bis<cr><lf>",    1, 02, 03, b5,c0,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 50000<cr><lf>",      1, 02, 00, 50,c3,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 50000 NoEC<cr><lf>",      1, 02, 00, 50,c3,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 50000 MNP4<cr><lf>",      1, 02, 02, 50,c3,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 50000 MNP5<cr><lf>",      1, 02, 03, 50,c3,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 50000 V42<cr><lf>",       1, 02, 02, 50,c3,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 50000 V42bis<cr><lf>",    1, 02, 03, 50,c3,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 50000 V42 DSVD<cr><lf>",       1, 02, 02, 50,c3,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 50000 V42bis DSVD<cr><lf>",    1, 02, 03, 50,c3,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 50666<cr><lf>",      1, 02, 00, ea,c5,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 50666 NoEC<cr><lf>",      1, 02, 00, ea,c5,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 50666 MNP4<cr><lf>",      1, 02, 02, ea,c5,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 50666 MNP5<cr><lf>",      1, 02, 03, ea,c5,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 50666 V42<cr><lf>",       1, 02, 02, ea,c5,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 50666 V42bis<cr><lf>",    1, 02, 03, ea,c5,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 52000<cr><lf>",      1, 02, 00, 20,cb,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 52000 NoEC<cr><lf>",      1, 02, 00, 20,cb,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 52000 MNP4<cr><lf>",      1, 02, 02, 20,cb,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 52000 MNP5<cr><lf>",      1, 02, 03, 20,cb,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 52000 V42<cr><lf>",       1, 02, 02, 20,cb,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 52000 V42bis<cr><lf>",    1, 02, 03, 20,cb,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 52000 V42 DSVD<cr><lf>",       1, 02, 02, 20,cb,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 52000 V42bis DSVD<cr><lf>",    1, 02, 03, 20,cb,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 53333<cr><lf>",      1, 02, 00, 55,d0,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 53333 NoEC<cr><lf>",      1, 02, 00, 55,d0,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 53333 MNP4<cr><lf>",      1, 02, 02, 55,d0,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 53333 MNP5<cr><lf>",      1, 02, 03, 55,d0,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 53333 V42<cr><lf>",       1, 02, 02, 55,d0,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 53333 V42bis<cr><lf>",    1, 02, 03, 55,d0,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 54000<cr><lf>",      1, 02, 00, f0,d2,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 54000 NoEC<cr><lf>",      1, 02, 00, f0,d2,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 54000 MNP4<cr><lf>",      1, 02, 02, f0,d2,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 54000 MNP5<cr><lf>",      1, 02, 03, f0,d2,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 54000 V42<cr><lf>",       1, 02, 02, f0,d2,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 54000 V42bis<cr><lf>",    1, 02, 03, f0,d2,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 54000 V42 DSVD<cr><lf>",       1, 02, 02, f0,d2,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 54000 V42bis DSVD<cr><lf>",    1, 02, 03, f0,d2,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 54666<cr><lf>",      1, 02, 00, 8a,d5,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 54666 NoEC<cr><lf>",      1, 02, 00, 8a,d5,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 54666 MNP4<cr><lf>",      1, 02, 02, 8a,d5,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 54666 MNP5<cr><lf>",      1, 02, 03, 8a,d5,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 54666 V42<cr><lf>",       1, 02, 02, 8a,d5,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 54666 V42bis<cr><lf>",    1, 02, 03, 8a,d5,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 56000<cr><lf>",      1, 02, 00, c0,da,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 56000 NoEC<cr><lf>",      1, 02, 00, c0,da,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 56000 MNP4<cr><lf>",      1, 02, 02, c0,da,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 56000 MNP5<cr><lf>",      1, 02, 03, c0,da,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 56000 V42<cr><lf>",       1, 02, 02, c0,da,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 56000 V42bis<cr><lf>",    1, 02, 03, c0,da,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 56000 V42 DSVD<cr><lf>",       1, 02, 02, c0,da,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 56000 V42bis DSVD<cr><lf>",    1, 02, 03, c0,da,00,00, 00,00,00,00
+
+HKR, Responses, "<cr><lf>CONNECT 53600<cr><lf>",      1, 02, 00, 60,D1,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 64000<cr><lf>",      1, 02, 00, 00,FA,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 128000<cr><lf>",     1, 02, 00, 00,f4,01,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 153600<cr><lf>",       1, 02, 00, 00,58,02,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 256000<cr><lf>",     1, 02, 00, 00,e8,03,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 384000<cr><lf>",     1, 02, 00, 00,DC,05,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 230400<cr><lf>",     1, 02, 00, 00,84,03,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 236800<cr><lf>",     1, 02, 00, 00,9D,03,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 1800000<cr><lf>",    1, 02, 00, 40,77,1B,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 2400000<cr><lf>",      1, 02, 00, 00,9F,24,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 3100000<cr><lf>",      1, 02, 00, 60,4D,2F,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 3600000<cr><lf>",     1, 02, 00, 80,EE,36,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 7200000<cr><lf>",     1, 02, 00, 00,DD,6D,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 10000000<cr><lf>",     1, 02, 00, 80,96,98,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 10200000<cr><lf>",     1, 02, 00, C0,A3,9B,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 12000000<cr><lf>",     1, 02, 00, 00,1B,B7,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 14400000<cr><lf>",     1, 02, 00, 00,BA,DB,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 100000000<cr><lf>",    1, 02, 00, 00,E1,F5,05, 00,00,00,00
+
+HKR, Responses, "<cr><lf>CONNECT 9050<cr><lf>",     1, 02, 00, 5A,23,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 18100<cr><lf>",    1, 02, 00, B4,46,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 27150<cr><lf>",    1, 02, 00, 0E,6A,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 36200<cr><lf>",    1, 02, 00, 68,8D,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 13400<cr><lf>",    1, 02, 00, 58,34,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 26800<cr><lf>",    1, 02, 00, B0,68,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 40200<cr><lf>",    1, 02, 00, 08,9D,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 15600<cr><lf>",    1, 02, 00, F0,3C,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 46800<cr><lf>",    1, 02, 00, D0,B6,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 62400<cr><lf>",    1, 02, 00, C0,F3,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 21400<cr><lf>",    1, 02, 00, 98,53,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 42800<cr><lf>",    1, 02, 00, 30,A7,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 64200<cr><lf>",    1, 02, 00, C8,FA,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 85600<cr><lf>",    1, 02, 00, 60,4E,01,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 8800<cr><lf>",    1, 02, 00, 60,22,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 17600<cr><lf>",    1, 02, 00, C0,44,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 35200<cr><lf>",    1, 02, 00, 80,89,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 11200<cr><lf>",    1, 02, 00, C0,2B,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 22400<cr><lf>",    1, 02, 00, 80,57,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 44800<cr><lf>",    1, 02, 00, 00,AF,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 14800<cr><lf>",    1, 02, 00, D0,39,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 29600<cr><lf>",    1, 02, 00, A0,73,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 44400<cr><lf>",    1, 02, 00, 70,AD,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 59200<cr><lf>",    1, 02, 00, 40,E7,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 52800<cr><lf>",    1, 02, 00, 40,CE,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 70400<cr><lf>",    1, 02, 00, 00,13,01,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 67200<cr><lf>",    1, 02, 00, 80,06,01,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 89600<cr><lf>",    1, 02, 00, 00,5E,01,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 88800<cr><lf>",    1, 02, 00, E0,5A,01,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 118400<cr><lf>",    1, 02, 00, 80,CE,01,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 134400<cr><lf>",    1, 02, 00, 00,0D,02,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 179200<cr><lf>",    1, 02, 00, 00,BC,02,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 54400<cr><lf>",    1, 02, 00, 80,D4,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 108800<cr><lf>",    1, 02, 00, 00,A9,01,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 163200<cr><lf>",    1, 02, 00, 80,7D,02,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 217600<cr><lf>",    1, 02, 00, 00,52,03,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 177600<cr><lf>",    1, 02, 00, C0,B5,02,00, 00,00,00,00
+
+HKR, Responses, "<cr><lf>CONNECT 14400000<cr><lf>",    1, 02, 00, 00,BA,DB,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 21100000<cr><lf>",    1, 02, 00, E0,F5,41,01, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 28000000<cr><lf>",    1, 02, 00, 00,3F,AB,01, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 42000000<cr><lf>",    1, 02, 00, 80,DE,80,02, 00,00,00,00
+
+HKR, Responses, "<cr><lf>CONNECT 21600000<cr><lf>",    1, 02, 00, 00,97,49,01, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 28800000<cr><lf>",    1, 02, 00, 00,74,B7,01, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 43200000<cr><lf>",    1, 02, 00, 00,2E,93,02, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 86400000<cr><lf>",    1, 02, 00, 00,5C,26,05, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 9300000<cr><lf>",     1, 02, 00, 20,E8,8D,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 11100000<cr><lf>",    1, 02, 00, 60,5F,A9,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 12900000<cr><lf>",    1, 02, 00, A0,D6,C4,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 14700000<cr><lf>",    1, 02, 00, E0,4D,E0,00, 00,00,00,00
+

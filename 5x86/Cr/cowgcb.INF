@@ -1,0 +1,431 @@
+;***********************************************************************
+;
+; CW54G.INF
+;
+;   This installation script supports Windows 95,98,Me&2000 for the
+;   corega WLCB-54GT Adapters.
+;
+;   Copyright (c) 2003 corega K.K.
+;   All Rights Reserved.
+;
+;***********************************************************************
+
+[Version]
+ DriverVer = 05/29/2003, 1.0.17.65
+ Signature           = "$Chicago$"
+ Compatible          = 1
+ Class               = Net
+ ClassGUID           = {4d36e972-e325-11ce-bfc1-08002be10318}
+ Provider            = %VER_VENDOR_STR%
+;CatalogFile         = PRISMNIC.cat
+ MillenniumPreferred = .ME
+
+[ControlFlags]
+;Exclude all PNP adapters from user selection
+ ExcludeFromSelect   = *
+
+[Manufacturer]
+ %VER_VENDOR_NAME_STR% = DeviceList
+
+[DeviceList]
+; %ICB_DESC_STR%     = PRISM_ICB1,        PCI\VEN_1260&DEV_3877&SUBSYS_C1041259
+ %DCB_DESC_STR%     = PRISM_DCB1,        PCI\VEN_1260&DEV_3890&SUBSYS_C1041259
+ %DCB_DESC_STR%     = PRISM_DCB1,        PCI\VEN_1260&DEV_3890&SUBSYS_00001260
+ %DCB_DESC_STR%     = PRISM_DCB1,        PCI\VEN_1260&DEV_3890
+  
+;==========================================
+[PRISM_ICB1]       ; Win9x
+ DelReg         = COMMON_AMAC_DEL.reg
+ AddReg         = PRISM_ICB1.reg, COMMON_ICB.reg, COMMON_NDIS.reg, COMMON.reg, COMMON_PSMODE.reg, COMMON_AMAC.reg, Run.reg
+ CopyFiles      = PRISM_DRIVER.copy, PRISM_FWICB.copy, PRISM_APPLET.copy, PRISM_NDI.copy, PRISM_DOM.copy, CK_DLL.copy
+
+[PRISM_ICB1.ME]    ; WinMe
+ DelReg         = COMMON_AMAC_DEL.reg
+ AddReg         = PRISM_ICB1.reg, COMMON_ICB.reg, COMMON_NDIS.reg.ME, COMMON.reg, COMMON_PSMODE.reg, COMMON_AMAC.reg, Run.reg
+ CopyFiles      = PRISM_DRIVER.copy.ME, PRISM_FWICB.copy.ME, PRISM_APPLET.copy.ME, PRISM_NDI.copy.ME, PRISM_DOM.copy, CK_DLL.copy
+
+[PRISM_ICB1.ME.ME] ; WinMe - Same as .ME (Needed for Update Driver)
+ DelReg         = COMMON_AMAC_DEL.reg
+ AddReg         = PRISM_ICB1.reg, COMMON_ICB.reg, COMMON_NDIS.reg.ME, COMMON.reg, COMMON_PS_MODE.reg, COMMON_AMAC.reg, Run.reg
+ CopyFiles      = PRISM_DRIVER.copy.ME, PRISM_FWICB.copy.ME, PRISM_APPLET.copy.ME, PRISM_NDI.copy.ME, PRISM_DOM.copy, CK_DLL.copy
+
+[PRISM_ICB1.NT]    ; Win2k
+ DelReg         = COMMON_AMAC_DEL.reg
+ AddReg         = PRISM_ICB1.reg, COMMON_ICB.reg, COMMON_NDIS.reg.NT, COMMON.reg, COMMON_PS_MODE_XP.reg, COMMON_AMAC.reg, RunOnce.reg
+ CopyFiles      = PRISM_DRIVER.copy.NT, PRISM_FWICB.copy.NT, PRISM_APPLET.copy.NT, PRISM_DOM.copy, CK_DLL.copy
+ BusType        = 5     ; PCI
+ Characteristics= 0x84  ; NCF_PHYSICAL | NCF_HAS_UI
+ 
+[PRISM_ICB1.NT.Services]
+ AddService     = "WLCB54GT", 2, PRISM_DRIVER_ICB.Service, PRISM_DRIVER.EventLog
+
+[PRISM_ICB1.NT.CoInstallers]
+ CopyFiles      = PRISM_COINSTALL.copy.NT
+ AddReg         = PRISM_COINSTALL.reg.NT
+
+[PRISM_ICB1.reg]
+; HKR,Ndi,DeviceID,0,"PCI\VEN_&DEV_&SUBSYS__PRISM_PCI_SUBSYSID_"
+; 0x3877 = 14455
+; HKR,,PlatformID,0,14455
+; HKR,,VendorDesc,0,%ICB_DESC_STR%
+; HKR,,FWFileName,0,"PRISMICB.arm"
+ 
+;==========================================
+[PRISM_DCB1]       ; Win9x
+ DelReg         = COMMON_AMAC_DEL.reg
+ AddReg         = PRISM_DCB1.reg, COMMON_ICB.reg, COMMON_NDIS.reg, COMMON.reg, COMMON_PSMODE.reg, COMMON_AMAC.reg, Run.reg
+ CopyFiles      = PRISM_DRIVER.copy, PRISM_FWDCB.copy, PRISM_APPLET.copy, PRISM_NDI.copy, PRISM_DOM.copy, CK_DLL.copy
+
+[PRISM_DCB1.ME]    ; WinMe
+ DelReg         = COMMON_AMAC_DEL.reg
+ AddReg         = PRISM_DCB1.reg, COMMON_ICB.reg, COMMON_NDIS.reg.ME, COMMON.reg, COMMON_PSMODE.reg, COMMON_AMAC.reg, Run.reg
+ CopyFiles      = PRISM_DRIVER.copy.ME, PRISM_FWDCB.copy.ME, PRISM_APPLET.copy.ME, PRISM_NDI.copy.ME, PRISM_DOM.copy, CK_DLL.copy
+
+[PRISM_DCB1.ME.ME] ; WinMe - Same as .ME (Needed for Update Driver)
+ DelReg         = COMMON_AMAC_DEL.reg
+ AddReg         = PRISM_DCB1.reg, COMMON_ICB.reg, COMMON_NDIS.reg.ME, COMMON.reg, COMMON_PS_MODE.reg, COMMON_AMAC.reg, Run.reg
+ CopyFiles      = PRISM_DRIVER.copy.ME, PRISM_FWDCB.copy.ME, PRISM_APPLET.copy.ME, PRISM_NDI.copy.ME, PRISM_DOM.copy, CK_DLL.copy
+
+[PRISM_DCB1.NT]    ; Win2k
+ DelReg         = COMMON_AMAC_DEL.reg
+ AddReg         = PRISM_DCB1.reg, COMMON_ICB.reg, COMMON_NDIS.reg.NT, COMMON.reg, COMMON_PS_MODE_XP.reg, COMMON_AMAC.reg, RunOnce.reg
+ CopyFiles      = PRISM_DRIVER.copy.NT, PRISM_FWDCB.copy.NT, PRISM_APPLET.copy.NT, PRISM_DOM.copy, CK_DLL.copy
+ BusType        = 5     ; PCI
+ Characteristics= 0x84  ; NCF_PHYSICAL | NCF_HAS_UI
+ 
+[PRISM_DCB1.NT.Services]
+ AddService     = "WLCB54GT", 2, PRISM_DRIVER_DCB.Service, PRISM_DRIVER.EventLog
+
+[PRISM_DCB1.NT.CoInstallers]
+ CopyFiles      = PRISM_COINSTALL.copy.NT
+ AddReg         = PRISM_COINSTALL.reg.NT
+
+[PRISM_DCB1.reg]
+ HKR,Ndi,DeviceID,0,"PCI\VEN_&DEV_&SUBSYS__PRISM_PCI_SUBSYSID_"
+; 0x3890 = 14480
+ HKR,,PlatformID,0,14480
+ HKR,,VendorDesc,0,%DCB_DESC_STR%
+ HKR,,FWFileName,0,"cowgcb.arm"
+;###############################################################################
+
+[PRISM_COINSTALL.reg.NT]
+; HKR,           ,CoInstallers32         ,0x00010000     ,"PRISMCFG.cpl,NdiProc"
+
+[PRISM_DRIVER_ICB.Service]
+; DisplayName    = %PRISM_SERVICE_DISPLAY_ICB%
+; ServiceType    = 1    ; SERVICE_KERNEL_DRIVER
+; StartType      = 3    ; SERVICE_DEMAND_START
+; ErrorControl   = 1    ; NORMAL
+; ServiceBinary  = %12%\cowgcb.sys
+; LoadOrderGroup = NDIS
+ 
+[PRISM_DRIVER_DCB.Service]
+ DisplayName    = %PRISM_SERVICE_DISPLAY_DCB%
+ ServiceType    = 1    ; SERVICE_KERNEL_DRIVER
+ StartType      = 3    ; SERVICE_DEMAND_START
+ ErrorControl   = 1    ; NORMAL
+ ServiceBinary  = %12%\cowgcb.sys
+ LoadOrderGroup = NDIS
+ 
+[PRISM_DRIVER.EventLog]
+ AddReg         = PRISM_DRIVER.EventLog.reg
+
+[PRISM_DRIVER.EventLog.reg]
+ HKR,           ,EventMessageFile       ,0x00020000     ,"%%SystemRoot%%\System32\netevent.dll"
+ HKR,           ,TypesSupported         ,0x00010001     ,7
+
+;###############################################################################
+[Runonce.reg]
+;HKLM,"SOFTWARE\Microsoft\Windows\CurrentVersion\RunOnce","WLPC",0x00000000,"rundll32 checkdll.dll,RunSetup"
+
+[Run.reg]
+;HKLM,"SOFTWARE\Microsoft\Windows\CurrentVersion\Run","WLPC",0x00000000,"rundll32 checkdll.dll,RunSetup"
+
+[COMMON_PCMCIA.reg]
+
+[COMMON_PCI.reg]
+
+[COMMON_USB.reg]
+ 
+[COMMON_ICB.reg]
+ HKR,NDI                ,Service                ,0      ,"WLCB54GT"
+ ;HKR,NDI                ,CardType               ,0      ,"PCI"
+ HKR,                   ,BusType                ,0      ,"5"
+ HKR,                   ,DeviceVxDs             ,0      ,"cowgcb5.sys"
+ HKR,                   ,EnableIRQSharing       ,1      ,01,00,00,00
+ HKR,                   ,IOBaseAddress          ,1      ,02,00,00,00
+ HKR,                   ,InterruptNumber        ,1      ,04,00,00,00
+ HKR,                   ,11dMode                ,0      ,"0"
+ HKR,                   ,CountryCode            ,0      ,"DE"
+ HKR,                   ,DomainCode             ,1      ,30,00,00,00 
+ HKR,                   ,Band                   ,0      ,"1"
+
+[COMMON_NDIS.reg]
+ HKR,                   ,RunningWin9X           ,0      ,"1"
+ HKR,                   ,DevLoader              ,0      ,"*ndis"
+ ;HKR,                   ,EnumPropPages          ,0      ,"netdi.dll,EnumPropPages"
+ ;HKR,NDI                ,NdiInstaller           ,0      ,"cowgCFG.dll,NdiProc"
+ HKR,NDI\Interfaces     ,UpperRange             ,0      ,"ndis3"
+ HKR,NDI\Interfaces     ,LowerRange             ,0      ,"ethernet"
+ HKR,NDI\Interfaces     ,DefUpper               ,0      ,"ndis3"
+ HKR,NDI\Interfaces     ,DefLower               ,0      ,"ethernet"
+ HKR,NDIS               ,LogDriverName          ,0      ,"PRISM"
+ HKR,NDIS               ,MajorNdisVersion       ,1      ,03
+ HKR,NDIS               ,MinorNdisVersion       ,1      ,0a
+
+[COMMON_NDIS.reg.ME]
+ HKR,                   ,RunningWin9X           ,0      ,"1"
+ HKR,                   ,DevLoader              ,0      ,"*ndis"
+; HKR,                   ,EnumPropPages          ,0      ,"netdi.dll,EnumPropPages"
+; HKR,NDI                ,NdiInstaller           ,0      ,"cowgCFG.dll,NdiProc"
+ HKR,NDI\Interfaces     ,UpperRange             ,0      ,"ndis3"
+ HKR,NDI\Interfaces     ,LowerRange             ,0      ,"ethernet"
+ HKR,NDI\Interfaces     ,DefUpper               ,0      ,"ndis3"
+ HKR,NDI\Interfaces     ,DefLower               ,0      ,"ethernet"
+ HKR,NDIS               ,LogDriverName          ,0      ,"PRISM"
+ HKR,NDIS               ,MajorNdisVersion       ,1      ,03
+ HKR,NDIS               ,MinorNdisVersion       ,1      ,0a
+
+[COMMON_NDIS.reg.NT]
+; HKR,                   ,EnumPropPages32        ,0      ,"PRISMCFG.cpl,NetPropPageProvider"
+ HKR,NDI\Interfaces     ,UpperRange             ,0      ,"ndis5"
+ HKR,NDI\Interfaces     ,LowerRange             ,0      ,"ethernet"
+
+[COMMON.reg]
+ HKR,                   ,PRISMIOC         ,0      ,"1"
+ HKR,                   ,SilentInstall          ,0      ,"1"
+;Uncomment the line above to install without user interface prompts
+
+ HKR,NDI\params\RTSThresh,,0,2347
+ HKR,Ndi\params\RTSThresh,default,0,2347
+ HKR,NDI\params\RTSThresh,ParamDesc,0,%RTSTHRESH_STR%
+ HKR,NDI\params\RTSThresh,type,0,int
+ HKR,NDI\params\RTSThresh,flag,1,20,00,00,00
+ HKR,NDI\params\RTSThresh,min,0,0
+ HKR,NDI\params\RTSThresh,max,0,2347
+ HKR,NDI\params\RTSThresh,step,0,1
+ HKR,NDI\params\RTSThresh,optional,0,1
+
+ HKR,NDI\params\FragThresh,,0,2346
+ HKR,Ndi\params\FragThresh,default,0,2346
+ HKR,NDI\params\FragThresh,ParamDesc,0,%FRAGTHRESH_STR%
+ HKR,NDI\params\FragThresh,type,0,int
+ HKR,NDI\params\FragThresh,flag,1,20,00,00,00
+ HKR,NDI\params\FragThresh,min,0,256
+ HKR,NDI\params\FragThresh,max,0,2346
+ HKR,NDI\params\FragThresh,step,0,2
+ HKR,NDI\params\FragThresh,optional,0,1
+
+[COMMON_AMAC_DEL.reg]
+ HKR,defaults,DataRates
+ HKR,NDI\params\DataRates
+ HKR,NDI\params\DataRate
+ HKR,DSChannel
+ HKR,defaults,DSChannel
+ HKR,NDI\params\DSChannel
+
+[COMMON_AMAC.reg]
+ HKR,NDI\params\ShortRetryLimit,,0,7
+ HKR,NDI\params\ShortRetryLimit,default,0,7
+ HKR,NDI\params\ShortRetryLimit,ParamDesc,,%SHORT_RETRY_STR%
+ HKR,NDI\params\ShortRetryLimit,type,,int
+ HKR,NDI\params\ShortRetryLimit,min,0,1
+ HKR,NDI\params\ShortRetryLimit,max,0,255
+ HKR,NDI\params\ShortRetryLimit,step,0,1
+ HKR,NDI\params\ShortRetryLimit,optional,0,1
+
+ HKR,NDI\params\LongRetryLimit,,0,4
+ HKR,NDI\params\LongRetryLimit,default,0,4
+ HKR,NDI\params\LongRetryLimit,ParamDesc,,%LONG_RETRY_STR%
+ HKR,NDI\params\LongRetryLimit,type,0,int
+ HKR,NDI\params\LongRetryLimit,min,0,1
+ HKR,NDI\params\LongRetryLimit,max,0,255
+ HKR,NDI\params\LongRetryLimit,step,0,1
+ HKR,NDI\params\LongRetryLimit,optional,0,1
+ 
+ HKR,NDI\params\ConfigProfile,,0,1
+ HKR,NDI\params\ConfigProfile,default,0,1
+ HKR,NDI\params\ConfigProfile,ParamDesc,,%CONFIG_PROFILE%
+ HKR,NDI\params\ConfigProfile,type,,enum
+ HKR,NDI\params\ConfigProfile,flag,1,30,00,00,00
+ HKR,NDI\params\ConfigProfile\enum,0,,%CONFIG_PROF_B_ONLY%
+ HKR,NDI\params\ConfigProfile\enum,1,,%CONFIG_PROF_MIXED%
+ HKR,NDI\params\ConfigProfile\enum,3,,%CONFIG_PROF_G_ONLY%
+ HKR,NDI\params\ConfigProfile,optional,0,1
+
+ HKR,,NitroMode          ,0,"1"
+ HKR,NDI\params\NitroMode,,0,1
+ HKR,NDI\params\NitroMode,default,0,1
+ HKR,NDI\params\NitroMode,ParamDesc,,%NITRO_MODE%
+ HKR,NDI\params\NitroMode,type,0,int
+ HKR,NDI\params\NitroMode,min,0,0
+ HKR,NDI\params\NitroMode,max,0,1
+ HKR,NDI\params\NitroMode,step,0,1
+ HKR,NDI\params\NitroMode,optional,0,1
+
+ HKR,,NitroTime          ,0,"1000"
+ HKR,NDI\params\NitroTime,,0,1000
+ HKR,NDI\params\NitroTime,default,0,1000
+ HKR,NDI\params\NitroTime,ParamDesc,,%NITRO_TIME%
+ HKR,NDI\params\NitroTime,type,,int
+ HKR,NDI\params\NitroTime,min,0,0
+ HKR,NDI\params\NitroTime,max,0,6000
+ HKR,NDI\params\NitroTime,step,0,1
+ HKR,NDI\params\NitroTime,optional,0,1
+
+[COMMON_PSMODE.reg]
+ HKR,defaults,PSMode,0,1
+ HKR,NDI\params\PSMode,,0,1
+ HKR,Ndi\params\PSMode,default,0,1
+ HKR,NDI\params\PSMode,ParamDesc,,%POWER_SAVE_STR%
+ HKR,NDI\params\PSMode,type,,enum
+ HKR,NDI\params\PSMode,flag,1,30,00,00,00
+ HKR,NDI\params\PSMode\enum,1,,%POWER_SAVE_OFF_STR%
+ HKR,NDI\params\PSMode\enum,2,,%POWER_SAVE_DYN_STR%
+ HKR,NDI\params\PSMode\enum,3,,%POWER_SAVE_MAX_STR%
+ HKR,NDI\params\PSMode,optional,0,1
+
+[COMMON_PS_MODE_XP.reg]
+ HKR,defaults,PSMode,0,1
+ HKR,NDI\params\PSMode,,0,1
+ HKR,Ndi\params\PSMode,default,0,1
+ HKR,NDI\params\PSMode,ParamDesc,,%POWER_SAVE_STR%
+ HKR,NDI\params\PSMode,type,,enum
+ HKR,NDI\params\PSMode,flag,1,30,00,00,00
+ HKR,NDI\params\PSMode\enum,1,,%POWER_SAVE_OFF_STR%
+ HKR,NDI\params\PSMode\enum,2,,%POWER_SAVE_DYN_STR%
+ HKR,NDI\params\PSMode\enum,3,,%POWER_SAVE_MAX_STR%
+ HKR,NDI\params\PSMode\enum,4,,%POWER_SAVE_AUTO_DYN_STR%
+ HKR,NDI\params\PSMode\enum,5,,%POWER_SAVE_AUTO_MAX_STR%
+ HKR,NDI\params\PSMode,optional,0,1
+ 
+;###############################################################################
+[DestinationDirs]
+;CopyFiles Section      = Destination Directory ID -- see layout.inf
+;-----------------        ------------------------
+ DefaultDestDir         = 11 ; Win9x=%windir%\system Win2k=%windir%\system32
+ PRISM_DRIVER.copy      = 11 ; Win9x=%windir%\system
+ PRISM_DRIVER.copy.ME   = 11 ; Win9x=%windir%\system
+ PRISM_DRIVER.copy.NT   = 12 ; Win2k=%windir%\system32\drivers
+ PRISM_FWICB.copy      	= 11 ; Win9x=%windir%\system
+ PRISM_FWICB.copy.ME   	= 11 ; Win9x=%windir%\system
+ PRISM_FWICB.copy.NT  	= 12 ; Win2k=%windir%\system32\drivers
+ PRISM_FWDCB.copy      	= 11 ; Win9x=%windir%\system
+ PRISM_FWDCB.copy.ME   	= 11 ; Win9x=%windir%\system
+ PRISM_FWDCB.copy.NT  	= 12 ; Win2k=%windir%\system32\drivers
+ PRISM_DOM.copy		    = 10 ; %windir% all OS
+ CK_DLL.copy            = 11
+
+[CK_DLL.copy]
+;checkdll.dll
+
+[PRISM_NDI.copy]
+; cowgCFG.dll           ; Win9x NDI
+
+[PRISM_NDI.copy.ME]
+; cowgCFG.dll           ; Win9x NDI
+
+[PRISM_COINSTALL.copy.NT]
+; PRISMIOC.dll
+
+[PRISM_DRIVER.copy]
+ cowgcb5.sys
+ PRISMIOC.vxd           ; Win9x Ioctl interface
+
+[PRISM_DRIVER.copy.ME]
+ cowgcb5.sys
+ PRISMIOC.vxd           ; Win9x Ioctl interface
+
+[PRISM_DRIVER.copy.NT]
+ cowgcb.sys
+
+[PRISM_FWICB.copy]
+
+[PRISM_FWICB.copy.ME]
+
+[PRISM_FWICB.copy.NT]
+
+[PRISM_FWDCB.copy]
+ cowgcb.arm
+
+[PRISM_FWDCB.copy.ME]
+ cowgcb.arm
+
+[PRISM_FWDCB.copy.NT]
+ cowgcb.arm
+
+[PRISM_APPLET.copy]
+
+[PRISM_APPLET.copy.ME]
+
+[PRISM_APPLET.copy.NT]
+
+[PRISM_DOM.copy]
+
+[SourceDisksNames]
+;Source Disk ID         = Disk Name
+;--------------           ---------
+ 1                      = %INSTALL_DISK_STR%,,,
+
+[SourceDisksFiles]      ; Win9x
+;File Name              = Source Disk ID
+;---------                --------------
+ cowgCFG.dll          = 1
+; PRISMIOC.vxd         = 1
+; cowgcb5.sys          = 1
+ cowgcb.arm           = 1
+ checkdll.dll         = 1
+ 
+[SourceDisksFiles.ME]   ; WinMe
+ cowgCFG.dll          = 1
+ PRISMIOC.vxd         = 1
+ cowgcb5.sys          = 1
+ cowgcb.arm           = 1
+ checkdll.dll         = 1
+ 
+[SourceDisksFiles.X86]  ; Win2k/Xp
+ cowgcb.sys           = 1
+ cowgcb.arm           = 1
+ checkdll.dll         = 1
+ 
+;###############################################################################
+[Strings]
+;String ID              = String Text
+;---------                -----------
+ VER_VENDOR_STR         = "corega"
+ VER_VENDOR_NAME_STR    = "corega K.K."
+
+; PRISM_SERVICE_DISPLAY     = "corega WLCB-54GT Driver"
+; PRISM_SERVICE_DISPLAY_ICB = "corega WLCB-54GT Driver"
+ PRISM_SERVICE_DISPLAY_DCB = "corega WLCB-54GT Driver"
+ 
+ INSTALL_DISK_STR       = "corega WLCB-54GT Install Disk"
+
+ ADHOC_DEMO_STR          = "Adhoc Demo Mode"
+ SHORT_PREAM_STR         = "Preamble Mode"
+ RTSTHRESH_STR           = "RTS Threshold"
+ FRAGTHRESH_STR          = "Fragmentation Threshold"
+ AUTHENT_TYPE_STR        = "Authentication Algorithm"
+ LISTENINTERVAL_STR      = "Listen Interval"
+ POWER_SAVE_STR          = "Power Save Mode"
+ POWER_SAVE_OFF_STR      = "Disabled"
+ POWER_SAVE_DYN_STR      = "Dynamic"
+ POWER_SAVE_MAX_STR      = "Maximum"
+ POWER_SAVE_AUTO_DYN_STR = "Auto Dynamic"
+ POWER_SAVE_AUTO_MAX_STR = "Auto Maximum"
+ LOAD_FIRMWARE_STR       = "Firmware Download"
+ SHORT_RETRY_STR         = "Short Retry Limit"
+ LONG_RETRY_STR          = "Long Retry Limit"
+ CHANNEL_STR             = "Channel"
+ DATARATES_STR           = "Data Rate"
+ DATARATES_AUTO          = "Fully Automatic"
+ ALSR_STR                = "Auto Long Slot Reassociation"
+
+ CONFIG_PROFILE          = "Configuration Profile"
+ CONFIG_PROF_B_ONLY      = "B only"
+ CONFIG_PROF_MIXED       = "Mixed"
+ CONFIG_PROF_G_ONLY      = "G only"
+ NITRO_MODE              = "Nitro Mode"
+ NITRO_TIME              = "Nitro Time" 
+ DCB_DESC_STR            = "corega WLCB-54GT"
+

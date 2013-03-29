@@ -1,0 +1,404 @@
+; 
+; AIRPLUS.INF
+;
+; Installation file for D-Link AIRPLUS WLAN Adapter
+;
+; Copyright (c) All Rights Reserved, D-Link Corporation
+;
+
+[Version]
+CatalogFile=airplus.cat
+Signature = "$Windows NT$"
+Provider  = %TI%
+Class     = Net
+ClassGUID={4d36e972-e325-11ce-bfc1-08002be10318}
+DriverVer=09/08/2003,4.15.5.1
+
+[Manufacturer]
+%TI% = D-Link
+
+; pnp cards should be excluded from select
+[ControlFlags]
+ExcludeFromSelect = PCI\VEN_104C&DEV_8400&SUBSYS_3B001186
+ExcludeFromSelect = PCI\VEN_104C&DEV_8400&SUBSYS_3B011186
+
+[D-Link]
+%AIRPLUS.DeviceDesc1% = AIRPLUS.8400, PCI\VEN_104C&DEV_8400&SUBSYS_3B001186
+%AIRPLUS.DeviceDesc2% = AIRPLUS.8400, PCI\VEN_104C&DEV_8400&SUBSYS_3B011186
+
+;
+; This section is necessary for the tool
+;
+[TI3000P.ndi]
+AddReg=AIRPLUS.ndi.reg
+
+[AIRPLUS.8400.NT]
+BusType         = 5
+AddReg          =AIRPLUS.ndi.reg.NT, TI.Param.Reg
+Characteristics = 0x84
+CopyFiles       =AIRPLUS.8400.CopyFiles.NT, AIRPLUS.8400.BinFiles.NT
+
+[AIRPLUS.ndi.reg.NT]
+HKR, Ndi,               Service,    0,  "AIRPLUS"
+HKR, Ndi\Interfaces,    LowerRange, 0,  "ethernet"
+HKR, Ndi\Interfaces,    UpperRange, 0,  "ndis5"
+
+[AIRPLUS.8400.NT.Services]
+AddService = AIRPLUS, 2, AIRPLUS.Service, AIRPLUS.EventLog
+
+[AIRPLUS.Service]
+DisplayName     = %AIRPLUS.Service.DispName%
+ServiceType     = 1 ;%SERVICE_KERNEL_DRIVER%
+StartType       = 3 ;%SERVICE_DEMAND_START%
+ErrorControl    = 1 ;%SERVICE_ERROR_NORMAL%
+ServiceBinary   = %12%\airplus.sys
+LoadOrderGroup  = NDIS
+
+[AIRPLUS.EventLog]
+AddReg = AIRPLUS.AddEventLog.reg
+
+[AIRPLUS.AddEventLog.reg]
+HKR, , EventMessageFile, 0x00020000, "%%SystemRoot%%\System32\netevent.dll"
+HKR, , TypesSupported,   0x00010001, 7
+
+[AIRPLUS.8400.CopyFiles.NT]
+AIRPLUS.sys
+WLANGEN.bin
+RADIO0d.bin
+RADIO11.bin
+RADIO15.bin
+
+;
+; Copy FW Files to system directory for ME
+;
+[AIRPLUS.8400.BinFiles.NT]
+WLANGEN.bin
+RADIO0d.bin
+RADIO11.bin
+RADIO15.bin
+
+
+;
+; Windows9x specific
+;
+[AIRPLUS.8400]
+AddReg=AIRPLUS.ndi.reg, TI.Param.Reg, AIRPLUS.8400.Install
+
+[AIRPLUS.8400.Install]
+HKR,Ndi\Install,,,"AIRPLUS.8400.Copy"
+HKR,Ndi\Remove,,,"AIRPLUS.8400.Remove"
+
+[AIRPLUS.ndi.reg]
+HKR,Ndi,DeviceID,,"PCI\VEN_104C&DEV_8400"
+
+;HKR,Ndi,NetType,,1
+HKR,Ndi,HelpText,0,%WLANAdapterHelpText%
+
+; key,subkey,valuname,type,value
+HKR,,DevLoader,,*ndis
+HKR,,DeviceVxDs,,airplus.sys
+HKR,,EnumPropPages,,"netdi.dll,EnumPropPages"
+
+; NDIS Info
+HKR, NDIS, LogDriverName, , "AIRPLUS"
+HKR, NDIS, MajorNdisVersion, 1, 03
+HKR, NDIS, MinorNdisVersion, 1, 0A
+
+HKR,Ndi\Interfaces,DefLower,,"ethernet"
+HKR,Ndi\Interfaces,LowerRange,,"ethernet"
+HKR,Ndi\Interfaces,DefUpper,,"ndis3,ndis4,ndis5"
+HKR,Ndi\Interfaces,UpperRange,,"ndis3,ndis4,ndis5"
+
+; Required Components
+HKR,Ndi,InstallInf,,"AIRPLUS.INF"
+
+[AIRPLUS.8400.Copy]
+CopyFiles=AIRPLUS.8400.CopyFiles
+
+[AIRPLUS.8400.Remove]
+DelFiles=AIRPLUS.8400.CopyFiles
+
+[AIRPLUS.8400.CopyFiles]
+AIRPLUS.sys
+WLANGEN.bin
+RADIO0d.bin
+RADIO11.bin
+RADIO15.bin
+
+
+;
+; Common sections
+;
+[TI.Param.Reg]
+
+; Radio values
+; RFMD
+HKR, ,Radio11_RxLevel,, "bc b3 a9 9a 90 89 80 79 70 68 64 61 60 55 00"
+HKR, ,Radio11_LNA,,     "01 01 01 01 01 01 01 01 01 01 01 01 01 01 01"
+HKR, ,Radio11_RSSI,,    "0a 0f 14 19 1e 23 28 2d 32 37 3c 41 46 4b c8"
+    
+;Maxim
+HKR, ,Radio0D_RxLevel,, "4f 4a 43 3a 32 2d 56 4e 46 3e 37 2a 23 1f 19"
+HKR, ,Radio0D_LNA,,     "00 00 00 00 00 00 01 01 01 01 01 01 01 01 01"
+HKR, ,Radio0D_RSSI,,    "0a 0f 14 19 1e 23 28 2d 32 37 3c 41 46 4b 5a"
+
+;RALINK
+HKR, ,Radio15_RxLevel,, "4f 4a 43 3a 32 2d 56 4e 46 3e 37 2a 23 1f 19"
+HKR, ,Radio15_LNA,,     "00 00 00 00 00 00 01 01 01 01 01 01 01 01 01"
+HKR, ,Radio15_RSSI,,    "0a 0f 14 19 1e 23 28 2d 32 37 3c 41 46 4b 5a"
+
+; TcpWindowSize - TCP Window size
+HKLM,System\CurrentControlSet\Services\Tcpip\Parameters, TcpWindowSize, 0x10001, 25200
+
+; PermAddress
+HKR,,PermAddress,,"112233"
+
+; HardwareID
+HKR, ,HardwareID, ,"ACX100"
+
+
+; Tx/Rx descriptors
+
+HKR, ,NumACXRxDescriptors, ,"10"
+HKR, ,NumACXTxDescriptors, ,"10"
+
+; LEAP User password
+HKR, ,LeapUserPassword, ,""
+
+HKR, ,DriverDescription, ,"D-Link AirPlus 22 Mbps Wireless Network Adapter"
+
+HKR,NDI\params\dot11DesiredBSSType,ParamDesc,,"Desired BSS Type"
+HKR,NDI\params\dot11DesiredBSSType,type,,"enum"
+HKR,NDI\params\dot11DesiredBSSType,default,,"1"
+HKR,NDI\params\dot11DesiredBSSType\enum,"0",,"Ad-Hoc"
+HKR,NDI\params\dot11DesiredBSSType\enum,"1",,"Infrastructure"
+
+HKR, Ndi\Params\dot11DesiredSSID, ParamDesc, ,"Desired SSID"
+HKR, Ndi\Params\dot11DesiredSSID, Type, ,"edit"
+HKR, Ndi\Params\dot11DesiredSSID, LimitText, ,"32"
+HKR, Ndi\Params\dot11DesiredSSID, Default,,"default"
+HKR, Ndi\Params\dot11DesiredSSID, UpperCase,,"0"
+
+HKR,NDI\params\dot11PowerMode,ParamDesc,,"Power Mode"
+HKR,NDI\params\dot11PowerMode,type,,"enum"
+HKR,NDI\params\dot11PowerMode,default,,"0"
+HKR,NDI\params\dot11PowerMode\enum,"0",,"Continuous Access Mode"
+HKR,NDI\params\dot11PowerMode\enum,"1",,"Maximum Power Save"
+HKR,NDI\params\dot11PowerMode\enum,"2",,"Fast Power Save"
+
+; Desired Tx Rate 
+HKR,NDI\params\dot11DesiredTxRate,ParamDesc,, "Desired Tx Rate"
+HKR,NDI\params\dot11DesiredTxRate,type,,"enum"
+HKR,NDI\params\dot11DesiredTxRate,default,,"0"
+HKR,NDI\params\dot11DesiredTxRate\enum,"0",,"Auto"
+HKR,NDI\params\dot11DesiredTxRate\enum,"1",,"1 Mbps"
+HKR,NDI\params\dot11DesiredTxRate\enum,"2",,"2 Mbps"
+HKR,NDI\params\dot11DesiredTxRate\enum,"3",,"5.5 Mbps"
+HKR,NDI\params\dot11DesiredTxRate\enum,"4",,"5.5 Mbps PBCC"
+HKR,NDI\params\dot11DesiredTxRate\enum,"5",,"11 Mbps"
+HKR,NDI\params\dot11DesiredTxRate\enum,"6",,"11 Mbps PBCC"
+HKR,NDI\params\dot11DesiredTxRate\enum,"7",,"22 Mbps PBCC"
+
+; Desired supported Rate Set 
+HKR,NDI\params\dot11SupportedRateMask,ParamDesc,, "Desired Supported Rate Set"
+HKR,NDI\params\dot11SupportedRateMask,type,,"enum"
+HKR,NDI\params\dot11SupportedRateMask,default,,"2"
+HKR,NDI\params\dot11SupportedRateMask\enum,"0",,"1,2 Mbps"
+HKR,NDI\params\dot11SupportedRateMask\enum,"1",,"1,2,5.5,11 Mbps"
+HKR,NDI\params\dot11SupportedRateMask\enum,"2",,"1,2,5.5,11,22 Mbps"
+
+; Desired Basic Rate Set 
+HKR,NDI\params\dot11BasicRateMask,ParamDesc,, "Desired Basic Rate Set"
+HKR,NDI\params\dot11BasicRateMask,type,,"enum"
+HKR,NDI\params\dot11BasicRateMask,default,,"0"
+HKR,NDI\params\dot11BasicRateMask\enum,"0",,"1,2,5.5,11 Mbps"
+HKR,NDI\params\dot11BasicRateMask\enum,"1",,"1,2 Mbps"
+
+; Fragmentation Threshold 
+HKR, Ndi\Params\dot11FragmentationThreshold, ParamDesc, ,"Fragmentation Threshold"
+HKR, Ndi\Params\dot11FragmentationThreshold, Type, , "int"
+HKR, Ndi\Params\dot11FragmentationThreshold, Default, , "4096"
+HKR, Ndi\Params\dot11FragmentationThreshold, Min, , "256"
+HKR, Ndi\Params\dot11FragmentationThreshold, Max, , "6000"
+HKR, Ndi\Params\dot11FragmentationThreshold, Step, , "1"
+HKR, Ndi\Params\dot11FragmentationThreshold, Base, , "10"
+
+; RTS Threshold 
+HKR, Ndi\Params\dot11RTSThreshold, ParamDesc, ,"RTS Threshold"
+HKR, Ndi\Params\dot11RTSThreshold, Type, , "int"
+HKR, Ndi\Params\dot11RTSThreshold, Default, , "4096"
+HKR, Ndi\Params\dot11RTSThreshold, Min, , "0"
+HKR, Ndi\Params\dot11RTSThreshold, Max, , "6000"
+HKR, Ndi\Params\dot11RTSThreshold, Step, , "1"
+HKR, Ndi\Params\dot11RTSThreshold, Base, , "10"
+
+HKR, ,ackE4x, ,"0"
+;HKR,NDI\params\ackE4x,ParamDesc,,"4X Ack emulation"
+;HKR,NDI\params\ackE4x,type,,"enum"
+;HKR,NDI\params\ackE4x,default,,"0"
+;HKR,NDI\params\ackE4x\enum,"0",,"Off"
+;HKR,NDI\params\ackE4x\enum,"1",,"On"
+
+HKR,NDI\params\PrivacyMode,ParamDesc,,"Privacy Mode"
+HKR,NDI\params\PrivacyMode,type,,"enum"
+HKR,NDI\params\PrivacyMode,default,,"2"
+HKR,NDI\params\PrivacyMode\enum,"0",,"No Privacy"
+HKR,NDI\params\PrivacyMode\enum,"1",,"WEP"
+HKR,NDI\params\PrivacyMode\enum,"2",,"Windows Zero Config"
+;HKR,NDI\params\PrivacyMode\enum,"3",,"CCX"
+
+HKR,NDI\params\dot11WEPStatus,ParamDesc,,"WEP Option"
+HKR,NDI\params\dot11WEPStatus,type,,"enum"
+HKR,NDI\params\dot11WEPStatus,default,,"1"
+HKR,NDI\params\dot11WEPStatus\enum,"0",,"WEP Enabled"
+HKR,NDI\params\dot11WEPStatus\enum,"1",,"WEP Disabled"
+
+HKR,NDI\params\dot11AuthenticationMode,ParamDesc,,"Authentication Mode"
+HKR,NDI\params\dot11AuthenticationMode,type,,"enum"
+HKR,NDI\params\dot11AuthenticationMode,default,,"0"
+HKR,NDI\params\dot11AuthenticationMode\enum,"0",,"Open Authentication"
+HKR,NDI\params\dot11AuthenticationMode\enum,"1",,"Shared Authentication"
+HKR,NDI\params\dot11AuthenticationMode\enum,"2",,"Auto Switch"
+
+HKR,NDI\params\dot11ShortPreambleInvoked,ParamDesc,,"Short Preamble"
+HKR,NDI\params\dot11ShortPreambleInvoked,type,,"enum"
+HKR,NDI\params\dot11ShortPreambleInvoked,default,,"0"
+HKR,NDI\params\dot11ShortPreambleInvoked\enum,"0",,"Off"
+HKR,NDI\params\dot11ShortPreambleInvoked\enum,"1",,"On"
+
+;HKR,NDI\params\ELPSupport,ParamDesc,,"ELP Support"
+;HKR,NDI\params\ELPSupport,type,,"enum"
+;HKR,NDI\params\ELPSupport,default,,"0"
+;HKR,NDI\params\ELPSupport\enum,"1",,"Enabled"
+;HKR,NDI\params\ELPSupport\enum,"0",,"Disabled"
+
+;HKR, Ndi\Params\LeapUserName, ParamDesc, ,"LeapUserName"
+;HKR, Ndi\Params\LeapUserName, Type, ,"edit"
+;HKR, Ndi\Params\LeapUserName, LimitText, ,"32"
+;HKR, Ndi\Params\LeapUserName, Default,,"tiwlan"
+;HKR, Ndi\Params\LeapUserName, UpperCase,,"0"
+
+;HKR,NDI\params\LeapEnabled,ParamDesc,,"LeapEnabled"
+;HKR,NDI\params\LeapEnabled,type,,"enum"
+;HKR,NDI\params\LeapEnabled,default,,"0"
+;HKR,NDI\params\LeapEnabled\enum,"1",,"Enabled"
+;HKR,NDI\params\LeapEnabled\enum,"0",,"Disabled"
+
+HKR,NDI\params\Mode4x,ParamDesc,,"Mode4x"
+HKR,NDI\params\Mode4x,type,,"enum"
+HKR,NDI\params\Mode4x,default,,"1"
+HKR,NDI\params\Mode4x\enum,"0",,"Off"
+HKR,NDI\params\Mode4x\enum,"1",,"On"
+
+;HKR,NDI\params\Mode4xMixed,ParamDesc,,"Mode4xMixed"
+;HKR,NDI\params\Mode4xMixed,type,,"enum"
+;HKR,NDI\params\Mode4xMixed,default,,"0"
+;HKR,NDI\params\Mode4xMixed\enum,"0",,"Off"
+;HKR,NDI\params\Mode4xMixed\enum,"1",,"On"
+
+;HKR,NDI\params\CCXSecurityType,ParamDesc,,"CCX Network Security Type"
+;HKR,NDI\params\CCXSecurityType,type,,"enum"
+;HKR,NDI\params\CCXSecurityType,default,,"0"
+;HKR,NDI\params\CCXSecurityType\enum,"0",,"No Network Security"
+;HKR,NDI\params\CCXSecurityType\enum,"1",,"LEAP"
+;HKR,NDI\params\CCXSecurityType\enum,"2",,"Windows Zero Config Security"
+
+HKR,NDI\params\MixedMode,ParamDesc,,"Privacy Mixed Mode"
+HKR,NDI\params\MixedMode,type,,"enum"
+HKR,NDI\params\MixedMode,default,,"0"
+HKR,NDI\params\MixedMode\enum,"0",,"Disabled"
+HKR,NDI\params\MixedMode\enum,"1",,"Enabled"
+
+; RateFallBackRetryLimit 
+HKR, Ndi\Params\RateFallBackRetryLimit, ParamDesc, ,"Rate FallBack Retry Limit"
+HKR, Ndi\Params\RateFallBackRetryLimit, Type, , "int"
+HKR, Ndi\Params\RateFallBackRetryLimit, Default, , "1"
+HKR, Ndi\Params\RateFallBackRetryLimit, Min, , "0"
+HKR, Ndi\Params\RateFallBackRetryLimit, Max, , "255"
+HKR, Ndi\Params\RateFallBackRetryLimit, Step, , "1"
+HKR, Ndi\Params\RateFallBackRetryLimit, Base, , "10"
+
+; RateFallBackThreshold 
+HKR, Ndi\Params\RateFallBackThreshold, ParamDesc, ,"Rate FallBack Threshold"
+HKR, Ndi\Params\RateFallBackThreshold, Type, , "int"
+HKR, Ndi\Params\RateFallBackThreshold, Default, , "12"
+HKR, Ndi\Params\RateFallBackThreshold, Min, , "0"
+HKR, Ndi\Params\RateFallBackThreshold, Max, , "100"
+HKR, Ndi\Params\RateFallBackThreshold, Step, , "1"
+HKR, Ndi\Params\RateFallBackThreshold, Base, , "10"
+
+; RateStepUpThreshold 
+HKR, Ndi\Params\RateStepUpThreshold, ParamDesc, ,"Rate StepUp Threshold"
+HKR, Ndi\Params\RateStepUpThreshold, Type, , "int"
+HKR, Ndi\Params\RateStepUpThreshold, Default, , "3"
+HKR, Ndi\Params\RateStepUpThreshold, Min, , "0"
+HKR, Ndi\Params\RateStepUpThreshold, Max, , "100"
+HKR, Ndi\Params\RateStepUpThreshold, Step, , "1"
+HKR, Ndi\Params\RateStepUpThreshold, Base, , "10"
+
+; FBShortInterval 
+HKR, Ndi\Params\FBShortInterval, ParamDesc, ,"FB Short Interval"
+HKR, Ndi\Params\FBShortInterval, Type, , "int"
+HKR, Ndi\Params\FBShortInterval, Default, , "50"
+HKR, Ndi\Params\FBShortInterval, Min, , "50"
+HKR, Ndi\Params\FBShortInterval, Max, , "2000"
+HKR, Ndi\Params\FBShortInterval, Step, , "10"
+HKR, Ndi\Params\FBShortInterval, Base, , "10"
+
+; FBLongInterval 
+HKR, Ndi\Params\FBLongInterval, ParamDesc, ,"FB Long Interval"
+HKR, Ndi\Params\FBLongInterval, Type, , "int"
+HKR, Ndi\Params\FBLongInterval, Default, , "2000"
+HKR, Ndi\Params\FBLongInterval, Min, , "1000"
+HKR, Ndi\Params\FBLongInterval, Max, , "10000"
+HKR, Ndi\Params\FBLongInterval, Step, , "10"
+HKR, Ndi\Params\FBLongInterval, Base, , "10"
+
+; For Antenna
+HKR,NDI\params\dot11TxAntenna,ParamDesc,,"Antenna TX"
+HKR,NDI\params\dot11TxAntenna,type,,"enum"
+HKR,NDI\params\dot11TxAntenna,default,,"0"
+HKR,NDI\params\dot11TxAntenna\enum,"0",,"Antenna 1"
+HKR,NDI\params\dot11TxAntenna\enum,"1",,"Antenna 2"
+;HKR,NDI\params\dot11TxAntenna\enum,"2",,"Both"
+
+HKR,NDI\params\dot11RxAntenna,ParamDesc,,"Antenna RX"
+HKR,NDI\params\dot11RxAntenna,type,,"enum"
+HKR,NDI\params\dot11RxAntenna,default,,"2"
+HKR,NDI\params\dot11RxAntenna\enum,"0",,"Antenna 1"
+HKR,NDI\params\dot11RxAntenna\enum,"1",,"Antenna 2"
+HKR,NDI\params\dot11RxAntenna\enum,"2",,"Both"
+
+; Desired channel
+HKR, Ndi\Params\dot11DesiredChannel, ParamDesc, ,"Desired Channel"
+HKR, Ndi\Params\dot11DesiredChannel, Type, , "int"
+HKR, Ndi\Params\dot11DesiredChannel, Default, , "6"
+HKR, Ndi\Params\dot11DesiredChannel, Min, , "1"
+HKR, Ndi\Params\dot11DesiredChannel, Max, , "14"
+HKR, Ndi\Params\dot11DesiredChannel, Step, , "1"
+HKR, Ndi\Params\dot11DesiredChannel, Base, , "10"
+
+
+[DestinationDirs]
+DefaultDestDir  = 12 ; System Directory
+AIRPLUS.8400.CopyFiles = 11
+AIRPLUS.8400.BinFiles.NT = 10,system
+
+[SourceDisksNames]
+1 = %DiskName%,,
+
+[SourceDisksFiles]
+AIRPLUS.sys  = 1
+WLANGEN.bin = 1
+RADIO0d.bin = 1
+RADIO11.bin = 1
+RADIO15.bin = 1
+
+
+[Strings]
+TI="D-Link"
+AIRPLUS.DeviceDesc1="D-Link AirPlus DWL-650+ Wireless Cardbus Adapter"
+AIRPLUS.DeviceDesc2="D-Link AirPlus DWL-520+ Wireless PCI Adapter"
+AIRPLUS.Service.DispName="D-Link AirPlus Wireless Adapter"
+WLANAdapterHelpText="A D-Link AirPlus Wireless Adapter provides high speed connection to the Internet through 802.11b technology"
+DiskName="D-Link AirPlus Wireless Adapter Installation Disk"

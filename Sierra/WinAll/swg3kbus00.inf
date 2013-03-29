@@ -1,0 +1,138 @@
+;/*++
+;
+;Copyright (c) 2011 Sierra Wireless Inc. All rights Reserved
+;
+;Module Name:
+;
+;    swg3kbus00.INF
+;
+;Abstract:
+;    INF file for installing SWI bus enumerator driver
+;
+;--*/
+[Version]
+Signature="$WINDOWS NT$"
+Class=USB
+ClassGuid={36FC9E60-C465-11CF-8056-444553540000}
+Provider=%Manufacturer%
+DriverVer=07/25/2011,11.7.1.13
+CatalogFile=swg3kbus00.cat
+
+
+[DestinationDirs]
+DefaultDestDir = 12
+
+[SourceDisksNames]
+1 = %DiskId1%,,,\wdf\x86
+2 = %DiskId1%,,,\wdf\amd64
+
+[SourceDisksFiles.x86]
+swibus00.sys  = 1,,
+WdfCoInstaller01009.dll = 1,,
+
+[SourceDisksFiles.amd64]
+swibus00.sys  = 2,,
+WdfCoInstaller01009.dll = 2,,
+
+
+;*****************************************
+; Install Section
+;*****************************************
+
+[Manufacturer]
+%StdMfg%=Standard,NTx86,NTAMD64
+
+; For Win2K because it cannot parse decorated sections
+[Standard]
+%SWIBus.DeviceDesc9011%=SWIBus_Device, USB\VID_1199&PID_9011
+%SWIBus.DeviceDesc68A2%=SWIBus_Device, USB\VID_1199&PID_68A2
+%SWIBus.DeviceDesc68A5%=SWIBus_Device, USB\VID_1199&PID_68A5
+%SWIBus.DeviceDesc68A9%=SWIBus_Device, USB\VID_1199&PID_68A9
+
+; For XP and later
+[Standard.NTx86]
+%SWIBus.DeviceDesc9011%=SWIBus_Device, USB\VID_1199&PID_9011
+%SWIBus.DeviceDesc68A2%=SWIBus_Device, USB\VID_1199&PID_68A2
+%SWIBus.DeviceDesc68A5%=SWIBus_Device, USB\VID_1199&PID_68A5
+%SWIBus.DeviceDesc68A9%=SWIBus_Device, USB\VID_1199&PID_68A9
+
+; For XP and later
+[Standard.NTAMD64]
+%SWIBus.DeviceDesc9011%=SWIBus_Device, USB\VID_1199&PID_9011
+%SWIBus.DeviceDesc68A2%=SWIBus_Device, USB\VID_1199&PID_68A2
+%SWIBus.DeviceDesc68A5%=SWIBus_Device, USB\VID_1199&PID_68A5
+%SWIBus.DeviceDesc68A9%=SWIBus_Device, USB\VID_1199&PID_68A9
+
+
+[SWIBus_Device.NT]
+CopyFiles=Drivers_Dir
+
+[SWIBus_Device.NT.HW]
+AddReg=SWIBus_Device.NT.AddReg
+
+[SWIBus_Device.NT.AddReg]                            
+HKR,,DeviceCharacteristics,0x10001,0x0100         ; Use same security checks on relative opens
+HKR,,Security,,"D:P(A;;GA;;;BA)(A;;GA;;;SY)"      ; Allow generic-all access to Built-in administrators and Local system 
+HKR,,UpperFilters, 0x00010000, "swibusflt00"
+
+[Drivers_Dir]
+swibus00.sys
+swibusflt00.sys, swibus00.sys
+
+;-------------- Service installation
+[SWIBus_Device.NT.Services]
+AddService = swibusflt00,, swibusflt_Service_Inst
+AddService = swibus00,%SPSVCINST_ASSOCSERVICE%, swibus_Service_Inst
+
+; -------------- dynambus driver install sections
+[swibusflt_Service_Inst]
+DisplayName     = %swibusflt.SvcDesc%                            
+ServiceType     = 1                  ; SERVICE_KERNEL_DRIVER
+StartType       = 3                  ; SERVICE_DEMAND_START
+ErrorControl    = 1                  ; SERVICE_ERROR_NORMAL
+ServiceBinary   = %12%\swibusflt00.sys                            
+
+[swibus_Service_Inst]
+DisplayName    = %swibus.SVCDESC%
+ServiceType    = 1               ; SERVICE_KERNEL_DRIVER
+StartType      = 3               ; SERVICE_DEMAND_START 
+ErrorControl   = 1               ; SERVICE_ERROR_NORMAL
+ServiceBinary  = %12%\swibus00.sys
+LoadOrderGroup = Extended Base
+
+
+;
+;--- SWIBus_Device Coinstaller installation ------
+;
+[DestinationDirs]
+SWIBus_Device_CoInstaller_CopyFiles = 11
+
+[SWIBus_Device.NT.CoInstallers]
+AddReg=SWIBus_Device_CoInstaller_AddReg
+CopyFiles=SWIBus_Device_CoInstaller_CopyFiles
+
+[SWIBus_Device_CoInstaller_AddReg]
+HKR,,CoInstallers32,0x00010000, "WdfCoInstaller01009.dll,WdfCoInstaller"
+
+[SWIBus_Device_CoInstaller_CopyFiles]
+WdfCoInstaller01009.dll
+
+[SWIBus_Device.NT.Wdf]
+KmdfService = swibus00, swibus_wdfsect
+
+[swibus_wdfsect]
+KmdfLibraryVersion = 1.9
+
+
+[Strings]
+SPSVCINST_ASSOCSERVICE= 0x00000002
+Manufacturer = "Sierra Wireless Inc."
+StdMfg = "(Standard system devices)"
+DiskId1 = "SWI Bus Installation Disk #1"
+swibus.SVCDESC = "Sierra Wireless Bus Enumerator 00"
+swibusflt.SVCDESC = "Sierra Wireless Bus Enumerator Filter 00"
+SWIBus.DeviceDesc9011 = "Sierra Wireless WWAN Device"
+SWIBus.DeviceDesc68A2 = "Sierra Wireless WWAN Device"
+SWIBus.DeviceDesc68A5 = "Sierra Wireless WWAN Device"
+SWIBus.DeviceDesc68A9 = "Sierra Wireless WWAN Device"
+

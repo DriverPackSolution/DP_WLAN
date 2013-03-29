@@ -1,0 +1,141 @@
+;/*++
+;
+;Copyright (c) 2011 Sierra Wireless Inc. All rights Reserved
+;
+;Module Name:
+;
+;    swg3kbus01.INF
+;
+;Abstract:
+;    INF file for installing SWI bus enumerator driver
+;
+;--*/
+[Version]
+Signature="$WINDOWS NT$"
+Class=USB
+ClassGuid={36FC9E60-C465-11CF-8056-444553540000}
+Provider=%Manufacturer%
+DriverVer=07/25/2011,11.7.1.13
+CatalogFile=swg3kbus01.cat
+
+
+[DestinationDirs]
+DefaultDestDir = 12
+
+[SourceDisksNames]
+1 = %DiskId1%,,,\wdf\x86
+2 = %DiskId1%,,,\wdf\amd64
+
+[SourceDisksFiles.x86]
+swibus01.sys  = 1,,
+WdfCoInstaller01009.dll = 1,,
+
+[SourceDisksFiles.amd64]
+swibus01.sys  = 2,,
+WdfCoInstaller01009.dll = 2,,
+
+
+;*****************************************
+; Install Section
+;*****************************************
+
+[Manufacturer]
+%StdMfg%=Standard,NTx86,NTAMD64
+
+; For Win2K because it cannot parse decorated sections
+[Standard]
+%SWIBus.DeviceDesc9013%=SWIBus_Device, USB\VID_1199&PID_9013
+%SWIBus.DeviceDesc9019%=SWIBus_Device, USB\VID_1199&PID_9019
+%SWIBus.DeviceDesc901B%=SWIBus_Device, USB\VID_1199&PID_901B
+%SWIBus.DeviceDesc7700%=SWIBus_Device, USB\VID_0F3D&PID_68A2
+%SWIBus.DeviceDesc7750%=SWIBus_Device, USB\VID_114F&PID_68A2
+
+; For XP and later
+[Standard.NTx86]
+%SWIBus.DeviceDesc9013%=SWIBus_Device, USB\VID_1199&PID_9013
+%SWIBus.DeviceDesc9019%=SWIBus_Device, USB\VID_1199&PID_9019
+%SWIBus.DeviceDesc901B%=SWIBus_Device, USB\VID_1199&PID_901B
+%SWIBus.DeviceDesc7700%=SWIBus_Device, USB\VID_0F3D&PID_68A2
+%SWIBus.DeviceDesc7750%=SWIBus_Device, USB\VID_114F&PID_68A2
+
+; For XP and later
+[Standard.NTAMD64]
+%SWIBus.DeviceDesc9013%=SWIBus_Device, USB\VID_1199&PID_9013
+%SWIBus.DeviceDesc9019%=SWIBus_Device, USB\VID_1199&PID_9019
+%SWIBus.DeviceDesc901B%=SWIBus_Device, USB\VID_1199&PID_901B
+%SWIBus.DeviceDesc7700%=SWIBus_Device, USB\VID_0F3D&PID_68A2
+%SWIBus.DeviceDesc7750%=SWIBus_Device, USB\VID_114F&PID_68A2
+
+[SWIBus_Device.NT]
+CopyFiles=Drivers_Dir
+
+[SWIBus_Device.NT.HW]
+AddReg=SWIBus_Device.NT.AddReg
+
+[SWIBus_Device.NT.AddReg]                            
+HKR,,DeviceCharacteristics,0x10001,0x0100         ; Use same security checks on relative opens
+HKR,,Security,,"D:P(A;;GA;;;BA)(A;;GA;;;SY)"      ; Allow generic-all access to Built-in administrators and Local system 
+HKR,,UpperFilters, 0x00010000, "swibusflt01"
+
+[Drivers_Dir]
+swibus01.sys
+swibusflt01.sys, swibus01.sys
+
+;-------------- Service installation
+[SWIBus_Device.NT.Services]
+AddService = swibusflt01,, swibusflt_Service_Inst
+AddService = swibus01,%SPSVCINST_ASSOCSERVICE%, swibus_Service_Inst
+
+; -------------- dynambus driver install sections
+[swibusflt_Service_Inst]
+DisplayName     = %swibusflt.SvcDesc%                            
+ServiceType     = 1                  ; SERVICE_KERNEL_DRIVER
+StartType       = 3                  ; SERVICE_DEMAND_START
+ErrorControl    = 1                  ; SERVICE_ERROR_NORMAL
+ServiceBinary   = %12%\swibusflt01.sys                            
+
+[swibus_Service_Inst]
+DisplayName    = %swibus.SVCDESC%
+ServiceType    = 1               ; SERVICE_KERNEL_DRIVER
+StartType      = 3               ; SERVICE_DEMAND_START 
+ErrorControl   = 1               ; SERVICE_ERROR_NORMAL
+ServiceBinary  = %12%\swibus01.sys
+LoadOrderGroup = Extended Base
+
+
+;
+;--- SWIBus_Device Coinstaller installation ------
+;
+[DestinationDirs]
+SWIBus_Device_CoInstaller_CopyFiles = 11
+
+[SWIBus_Device.NT.CoInstallers]
+AddReg=SWIBus_Device_CoInstaller_AddReg
+CopyFiles=SWIBus_Device_CoInstaller_CopyFiles
+
+[SWIBus_Device_CoInstaller_AddReg]
+HKR,,CoInstallers32,0x00010000, "WdfCoInstaller01009.dll,WdfCoInstaller"
+
+[SWIBus_Device_CoInstaller_CopyFiles]
+WdfCoInstaller01009.dll
+
+[SWIBus_Device.NT.Wdf]
+KmdfService = swibus01, swibus_wdfsect
+
+[swibus_wdfsect]
+KmdfLibraryVersion = 1.9
+
+
+[Strings]
+SPSVCINST_ASSOCSERVICE= 0x00000002
+Manufacturer = "Sierra Wireless Inc."
+StdMfg = "(Standard system devices)"
+DiskId1 = "SWI Bus Installation Disk #1"
+swibus.SVCDESC = "Sierra Wireless Bus Enumerator 01"
+swibusflt.SVCDESC = "Sierra Wireless Bus Enumerator Filter 01"
+SWIBus.DeviceDesc9013 = "Sierra Wireless MC8355 – Gobi(TM) 3000 USB Composite Device 9013"
+SWIBus.DeviceDesc9019 = "Sierra Wireless MC8355 – Gobi(TM) 3000 USB Composite Device 9019"
+SWIBus.DeviceDesc901B = "Sierra Wireless MC7770 USB Composite Device 901B"
+SWIBus.DeviceDesc7700 = "Sierra Wireless MC7700 - Gobi(TM) 4000 USB Composite Device 68A2"
+SWIBus.DeviceDesc7750 = "Sierra Wireless MC7750 - Gobi(TM) 4000 USB Composite Device 68A2"
+

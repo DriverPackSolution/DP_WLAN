@@ -1,0 +1,292 @@
+;****************************************************************************
+;
+;   netathr.inf
+;
+;DESCRIPTION:(Vista x86)
+;    Linksys Dual-Band Wireless A+G PCI Adapter
+;****************************************************************************
+
+[version]
+Signature   = "$Windows NT$"
+Class       = Net
+ClassGUID   = {4d36e972-e325-11ce-bfc1-08002be10318}
+Provider    = %LINKSYS%
+LoutFiles   = layout.inf
+CatalogFile = athrext.cat
+DriverVer   = 11/10/2006,7.1.0.90
+
+
+[Manufacturer]
+%LINKSYS%     = LINKSYS, NTX86
+
+
+[ControlFlags]
+ExcludeFromSelect = *
+
+
+[LINKSYS.NTX86]
+; DisplayName               Section                 DeviceID
+; -----------               -------                 --------
+%ATHER.DeviceDesc.v1.3%  = ATHR_DEV_0013.ndi,    PCI\VEN_168C&DEV_001B&SUBSYS_00441737
+%ATHER.DeviceDesc.v1.2%  = ATHR_DEV_0013.ndi,    PCI\VEN_168C&DEV_0013&SUBSYS_00361731
+%ATHER.DeviceDesc.v1.2%  = ATHR_DEV_0013.ndi,    PCI\VEN_168C&DEV_0013&SUBSYS_00361737
+%ATHER.DeviceDesc.v1.1%  = ATHR_DEV_0013.ndi,    PCI\VEN_168C&DEV_0012&SUBSYS_2022168C 
+%ATHER.DeviceDesc.v1.1%  = ATHR_DEV_0013.ndi,    PCI\VEN_168C&DEV_0013&SUBSYS_2026168C
+%ATHER.DeviceDesc.v1.1%  = ATHR_DEV_0013.ndi,    PCI\VEN_168C&DEV_0013&SUBSYS_00181737 
+%ATHER.DeviceDesc.v1.1%  = ATHR_DEV_0013.ndi,    PCI\VEN_168C&DEV_0013&SUBSYS_00261737
+
+[ATHR_DEV_0013.ndi.NTX86]
+Characteristics = 0x84
+BusType         = 5
+AddReg          = atheros.reg
+DelReg          = atheros.DelReg
+CopyFiles       = atheros.CopyFiles
+*IfType         = 71        ; IF_TYPE_IEEE80211
+*MediaType      = 16        ; NdisMediumNative802_11
+*PhysicalMediaType = 9      ; NdisPhysicalMediumNative802_11
+
+[ATHR_DEV_0013.ndi.NTX86.Services]
+AddService = athr, 2, atheros.Service, atheros.EventLog
+
+[atheros.reg]
+HKR, Ndi,                           Service,    0, "athr"
+
+HKR, Ndi\Interfaces,                UpperRange, 0, "ndis5"
+HKR, Ndi\Interfaces,                LowerRange, 0, "wlan,ethernet"
+
+HKR, Ndi\params\*ReceiveBuffers,    ParamDesc,  0, "%ReceiveBuffers%"
+HKR, Ndi\params\*ReceiveBuffers,    default,    0, "64"
+HKR, Ndi\params\*ReceiveBuffers,    min,        0, "1"
+HKR, Ndi\params\*ReceiveBuffers,    max,        0, "00000128"
+HKR, Ndi\params\*ReceiveBuffers,    step,       0, "1"
+HKR, Ndi\params\*ReceiveBuffers,    Base,       0, "10"
+HKR, Ndi\params\*ReceiveBuffers,    type,       0, "int"
+
+HKR, Ndi\params\*TransmitBuffers,   ParamDesc,  0, "%TransmitBuffers%"
+HKR, Ndi\params\*TransmitBuffers,   default,    0, "64"
+HKR, Ndi\params\*TransmitBuffers,   min,        0, "1"
+HKR, Ndi\params\*TransmitBuffers,   max,        0, "00000064"
+HKR, Ndi\params\*TransmitBuffers,   step,       0, "1"
+HKR, Ndi\params\*TransmitBuffers,   Base,       0, "10"
+HKR, Ndi\params\*TransmitBuffers,   type,       0, "int"
+
+HKR, Ndi\params\NetworkAddress,     ParamDesc,  0,  %NetworkAddress%
+HKR, Ndi\params\NetworkAddress,     default,    0,  ""
+HKR, Ndi\params\NetworkAddress,     LimitText,  0,  "12"
+HKR, Ndi\params\NetworkAddress,     UpperCase,  0,  "1"
+HKR, Ndi\params\NetworkAddress,     optional,   0,  "1"
+HKR, Ndi\params\NetworkAddress,     type,       0,  "edit"
+
+HKR, Ndi\params\shortPreamble,      ParamDesc,  0,  %shortPreamble%
+HKR, Ndi\params\shortPreamble,      Base,       0,  "10"
+HKR, Ndi\params\shortPreamble,      default,    0,  "1"
+HKR, Ndi\params\shortPreamble,      type,       0,  "enum"
+HKR, Ndi\params\shortPreamble\enum, "1",        0,  %shortPreambleEnable%
+HKR, Ndi\params\shortPreamble\enum, "0",        0,  %shortPreambleDisable%
+
+HKR, Ndi\params\scanTimeValid,      ParamDesc,  0,  %scanTimeValid%
+HKR, Ndi\params\scanTimeValid,      default,    0,  "60"
+HKR, Ndi\params\scanTimeValid,      min,        0,  "20"
+HKR, Ndi\params\scanTimeValid,      max,        0,  "120"
+HKR, Ndi\params\scanTimeValid,      step,       0,  "5"
+HKR, Ndi\params\scanTimeValid,      base,       0,  "10"
+HKR, Ndi\params\scanTimeValid,      type,       0,  "int"
+
+[atheros.DelReg]
+HKR,,NetBand
+HKR,,ssid
+HKR,,ssid2
+HKR,,ssid3
+HKR,,prefBssid1
+HKR,,prefBssid2
+HKR,,prefBssid3
+HKR,,prefBssid4
+HKR,Ndi\Params\tpc
+HKR,,tpc
+HKR,Ndi\Params\authTypeUseOnly
+HKR,,authTypeUseOnly
+HKR,,AdHocBand
+HKR,,AwakeTimePerf
+HKR,,beaconInterval
+HKR,,bkScanEnable
+HKR,,bssType
+HKR,,ccode
+HKR,,clist
+HKR,,defaultKey
+HKR,,EncryptionAlg
+HKR,,FragThreshold
+HKR,,HwTxRetries
+HKR,,privacyInvoked
+HKR,,QoS
+HKR,,rateCtrlEnable
+HKR,,RTSThreshold
+HKR,,scanType
+HKR,,SwTxRetryScale
+HKR,,SmeEnable
+HKR,,aifs
+HKR,,cwmin
+HKR,Ndi\params,MapRegisters,0x2000
+HKR,,MapRegisters
+HKR,Ndi\params,radioEnable,0x2000
+HKR,Ndi\params,sleepMode,0x2000
+HKR,,sleepMode
+
+;;Customized Section
+
+[bandselect.reg]
+HKR, Ndi\params\NetBand,                ParamDesc,                      0,        %WirelessMode%
+HKR, Ndi\params\NetBand,                Base,                           0,        "10"
+HKR, Ndi\params\NetBand,                default,                        0,        "15"
+HKR, Ndi\params\NetBand,                type,                           0,        "enum"
+HKR, Ndi\params\NetBand\enum,           "15",                           0,        "Auto"
+HKR, Ndi\params\NetBand\enum,           "3",                            0,        "5Ghz Only"
+HKR, Ndi\params\NetBand\enum,           "12",                           0,        "2.4Ghz Only"
+
+[roamthreshA.reg]
+HKR, Ndi\params\roamRssiA,              ParamDesc,                      0,        %roamRssiA%
+HKR, Ndi\params\roamRssiA,              default,                        0,        "15"
+HKR, Ndi\params\roamRssiA,              min,                            0,        "1"
+HKR, Ndi\params\roamRssiA,              max,                            0,        "95"
+HKR, Ndi\params\roamRssiA,              step,                           0,        "1"
+HKR, Ndi\params\roamRssiA,              base,                           0,        "10"
+HKR, Ndi\params\roamRssiA,              type,                           0,        "int"
+
+[ignore11d.reg]
+HKR,NDI\params\ignore11dBeacon,         ParamDesc,,                               "11d Mode Switch"
+HKR,NDI\params\ignore11dBeacon,         type,,                                    "enum"
+HKR,NDI\params\ignore11dBeacon,         Default,,                                 "1"
+HKR,NDI\params\ignore11dBeacon\enum,    0,,                                       "Enable"
+HKR,NDI\params\ignore11dBeacon\enum,    1,,                                       "Disable"
+
+[radioswitch.reg]
+HKR, Ndi\params\radioEnable,            ParamDesc,                      0,        %radioEnable%
+HKR, Ndi\params\radioEnable,            Base,                           0,        "10"
+HKR, Ndi\params\radioEnable,            default,                        0,        "1"
+HKR, Ndi\params\radioEnable,            type,                           0,        "enum"
+HKR, Ndi\params\radioEnable\enum,       "1",                            0,        %radioEnableOn%
+HKR, Ndi\params\radioEnable\enum,       "0",                            0,        %radioEnableOff%
+
+[adhocchannelselect.reg]
+HKR, Ndi\params\defaultIbssChannel,     ParamDesc,                      0,        %adhocchannel%
+HKR, Ndi\params\defaultIbssChannel,     default,                        0,        "10"
+HKR, Ndi\params\defaultIbssChannel,     min,                            0,        "1"
+HKR, Ndi\params\defaultIbssChannel,     max,                            0,        "11"
+HKR, Ndi\params\defaultIbssChannel,     step,                           0,        "1"
+HKR, Ndi\params\defaultIbssChannel,     base,                           0,        "10"
+HKR, Ndi\params\defaultIbssChannel,     type,                           0,        "int"
+
+[customer0.reg]
+HKR, ,                                  ssid,                           0x00002,  "randomssidtoshutoffautoconnectib"
+HKR, ,                                  scanTimePreSleep,               0x00002,  "60" 
+HKR, ,                                  capLinkSp,                      0x00002,  "1" 
+HKR, ,                                  pcieAspm,                       0x00002,  "2" 
+HKR, ,                                  pciePowerSaveEnable,            0x00002,  "1" 
+HKR, Ndi\params\scanTimeValid,          ParamDesc,                      0,        %scanTime%
+HKR, Ndi\params\scanTimeValid,          default,                        0,        "60"
+HKR, Ndi\params\scanTimeValid,          min,                            0,        "20"
+HKR, Ndi\params\scanTimeValid,          max,                            0,        "120"
+HKR, Ndi\params\scanTimeValid,          step,                           0,        "5"
+HKR, Ndi\params\scanTimeValid,          base,                           0,        "10"
+HKR, Ndi\params\scanTimeValid,          type,                           0,        "int"
+
+[customer0LED.reg]
+HKR, ,                                  gpioPinFunc1,                   0x00002,  "0"
+
+[customer0LED1.reg]
+HKR, ,                                  gpioPinFunc1,                   0x00002,  "1"
+HKR, ,                                  overrideACstatus,               0x00002,  "1"
+HKR, ,                                  pcieClockReq,                   0x00002,  "1"
+
+[customer1ani.reg]
+HKR, Ndi\params\rssiThrHigh,            ParamDesc,                      0,        %rssiThrHigh%
+HKR, Ndi\params\rssiThrHigh,            Base,                           0,        "10"
+HKR, Ndi\params\rssiThrHigh,            default,                        0,        "40"
+HKR, Ndi\params\rssiThrHigh,            type,                           0,        "enum"
+HKR, Ndi\params\rssiThrHigh\enum,       "40",                           0,        %rssiThrHighNormal%
+HKR, Ndi\params\rssiThrHigh\enum,       "32",                           0,        %rssiThrHighMin%
+
+[customer2.reg]
+HKR,,                                   linkLEDFunc,                    0,        "53"
+HKR,,                                   activityLEDFunc,                0,        "51"
+HKR,,                                   connectionLEDFunc,              0,        "55"
+
+[customer3.reg]
+HKR, ,                                  scanTimePreSleep,               0x00002,  "60"
+HKR, ,                                  SleepTimePerf,                  0x00002,  "500"
+HKR, ,                                  LinkLEDFunc,                    0x00002,  "19"
+HKR, ,                                  ActivityLEDFunc,                0x00002,  "21"
+
+[customer3a.reg]
+HKR, ,                                  scanTimePreSleep,               0x00002,  "60"
+HKR, ,                                  SleepTimePerf,                  0x00002,  "500"
+HKR, ,                                  LinkLEDFunc,                    0x00002,  "23"
+
+[customer4.reg]
+HKR, ,					gpioPinFunc0,        		0x00002,  "1"
+HKR, ,                                  translateNullSsid,              0x00002,  "1"
+HKR, ,                                  AwakeTimePerf,                  0x00002,  "200"
+
+[customer4a.reg]
+HKR, ,					gpioPinFunc0,        		0x00002,  "1"
+HKR, ,					gpioFunc0ActHi,      		0x00002,  "0"
+HKR, ,					pcieClockReq,        		0x00002,  "1"
+HKR, ,                                  translateNullSsid,              0x00002,  "1"
+HKR, ,                                  AwakeTimePerf,                  0x00002,  "200"
+
+;;End of Customized Section
+
+[atheros.Service]
+DisplayName     = %ATHR.Service.DispName%
+ServiceType     = 1         ;SERVICE_KERNEL_DRIVER
+StartType       = 3         ;SERVICE_DEMAND_START
+ErrorControl    = 1         ;SERVICE_ERROR_NORMAL
+ServiceBinary   = %12%\athr.sys
+LoadOrderGroup  = NDIS
+
+
+[atheros.EventLog]
+AddReg = atheros.AddEventLog.reg
+
+[atheros.AddEventLog.reg]
+HKR, , EventMessageFile, 0x00020000, "%%SystemRoot%%\System32\netevent.dll"
+HKR, , TypesSupported,   0x00010001, 7
+
+
+[atheros.CopyFiles]
+athr.sys,,,2
+
+[SourceDisksNames]
+1 = %DiskDescription%,athr.sys,,
+
+[SourceDisksFiles]
+athr.sys = 1,,
+
+[DestinationDirs]
+atheros.CopyFiles            = 12
+DefaultDestDirs              = 11
+
+[Strings]
+Msft                         = "Microsoft"
+Linksys                      = "Linksys"
+ATHR.Service.DispName        = "Linksys Dual-Band Wireless A+G PCI Adapter device driver"
+DiskDescription              = "Linksys Sample Driver Disk 1"
+TransmitBuffers              = "Transmit Buffers"
+ReceiveBuffers               = "Receive Buffers"
+NetworkAddress               = "Network Address"
+scanTimeValid                = "Scan Valid Interval"
+shortPreamble                = "802.11b Preamble"
+shortPreambleEnable          = "Long and Short"
+shortPreambleDisable         = "Long only"
+rssiThrHigh                  = "RSSI Threshold"
+rssiThrHighNormal            = "Normal"
+rssiThrHighMin               = "Min"
+radioEnable                  = "Radio On/Off"
+radioEnableOn                = "On"
+radioEnableOff               = "Off"
+scanTime                     = "Roam Time (sec)"
+roamRssiA                    = "Roam Time Threshold (db)"
+WirelessMode                 = "Wireless Mode Selection"
+adhocchannel                 = "Adhoc channel Selection"
+ATHER.DeviceDesc.v1.1        = "Linksys Dual-Band Wireless A+G PCI Adapter ver 1.1"
+ATHER.DeviceDesc.v1.2        = "Linksys Dual-Band Wireless A+G PCI Adapter ver 1.2"
+ATHER.DeviceDesc.v1.3        = "Linksys Dual-Band Wireless A+G PCI Adapter ver 1.3"

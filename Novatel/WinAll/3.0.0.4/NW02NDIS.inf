@@ -1,0 +1,149 @@
+;------------------------------------------------------------------------------
+; Novatel Wireless Virtual Network Adapter
+; Installation file (.inf).
+; (c) Copyright 2003 Novatel Wireless Inc. 
+;------------------------------------------------------------------------------
+
+;when       who     what, where, why
+;--------   -----   -----------------------------------------------------------
+;07/29/05   SK      Updated drivers
+;02/02/05   SK      Updated for EVDO NDIS
+;10/22/03   SK      Updated for NVTL NDIS drivers
+;04/02/04   SK      Updated driver
+;12/02/05   SK      Fixed I/O Conflict  
+
+;-------------------------------------------------------------------------------
+; INF Version Section
+;-------------------------------------------------------------------------------
+[version]
+signature   = "$WINDOWS NT$"
+Class       = Net
+ClassGUID   = {4d36e972-e325-11ce-bfc1-08002be10318}
+Provider    =%Mfg%
+Compatible  = 1
+DriverVer      =09/26/2006,1.0.3.0
+CatalogFile.NT = NWADI02.cat
+CatalogFile.NTAMD64 = NWADI264.cat
+
+;-------------------------------------------------------------------------------
+; INF Manufactuerer Section
+;-------------------------------------------------------------------------------
+[Manufacturer]
+%Mfg%=Models,NTamd64
+
+
+;-------------------------------------------------------------------------------
+; INF ControlFlags Section
+;-------------------------------------------------------------------------------
+[ControlFlags]
+; Note: Uncomment next line if your NIC is not to be installed manually
+ExcludeFromSelect = *
+
+;-------------------------------------------------------------------------------
+; INF Models Section
+;-------------------------------------------------------------------------------
+[Models]
+%NW000%=*novatel.ndi, NWADI\TOSHIBA-VNIC_0930_1300
+%NW001%=*novatel.ndi, NWADI\TOSHIBA-VNIC_0930_1301
+%NW002%=*novatel.ndi, NWADI\TOSHIBA-VNIC_0930_1302
+%NW000%=*novatel.ndi, NWADI\TOSHIBA-VNIC_0930_1303 
+
+[Models.NTamd64]
+%NW000%=*novatel.ndi, NWADI\TOSHIBA-VNIC_0930_1300
+%NW001%=*novatel.ndi, NWADI\TOSHIBA-VNIC_0930_1301
+%NW002%=*novatel.ndi, NWADI\TOSHIBA-VNIC_0930_1302
+%NW000%=*novatel.ndi, NWADI\TOSHIBA-VNIC_0930_1303
+
+;-------------------------------------------------------------------------------
+; INF SourceDisksNames Section
+;------------------------------------------------------------------------------- 
+[SourceDisksNames]
+1 = %novatel_disk%,,,""
+
+;-------------------------------------------------------------------------------
+; INF SourceDisksFiles Section
+;-------------------------------------------------------------------------------
+[SourceDisksFiles]
+nw02ndis.sys = 1,,
+
+[SourceDisksFiles.amd64]
+nw02nd64.sys = 1,,
+
+
+[NDIS_NT_DRIVER]
+nw02ndis.sys,,,0x20
+
+[NDIS_NT_DRIVERamd64]
+nw02ndis.sys,nw02nd64.sys,,0x20
+
+
+;-------------------------------------------------------------------------------
+; INF DestinationDirs Section
+;-------------------------------------------------------------------------------
+[DestinationDirs]
+DefaultDestDir           =12 ; system dir
+
+;-------------------------------------------------------------------------------
+; INF DDInstall Section
+;-------------------------------------------------------------------------------
+[*novatel.ndi.NT]
+AddReg          = novatel.w2k.reg, NOVATEL.params.reg
+CopyFiles       = NDIS_NT_DRIVER
+Characteristics = 0x81 ; NCF_ flags
+
+[*novatel.ndi.NTamd64]
+AddReg          = novatel.w2k.reg, NOVATEL.params.reg
+CopyFiles       = NDIS_NT_DRIVERamd64
+Characteristics = 0x81 ; NCF_ flags
+
+[novatel.w2k.reg]
+HKR, , Connect, 0x00010001, 0x01
+HKR, Ndi, Service, 0,"NW002NDIS"
+HKR, Ndi\Interfaces, UpperRange, 0, "ndis5"
+HKR, Ndi\Interfaces, LowerRange, 0, "ethernet"
+
+[NOVATEL.params.reg]
+HKR, NDI\params\NetworkAddress,           ParamDesc,      0, %NetworkAddress%
+HKR, NDI\params\NetworkAddress,           type,           0, "edit"
+HKR, NDI\params\NetworkAddress,           LimitText,      0, "12"
+HKR, NDI\params\NetworkAddress,           UpperCase,      0, "1"
+HKR, NDI\params\NetworkAddress,           default,        0, " "
+HKR, NDI\params\NetworkAddress,           optional,       0, "1"
+
+;-------------------------------------------------------------------------------
+; INF DDInstall.Services Section
+;-------------------------------------------------------------------------------
+[*novatel.ndi.NT.Services]
+AddService = NW002NDIS, 2, novatel.Service, novatel.EventLog
+
+[*novatel.ndi.NTamd64.Services]
+AddService = NW002NDIS, 2, novatel.Service, novatel.EventLog
+
+
+[novatel.Service]
+DisplayName     = %novatel.Service.DispName%
+ServiceType     = 1 ;%SERVICE_KERNEL_DRIVER%
+StartType       = 3 ;%SERVICE_DEMAND_START%
+ErrorControl    = 1 ;%SERVICE_ERROR_NORMAL%
+ServiceBinary   = %12%\nw02ndis.sys
+LoadOrderGroup  = NDIS
+
+[novatel.EventLog]
+AddReg = novatel.AddEventLog.reg
+
+[novatel.AddEventLog.reg]
+HKR, , EventMessageFile, 0x00020000, "%%SystemRoot%%\System32\netevent.dll"
+HKR, , TypesSupported,   0x00010001, 7
+
+;-------------------------------------------------------------------------------
+; INF Strings Section
+;-------------------------------------------------------------------------------
+[strings]
+Mfg                      = "Novatel Wireless Inc"
+novatel.Service.DispName = "Novatel Network Adapter Service 02"
+NetworkAddress           = "Network Address (MAC)"
+novatel_disk             = "Novatel CDMA Driver Install Disk"
+NW000            = "Novatel Wireless Broadband (CDMA EV-DO) SM-Bus Minicard Network Adapter"
+NW001            = "Novatel Wireless Broadband (CDMA EV-DO) Minicard Network Adapter"
+NW002            = "Novatel Wireless Mobile Broadband (3G HSDPA) SM-Bus Minicard Network Adapter"
+NW003            = "Novatel Wireless Mobile Broadband (3G HSDPA) Minicard Network Adapter"

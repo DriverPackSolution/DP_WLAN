@@ -1,0 +1,242 @@
+;*;*******************************************************************************************
+;
+;FILE:
+;
+;    WUSB54GV2.inf
+;
+;DESCRIPTION:
+;            Linksys Wireless-G USB Network Adapter v2.0
+;            Copyright (C) 2004, Cisco System, Inc. All rights reserved.
+;
+;
+;
+;*******************************************************************************************
+
+[Version]
+ DriverVer = 03/30/2004, 3.00.12.0
+ Signature           = "$Chicago$"
+ Compatible          = 1
+ Class               = Net
+ ClassGUID           = {4d36e972-e325-11ce-bfc1-08002be10318}
+ Provider            = %VENDOR%
+ CatalogFile         = WUSB54GV2.cat
+
+[ControlFlags]
+;Exclude all PNP adapters from user selection
+ ExcludeFromSelect   = *
+
+[Manufacturer]
+ %MANUFACTURE% = DeviceList
+
+[DeviceList]
+ %PRODUCT_NAME%     = WUSB54GV2,        USB\Vid_13b1&Pid_000a
+
+;==========
+[WUSB54GV2]       ; Win9x
+ AddReg         = WUSB54GV2.reg, COMMON_A02.reg, COMMON_NDIS.reg, COMMON.reg
+ CopyFiles      = USB_DRIVER.copy
+
+[WUSB54GV2.NT]    ; Win2k and WinXP
+ AddReg         = WUSB54GV2.reg, COMMON_A02.reg, COMMON_NDIS.reg.NT, COMMON.reg
+ CopyFiles      = USB_DRIVER.copy.NT
+ BusType        = 15 ; PNP (allows USB)
+ Characteristics= 0x84  ; NCF_PHYSICAL | NCF_HAS_UI
+
+[WUSB54GV2.NT.Services]
+ AddService= "PRISM_A02", 2, PRISM_DRIVER_A02.Service, PRISM_DRIVER.EventLog
+
+
+[WUSB54GV2.reg]
+ HKR,Ndi,DeviceID,0,"USB\Vid_13b1&Pid_000a"
+; 0x3890 = 14480 0x3887 = 14471
+ HKR,,PlatformID,0,14480
+ HKR,,UsbVariant,0,14471
+ HKR,,VendorDesc,0,%A022_DESC_STR%
+ HKR,,FWFileName,0,"PRISMA02.arm"
+
+;###############################################################################
+
+[PRISM_DRIVER_A02.Service]
+ DisplayName    = %WUSB54GV2_SERVICE%
+ Description    = "%HelpText%"
+ ServiceType    = 1    ; SERVICE_KERNEL_DRIVER
+ StartType      = 3    ; SERVICE_DEMAND_START
+ ErrorControl   = 1    ; NORMAL
+ ServiceBinary  = %12%\WUSBGXP.sys
+ LoadOrderGroup = NDIS
+
+[PRISM_DRIVER.EventLog]
+ AddReg         = PRISM_DRIVER.EventLog.reg
+
+[PRISM_DRIVER.EventLog.reg]
+ HKR,           ,EventMessageFile       ,0x00020000     ,"%%SystemRoot%%\System32\netevent.dll"
+ HKR,           ,TypesSupported         ,0x00010001     ,7
+
+;###############################################################################
+
+[COMMON_A02_DEL.reg]
+ HKR,                   ,FWFileName
+
+[COMMON_A02.reg]
+ HKR,NDI                ,CardType               ,0      ,"USB"
+ HKR,                   ,BusType                ,0      ,"0"  ; Inconsistency with earlier definition is needed.
+
+[COMMON_NDIS.reg]
+; Win9X
+ HKR,                   ,RunningWin9X           ,0      ,"1"
+ HKR,                   ,DevLoader              ,0      ,"*ndis"
+ HKR,                   ,EnumPropPages          ,0      ,"netdi.dll,EnumPropPages"
+ HKR,                   ,DeviceVxDs             ,0      ,"WUSBG9x.sys"
+ HKR,NDI\Interfaces     ,UpperRange             ,0      ,"ndis3"
+ HKR,NDI\Interfaces     ,LowerRange             ,0      ,"ethernet"
+ HKR,NDI\Interfaces     ,DefUpper               ,0      ,"ndis3"
+ HKR,NDI\Interfaces     ,DefLower               ,0      ,"ethernet"
+ HKR,NDIS               ,LogDriverName          ,0      ,"PRISM"
+ HKR,NDIS               ,MajorNdisVersion       ,1      ,04
+ HKR,NDIS               ,MinorNdisVersion       ,1      ,00
+
+[COMMON_NDIS.reg.NT]
+ HKR,NDI                ,Service                ,0      ,"PRISM_A02"
+ HKR,Ndi	            ,HelpText				,0		,"%HelpText%"
+ HKR,NDI\Interfaces     ,UpperRange             ,0      ,"ndis5"
+ HKR,NDI\Interfaces     ,LowerRange             ,0      ,"ethernet"
+
+[COMMON.reg]
+ HKR,                   ,SSID                   ,0      ,"PRISM-SSID"
+ HKR,                   ,PRISMIOC               ,0      ,"1"
+ HKR,                   ,SilentInstall          ,0      ,"1"
+;Uncomment the line above to install without user interface prompts
+
+ HKR,,ConfigProfile,0,256
+ HKR,NDI\params\ConfigProfile,default,0,256
+ HKR,NDI\params\ConfigProfile,ParamDesc,,%CONFIG_PROFILE%
+ HKR,NDI\params\ConfigProfile,type,0,"enum"
+ HKR,NDI\params\ConfigProfile,flag,1,30,00,00,00
+ HKR,NDI\params\ConfigProfile,default,0,"256"
+ HKR,NDI\params\ConfigProfile\enum,0,,%CONFIG_PROF_B_ONLY%
+ HKR,NDI\params\ConfigProfile\enum,1,,%CONFIG_PROF_MIXED%
+ HKR,NDI\params\ConfigProfile\enum,2,,%CONFIG_PROF_MIXED_LONG%
+ HKR,NDI\params\ConfigProfile\enum,3,,%CONFIG_PROF_G_ONLY%
+ HKR,NDI\params\ConfigProfile\enum,4,,%CONFIG_PROF_TEST%
+ HKR,NDI\params\ConfigProfile\enum,5,,%CONFIG_PROF_B_WIFI%
+ HKR,NDI\params\ConfigProfile\enum,6,,%CONFIG_PROF_MIXED_SHORT%
+ HKR,NDI\params\ConfigProfile\enum,256,,%CONFIG_PROF_WIFI_SPEC%
+ HKR,NDI\params\ConfigProfile,optional,0,1
+
+ HKR,,NitroMode,0,"1"
+ HKR,NDI\params\NitroMode,default,0,1
+ HKR,NDI\params\NitroMode,ParamDesc,,%NITRO_MODE%
+ HKR,NDI\params\NitroMode,type,0,"enum"
+ HKR,NDI\params\NitroMode,flag,1,30,00,00,00
+ HKR,NDI\params\NitroMode,default,0,"1"
+ HKR,NDI\params\NitroMode\enum,0,,%OFF_STR%
+ HKR,NDI\params\NitroMode\enum,1,,%ON_STR%
+ HKR,NDI\params\NitroMode,optional,0,1
+
+ HKR,,PSMode,0,1
+ HKR,Ndi\params\PSMode,default,0,1
+ HKR,NDI\params\PSMode,ParamDesc,0,%POWER_SAVE_STR%
+ HKR,NDI\params\PSMode,type,0,"enum"
+ HKR,NDI\params\PSMode,flag,1,30,00,00,00
+ HKR,NDI\params\PSMode,default,0,"1"
+ HKR,NDI\params\PSMode\enum,1,,%POWER_SAVE_OFF_STR%
+ HKR,NDI\params\PSMode\enum,2,,%POWER_SAVE_DYN_STR%
+ HKR,NDI\params\PSMode\enum,3,,%POWER_SAVE_MAX_STR%
+ HKR,NDI\params\PSMode,optional,0,1
+
+; HKR,,11dMode,0,0  ; Default 11dMode to none.
+ 
+ HKR,NDI\params\PpePdlpEnable,default,0,1
+ HKR,NDI\params\PpePdlpEnable,ParamDesc,,%PPE_PDLP%
+ HKR,NDI\params\PpePdlpEnable,type,,enum
+ HKR,NDI\params\PpePdlpEnable,flag,1,30,00,00,00
+ HKR,NDI\params\PpePdlpEnable\enum,0,,%OFF_STR%
+ HKR,NDI\params\PpePdlpEnable\enum,1,,%ON_STR%
+ HKR,NDI\params\PpePdlpEnable,optional,0,1
+
+ HKR,NDI\params\PpeCompressEnable,default,0,1
+ HKR,NDI\params\PpeCompressEnable,ParamDesc,,%PPE_COMPRESS%
+ HKR,NDI\params\PpeCompressEnable,type,,enum
+ HKR,NDI\params\PpeCompressEnable,flag,1,30,00,00,00
+ HKR,NDI\params\PpeCompressEnable\enum,0,,%OFF_STR%
+ HKR,NDI\params\PpeCompressEnable\enum,1,,%ON_STR%
+ HKR,NDI\params\PpeCompressEnable,optional,0,1
+
+
+ HKR,NDI\params\PpeConcatEnable,default,0,1
+ HKR,NDI\params\PpeConcatEnable,ParamDesc,,%PPE_CONCAT%
+ HKR,NDI\params\PpeConcatEnable,type,,enum
+ HKR,NDI\params\PpeConcatEnable,flag,1,30,00,00,00
+ HKR,NDI\params\PpeConcatEnable\enum,0,,%OFF_STR%
+ HKR,NDI\params\PpeConcatEnable\enum,1,,%ON_STR%
+ HKR,NDI\params\PpeConcatEnable,optional,0,1
+
+ HKR,NDI\params\PpePiggyBackEnable,default,0,1
+ HKR,NDI\params\PpePiggyBackEnable,ParamDesc,,%PPE_PIGGYBACK%
+ HKR,NDI\params\PpePiggyBackEnable,type,,enum
+ HKR,NDI\params\PpePiggyBackEnable,flag,1,30,00,00,00
+ HKR,NDI\params\PpePiggyBackEnable\enum,0,,%OFF_STR%
+ HKR,NDI\params\PpePiggyBackEnable\enum,1,,%ON_STR%
+ HKR,NDI\params\PpePiggyBackEnable,optional,0,1
+
+;###############################################################################
+[DestinationDirs]
+;CopyFiles Section      = Destination Directory ID -- see layout.inf
+;-----------------        ------------------------
+ DefaultDestDir         = 11 ; Win9x=%windir%\system Win2k=%windir%\system32
+ USB_DRIVER.copy      = 11 ; Win9x=%windir%\system
+ USB_DRIVER.copy.NT   = 12 ; Win2k=%windir%\system32\drivers
+
+[USB_DRIVER.copy]
+ WUSBG9x.sys
+
+[USB_DRIVER.copy.NT]
+ WUSBGXP.sys
+
+[SourceDisksNames]
+;Source Disk ID         = Disk Name
+;--------------           ---------
+ 1                      = %INSTALL_DISK_STR%,,,
+
+[SourceDisksFiles]      ; Win9x
+;File Name              = Source Disk ID
+;---------                --------------
+ WUSBG9x.sys           = 1
+
+[SourceDisksFiles.X86]  ; Win2k/Xp
+ WUSBGXP.sys           = 1
+
+;###############################################################################
+[Strings]
+;String ID               = String Text
+;---------                 -----------
+ VENDOR          = "Linksys"
+ MANUFACTURE     = "Cisco-Linksys, LLC."
+ INSTALL_DISK_STR        = "Linksys Wireless-G USB Network Adapter Disk"
+
+ PRODUCT_NAME           = "Linksys Wireless-G USB Network Adapter"
+ WUSB54GV2_SERVICE        = "WUSB54GV2 802.11g USB Driver"
+ HelpText		= "The Linksys Wireless-G USB Network Adapter provides wireless local area networking."
+ A022_DESC_STR           = "Linksys Wireless-G USB Network Adapter"
+
+ ON_STR                  = "On"
+ OFF_STR                 = "Off"
+ POWER_SAVE_STR          = "Power Save Mode"
+ POWER_SAVE_OFF_STR      = "Disabled"
+ POWER_SAVE_DYN_STR      = "Dynamic"
+ POWER_SAVE_MAX_STR      = "Maximum"
+ CONFIG_PROFILE          = "Configuration Profile"
+ CONFIG_PROF_B_ONLY      = "B only"
+ CONFIG_PROF_MIXED       = "Mixed"
+ CONFIG_PROF_MIXED_LONG  = "Mixed Long"
+ CONFIG_PROF_G_ONLY      = "G only"
+ CONFIG_PROF_TEST        = "Test"
+ CONFIG_PROF_B_WIFI      = "B WiFi"
+ CONFIG_PROF_MIXED_SHORT = "Mixed Short"
+ CONFIG_PROF_WIFI_SPEC   = "WiFi Spec"
+ NITRO_MODE              = "Nitro Mode"
+ PPE_PDLP                = "Direct Link"
+ PPE_COMPRESS            = "Compression"
+ PPE_CONCAT              = "Concatenation"
+ PPE_PIGGYBACK           = "PiggyBack"
+

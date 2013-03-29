@@ -1,0 +1,442 @@
+;***********************************************************************
+;
+; NETUKB11.INF
+;
+;   Copyright (c) 2001 Intersil Corporation
+;   All Rights Reserved.
+;   Developed by TriplePoint, Inc. -- http://www.TriplePoint.com
+;
+;   Copyright (c) 2001-2003 MELCO INC.
+;   All Rights Reserved.
+;
+;***********************************************************************
+
+[Version]
+ DriverVer = 08/01/2003, 3.0.4.208
+ Signature           = "$Chicago$"
+ Compatible          = 1
+ Class               = Net
+ ClassGUID           = {4d36e972-e325-11ce-bfc1-08002be10318}
+ Provider            = %VER_VENDOR_STR%
+ MillenniumPreferred = .ME
+CatalogFile          = wliukb11.cat
+
+[ControlFlags]
+;Exclude all PNP adapters from user selection
+ ExcludeFromSelect   = USB\VID_0411&PID_0044
+ ExcludeFromSelect   = USB\VID_0411&PID_0016
+ ExcludeFromSelect   = USB\VID_0411&PID_0027
+
+[Manufacturer]
+ %VER_VENDOR_NAME_STR% = DeviceList
+
+[DeviceList]
+ %WLIUSBKB11_STR%  = WLIUSBKB11,  USB\VID_0411&PID_0044
+ %WLIUSBS11_STR%   = WLIUSBS11,   USB\VID_0411&PID_0016
+ %WLIUSBKS11G_STR% = WLIUSBKS11G, USB\VID_0411&PID_0027
+
+;==========================================
+[WLIUSBKB11]            ; Win9x
+ AddReg         = WLIUSBKB11.reg, COMMON_USB.reg, COMMON_NDIS.reg, COMMON.reg
+ CopyFiles      = WLIUSBS11_DRIVER.copy
+
+[WLIUSBKB11.ME]         ; WinMe
+ AddReg         = WLIUSBKB11.reg, COMMON_USB.reg, COMMON_NDIS.reg.ME, COMMON.reg
+ CopyFiles      = WLIUSBS11_DRIVER.copy.ME
+
+[WLIUSBKB11.ME.ME]      ; WinMe - Same as .ME (Needed for Update Driver)
+ AddReg         = WLIUSBKB11.reg, COMMON_USB.reg, COMMON_NDIS.reg.ME, COMMON.reg
+ CopyFiles      = WLIUSBS11_DRIVER.copy.ME
+
+[WLIUSBKB11.NT]         ; Win2k
+ AddReg         = WLIUSBKB11.reg, COMMON_USB.reg, COMMON_NDIS.reg.NT, COMMON.reg
+ CopyFiles      = WLIUSBS11_DRIVER.copy.NT
+ BusType        = 0     ; USB
+ Characteristics= 0x84  ; NCF_PHYSICAL | NCF_HAS_UI
+
+[WLIUSBKB11.NT.Services]
+ AddService     = "WLIUS11", 2, WLIUSBKB11_DRIVER.Service, WLIUSBS11_DRIVER.EventLog
+
+[WLIUSBKB11.reg]
+ HKR,Ndi        ,DeviceID,0,"VID_0411&PID_0044"
+ HKR,           ,PlatformId,0,"0"
+ HKR,           ,VendorDesc,0,%WLIUSBKB11_STR%
+ HKR,           ,LoadFirmware,0,0
+ HKR, NDI\params\LoadFirmware,,0,0
+ HKR,           ,DisableAdhoc,0,0
+ HKR,           ,DisableXPAdhoc,0,0
+ HKR,           ,BasicRates,0,3
+ HKR, NDI\params\BasicRates,,0,3
+ HKR,           ,TxRate,0,15
+ HKR, NDI\params\TxRate,,0,15
+
+[WLIUSBKB11_DRIVER.Service]
+ DisplayName    = %WLIUSBS11_SERVICE_DISPLAY%
+ ServiceType    = 1    ; SERVICE_KERNEL_DRIVER
+ StartType      = 3    ; SERVICE_DEMAND_START
+ ErrorControl   = 1    ; NORMAL
+ ServiceBinary  = %12%\WLIUKB11.sys
+ LoadOrderGroup = NDIS
+
+;==========================================
+[WLIUSBS11]            ; Win9x
+ AddReg         = WLIUSBS11.reg, COMMON_USBS11.reg, COMMON_NDIS.reg, COMMON.reg
+ CopyFiles      = WLIUSBS11_DRIVER.copy
+
+[WLIUSBS11.ME]         ; WinMe
+ AddReg         = WLIUSBS11.reg, COMMON_USBS11.reg, COMMON_NDIS.reg.ME, COMMON.reg
+ CopyFiles      = WLIUSBS11_DRIVER.copy.ME
+
+[WLIUSBS11.ME.ME]      ; WinMe - Same as .ME (Needed for Update Driver)
+ AddReg         = WLIUSBS11.reg, COMMON_USBS11.reg, COMMON_NDIS.reg.ME, COMMON.reg
+ CopyFiles      = WLIUSBS11_DRIVER.copy.ME
+
+[WLIUSBS11.NT]         ; Win2k
+ AddReg         = WLIUSBS11.reg, COMMON_USBS11.reg, COMMON_NDIS.reg.NT, COMMON.reg
+ CopyFiles      = WLIUSBS11_DRIVER.copy.NT
+ BusType        = 0     ; USB
+ Characteristics= 0x84  ; NCF_PHYSICAL | NCF_HAS_UI
+
+[WLIUSBS11.NT.Services]
+ AddService     = "WLIUS11", 2, WLIUSBS11_DRIVER.Service, WLIUSBS11_DRIVER.EventLog
+
+[WLIUSBS11.reg]
+ HKR,Ndi        ,DeviceID,0,"USB\VID_0411&PID_0016"
+ HKR,           ,PlatformId,0,"0"
+ HKR,           ,VendorDesc,0,%WLIUSBS11_STR%
+ HKR,           ,LoadFirmware,0,0
+ HKR, NDI\params\LoadFirmware,,0,0
+ HKR,           ,DisableAdhoc,0,0
+ HKR,           ,DisableXPAdhoc,0,0
+ HKR,           ,BasicRates,0,3
+ HKR, NDI\params\BasicRates,,0,3
+ HKR,           ,TxRate,0,15
+ HKR, NDI\params\TxRate,,0,15
+
+[WLIUSBS11_DRIVER.Service]
+ DisplayName    = %WLIUSBS11_SERVICE_DISPLAY%
+ ServiceType    = 1    ; SERVICE_KERNEL_DRIVER
+ StartType      = 3    ; SERVICE_DEMAND_START
+ ErrorControl   = 1    ; NORMAL
+ ServiceBinary  = %12%\WLIUKB11.sys
+ LoadOrderGroup = NDIS
+
+;==========================================
+[WLIUSBKS11G]            ; Win9x
+ AddReg         = WLIUSBKS11G.reg, COMMON_USBS11.reg, COMMON_NDIS.reg, COMMON.reg
+ CopyFiles      = WLIUSBS11_DRIVER.copy
+
+[WLIUSBKS11G.ME]         ; WinMe
+ AddReg         = WLIUSBKS11G.reg, COMMON_USBS11.reg, COMMON_NDIS.reg.ME, COMMON.reg
+ CopyFiles      = WLIUSBS11_DRIVER.copy.ME
+
+[WLIUSBKS11G.ME.ME]      ; WinMe - Same as .ME (Needed for Update Driver)
+ AddReg         = WLIUSBKS11G.reg, COMMON_USBS11.reg, COMMON_NDIS.reg.ME, COMMON.reg
+ CopyFiles      = WLIUSBS11_DRIVER.copy.ME
+
+[WLIUSBKS11G.NT]         ; Win2k
+ AddReg         = WLIUSBKS11G.reg, COMMON_USBS11.reg, COMMON_NDIS.reg.NT, COMMON.reg
+ CopyFiles      = WLIUSBS11_DRIVER.copy.NT
+ BusType        = 0     ; USB
+ Characteristics= 0x84  ; NCF_PHYSICAL | NCF_HAS_UI
+
+[WLIUSBKS11G.NT.Services]
+ AddService     = "WLIUS11", 2, WLIUSBKS11G_DRIVER.Service, WLIUSBS11_DRIVER.EventLog
+
+[WLIUSBKS11G.reg]
+ HKR,Ndi        ,DeviceID,0,"USB\VID_0411&PID_0027"
+ HKR,           ,PlatformId,0,"0"
+ HKR,           ,VendorDesc,0,%WLIUSBKS11G_STR%
+ HKR,           ,LoadFirmware,0,0
+ HKR, NDI\params\LoadFirmware,,0,0
+ HKR,           ,DisableAdhoc,0,0
+ HKR,           ,DisableXPAdhoc,0,0
+ HKR,           ,BasicRates,0,3
+ HKR, NDI\params\BasicRates,,0,3
+ HKR,           ,TxRate,0,15
+ HKR, NDI\params\TxRate,,0,15
+
+[WLIUSBKS11G_DRIVER.Service]
+ DisplayName    = %WLIUSBS11_SERVICE_DISPLAY%
+ ServiceType    = 1    ; SERVICE_KERNEL_DRIVER
+ StartType      = 3    ; SERVICE_DEMAND_START
+ ErrorControl   = 1    ; NORMAL
+ ServiceBinary  = %12%\WLIUKB11.sys
+ LoadOrderGroup = NDIS
+
+;===============================================
+
+[WLIUSBS11_DRIVER.EventLog]
+ AddReg         = WLIUSBS11_DRIVER.EventLog.reg
+
+[WLIUSBS11_DRIVER.EventLog.reg]
+ HKR,           ,EventMessageFile       ,0x00020000     ,"%%SystemRoot%%\System32\netevent.dll"
+ HKR,           ,TypesSupported         ,0x00010001     ,7
+
+;###############################################################################
+[COMMON_USB.reg]
+ HKR,NDI                ,Service                ,0      ,"WLIUS11"
+ HKR,NDI                ,CardType               ,0      ,"USB"
+ HKR,                   ,BusType                ,0      ,"0"
+ HKR,                   ,DeviceVxDs             ,0      ,"WLIUKB11.sys"
+
+[COMMON_USBS11.reg]
+ HKR,NDI                ,Service                ,0      ,"WLIUS11"
+ HKR,NDI                ,CardType               ,0      ,"USB"
+ HKR,                   ,BusType                ,0      ,"0"
+ HKR,                   ,DeviceVxDs             ,0      ,"WLIUKB11.sys"
+
+[COMMON_NDIS.reg]
+ HKR,                   ,RunningWin9X           ,0      ,"1"
+ HKR,                   ,DevLoader              ,0      ,"*ndis"
+ HKR,                   ,EnumPropPages          ,0      ,"netdi.dll,EnumPropPages"
+ HKR,NDI\Interfaces     ,UpperRange             ,0      ,"ndis3"
+ HKR,NDI\Interfaces     ,LowerRange             ,0      ,"ethernet"
+ HKR,NDI\Interfaces     ,DefUpper               ,0      ,"ndis3"
+ HKR,NDI\Interfaces     ,DefLower               ,0      ,"ethernet"
+ HKR,NDIS               ,LogDriverName          ,0      ,"WLIUKB11"
+ HKR,NDIS               ,MajorNdisVersion       ,1      ,03
+ HKR,NDIS               ,MinorNdisVersion       ,1      ,0a
+
+ HKR,defaults,PSMode,0,1
+ HKR,NDI\params\PSMode,,0,1
+ HKR,Ndi\params\PSMode,default,0,1
+ HKR,NDI\params\PSMode,ParamDesc,,%POWER_SAVE_STR%
+ HKR,NDI\params\PSMode,type,,enum
+ HKR,NDI\params\PSMode,flag,1,30,00,00,00
+ HKR,NDI\params\PSMode\enum,1,,"Disable"
+ HKR,NDI\params\PSMode\enum,2,,"Always Enable"
+ HKR,NDI\params\PSMode,optional,0,1
+
+[COMMON_NDIS.reg.ME]
+ HKR,                   ,RunningWin9X           ,0      ,"1"
+ HKR,                   ,DevLoader              ,0      ,"*ndis"
+ HKR,                   ,EnumPropPages          ,0      ,"netdi.dll,EnumPropPages"
+ HKR,NDI\Interfaces     ,UpperRange             ,0      ,"ndis3"
+ HKR,NDI\Interfaces     ,LowerRange             ,0      ,"ethernet"
+ HKR,NDI\Interfaces     ,DefUpper               ,0      ,"ndis3"
+ HKR,NDI\Interfaces     ,DefLower               ,0      ,"ethernet"
+ HKR,NDIS               ,LogDriverName          ,0      ,"WLIUKB11"
+ HKR,NDIS               ,MajorNdisVersion       ,1      ,03
+ HKR,NDIS               ,MinorNdisVersion       ,1      ,0a
+
+ HKR,defaults,PSMode,0,1
+ HKR,NDI\params\PSMode,,0,1
+ HKR,Ndi\params\PSMode,default,0,1
+ HKR,NDI\params\PSMode,ParamDesc,,%POWER_SAVE_STR%
+ HKR,NDI\params\PSMode,type,,enum
+ HKR,NDI\params\PSMode,flag,1,30,00,00,00
+ HKR,NDI\params\PSMode\enum,1,,"Disable"
+ HKR,NDI\params\PSMode\enum,2,,"Always Enable"
+ HKR,NDI\params\PSMode,optional,0,1
+
+[COMMON_NDIS.reg.NT]
+ HKR,NDI\Interfaces     ,UpperRange             ,0      ,"ndis5"
+ HKR,NDI\Interfaces     ,LowerRange             ,0      ,"ethernet"
+
+ HKR,defaults,PSMode,0,1
+ HKR,NDI\params\PSMode,,0,1
+ HKR,Ndi\params\PSMode,default,0,1
+ HKR,NDI\params\PSMode,ParamDesc,,%POWER_SAVE_STR%
+ HKR,NDI\params\PSMode,type,,enum
+ HKR,NDI\params\PSMode,flag,1,30,00,00,00
+ HKR,NDI\params\PSMode\enum,1,,"Disable"
+ HKR,NDI\params\PSMode\enum,2,,"Always Enable"
+ HKR,NDI\params\PSMode\enum,3,,"Auto Enable"
+ HKR,NDI\params\PSMode,optional,0,1
+
+[COMMON.reg]
+ HKR,                   ,PRISMIOC               ,0      ,"1"
+ HKR,                   ,SSID                   ,0      ,%DEFAULT_SSID%
+ HKR,                   ,NetworkType            ,       ,"1"
+ HKR,                   ,SilentInstall          ,0      ,"1"
+;Uncomment the line above to install without user interface prompts
+
+ HKR,defaults,ListenInterval,0,3
+ HKR,NDI\params\ListenInterval,,0,3
+ HKR,Ndi\params\ListenInterval,default,0,3
+ HKR,NDI\params\ListenInterval,ParamDesc,,%LISTENINTERVAL_STR%
+ HKR,NDI\params\ListenInterval,type,,int
+ HKR,NDI\params\ListenInterval,flag,1,30,00,00,00
+ HKR,NDI\params\ListenInterval,min,0,0
+ HKR,NDI\params\ListenInterval,max,0,77
+ HKR,NDI\params\ListenInterval,step,0,1
+ HKR,NDI\params\ListenInterval,optional,0,1
+
+ HKR,defaults,RTSThresh,0,2432
+ HKR,NDI\params\RTSThresh,,0,2432
+ HKR,Ndi\params\RTSThresh,default,0,2432
+ HKR,NDI\params\RTSThresh,ParamDesc,0,%RTSTHRESH_STR%
+ HKR,NDI\params\RTSThresh,type,0,int
+ HKR,NDI\params\RTSThresh,flag,1,20,00,00,00
+ HKR,NDI\params\RTSThresh,min,0,0
+ HKR,NDI\params\RTSThresh,max,0,2432
+ HKR,NDI\params\RTSThresh,step,0,64
+ HKR,NDI\params\RTSThresh,optional,0,1
+
+ HKR,defaults,FragThresh,0,2432
+ HKR,NDI\params\FragThresh,,0,2432
+ HKR,Ndi\params\FragThresh,default,0,2432
+ HKR,NDI\params\FragThresh,ParamDesc,0,%FRAGTHRESH_STR%
+ HKR,NDI\params\FragThresh,type,0,int
+ HKR,NDI\params\FragThresh,flag,1,20,00,00,00
+ HKR,NDI\params\FragThresh,min,0,256
+ HKR,NDI\params\FragThresh,max,0,2432
+ HKR,NDI\params\FragThresh,step,0,128
+ HKR,NDI\params\FragThresh,optional,0,1
+
+ HKR,defaults,PreambleMode,0,1
+ HKR,NDI\params\PreambleMode,,0,1
+ HKR,Ndi\params\PreambleMode,default,0,1
+ HKR,NDI\params\PreambleMode,ParamDesc,,%SHORT_PREAM_STR%
+ HKR,NDI\params\PreambleMode,type,,enum
+ HKR,NDI\params\PreambleMode,flag,1,30,00,00,00
+ HKR,NDI\params\PreambleMode\enum,1,,"Long Tx Preamble"
+ HKR,NDI\params\PreambleMode\enum,2,,"Short Tx Preamble"
+ HKR,NDI\params\PreambleMode\enum,3,,"Auto Tx Preamble"
+ HKR,NDI\params\PreambleMode,optional,0,1
+
+ HKR,defaults,AuthentAlg,0,65535
+ HKR,NDI\params\AuthentAlg,,0,65535
+ HKR,NDI\params\AuthentAlg,default,0,65535
+ HKR,NDI\params\AuthentAlg,ParamDesc,,%AUTHENT_TYPE_STR%
+ HKR,NDI\params\AuthentAlg,type,,enum
+ HKR,NDI\params\AuthentAlg,flag,1,30,00,00,00
+ HKR,NDI\params\AuthentAlg\enum,1,,"WECA Compliant (always use Open)"
+ HKR,NDI\params\AuthentAlg\enum,2,,"Must use Shared with WEP"
+ HKR,NDI\params\AuthentAlg\enum,65535,,"Automatic based on WEP setting"
+ HKR,NDI\params\AuthentAlg,optional,0,1
+
+ HKR,defaults,AdhocDemoMode,0,0
+ HKR,NDI\params\AdhocDemoMode,,0,0
+ HKR,Ndi\params\AdhocDemoMode,default,0,0
+ HKR,NDI\params\AdhocDemoMode,ParamDesc,,%ADHOC_DEMO_STR%
+ HKR,NDI\params\AdhocDemoMode,type,,enum
+ HKR,NDI\params\AdhocDemoMode,flag,1,30,00,00,00
+ HKR,NDI\params\AdhocDemoMode\enum,0,,"Disable"
+ HKR,NDI\params\AdhocDemoMode\enum,1,,"Enable"
+ HKR,NDI\params\AdhocDemoMode,optional,0,1
+
+ HKR,defaults,LoadFirmware,0,0
+;HKR,NDI\params\LoadFirmware,,0,0 ; Moved to device specific entry
+ HKR,Ndi\params\LoadFirmware,default,0,0
+ HKR,NDI\params\LoadFirmware,ParamDesc,,%LOAD_FIRMWARE_STR%
+ HKR,NDI\params\LoadFirmware,type,,enum
+ HKR,NDI\params\LoadFirmware,flag,1,30,00,00,00
+ HKR,NDI\params\LoadFirmware\enum,0,,"Disable"
+ HKR,NDI\params\LoadFirmware\enum,1,,"Enable"
+ HKR,NDI\params\LoadFirmware,optional,0,1
+
+ HKR,defaults,BasicRates,0,3
+; HKR,NDI\params\BasicRates,,0,3
+ HKR,Ndi\params\BasicRates,default,0,3
+ HKR,NDI\params\BasicRates,ParamDesc,,%BASIC_RATES_STR%
+ HKR,NDI\params\BasicRates,type,,enum
+ HKR,NDI\params\BasicRates,flag,1,30,00,00,00
+ HKR,NDI\params\BasicRates\enum,1,,"1Mbps"
+ HKR,NDI\params\BasicRates\enum,3,,"1, 2Mbps"
+ HKR,NDI\params\BasicRates\enum,7,,"1, 2, 5.5Mbps"
+ HKR,NDI\params\BasicRates\enum,15,,"1, 2, 5.5, 11Mbps"
+
+ HKR,defaults,TxRate,0,15
+; HKR,NDI\params\TxRate,,0,15
+ HKR,Ndi\params\TxRate,default,0,15
+ HKR,NDI\params\TxRate,ParamDesc,,%TRANSMIT_RATES_STR%
+ HKR,NDI\params\TxRate,type,,enum
+ HKR,NDI\params\TxRate,flag,1,30,00,00,00
+ HKR,NDI\params\TxRate\enum,1,,"Fixed 1Mbps"
+ HKR,NDI\params\TxRate\enum,2,,"Fixed 2Mbps"
+ HKR,NDI\params\TxRate\enum,3,,"1, 2Mbps"
+ HKR,NDI\params\TxRate\enum,4,,"Fixed 5.5Mbps"
+ HKR,NDI\params\TxRate\enum,8,,"Fixed 11Mbps"
+ HKR,NDI\params\TxRate\enum,15,,"Fully Auto"
+
+ HKR,defaults,PDwellTime,0,120
+ HKR,NDI\params\PDwellTime,,0,120
+ HKR,Ndi\params\PDwellTime,default,0,120
+ HKR,NDI\params\PDwellTime,ParamDesc,0,%PDWELL_STR%
+ HKR,NDI\params\PDwellTime,type,0,int
+ HKR,NDI\params\PDwellTime,flag,1,20,00,00,00
+ HKR,NDI\params\PDwellTime,min,0,0
+ HKR,NDI\params\PDwellTime,max,0,1000
+ HKR,NDI\params\PDwellTime,step,0,10
+ HKR,NDI\params\PDwellTime,optional,0,1
+
+ HKR,defaults,11dMode,0,0
+ HKR,NDI\params\11dMode,,0,0
+ HKR,Ndi\params\11dMode,default,0,0
+ HKR,NDI\params\11dMode,ParamDesc,,%MDC_CONTROL_STR%
+ HKR,NDI\params\11dMode,type,,enum
+ HKR,NDI\params\11dMode,flag,1,30,00,00,00
+ HKR,NDI\params\11dMode\enum,0,,"None"
+ HKR,NDI\params\11dMode\enum,1,,"Strict"
+ HKR,NDI\params\11dMode\enum,2,,"Flexible"
+
+;###############################################################################
+[DestinationDirs]
+;CopyFiles Section      = Destination Directory ID -- see layout.inf
+;-----------------        ------------------------
+ DefaultDestDir           = 11 ; Win9x=%windir%\system Win2k=%windir%\system32
+ WLIUSBS11_DRIVER.copy    = 11 ; Win9x=%windir%\system
+ WLIUSBS11_DRIVER.copy.ME = 11 ; Win9x=%windir%\system
+ WLIUSBS11_DRIVER.copy.NT = 12 ; Win2k=%windir%\system32\drivers
+
+[WLIUSBS11_DRIVER.copy]
+ WLIUKB11.sys
+ PRISMIOC.vxd           ; Win9x Ioctl interface
+
+[WLIUSBS11_DRIVER.copy.ME]
+ WLIUKB11.sys
+ PRISMIOC.vxd           ; Win9x Ioctl interface
+
+[WLIUSBS11_DRIVER.copy.NT]
+ WLIUKB11.sys
+
+[SourceDisksNames]
+;Source Disk ID         = Disk Name
+;--------------           ---------
+ 1                      = %INSTALL_DISK_STR%,,,
+
+[SourceDisksFiles]      ; Win9x
+;File Name              = Source Disk ID
+;---------                --------------
+ PRISMIOC.vxd           = 1
+ WLIUKB11.sys            = 1
+
+[SourceDisksFiles.ME]   ; WinMe
+ PRISMIOC.vxd           = 1
+ WLIUKB11.sys            = 1
+
+[SourceDisksFiles.X86]  ; Win2k/Xp
+ WLIUKB11.sys            = 1
+
+;###############################################################################
+[Strings]
+;String ID                   = String Text
+;---------                     -----------
+ VER_VENDOR_STR              = "MELCO INC."
+ VER_VENDOR_NAME_STR         = "MELCO INC."
+
+ WLIUSBKB11_STR              = "BUFFALO WLI-USB-KB11 Wireless LAN Adapter"
+ WLIUSBS11_STR               = "BUFFALO WLI-USB-S11 Wireless LAN Adapter"
+ WLIUSBKS11G_STR             = "BUFFALO WLI-USB-KS11G Wireless LAN Adapter"
+
+ WLIUSBKB11_SERVICE_DISPLAY  = "BUFFALO WLI-USB-KB11 Wireless LAN Adapter Service"
+ WLIUSBS11_SERVICE_DISPLAY   = "BUFFALO WLI-USB-S11 Wireless LAN Adapter Service"
+ WLIUSBKS11G_SERVICE_DISPLAY = "BUFFALO WLI-USB-KS11G Wireless LAN Adapter Service"
+ INSTALL_DISK_STR            = "AirNavigator CD"
+
+ ADHOC_DEMO_STR              = "Adhoc Demo Mode"
+ SHORT_PREAM_STR             = "Preamble Mode"
+ RTSTHRESH_STR               = "RTS Threshold"
+ FRAGTHRESH_STR              = "Fragmentation Threshold"
+ AUTHENT_TYPE_STR            = "Authentication Algorithm"
+ LISTENINTERVAL_STR          = "Listen Interval"
+ POWER_SAVE_STR              = "Power Save Mode"
+ POWER_LEVEL_STR             = "Power Save Level"
+ LOAD_FIRMWARE_STR           = "Firmware Download"
+ DEFAULT_SSID                = "ANY"
+ BASIC_RATES_STR             = "Basic Rates"
+ TRANSMIT_RATES_STR          = "Transmit Rate"
+ PDWELL_STR                  = "Passive Scan Dwell Time"
+ MDC_CONTROL_STR             = "802.11D Control"

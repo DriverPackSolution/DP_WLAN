@@ -1,0 +1,298 @@
+;**************************************************************************
+;             Copyright 2002-2003 ADMtek Incorporated.
+;          Windows 2000 & Win98 combined inf for NDIS5 driver
+;**************************************************************************
+
+[version]
+Signature   = "$CHICAGO$"
+Compatible  = 1
+Class       = Net
+ClassGUID   = {4d36e972-e325-11ce-bfc1-08002be10318}
+Provider    = %ADMtek%
+;LayoutFile  = layout.inf                             ;; for put-on-list
+;CatalogFile = netadm11.cat                            ;; for WHQL certified
+DriverVer   = 11/12/2002, 1.69.1112.2002
+
+[Manufacturer]
+%ADMtek% = ADMtek
+
+[ControlFlags]
+ExcludeFromSelect = \
+			PCI\VEN_1317&DEV_8201
+
+[ADMtek]
+%ADM8211.DeviceDesc%   = ADM8211.ndi,     PCI\VEN_1317&DEV_8201&SUBSYS_C1021259
+
+;----------------------------
+; Windows 98                 
+;----------------------------
+[ADM8211.ndi]
+AddReg          = ADM8211.Reg, ADMtek.common.Reg, ADMtek.pci.reg, ADMtek.con.reg
+CopyFiles       = ADMtek.ndis.copyfiles
+
+;----------------------------
+; Windows 2000               
+;----------------------------
+[ADM8211.ndi.NT]
+Characteristics = 0x84
+BusType         = 5
+AddReg          = ADM8211.ndi.reg, ADMtek.ndi.common.reg, ADMtek.pci.reg, ADMtek.con.reg
+CopyFiles       = ADMtek.ndis.copyfiles.NT
+
+[ADM8211.ndi.NT.Services]
+AddService      = ADM8211, 2, ADMtek.Service, ADMtek.EventLog
+
+
+[ADMtek.ndis.copyfiles]
+COWPCIB5.sys,,,2
+
+[ADMtek.ndis.copyfiles.NT]
+COWPCIB5.sys,,,2
+
+
+;-------------------------------------------------------------------------
+; Windows 98 Parameters
+;-------------------------------------------------------------------------
+;; key,subkey,valuname,type,value
+[ADM8211.Reg]
+HKR, NDI,            DeviceID,          , "PCI\VEN_1317&DEV_8201"
+HKR,               , AdapterCFID,       , 82011317
+
+[ADMtek.common.Reg]
+HKR,               , DevLoader,         , *ndis
+HKR,               , DeviceVxDs,        , COWPCIB5.sys
+
+;;Parameters
+HKR,               , AdapterType,       , 5
+HKR,               , BusType,           , 5
+
+;;NDIS Info
+HKR, NDIS,           MajorNdisVersion, 1, 04
+HKR, NDIS,           MinorNdisVersion, 1, 00
+HKR, NDIS,           LogDriverName,     , "ADM8211"
+
+;;Interfaces
+HKR, Ndi\Interfaces, DefUpper,          , "ndis3"
+HKR, Ndi\Interfaces, DefLower,          , "ethernet"
+HKR, Ndi\Interfaces, UpperRange,        , "ndis3"
+HKR, Ndi\Interfaces, LowerRange,        , "ethernet"
+
+;;Install sections
+HKR, Ndi\Install,    ndis3,            0, "ADMtek.Install"
+HKR,               , OSModel,           , "0"
+
+;-------------------------------------------------------------------------
+; Windows 2000 Parameters
+;-------------------------------------------------------------------------
+[ADM8211.ndi.reg]
+HKR,               , AdapterCFID,      0, "82011317"
+
+
+[ADMtek.ndi.common.reg]
+HKR, Ndi,            Service,          0, "ADM8211"
+HKR, Ndi\Interfaces, LowerRange,       0, "ethernet"
+HKR, Ndi\Interfaces, UpperRange,       0, "ndis5"
+HKR,               , OSModel,           , "1"
+
+;-------------------------------------------------------------------------
+; ADM8211 PCI Parameters
+;-------------------------------------------------------------------------
+[ADMtek.pci.reg]
+HKR, , AdapterType,    0, "5"
+HKR, , PacketsPerTxInt, , "1"    ; 0x0a
+HKR, , PacketsPerRxInd, , "10"   ; 0x0a
+HKR, , BurstLength,     , "0"    ; 0(Unlimited), 1 DW, 2 DW, 3 DW,...
+HKR, , TxPacketDesc,    , "300"
+HKR, , RxPacketDesc,    , "80"   ; 0x78
+HKR, , TxDmaDesc,       , "600"
+HKR, , RxDmaDesc,       , "40"   ; 0x28
+HKR, , SupportFH,       , "0"    ; not support
+HKR, , SupportDS,       , "1"    ; support
+HKR, , BeaconInterval,  , "100"  ; 
+HKR, , ATIMWindow,      , "0"   ; 
+HKR, , StaEntryAmount,  , "48"   ; size of station base
+HKR, , MaxFragedMSDU,   , "40"   ;
+HKR, , MaxTxBuffer,     , "100"  ;
+HKR, , HardwareWepTx,   , "1"    ;
+HKR, , Promiscuous,     , "0"    ;
+HKR, , FragThreshold,   , "2346" ;
+HKR, , RadioStatus,     , "0" ;
+
+;-------------------------------------------------------------------------
+; ADM8211 Common Parameters
+;-------------------------------------------------------------------------
+[ADMtek.con.reg]
+HKR, Ndi\Params\SelectedChannel,      ParamDesc,  , "Channel"
+HKR, Ndi\Params\SelectedChannel,      default,    , "0"
+HKR, Ndi\Params\SelectedChannel,      type,       , "enum"
+HKR, Ndi\Params\SelectedChannel\enum, 0,          , "Automatic"
+HKR, Ndi\Params\SelectedChannel\enum, 1,          , "01"
+HKR, Ndi\Params\SelectedChannel\enum, 2,          , "02"
+HKR, Ndi\Params\SelectedChannel\enum, 3,          , "03"
+HKR, Ndi\Params\SelectedChannel\enum, 4,          , "04"
+HKR, Ndi\Params\SelectedChannel\enum, 5,          , "05"
+HKR, Ndi\Params\SelectedChannel\enum, 6,          , "06"
+HKR, Ndi\Params\SelectedChannel\enum, 7,          , "07"
+HKR, Ndi\Params\SelectedChannel\enum, 8,          , "08"
+HKR, Ndi\Params\SelectedChannel\enum, 9,          , "09"
+HKR, Ndi\Params\SelectedChannel\enum, 10,         , "10"
+HKR, Ndi\Params\SelectedChannel\enum, 11,         , "11"
+HKR, Ndi\Params\SelectedChannel\enum, 12,         , "12"
+HKR, Ndi\Params\SelectedChannel\enum, 13,         , "13"
+HKR, Ndi\Params\SelectedChannel\enum, 14,         , "14"
+HKR, Ndi\Params\SelectedChannel,      flag,      1, "20","00","00","00"
+
+HKR, Ndi\Params\DataRate,             ParamDesc,  , "Data Rate"
+HKR, Ndi\Params\DataRate,             default,    , "110"
+HKR, Ndi\Params\DataRate,             type,       , "enum"
+;HKR, Ndi\Params\DataRate\enum,        0,          , "AutoDetect"
+HKR, Ndi\Params\DataRate\enum,        10,         , "1M"
+HKR, Ndi\Params\DataRate\enum,        20,         , "2M"
+HKR, Ndi\Params\DataRate\enum,        55,         , "5.5M"
+HKR, Ndi\Params\DataRate\enum,        110,        , "11M"
+HKR, Ndi\Params\DataRate,             flag,      1, "20","00","00","00"
+
+HKR, Ndi\Params\OperationMode,        ParamDesc,  , "Network Type"
+HKR, Ndi\Params\OperationMode,        default,    , "0"
+HKR, Ndi\Params\OperationMode,        type,       , "enum"
+HKR, Ndi\Params\OperationMode\enum,   0,          , "Infrastructure"
+HKR, Ndi\Params\OperationMode\enum,   1,          , "802.11AdHoc"
+HKR, Ndi\Params\OperationMode,        flag,      1, "20","00","00","00"
+
+HKR, Ndi\params\SSID,                 ParamDesc,  , "ESSID"
+HKR, Ndi\params\SSID,                 type,       , "edit"
+HKR, NDI\params\SSID,                 limitText,  , "32"
+HKR, NDI\params\SSID,                 default,    , "corega"
+HKR, NDI\params\SSID,                 flag,      1, "20","00","00","00"
+
+;HKR, Ndi\params\FragThreshold,	      ParamDesc, 0, "Fragment Threshold"
+;HKR, Ndi\params\FragThreshold,        type,      0, "int"
+;HKR, Ndi\params\FragThreshold,	      default,	 0, "2346"
+;HKR, Ndi\params\FragThreshold,	      min,       0, "256"
+;HKR, Ndi\params\FragThreshold,	      max,       0, "2346"
+;HKR, Ndi\params\FragThreshold,	      step,      0, "1"
+;HKR, ,                                FragThreshold, 0, "2346"
+
+HKR, Ndi\params\RTSThreshold,	      ParamDesc, 0, "RTS Threshold"
+HKR, Ndi\params\RTSThreshold,         type,      0, "int"
+HKR, Ndi\params\RTSThreshold,	      default,	 0, "2346"
+HKR, Ndi\params\RTSThreshold,	      min,       0, "0"
+HKR, Ndi\params\RTSThreshold,	      max,       0, "2346"
+HKR, Ndi\params\RTSThreshold,	      step,      0, "1"
+HKR, ,                                RTSThreshold, 0, "2346"
+
+HKR, Ndi\Params\WepEnabled,           ParamDesc,  , "WEP"
+HKR, Ndi\Params\WepEnabled,           default,    , "0"
+HKR, Ndi\Params\WepEnabled,           type,       , "enum"
+HKR, Ndi\Params\WepEnabled\enum,      0,          , "Disabled"
+HKR, Ndi\Params\WepEnabled\enum,      1,          , "WEP key 64 bit"
+HKR, Ndi\Params\WepEnabled\enum,      2,          , "WEP key 128 bit"
+;HKR, Ndi\Params\WepEnabled\enum,      3,          , "WEP fix"
+HKR, Ndi\Params\WepEnabled,           flag,      1, "20","00","00","00"
+
+HKR, Ndi\Params\SharedKeyIndex,       ParamDesc,  , "Default Key"
+HKR, Ndi\Params\SharedKeyIndex,       default,    , "0"
+HKR, Ndi\Params\SharedKeyIndex,       type,       , "enum"
+HKR, Ndi\Params\SharedKeyIndex\enum,  0,          , "No Selection"
+HKR, Ndi\Params\SharedKeyIndex\enum,  1,          , "1"
+HKR, Ndi\Params\SharedKeyIndex\enum,  2,          , "2"
+HKR, Ndi\Params\SharedKeyIndex\enum,  3,          , "3"
+HKR, Ndi\Params\SharedKeyIndex\enum,  4,          , "4"
+HKR, Ndi\Params\SharedKeyIndex,       flag,      1, "20","00","00","00"
+
+HKR, Ndi\params\SharedKey1,           ParamDesc,  , "WEP Key1"
+HKR, Ndi\params\SharedKey1,           type,       , "edit"
+HKR, NDI\params\SharedKey1,           limitText,  , "26"
+HKR, NDI\params\SharedKey1,           default,    , "NONE"
+HKR, NDI\params\SharedKey1,           flag,      1, "20","00","00","00"
+
+HKR, Ndi\params\SharedKey2,           ParamDesc,  , "WEP Key2"
+HKR, Ndi\params\SharedKey2,           type,       , "edit"
+HKR, NDI\params\SharedKey2,           limitText,  , "26"
+HKR, NDI\params\SharedKey2,           default,    , "NONE"
+HKR, NDI\params\SharedKey2,           flag,      1, "20","00","00","00"
+
+HKR, Ndi\params\SharedKey3,           ParamDesc,  , "WEP Key3"
+HKR, Ndi\params\SharedKey3,           type,       , "edit"
+HKR, NDI\params\SharedKey3,           limitText,  , "26"
+HKR, NDI\params\SharedKey3,           default,    , "NONE"
+HKR, NDI\params\SharedKey3,           flag,      1, "20","00","00","00"
+
+HKR, Ndi\params\SharedKey4,           ParamDesc,  , "WEP Key4"
+HKR, Ndi\params\SharedKey4,           type,       , "edit"
+HKR, NDI\params\SharedKey4,           limitText,  , "26"
+HKR, NDI\params\SharedKey4,           default,    , "NONE"
+HKR, NDI\params\SharedKey4,           flag,      1, "20","00","00","00"
+
+HKR, Ndi\Params\AntennaSelection,      ParamDesc,  , "Antenna"
+HKR, Ndi\Params\AntennaSelection,      default,    , "128"
+HKR, Ndi\Params\AntennaSelection,      type,       , "enum"
+HKR, Ndi\Params\AntennaSelection\enum, 0,          , "Antenna A"
+HKR, Ndi\Params\AntennaSelection\enum, 64,         , "Antenna B"
+HKR, Ndi\Params\AntennaSelection\enum, 128,        , "Diversity"
+HKR, Ndi\Params\AntennaSelection,      flag,      1, "20","00","00","00"
+
+HKR, Ndi\Params\PreambleMode,          ParamDesc,  , "Preamble Mode"
+HKR, Ndi\Params\PreambleMode,          default,    , "0"
+HKR, Ndi\Params\PreambleMode,          type,       , "enum"
+HKR, Ndi\Params\PreambleMode\enum,     0,          , "Auto"
+HKR, Ndi\Params\PreambleMode\enum,     1,          , "Long Preamble"
+HKR, Ndi\Params\PreambleMode\enum,     2,          , "Short Preamble"
+HKR, Ndi\Params\PreambleMode,          flag,      1, "20","00","00","00"
+
+;-------------------------------------------------------------------------
+; Service
+;-------------------------------------------------------------------------
+[ADMtek.Service]
+DisplayName     = %ADMtek.Service.DispName%
+ServiceType     = 1                                ;%SERVICE_KERNEL_DRIVER%
+StartType       = 3                                ;%SERVICE_AUTO_START%
+ErrorControl    = 1                                ;%SERVICE_ERROR_NORMAL%
+ServiceBinary   = %12%\COWPCIB5.sys
+LoadOrderGroup  = NDIS
+AddReg          = TextModeFlags.reg
+
+[ADMtek.EventLog]
+AddReg = ADMtek.AddEventLog.reg
+
+[ADMtek.AddEventLog.reg]
+HKR, , EventMessageFile, 0x00020000, %%SystemRoot%%\System32\netevent.dll
+HKR, , TypesSupported,   0x00010001, 7
+
+[TextModeFlags.reg]
+HKR, , TextModeFlags, 0x00010001, 0x0001
+
+
+;-------------------------------------------------------------------------
+; Destination Directory
+;-------------------------------------------------------------------------
+[DestinationDirs]
+ADMtek.ndis.copyfiles     = 11
+ADMtek.ndis.copyfiles.NT  = 12
+DefaultDestDir            = 11                  ; LDID_SYS
+
+
+;-------------------------------------------------------------------------
+; Source Files
+;-------------------------------------------------------------------------
+[SourceDisksNames]
+1=%DISKNAME%,,,
+
+[SourceDisksFiles]
+ADM8211.sys   = 1
+netadm11.inf  = 1
+;netadm11.cat = 1
+
+;-------------------------------------------------------------------------
+; Strings
+;-------------------------------------------------------------------------
+[Strings]
+;;Msft    = "Microsoft"
+ADMtek  ="corega K.K."
+
+;;Source Disk Name
+DISKNAME = "corega WLPCIB-11 Wireless Adapter Driver Diskette "
+
+ADM8211.DeviceDesc       = "corega WLPCIB-11"
+ADMtek.Service.DispName  = "corega WLPCIB-11"
+

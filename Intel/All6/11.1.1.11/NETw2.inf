@@ -1,0 +1,3877 @@
+;******************************************************************************
+; NETw2.INF (IHV)
+;
+; Intel(R) PRO/Wireless 2915ABG Network Connection Adapter
+; Installation Script for Windows Vista (Longhorn)
+;
+; Copyright (c) 2006 Intel, Inc. All Rights Reserved
+;
+;------------------------------------------------------------------------------
+
+;******************************************************************************
+; Version Section
+;------------------------------------------------------------------------------
+[version]
+Signature   = "$Windows NT$"
+Compatible  = 1
+Class       = net
+ClassGUID   = {4d36e972-e325-11ce-bfc1-08002be10318}
+Provider    = %PROVIDER_NAME%
+DriverVer   = 03/06/2007,9.1.1.15
+CatalogFile = NETw2v32.CAT
+
+;******************************************************************************
+; Manufacturer
+;------------------------------------------------------------------------------
+[Manufacturer]
+%COMPANY_NAME%  = Device,NT.5.1,NT.6.0
+ 
+[ControlFlags]
+ExcludeFromSelect = \
+                  PCI\VEN_8086&DEV_4220&SUBSYS_27018086, \
+                  PCI\VEN_8086&DEV_4220&SUBSYS_27028086, \
+                  PCI\VEN_8086&DEV_4220&SUBSYS_27118086, \
+                  PCI\VEN_8086&DEV_4220&SUBSYS_27128086, \                
+                  PCI\VEN_8086&DEV_4220&SUBSYS_27218086, \
+                  PCI\VEN_8086&DEV_4220&SUBSYS_27228086, \
+                  PCI\VEN_8086&DEV_4220&SUBSYS_27318086, \
+                  PCI\VEN_8086&DEV_4220&SUBSYS_27328086, \           
+                  PCI\VEN_8086&DEV_4220&SUBSYS_27418086, \
+                  PCI\VEN_8086&DEV_4220&SUBSYS_27428086, \
+                  PCI\VEN_8086&DEV_4220&SUBSYS_27518086, \
+                  PCI\VEN_8086&DEV_4220&SUBSYS_27528086, \           
+                  PCI\VEN_8086&DEV_4220&SUBSYS_27538086, \
+                  PCI\VEN_8086&DEV_4220&SUBSYS_27548086, \           
+                  PCI\VEN_8086&DEV_4220&SUBSYS_27618086, \
+                  PCI\VEN_8086&DEV_4220&SUBSYS_27628086, \
+                  PCI\VEN_8086&DEV_4220&SUBSYS_12F5103C, \
+                  PCI\VEN_8086&DEV_4220&SUBSYS_12F6103C, \
+                  PCI\VEN_8086&DEV_4223&SUBSYS_00008086, \
+                  PCI\VEN_8086&DEV_4223&SUBSYS_27018086, \
+                  PCI\VEN_8086&DEV_4223&SUBSYS_27028086, \
+                  PCI\VEN_8086&DEV_4223&SUBSYS_10008086, \
+                  PCI\VEN_8086&DEV_4223&SUBSYS_10018086, \                
+                  PCI\VEN_8086&DEV_4223&SUBSYS_10028086, \
+                  PCI\VEN_8086&DEV_4223&SUBSYS_10038086, \
+                  PCI\VEN_8086&DEV_4224&SUBSYS_10108086, \
+                  PCI\VEN_8086&DEV_4224&SUBSYS_10118086, \           
+                  PCI\VEN_8086&DEV_4224&SUBSYS_10128086, \
+                  PCI\VEN_8086&DEV_4224&SUBSYS_10138086, \
+                  PCI\VEN_8086&DEV_4223&SUBSYS_10208086, \
+                  PCI\VEN_8086&DEV_4223&SUBSYS_10218086, \           
+                  PCI\VEN_8086&DEV_4223&SUBSYS_10228086, \
+                  PCI\VEN_8086&DEV_4223&SUBSYS_10238086, \
+                  PCI\VEN_8086&DEV_4223&SUBSYS_10308086  \
+                  PCI\VEN_8086&DEV_4223&SUBSYS_10318086  \
+                  PCI\VEN_8086&DEV_4223&SUBSYS_10328086  \
+                  PCI\VEN_8086&DEV_4223&SUBSYS_10338086  \
+                  PCI\VEN_8086&DEV_4223&SUBSYS_10408086, \
+                  PCI\VEN_8086&DEV_4223&SUBSYS_10418086, \
+                  PCI\VEN_8086&DEV_4223&SUBSYS_10428086, \
+                  PCI\VEN_8086&DEV_4223&SUBSYS_10438086, \
+                  PCI\VEN_8086&DEV_4223&SUBSYS_10508086, \
+                  PCI\VEN_8086&DEV_4223&SUBSYS_10518086, \
+                  PCI\VEN_8086&DEV_4223&SUBSYS_10528086, \
+                  PCI\VEN_8086&DEV_4223&SUBSYS_10538086, \
+                  PCI\VEN_8086&DEV_4223&SUBSYS_1351103C, \
+                  PCI\VEN_8086&DEV_4223&SUBSYS_1352103C, \
+                  PCI\VEN_8086&DEV_4223&SUBSYS_1353103C, \
+                  PCI\VEN_8086&DEV_4223&SUBSYS_1354103C
+
+
+                  
+;******************************************************************************
+; Device W2K
+;------------------------------------------------------------------------------
+[Device]
+
+;******************************************************************************
+; Device XP
+;------------------------------------------------------------------------------
+[Device.NT.5.1]
+
+;******************************************************************************
+; Device Vista
+;------------------------------------------------------------------------------
+[Device.NT.6.0]
+%NIC_MPCI3B%   = Install_MPCI3B_VISTA,            PCI\VEN_8086&DEV_4223&SUBSYS_00008086 ; Intel 2915ABG mPCI 3B - ENG
+%NIC_MPCI3B%   = Install_MPCI3B_MOW_AE_VISTA,     PCI\VEN_8086&DEV_4223&SUBSYS_27018086 ; Intel 2915ABG mPCI 3B - ENG MoW
+%NIC_MPCI3B%   = Install_MPCI3B_VISTA,            PCI\VEN_8086&DEV_4223&SUBSYS_27028086 ; Intel 2915ABG mPCI 3B - ENG RoW
+
+%NIC_MPCI3B%   = Install_MPCI3B_MOW_AE_VISTA,        PCI\VEN_8086&DEV_4223&SUBSYS_10008086 ; Intel 2915ABG mPCI 3B Americas/Europe ZZA
+%NIC_MPCI3B%   = Install_MPCI3B_ROW_AE_VISTA,        PCI\VEN_8086&DEV_4223&SUBSYS_10018086 ; Intel 2915ABG mPCI 3B Europe ZZE
+%NIC_MPCI3B%   = Install_MPCI3B_MOW_JP_VISTA,        PCI\VEN_8086&DEV_4223&SUBSYS_10028086 ; Intel 2915ABG mPCI 3B Japan ZZJ
+%NIC_MPCI3B%   = Install_MPCI3B_MOW_HB_VISTA,        PCI\VEN_8086&DEV_4223&SUBSYS_10038086 ; Intel 2915ABG mPCI 3B High-Band ZZH
+
+%NIC_MPCI3B%   = Install_IBMMPCI3B_MOW_AE_VISTA,     PCI\VEN_8086&DEV_4224&SUBSYS_10108086 ; IBM 2915ABG mPCI 3B Americas/Europe ZZA
+%NIC_MPCI3B%   = Install_IBMMPCI3B_ROW_AE_VISTA,     PCI\VEN_8086&DEV_4224&SUBSYS_10118086 ; IBM 2915ABG mPCI 3B Europe ZZE
+%NIC_MPCI3B%   = Install_IBMMPCI3B_MOW_JP_VISTA,     PCI\VEN_8086&DEV_4224&SUBSYS_10128086 ; IBM 2915ABG mPCI 3B Japan ZZJ
+%NIC_MPCI3B%   = Install_IBMMPCI3B_MOW_HB_VISTA,     PCI\VEN_8086&DEV_4224&SUBSYS_10138086 ; IBM 2915ABG mPCI 3B High-Band ZZH
+
+%NIC_MPCI3A%   = Install_DELLMPCI3A_AE_VISTA,     	PCI\VEN_8086&DEV_4223&SUBSYS_10208086 ; Dell 2915ABG mPCI 3A Americas/Europe ZZA
+%NIC_MPCI3A%   = Install_DELLMPCI3A_EU_VISTA,     	PCI\VEN_8086&DEV_4223&SUBSYS_10218086 ; Dell 2915ABG mPCI 3A Europe ZZE
+%NIC_MPCI3A%   = Install_DELLMPCI3A_JP_VISTA,     	PCI\VEN_8086&DEV_4223&SUBSYS_10228086 ; Dell 2915ABG mPCI 3A Japan ZZJ
+%NIC_MPCI3A%   = Install_DELLMPCI3A_HB_VISTA,     	PCI\VEN_8086&DEV_4223&SUBSYS_10238086 ; Dell 2915ABG mPCI 3A High-Band ZZH
+
+%NIC_MPCI3B%   = Install_FUJITSUMPCI3B_AE_VISTA,     	PCI\VEN_8086&DEV_4223&SUBSYS_10308086 ; Fujitsu 2915ABG mPCI 3B Americas/Europe ZZB
+%NIC_MPCI3B%   = Install_FUJITSUMPCI3B_EU_VISTA,     	PCI\VEN_8086&DEV_4223&SUBSYS_10318086 ; Fujitsu 2915ABG mPCI 3B Europe ZZE
+%NIC_MPCI3B%   = Install_FUJITSUMPCI3B_JP_VISTA,     	PCI\VEN_8086&DEV_4223&SUBSYS_10328086 ; Fujitsu 2915ABG mPCI 3B Japan ZZC
+%NIC_MPCI3B%   = Install_FUJITSUMPCI3B_HB_VISTA,     	PCI\VEN_8086&DEV_4223&SUBSYS_10338086 ; Fujitsu 2915ABG mPCI 3B High-Band ZZH
+
+%NIC_MPCI3B%   = Install_TOSHIBAMPCI3B_AE_VISTA,     PCI\VEN_8086&DEV_4223&SUBSYS_10408086 ; Toshiba 2915ABG mPCI 3B Americas/Europe ZZA
+%NIC_MPCI3B%   = Install_TOSHIBAMPCI3B_EU_VISTA,     PCI\VEN_8086&DEV_4223&SUBSYS_10418086 ; Toshiba 2915ABG mPCI 3B Europe ZZE
+%NIC_MPCI3B%   = Install_TOSHIBAMPCI3B_JP_VISTA,     PCI\VEN_8086&DEV_4223&SUBSYS_10428086 ; Toshiba 2915ABG mPCI 3B Japan ZZJ
+%NIC_MPCI3B%   = Install_TOSHIBAMPCI3B_HB_VISTA,     PCI\VEN_8086&DEV_4223&SUBSYS_10438086 ; Toshiba 2915ABG mPCI 3B High-Band ZZH
+
+%NIC_MPCI3B%   = Install_SONYMPCI3B_AE_VISTA,     	PCI\VEN_8086&DEV_4223&SUBSYS_10508086 ; Sony 2915ABG mPCI 3B Americas/Europe ZZF
+%NIC_MPCI3B%   = Install_SONYMPCI3B_EU_VISTA,     	PCI\VEN_8086&DEV_4223&SUBSYS_10518086 ; Sony 2915ABG mPCI 3B Europe ZZE
+%NIC_MPCI3B%   = Install_SONYMPCI3B_JP_VISTA,     	PCI\VEN_8086&DEV_4223&SUBSYS_10528086 ; Sony 2915ABG mPCI 3B Japan ZZJ
+%NIC_MPCI3B%   = Install_SONYMPCI3B_HB_VISTA,     	PCI\VEN_8086&DEV_4223&SUBSYS_10538086 ; Sony 2915ABG mPCI 3B High-Band ZZH
+
+%NIC_MPCI3B%   = Install_HPQMPCI3B_MOW_AE_VISTA,     PCI\VEN_8086&DEV_4223&SUBSYS_1351103C ; HP 2915ABG mPCI 3B Americas/Europe ZZA
+%NIC_MPCI3B%   = Install_HPQMPCI3B_MOW_EU_VISTA,     PCI\VEN_8086&DEV_4223&SUBSYS_1352103C ; HP 2915ABG mPCI 3B Europe ZZE
+%NIC_MPCI3B%   = Install_HPQMPCI3B_MOW_JP_VISTA,     PCI\VEN_8086&DEV_4223&SUBSYS_1353103C ; HP 2915ABG mPCI 3B Japan ZZJ
+%NIC_MPCI3B%   = Install_HPQMPCI3B_MOW_HB_VISTA,     PCI\VEN_8086&DEV_4223&SUBSYS_1354103C ; HP 2915ABG mPCI 3B High-Band ZZH
+
+
+
+%NIC_MPCI3B_BG%   = Install_MPCI3B_BG_VISTA,            PCI\VEN_8086&DEV_4220&SUBSYS_00008086 ; Intel 2200 mPCI 3B - ENG
+%NIC_MPCI3B_BG%   = Install_MPCI3B_MOW_BG_VISTA,            PCI\VEN_8086&DEV_4220&SUBSYS_27018086 ; Intel 2200 mPCI 3B - MoW
+%NIC_MPCI3B_BG%   = Install_MPCI3B_BG_VISTA,            PCI\VEN_8086&DEV_4220&SUBSYS_27028086 ; Intel 2200 mPCI 3B - RoW
+
+%NIC_MPCI3B_BG%   = Install_IBMMPCI3B_MOW_BG_VISTA,         PCI\VEN_8086&DEV_4220&SUBSYS_27118086 ; IBM 2200 mPCI 3B - MoW
+%NIC_MPCI3B_BG%   = Install_IBMMPCI3B_BG_VISTA,         PCI\VEN_8086&DEV_4220&SUBSYS_27128086 ; IBM 2200 mPCI 3B - RoW
+
+%NIC_MPCI3A_BG%   = Install_DELLMPCI3A_MOW_BG_VISTA,        PCI\VEN_8086&DEV_4220&SUBSYS_27218086 ; Dell 2200 mPCI 3A - MoW
+%NIC_MPCI3A_BG%   = Install_DELLMPCI3A_BG_VISTA,        PCI\VEN_8086&DEV_4220&SUBSYS_27228086 ; Dell 2200 mPCI 3A - RoW
+
+%NIC_MPCI3B_BG%   = Install_FUJITSUMPCI3B_MOW_BG_VISTA,     PCI\VEN_8086&DEV_4220&SUBSYS_27318086 ; Fujitsu 2200 mPCI 3B - MoW
+%NIC_MPCI3B_BG%   = Install_FUJITSUMPCI3B_BG_VISTA,     PCI\VEN_8086&DEV_4220&SUBSYS_27328086 ; Fujitsu 2200 mPCI 3B - RoW
+
+%NIC_MPCI3B_BG%   = Install_TOSHIBAMPCI3B_MOW_BG_VISTA,     PCI\VEN_8086&DEV_4220&SUBSYS_27418086 ; Toshiba 2200 mPCI 3B - MoW
+%NIC_MPCI3B_BG%   = Install_TOSHIBAMPCI3B_BG_VISTA,     PCI\VEN_8086&DEV_4220&SUBSYS_27428086 ; Toshiba 2200 mPCI 3B - RoW
+
+%NIC_MPCI3B_BG%   = Install_SONYMPCI3B_MOW_BG_VISTA,        PCI\VEN_8086&DEV_4220&SUBSYS_27518086 ; Sony 2200 mPCI 3B - MoW
+%NIC_MPCI3B_BG%   = Install_SONYMPCI3B_BG_VISTA,        PCI\VEN_8086&DEV_4220&SUBSYS_27528086 ; Sony 2200 mPCI 3B - RoW
+%NIC_MPCI3B_BG%   = Install_SONYMPCI3B_BG_VISTA,        PCI\VEN_8086&DEV_4220&SUBSYS_27538086 ; Sony 2200 mPCI 3B - ZZD
+%NIC_MPCI3B_BG%   = Install_SONYMPCI3B_MOW_BG_VISTA,        PCI\VEN_8086&DEV_4220&SUBSYS_27548086 ; Sony 2200 mPCI 3B - MoW LMA label
+
+%NIC_MPCI3B_BG%   = Install_HPQMPCI3B_MOW_BG_VISTA,         PCI\VEN_8086&DEV_4220&SUBSYS_27618086 ; HPQ 2200 mPCI 3B - MoW
+%NIC_MPCI3B_BG%   = Install_HPQMPCI3B_BG_VISTA,         PCI\VEN_8086&DEV_4220&SUBSYS_27628086 ; HPQ 2200 mPCI 3B - RoW
+
+%NIC_MPCI3B_BG%   = Install_HPQMPCI3B_MOW_BG_VISTA,     PCI\VEN_8086&DEV_4220&SUBSYS_12F5103C ; HPQ 2200 mPCI 3B - MoW Subven 103c
+%NIC_MPCI3B_BG%   = Install_HPQMPCI3B_BG_VISTA,         PCI\VEN_8086&DEV_4220&SUBSYS_12F6103C ; HPQ 2200 mPCI 3B - RoW Subven 103c
+
+
+
+
+
+;******************************************************************************
+; Install VISTA
+;------------------------------------------------------------------------------
+
+;------------------------------------------------------------------------------
+; Intel 2915 3B mPCI adapter
+;------------------------------------------------------------------------------
+[Install_MPCI3B_VISTA]
+AddReg          = Reg_Common_VISTA, Reg_FeatureSet_VISTA, Reg_Intel, Reg_MPCI3B, Reg_NDIS_VISTA, Reg_NCPA, Reg_CoInstaller,Reg_Common_ABG, Reg_AE_ABG, Reg_Intel_ABG, Reg_NDI_ABG, Reg_Row_Adhoc_CH_24 
+Characteristics = 0x84  ; NCF_HAS_UI, NCF_PHYSICAL
+BusType         = 5     ; PCI bus
+CopyFiles       = CopyFiles_Driver_VISTA 
+*IfType = 71              ; IF_TYPE_IEEE80211 
+*MediaType = 16          ; NdisMediumNative802_11
+*PhysicalMediaType = 9   ; NdisPhysicalMediumNative802_11
+
+[Install_MPCI3B_VISTA.CoInstallers]
+AddReg          = Reg_CoInstaller
+CopyFiles       = CopyFiles_NCPA_VISTA
+
+[Install_MPCI3B_VISTA.Services]
+AddService      = NETw2v32, 2, NIC_Service_VISTA, Common_EventLog_VISTA
+
+;------------------------------------------------------------------------------
+; Intel 2200 3B mPCI adapter (BG)
+;------------------------------------------------------------------------------
+[Install_MPCI3B_BG_VISTA]
+AddReg          = Reg_Common_VISTA, Reg_FeatureSet_VISTA, Reg_Intel, Reg_MPCI3B_BG, Reg_NDIS_VISTA, Reg_NCPA, Reg_CoInstaller,Reg_Common_BG, Reg_Intel_BG, Reg_NDI_BG, Reg_Row_Adhoc_CH_24
+Characteristics = 0x84  ; NCF_HAS_UI, NCF_PHYSICAL
+BusType         = 5     ; PCI bus
+CopyFiles       = CopyFiles_Driver_VISTA 
+*IfType = 71              ; IF_TYPE_IEEE80211 
+*MediaType = 16          ; NdisMediumNative802_11
+*PhysicalMediaType = 9   ; NdisPhysicalMediumNative802_11
+
+[Install_MPCI3B_BG_VISTA.CoInstallers]
+AddReg          = Reg_CoInstaller
+CopyFiles       = CopyFiles_NCPA_VISTA
+
+[Install_MPCI3B_BG_VISTA.Services]
+AddService      = NETw2v32, 2, NIC_Service_BG_VISTA, Common_EventLog_VISTA
+
+;------------------------------------------------------------------------------
+; Intel 2915 3B mPCI adapter MoW
+;------------------------------------------------------------------------------
+[Install_MPCI3B_MOW_AE_VISTA]
+AddReg          = Reg_Common_VISTA, Reg_FeatureSet_VISTA, Reg_Intel, Reg_MPCI3B, Reg_NDIS_VISTA, Reg_NCPA, Reg_CoInstaller,Reg_Common_ABG, Reg_AE_ABG, Reg_Intel_Mow_ABG, Reg_NDI_ABG, Reg_Mow_Adhoc_CH_24 
+Characteristics = 0x84  ; NCF_HAS_UI, NCF_PHYSICAL
+;Characteristics = 0x04  ; NCF_PHYSICAL
+BusType         = 5     ; PCI bus
+CopyFiles       = CopyFiles_Driver_VISTA 
+*IfType = 71              ; IF_TYPE_IEEE80211 
+*MediaType = 16          ; NdisMediumNative802_11
+*PhysicalMediaType = 9   ; NdisPhysicalMediumNative802_11
+
+[Install_MPCI3B_ROW_AE_VISTA]
+DelReg		= Reg_EU_ABG_DEL
+AddReg          = Reg_Common_VISTA, Reg_FeatureSet_VISTA, Reg_Intel, Reg_MPCI3B, Reg_NDIS_VISTA, Reg_NCPA, Reg_CoInstaller,Reg_Common_ABG, Reg_EU_ABG, Reg_Intel_Mow_ABG, Reg_NDI_ABG, Reg_Row_Adhoc_CH_24 
+Characteristics = 0x84  ; NCF_HAS_UI, NCF_PHYSICAL
+;Characteristics = 0x04  ; NCF_PHYSICAL
+BusType         = 5     ; PCI bus
+CopyFiles       = CopyFiles_Driver_VISTA 
+*IfType = 71              ; IF_TYPE_IEEE80211 
+*MediaType = 16          ; NdisMediumNative802_11
+*PhysicalMediaType = 9   ; NdisPhysicalMediumNative802_11
+
+[Install_MPCI3B_MOW_JP_VISTA]
+DelReg		= Reg_JP_ABG_DEL
+AddReg          = Reg_Common_VISTA, Reg_FeatureSet_VISTA, Reg_Intel, Reg_MPCI3B, Reg_NDIS_VISTA, Reg_NCPA, Reg_CoInstaller, Reg_Common_ABG, Reg_JP_ABG, Reg_Intel_Mow_ABG, Reg_NDI_ABG, Reg_Row_Adhoc_CH_24 
+Characteristics = 0x84  ; NCF_HAS_UI, NCF_PHYSICAL
+BusType         = 5     ; PCI bus
+CopyFiles       = CopyFiles_Driver_VISTA 
+*IfType = 71              ; IF_TYPE_IEEE80211 
+*MediaType = 16          ; NdisMediumNative802_11
+*PhysicalMediaType = 9   ; NdisPhysicalMediumNative802_11
+
+[Install_MPCI3B_MOW_HB_VISTA]
+AddReg          = Reg_Common_VISTA, Reg_FeatureSet_VISTA, Reg_Intel, Reg_MPCI3B, Reg_NDIS_VISTA, Reg_NCPA, Reg_CoInstaller, Reg_Common_ABG, Reg_HB_ABG, Reg_Intel_Mow_ABG, Reg_NDI_ABG, Reg_Mow_Adhoc_CH_24 
+Characteristics = 0x84  ; NCF_HAS_UI, NCF_PHYSICAL
+BusType         = 5     ; PCI bus
+CopyFiles       = CopyFiles_Driver_VISTA 
+*IfType = 71              ; IF_TYPE_IEEE80211 
+*MediaType = 16          ; NdisMediumNative802_11
+*PhysicalMediaType = 9   ; NdisPhysicalMediumNative802_11
+
+[Install_MPCI3B_MOW_AE_VISTA.CoInstallers]
+AddReg          = Reg_CoInstaller
+CopyFiles       = CopyFiles_NCPA_VISTA
+
+[Install_MPCI3B_ROW_AE_VISTA.CoInstallers]
+AddReg          = Reg_CoInstaller
+CopyFiles       = CopyFiles_NCPA_VISTA
+
+[Install_MPCI3B_MOW_JP_VISTA.CoInstallers]
+AddReg          = Reg_CoInstaller
+CopyFiles       = CopyFiles_NCPA_VISTA
+
+[Install_MPCI3B_MOW_HB_VISTA.CoInstallers]
+AddReg          = Reg_CoInstaller
+CopyFiles       = CopyFiles_NCPA_VISTA
+
+[Install_MPCI3B_MOW_AE_VISTA.Services]
+AddService      = NETw2v32, 2, NIC_Service_VISTA, Common_EventLog_VISTA
+
+[Install_MPCI3B_ROW_AE_VISTA.Services]
+AddService      = NETw2v32, 2, NIC_Service_VISTA, Common_EventLog_VISTA
+
+[Install_MPCI3B_MOW_JP_VISTA.Services]
+AddService      = NETw2v32, 2, NIC_Service_VISTA, Common_EventLog_VISTA
+
+[Install_MPCI3B_MOW_HB_VISTA.Services]
+AddService      = NETw2v32, 2, NIC_Service_VISTA, Common_EventLog_VISTA
+
+;------------------------------------------------------------------------------
+; Intel 2200 3B mPCI adapter MoW (BG)
+;------------------------------------------------------------------------------
+[Install_MPCI3B_MOW_BG_VISTA]
+AddReg          = Reg_Common_VISTA, Reg_FeatureSet_VISTA, Reg_Intel, Reg_MPCI3B_BG, Reg_NDIS_VISTA, Reg_NCPA, Reg_CoInstaller, Reg_Common_BG, Reg_Intel_Mow_BG, Reg_NDI_BG, Reg_Mow_Adhoc_CH_24 
+Characteristics = 0x84  ; NCF_HAS_UI, NCF_PHYSICAL
+BusType         = 5     ; PCI bus
+CopyFiles       = CopyFiles_Driver_VISTA 
+*IfType = 71              ; IF_TYPE_IEEE80211 
+*MediaType = 16          ; NdisMediumNative802_11
+*PhysicalMediaType = 9   ; NdisPhysicalMediumNative802_11
+
+[Install_MPCI3B_MOW_BG_VISTA.CoInstallers]
+AddReg          = Reg_CoInstaller
+CopyFiles       = CopyFiles_NCPA_VISTA
+
+[Install_MPCI3B_MOW_BG_VISTA.Services]
+AddService      = NETw2v32, 2, NIC_Service_BG_VISTA, Common_EventLog_VISTA
+
+;------------------------------------------------------------------------------
+; 2200 3B mPCI adapter for IBM (BG)
+;------------------------------------------------------------------------------
+[Install_IBMMPCI3B_BG_VISTA]
+AddReg          = Reg_Common_VISTA, Reg_FeatureSet_VISTA, Reg_IBM_VISTA, Reg_MPCI3B_BG, Reg_NDIS_VISTA, Reg_NCPA, Reg_CoInstaller, Reg_Common_BG, Reg_IBM_BG, Reg_11g_Div, Reg_NDI_BG,  Reg_Row_Adhoc_CH_24
+
+Characteristics = 0x84  ; NCF_HAS_UI, NCF_PHYSICAL
+BusType         = 5     ; PCI bus
+CopyFiles       = CopyFiles_Driver_VISTA 
+*IfType = 71              ; IF_TYPE_IEEE80211 
+*MediaType = 16          ; NdisMediumNative802_11
+*PhysicalMediaType = 9   ; NdisPhysicalMediumNative802_11
+
+[Install_IBMMPCI3B_BG_VISTA.CoInstallers]
+AddReg          = Reg_CoInstaller
+CopyFiles       = CopyFiles_NCPA_VISTA
+
+[Install_IBMMPCI3B_BG_VISTA.Services]
+AddService      = NETw2v32, 2, NIC_Service_BG_VISTA, Common_EventLog_VISTA
+
+;------------------------------------------------------------------------------
+; 2915 3B mPCI adapter for IBM MoW
+;------------------------------------------------------------------------------
+[Install_IBMMPCI3B_MOW_AE_VISTA]
+AddReg          = Reg_Common_VISTA, Reg_FeatureSet_VISTA, Reg_IBM_VISTA, Reg_IBM_Mow_VISTA, Reg_MPCI3B, Reg_NDIS_VISTA, Reg_NCPA, Reg_CoInstaller, Reg_Common_ABG, Reg_AE_ABG, Reg_IBM_Mow_ABG, Reg_11g_Div, Reg_NDI_ABG, Reg_Mow_Adhoc_CH_24
+Characteristics = 0x84  ; NCF_HAS_UI, NCF_PHYSICAL
+BusType         = 5     ; PCI bus
+CopyFiles       = CopyFiles_Driver_VISTA 
+*IfType = 71              ; IF_TYPE_IEEE80211 
+*MediaType = 16          ; NdisMediumNative802_11
+*PhysicalMediaType = 9   ; NdisPhysicalMediumNative802_11
+
+[Install_IBMMPCI3B_ROW_AE_VISTA]
+DelReg		= Reg_EU_ABG_DEL
+AddReg          = Reg_Common_VISTA, Reg_FeatureSet_VISTA, Reg_IBM_VISTA, Reg_IBM_Mow_VISTA, Reg_MPCI3B, Reg_NDIS_VISTA, Reg_NCPA, Reg_CoInstaller, Reg_Common_ABG, Reg_EU_ABG, Reg_IBM_Mow_ABG, Reg_11g_Div, Reg_NDI_ABG, Reg_Row_Adhoc_CH_24
+Characteristics = 0x84  ; NCF_HAS_UI, NCF_PHYSICAL
+BusType         = 5     ; PCI bus
+CopyFiles       = CopyFiles_Driver_VISTA 
+*IfType = 71              ; IF_TYPE_IEEE80211 
+*MediaType = 16          ; NdisMediumNative802_11
+*PhysicalMediaType = 9   ; NdisPhysicalMediumNative802_11
+
+[Install_IBMMPCI3B_MOW_JP_VISTA]
+DelReg		= Reg_JP_ABG_DEL
+AddReg          = Reg_Common_VISTA, Reg_FeatureSet_VISTA, Reg_IBM_VISTA, Reg_IBM_Mow_VISTA, Reg_MPCI3B, Reg_NDIS_VISTA, Reg_NCPA, Reg_CoInstaller, Reg_Common_ABG, Reg_JP_ABG, Reg_IBM_Mow_ABG, Reg_11g_Div, Reg_NDI_ABG, Reg_Row_Adhoc_CH_24
+Characteristics = 0x84  ; NCF_HAS_UI, NCF_PHYSICAL
+BusType         = 5     ; PCI bus
+CopyFiles       = CopyFiles_Driver_VISTA 
+*IfType = 71              ; IF_TYPE_IEEE80211 
+*MediaType = 16          ; NdisMediumNative802_11
+*PhysicalMediaType = 9   ; NdisPhysicalMediumNative802_11
+
+[Install_IBMMPCI3B_MOW_HB_VISTA]
+AddReg          = Reg_Common_VISTA, Reg_FeatureSet_VISTA, Reg_IBM_VISTA, Reg_IBM_Mow_VISTA, Reg_MPCI3B, Reg_NDIS_VISTA, Reg_NCPA, Reg_CoInstaller, Reg_Common_ABG, Reg_HB_ABG, Reg_IBM_Mow_ABG, Reg_11g_Div, Reg_NDI_ABG, Reg_Mow_Adhoc_CH_24
+Characteristics = 0x84  ; NCF_HAS_UI, NCF_PHYSICAL
+BusType         = 5     ; PCI bus
+CopyFiles       = CopyFiles_Driver_VISTA 
+*IfType = 71              ; IF_TYPE_IEEE80211 
+*MediaType = 16          ; NdisMediumNative802_11
+*PhysicalMediaType = 9   ; NdisPhysicalMediumNative802_11
+
+[Install_IBMMPCI3B_MOW_AE_VISTA.CoInstallers]
+AddReg          = Reg_CoInstaller
+CopyFiles       = CopyFiles_NCPA_VISTA
+
+[Install_IBMMPCI3B_ROW_AE_VISTA.CoInstallers]
+AddReg          = Reg_CoInstaller
+CopyFiles       = CopyFiles_NCPA_VISTA
+
+[Install_IBMMPCI3B_MOW_JP_VISTA.CoInstallers]
+AddReg          = Reg_CoInstaller
+CopyFiles       = CopyFiles_NCPA_VISTA
+
+[Install_IBMMPCI3B_MOW_HB_VISTA.CoInstallers]
+AddReg          = Reg_CoInstaller
+CopyFiles       = CopyFiles_NCPA_VISTA
+
+[Install_IBMMPCI3B_MOW_AE_VISTA.Services]
+AddService      = NETw2v32, 2, NIC_Service_VISTA, Common_EventLog_VISTA
+
+[Install_IBMMPCI3B_ROW_AE_VISTA.Services]
+AddService      = NETw2v32, 2, NIC_Service_VISTA, Common_EventLog_VISTA
+
+[Install_IBMMPCI3B_MOW_JP_VISTA.Services]
+AddService      = NETw2v32, 2, NIC_Service_VISTA, Common_EventLog_VISTA
+
+[Install_IBMMPCI3B_MOW_HB_VISTA.Services]
+AddService      = NETw2v32, 2, NIC_Service_VISTA, Common_EventLog_VISTA
+
+;------------------------------------------------------------------------------
+; 2200 3B mPCI adapter for IBM MoW (BG)
+;------------------------------------------------------------------------------
+[Install_IBMMPCI3B_MOW_BG_VISTA]
+AddReg          = Reg_Common_VISTA, Reg_FeatureSet_VISTA, Reg_IBM_VISTA, Reg_IBM_Mow_VISTA, Reg_MPCI3B_BG, Reg_NDIS_VISTA, Reg_NCPA, Reg_CoInstaller, Reg_Common_BG, Reg_IBM_Mow_BG, Reg_11g_Div, Reg_NDI_BG, Reg_Mow_Adhoc_CH_24
+ 
+Characteristics = 0x84  ; NCF_HAS_UI, NCF_PHYSICAL
+BusType         = 5     ; PCI bus
+CopyFiles       = CopyFiles_Driver_VISTA 
+*IfType = 71              ; IF_TYPE_IEEE80211 
+*MediaType = 16          ; NdisMediumNative802_11
+*PhysicalMediaType = 9   ; NdisPhysicalMediumNative802_11
+
+[Install_IBMMPCI3B_MOW_BG_VISTA.CoInstallers]
+AddReg          = Reg_CoInstaller
+CopyFiles       = CopyFiles_NCPA_VISTA
+
+[Install_IBMMPCI3B_MOW_BG_VISTA.Services]
+AddService      = NETw2v32, 2, NIC_Service_BG_VISTA, Common_EventLog_VISTA
+
+;------------------------------------------------------------------------------
+; 2915 3A mPCI adapter for Dell
+;------------------------------------------------------------------------------
+[Install_DELLMPCI3A_AE_VISTA]
+AddReg          = Reg_Common_VISTA, Reg_FeatureSet_VISTA_DELL, Reg_Dell, Reg_MPCI3A, Reg_NDIS_VISTA, Reg_NCPA, Reg_CoInstaller, Reg_Common_ABG, Reg_AE_ABG, Reg_Dell_ABG, Reg_NDI_ABG, Reg_Mow_Adhoc_CH_24 
+Characteristics = 0x84  ; NCF_HAS_UI, NCF_PHYSICAL
+BusType         = 5     ; PCI bus
+CopyFiles       = CopyFiles_Driver_VISTA 
+*IfType = 71              ; IF_TYPE_IEEE80211 
+*MediaType = 16          ; NdisMediumNative802_11
+*PhysicalMediaType = 9   ; NdisPhysicalMediumNative802_11
+
+[Install_DELLMPCI3A_EU_VISTA]
+DelReg		= Reg_EU_ABG_DEL
+AddReg          = Reg_Common_VISTA, Reg_FeatureSet_VISTA_DELL, Reg_Dell, Reg_MPCI3A, Reg_NDIS_VISTA, Reg_NCPA, Reg_CoInstaller, Reg_Common_ABG, Reg_EU_ABG, Reg_Dell_ABG, Reg_NDI_ABG, Reg_Row_Adhoc_CH_24 
+Characteristics = 0x84  ; NCF_HAS_UI, NCF_PHYSICAL
+BusType         = 5     ; PCI bus
+CopyFiles       = CopyFiles_Driver_VISTA 
+*IfType = 71              ; IF_TYPE_IEEE80211 
+*MediaType = 16          ; NdisMediumNative802_11
+*PhysicalMediaType = 9   ; NdisPhysicalMediumNative802_11
+
+[Install_DELLMPCI3A_JP_VISTA]
+DelReg		= Reg_JP_ABG_DEL
+AddReg          = Reg_Common_VISTA, Reg_FeatureSet_VISTA_DELL, Reg_Dell, Reg_MPCI3A, Reg_NDIS_VISTA, Reg_NCPA, Reg_CoInstaller, Reg_Common_ABG, Reg_JP_ABG, Reg_Dell_ABG, Reg_NDI_ABG, Reg_Row_Adhoc_CH_24 
+Characteristics = 0x84  ; NCF_HAS_UI, NCF_PHYSICAL
+BusType         = 5     ; PCI bus
+CopyFiles       = CopyFiles_Driver_VISTA 
+*IfType = 71              ; IF_TYPE_IEEE80211 
+*MediaType = 16          ; NdisMediumNative802_11
+*PhysicalMediaType = 9   ; NdisPhysicalMediumNative802_11
+
+[Install_DELLMPCI3A_HB_VISTA]
+AddReg          = Reg_Common_VISTA, Reg_FeatureSet_VISTA_DELL, Reg_Dell, Reg_MPCI3A, Reg_NDIS_VISTA, Reg_NCPA, Reg_CoInstaller, Reg_Common_ABG, Reg_HB_ABG, Reg_Dell_ABG, Reg_NDI_ABG, Reg_Mow_Adhoc_CH_24 
+Characteristics = 0x84  ; NCF_HAS_UI, NCF_PHYSICAL
+BusType         = 5     ; PCI bus
+CopyFiles       = CopyFiles_Driver_VISTA 
+*IfType = 71              ; IF_TYPE_IEEE80211 
+*MediaType = 16          ; NdisMediumNative802_11
+*PhysicalMediaType = 9   ; NdisPhysicalMediumNative802_11
+
+[Install_DELLMPCI3A_AE_VISTA.CoInstallers]
+AddReg          = Reg_CoInstaller
+CopyFiles       = CopyFiles_NCPA_VISTA
+
+[Install_DELLMPCI3A_EU_VISTA.CoInstallers]
+AddReg          = Reg_CoInstaller
+CopyFiles       = CopyFiles_NCPA_VISTA
+
+[Install_DELLMPCI3A_JP_VISTA.CoInstallers]
+AddReg          = Reg_CoInstaller
+CopyFiles       = CopyFiles_NCPA_VISTA
+
+[Install_DELLMPCI3A_HB_VISTA.CoInstallers]
+AddReg          = Reg_CoInstaller
+CopyFiles       = CopyFiles_NCPA_VISTA
+
+[Install_DELLMPCI3A_AE_VISTA.Services]
+AddService      = NETw2v32, 2, NIC_Service_VISTA, Common_EventLog_VISTA
+
+[Install_DELLMPCI3A_EU_VISTA.Services]
+AddService      = NETw2v32, 2, NIC_Service_VISTA, Common_EventLog_VISTA
+
+[Install_DELLMPCI3A_JP_VISTA.Services]
+AddService      = NETw2v32, 2, NIC_Service_VISTA, Common_EventLog_VISTA
+
+[Install_DELLMPCI3A_HB_VISTA.Services]
+AddService      = NETw2v32, 2, NIC_Service_VISTA, Common_EventLog_VISTA
+
+;------------------------------------------------------------------------------
+; 2200 3A mPCI adapter for Dell (BG)
+;------------------------------------------------------------------------------
+[Install_DELLMPCI3A_MOW_BG_VISTA]
+AddReg          = Reg_Common_VISTA, Reg_FeatureSet_VISTA_DELL, Reg_Dell, Reg_MPCI3A_BG, Reg_NDIS_VISTA, Reg_NCPA, Reg_CoInstaller,Reg_Common_BG, Reg_Dell_BG, Reg_NDI_BG, Reg_Mow_Adhoc_CH_24 
+Characteristics = 0x84  ; NCF_HAS_UI, NCF_PHYSICAL
+BusType         = 5     ; PCI bus
+CopyFiles       = CopyFiles_Driver_VISTA 
+*IfType = 71              ; IF_TYPE_IEEE80211 
+*MediaType = 16          ; NdisMediumNative802_11
+*PhysicalMediaType = 9   ; NdisPhysicalMediumNative802_11
+
+[Install_DELLMPCI3A_BG_VISTA]
+AddReg          = Reg_Common_VISTA, Reg_FeatureSet_VISTA_DELL, Reg_Dell, Reg_MPCI3A_BG, Reg_NDIS_VISTA, Reg_NCPA, Reg_CoInstaller,Reg_Common_BG, Reg_Dell_BG, Reg_NDI_BG,  Reg_Row_Adhoc_CH_24
+Characteristics = 0x84  ; NCF_HAS_UI, NCF_PHYSICAL
+BusType         = 5     ; PCI bus
+CopyFiles       = CopyFiles_Driver_VISTA 
+*IfType = 71              ; IF_TYPE_IEEE80211 
+*MediaType = 16          ; NdisMediumNative802_11
+*PhysicalMediaType = 9   ; NdisPhysicalMediumNative802_11
+
+[Install_DELLMPCI3A_BG_VISTA.CoInstallers]
+AddReg          = Reg_CoInstaller
+CopyFiles       = CopyFiles_NCPA_VISTA
+
+[Install_DELLMPCI3A_BG_VISTA.Services]
+AddService      = NETw2v32, 2, NIC_Service_BG_VISTA, Common_EventLog_VISTA
+
+[Install_DELLMPCI3A_MOW_BG_VISTA.CoInstallers]
+AddReg          = Reg_CoInstaller
+CopyFiles       = CopyFiles_NCPA_VISTA
+
+[Install_DELLMPCI3A_MOW_BG_VISTA.Services]
+AddService      = NETw2v32, 2, NIC_Service_BG_VISTA, Common_EventLog_VISTA
+
+;------------------------------------------------------------------------------
+; 2915 3B mPCI adapter for Fujitsu
+;------------------------------------------------------------------------------
+[Install_FUJITSUMPCI3B_AE_VISTA]
+DelReg		= Reg_Fujitsu_CH_52_DEL
+AddReg          = Reg_Common_VISTA, Reg_FeatureSet_VISTA, Reg_Fujitsu, Reg_MPCI3B, Reg_NDIS_VISTA, Reg_NCPA, Reg_CoInstaller, Reg_Common_ABG, Reg_Fujitsu_CH_52, Reg_Fujitsu_ABG, Reg_NDI_ABG, Reg_Mow_Adhoc_CH_24 
+Characteristics = 0x84  ; NCF_HAS_UI, NCF_PHYSICAL
+BusType         = 5     ; PCI bus
+CopyFiles       = CopyFiles_Driver_VISTA 
+*IfType = 71              ; IF_TYPE_IEEE80211 
+*MediaType = 16          ; NdisMediumNative802_11
+*PhysicalMediaType = 9   ; NdisPhysicalMediumNative802_11
+
+[Install_FUJITSUMPCI3B_EU_VISTA]
+DelReg		= Reg_Fujitsu_CH_52_DEL
+AddReg          = Reg_Common_VISTA, Reg_FeatureSet_VISTA, Reg_Fujitsu, Reg_MPCI3B, Reg_NDIS_VISTA, Reg_NCPA, Reg_CoInstaller, Reg_Common_ABG, Reg_Fujitsu_CH_52, Reg_Fujitsu_ABG, Reg_NDI_ABG, Reg_Row_Adhoc_CH_24 
+Characteristics = 0x84  ; NCF_HAS_UI, NCF_PHYSICAL
+BusType         = 5     ; PCI bus
+CopyFiles       = CopyFiles_Driver_VISTA 
+*IfType = 71              ; IF_TYPE_IEEE80211 
+*MediaType = 16          ; NdisMediumNative802_11
+*PhysicalMediaType = 9   ; NdisPhysicalMediumNative802_11
+
+[Install_FUJITSUMPCI3B_JP_VISTA]
+DelReg		= Reg_Fujitsu_CH_52_DEL
+AddReg          = Reg_Common_VISTA, Reg_FeatureSet_VISTA, Reg_Fujitsu, Reg_MPCI3B, Reg_NDIS_VISTA, Reg_NCPA, Reg_CoInstaller, Reg_Common_ABG, Reg_Fujitsu_CH_52, Reg_Fujitsu_ABG, Reg_NDI_ABG, Reg_Mow_Adhoc_CH_24 
+Characteristics = 0x84  ; NCF_HAS_UI, NCF_PHYSICAL
+BusType         = 5     ; PCI bus
+CopyFiles       = CopyFiles_Driver_VISTA 
+*IfType = 71              ; IF_TYPE_IEEE80211 
+*MediaType = 16          ; NdisMediumNative802_11
+*PhysicalMediaType = 9   ; NdisPhysicalMediumNative802_11
+
+[Install_FUJITSUMPCI3B_HB_VISTA]
+AddReg          = Reg_Common_VISTA, Reg_FeatureSet_VISTA, Reg_Fujitsu, Reg_MPCI3B, Reg_NDIS_VISTA, Reg_NCPA, Reg_CoInstaller, Reg_Common_ABG, Reg_HB_ABG, Reg_Fujitsu_ABG, Reg_NDI_ABG, Reg_Mow_Adhoc_CH_24 
+Characteristics = 0x84  ; NCF_HAS_UI, NCF_PHYSICAL
+BusType         = 5     ; PCI bus
+CopyFiles       = CopyFiles_Driver_VISTA 
+*IfType = 71              ; IF_TYPE_IEEE80211 
+*MediaType = 16          ; NdisMediumNative802_11
+*PhysicalMediaType = 9   ; NdisPhysicalMediumNative802_11
+
+[Install_FUJITSUMPCI3B_AE_VISTA.CoInstallers]
+AddReg          = Reg_CoInstaller
+CopyFiles       = CopyFiles_NCPA_VISTA
+
+[Install_FUJITSUMPCI3B_EU_VISTA.CoInstallers]
+AddReg          = Reg_CoInstaller
+CopyFiles       = CopyFiles_NCPA_VISTA
+
+[Install_FUJITSUMPCI3B_JP_VISTA.CoInstallers]
+AddReg          = Reg_CoInstaller
+CopyFiles       = CopyFiles_NCPA_VISTA
+
+[Install_FUJITSUMPCI3B_HB_VISTA.CoInstallers]
+AddReg          = Reg_CoInstaller
+CopyFiles       = CopyFiles_NCPA_VISTA
+
+[Install_FUJITSUMPCI3B_AE_VISTA.Services]
+AddService      = NETw2v32, 2, NIC_Service_VISTA, Common_EventLog_VISTA
+
+[Install_FUJITSUMPCI3B_EU_VISTA.Services]
+AddService      = NETw2v32, 2, NIC_Service_VISTA, Common_EventLog_VISTA
+
+[Install_FUJITSUMPCI3B_JP_VISTA.Services]
+AddService      = NETw2v32, 2, NIC_Service_VISTA, Common_EventLog_VISTA
+
+[Install_FUJITSUMPCI3B_HB_VISTA.Services]
+AddService      = NETw2v32, 2, NIC_Service_VISTA, Common_EventLog_VISTA
+
+;------------------------------------------------------------------------------
+; 2200 3B mPCI adapter for Fujitsu (BG)
+;------------------------------------------------------------------------------
+[Install_FUJITSUMPCI3B_BG_VISTA]
+AddReg          = Reg_Common_VISTA, Reg_FeatureSet_VISTA, Reg_Fujitsu, Reg_MPCI3B_BG, Reg_NDIS_VISTA, Reg_NCPA, Reg_CoInstaller, Reg_Common_BG, Reg_Fujitsu_BG, Reg_NDI_BG, Reg_Row_Adhoc_CH_24 
+Characteristics = 0x84  ; NCF_HAS_UI, NCF_PHYSICAL
+BusType         = 5     ; PCI bus
+CopyFiles       = CopyFiles_Driver_VISTA 
+*IfType = 71              ; IF_TYPE_IEEE80211 
+*MediaType = 16          ; NdisMediumNative802_11
+*PhysicalMediaType = 9   ; NdisPhysicalMediumNative802_11
+
+[Install_FUJITSUMPCI3B_BG_VISTA.CoInstallers]
+AddReg          = Reg_CoInstaller
+CopyFiles       = CopyFiles_NCPA_VISTA
+
+[Install_FUJITSUMPCI3B_BG_VISTA.Services]
+AddService      = NETw2v32, 2, NIC_Service_BG_VISTA, Common_EventLog_VISTA
+
+
+;------------------------------------------------------------------------------
+; 2200 3B mPCI adapter for Fujitsu MoW (BG)
+;------------------------------------------------------------------------------
+[Install_FUJITSUMPCI3B_MOW_BG_VISTA]
+AddReg          = Reg_Common_VISTA, Reg_FeatureSet_VISTA, Reg_Fujitsu, Reg_MPCI3B_BG, Reg_NDIS_VISTA, Reg_NCPA, Reg_CoInstaller, Reg_Common_BG, Reg_Fujitsu_Mow_BG, Reg_NDI_BG, Reg_Mow_Adhoc_CH_24 
+Characteristics = 0x84  ; NCF_HAS_UI, NCF_PHYSICAL
+BusType         = 5     ; PCI bus
+CopyFiles       = CopyFiles_Driver_VISTA 
+*IfType = 71              ; IF_TYPE_IEEE80211 
+*MediaType = 16          ; NdisMediumNative802_11
+*PhysicalMediaType = 9   ; NdisPhysicalMediumNative802_11
+
+[Install_FUJITSUMPCI3B_MOW_BG_VISTA.CoInstallers]
+AddReg          = Reg_CoInstaller
+CopyFiles       = CopyFiles_NCPA_VISTA
+
+[Install_FUJITSUMPCI3B_MOW_BG_VISTA.Services]
+AddService      = NETw2v32, 2, NIC_Service_BG_VISTA, Common_EventLog_VISTA
+
+
+;------------------------------------------------------------------------------
+; 2915 3B mPCI adapter for Toshiba
+;------------------------------------------------------------------------------
+[Install_TOSHIBAMPCI3B_AE_VISTA]
+AddReg          = Reg_Common_VISTA, Reg_FeatureSet_VISTA, Reg_Toshiba, Reg_MPCI3B, Reg_NDIS_VISTA, Reg_NCPA, Reg_CoInstaller, Reg_Common_ABG, Reg_AE_ABG, Reg_Toshiba_ABG, Reg_NDI_ABG, Reg_Mow_Adhoc_CH_24 
+Characteristics = 0x84  ; NCF_HAS_UI, NCF_PHYSICAL
+BusType         = 5     ; PCI bus
+CopyFiles       = CopyFiles_Driver_VISTA 
+*IfType = 71              ; IF_TYPE_IEEE80211 
+*MediaType = 16          ; NdisMediumNative802_11
+*PhysicalMediaType = 9   ; NdisPhysicalMediumNative802_11
+
+[Install_TOSHIBAMPCI3B_EU_VISTA]
+DelReg		= Reg_EU_ABG_DEL
+AddReg          = Reg_Common_VISTA, Reg_FeatureSet_VISTA, Reg_Toshiba, Reg_MPCI3B, Reg_NDIS_VISTA, Reg_NCPA, Reg_CoInstaller, Reg_Common_ABG, Reg_EU_ABG, Reg_Toshiba_ABG, Reg_NDI_ABG, Reg_Row_Adhoc_CH_24 
+Characteristics = 0x84  ; NCF_HAS_UI, NCF_PHYSICAL
+BusType         = 5     ; PCI bus
+CopyFiles       = CopyFiles_Driver_VISTA 
+*IfType = 71              ; IF_TYPE_IEEE80211 
+*MediaType = 16          ; NdisMediumNative802_11
+*PhysicalMediaType = 9   ; NdisPhysicalMediumNative802_11
+
+[Install_TOSHIBAMPCI3B_JP_VISTA]
+DelReg		= Reg_JP_ABG_DEL
+AddReg          = Reg_Common_VISTA, Reg_FeatureSet_VISTA, Reg_Toshiba, Reg_MPCI3B, Reg_NDIS_VISTA, Reg_NCPA, Reg_CoInstaller, Reg_Common_ABG, Reg_JP_ABG, Reg_Toshiba_ABG, Reg_NDI_ABG, Reg_Row_Adhoc_CH_24 
+Characteristics = 0x84  ; NCF_HAS_UI, NCF_PHYSICAL
+BusType         = 5     ; PCI bus
+CopyFiles       = CopyFiles_Driver_VISTA 
+*IfType = 71              ; IF_TYPE_IEEE80211 
+*MediaType = 16          ; NdisMediumNative802_11
+*PhysicalMediaType = 9   ; NdisPhysicalMediumNative802_11
+
+[Install_TOSHIBAMPCI3B_HB_VISTA]
+AddReg          = Reg_Common_VISTA, Reg_FeatureSet_VISTA, Reg_Toshiba, Reg_MPCI3B, Reg_NDIS_VISTA, Reg_NCPA, Reg_CoInstaller, Reg_Common_ABG, Reg_HB_ABG, Reg_Toshiba_ABG, Reg_NDI_ABG, Reg_Mow_Adhoc_CH_24 
+Characteristics = 0x84  ; NCF_HAS_UI, NCF_PHYSICAL
+BusType         = 5     ; PCI bus
+CopyFiles       = CopyFiles_Driver_VISTA 
+*IfType = 71              ; IF_TYPE_IEEE80211 
+*MediaType = 16          ; NdisMediumNative802_11
+*PhysicalMediaType = 9   ; NdisPhysicalMediumNative802_11
+
+[Install_TOSHIBAMPCI3B_AE_VISTA.CoInstallers]
+AddReg          = Reg_CoInstaller
+CopyFiles       = CopyFiles_NCPA_VISTA
+
+[Install_TOSHIBAMPCI3B_EU_VISTA.CoInstallers]
+AddReg          = Reg_CoInstaller
+CopyFiles       = CopyFiles_NCPA_VISTA
+
+[Install_TOSHIBAMPCI3B_JP_VISTA.CoInstallers]
+AddReg          = Reg_CoInstaller
+CopyFiles       = CopyFiles_NCPA_VISTA
+
+[Install_TOSHIBAMPCI3B_HB_VISTA.CoInstallers]
+AddReg          = Reg_CoInstaller
+CopyFiles       = CopyFiles_NCPA_VISTA
+
+[Install_TOSHIBAMPCI3B_AE_VISTA.Services]
+AddService      = NETw2v32, 2, NIC_Service_VISTA, Common_EventLog_VISTA
+
+[Install_TOSHIBAMPCI3B_EU_VISTA.Services]
+AddService      = NETw2v32, 2, NIC_Service_VISTA, Common_EventLog_VISTA
+
+[Install_TOSHIBAMPCI3B_JP_VISTA.Services]
+AddService      = NETw2v32, 2, NIC_Service_VISTA, Common_EventLog_VISTA
+
+[Install_TOSHIBAMPCI3B_HB_VISTA.Services]
+AddService      = NETw2v32, 2, NIC_Service_VISTA, Common_EventLog_VISTA
+
+;------------------------------------------------------------------------------
+; 2200 3B mPCI adapter for Toshiba MoW (BG)
+;------------------------------------------------------------------------------
+[Install_TOSHIBAMPCI3B_MOW_BG_VISTA]
+AddReg          = Reg_Common_VISTA, Reg_FeatureSet_VISTA, Reg_Toshiba, Reg_MPCI3B_BG, Reg_NDIS_VISTA, Reg_NCPA, Reg_CoInstaller, Reg_Common_BG, Reg_Toshiba_BG, Reg_NDI_BG, Reg_Mow_Adhoc_CH_24 
+Characteristics = 0x84  ; NCF_HAS_UI, NCF_PHYSICAL
+BusType         = 5     ; PCI bus
+CopyFiles       = CopyFiles_Driver_VISTA 
+*IfType = 71              ; IF_TYPE_IEEE80211 
+*MediaType = 16          ; NdisMediumNative802_11
+*PhysicalMediaType = 9   ; NdisPhysicalMediumNative802_11
+
+[Install_TOSHIBAMPCI3B_MOW_BG_VISTA.CoInstallers]
+AddReg          = Reg_CoInstaller
+CopyFiles       = CopyFiles_NCPA_VISTA
+
+[Install_TOSHIBAMPCI3B_MOW_BG_VISTA.Services]
+AddService      = NETw2v32, 2, NIC_Service_BG_VISTA, Common_EventLog_VISTA
+
+;------------------------------------------------------------------------------
+; 2200 3B mPCI adapter for Toshiba (BG)
+;------------------------------------------------------------------------------
+[Install_TOSHIBAMPCI3B_BG_VISTA]
+AddReg          = Reg_Common_VISTA, Reg_FeatureSet_VISTA, Reg_Toshiba, Reg_MPCI3B_BG, Reg_NDIS_VISTA, Reg_NCPA, Reg_CoInstaller, Reg_Common_BG, Reg_Toshiba_BG, Reg_NDI_BG, Reg_Row_Adhoc_CH_24 
+Characteristics = 0x84  ; NCF_HAS_UI, NCF_PHYSICAL
+BusType         = 5     ; PCI bus
+CopyFiles       = CopyFiles_Driver_VISTA 
+*IfType = 71              ; IF_TYPE_IEEE80211 
+*MediaType = 16          ; NdisMediumNative802_11
+*PhysicalMediaType = 9   ; NdisPhysicalMediumNative802_11
+
+[Install_TOSHIBAMPCI3B_BG_VISTA.CoInstallers]
+AddReg          = Reg_CoInstaller
+CopyFiles       = CopyFiles_NCPA_VISTA
+
+[Install_TOSHIBAMPCI3B_BG_VISTA.Services]
+AddService      = NETw2v32, 2, NIC_Service_BG_VISTA, Common_EventLog_VISTA
+
+;------------------------------------------------------------------------------
+; 2915 3B mPCI adapter for Sony
+;------------------------------------------------------------------------------
+[Install_SONYMPCI3B_AE_VISTA]
+AddReg          = Reg_Common_VISTA, Reg_FeatureSet_VISTA, Reg_Sony, Reg_MPCI3B, Reg_NDIS_VISTA, Reg_NCPA, Reg_CoInstaller, Reg_Common_ABG, Reg_AE_ABG, Reg_Sony_ABG, Reg_NDI_ABG, Reg_Mow_Adhoc_CH_24 
+Characteristics = 0x84  ; NCF_HAS_UI, NCF_PHYSICAL
+BusType         = 5     ; PCI bus
+CopyFiles       = CopyFiles_Driver_VISTA 
+*IfType = 71              ; IF_TYPE_IEEE80211 
+*MediaType = 16          ; NdisMediumNative802_11
+*PhysicalMediaType = 9   ; NdisPhysicalMediumNative802_11
+
+[Install_SONYMPCI3B_EU_VISTA]
+DelReg		= Reg_EU_ABG_DEL
+AddReg          = Reg_Common_VISTA, Reg_FeatureSet_VISTA, Reg_Sony, Reg_MPCI3B, Reg_NDIS_VISTA, Reg_NCPA, Reg_CoInstaller, Reg_Common_ABG, Reg_EU_ABG, Reg_Sony_ABG, Reg_NDI_ABG, Reg_Row_Adhoc_CH_24 
+Characteristics = 0x84  ; NCF_HAS_UI, NCF_PHYSICAL
+BusType         = 5     ; PCI bus
+CopyFiles       = CopyFiles_Driver_VISTA 
+*IfType = 71              ; IF_TYPE_IEEE80211 
+*MediaType = 16          ; NdisMediumNative802_11
+*PhysicalMediaType = 9   ; NdisPhysicalMediumNative802_11
+
+[Install_SONYMPCI3B_JP_VISTA]
+DelReg		= Reg_JP_ABG_DEL
+AddReg          = Reg_Common_VISTA, Reg_FeatureSet_VISTA, Reg_Sony, Reg_MPCI3B, Reg_NDIS_VISTA, Reg_NCPA, Reg_CoInstaller, Reg_Common_ABG, Reg_JP_ABG, Reg_Sony_ABG, Reg_NDI_ABG, Reg_Row_Adhoc_CH_24 
+Characteristics = 0x84  ; NCF_HAS_UI, NCF_PHYSICAL
+BusType         = 5     ; PCI bus
+CopyFiles       = CopyFiles_Driver_VISTA 
+*IfType = 71              ; IF_TYPE_IEEE80211 
+*MediaType = 16          ; NdisMediumNative802_11
+*PhysicalMediaType = 9   ; NdisPhysicalMediumNative802_11
+
+[Install_SONYMPCI3B_HB_VISTA]
+AddReg          = Reg_Common_VISTA, Reg_FeatureSet_VISTA, Reg_Sony, Reg_MPCI3B, Reg_NDIS_VISTA, Reg_NCPA, Reg_CoInstaller, Reg_Common_ABG, Reg_HB_ABG, Reg_Sony_ABG, Reg_NDI_ABG, Reg_Mow_Adhoc_CH_24 
+Characteristics = 0x84  ; NCF_HAS_UI, NCF_PHYSICAL
+BusType         = 5     ; PCI bus
+CopyFiles       = CopyFiles_Driver_VISTA 
+*IfType = 71              ; IF_TYPE_IEEE80211 
+*MediaType = 16          ; NdisMediumNative802_11
+*PhysicalMediaType = 9   ; NdisPhysicalMediumNative802_11
+
+[Install_SONYMPCI3B_AE_VISTA.CoInstallers]
+AddReg          = Reg_CoInstaller
+CopyFiles       = CopyFiles_NCPA_VISTA
+
+[Install_SONYMPCI3B_EU_VISTA.CoInstallers]
+AddReg          = Reg_CoInstaller
+CopyFiles       = CopyFiles_NCPA_VISTA
+
+[Install_SONYMPCI3B_JP_VISTA.CoInstallers]
+AddReg          = Reg_CoInstaller
+CopyFiles       = CopyFiles_NCPA_VISTA
+
+[Install_SONYMPCI3B_HB_VISTA.CoInstallers]
+AddReg          = Reg_CoInstaller
+CopyFiles       = CopyFiles_NCPA_VISTA
+
+[Install_SONYMPCI3B_AE_VISTA.Services]
+AddService      = NETw2v32, 2, NIC_Service_VISTA, Common_EventLog_VISTA
+
+[Install_SONYMPCI3B_EU_VISTA.Services]
+AddService      = NETw2v32, 2, NIC_Service_VISTA, Common_EventLog_VISTA
+
+[Install_SONYMPCI3B_JP_VISTA.Services]
+AddService      = NETw2v32, 2, NIC_Service_VISTA, Common_EventLog_VISTA
+
+[Install_SONYMPCI3B_HB_VISTA.Services]
+AddService      = NETw2v32, 2, NIC_Service_VISTA, Common_EventLog_VISTA
+
+;------------------------------------------------------------------------------
+; 2200 3B mPCI adapter for Sony MoW (BG)
+;------------------------------------------------------------------------------
+[Install_SONYMPCI3B_MOW_BG_VISTA]
+AddReg          = Reg_Common_VISTA, Reg_FeatureSet_VISTA, Reg_Sony, Reg_MPCI3B_BG, Reg_NDIS_VISTA, Reg_NCPA, Reg_CoInstaller, Reg_Common_BG, Reg_Sony_BG, Reg_NDI_BG, Reg_NDI_BG, Reg_Mow_Adhoc_CH_24 
+;DelReg           = Reg_Sony_BG_Del
+Characteristics = 0x84  ; NCF_HAS_UI, NCF_PHYSICAL
+BusType         = 5     ; PCI bus
+CopyFiles       = CopyFiles_Driver_VISTA 
+*IfType = 71              ; IF_TYPE_IEEE80211 
+*MediaType = 16          ; NdisMediumNative802_11
+*PhysicalMediaType = 9   ; NdisPhysicalMediumNative802_11
+
+[Install_SONYMPCI3B_MOW_BG_VISTA.CoInstallers]
+AddReg          = Reg_CoInstaller
+CopyFiles       = CopyFiles_NCPA_VISTA
+
+[Install_SONYMPCI3B_MOW_BG_VISTA.Services]
+AddService      = NETw2v32, 2, NIC_Service_BG_VISTA, Common_EventLog_VISTA
+
+;------------------------------------------------------------------------------
+; 2200 3B mPCI adapter for Sony (BG)
+;------------------------------------------------------------------------------
+[Install_SONYMPCI3B_BG_VISTA]
+AddReg          = Reg_Common_VISTA, Reg_FeatureSet_VISTA, Reg_Sony, Reg_MPCI3B_BG, Reg_NDIS_VISTA, Reg_NCPA, Reg_CoInstaller, Reg_Common_BG, Reg_Sony_BG, Reg_NDI_BG, Reg_NDI_BG, Reg_Row_Adhoc_CH_24 
+;DelReg           = Reg_Sony_BG_Del
+Characteristics = 0x84  ; NCF_HAS_UI, NCF_PHYSICAL
+BusType         = 5     ; PCI bus
+CopyFiles       = CopyFiles_Driver_VISTA 
+*IfType = 71              ; IF_TYPE_IEEE80211 
+*MediaType = 16          ; NdisMediumNative802_11
+*PhysicalMediaType = 9   ; NdisPhysicalMediumNative802_11
+
+[Install_SONYMPCI3B_BG_VISTA.CoInstallers]
+AddReg          = Reg_CoInstaller
+CopyFiles       = CopyFiles_NCPA_VISTA
+
+[Install_SONYMPCI3B_BG_VISTA.Services]
+AddService      = NETw2v32, 2, NIC_Service_BG_VISTA, Common_EventLog_VISTA
+
+
+;------------------------------------------------------------------------------
+; 2200 3B mPCI adapter for HPQ (BG)
+;------------------------------------------------------------------------------
+[Install_HPQMPCI3B_BG_VISTA]
+AddReg          = Reg_Common_VISTA, Reg_FeatureSet_VISTA_HPQ, Reg_HPQ, Reg_MPCI3B_BG, Reg_NDIS_VISTA, Reg_NCPA, Reg_CoInstaller, Reg_Common_BG, Reg_HPQ_BG, Reg_11g_Div, Reg_NDI_BG, Reg_Row_Adhoc_CH_24 
+Characteristics = 0x84  ; NCF_HAS_UI, NCF_PHYSICAL
+BusType         = 5     ; PCI bus
+CopyFiles       = CopyFiles_Driver_VISTA 
+*IfType = 71              ; IF_TYPE_IEEE80211 
+*MediaType = 16          ; NdisMediumNative802_11
+*PhysicalMediaType = 9   ; NdisPhysicalMediumNative802_11
+
+[Install_HPQMPCI3B_BG_VISTA.CoInstallers]
+AddReg          = Reg_CoInstaller
+CopyFiles       = CopyFiles_NCPA_VISTA
+
+[Install_HPQMPCI3B_BG_VISTA.Services]
+AddService      = NETw2v32, 2, NIC_Service_BG_VISTA, Common_EventLog_VISTA
+
+;------------------------------------------------------------------------------
+; 2915 3B mPCI adapter for HPQ MoW
+;------------------------------------------------------------------------------
+[Install_HPQMPCI3B_MOW_AE_VISTA]
+AddReg          = Reg_Common_VISTA, Reg_FeatureSet_VISTA_HPQ, Reg_HPQ, Reg_MPCI3B, Reg_NDIS_VISTA, Reg_NCPA, Reg_CoInstaller, Reg_Common_ABG, Reg_AE_ABG, Reg_HPQ_Mow_ABG, Reg_11g_Div, Reg_NDI_ABG, Reg_Mow_Adhoc_CH_24
+Characteristics = 0x84  ; NCF_HAS_UI, NCF_PHYSICAL
+BusType         = 5     ; PCI bus
+CopyFiles       = CopyFiles_Driver_VISTA 
+*IfType = 71              ; IF_TYPE_IEEE80211 
+*MediaType = 16          ; NdisMediumNative802_11
+*PhysicalMediaType = 9   ; NdisPhysicalMediumNative802_11
+
+[Install_HPQMPCI3B_MOW_EU_VISTA]
+DelReg		= Reg_EU_ABG_DEL
+AddReg          = Reg_Common_VISTA, Reg_FeatureSet_VISTA_HPQ, Reg_HPQ, Reg_MPCI3B, Reg_NDIS_VISTA, Reg_NCPA, Reg_CoInstaller, Reg_Common_ABG, Reg_EU_ABG, Reg_HPQ_Mow_ABG, Reg_11g_Div, Reg_NDI_ABG, Reg_Row_Adhoc_CH_24
+Characteristics = 0x84  ; NCF_HAS_UI, NCF_PHYSICAL
+BusType         = 5     ; PCI bus
+CopyFiles       = CopyFiles_Driver_VISTA 
+*IfType = 71              ; IF_TYPE_IEEE80211 
+*MediaType = 16          ; NdisMediumNative802_11
+*PhysicalMediaType = 9   ; NdisPhysicalMediumNative802_11
+
+[Install_HPQMPCI3B_MOW_JP_VISTA]
+DelReg		= Reg_JP_ABG_DEL
+AddReg          = Reg_Common_VISTA, Reg_FeatureSet_VISTA_HPQ, Reg_HPQ, Reg_MPCI3B, Reg_NDIS_VISTA, Reg_NCPA, Reg_CoInstaller, Reg_Common_ABG, Reg_JP_ABG, Reg_HPQ_Mow_ABG, Reg_11g_Div, Reg_NDI_ABG, Reg_Row_Adhoc_CH_24
+Characteristics = 0x84  ; NCF_HAS_UI, NCF_PHYSICAL
+BusType         = 5     ; PCI bus
+CopyFiles       = CopyFiles_Driver_VISTA 
+*IfType = 71              ; IF_TYPE_IEEE80211 
+*MediaType = 16          ; NdisMediumNative802_11
+*PhysicalMediaType = 9   ; NdisPhysicalMediumNative802_11
+
+[Install_HPQMPCI3B_MOW_HB_VISTA]
+AddReg          = Reg_Common_VISTA, Reg_FeatureSet_VISTA_HPQ, Reg_HPQ, Reg_MPCI3B, Reg_NDIS_VISTA, Reg_NCPA, Reg_CoInstaller, Reg_Common_ABG, Reg_HB_ABG, Reg_HPQ_Mow_ABG, Reg_11g_Div, Reg_NDI_ABG, Reg_Mow_Adhoc_CH_24
+Characteristics = 0x84  ; NCF_HAS_UI, NCF_PHYSICAL
+BusType         = 5     ; PCI bus
+CopyFiles       = CopyFiles_Driver_VISTA 
+*IfType = 71              ; IF_TYPE_IEEE80211 
+*MediaType = 16          ; NdisMediumNative802_11
+*PhysicalMediaType = 9   ; NdisPhysicalMediumNative802_11
+
+[Install_HPQMPCI3B_MOW_AE_VISTA.CoInstallers]
+AddReg          = Reg_CoInstaller
+CopyFiles       = CopyFiles_NCPA_VISTA
+
+[Install_HPQMPCI3B_MOW_EU_VISTA.CoInstallers]
+AddReg          = Reg_CoInstaller
+CopyFiles       = CopyFiles_NCPA_VISTA
+
+[Install_HPQMPCI3B_MOW_JP_VISTA.CoInstallers]
+AddReg          = Reg_CoInstaller
+CopyFiles       = CopyFiles_NCPA_VISTA
+
+[Install_HPQMPCI3B_MOW_HB_VISTA.CoInstallers]
+AddReg          = Reg_CoInstaller
+CopyFiles       = CopyFiles_NCPA_VISTA
+
+[Install_HPQMPCI3B_MOW_AE_VISTA.Services]
+AddService      = NETw2v32, 2, NIC_Service_VISTA, Common_EventLog_VISTA
+
+[Install_HPQMPCI3B_MOW_EU_VISTA.Services]
+AddService      = NETw2v32, 2, NIC_Service_VISTA, Common_EventLog_VISTA
+
+[Install_HPQMPCI3B_MOW_JP_VISTA.Services]
+AddService      = NETw2v32, 2, NIC_Service_VISTA, Common_EventLog_VISTA
+
+[Install_HPQMPCI3B_MOW_HB_VISTA.Services]
+AddService      = NETw2v32, 2, NIC_Service_VISTA, Common_EventLog_VISTA
+
+;------------------------------------------------------------------------------
+; 2200 3B mPCI adapter for HPQ MoW (BG)
+;------------------------------------------------------------------------------
+[Install_HPQMPCI3B_MOW_BG_VISTA]
+AddReg          = Reg_Common_VISTA, Reg_FeatureSet_VISTA_HPQ, Reg_HPQ, Reg_MPCI3B_BG, Reg_NDIS_VISTA, Reg_NCPA, Reg_CoInstaller, Reg_Common_BG, Reg_HPQ_Mow_BG, Reg_11g_Div, Reg_NDI_BG, Reg_Mow_Adhoc_CH_24 
+Characteristics = 0x84  ; NCF_HAS_UI, NCF_PHYSICAL
+BusType         = 5     ; PCI bus
+CopyFiles       = CopyFiles_Driver_VISTA 
+*IfType = 71              ; IF_TYPE_IEEE80211 
+*MediaType = 16          ; NdisMediumNative802_11
+*PhysicalMediaType = 9   ; NdisPhysicalMediumNative802_11
+
+[Install_HPQMPCI3B_MOW_BG_VISTA.CoInstallers]
+AddReg          = Reg_CoInstaller
+CopyFiles       = CopyFiles_NCPA_VISTA
+
+[Install_HPQMPCI3B_MOW_BG_VISTA.Services]
+AddService      = NETw2v32, 2, NIC_Service_BG_VISTA, Common_EventLog_VISTA
+
+;-----------------------------------------------------------------------------
+; Vista common entries for NIC
+;
+[Reg_Common_VISTA]
+HKR,,CardType,0x00010001,2
+HKR,,ConfigurationName,0,"PR0W1RELE55"
+HKR,,ConnectionPriority,0,"2"
+HKR,,Diversity11a,0,"0"
+HKR,,Diversity11b,0,"2"
+HKR,,Diversity11g,0,"0"
+HKR,,DiversityOverride,0x10001,"0"
+HKR,,DisableAdHoc,0,"0"
+HKR,,IbssQosEnabled,0,"0"
+HKR,,ExtChannelBand24Enabled,0x10001,0x0
+HKR,,IBSSTxPower,0x00000002,"100"
+HKR,,NdisEnvironment,0x10001,0
+HKR,,NetType,0,"WLAN"
+HKR,,ModulationType,0x2,"2"
+;changed
+;HKR,,PrefBand,0x10003,0x2
+HKR,,Provider,0,%PROVIDER_NAME%
+HKR,,RadioEnable,0x10001,0x1
+;changed
+HKR,,RoamAggressiveness,2,"2"
+HKR,,StationName,0,""
+;changed
+HKR,,FixedLongPreamble,0x10003,0x0
+HKR,,DesiredPSKey1,0x2,""
+HKR,,DesiredPSKey2,0x2,""
+HKR,,DesiredPSKey3,0x2,""
+HKR,,DesiredPSKey4,0x2,""
+HKR,,DesiredDefaultKeyId,0x10003,0x1
+HKR,,DesiredPortType,0x10003,0x1
+
+;Changing Authe Mode from 0x0 (disabled) to Max 
+;supported 0x6 (RSNA) per IHV Spec. guidelines.
+;Changing key properties to remove FLG_ADDREG_NOCLOBBER (0x00000002) 
+;on the key-so that the new value can be reflected when the 
+;driver is updated over the old one.
+;HKR,,DesiredAuthenticationMode,0x10003,0x6
+
+HKR,,DesiredAuthenticationMode,0x10001,0x6
+
+;Changing Authe Mode from 0x1 (None) to Max 
+;supported 0x6 (AES-CCMP) per IHV Spec. guidelines.
+;Changing key properties to remove FLG_ADDREG_NOCLOBBER (0x00000002) 
+;on the key-so that the new value can be reflected when the 
+;driver is updated over the old one.
+;HKR,,DesiredCipher,0x10003,0x6 
+
+HKR,,DesiredCipher,0x10001,0x6 
+
+;
+; We are disabling BTCoexistence since it has not been tested with Vista
+;
+;HKR,,BTCoexistence,0x10001,0x7
+HKR,,BTCoexistence,0x10001,0x0
+
+;new 14th Jul 06
+;Default WirelessMode value should be different for both BG and ABG
+;Therefore need to be moved under ABG and BG common keys
+;HKR,,WirelessMode,0x10003,0x5
+
+; new
+HKR,,IEEE11dMode,0,"0"
+
+
+; 
+; Ad hoc RecommendedChannel24
+; These are common with the default values varying between the different reg sections.
+; 'Default' will be assigned per SKU
+;
+HKR, Ndi\params\RecommendedChannel24,	ParamDesc,	0, %RecommendedChannel24%
+HKR, Ndi\params\RecommendedChannel24,	Type,		0, "int"
+HKR, Ndi\params\RecommendedChannel24,	Optional,		0, "0"
+HKR, Ndi\params\RecommendedChannel24,	Min,			0, "1"
+HKR, Ndi\params\RecommendedChannel24,	Step,		0, "1"
+
+[Reg_Mow_Adhoc_CH_24]
+HKR, Ndi\params\RecommendedChannel24,      	Max,	    		0, "11"
+
+[Reg_Row_Adhoc_CH_24]
+HKR, Ndi\params\RecommendedChannel24,      	Max,	    		0, "13"
+
+
+
+;**************************************
+;Disable PowerMgmt option from Featureset
+
+[Reg_FeatureSet_VISTA]
+;HKR,,FeatureSet,0x10001,0x80900001
+HKR,,FeatureSet,0x10001,0x80920001
+
+[Reg_FeatureSet_VISTA_DELL]
+;HKR,,FeatureSet,0x10001,0x80100001
+HKR,,FeatureSet,0x10001,0x80120001
+
+[Reg_FeatureSet_VISTA_HPQ]
+;HKR,,FeatureSet,0x10001,0x80904001
+HKR,,FeatureSet,0x10001,0x80924001
+;**************************************
+
+[Reg_11g_Div]
+HKR,,Diversity11g,0,"2"
+
+[Reg_Common_ABG]
+HKR,,CLSGUID,0,%INTEL_GUID%
+HKR,,DriverDesc,0,%NIC_DriverDesc%
+HKR,,Band5GHzSupport,0x10001,0x1
+HKR,,BandType,0x10003,0x2
+HKR,,FragmentationThreshold,0x10001,2304
+HKR,,ReadGainDB,0x10001,0x1
+HKR,,RfKillSKU,0x10001,0x2
+HKR,,CalibrationEnable,0x10001,0x1
+HKR,,LedEnable,0x10001,0x1
+HKR,,RecommendedAtimWindow,0x10001,0x0
+HKR,,RecommendedBeaconInterval,0x10001,100
+HKR,,RTSThreshold,0x10001,1600
+HKR,,WoWLanEnable,0x10001,0x0
+HKR,,CtsToItself,0x10003,0x1
+HKR,,RsnEnable,0x10001,0x1
+;new
+HKR,,PrefBand,0x10003,0x0
+
+;new 14th Jul 06
+;By allowing this value to overwrite the existing one we fix the issue
+;where after installation the NIC is mixed mode (abg) but under NDI shows
+;as 802.11a. The reason being the original value is of type REG_DWORD which
+;doesn't get overwritten (until user explicitly changes it through NDI). NDI 
+;expects the value to be of type REG_SZ and that's why defaults to the 
+;first entry int the list (in this case it is 802.11a).
+;FLG_ADDREG_NOCLOBBER is reset + FLG_ADDREG_TYPE_SZ is set
+HKR,,WirelessMode,0,"5"
+
+[Reg_Common_BG]
+HKR,,CLSGUID,0,%INTEL_GUID_BG%
+HKR,,DriverDesc,0,%NIC_DriverDesc_BG%
+HKR,,BandType,0x10003,0x0
+HKR,,MixedCellsEnabled,0x10001,0x1
+HKR,,RsnEnable,0x10001,0x1
+; new
+HKR,,PrefBand,0x10003,0x2
+
+;new 14th Jul 06
+;By allowing this value to overwrite the existing one we fix the issue
+;where after installation the NIC is mixed mode (bg) but under NDI shows
+;as 802.11a. The reason being the original value is of type REG_DWORD which
+;doesn't get overwritten (until user explicitly changes it through NDI). NDI 
+;expects the value to be of type REG_SZ and that's why defaults to the 
+;first entry int the list (in this case it is 802.11b).
+;FLG_ADDREG_NOCLOBBER is reset + FLG_ADDREG_TYPE_SZ is set
+HKR,,WirelessMode,0,"4"
+
+[Reg_AE_ABG]
+HKR,,RecommendedChannel52,0x2,"36"
+
+HKR, Ndi\Params\RecommendedChannel52,        	ParamDesc,	        0,      %RecommendedChannel52%
+HKR, Ndi\Params\RecommendedChannel52,        	Base,        	        0,      "10"
+HKR, Ndi\Params\RecommendedChannel52,        	default,        	0,      "36"
+HKR, Ndi\Params\RecommendedChannel52,        	type,           	0,      "enum"
+HKR, Ndi\Params\RecommendedChannel52\Enum,   	"36",            	0,      %RecommendedChannel52_36%
+HKR, Ndi\Params\RecommendedChannel52\Enum,   	"40",            	0,      %RecommendedChannel52_40%
+HKR, Ndi\Params\RecommendedChannel52\Enum,   	"44",            	0,      %RecommendedChannel52_44%
+HKR, Ndi\Params\RecommendedChannel52\Enum,   	"48",            	0,      %RecommendedChannel52_48%
+HKR, Ndi\Params\RecommendedChannel52\Enum,   	"149",            	0,      %RecommendedChannel52_149%
+HKR, Ndi\Params\RecommendedChannel52\Enum,   	"153",            	0,      %RecommendedChannel52_153%
+HKR, Ndi\Params\RecommendedChannel52\Enum,   	"157",            	0,      %RecommendedChannel52_157%
+HKR, Ndi\Params\RecommendedChannel52\Enum,   	"161",            	0,      %RecommendedChannel52_161%
+HKR, Ndi\Params\RecommendedChannel52\Enum,   	"165",            	0,      %RecommendedChannel52_165%
+
+;
+; Reg_EU_ABG_DEL was defined to remove the HB channels from the ZZE SKUs that should not have been defined in the InBox driver V9.1.0.104
+;
+[Reg_EU_ABG_DEL]
+HKR, Ndi\Params\RecommendedChannel52\Enum,   	"149",            	0,      %RecommendedChannel52_149%
+HKR, Ndi\Params\RecommendedChannel52\Enum,   	"153",            	0,      %RecommendedChannel52_153%
+HKR, Ndi\Params\RecommendedChannel52\Enum,   	"157",            	0,      %RecommendedChannel52_157%
+HKR, Ndi\Params\RecommendedChannel52\Enum,   	"161",            	0,      %RecommendedChannel52_161%
+HKR, Ndi\Params\RecommendedChannel52\Enum,   	"165",            	0,      %RecommendedChannel52_165%
+
+[Reg_EU_ABG]
+HKR,,RecommendedChannel52,0x2,"36"
+
+HKR, Ndi\Params\RecommendedChannel52,        	ParamDesc,	        0,      %RecommendedChannel52%
+HKR, Ndi\Params\RecommendedChannel52,        	Base,        	        0,      "10"
+HKR, Ndi\Params\RecommendedChannel52,        	default,        	0,      "36"
+HKR, Ndi\Params\RecommendedChannel52,        	type,           	0,      "enum"
+HKR, Ndi\Params\RecommendedChannel52\Enum,   	"36",            	0,      %RecommendedChannel52_36%
+HKR, Ndi\Params\RecommendedChannel52\Enum,   	"40",            	0,      %RecommendedChannel52_40%
+HKR, Ndi\Params\RecommendedChannel52\Enum,   	"44",            	0,      %RecommendedChannel52_44%
+HKR, Ndi\Params\RecommendedChannel52\Enum,   	"48",            	0,      %RecommendedChannel52_48%
+
+
+[Reg_JP_ABG_DEL]
+HKR, Ndi\Params\RecommendedChannel52\Enum,   	"34",            	0,      %RecommendedChannel52_34%
+HKR, Ndi\Params\RecommendedChannel52\Enum,   	"38",            	0,      %RecommendedChannel52_38%
+HKR, Ndi\Params\RecommendedChannel52\Enum,   	"42",            	0,      %RecommendedChannel52_42%
+HKR, Ndi\Params\RecommendedChannel52\Enum,   	"46",            	0,      %RecommendedChannel52_46%
+
+[Reg_JP_ABG]
+HKR,,RecommendedChannel52,0x2,"36"
+; changed
+;HKR,,IEEE11dMode,0,"0"
+
+HKR, Ndi\Params\RecommendedChannel52,        	ParamDesc,	        0,      %RecommendedChannel52%
+HKR, Ndi\Params\RecommendedChannel52,        	Base,        	        0,      "10"
+HKR, Ndi\Params\RecommendedChannel52,        	default,        	0,      "36"
+HKR, Ndi\Params\RecommendedChannel52,        	type,           	0,      "enum"
+HKR, Ndi\Params\RecommendedChannel52\Enum,   	"36",            	0,      %RecommendedChannel52_36%
+HKR, Ndi\Params\RecommendedChannel52\Enum,   	"40",            	0,      %RecommendedChannel52_40%
+HKR, Ndi\Params\RecommendedChannel52\Enum,   	"44",            	0,      %RecommendedChannel52_44%
+HKR, Ndi\Params\RecommendedChannel52\Enum,   	"48",            	0,      %RecommendedChannel52_48%
+
+[Reg_HB_ABG]
+HKR,,RecommendedChannel52,0x2,"149"
+
+HKR, Ndi\Params\RecommendedChannel52,        	ParamDesc,	        0,      %RecommendedChannel52%
+HKR, Ndi\Params\RecommendedChannel52,        	Base,        	        0,      "10"
+HKR, Ndi\Params\RecommendedChannel52,        	default,        	0,      "149"
+HKR, Ndi\Params\RecommendedChannel52,        	type,           	0,      "enum"
+HKR, Ndi\Params\RecommendedChannel52\Enum,   	"149",            	0,      %RecommendedChannel52_149%
+HKR, Ndi\Params\RecommendedChannel52\Enum,   	"153",            	0,      %RecommendedChannel52_153%
+HKR, Ndi\Params\RecommendedChannel52\Enum,   	"157",            	0,      %RecommendedChannel52_157%
+HKR, Ndi\Params\RecommendedChannel52\Enum,   	"161",            	0,      %RecommendedChannel52_161%
+
+[Reg_Intel]
+;HKR,,FeatureSet,0x10001,0x00900001
+HKR,,RecommendedChannel24,0x2,"11"
+
+;
+; Since for Vista the Power Mgmt setting is controlled by the Dot11 OID OID_DOT11_POWER_MGMT_REQUEST
+; and there is no Powr Mgmt setting in the Advanced Tab,
+; we will set the default PowerIndex value to CAM in order to better support WHQL testing.
+;
+;HKR,,PowerIndex,0x00000002,"6"
+HKR,,PowerIndex,0x00000000,"0"
+
+HKR, Ndi\params\RecommendedChannel24,      	Default,    	0, "11"
+
+
+[Reg_Intel_ABG]
+HKR,,DesiredSsid,0x02,""
+HKR,,RecommendedBand,0x2,"0"
+
+[Reg_Intel_BG]
+HKR,,DesiredSsid,0x2,""
+HKR,,CtsToItself,0x10003,0x1
+
+[Reg_Intel_Mow_ABG]
+HKR,,DesiredSsid,0x02,""
+HKR,,RecommendedBand,0x2,"0"
+
+[Reg_Intel_Mow_BG]
+HKR,,DesiredSsid,0x2,""
+HKR,,CtsToItself,0x10003,0x1
+
+
+[Reg_IBM_VISTA]
+;HKR,,FeatureSet,0x10001,0x00900001
+
+;
+; Since for Vista the Power Mgmt setting is controlled by the Dot11 OID OID_DOT11_POWER_MGMT_REQUEST
+; we will set the default PowerIndex value to CAM in order to better support WHQL testing.
+;
+;HKR,,PowerIndex,0x00000002,"6"
+HKR,,PowerIndex,0x00000000,"0"
+
+HKR,,DesiredSsid,0x2,"WXYZ"
+HKR,,RecommendedChannel24,0x2,"11"
+HKR, Ndi\params\RecommendedChannel24,      	Default,    	0, "11"
+
+[Reg_IBM_BG]
+HKR,,CtsToItself,0x10003,0x1
+
+[Reg_IBM_Mow_VISTA]
+HKR,,BacktoBackScanningCount,0x10001,4
+HKR,,MainAuxControl,0x10001,1
+
+[Reg_IBM_Mow_ABG]
+HKR,,RecommendedBand,0x2,"0"
+
+[Reg_IBM_Mow_BG]
+HKR,,CtsToItself,0x10003,0x1
+
+
+[Reg_Dell]
+;HKR,,FeatureSet,0x10001,0x00100001
+
+;
+; Since for Vista the Power Mgmt setting is controlled by the Dot11 OID OID_DOT11_POWER_MGMT_REQUEST
+; we will set the default PowerIndex value to CAM in order to better support WHQL testing.
+;
+;HKR,,PowerIndex,0x00000002,"3"
+HKR,,PowerIndex,0x00000000,"0"
+
+;
+; We are disabling BTCoexistence since it has not been tested with Vista
+;
+;HKR,,BTCoexistence,0x10001,0x17
+HKR,,BTCoexistence,0x10001,0x0
+HKR,,RecommendedChannel24,0x2,"1"
+HKR, Ndi\params\RecommendedChannel24,      	Default,    	0, "1"
+
+[Reg_Dell_ABG]
+HKR,,DesiredSsid,0x02,"101"
+HKR,,RecommendedBand,0x2,"0"
+
+[Reg_Dell_BG]
+HKR,,CtsToItself,0x10003,0x1
+HKR,,DesiredSsid,0x2,"101"
+
+
+[Reg_Fujitsu]
+;HKR,,FeatureSet,0x10001,0x00900001
+HKR,,RecommendedChannel24,0x2,"11"
+
+;
+; Since for Vista the Power Mgmt setting is controlled by the Dot11 OID OID_DOT11_POWER_MGMT_REQUEST
+; we will set the default PowerIndex value to CAM in order to better support WHQL testing.
+;
+;HKR,,PowerIndex,0x00000002,"6"
+HKR,,PowerIndex,0x00000000,"0"
+
+HKR, Ndi\params\RecommendedChannel24,      	Default,    	0, "11"
+
+[Reg_Fujitsu_ABG]
+HKR,,DesiredSsid,0x02,""
+HKR,,RecommendedBand,0x2,"0"
+
+[Reg_Fujitsu_BG]
+HKR,,DesiredSsid,0x2,""
+HKR,,CtsToItself,0x10003,0x1
+
+[Reg_Fujitsu_Mow_BG]
+HKR,,DesiredSsid,0x2,""
+HKR,,CtsToItself,0x10003,0x1
+
+[Reg_Fujitsu_CH_52_DEL]
+HKR, Ndi\Params\RecommendedChannel52\Enum,   	"34",            	0,      %RecommendedChannel52_34%
+HKR, Ndi\Params\RecommendedChannel52\Enum,   	"38",            	0,      %RecommendedChannel52_38%
+HKR, Ndi\Params\RecommendedChannel52\Enum,   	"42",            	0,      %RecommendedChannel52_42%
+HKR, Ndi\Params\RecommendedChannel52\Enum,   	"46",            	0,      %RecommendedChannel52_46%
+HKR, Ndi\Params\RecommendedChannel52\Enum,   	"149",            	0,      %RecommendedChannel52_149%
+HKR, Ndi\Params\RecommendedChannel52\Enum,   	"153",            	0,      %RecommendedChannel52_153%
+HKR, Ndi\Params\RecommendedChannel52\Enum,   	"157",            	0,      %RecommendedChannel52_157%
+HKR, Ndi\Params\RecommendedChannel52\Enum,   	"161",            	0,      %RecommendedChannel52_161%
+HKR, Ndi\Params\RecommendedChannel52\Enum,   	"165",            	0,      %RecommendedChannel52_165%
+
+[Reg_Fujitsu_CH_52]
+HKR,,RecommendedChannel52,0x2,"36"
+
+HKR, Ndi\Params\RecommendedChannel52,        	ParamDesc,	        0,      %RecommendedChannel52%
+HKR, Ndi\Params\RecommendedChannel52,        	Base,        	        0,      "10"
+HKR, Ndi\Params\RecommendedChannel52,        	default,        	0,      "36"
+HKR, Ndi\Params\RecommendedChannel52,        	type,           	0,      "enum"
+HKR, Ndi\Params\RecommendedChannel52\Enum,   	"36",            	0,      %RecommendedChannel52_36%
+HKR, Ndi\Params\RecommendedChannel52\Enum,   	"40",            	0,      %RecommendedChannel52_40%
+HKR, Ndi\Params\RecommendedChannel52\Enum,   	"44",            	0,      %RecommendedChannel52_44%
+HKR, Ndi\Params\RecommendedChannel52\Enum,   	"48",            	0,      %RecommendedChannel52_48%
+
+
+[Reg_Toshiba]
+;HKR,,FeatureSet,0x10001,0x00900001
+HKR,,RecommendedChannel24,0x2,"10"
+
+;
+; Since for Vista the Power Mgmt setting is controlled by the Dot11 OID OID_DOT11_POWER_MGMT_REQUEST
+; we will set the default PowerIndex value to CAM in order to better support WHQL testing.
+;
+;HKR,,PowerIndex,0x00000002,"6"
+HKR,,PowerIndex,0x00000000,"0"
+
+HKR, Ndi\params\RecommendedChannel24,      	Default,    	0, "10"
+
+[Reg_Toshiba_ABG]
+HKR,,DesiredSsid,0x02,""
+HKR,,RecommendedBand,0x2,"0"
+
+[Reg_Toshiba_BG]
+HKR,,CtsToItself,0x10003,0x1
+HKR,,DesiredSsid,0x2,""
+
+[Reg_Sony]
+;HKR,,FeatureSet,0x10001,0x00900001
+HKR,,RecommendedChannel24,0x2,"11"
+
+;
+; Since for Vista the Power Mgmt setting is controlled by the Dot11 OID OID_DOT11_POWER_MGMT_REQUEST
+; we will set the default PowerIndex value to CAM in order to better support WHQL testing.
+;
+;HKR,,PowerIndex,0x00000002,"6"
+HKR,,PowerIndex,0x00000000,"0"
+
+; changed
+;HKR,,IEEE11dMode,0,"0"
+HKR, Ndi\params\RecommendedChannel24,      	Default,    	0, "11"
+
+[Reg_Sony_ABG]
+HKR,,DesiredSsid,0x02,"Sony 802.11 Default SSID"
+HKR,,RecommendedBand,0x2,"0"
+
+[Reg_Sony_BG]
+HKR,,DesiredSsid,0x2,"Sony 802.11 Default SSID"
+HKR,,CtsToItself,0,"1"
+
+;[Reg_Sony_BG_Del]
+;HKR, Ndi\params\ModulationType\enum
+;HKR, Ndi\params\ModulationType
+;HKR, Ndi\params\PowerIndex\enum
+;HKR, Ndi\params\PowerIndex
+;HKR, Ndi\params\IBSSTxPower\enum
+;HKR, Ndi\params\IBSSTxPower
+;HKR, Ndi\params\CtsToItself\enum
+;HKR, Ndi\params\CtsToItself
+;HKR, Ndi\params
+
+
+[Reg_HPQ]
+;HKR,,FeatureSet,0x10001,0x00904001
+HKR,,DesiredSsid,0x02,""
+HKR,,RecommendedChannel24,0x2,"11"
+
+;
+; Since for Vista the Power Mgmt setting is controlled by the Dot11 OID OID_DOT11_POWER_MGMT_REQUEST
+; we will set the default PowerIndex value to CAM in order to better support WHQL testing.
+;
+;HKR,,PowerIndex,0x00000002,"6"
+HKR,,PowerIndex,0x00000000,"0"
+
+HKR,,ModulationType,0x2,"2"
+HKR, Ndi\params\RecommendedChannel24,      	Default,    	0, "11"
+
+[Reg_HPQ_BG]
+HKR,,CtsToItself,0x10003,0x1
+
+[Reg_HPQ_Mow_ABG]
+HKR,,RecommendedBand,0x2,"0"
+
+
+[Reg_HPQ_Mow_BG]
+HKR,,CtsToItself,0x10003,0x1
+
+
+[Reg_MPCI3B]  ;
+HKR,,AdapterModel,0,%NIC_MPCI3B_AdapterModel%
+
+[Reg_MPCI3B_BG]  ;
+HKR,,AdapterModel,0,%NIC_MPCI3B_AdapterModel_BG%
+
+[Reg_MPCI3A]  ;
+HKR,,AdapterModel,0,%NIC_MPCI3A_AdapterModel%
+
+[Reg_MPCI3A_BG]  ;
+HKR,,AdapterModel,0,%NIC_MPCI3A_AdapterModel_BG%
+
+
+[Reg_NCPA]
+;Enable this key to enable application interface for NCPA
+;HKR,,EnumPropPages32,0,"NETw2c32.dll,AddWirelessPPToNCPA"
+
+[Reg_NDI_ABG]
+HKR, Ndi\params\CtsToItself,           ParamDesc,      0,      %MixEnvProtectProt%
+HKR, Ndi\params\CtsToItself,           Base,           0,      "10"
+HKR, Ndi\params\CtsToItself,           default,        0,      "1"
+HKR, Ndi\params\CtsToItself,           type,           0,      "enum"
+HKR, Ndi\params\CtsToItself\enum,      "0",            0,      %CTSRTS%
+HKR, Ndi\params\CtsToItself\enum,      "1",            0,      %CTSToSelf%
+HKR, Ndi\params\IBSSTxPower,           ParamDesc,      0,      %IBSSTxPower%
+HKR, Ndi\params\IBSSTxPower,           Base,           0,      "10"
+HKR, Ndi\params\IBSSTxPower,           default,        0,      "100"
+HKR, Ndi\params\IBSSTxPower,           type,           0,      "enum"
+HKR, Ndi\params\IBSSTxPower\enum,      "15",           0,      %IBSSTxPower15%
+HKR, Ndi\params\IBSSTxPower\enum,      "25",           0,      %IBSSTxPower25%
+HKR, Ndi\params\IBSSTxPower\enum,      "40",           0,      %IBSSTxPower40%
+HKR, Ndi\params\IBSSTxPower\enum,      "65",           0,      %IBSSTxPower65%
+HKR, Ndi\params\IBSSTxPower\enum,      "100",          0,      %IBSSTxPower100%
+HKR, Ndi\params\WirelessMode,          ParamDesc,      0,      %WirelessMode%
+HKR, Ndi\params\WirelessMode,          Base,           0,      "10"
+HKR, Ndi\params\WirelessMode,          default,        0,      "5"
+HKR, Ndi\params\WirelessMode,          type,           0,      "enum"
+HKR, Ndi\params\WirelessMode\enum,     "0",            0,      %WirelessMode11a%
+HKR, Ndi\params\WirelessMode\enum,     "1",            0,      %WirelessMode11b%
+HKR, Ndi\params\WirelessMode\enum,     "2",            0,      %WirelessMode11g%
+HKR, Ndi\params\WirelessMode\enum,     "3",            0,      %WirelessMode11ag%
+HKR, Ndi\params\WirelessMode\enum,     "4",            0,      %WirelessMode11bg%
+HKR, Ndi\params\WirelessMode\enum,     "5",            0,      %WirelessMode11abg%
+HKR, Ndi\params\FixedLongPreamble,           ParamDesc,      0,      %PreambleMode%
+HKR, Ndi\params\FixedLongPreamble,           Base,           0,      "10"
+HKR, Ndi\params\FixedLongPreamble,           default,        0,      "0"
+HKR, Ndi\params\FixedLongPreamble,           type,           0,      "enum"
+HKR, Ndi\params\FixedLongPreamble\enum,      "0",            0,      %AutoPreamble%
+HKR, Ndi\params\FixedLongPreamble\enum,      "1",            0,      %LongPreamble%
+HKR, Ndi\params\RoamAggressiveness,          ParamDesc,      0,      %RoamAggressive%
+HKR, Ndi\params\RoamAggressiveness,          Base,           0,      "10"
+HKR, Ndi\params\RoamAggressiveness,          default,        0,      "2"
+HKR, Ndi\params\RoamAggressiveness,          type,           0,      "enum"
+HKR, Ndi\params\RoamAggressiveness\enum,     "0",            0,      %RoamAggressive_0%
+HKR, Ndi\params\RoamAggressiveness\enum,     "1",            0,      %RoamAggressive_1%
+HKR, Ndi\params\RoamAggressiveness\enum,     "2",            0,      %RoamAggressive_2%
+HKR, Ndi\params\RoamAggressiveness\enum,     "3",            0,      %RoamAggressive_3%
+HKR, Ndi\params\RoamAggressiveness\enum,     "4",            0,      %RoamAggressive_4%
+HKR, Ndi\params\PropPacketBurstEnabled,           ParamDesc,      0,      %ThroughputEnhancement%
+HKR, Ndi\params\PropPacketBurstEnabled,           Base,           0,      "10"
+HKR, Ndi\params\PropPacketBurstEnabled,           default,        0,      "0"
+HKR, Ndi\params\PropPacketBurstEnabled,           type,           0,      "enum"
+HKR, Ndi\params\PropPacketBurstEnabled\enum,      "0",            0,      %DISABLED_STR%
+HKR, Ndi\params\PropPacketBurstEnabled\enum,      "1",            0,      %ENABLED_STR%
+
+HKR, Ndi\params\IbssQosEnabled,			    ParamDesc, 	0, %ADHOC_QOS_MODE_STR%
+HKR, Ndi\params\IbssQosEnabled,			    Base,      	0, "10"
+HKR, Ndi\params\IbssQosEnabled,			    default,   	0, "0"
+HKR, Ndi\params\IbssQosEnabled,			    type,      	0, "enum"
+HKR, Ndi\params\IbssQosEnabled\enum,          "0",        0, %WMM_STR%%DISABLED_STR%
+HKR, Ndi\params\IbssQosEnabled\enum,          "1",        0, %WMM_STR%%ENABLED_STR%
+
+[Reg_NDI_BG]
+HKR, Ndi\params\CtsToItself,           ParamDesc,      0,      %MixEnvProtectProt%
+HKR, Ndi\params\CtsToItself,           Base,           0,      "10"
+HKR, Ndi\params\CtsToItself,           default,        0,      "1"
+HKR, Ndi\params\CtsToItself,           type,           0,      "enum"
+HKR, Ndi\params\CtsToItself\enum,      "0",            0,      %CTSRTS%
+HKR, Ndi\params\CtsToItself\enum,      "1",            0,      %CTSToSelf%
+HKR, Ndi\params\IBSSTxPower,           ParamDesc,      0,      %IBSSTxPower%
+HKR, Ndi\params\IBSSTxPower,           Base,           0,      "10"
+HKR, Ndi\params\IBSSTxPower,           default,        0,      "100"
+HKR, Ndi\params\IBSSTxPower,           type,           0,      "enum"
+HKR, Ndi\params\IBSSTxPower\enum,      "15",           0,      %IBSSTxPower15%
+HKR, Ndi\params\IBSSTxPower\enum,      "25",           0,      %IBSSTxPower25%
+HKR, Ndi\params\IBSSTxPower\enum,      "40",           0,      %IBSSTxPower40%
+HKR, Ndi\params\IBSSTxPower\enum,      "65",           0,      %IBSSTxPower65%
+HKR, Ndi\params\IBSSTxPower\enum,      "100",          0,      %IBSSTxPower100%
+HKR, Ndi\params\WirelessMode,          ParamDesc,      0,      %WirelessMode%
+HKR, Ndi\params\WirelessMode,          Base,           0,      "10"
+HKR, Ndi\params\WirelessMode,          default,        0,      "4"
+HKR, Ndi\params\WirelessMode,          type,           0,      "enum"
+HKR, Ndi\params\WirelessMode\enum,     "1",            0,      %WirelessMode11b%
+HKR, Ndi\params\WirelessMode\enum,     "2",            0,      %WirelessMode11g%
+HKR, Ndi\params\WirelessMode\enum,     "4",            0,      %WirelessMode11bg%
+HKR, Ndi\params\FixedLongPreamble,           ParamDesc,      0,      %PreambleMode%
+HKR, Ndi\params\FixedLongPreamble,           Base,           0,      "10"
+HKR, Ndi\params\FixedLongPreamble,           default,        0,      "0"
+HKR, Ndi\params\FixedLongPreamble,           type,           0,      "enum"
+HKR, Ndi\params\FixedLongPreamble\enum,      "0",            0,      %AutoPreamble%
+HKR, Ndi\params\FixedLongPreamble\enum,      "1",            0,      %LongPreamble%
+HKR, Ndi\params\RoamAggressiveness,          ParamDesc,      0,      %RoamAggressive%
+HKR, Ndi\params\RoamAggressiveness,          Base,           0,      "10"
+HKR, Ndi\params\RoamAggressiveness,          default,        0,      "2"
+HKR, Ndi\params\RoamAggressiveness,          type,           0,      "enum"
+HKR, Ndi\params\RoamAggressiveness\enum,     "0",            0,      %RoamAggressive_0%
+HKR, Ndi\params\RoamAggressiveness\enum,     "1",            0,      %RoamAggressive_1%
+HKR, Ndi\params\RoamAggressiveness\enum,     "2",            0,      %RoamAggressive_2%
+HKR, Ndi\params\RoamAggressiveness\enum,     "3",            0,      %RoamAggressive_3%
+HKR, Ndi\params\RoamAggressiveness\enum,     "4",            0,      %RoamAggressive_4%
+HKR, Ndi\params\PropPacketBurstEnabled,           ParamDesc,      0,      %ThroughputEnhancement%
+HKR, Ndi\params\PropPacketBurstEnabled,           Base,           0,      "10"
+HKR, Ndi\params\PropPacketBurstEnabled,           default,        0,      "0"
+HKR, Ndi\params\PropPacketBurstEnabled,           type,           0,      "enum"
+HKR, Ndi\params\PropPacketBurstEnabled\enum,      "0",            0,      %DISABLED_STR%
+HKR, Ndi\params\PropPacketBurstEnabled\enum,      "1",            0,      %ENABLED_STR%
+
+HKR, Ndi\params\IbssQosEnabled,			    ParamDesc, 	0, %ADHOC_QOS_MODE_STR%
+HKR, Ndi\params\IbssQosEnabled,			    Base,      	0, "10"
+HKR, Ndi\params\IbssQosEnabled,			    default,   	0, "0"
+HKR, Ndi\params\IbssQosEnabled,			    type,      	0, "enum"
+HKR, Ndi\params\IbssQosEnabled\enum,          "0",        0, %WMM_STR%%DISABLED_STR%
+HKR, Ndi\params\IbssQosEnabled\enum,          "1",        0, %WMM_STR%%ENABLED_STR%
+
+[Reg_NDIS_VISTA]
+HKR, Ndi\Interfaces,  UpperRange,   0, "ndis5"
+HKR, Ndi\Interfaces,  LowerRange,   0, "ethernet,wlan"
+HKR, Ndi,             Service,      0, "NETw2v32"
+
+;
+; IHV service interface - Enable these keys for IHV service interface
+;
+;START:IHV services-Need to add to register the service
+;1/2/07: Disable these entries - as Co-Installer will register the IHV service onwards
+;HKR, Ndi\IHVExtensions,  ExtensibilityDLL,   0, "%SystemRoot%\System32\IWMSSvc.dll"
+;HKR, Ndi\IHVExtensions,  UIExtensibilityCLSID,   0, "{1BF6CB2D-2AE0-4879-A7AA-A75834FBD0E3}"
+;HKR, Ndi\IHVExtensions,  GroupName, 0, "Intel IHV Service"
+
+;Adding a valid adapter OUI
+;HKR, Ndi\IHVExtensions,  AdapterOUI, 0x00010001, 0x00008086
+;
+;END:IHV services
+;
+
+[Reg_CoInstaller]
+;Enable this key to enable application interface for Co-installer
+;1/2/07: Enabled this entry - as co-installer will be registering IHV service
+HKR,,CoInstallers32,0x00010000,"NETw4c32.dll,ClassCoInstallerEntryPoint"
+
+[NIC_Service_VISTA]
+DisplayName     = %NIC_Service_DispName_VISTA%
+ServiceType     = 1 ;%SERVICE_KERNEL_DRIVER%
+StartType       = 3 ;%SERVICE_DEMAND_START%
+ErrorControl    = 1 ;%SERVICE_ERROR_NORMAL%
+ServiceBinary   = %12%\NETw2v32.sys
+LoadOrderGroup  = NDIS
+
+[NIC_Service_BG_VISTA]
+DisplayName     = %NIC_Service_DispName_BG_VISTA%
+ServiceType     = 1 ;%SERVICE_KERNEL_DRIVER%
+StartType       = 3 ;%SERVICE_DEMAND_START%
+ErrorControl    = 1 ;%SERVICE_ERROR_NORMAL%
+ServiceBinary   = %12%\NETw2v32.sys
+LoadOrderGroup  = NDIS
+
+[Common_EventLog_VISTA]
+AddReg = Reg_CommonAddEventLog_VISTA
+
+[Reg_CommonAddEventLog_VISTA]
+HKR,, EventMessageFile, 0x00020000, "%%SystemRoot%%\System32\netevent.dll;%%SystemRoot%%\System32\Drivers\NETw2v32.sys"
+HKR,, TypesSupported,   0x00010001, 7
+
+;-----------------------------------------------------------------------------
+; DestinationDirs
+; Note: For apps interface, to integrate NCPA and co-installer, add tag 'CopyFiles_NCPA_VISTA' to
+;       'CopyFiles' under respective install configuration keys
+; 1/2/07: re-enabled NCPA related settings as these are needed for Co-Installer support
+;
+[CopyFiles_Driver_VISTA]
+NETw2v32.sys,,,2
+
+[CopyFiles_NCPA_VISTA]
+NETw4c32.dll,,,2
+NETw4r32.dll,,,2
+
+[SourceDisksNames]
+1=%SOURCEDISK1%,,
+
+
+[SourceDisksFiles]
+NETw2v32.sys              = 1,,
+
+NETw4c32.dll             = 1,,
+NETw4r32.dll            = 1,,
+
+[DestinationDirs]
+DefaultDestDir          = 11 ; Windows\System32
+CopyFiles_Driver_VISTA        = 12 ; Windows\System32\Drivers
+CopyFiles_NCPA_VISTA          = 11 ; Windows\System32
+
+; --------------------------------------------------------------------------------------------
+; Default strings
+; --------------------------------------------------------------------------------------------
+[Strings]
+PROVIDER_NAME           = "Intel"
+COMPANY_NAME            = "Intel Corporation"
+
+NIC_MPCI3B.DeviceDesc = "Intel(R) PRO/Wireless 2915ABG Network Connection"
+NIC_MPCI3A.DeviceDesc = "Intel(R) PRO/Wireless 2915ABG Network Connection"
+NIC_MPCI3B              = "Intel(R) PRO/Wireless 2915ABG Network Connection"
+NIC_MPCI3A              = "Intel(R) PRO/Wireless 2915ABG Network Connection"
+NIC_MPCI3B_AdapterModel = "Intel(R) PRO/Wireless 2915ABG Network Connection"
+NIC_MPCI3A_AdapterModel = "Intel(R) PRO/Wireless 2915ABG Network Connection"
+
+NIC_MPCI3B_BG.DeviceDesc = "Intel(R) PRO/Wireless 2200BG Network Connection"
+NIC_MPCI3A_BG.DeviceDesc = "Intel(R) PRO/Wireless 2200BG Network Connection"
+NIC_MPCI3B_BG              = "Intel(R) PRO/Wireless 2200BG Network Connection"
+NIC_MPCI3A_BG              = "Intel(R) PRO/Wireless 2200BG Network Connection"
+NIC_MPCI3B_AdapterModel_BG = "Intel(R) PRO/Wireless 2200BG Network Connection"
+NIC_MPCI3A_AdapterModel_BG = "Intel(R) PRO/Wireless 2200BG Network Connection"
+
+NIC_DriverDesc          = "Intel(R) PRO/Wireless 2915ABG Network Connection Driver"
+NIC_Service_DispName_VISTA    = "Intel(R) PRO/Wireless 2915ABG Network Connection Driver for Windows Vista"
+
+NIC_DriverDesc_BG          = "Intel(R) PRO/Wireless 2200BG Network Connection Driver"
+NIC_Service_DispName_BG_VISTA    = "Intel(R) PRO/Wireless 2200BG Network Connection Driver for Windows Vista"
+
+INTEL_GUID_BG           = "{1F0DA42C-13F2-4BBF-BA4E-4A7EDEB76F7B}"
+INTEL_GUID              = "{720ED9B1-9AF1-4707-BCB0-CF648BF7FE5F}"  
+
+SOURCEDISK1             = "Intel(R) PRO/Wireless 2915 Install Disk"
+
+WirelessMode	        = "Wireless Mode"
+WirelessMode11a		= "1. 802.11a"
+WirelessMode11b		= "2. 802.11b"
+WirelessMode11g		= "3. 802.11g"			
+WirelessMode11ag	       = "4. 802.11a/g"
+WirelessMode11bg	       = "5. 802.11b/g"
+WirelessMode11abg	= "6. 802.11a/b/g"
+
+IBSSTxPower             = "Transmit Power"
+IBSSTxPower15           = "1. Lowest"
+IBSSTxPower25           = "2. Medium-low"
+IBSSTxPower40           = "3. Medium"
+IBSSTxPower65           = "4. Medium-high"
+IBSSTxPower100          = "5. Highest"
+
+MixEnvProtectProt	= "Mixed Mode Protection"
+CTSRTS			= "RTS/CTS enabled"
+CTSToSelf		= "CTS-to-self enabled"
+
+PreambleMode            ="Preamble Mode" 
+AutoPreamble            ="Auto Tx Preamble"
+LongPreamble            ="Long Tx Preamble"
+
+RoamAggressive          ="Roaming Aggressiveness"
+RoamAggressive_0        ="1. Lowest"
+RoamAggressive_1        ="2. Medium-low"
+RoamAggressive_2        ="3. Medium"
+RoamAggressive_3        ="4. Medium-high"
+RoamAggressive_4        ="5. Highest"
+
+ThroughputEnhancement   ="Throughput Enhancement"
+DISABLED_STR      ="Disabled"
+ENABLED_STR       ="Enabled"
+
+ADHOC_QOS_MODE_STR			= "Ad Hoc QoS Mode"
+WMM_STR                     = "WMM "
+
+RecommendedChannel24 = "Ad Hoc Channel 802.11b/g"
+
+RecommendedChannel52 = "Ad Hoc Channel 802.11a"
+;
+; The following channels are mutally exclusive, so they will be prepended with the same digits
+; 34, 36; 38, 40; 42, 44; 46, 48
+;
+RecommendedChannel52_34 = "1. 34"
+RecommendedChannel52_36 = "1. 36"
+RecommendedChannel52_38 = "2. 38"
+RecommendedChannel52_40 = "2. 40"
+RecommendedChannel52_42 = "3. 42"
+RecommendedChannel52_44 = "3. 44"
+RecommendedChannel52_46 = "4. 46"
+RecommendedChannel52_48 = "4. 48"
+RecommendedChannel52_149 = "5. 149"
+RecommendedChannel52_153 = "6. 153"
+RecommendedChannel52_157 = "7. 157"
+RecommendedChannel52_161 = "8. 161"
+RecommendedChannel52_165 = "9. 165"
+; --------------------------------------------------------------------------------------------
+; Localized strings
+; --------------------------------------------------------------------------------------------
+[STRINGS.0409] ; Keeps asking for this section for some reason
+PROVIDER_NAME           = "Intel"
+COMPANY_NAME            = "Intel Corporation"
+
+NIC_MPCI3B.DeviceDesc = "Intel(R) PRO/Wireless 2915ABG Network Connection"
+NIC_MPCI3A.DeviceDesc = "Intel(R) PRO/Wireless 2915ABG Network Connection"
+NIC_MPCI3B              = "Intel(R) PRO/Wireless 2915ABG Network Connection"
+NIC_MPCI3A              = "Intel(R) PRO/Wireless 2915ABG Network Connection"
+NIC_MPCI3B_AdapterModel = "Intel(R) PRO/Wireless 2915ABG Network Connection"
+NIC_MPCI3A_AdapterModel = "Intel(R) PRO/Wireless 2915ABG Network Connection"
+
+NIC_MPCI3B_BG.DeviceDesc = "Intel(R) PRO/Wireless 2200BG Network Connection"
+NIC_MPCI3A_BG.DeviceDesc = "Intel(R) PRO/Wireless 2200BG Network Connection"
+NIC_MPCI3B_BG              = "Intel(R) PRO/Wireless 2200BG Network Connection"
+NIC_MPCI3A_BG              = "Intel(R) PRO/Wireless 2200BG Network Connection"
+NIC_MPCI3B_AdapterModel_BG = "Intel(R) PRO/Wireless 2200BG Network Connection"
+NIC_MPCI3A_AdapterModel_BG = "Intel(R) PRO/Wireless 2200BG Network Connection"
+
+NIC_DriverDesc          = "Intel(R) PRO/Wireless 2915ABG Network Connection Driver"
+NIC_Service_DispName_VISTA    = "Intel(R) PRO/Wireless 2915ABG Network Connection Driver for Windows Vista"
+
+NIC_DriverDesc_BG          = "Intel(R) PRO/Wireless 2200BG Network Connection Driver"
+NIC_Service_DispName_BG_VISTA    = "Intel(R) PRO/Wireless 2200BG Network Connection Driver for Windows Vista"
+
+INTEL_GUID_BG           = "{1F0DA42C-13F2-4BBF-BA4E-4A7EDEB76F7B}"
+INTEL_GUID              = "{720ED9B1-9AF1-4707-BCB0-CF648BF7FE5F}"  
+
+SOURCEDISK1             = "Intel(R) PRO/Wireless 2915 Install Disk"
+
+WirelessMode	        = "Wireless Mode"
+WirelessMode11a		= "1. 802.11a"
+WirelessMode11b		= "2. 802.11b"
+WirelessMode11g		= "3. 802.11g"			
+WirelessMode11ag	       = "4. 802.11a/g"
+WirelessMode11bg	       = "5. 802.11b/g"
+WirelessMode11abg	= "6. 802.11a/b/g"
+
+IBSSTxPower             = "Transmit Power"
+IBSSTxPower15           = "1. Lowest"
+IBSSTxPower25           = "2. Medium-low"
+IBSSTxPower40           = "3. Medium"
+IBSSTxPower65           = "4. Medium-high"
+IBSSTxPower100          = "5. Highest"
+
+MixEnvProtectProt	= "Mixed Mode Protection"
+CTSRTS			= "RTS/CTS enabled"
+CTSToSelf		= "CTS-to-self enabled"
+
+PreambleMode            ="Preamble Mode" 
+AutoPreamble            ="Auto Tx Preamble"
+LongPreamble            ="Long Tx Preamble"
+
+RoamAggressive          ="Roaming Aggressiveness"
+RoamAggressive_0        ="1. Lowest"
+RoamAggressive_1        ="2. Medium-low"
+RoamAggressive_2        ="3. Medium"
+RoamAggressive_3        ="4. Medium-high"
+RoamAggressive_4        ="5. Highest"
+
+ThroughputEnhancement   ="Throughput Enhancement"
+DISABLED_STR      ="Disabled"
+ENABLED_STR       ="Enabled"
+
+ADHOC_QOS_MODE_STR			= "Ad Hoc QoS Mode"
+WMM_STR                     = "WMM "
+
+RecommendedChannel24 = "Ad Hoc Channel 802.11b/g"
+
+RecommendedChannel52 = "Ad Hoc Channel 802.11a"
+RecommendedChannel52_34 = "1. 34"
+RecommendedChannel52_36 = "1. 36"
+RecommendedChannel52_38 = "2. 38"
+RecommendedChannel52_40 = "2. 40"
+RecommendedChannel52_42 = "3. 42"
+RecommendedChannel52_44 = "3. 44"
+RecommendedChannel52_46 = "4. 46"
+RecommendedChannel52_48 = "4. 48"
+RecommendedChannel52_149 = "5. 149"
+RecommendedChannel52_153 = "6. 153"
+RecommendedChannel52_157 = "7. 157"
+RecommendedChannel52_161 = "8. 161"
+RecommendedChannel52_165 = "9. 165"
+
+
+[Strings.0401] ; Arabic (Saudi Arabia)
+PROVIDER_NAME           ="Intel"
+COMPANY_NAME            ="Intel Corporation"
+
+NIC_MPCI3B.DeviceDesc ="Intel(R) PRO/Wireless 2915ABG Network Connection"
+NIC_MPCI3A.DeviceDesc ="Intel(R) PRO/Wireless 2915ABG Network Connection"
+NIC_MPCI3B              ="Intel(R) PRO/Wireless 2915ABG Network Connection"
+NIC_MPCI3A              ="Intel(R) PRO/Wireless 2915ABG Network Connection"
+NIC_MPCI3B_AdapterModel ="Intel(R) PRO/Wireless 2915ABG Network Connection"
+NIC_MPCI3A_AdapterModel ="Intel(R) PRO/Wireless 2915ABG Network Connection"
+
+NIC_MPCI3B_BG.DeviceDesc ="Intel(R) PRO/Wireless 2200BG Network Connection"
+NIC_MPCI3A_BG.DeviceDesc ="Intel(R) PRO/Wireless 2200BG Network Connection"
+NIC_MPCI3B_BG              ="Intel(R) PRO/Wireless 2200BG Network Connection"
+NIC_MPCI3A_BG              ="Intel(R) PRO/Wireless 2200BG Network Connection"
+NIC_MPCI3B_AdapterModel_BG ="Intel(R) PRO/Wireless 2200BG Network Connection"
+NIC_MPCI3A_AdapterModel_BG ="Intel(R) PRO/Wireless 2200BG Network Connection"
+
+NIC_DriverDesc          ="Intel(R) PRO/Wireless 2915ABG Network Connection Driver"
+NIC_Service_DispName_VISTA    ="»—‰«„Ã  ‘€Ì·  Ê’Ì· ‘»ﬂ… Intel(R) PRO/Wireless 2915ABG ·‰Ÿ«„ Windows Vista"
+
+NIC_DriverDesc_BG          ="Intel(R) PRO/Wireless 2200BG Network Connection Driver"
+NIC_Service_DispName_BG_VISTA    ="»—‰«„Ã  ‘€Ì·  Ê’Ì· ‘»ﬂ… Intel(R) PRO/Wireless 2200ABG ·‰Ÿ«„ Windows Vista"
+
+INTEL_GUID_BG           ="{1F0DA42C-13F2-4BBF-BA4E-4A7EDEB76F7B}"
+INTEL_GUID              ="{720ED9B1-9AF1-4707-BCB0-CF648BF7FE5F}"  
+
+SOURCEDISK1             ="ﬁ—’  À»Ì  Intel(R) PRO/Wireless 2915"
+
+WirelessMode	        ="Ê÷⁄ «··«”·ﬂÌ"
+WirelessMode11a		="1. 802.11a"
+WirelessMode11b		="2. 802.11b"
+WirelessMode11g		="3. 802.11g"			
+WirelessMode11ag	       ="4. 802.11a/g"
+WirelessMode11bg	       ="5. 802.11b/g"
+WirelessMode11abg	="6. 802.11a/b/g"
+
+IBSSTxPower             ="ÿ«ﬁ… «·≈—”«·"
+IBSSTxPower15           ="1. «·Õœ «·√œ‰Ï"
+IBSSTxPower25           ="2. „ Ê”ÿ - „‰Œ›÷"
+IBSSTxPower40           ="3. „ Ê”ÿ"
+IBSSTxPower65           ="4. „ Ê”ÿ - „— ›⁄"
+IBSSTxPower100          ="5. «·Õœ «·√ﬁ’Ï"
+
+MixEnvProtectProt	="Õ„«Ì… «·Ê÷⁄ «·„Œ ·ÿ"
+CTSRTS			=" „ﬂÌ‰ RTS/CTS"
+CTSToSelf		=" „ﬂÌ‰ CTS «·–« Ì"
+
+PreambleMode            ="Ê÷⁄ «· „ÂÌœ" 
+AutoPreamble            =" „ÂÌœ ≈—”«·  ·ﬁ«∆Ì"
+LongPreamble            =" „ÂÌœ ≈—”«· ÿÊÌ·"
+
+RoamAggressive          ="‰‘«ÿ «· ÃÊ«·"
+RoamAggressive_0        ="1. «·Õœ «·√œ‰Ï"
+RoamAggressive_1        ="2. „ Ê”ÿ - „‰Œ›÷"
+RoamAggressive_2        ="3. „ Ê”ÿ"
+RoamAggressive_3        ="4. „ Ê”ÿ - „— ›⁄"
+RoamAggressive_4        ="5. «·Õœ «·√ﬁ’Ï"
+
+ThroughputEnhancement   =" Õ”Ì‰ «·Œ—Ã"
+DISABLED_STR      ="„⁄ÿ·"
+ENABLED_STR       ="„„ﬂ¯Û‰"
+
+ADHOC_QOS_MODE_STR			="«·Ê÷⁄ QoS ··√ﬁ—«‰"
+WMM_STR                     ="WMM "
+
+RecommendedChannel24 ="ﬁ‰«… «·√ﬁ—«‰ 802.11b/g"
+
+RecommendedChannel52 ="ﬁ‰«… «·√ﬁ—«‰ 802.11a"
+;
+; The following channels are mutally exclusive, so they will be prepended with the same digits
+; 34, 36; 38, 40; 42, 44; 46, 48
+;
+RecommendedChannel52_34 ="1. 34"
+RecommendedChannel52_36 ="1. 36"
+RecommendedChannel52_38 ="2. 38"
+RecommendedChannel52_40 ="2. 40"
+RecommendedChannel52_42 ="3. 42"
+RecommendedChannel52_44 ="3. 44"
+RecommendedChannel52_46 ="4. 46"
+RecommendedChannel52_48 ="4. 48"
+RecommendedChannel52_149 ="5. 149"
+RecommendedChannel52_153 ="6. 153"
+RecommendedChannel52_157 ="7. 157"
+RecommendedChannel52_161 ="8. 161"
+RecommendedChannel52_165 ="9. 165"
+
+
+[Strings.0804] ; Chinese (Simplified)
+PROVIDER_NAME           ="Intel"
+COMPANY_NAME            ="Intel Corporation"
+
+NIC_MPCI3B.DeviceDesc ="Intel(R) PRO/Wireless 2915ABG Network Connection"
+NIC_MPCI3A.DeviceDesc ="Intel(R) PRO/Wireless 2915ABG Network Connection"
+NIC_MPCI3B              ="Intel(R) PRO/Wireless 2915ABG Network Connection"
+NIC_MPCI3A              ="Intel(R) PRO/Wireless 2915ABG Network Connection"
+NIC_MPCI3B_AdapterModel ="Intel(R) PRO/Wireless 2915ABG Network Connection"
+NIC_MPCI3A_AdapterModel ="Intel(R) PRO/Wireless 2915ABG Network Connection"
+
+NIC_MPCI3B_BG.DeviceDesc ="Intel(R) PRO/Wireless 2200BG Network Connection"
+NIC_MPCI3A_BG.DeviceDesc ="Intel(R) PRO/Wireless 2200BG Network Connection"
+NIC_MPCI3B_BG              ="Intel(R) PRO/Wireless 2200BG Network Connection"
+NIC_MPCI3A_BG              ="Intel(R) PRO/Wireless 2200BG Network Connection"
+NIC_MPCI3B_AdapterModel_BG ="Intel(R) PRO/Wireless 2200BG Network Connection"
+NIC_MPCI3A_AdapterModel_BG ="Intel(R) PRO/Wireless 2200BG Network Connection"
+
+NIC_DriverDesc          ="Intel(R) PRO/Wireless 2915ABG Network Connection Driver"
+NIC_Service_DispName_VISTA    ="”√”⁄ Windows Vista µƒ”¢Ãÿ∂˚(R) PRO/Œﬁœﬂ 2915ABG Õ¯¬Á¡¨Ω”«˝∂Ø≥Ã–Ú"
+
+NIC_DriverDesc_BG          ="Intel(R) PRO/Wireless 2200BG Network Connection Driver"
+NIC_Service_DispName_BG_VISTA    ="”√”⁄ Windows Vista µƒ”¢Ãÿ∂˚(R) PRO/Œﬁœﬂ 2200BG Õ¯¬Á¡¨Ω”«˝∂Ø≥Ã–Ú"
+
+INTEL_GUID_BG           ="{1F0DA42C-13F2-4BBF-BA4E-4A7EDEB76F7B}"
+INTEL_GUID              ="{720ED9B1-9AF1-4707-BCB0-CF648BF7FE5F}"  
+
+SOURCEDISK1             ="Intel(R) PRO/Wireless 2915 ∞≤◊∞¥≈≈Ã"
+
+WirelessMode	        ="Œﬁœﬂƒ£ Ω"
+WirelessMode11a		="1. 802.11a"
+WirelessMode11b		="2. 802.11b"
+WirelessMode11g		="3. 802.11g"			
+WirelessMode11ag	       ="4. 802.11a/g"
+WirelessMode11bg	       ="5. 802.11b/g"
+WirelessMode11abg	="6. 802.11a/b/g"
+
+IBSSTxPower             ="∑¢…‰µÁ‘¥"
+IBSSTxPower15           ="1. ◊ÓµÕ"
+IBSSTxPower25           ="2. ÷–µÕ"
+IBSSTxPower40           ="3. ÷–º‰"
+IBSSTxPower65           ="4. ÷–∏ﬂ"
+IBSSTxPower100          ="5. ◊Ó∏ﬂ"
+
+MixEnvProtectProt	="ªÏ∫œƒ£ Ω±£ª§"
+CTSRTS			="RTS/CTS ∆Ù”√"
+CTSToSelf		="CTS-to-self ∆Ù”√"
+
+PreambleMode            ="“˝—‘ƒ£ Ω" 
+AutoPreamble            ="◊‘∂Ø Tx “˝—‘"
+LongPreamble            ="≥§ Tx “˝—‘"
+
+RoamAggressive          ="¬˛”Œ÷˜∂Ø–‘"
+RoamAggressive_0        ="1. ◊ÓµÕ"
+RoamAggressive_1        ="2. ÷–µÕ"
+RoamAggressive_2        ="3. ÷–º‰"
+RoamAggressive_3        ="4. ÷–∏ﬂ"
+RoamAggressive_4        ="5. ◊Ó∏ﬂ"
+
+ThroughputEnhancement   ="ÕÃÕ¬¡ø‘ˆ«ø"
+DISABLED_STR      ="“—Ω˚”√"
+ENABLED_STR       ="“—∆Ù”√"
+
+ADHOC_QOS_MODE_STR			="Ad Hoc QoS ƒ£ Ω"
+WMM_STR                     ="WMM "
+
+RecommendedChannel24 ="Ad Hoc –≈µ¿ 802.11b/g"
+
+RecommendedChannel52 ="Ad Hoc –≈µ¿ 802.11a"
+;
+; The following channels are mutally exclusive, so they will be prepended with the same digits
+; 34, 36; 38, 40; 42, 44; 46, 48
+;
+RecommendedChannel52_34 ="1. 34"
+RecommendedChannel52_36 ="1. 36"
+RecommendedChannel52_38 ="2. 38"
+RecommendedChannel52_40 ="2. 40"
+RecommendedChannel52_42 ="3. 42"
+RecommendedChannel52_44 ="3. 44"
+RecommendedChannel52_46 ="4. 46"
+RecommendedChannel52_48 ="4. 48"
+RecommendedChannel52_149 ="5. 149"
+RecommendedChannel52_153 ="6. 153"
+RecommendedChannel52_157 ="7. 157"
+RecommendedChannel52_161 ="8. 161"
+RecommendedChannel52_165 ="9. 165"
+
+
+[Strings.0404] ; Chinese (Traditional)
+PROVIDER_NAME           ="Intel"
+COMPANY_NAME            ="Intel Corporation"
+
+NIC_MPCI3B.DeviceDesc ="Intel(R) PRO/Wireless 2915ABG Network Connection"
+NIC_MPCI3A.DeviceDesc ="Intel(R) PRO/Wireless 2915ABG Network Connection"
+NIC_MPCI3B              ="Intel(R) PRO/Wireless 2915ABG Network Connection"
+NIC_MPCI3A              ="Intel(R) PRO/Wireless 2915ABG Network Connection"
+NIC_MPCI3B_AdapterModel ="Intel(R) PRO/Wireless 2915ABG Network Connection"
+NIC_MPCI3A_AdapterModel ="Intel(R) PRO/Wireless 2915ABG Network Connection"
+
+NIC_MPCI3B_BG.DeviceDesc ="Intel(R) PRO/Wireless 2200BG Network Connection"
+NIC_MPCI3A_BG.DeviceDesc ="Intel(R) PRO/Wireless 2200BG Network Connection"
+NIC_MPCI3B_BG              ="Intel(R) PRO/Wireless 2200BG Network Connection"
+NIC_MPCI3A_BG              ="Intel(R) PRO/Wireless 2200BG Network Connection"
+NIC_MPCI3B_AdapterModel_BG ="Intel(R) PRO/Wireless 2200BG Network Connection"
+NIC_MPCI3A_AdapterModel_BG ="Intel(R) PRO/Wireless 2200BG Network Connection"
+
+NIC_DriverDesc          ="Intel(R) PRO/Wireless 2915ABG Network Connection Driver"
+NIC_Service_DispName_VISTA    ="Windows Vista ™∫ Intel(R) PRO/Wireless 2915ABG ∫Ù∏Ù≥sΩu≈X∞ µ{¶°"
+
+NIC_DriverDesc_BG          ="Intel(R) PRO/Wireless 2200BG Network Connection Driver"
+NIC_Service_DispName_BG_VISTA    ="Windows Vista ™∫ Intel(R) PRO/Wireless 2200BG ∫Ù∏Ù≥sΩu≈X∞ µ{¶°"
+
+INTEL_GUID_BG           ="{1F0DA42C-13F2-4BBF-BA4E-4A7EDEB76F7B}"
+INTEL_GUID              ="{720ED9B1-9AF1-4707-BCB0-CF648BF7FE5F}"  
+
+SOURCEDISK1             ="Intel(R) PRO/Wireless 2915 ¶w∏À∫œ§˘"
+
+WirelessMode	        ="µLΩuº“¶°"
+WirelessMode11a		="1. 802.11a"
+WirelessMode11b		="2. 802.11b"
+WirelessMode11g		="3. 802.11g"			
+WirelessMode11ag	       ="4. 802.11a/g"
+WirelessMode11bg	       ="5. 802.11b/g"
+WirelessMode11abg	="6. 802.11a/b/g"
+
+IBSSTxPower             ="∂«øÈπq∑Ω"
+IBSSTxPower15           ="1. ≥ÃßC"
+IBSSTxPower25           ="2. §§ßC"
+IBSSTxPower40           ="3. §§"
+IBSSTxPower65           ="4. §§∞™"
+IBSSTxPower100          ="5. ≥Ã∞™"
+
+MixEnvProtectProt	="≤V¶Xº“¶°´O≈@"
+CTSRTS			="±“•Œ RTS/CTS"
+CTSToSelf		="±“•Œ CTS-to-self"
+
+PreambleMode            ="∞_¿Y∞T∏πº“¶°" 
+AutoPreamble            ="¶€∞  Tx ∞_¿Y∞T∏π"
+LongPreamble            ="™¯ Tx ∞_¿Y∞T∏π"
+
+RoamAggressive          ="∫©πCøn∑•´◊"
+RoamAggressive_0        ="1. ≥ÃßC"
+RoamAggressive_1        ="2. §§ßC"
+RoamAggressive_2        ="3. §§"
+RoamAggressive_3        ="4. §§∞™"
+RoamAggressive_4        ="5. ≥Ã∞™"
+
+ThroughputEnhancement   ="øÈ∞e∂qºW±j•\Ø‡"
+DISABLED_STR      ="∞±•Œ"
+ENABLED_STR       ="±“•Œ"
+
+ADHOC_QOS_MODE_STR			="¬IπÔ¬I (ad hoc) QoS º“¶°"
+WMM_STR                     ="WMM "
+
+RecommendedChannel24 ="¬IπÔ¬I (ad hoc) ≥qπD 802.11b/g"
+
+RecommendedChannel52 ="¬IπÔ¬I (ad hoc) ≥qπD 802.11a"
+;
+; The following channels are mutally exclusive, so they will be prepended with the same digits
+; 34, 36; 38, 40; 42, 44; 46, 48
+;
+RecommendedChannel52_34 ="1. 34"
+RecommendedChannel52_36 ="1. 36"
+RecommendedChannel52_38 ="2. 38"
+RecommendedChannel52_40 ="2. 40"
+RecommendedChannel52_42 ="3. 42"
+RecommendedChannel52_44 ="3. 44"
+RecommendedChannel52_46 ="4. 46"
+RecommendedChannel52_48 ="4. 48"
+RecommendedChannel52_149 ="5. 149"
+RecommendedChannel52_153 ="6. 153"
+RecommendedChannel52_157 ="7. 157"
+RecommendedChannel52_161 ="8. 161"
+RecommendedChannel52_165 ="9. 165"
+
+
+[Strings.0405] ; Czech (Czech Republic)
+PROVIDER_NAME           ="Intel"
+COMPANY_NAME            ="Intel Corporation"
+
+NIC_MPCI3B.DeviceDesc ="Intel(R) PRO/Wireless 2915ABG Network Connection"
+NIC_MPCI3A.DeviceDesc ="Intel(R) PRO/Wireless 2915ABG Network Connection"
+NIC_MPCI3B              ="Intel(R) PRO/Wireless 2915ABG Network Connection"
+NIC_MPCI3A              ="Intel(R) PRO/Wireless 2915ABG Network Connection"
+NIC_MPCI3B_AdapterModel ="Intel(R) PRO/Wireless 2915ABG Network Connection"
+NIC_MPCI3A_AdapterModel ="Intel(R) PRO/Wireless 2915ABG Network Connection"
+
+NIC_MPCI3B_BG.DeviceDesc ="Intel(R) PRO/Wireless 2200BG Network Connection"
+NIC_MPCI3A_BG.DeviceDesc ="Intel(R) PRO/Wireless 2200BG Network Connection"
+NIC_MPCI3B_BG              ="Intel(R) PRO/Wireless 2200BG Network Connection"
+NIC_MPCI3A_BG              ="Intel(R) PRO/Wireless 2200BG Network Connection"
+NIC_MPCI3B_AdapterModel_BG ="Intel(R) PRO/Wireless 2200BG Network Connection"
+NIC_MPCI3A_AdapterModel_BG ="Intel(R) PRO/Wireless 2200BG Network Connection"
+
+NIC_DriverDesc          ="Intel(R) PRO/Wireless 2915ABG Network Connection Driver"
+NIC_Service_DispName_VISTA    ="OvladaË bezdr·tovÈ sÌùovÈ karty pro operaËnÌ systÈm Windows Vista Intel(R) PRO/Wireless 2915ABG Network Connection Driver for Windows Vista"
+
+NIC_DriverDesc_BG          ="Intel(R) PRO/Wireless 2200BG Network Connection Driver"
+NIC_Service_DispName_BG_VISTA    ="OvladaË bezdr·tovÈ sÌùovÈ karty pro operaËnÌ systÈm Windows Vista Intel(R) PRO/Wireless 2200BG Network Connection Driver for Windows Vista"
+
+INTEL_GUID_BG           ="{1F0DA42C-13F2-4BBF-BA4E-4A7EDEB76F7B}"
+INTEL_GUID              ="{720ED9B1-9AF1-4707-BCB0-CF648BF7FE5F}"  
+
+SOURCEDISK1             ="Intel(R) PRO/Wireless 2915 - instalaËnÌ disk"
+
+WirelessMode	        ="Bezdr·tov˝ reûim"
+WirelessMode11a		="1. 802.11a"
+WirelessMode11b		="2. 802.11b"
+WirelessMode11g		="3. 802.11g"			
+WirelessMode11ag	       ="4. 802.11a/g"
+WirelessMode11bg	       ="5. 802.11b/g"
+WirelessMode11abg	="6. 802.11a/b/g"
+
+IBSSTxPower             ="VysÌlacÌ energie"
+IBSSTxPower15           ="1. NejniûöÌ"
+IBSSTxPower25           ="2. St¯ednÏ nÌzk˝"
+IBSSTxPower40           ="3. St¯ednÌ"
+IBSSTxPower65           ="4. St¯ednÏ vysok˝"
+IBSSTxPower100          ="5. NejvyööÌ"
+
+MixEnvProtectProt	="Ochrana smÌöenÈho reûimu"
+CTSRTS			="RTS/CTS povoleno"
+CTSToSelf		="CTS-to-self povoleno"
+
+PreambleMode            ="Reûim preambule" 
+AutoPreamble            ="Automatick· preambule Tx"
+LongPreamble            ="Dlouh· preambule Tx"
+
+RoamAggressive          ="Agresivita roamingu"
+RoamAggressive_0        ="1. NejniûöÌ"
+RoamAggressive_1        ="2. St¯ednÏ nÌzk˝"
+RoamAggressive_2        ="3. St¯ednÌ"
+RoamAggressive_3        ="4. St¯ednÏ vysok˝"
+RoamAggressive_4        ="5. NejvyööÌ"
+
+ThroughputEnhancement   ="ZlepöenÌ propustnosti"
+DISABLED_STR      ="Zak·z·no"
+ENABLED_STR       ="Povoleno"
+
+ADHOC_QOS_MODE_STR			="Reûim Ad Hoc QoS"
+WMM_STR                     ="WMM "
+
+RecommendedChannel24 ="Kan·l ad hoc 802.11b nebo g"
+
+RecommendedChannel52 ="Kan·l ad hoc 802.11a"
+;
+; The following channels are mutally exclusive, so they will be prepended with the same digits
+; 34, 36; 38, 40; 42, 44; 46, 48
+;
+RecommendedChannel52_34 ="1. 34"
+RecommendedChannel52_36 ="1. 36"
+RecommendedChannel52_38 ="2. 38"
+RecommendedChannel52_40 ="2. 40"
+RecommendedChannel52_42 ="3. 42"
+RecommendedChannel52_44 ="3. 44"
+RecommendedChannel52_46 ="4. 46"
+RecommendedChannel52_48 ="4. 48"
+RecommendedChannel52_149 ="5. 149"
+RecommendedChannel52_153 ="6. 153"
+RecommendedChannel52_157 ="7. 157"
+RecommendedChannel52_161 ="8. 161"
+RecommendedChannel52_165 ="9. 165"
+
+
+[Strings.0406] ; Danish (Denmark)
+PROVIDER_NAME           ="Intel"
+COMPANY_NAME            ="Intel Corporation"
+
+NIC_MPCI3B.DeviceDesc ="Intel(R) PRO/Wireless 2915ABG Network Connection"
+NIC_MPCI3A.DeviceDesc ="Intel(R) PRO/Wireless 2915ABG Network Connection"
+NIC_MPCI3B              ="Intel(R) PRO/Wireless 2915ABG Network Connection"
+NIC_MPCI3A              ="Intel(R) PRO/Wireless 2915ABG Network Connection"
+NIC_MPCI3B_AdapterModel ="Intel(R) PRO/Wireless 2915ABG Network Connection"
+NIC_MPCI3A_AdapterModel ="Intel(R) PRO/Wireless 2915ABG Network Connection"
+
+NIC_MPCI3B_BG.DeviceDesc ="Intel(R) PRO/Wireless 2200BG Network Connection"
+NIC_MPCI3A_BG.DeviceDesc ="Intel(R) PRO/Wireless 2200BG Network Connection"
+NIC_MPCI3B_BG              ="Intel(R) PRO/Wireless 2200BG Network Connection"
+NIC_MPCI3A_BG              ="Intel(R) PRO/Wireless 2200BG Network Connection"
+NIC_MPCI3B_AdapterModel_BG ="Intel(R) PRO/Wireless 2200BG Network Connection"
+NIC_MPCI3A_AdapterModel_BG ="Intel(R) PRO/Wireless 2200BG Network Connection"
+
+NIC_DriverDesc          ="Intel(R) PRO/Wireless 2915ABG Network Connection Driver"
+NIC_Service_DispName_VISTA    ="Intel(R) PRO/Wireless 2915ABG Network Connection Driver til Windows Vista"
+
+NIC_DriverDesc_BG          ="Intel(R) PRO/Wireless 2200BG Network Connection Driver"
+NIC_Service_DispName_BG_VISTA    ="Intel(R) PRO/Wireless 2200BG Network Connection Driver til Windows Vista"
+
+INTEL_GUID_BG           ="{1F0DA42C-13F2-4BBF-BA4E-4A7EDEB76F7B}"
+INTEL_GUID              ="{720ED9B1-9AF1-4707-BCB0-CF648BF7FE5F}"  
+
+SOURCEDISK1             ="Intel(R) PRO/Wireless 2915-installationsdiskette"
+
+WirelessMode	        ="TrÂdl¯s funktion"
+WirelessMode11a		="1. 802.11a"
+WirelessMode11b		="2. 802.11b"
+WirelessMode11g		="3. 802.11g"			
+WirelessMode11ag	       ="4. 802.11a/g"
+WirelessMode11bg	       ="5. 802.11b/g"
+WirelessMode11abg	="6. 802.11a/b/g"
+
+IBSSTxPower             ="Send str¯m"
+IBSSTxPower15           ="1. Laveste"
+IBSSTxPower25           ="2. Medium - lav"
+IBSSTxPower40           ="3. Medium"
+IBSSTxPower65           ="4. Medium - h¯j"
+IBSSTxPower100          ="5. H¯jeste"
+
+MixEnvProtectProt	="Beskyttelse til blandet milj¯"
+CTSRTS			="RTS/CTS aktiveret"
+CTSToSelf		="CTS-to-self aktiveret"
+
+PreambleMode            ="Starttegns-tilstand" 
+AutoPreamble            ="Auto Tx-starttegn"
+LongPreamble            ="Langt Tx-starttegn"
+
+RoamAggressive          ="Roaming-aggressivitet"
+RoamAggressive_0        ="1. Laveste"
+RoamAggressive_1        ="2. Medium - lav"
+RoamAggressive_2        ="3. Medium"
+RoamAggressive_3        ="4. Medium - h¯j"
+RoamAggressive_4        ="5. H¯jeste"
+
+ThroughputEnhancement   ="Forbedring af ydelse"
+DISABLED_STR      ="Deaktiveret"
+ENABLED_STR       ="Aktiveret"
+
+ADHOC_QOS_MODE_STR			="Ad Hoc QoS-tilstand"
+WMM_STR                     ="WMM "
+
+RecommendedChannel24 ="Ad hoc-kanal 802.11b/g"
+
+RecommendedChannel52 ="Ad hoc-kanal 802.11a"
+;
+; The following channels are mutally exclusive, so they will be prepended with the same digits
+; 34, 36; 38, 40; 42, 44; 46, 48
+;
+RecommendedChannel52_34 ="1. 34"
+RecommendedChannel52_36 ="1. 36"
+RecommendedChannel52_38 ="2. 38"
+RecommendedChannel52_40 ="2. 40"
+RecommendedChannel52_42 ="3. 42"
+RecommendedChannel52_44 ="3. 44"
+RecommendedChannel52_46 ="4. 46"
+RecommendedChannel52_48 ="4. 48"
+RecommendedChannel52_149 ="5. 149"
+RecommendedChannel52_153 ="6. 153"
+RecommendedChannel52_157 ="7. 157"
+RecommendedChannel52_161 ="8. 161"
+RecommendedChannel52_165 ="9. 165"
+
+
+[Strings.0407] ; German (Germany)
+PROVIDER_NAME           ="Intel"
+COMPANY_NAME            ="Intel Corporation"
+
+NIC_MPCI3B.DeviceDesc ="Intel(R) PRO/Wireless 2915ABG Network Connection"
+NIC_MPCI3A.DeviceDesc ="Intel(R) PRO/Wireless 2915ABG Network Connection"
+NIC_MPCI3B              ="Intel(R) PRO/Wireless 2915ABG Network Connection"
+NIC_MPCI3A              ="Intel(R) PRO/Wireless 2915ABG Network Connection"
+NIC_MPCI3B_AdapterModel ="Intel(R) PRO/Wireless 2915ABG Network Connection"
+NIC_MPCI3A_AdapterModel ="Intel(R) PRO/Wireless 2915ABG Network Connection"
+
+NIC_MPCI3B_BG.DeviceDesc ="Intel(R) PRO/Wireless 2200BG Network Connection"
+NIC_MPCI3A_BG.DeviceDesc ="Intel(R) PRO/Wireless 2200BG Network Connection"
+NIC_MPCI3B_BG              ="Intel(R) PRO/Wireless 2200BG Network Connection"
+NIC_MPCI3A_BG              ="Intel(R) PRO/Wireless 2200BG Network Connection"
+NIC_MPCI3B_AdapterModel_BG ="Intel(R) PRO/Wireless 2200BG Network Connection"
+NIC_MPCI3A_AdapterModel_BG ="Intel(R) PRO/Wireless 2200BG Network Connection"
+
+NIC_DriverDesc          ="Intel(R) PRO/Wireless 2915ABG Network Connection Driver"
+NIC_Service_DispName_VISTA    ="Intel(R) PRO/Wireless 2915ABG Netzwerkverbindungstreiber f¸r Windows Vista"
+
+NIC_DriverDesc_BG          ="Intel(R) PRO/Wireless 2200BG Network Connection Driver"
+NIC_Service_DispName_BG_VISTA    ="Intel(R) PRO/Wireless 2200BG Netzwerkverbindungstreiber f¸r Windows Vista"
+
+INTEL_GUID_BG           ="{1F0DA42C-13F2-4BBF-BA4E-4A7EDEB76F7B}"
+INTEL_GUID              ="{720ED9B1-9AF1-4707-BCB0-CF648BF7FE5F}"  
+
+SOURCEDISK1             ="Intel(R) PRO/Wireless 2915 Installationsdiskette"
+
+WirelessMode	        ="Drahtloser Modus"
+WirelessMode11a		="1. 802.11a"
+WirelessMode11b		="2. 802.11b"
+WirelessMode11g		="3. 802.11g"			
+WirelessMode11ag	       ="4. 802.11a/g"
+WirelessMode11bg	       ="5. 802.11b/g"
+WirelessMode11abg	="6. 802.11a/b/g"
+
+IBSSTxPower             ="‹bertragungsleistung"
+IBSSTxPower15           ="1. Niedrig"
+IBSSTxPower25           ="2. Mittel-niederig"
+IBSSTxPower40           ="3. Mittel"
+IBSSTxPower65           ="4. Mittel-hoch"
+IBSSTxPower100          ="5. Hoch"
+
+MixEnvProtectProt	="Schutz f¸r gemischten Modus"
+CTSRTS			="RTS/CTS aktiviert"
+CTSToSelf		="'CTS an sich selbst' aktiviert"
+
+PreambleMode            ="Pr‰ambel-Modus" 
+AutoPreamble            ="Auto-Tx-Pr‰ambel"
+LongPreamble            ="Lange Tx-Pr‰ambel"
+
+RoamAggressive          ="Roaming-Dynamik"
+RoamAggressive_0        ="1. Niedrig"
+RoamAggressive_1        ="2. Mittel-niederig"
+RoamAggressive_2        ="3. Mittel"
+RoamAggressive_3        ="4. Mittel-hoch"
+RoamAggressive_4        ="5. Hoch"
+
+ThroughputEnhancement   ="Durchsatzverbesserung"
+DISABLED_STR      ="Deaktiviert"
+ENABLED_STR       ="Aktiviert"
+
+ADHOC_QOS_MODE_STR			="Ad-Hoc QoS-Modus"
+WMM_STR                     ="WMM "
+
+RecommendedChannel24 ="Ad-Hoc-Kanal 802.11b/g"
+
+RecommendedChannel52 ="Ad-Hoc-Kanal 802.11a"
+;
+; The following channels are mutally exclusive, so they will be prepended with the same digits
+; 34, 36; 38, 40; 42, 44; 46, 48
+;
+RecommendedChannel52_34 ="1. 34"
+RecommendedChannel52_36 ="1. 36"
+RecommendedChannel52_38 ="2. 38"
+RecommendedChannel52_40 ="2. 40"
+RecommendedChannel52_42 ="3. 42"
+RecommendedChannel52_44 ="3. 44"
+RecommendedChannel52_46 ="4. 46"
+RecommendedChannel52_48 ="4. 48"
+RecommendedChannel52_149 ="5. 149"
+RecommendedChannel52_153 ="6. 153"
+RecommendedChannel52_157 ="7. 157"
+RecommendedChannel52_161 ="8. 161"
+RecommendedChannel52_165 ="9. 165"
+
+
+[Strings.0408] ; Greek (Greece)
+PROVIDER_NAME           ="Intel"
+COMPANY_NAME            ="Intel Corporation"
+
+NIC_MPCI3B.DeviceDesc ="Intel(R) PRO/Wireless 2915ABG Network Connection"
+NIC_MPCI3A.DeviceDesc ="Intel(R) PRO/Wireless 2915ABG Network Connection"
+NIC_MPCI3B              ="Intel(R) PRO/Wireless 2915ABG Network Connection"
+NIC_MPCI3A              ="Intel(R) PRO/Wireless 2915ABG Network Connection"
+NIC_MPCI3B_AdapterModel ="Intel(R) PRO/Wireless 2915ABG Network Connection"
+NIC_MPCI3A_AdapterModel ="Intel(R) PRO/Wireless 2915ABG Network Connection"
+
+NIC_MPCI3B_BG.DeviceDesc ="Intel(R) PRO/Wireless 2200BG Network Connection"
+NIC_MPCI3A_BG.DeviceDesc ="Intel(R) PRO/Wireless 2200BG Network Connection"
+NIC_MPCI3B_BG              ="Intel(R) PRO/Wireless 2200BG Network Connection"
+NIC_MPCI3A_BG              ="Intel(R) PRO/Wireless 2200BG Network Connection"
+NIC_MPCI3B_AdapterModel_BG ="Intel(R) PRO/Wireless 2200BG Network Connection"
+NIC_MPCI3A_AdapterModel_BG ="Intel(R) PRO/Wireless 2200BG Network Connection"
+
+NIC_DriverDesc          ="Intel(R) PRO/Wireless 2915ABG Network Connection Driver"
+NIC_Service_DispName_VISTA    ="–Ò¸„Ò·ÏÏ· Ô‰ﬁ„ÁÛÁÚ Û˝Ì‰ÂÛÁÚ ‰ÈÍÙ˝Ôı Intel(R) PRO/Wireless 2915ABG „È· Windows Vista"
+
+NIC_DriverDesc_BG          ="Intel(R) PRO/Wireless 2200BG Network Connection Driver"
+NIC_Service_DispName_BG_VISTA    ="–Ò¸„Ò·ÏÏ· Ô‰ﬁ„ÁÛÁÚ Û˝Ì‰ÂÛÁÚ ‰ÈÍÙ˝Ôı Intel(R) PRO/Wireless 2200BG „È· Windows Vista"
+
+INTEL_GUID_BG           ="{1F0DA42C-13F2-4BBF-BA4E-4A7EDEB76F7B}"
+INTEL_GUID              ="{720ED9B1-9AF1-4707-BCB0-CF648BF7FE5F}"  
+
+SOURCEDISK1             ="ƒÈÛÍ›Ù· Â„Í·Ù‹ÛÙ·ÛÁÚ PRO/Wireless 2915 Intel(R) "
+
+WirelessMode	        ="¡Û˝ÒÏ·ÙÁ Í·Ù‹ÛÙ·ÛÁ"
+WirelessMode11a		="1. 802.11a"
+WirelessMode11b		="2. 802.11b"
+WirelessMode11g		="3. 802.11g"			
+WirelessMode11ag	       ="4. 802.11a/g"
+WirelessMode11bg	       ="5. 802.11b/g"
+WirelessMode11abg	="6. 802.11a/b/g"
+
+IBSSTxPower             ="ÃÂÙ‹‰ÔÛÁ ÈÛ˜˝ÔÚ"
+IBSSTxPower15           ="1. ◊·ÏÁÎ¸ÙÂÒÁ"
+IBSSTxPower25           ="2. ÃÂÛ·ﬂ·-◊·ÏÁÎﬁ"
+IBSSTxPower40           ="3. ÃÂÛ·ﬂ·"
+IBSSTxPower65           ="4. ÃÂÛ·ﬂ·-’¯ÁÎﬁ"
+IBSSTxPower100          ="5. ’¯ÁÎ¸ÙÂÒÁ"
+
+MixEnvProtectProt	="–ÒÔÛÙ·Ûﬂ· ÏÂÈÍÙﬁÚ ÎÂÈÙÔıÒ„ﬂ·Ú"
+CTSRTS			="≈ÌÂÒ„ÔÔﬂÁÛÁ RTS/CTS"
+CTSToSelf		="≈ÌÂÒ„ÔÔﬂÁÛÁ CTS-to-self"
+
+PreambleMode            ="ÀÂÈÙÔıÒ„ﬂ· ·ÍÔÎÔıËﬂ·Ú Ûı„˜ÒÔÌÈÛÏÔ˝" 
+AutoPreamble            ="¡ÍÔÎÔıËﬂ· Ûı„˜ÒÔÌÈÛÏÔ˝ Auto Tx"
+LongPreamble            ="¡ÍÔÎÔıËﬂ· Ûı„˜ÒÔÌÈÛÏÔ˝ ÏÂ„‹ÎÔı ÏﬁÍÔıÚ Tx"
+
+RoamAggressive          ="ƒıÌ·ÏÈÍ¸ÙÁÙ· ÂÒÈ·„˘„ﬁÚ"
+RoamAggressive_0        ="1. ◊·ÏÁÎ¸ÙÂÒÁ"
+RoamAggressive_1        ="2. ÃÂÛ·ﬂ·-◊·ÏÁÎﬁ"
+RoamAggressive_2        ="3. ÃÂÛ·ﬂ·"
+RoamAggressive_3        ="4. ÃÂÛ·ﬂ·-’¯ÁÎﬁ"
+RoamAggressive_4        ="5. ’¯ÁÎ¸ÙÂÒÁ"
+
+ThroughputEnhancement   ="¬ÂÎÙﬂ˘ÛÁ ÈÍ·Ì¸ÙÁÙ·Ú ÏÂÙ‹‰ÔÛÁÚ"
+DISABLED_STR      ="¡ÂÌÂÒ„ÔÔﬂÁÛÁ"
+ENABLED_STR       ="≈ÌÂÒ„ÔÔÈÁÏ›ÌÁ"
+
+ADHOC_QOS_MODE_STR			="‘Ò¸ÔÚ ÎÂÈÙÔıÒ„ﬂ·Ú Ad Hoc QoS"
+WMM_STR                     ="WMM "
+
+RecommendedChannel24 =" ·Ì‹ÎÈ ad hoc 802.11b/g"
+
+RecommendedChannel52 =" ·Ì‹ÎÈ ad hoc 802.11a"
+;
+; The following channels are mutally exclusive, so they will be prepended with the same digits
+; 34, 36; 38, 40; 42, 44; 46, 48
+;
+RecommendedChannel52_34 ="1. 34"
+RecommendedChannel52_36 ="1. 36"
+RecommendedChannel52_38 ="2. 38"
+RecommendedChannel52_40 ="2. 40"
+RecommendedChannel52_42 ="3. 42"
+RecommendedChannel52_44 ="3. 44"
+RecommendedChannel52_46 ="4. 46"
+RecommendedChannel52_48 ="4. 48"
+RecommendedChannel52_149 ="5. 149"
+RecommendedChannel52_153 ="6. 153"
+RecommendedChannel52_157 ="7. 157"
+RecommendedChannel52_161 ="8. 161"
+RecommendedChannel52_165 ="9. 165"
+
+
+[Strings.0C0A] ; Spanish (Spain)
+PROVIDER_NAME           ="Intel"
+COMPANY_NAME            ="Intel Corporation"
+
+NIC_MPCI3B.DeviceDesc ="Intel(R) PRO/Wireless 2915ABG Network Connection"
+NIC_MPCI3A.DeviceDesc ="Intel(R) PRO/Wireless 2915ABG Network Connection"
+NIC_MPCI3B              ="Intel(R) PRO/Wireless 2915ABG Network Connection"
+NIC_MPCI3A              ="Intel(R) PRO/Wireless 2915ABG Network Connection"
+NIC_MPCI3B_AdapterModel ="Intel(R) PRO/Wireless 2915ABG Network Connection"
+NIC_MPCI3A_AdapterModel ="Intel(R) PRO/Wireless 2915ABG Network Connection"
+
+NIC_MPCI3B_BG.DeviceDesc ="Intel(R) PRO/Wireless 2200BG Network Connection"
+NIC_MPCI3A_BG.DeviceDesc ="Intel(R) PRO/Wireless 2200BG Network Connection"
+NIC_MPCI3B_BG              ="Intel(R) PRO/Wireless 2200BG Network Connection"
+NIC_MPCI3A_BG              ="Intel(R) PRO/Wireless 2200BG Network Connection"
+NIC_MPCI3B_AdapterModel_BG ="Intel(R) PRO/Wireless 2200BG Network Connection"
+NIC_MPCI3A_AdapterModel_BG ="Intel(R) PRO/Wireless 2200BG Network Connection"
+
+NIC_DriverDesc          ="Intel(R) PRO/Wireless 2915ABG Network Connection Driver"
+NIC_Service_DispName_VISTA    ="Controlador de la conexiÛn de red inal·mbrica Intel(R) PRO/Wireless 2915ABG para Windows Vista"
+
+NIC_DriverDesc_BG          ="Intel(R) PRO/Wireless 2200BG Network Connection Driver"
+NIC_Service_DispName_BG_VISTA    ="Controlador de la conexiÛn de red inal·mbrica Intel(R) PRO/Wireless 2200BG para Windows Vista"
+
+INTEL_GUID_BG           ="{1F0DA42C-13F2-4BBF-BA4E-4A7EDEB76F7B}"
+INTEL_GUID              ="{720ED9B1-9AF1-4707-BCB0-CF648BF7FE5F}"  
+
+SOURCEDISK1             ="Disco de instalaciÛn de Intel(R) PRO/Wireless 2915"
+
+WirelessMode	        ="Modo inal·mbrico"
+WirelessMode11a		="1. 802.11a"
+WirelessMode11b		="2. 802.11b"
+WirelessMode11g		="3. 802.11g"			
+WirelessMode11ag	       ="4. 802.11a/g"
+WirelessMode11bg	       ="5. 802.11b/g"
+WirelessMode11abg	="6. 802.11a/b/g"
+
+IBSSTxPower             ="Potencia de transmisiÛn"
+IBSSTxPower15           ="1. MÌnimo"
+IBSSTxPower25           ="2. Bajo"
+IBSSTxPower40           ="3. Mediano"
+IBSSTxPower65           ="4. Alto"
+IBSSTxPower100          ="5. M·ximo"
+
+MixEnvProtectProt	="ProtecciÛn de modo mixto"
+CTSRTS			="RTS/CTS activado"
+CTSToSelf		="CTS-to-self activado"
+
+PreambleMode            ="Modo de pre·mbulo" 
+AutoPreamble            ="Pre·mbulo autom·tico Tx"
+LongPreamble            ="Pre·mbulo largo Tx"
+
+RoamAggressive          ="Agresividad de itinerancia"
+RoamAggressive_0        ="1. MÌnimo"
+RoamAggressive_1        ="2. Bajo"
+RoamAggressive_2        ="3. Mediano"
+RoamAggressive_3        ="4. Alto"
+RoamAggressive_4        ="5. M·ximo"
+
+ThroughputEnhancement   ="OptimizaciÛn de la capacidad de proceso"
+DISABLED_STR      ="Desactivado"
+ENABLED_STR       ="Activado"
+
+ADHOC_QOS_MODE_STR			="Modo QoS Ad Hoc"
+WMM_STR                     ="WMM "
+
+RecommendedChannel24 ="Canal Ad Hoc 802.11b/g"
+
+RecommendedChannel52 ="Canal Ad Hoc 802.11a"
+;
+; The following channels are mutally exclusive, so they will be prepended with the same digits
+; 34, 36; 38, 40; 42, 44; 46, 48
+;
+RecommendedChannel52_34 ="1. 34"
+RecommendedChannel52_36 ="1. 36"
+RecommendedChannel52_38 ="2. 38"
+RecommendedChannel52_40 ="2. 40"
+RecommendedChannel52_42 ="3. 42"
+RecommendedChannel52_44 ="3. 44"
+RecommendedChannel52_46 ="4. 46"
+RecommendedChannel52_48 ="4. 48"
+RecommendedChannel52_149 ="5. 149"
+RecommendedChannel52_153 ="6. 153"
+RecommendedChannel52_157 ="7. 157"
+RecommendedChannel52_161 ="8. 161"
+RecommendedChannel52_165 ="9. 165"
+
+
+[Strings.040B] ; Finnish (Finland)
+PROVIDER_NAME           ="Intel"
+COMPANY_NAME            ="Intel Corporation"
+
+NIC_MPCI3B.DeviceDesc ="Intel(R) PRO/Wireless 2915ABG Network Connection"
+NIC_MPCI3A.DeviceDesc ="Intel(R) PRO/Wireless 2915ABG Network Connection"
+NIC_MPCI3B              ="Intel(R) PRO/Wireless 2915ABG Network Connection"
+NIC_MPCI3A              ="Intel(R) PRO/Wireless 2915ABG Network Connection"
+NIC_MPCI3B_AdapterModel ="Intel(R) PRO/Wireless 2915ABG Network Connection"
+NIC_MPCI3A_AdapterModel ="Intel(R) PRO/Wireless 2915ABG Network Connection"
+
+NIC_MPCI3B_BG.DeviceDesc ="Intel(R) PRO/Wireless 2200BG Network Connection"
+NIC_MPCI3A_BG.DeviceDesc ="Intel(R) PRO/Wireless 2200BG Network Connection"
+NIC_MPCI3B_BG              ="Intel(R) PRO/Wireless 2200BG Network Connection"
+NIC_MPCI3A_BG              ="Intel(R) PRO/Wireless 2200BG Network Connection"
+NIC_MPCI3B_AdapterModel_BG ="Intel(R) PRO/Wireless 2200BG Network Connection"
+NIC_MPCI3A_AdapterModel_BG ="Intel(R) PRO/Wireless 2200BG Network Connection"
+
+NIC_DriverDesc          ="Intel(R) PRO/Wireless 2915ABG Network Connection Driver"
+NIC_Service_DispName_VISTA    ="Intel(R) PRO/Wireless 2915ABG Network Connection -ohjain, Windows Vista"
+
+NIC_DriverDesc_BG          ="Intel(R) PRO/Wireless 2200BG Network Connection Driver"
+NIC_Service_DispName_BG_VISTA    ="Intel(R) PRO/Wireless 2200BG Network Connection -ohjain, Windows Vista"
+
+INTEL_GUID_BG           ="{1F0DA42C-13F2-4BBF-BA4E-4A7EDEB76F7B}"
+INTEL_GUID              ="{720ED9B1-9AF1-4707-BCB0-CF648BF7FE5F}"  
+
+SOURCEDISK1             ="Intel(R) PRO/Wireless 2915 -asennuslevy"
+
+WirelessMode	        ="Langaton tila"
+WirelessMode11a		="1. 802.11a"
+WirelessMode11b		="2. 802.11b"
+WirelessMode11g		="3. 802.11g"			
+WirelessMode11ag	       ="4. 802.11a/g"
+WirelessMode11bg	       ="5. 802.11b/g"
+WirelessMode11abg	="6. 802.11a/b/g"
+
+IBSSTxPower             ="L‰hetysteho"
+IBSSTxPower15           ="1. Pienin"
+IBSSTxPower25           ="2. Keskipieni"
+IBSSTxPower40           ="3. Kohtalainen"
+IBSSTxPower65           ="4. Keskisuuri"
+IBSSTxPower100          ="5. Suurin"
+
+MixEnvProtectProt	="Sekatilan Suojaus"
+CTSRTS			="RTS/CTS k‰ytˆss‰"
+CTSToSelf		="CTS itse -asetus k‰ytˆss‰"
+
+PreambleMode            ="Otsikkotila" 
+AutoPreamble            ="Automaattinen l‰hetysotsikko"
+LongPreamble            ="Pitk‰ l‰hetysotsikko"
+
+RoamAggressive          ="Solukonp‰ivitysaktiivisuus"
+RoamAggressive_0        ="1. Pienin"
+RoamAggressive_1        ="2. Keskipieni"
+RoamAggressive_2        ="3. Kohtalainen"
+RoamAggressive_3        ="4. Keskisuuri"
+RoamAggressive_4        ="5. Suurin"
+
+ThroughputEnhancement   ="L‰pimenon parantaminen"
+DISABLED_STR      ="Poissa k‰ytˆst‰"
+ENABLED_STR       ="K‰ytˆss‰"
+
+ADHOC_QOS_MODE_STR			="Ad Hoc QoS -tila"
+WMM_STR                     ="WMM "
+
+RecommendedChannel24 ="Ad Hoc -kanava 802.11b/g"
+
+RecommendedChannel52 ="Ad Hoc -kanava 802.11a "
+;
+; The following channels are mutally exclusive, so they will be prepended with the same digits
+; 34, 36; 38, 40; 42, 44; 46, 48
+;
+RecommendedChannel52_34 ="1. 34"
+RecommendedChannel52_36 ="1. 36"
+RecommendedChannel52_38 ="2. 38"
+RecommendedChannel52_40 ="2. 40"
+RecommendedChannel52_42 ="3. 42"
+RecommendedChannel52_44 ="3. 44"
+RecommendedChannel52_46 ="4. 46"
+RecommendedChannel52_48 ="4. 48"
+RecommendedChannel52_149 ="5. 149"
+RecommendedChannel52_153 ="6. 153"
+RecommendedChannel52_157 ="7. 157"
+RecommendedChannel52_161 ="8. 161"
+RecommendedChannel52_165 ="9. 165"
+
+
+[Strings.040C] ; French (France)
+PROVIDER_NAME           ="Intel"
+COMPANY_NAME            ="Intel Corporation"
+
+NIC_MPCI3B.DeviceDesc ="Intel(R) PRO/Wireless 2915ABG Network Connection"
+NIC_MPCI3A.DeviceDesc ="Intel(R) PRO/Wireless 2915ABG Network Connection"
+NIC_MPCI3B              ="Intel(R) PRO/Wireless 2915ABG Network Connection"
+NIC_MPCI3A              ="Intel(R) PRO/Wireless 2915ABG Network Connection"
+NIC_MPCI3B_AdapterModel ="Intel(R) PRO/Wireless 2915ABG Network Connection"
+NIC_MPCI3A_AdapterModel ="Intel(R) PRO/Wireless 2915ABG Network Connection"
+
+NIC_MPCI3B_BG.DeviceDesc ="Intel(R) PRO/Wireless 2200BG Network Connection"
+NIC_MPCI3A_BG.DeviceDesc ="Intel(R) PRO/Wireless 2200BG Network Connection"
+NIC_MPCI3B_BG              ="Intel(R) PRO/Wireless 2200BG Network Connection"
+NIC_MPCI3A_BG              ="Intel(R) PRO/Wireless 2200BG Network Connection"
+NIC_MPCI3B_AdapterModel_BG ="Intel(R) PRO/Wireless 2200BG Network Connection"
+NIC_MPCI3A_AdapterModel_BG ="Intel(R) PRO/Wireless 2200BG Network Connection"
+
+NIC_DriverDesc          ="Intel(R) PRO/Wireless 2915ABG Network Connection Driver"
+NIC_Service_DispName_VISTA    ="Pilote de connexion rÈseau Intel(R) PRO/Wireless 2915ABG pour Windows Vista"
+
+NIC_DriverDesc_BG          ="Intel(R) PRO/Wireless 2200BG Network Connection Driver"
+NIC_Service_DispName_BG_VISTA    ="Pilote de connexion rÈseau Intel(R) PRO/Wireless 2200BG pour Windows Vista"
+
+INTEL_GUID_BG           ="{1F0DA42C-13F2-4BBF-BA4E-4A7EDEB76F7B}"
+INTEL_GUID              ="{720ED9B1-9AF1-4707-BCB0-CF648BF7FE5F}"  
+
+SOURCEDISK1             ="Disque d'installation Intel(R) PRO/Wireless 2915"
+
+WirelessMode	        ="Mode Sans fil"
+WirelessMode11a		="1. 802.11a"
+WirelessMode11b		="2. 802.11b"
+WirelessMode11g		="3. 802.11g"			
+WirelessMode11ag	       ="4. 802.11a/g"
+WirelessMode11bg	       ="5. 802.11b/g"
+WirelessMode11abg	="6. 802.11a/b/g"
+
+IBSSTxPower             ="Puissance de transmission"
+IBSSTxPower15           ="1. Minimum"
+IBSSTxPower25           ="2. Faible"
+IBSSTxPower40           ="3. Moyen"
+IBSSTxPower65           ="4. …levÈe"
+IBSSTxPower100          ="5. Maximum"
+
+MixEnvProtectProt	="Protection en mode mixte"
+CTSRTS			="RTS/CTS activÈe"
+CTSToSelf		="Auto-CTS activÈe"
+
+PreambleMode            ="Mode prÈambule de transmission" 
+AutoPreamble            ="automatique"
+LongPreamble            ="long"
+
+RoamAggressive          ="AgressivitÈ de l'itinÈrance"
+RoamAggressive_0        ="1. Minimum"
+RoamAggressive_1        ="2. Faible"
+RoamAggressive_2        ="3. Moyenne"
+RoamAggressive_3        ="4. …levÈe"
+RoamAggressive_4        ="5. Maximum"
+
+ThroughputEnhancement   ="Optimisation du dÈbit"
+DISABLED_STR      ="DÈsactivÈe"
+ENABLED_STR       ="ActivÈe"
+
+ADHOC_QOS_MODE_STR			="Mode QS ad hoc"
+WMM_STR                     ="WMM "
+
+RecommendedChannel24 ="Canal ad hoc 802.11b/g"
+
+RecommendedChannel52 ="Canal ad hoc 802.11a"
+;
+; The following channels are mutally exclusive, so they will be prepended with the same digits
+; 34, 36; 38, 40; 42, 44; 46, 48
+;
+RecommendedChannel52_34 ="1. 34"
+RecommendedChannel52_36 ="1. 36"
+RecommendedChannel52_38 ="2. 38"
+RecommendedChannel52_40 ="2. 40"
+RecommendedChannel52_42 ="3. 42"
+RecommendedChannel52_44 ="3. 44"
+RecommendedChannel52_46 ="4. 46"
+RecommendedChannel52_48 ="4. 48"
+RecommendedChannel52_149 ="5. 149"
+RecommendedChannel52_153 ="6. 153"
+RecommendedChannel52_157 ="7. 157"
+RecommendedChannel52_161 ="8. 161"
+RecommendedChannel52_165 ="9. 165"
+
+
+[Strings.040D] ; Hebrew (Israel)
+PROVIDER_NAME           ="Intel"
+COMPANY_NAME            ="Intel Corporation"
+
+NIC_MPCI3B.DeviceDesc ="Intel(R) PRO/Wireless 2915ABG Network Connection"
+NIC_MPCI3A.DeviceDesc ="Intel(R) PRO/Wireless 2915ABG Network Connection"
+NIC_MPCI3B              ="Intel(R) PRO/Wireless 2915ABG Network Connection"
+NIC_MPCI3A              ="Intel(R) PRO/Wireless 2915ABG Network Connection"
+NIC_MPCI3B_AdapterModel ="Intel(R) PRO/Wireless 2915ABG Network Connection"
+NIC_MPCI3A_AdapterModel ="Intel(R) PRO/Wireless 2915ABG Network Connection"
+
+NIC_MPCI3B_BG.DeviceDesc ="Intel(R) PRO/Wireless 2200BG Network Connection"
+NIC_MPCI3A_BG.DeviceDesc ="Intel(R) PRO/Wireless 2200BG Network Connection"
+NIC_MPCI3B_BG              ="Intel(R) PRO/Wireless 2200BG Network Connection"
+NIC_MPCI3A_BG              ="Intel(R) PRO/Wireless 2200BG Network Connection"
+NIC_MPCI3B_AdapterModel_BG ="Intel(R) PRO/Wireless 2200BG Network Connection"
+NIC_MPCI3A_AdapterModel_BG ="Intel(R) PRO/Wireless 2200BG Network Connection"
+
+NIC_DriverDesc          ="Intel(R) PRO/Wireless 2915ABG Network Connection Driver"
+NIC_Service_DispName_VISTA    ="Ó‰Ï ‰˙˜Ô ˘Ï ÁÈ·Â¯ ¯˘˙ Intel(R) PRO/Wireless 2915ABG Ú·Â¯ Windows Vista"
+
+NIC_DriverDesc_BG          ="Intel(R) PRO/Wireless 2200BG Network Connection Driver"
+NIC_Service_DispName_BG_VISTA    ="Ó‰Ï ‰˙˜Ô ˘Ï ÁÈ·Â¯ ¯˘˙ Intel(R) PRO/Wireless 2200BG Ú·Â¯ Windows Vista"
+
+INTEL_GUID_BG           ="{1F0DA42C-13F2-4BBF-BA4E-4A7EDEB76F7B}"
+INTEL_GUID              ="{720ED9B1-9AF1-4707-BCB0-CF648BF7FE5F}"  
+
+SOURCEDISK1             ="Intel(R) PRO/Wireless 2915 Install Disk"
+
+WirelessMode	        ="Óˆ· ‡ÏÁÂËÈ"
+WirelessMode11a		="1. 802.11a"
+WirelessMode11b		="2. 802.11b"
+WirelessMode11g		="3. 802.11g"			
+WirelessMode11ag	       ="4. 802.11a/g"
+WirelessMode11bg	       ="5. 802.11b/g"
+WirelessMode11abg	="6. 802.11a/b/g"
+
+IBSSTxPower             ="¯Ó˙ ˘È„Â¯"
+IBSSTxPower15           ="1. ÓÂÍ ·ÈÂ˙¯"
+IBSSTxPower25           ="2. ·ÈÂÈ-ÓÂÍ"
+IBSSTxPower40           ="3. ·ÈÂÈ"
+IBSSTxPower65           ="4. ·ÈÂÈ-‚·Â‰"
+IBSSTxPower100          ="5. ‚·Â‰ ·ÈÂ˙¯"
+
+MixEnvProtectProt	="‰‚˙ Óˆ· ÓÚÂ¯·"
+CTSRTS			="Ó‡ÂÙ˘¯ RTS/CTS"
+CTSToSelf		="Ó‡ÂÙ˘¯ CTS-‡Ï-ÚˆÓÂ (CTS-to-self)"
+
+PreambleMode            ="Óˆ· Ó·Â‡" 
+AutoPreamble            ="Ó·Â‡ ˘È„Â¯ ‡ÂËÂÓËÈ"
+LongPreamble            ="Ó·Â‡ ‡¯ÂÍ"
+
+RoamAggressive          ="˙Â˜ÙÂ˙ „È„‰"
+RoamAggressive_0        ="1. ÓÂÍ ·ÈÂ˙¯"
+RoamAggressive_1        ="2. ·ÈÂÈ-ÓÂÍ"
+RoamAggressive_2        ="3. ·ÈÂÈ"
+RoamAggressive_3        ="4. ·ÈÂÈ-‚·Â‰"
+RoamAggressive_4        ="5. ‚·Â‰ ·ÈÂ˙¯"
+
+ThroughputEnhancement   ="˘ÈÙÂ¯ ˜ˆ· ‰Ú·¯‰"
+DISABLED_STR      ="ÓÂË¯Ï"
+ENABLED_STR       ="ÊÓÈÔ"
+
+ADHOC_QOS_MODE_STR			="Óˆ· Ad Hoc Qos"
+WMM_STR                     ="WMM "
+
+RecommendedChannel24 ="Ú¯Âı ‡„ ‰Â˜ 802.11b/g"
+
+RecommendedChannel52 ="Ú¯Âı ‡„ ‰Â˜ 802.11a"
+;
+; The following channels are mutally exclusive, so they will be prepended with the same digits
+; 34, 36; 38, 40; 42, 44; 46, 48
+;
+RecommendedChannel52_34 ="1. 34"
+RecommendedChannel52_36 ="1. 36"
+RecommendedChannel52_38 ="2. 38"
+RecommendedChannel52_40 ="2. 40"
+RecommendedChannel52_42 ="3. 42"
+RecommendedChannel52_44 ="3. 44"
+RecommendedChannel52_46 ="4. 46"
+RecommendedChannel52_48 ="4. 48"
+RecommendedChannel52_149 ="5. 149"
+RecommendedChannel52_153 ="6. 153"
+RecommendedChannel52_157 ="7. 157"
+RecommendedChannel52_161 ="8. 161"
+RecommendedChannel52_165 ="9. 165"
+
+
+[Strings.040E] ; Hungarian (Hungary)
+PROVIDER_NAME           ="Intel"
+COMPANY_NAME            ="Intel Corporation"
+
+NIC_MPCI3B.DeviceDesc ="Intel(R) PRO/Wireless 2915ABG Network Connection"
+NIC_MPCI3A.DeviceDesc ="Intel(R) PRO/Wireless 2915ABG Network Connection"
+NIC_MPCI3B              ="Intel(R) PRO/Wireless 2915ABG Network Connection"
+NIC_MPCI3A              ="Intel(R) PRO/Wireless 2915ABG Network Connection"
+NIC_MPCI3B_AdapterModel ="Intel(R) PRO/Wireless 2915ABG Network Connection"
+NIC_MPCI3A_AdapterModel ="Intel(R) PRO/Wireless 2915ABG Network Connection"
+
+NIC_MPCI3B_BG.DeviceDesc ="Intel(R) PRO/Wireless 2200BG Network Connection"
+NIC_MPCI3A_BG.DeviceDesc ="Intel(R) PRO/Wireless 2200BG Network Connection"
+NIC_MPCI3B_BG              ="Intel(R) PRO/Wireless 2200BG Network Connection"
+NIC_MPCI3A_BG              ="Intel(R) PRO/Wireless 2200BG Network Connection"
+NIC_MPCI3B_AdapterModel_BG ="Intel(R) PRO/Wireless 2200BG Network Connection"
+NIC_MPCI3A_AdapterModel_BG ="Intel(R) PRO/Wireless 2200BG Network Connection"
+
+NIC_DriverDesc          ="Intel(R) PRO/Wireless 2915ABG Network Connection Driver"
+NIC_Service_DispName_VISTA    ="Az Intel(R) PRO/Wireless 2915ABG h·lÛzati kapcsolat illesztıprogram Windows Vista rendszerhez"
+
+NIC_DriverDesc_BG          ="Intel(R) PRO/Wireless 2200BG Network Connection Driver"
+NIC_Service_DispName_BG_VISTA    ="Az Intel(R) PRO/Wireless 2200BG h·lÛzati kapcsolat illesztıprogram Windows Vista rendszerhez"
+
+INTEL_GUID_BG           ="{1F0DA42C-13F2-4BBF-BA4E-4A7EDEB76F7B}"
+INTEL_GUID              ="{720ED9B1-9AF1-4707-BCB0-CF648BF7FE5F}"  
+
+SOURCEDISK1             ="Intel(R) PRO/Wireless 2915 telepÌtılemez"
+
+WirelessMode	        ="VezetÈk nÈlk¸li ¸zemmÛd"
+WirelessMode11a		="1. 802.11a"
+WirelessMode11b		="2. 802.11b"
+WirelessMode11g		="3. 802.11g"			
+WirelessMode11ag	       ="4. 802.11a/g"
+WirelessMode11bg	       ="5. 802.11b/g"
+WirelessMode11abg	="6. 802.11a/b/g"
+
+IBSSTxPower             ="Sug·rz·si teljesÌtmÈny"
+IBSSTxPower15           ="1. Legalacsonyabb"
+IBSSTxPower25           ="2. Kˆzepes-alacsony"
+IBSSTxPower40           ="3. Kˆzepes"
+IBSSTxPower65           ="4. Kˆzepes-magas"
+IBSSTxPower100          ="5. Legmagasabb"
+
+MixEnvProtectProt	="Vegyes ¸zemmÛd˙ vÈdelem"
+CTSRTS			="RTS/CTS engedÈlyezÈse"
+CTSToSelf		="CTS-to-self engedÈlyezÈse"
+
+PreambleMode            ="BevezetÈs mÛd" 
+AutoPreamble            ="Automatikus ad·sbevezetÈs"
+LongPreamble            ="Hossz˙ ad·sbevezetÈs"
+
+RoamAggressive          ="A barangol·s intenzit·sa"
+RoamAggressive_0        ="1. Legalacsonyabb"
+RoamAggressive_1        ="2. Kˆzepes-alacsony"
+RoamAggressive_2        ="3. Kˆzepes"
+RoamAggressive_3        ="4. Kˆzepes-magas"
+RoamAggressive_4        ="5. Legmagasabb"
+
+ThroughputEnhancement   ="Az ·tviteli kapacit·s nˆvelÈse"
+DISABLED_STR      ="Letiltva"
+ENABLED_STR       ="EngedÈlyezve"
+
+ADHOC_QOS_MODE_STR			="Alkalmi QoS ¸zemmÛd"
+WMM_STR                     ="WMM "
+
+RecommendedChannel24 ="802.11b/g csatorna alkalmi kapcsolathoz"
+
+RecommendedChannel52 ="802.11a csatorna alkalmi kapcsolathoz"
+;
+; The following channels are mutally exclusive, so they will be prepended with the same digits
+; 34, 36; 38, 40; 42, 44; 46, 48
+;
+RecommendedChannel52_34 ="1. 34"
+RecommendedChannel52_36 ="1. 36"
+RecommendedChannel52_38 ="2. 38"
+RecommendedChannel52_40 ="2. 40"
+RecommendedChannel52_42 ="3. 42"
+RecommendedChannel52_44 ="3. 44"
+RecommendedChannel52_46 ="4. 46"
+RecommendedChannel52_48 ="4. 48"
+RecommendedChannel52_149 ="5. 149"
+RecommendedChannel52_153 ="6. 153"
+RecommendedChannel52_157 ="7. 157"
+RecommendedChannel52_161 ="8. 161"
+RecommendedChannel52_165 ="9. 165"
+
+
+[Strings.0410] ; Italian (Italy)
+PROVIDER_NAME           ="Intel"
+COMPANY_NAME            ="Intel Corporation"
+
+NIC_MPCI3B.DeviceDesc ="Intel(R) PRO/Wireless 2915ABG Network Connection"
+NIC_MPCI3A.DeviceDesc ="Intel(R) PRO/Wireless 2915ABG Network Connection"
+NIC_MPCI3B              ="Intel(R) PRO/Wireless 2915ABG Network Connection"
+NIC_MPCI3A              ="Intel(R) PRO/Wireless 2915ABG Network Connection"
+NIC_MPCI3B_AdapterModel ="Intel(R) PRO/Wireless 2915ABG Network Connection"
+NIC_MPCI3A_AdapterModel ="Intel(R) PRO/Wireless 2915ABG Network Connection"
+
+NIC_MPCI3B_BG.DeviceDesc ="Intel(R) PRO/Wireless 2200BG Network Connection"
+NIC_MPCI3A_BG.DeviceDesc ="Intel(R) PRO/Wireless 2200BG Network Connection"
+NIC_MPCI3B_BG              ="Intel(R) PRO/Wireless 2200BG Network Connection"
+NIC_MPCI3A_BG              ="Intel(R) PRO/Wireless 2200BG Network Connection"
+NIC_MPCI3B_AdapterModel_BG ="Intel(R) PRO/Wireless 2200BG Network Connection"
+NIC_MPCI3A_AdapterModel_BG ="Intel(R) PRO/Wireless 2200BG Network Connection"
+
+NIC_DriverDesc          ="Intel(R) PRO/Wireless 2915ABG Network Connection Driver"
+NIC_Service_DispName_VISTA    ="Driver di Intel(R) PRO/Wireless 2915ABG Network Connection per Windows Vista"
+
+NIC_DriverDesc_BG          ="Intel(R) PRO/Wireless 2200BG Network Connection Driver"
+NIC_Service_DispName_BG_VISTA    ="Driver di Intel(R) PRO/Wireless 2200BG Network Connection per Windows Vista"
+
+INTEL_GUID_BG           ="{1F0DA42C-13F2-4BBF-BA4E-4A7EDEB76F7B}"
+INTEL_GUID              ="{720ED9B1-9AF1-4707-BCB0-CF648BF7FE5F}"  
+
+SOURCEDISK1             ="Disco di installazione di Intel(R) PRO/Wireless 2915"
+
+WirelessMode	        ="Modalit‡ wireless"
+WirelessMode11a		="1. 802.11a"
+WirelessMode11b		="2. 802.11b"
+WirelessMode11g		="3. 802.11g"			
+WirelessMode11ag	       ="4. 802.11a/g"
+WirelessMode11bg	       ="5. 802.11b/g"
+WirelessMode11abg	="6. 802.11a/b/g"
+
+IBSSTxPower             ="Potenza di trasmissione"
+IBSSTxPower15           ="1. Minimo"
+IBSSTxPower25           ="2. Medio-basso"
+IBSSTxPower40           ="3. Medio"
+IBSSTxPower65           ="4. Medio-alto"
+IBSSTxPower100          ="5. Massimo"
+
+MixEnvProtectProt	="Protezione a modalit‡ mista"
+CTSRTS			="Attivato RTS/CTS"
+CTSToSelf		="Attivato CTS-to-self"
+
+PreambleMode            ="Modalit‡ Preambolo" 
+AutoPreamble            ="Preambolo di trasmissione automatico"
+LongPreamble            ="Preambolo di trasmissione lungo"
+
+RoamAggressive          ="Efficacia roaming"
+RoamAggressive_0        ="1. Minimo"
+RoamAggressive_1        ="2. Medio-basso"
+RoamAggressive_2        ="3. Medio"
+RoamAggressive_3        ="4. Medio-alto"
+RoamAggressive_4        ="5. Massimo"
+
+ThroughputEnhancement   ="Miglioramento velocit‡"
+DISABLED_STR      ="Disattivata"
+ENABLED_STR       ="Attivata"
+
+ADHOC_QOS_MODE_STR			="Modalit‡ Ad Hoc QoS"
+WMM_STR                     ="WMM "
+
+RecommendedChannel24 ="Canale ad hoc 802.11b/g"
+
+RecommendedChannel52 ="Canale ad hoc 802.11a"
+;
+; The following channels are mutally exclusive, so they will be prepended with the same digits
+; 34, 36; 38, 40; 42, 44; 46, 48
+;
+RecommendedChannel52_34 ="1. 34"
+RecommendedChannel52_36 ="1. 36"
+RecommendedChannel52_38 ="2. 38"
+RecommendedChannel52_40 ="2. 40"
+RecommendedChannel52_42 ="3. 42"
+RecommendedChannel52_44 ="3. 44"
+RecommendedChannel52_46 ="4. 46"
+RecommendedChannel52_48 ="4. 48"
+RecommendedChannel52_149 ="5. 149"
+RecommendedChannel52_153 ="6. 153"
+RecommendedChannel52_157 ="7. 157"
+RecommendedChannel52_161 ="8. 161"
+RecommendedChannel52_165 ="9. 165"
+
+
+[Strings.0411] ; Japanese (Japan)
+PROVIDER_NAME           ="Intel"
+COMPANY_NAME            ="Intel Corporation"
+
+NIC_MPCI3B.DeviceDesc ="Intel(R) PRO/Wireless 2915ABG Network Connection"
+NIC_MPCI3A.DeviceDesc ="Intel(R) PRO/Wireless 2915ABG Network Connection"
+NIC_MPCI3B              ="Intel(R) PRO/Wireless 2915ABG Network Connection"
+NIC_MPCI3A              ="Intel(R) PRO/Wireless 2915ABG Network Connection"
+NIC_MPCI3B_AdapterModel ="Intel(R) PRO/Wireless 2915ABG Network Connection"
+NIC_MPCI3A_AdapterModel ="Intel(R) PRO/Wireless 2915ABG Network Connection"
+
+NIC_MPCI3B_BG.DeviceDesc ="Intel(R) PRO/Wireless 2200BG Network Connection"
+NIC_MPCI3A_BG.DeviceDesc ="Intel(R) PRO/Wireless 2200BG Network Connection"
+NIC_MPCI3B_BG              ="Intel(R) PRO/Wireless 2200BG Network Connection"
+NIC_MPCI3A_BG              ="Intel(R) PRO/Wireless 2200BG Network Connection"
+NIC_MPCI3B_AdapterModel_BG ="Intel(R) PRO/Wireless 2200BG Network Connection"
+NIC_MPCI3A_AdapterModel_BG ="Intel(R) PRO/Wireless 2200BG Network Connection"
+
+NIC_DriverDesc          ="Intel(R) PRO/Wireless 2915ABG Network Connection Driver"
+NIC_Service_DispName_VISTA    ="Windows Vista ópÉCÉìÉeÉã(R) PRO/Wireless 2915ABG ÉlÉbÉgÉèÅ[ÉN ÉRÉlÉNÉVÉáÉì ÉhÉâÉCÉo"
+
+NIC_DriverDesc_BG          ="Intel(R) PRO/Wireless 2200BG Network Connection Driver"
+NIC_Service_DispName_BG_VISTA    ="Windows Vista óp ÉCÉìÉeÉã(R) PRO/Wireless 2200BG ÉlÉbÉgÉèÅ[ÉN ÉRÉlÉNÉVÉáÉì ÉhÉâÉCÉo"
+
+INTEL_GUID_BG           ="{1F0DA42C-13F2-4BBF-BA4E-4A7EDEB76F7B}"
+INTEL_GUID              ="{720ED9B1-9AF1-4707-BCB0-CF648BF7FE5F}"  
+
+SOURCEDISK1             ="ÉCÉìÉeÉã(R) PRO/Wireless 2915 ÉCÉìÉXÉgÅ[Éã ÉfÉBÉXÉN"
+
+WirelessMode	        ="ÉèÉCÉÑÉåÉX ÉÇÅ[Éh"
+WirelessMode11a		="1. 802.11a"
+WirelessMode11b		="2. 802.11b"
+WirelessMode11g		="3. 802.11g"			
+WirelessMode11ag	       ="4. 802.11a/g"
+WirelessMode11bg	       ="5. 802.11b/g"
+WirelessMode11abg	="6. 802.11a/b/g"
+
+IBSSTxPower             ="ëóêMÉpÉèÅ["
+IBSSTxPower15           ="1. ç≈è¨"
+IBSSTxPower25           ="2. íÜè¨"
+IBSSTxPower40           ="3. íÜ"
+IBSSTxPower65           ="4. íÜçÇ"
+IBSSTxPower100          ="5. ç≈ëÂ"
+
+MixEnvProtectProt	="ç¨ç›ÉÇÅ[Éhï€åÏ"
+CTSRTS			="RTS/CTS óLå¯"
+CTSToSelf		="å¬ï  CTS óLå¯"
+
+PreambleMode            ="ÉvÉäÉAÉìÉuÉã ÉÇÅ[Éh" 
+AutoPreamble            ="é©ìÆëóêMÉvÉäÉAÉìÉuÉã"
+LongPreamble            ="ÉçÉìÉOëóêMÉvÉäÉAÉìÉuÉã"
+
+RoamAggressive          ="ÉçÅ[É~ÉìÉOÇÃêœã…ê´"
+RoamAggressive_0        ="1. ç≈è¨"
+RoamAggressive_1        ="1. íÜè¨"
+RoamAggressive_2        ="3. íÜ"
+RoamAggressive_3        ="4. íÜçÇ"
+RoamAggressive_4        ="5. ç≈ëÂ"
+
+ThroughputEnhancement   ="ÉXÉãÅ[ÉvÉbÉgÇÃëùâ¡"
+DISABLED_STR      ="ñ≥å¯"
+ENABLED_STR       ="óLå¯"
+
+ADHOC_QOS_MODE_STR			="ÉAÉhÉzÉbÉN QoS ÉÇÅ[Éh"
+WMM_STR                     ="WMM "
+
+RecommendedChannel24 ="ÉAÉhÉzÉbÉN É`ÉÉÉlÉã 802.11b/g "
+
+RecommendedChannel52 ="ÉAÉhÉzÉbÉN É`ÉÉÉlÉã 802.11a"
+;
+; The following channels are mutally exclusive, so they will be prepended with the same digits
+; 34, 36; 38, 40; 42, 44; 46, 48
+;
+RecommendedChannel52_34 ="1. 34"
+RecommendedChannel52_36 ="1. 36"
+RecommendedChannel52_38 ="2. 38"
+RecommendedChannel52_40 ="2. 40"
+RecommendedChannel52_42 ="3. 42"
+RecommendedChannel52_44 ="3. 44"
+RecommendedChannel52_46 ="4. 46"
+RecommendedChannel52_48 ="4. 48"
+RecommendedChannel52_149 ="5. 149"
+RecommendedChannel52_153 ="6. 153"
+RecommendedChannel52_157 ="7. 157"
+RecommendedChannel52_161 ="8. 161"
+RecommendedChannel52_165 ="9. 165"
+
+
+[Strings.0412] ; Korean (Korea)
+PROVIDER_NAME           ="Intel"
+COMPANY_NAME            ="Intel Corporation"
+
+NIC_MPCI3B.DeviceDesc ="Intel(R) PRO/Wireless 2915ABG Network Connection"
+NIC_MPCI3A.DeviceDesc ="Intel(R) PRO/Wireless 2915ABG Network Connection"
+NIC_MPCI3B              ="Intel(R) PRO/Wireless 2915ABG Network Connection"
+NIC_MPCI3A              ="Intel(R) PRO/Wireless 2915ABG Network Connection"
+NIC_MPCI3B_AdapterModel ="Intel(R) PRO/Wireless 2915ABG Network Connection"
+NIC_MPCI3A_AdapterModel ="Intel(R) PRO/Wireless 2915ABG Network Connection"
+
+NIC_MPCI3B_BG.DeviceDesc ="Intel(R) PRO/Wireless 2200BG Network Connection"
+NIC_MPCI3A_BG.DeviceDesc ="Intel(R) PRO/Wireless 2200BG Network Connection"
+NIC_MPCI3B_BG              ="Intel(R) PRO/Wireless 2200BG Network Connection"
+NIC_MPCI3A_BG              ="Intel(R) PRO/Wireless 2200BG Network Connection"
+NIC_MPCI3B_AdapterModel_BG ="Intel(R) PRO/Wireless 2200BG Network Connection"
+NIC_MPCI3A_AdapterModel_BG ="Intel(R) PRO/Wireless 2200BG Network Connection"
+
+NIC_DriverDesc          ="Intel(R) PRO/Wireless 2915ABG Network Connection Driver"
+NIC_Service_DispName_VISTA    ="Windows VistaøÎ Intel(R) PRO/π´º± 2915ABG ≥◊∆Æøˆ≈© ø¨∞· µÂ∂Û¿Ãπˆ"
+
+NIC_DriverDesc_BG          ="Intel(R) PRO/Wireless 2200BG Network Connection Driver"
+NIC_Service_DispName_BG_VISTA    ="Windows VistaøÎ Intel(R) PRO/π´º± 2200BG ≥◊∆Æøˆ≈© ø¨∞· µÂ∂Û¿Ãπˆ"
+
+INTEL_GUID_BG           ="{1F0DA42C-13F2-4BBF-BA4E-4A7EDEB76F7B}"
+INTEL_GUID              ="{720ED9B1-9AF1-4707-BCB0-CF648BF7FE5F}"  
+
+SOURCEDISK1             ="Intel(R) PRO/π´º± 2915 º≥ƒ° µΩ∫≈©"
+
+WirelessMode	        ="π´º± ∏µÂ"
+WirelessMode11a		="1. 802.11a"
+WirelessMode11b		="2. 802.11b"
+WirelessMode11g		="3. 802.11g"			
+WirelessMode11ag	       ="4. 802.11a/g"
+WirelessMode11bg	       ="5. 802.11b/g"
+WirelessMode11abg	="6. 802.11a/b/g"
+
+IBSSTxPower             ="¿¸º€ ¿¸ø¯"
+IBSSTxPower15           ="1. √÷«œ"
+IBSSTxPower25           ="2. ∫∏≈Î-≥∑¿Ω"
+IBSSTxPower40           ="3. ∫∏≈Î"
+IBSSTxPower65           ="4. ∫∏≈Î-≥Ù¿Ω"
+IBSSTxPower100          ="5. √÷∞Ì"
+
+MixEnvProtectProt	="»•«’ ∏µÂ ∫∏»£"
+CTSRTS			="RTS/CTS ªÁøÎ"
+CTSToSelf		="¿⁄√º CTS ªÁøÎ"
+
+PreambleMode            ="«¡∏Ææ⁄∫Ì ∏µÂ" 
+AutoPreamble            ="¿⁄µø Tx «¡∏Ææ⁄∫Ì"
+LongPreamble            ="±‰ Tx «¡∏Ææ⁄∫Ì"
+
+RoamAggressive          ="∑Œπ÷ ºˆ¡ÿ"
+RoamAggressive_0        ="1. √÷«œ"
+RoamAggressive_1        ="2. ∫∏≈Î-≥∑¿Ω"
+RoamAggressive_2        ="3. ∫∏≈Î"
+RoamAggressive_3        ="4. ∫∏≈Î-≥Ù¿Ω"
+RoamAggressive_4        ="5. √÷∞Ì"
+
+ThroughputEnhancement   ="√≥∏Æ∑Æ ∞≥º±"
+DISABLED_STR      ="∫Ò»∞º∫»≠"
+ENABLED_STR       ="ªÁøÎ«‘"
+
+ADHOC_QOS_MODE_STR			="Ad Hoc QoS ∏µÂ"
+WMM_STR                     ="WMM "
+
+RecommendedChannel24 ="Ad Hoc √§≥Œ 802.11b/g"
+
+RecommendedChannel52 ="Ad Hoc √§≥Œ 802.11a"
+;
+; The following channels are mutally exclusive, so they will be prepended with the same digits
+; 34, 36; 38, 40; 42, 44; 46, 48
+;
+RecommendedChannel52_34 ="1. 34"
+RecommendedChannel52_36 ="1. 36"
+RecommendedChannel52_38 ="2. 38"
+RecommendedChannel52_40 ="2. 40"
+RecommendedChannel52_42 ="3. 42"
+RecommendedChannel52_44 ="3. 44"
+RecommendedChannel52_46 ="4. 46"
+RecommendedChannel52_48 ="4. 48"
+RecommendedChannel52_149 ="5. 149"
+RecommendedChannel52_153 ="6. 153"
+RecommendedChannel52_157 ="7. 157"
+RecommendedChannel52_161 ="8. 161"
+RecommendedChannel52_165 ="9. 165"
+
+
+[Strings.0413] ; Dutch (Netherlands)
+PROVIDER_NAME           ="Intel"
+COMPANY_NAME            ="Intel Corporation"
+
+NIC_MPCI3B.DeviceDesc ="Intel(R) PRO/Wireless 2915ABG Network Connection"
+NIC_MPCI3A.DeviceDesc ="Intel(R) PRO/Wireless 2915ABG Network Connection"
+NIC_MPCI3B              ="Intel(R) PRO/Wireless 2915ABG Network Connection"
+NIC_MPCI3A              ="Intel(R) PRO/Wireless 2915ABG Network Connection"
+NIC_MPCI3B_AdapterModel ="Intel(R) PRO/Wireless 2915ABG Network Connection"
+NIC_MPCI3A_AdapterModel ="Intel(R) PRO/Wireless 2915ABG Network Connection"
+
+NIC_MPCI3B_BG.DeviceDesc ="Intel(R) PRO/Wireless 2200BG Network Connection"
+NIC_MPCI3A_BG.DeviceDesc ="Intel(R) PRO/Wireless 2200BG Network Connection"
+NIC_MPCI3B_BG              ="Intel(R) PRO/Wireless 2200BG Network Connection"
+NIC_MPCI3A_BG              ="Intel(R) PRO/Wireless 2200BG Network Connection"
+NIC_MPCI3B_AdapterModel_BG ="Intel(R) PRO/Wireless 2200BG Network Connection"
+NIC_MPCI3A_AdapterModel_BG ="Intel(R) PRO/Wireless 2200BG Network Connection"
+
+NIC_DriverDesc          ="Intel(R) PRO/Wireless 2915ABG Network Connection Driver"
+NIC_Service_DispName_VISTA    ="Stuurprogramma voor Intel(R) PRO/Wireless 2915ABG-netwerkverbinding onder Windows Vista"
+
+NIC_DriverDesc_BG          ="Intel(R) PRO/Wireless 2200BG Network Connection Driver"
+NIC_Service_DispName_BG_VISTA    ="Stuurprogramma voor Intel(R) PRO/Wireless 2200BG-netwerkverbinding onder Windows Vista"
+
+INTEL_GUID_BG           ="{1F0DA42C-13F2-4BBF-BA4E-4A7EDEB76F7B}"
+INTEL_GUID              ="{720ED9B1-9AF1-4707-BCB0-CF648BF7FE5F}"  
+
+SOURCEDISK1             ="Installatieschijf Intel(R) PRO/Wireless 2915"
+
+WirelessMode	        ="Draadloze modus"
+WirelessMode11a		="1. 802.11a"
+WirelessMode11b		="2. 802.11b"
+WirelessMode11g		="3. 802.11g"			
+WirelessMode11ag	       ="4. 802.11a/g"
+WirelessMode11bg	       ="5. 802.11b/g"
+WirelessMode11abg	="6. 802.11a/b/g"
+
+IBSSTxPower             ="Verzendenergie"
+IBSSTxPower15           ="1. Laagst"
+IBSSTxPower25           ="2. Laag"
+IBSSTxPower40           ="3. Normaal"
+IBSSTxPower65           ="4. Hoog"
+IBSSTxPower100          ="5. Hoogst"
+
+MixEnvProtectProt	="Beveiliging van gemengde modus"
+CTSRTS			="RTS/CTS ingeschakeld"
+CTSToSelf		="CTS-naar-zelf ingeschakeld"
+
+PreambleMode            ="Modus Preambule" 
+AutoPreamble            ="Automatische preambule bij verzenden"
+LongPreamble            ="Lange preambule bij verzenden"
+
+RoamAggressive          ="Agressiviteit bij zwerven"
+RoamAggressive_0        ="1. Laagst"
+RoamAggressive_1        ="2. Laag"
+RoamAggressive_2        ="3. Normaal"
+RoamAggressive_3        ="4. Hoog"
+RoamAggressive_4        ="5. Hoogst"
+
+ThroughputEnhancement   ="Verbetering van  doorvoer"
+DISABLED_STR      ="Uitgeschakeld"
+ENABLED_STR       ="Ingeschakeld"
+
+ADHOC_QOS_MODE_STR			="Ad-hoc QoS-modus"
+WMM_STR                     ="WMM "
+
+RecommendedChannel24 ="Ad-hockanaal 802.11b/g"
+
+RecommendedChannel52 ="Ad-hockanaal 802.11a"
+;
+; The following channels are mutally exclusive, so they will be prepended with the same digits
+; 34, 36; 38, 40; 42, 44; 46, 48
+;
+RecommendedChannel52_34 ="1. 34"
+RecommendedChannel52_36 ="1. 36"
+RecommendedChannel52_38 ="2. 38"
+RecommendedChannel52_40 ="2. 40"
+RecommendedChannel52_42 ="3. 42"
+RecommendedChannel52_44 ="3. 44"
+RecommendedChannel52_46 ="4. 46"
+RecommendedChannel52_48 ="4. 48"
+RecommendedChannel52_149 ="5. 149"
+RecommendedChannel52_153 ="6. 153"
+RecommendedChannel52_157 ="7. 157"
+RecommendedChannel52_161 ="8. 161"
+RecommendedChannel52_165 ="9. 165"
+
+
+[Strings.0414] ; Norwegian (BokmÂl) (Norway)
+PROVIDER_NAME           ="Intel"
+COMPANY_NAME            ="Intel Corporation"
+
+NIC_MPCI3B.DeviceDesc ="Intel(R) PRO/Wireless 2915ABG Network Connection"
+NIC_MPCI3A.DeviceDesc ="Intel(R) PRO/Wireless 2915ABG Network Connection"
+NIC_MPCI3B              ="Intel(R) PRO/Wireless 2915ABG Network Connection"
+NIC_MPCI3A              ="Intel(R) PRO/Wireless 2915ABG Network Connection"
+NIC_MPCI3B_AdapterModel ="Intel(R) PRO/Wireless 2915ABG Network Connection"
+NIC_MPCI3A_AdapterModel ="Intel(R) PRO/Wireless 2915ABG Network Connection"
+
+NIC_MPCI3B_BG.DeviceDesc ="Intel(R) PRO/Wireless 2200BG Network Connection"
+NIC_MPCI3A_BG.DeviceDesc ="Intel(R) PRO/Wireless 2200BG Network Connection"
+NIC_MPCI3B_BG              ="Intel(R) PRO/Wireless 2200BG Network Connection"
+NIC_MPCI3A_BG              ="Intel(R) PRO/Wireless 2200BG Network Connection"
+NIC_MPCI3B_AdapterModel_BG ="Intel(R) PRO/Wireless 2200BG Network Connection"
+NIC_MPCI3A_AdapterModel_BG ="Intel(R) PRO/Wireless 2200BG Network Connection"
+
+NIC_DriverDesc          ="Intel(R) PRO/Wireless 2915ABG Network Connection Driver"
+NIC_Service_DispName_VISTA    ="Intel(R) PRO/Wireless 2915ABG nettverkstilkoblingsdriver for Windows Vista"
+
+NIC_DriverDesc_BG          ="Intel(R) PRO/Wireless 2200BG Network Connection Driver"
+NIC_Service_DispName_BG_VISTA    ="Intel(R) PRO/Wireless 2200BG nettverkstilkoblingsdriver for Windows Vista"
+
+INTEL_GUID_BG           ="{1F0DA42C-13F2-4BBF-BA4E-4A7EDEB76F7B}"
+INTEL_GUID              ="{720ED9B1-9AF1-4707-BCB0-CF648BF7FE5F}"  
+
+SOURCEDISK1             ="Intel(R) PRO/Wireless 2915 Installasjonsdiskett"
+
+WirelessMode	        ="TrÂdl¯smodus"
+WirelessMode11a		="1. 802.11a"
+WirelessMode11b		="2. 802.11b"
+WirelessMode11g		="3. 802.11g"			
+WirelessMode11ag	       ="4. 802.11a/g"
+WirelessMode11bg	       ="5. 802.11b/g"
+WirelessMode11abg	="6. 802.11a/b/g"
+
+IBSSTxPower             ="Overf¯ringsstr¯m"
+IBSSTxPower15           ="1. Laveste"
+IBSSTxPower25           ="2. Middels-lav"
+IBSSTxPower40           ="3. Middels"
+IBSSTxPower65           ="4. Middels-h¯y"
+IBSSTxPower100          ="5. H¯yeste"
+
+MixEnvProtectProt	="Blandet modus-beskyttelse"
+CTSRTS			="RTS/CTS-aktivert"
+CTSToSelf		="CTS-til-selv aktivert"
+
+PreambleMode            ="Blokkstartmodus" 
+AutoPreamble            ="Auto Tx -blokkstart"
+LongPreamble            ="Lang Tx-blokkstart"
+
+RoamAggressive          ="Streifingsaggresjon"
+RoamAggressive_0        ="1. Laveste"
+RoamAggressive_1        ="2. Middels-lav"
+RoamAggressive_2        ="3. Middels"
+RoamAggressive_3        ="4. Middels-h¯y"
+RoamAggressive_4        ="5. H¯yeste"
+
+ThroughputEnhancement   ="Gjennomstr¯mningsutvidelse"
+DISABLED_STR      ="Deaktivert"
+ENABLED_STR       ="Aktivert"
+
+ADHOC_QOS_MODE_STR			="Ad Hoc QoS modus"
+WMM_STR                     ="WMM "
+
+RecommendedChannel24 ="Ad Hoc-kanal 802.11b/g"
+
+RecommendedChannel52 ="Ad Hoc-kanal 802.11a"
+;
+; The following channels are mutally exclusive, so they will be prepended with the same digits
+; 34, 36; 38, 40; 42, 44; 46, 48
+;
+RecommendedChannel52_34 ="1. 34"
+RecommendedChannel52_36 ="1. 36"
+RecommendedChannel52_38 ="2. 38"
+RecommendedChannel52_40 ="2. 40"
+RecommendedChannel52_42 ="3. 42"
+RecommendedChannel52_44 ="3. 44"
+RecommendedChannel52_46 ="4. 46"
+RecommendedChannel52_48 ="4. 48"
+RecommendedChannel52_149 ="5. 149"
+RecommendedChannel52_153 ="6. 153"
+RecommendedChannel52_157 ="7. 157"
+RecommendedChannel52_161 ="8. 161"
+RecommendedChannel52_165 ="9. 165"
+
+
+[Strings.0415] ; Polish (Poland)
+PROVIDER_NAME           ="Intel"
+COMPANY_NAME            ="Intel Corporation"
+
+NIC_MPCI3B.DeviceDesc ="Intel(R) PRO/Wireless 2915ABG Network Connection"
+NIC_MPCI3A.DeviceDesc ="Intel(R) PRO/Wireless 2915ABG Network Connection"
+NIC_MPCI3B              ="Intel(R) PRO/Wireless 2915ABG Network Connection"
+NIC_MPCI3A              ="Intel(R) PRO/Wireless 2915ABG Network Connection"
+NIC_MPCI3B_AdapterModel ="Intel(R) PRO/Wireless 2915ABG Network Connection"
+NIC_MPCI3A_AdapterModel ="Intel(R) PRO/Wireless 2915ABG Network Connection"
+
+NIC_MPCI3B_BG.DeviceDesc ="Intel(R) PRO/Wireless 2200BG Network Connection"
+NIC_MPCI3A_BG.DeviceDesc ="Intel(R) PRO/Wireless 2200BG Network Connection"
+NIC_MPCI3B_BG              ="Intel(R) PRO/Wireless 2200BG Network Connection"
+NIC_MPCI3A_BG              ="Intel(R) PRO/Wireless 2200BG Network Connection"
+NIC_MPCI3B_AdapterModel_BG ="Intel(R) PRO/Wireless 2200BG Network Connection"
+NIC_MPCI3A_AdapterModel_BG ="Intel(R) PRO/Wireless 2200BG Network Connection"
+
+NIC_DriverDesc          ="Intel(R) PRO/Wireless 2915ABG Network Connection Driver"
+NIC_Service_DispName_VISTA    ="Sterownik karty Intel(R) PRO/Wireless 2915ABG Network Connection dla systemu Windows Vista"
+
+NIC_DriverDesc_BG          ="Intel(R) PRO/Wireless 2200BG Network Connection Driver"
+NIC_Service_DispName_BG_VISTA    ="Sterownik karty Intel(R) PRO/Wireless 2200BG Network Connection dla systemu Windows Vista"
+
+INTEL_GUID_BG           ="{1F0DA42C-13F2-4BBF-BA4E-4A7EDEB76F7B}"
+INTEL_GUID              ="{720ED9B1-9AF1-4707-BCB0-CF648BF7FE5F}"  
+
+SOURCEDISK1             ="Dysk instalacyjny karty Intel(R) PRO/Wireless 2915"
+
+WirelessMode	        ="Tryb bezprzewodowy"
+WirelessMode11a		="1. 802.11a"
+WirelessMode11b		="2. 802.11b"
+WirelessMode11g		="3. 802.11g"			
+WirelessMode11ag	       ="4. 802.11a/g"
+WirelessMode11bg	       ="5. 802.11b/g"
+WirelessMode11abg	="6. 802.11a/b/g"
+
+IBSSTxPower             ="Moc transmisji"
+IBSSTxPower15           ="1. Najniøsza"
+IBSSTxPower25           ="2. årednio-niska"
+IBSSTxPower40           ="3. årednia"
+IBSSTxPower65           ="4. årednio-wysoka"
+IBSSTxPower100          ="5. Najwyøsza"
+
+MixEnvProtectProt	="Ochrona trybu mieszanego"
+CTSRTS			="W≥πczone RTS/CTS"
+CTSToSelf		="W≥πczony sygna≥ zwrotny CTS"
+
+PreambleMode            ="Tryb nag≥Ûwka komunikatu" 
+AutoPreamble            ="Automatyczny nag≥Ûwek komunikatu transmisji"
+LongPreamble            ="D≥ugi nag≥Ûwek komunikatu transmisji"
+
+RoamAggressive          ="AgresywnoúÊ mobilnoúci"
+RoamAggressive_0        ="1. Najniøsza"
+RoamAggressive_1        ="2. årednio-niska"
+RoamAggressive_2        ="3. årednia"
+RoamAggressive_3        ="4. årednio-wysoka"
+RoamAggressive_4        ="5. Najwyøsza"
+
+ThroughputEnhancement   ="Rozszerzenie przep≥ywnoúci"
+DISABLED_STR      ="Wy≥πczone"
+ENABLED_STR       ="W≥πczono"
+
+ADHOC_QOS_MODE_STR			="Tryb ad hoc QoS"
+WMM_STR                     ="WMM "
+
+RecommendedChannel24 ="Kana≥ ad hoc 802.11b/g"
+
+RecommendedChannel52 ="Kana≥ ad hoc 802.11a"
+;
+; The following channels are mutally exclusive, so they will be prepended with the same digits
+; 34, 36; 38, 40; 42, 44; 46, 48
+;
+RecommendedChannel52_34 ="1. 34"
+RecommendedChannel52_36 ="1. 36"
+RecommendedChannel52_38 ="2. 38"
+RecommendedChannel52_40 ="2. 40"
+RecommendedChannel52_42 ="3. 42"
+RecommendedChannel52_44 ="3. 44"
+RecommendedChannel52_46 ="4. 46"
+RecommendedChannel52_48 ="4. 48"
+RecommendedChannel52_149 ="5. 149"
+RecommendedChannel52_153 ="6. 153"
+RecommendedChannel52_157 ="7. 157"
+RecommendedChannel52_161 ="8. 161"
+RecommendedChannel52_165 ="9. 165"
+
+
+[Strings.0416] ; Portuguese (Brazil)
+PROVIDER_NAME           ="Intel"
+COMPANY_NAME            ="Intel Corporation"
+
+NIC_MPCI3B.DeviceDesc ="Intel(R) PRO/Wireless 2915ABG Network Connection"
+NIC_MPCI3A.DeviceDesc ="Intel(R) PRO/Wireless 2915ABG Network Connection"
+NIC_MPCI3B              ="Intel(R) PRO/Wireless 2915ABG Network Connection"
+NIC_MPCI3A              ="Intel(R) PRO/Wireless 2915ABG Network Connection"
+NIC_MPCI3B_AdapterModel ="Intel(R) PRO/Wireless 2915ABG Network Connection"
+NIC_MPCI3A_AdapterModel ="Intel(R) PRO/Wireless 2915ABG Network Connection"
+
+NIC_MPCI3B_BG.DeviceDesc ="Intel(R) PRO/Wireless 2200BG Network Connection"
+NIC_MPCI3A_BG.DeviceDesc ="Intel(R) PRO/Wireless 2200BG Network Connection"
+NIC_MPCI3B_BG              ="Intel(R) PRO/Wireless 2200BG Network Connection"
+NIC_MPCI3A_BG              ="Intel(R) PRO/Wireless 2200BG Network Connection"
+NIC_MPCI3B_AdapterModel_BG ="Intel(R) PRO/Wireless 2200BG Network Connection"
+NIC_MPCI3A_AdapterModel_BG ="Intel(R) PRO/Wireless 2200BG Network Connection"
+
+NIC_DriverDesc          ="Intel(R) PRO/Wireless 2915ABG Network Connection Driver"
+NIC_Service_DispName_VISTA    ="Driver da Conex„o de rede Intel(R) PRO/Wireless 2915ABG para Windows Vista"
+
+NIC_DriverDesc_BG          ="Intel(R) PRO/Wireless 2200BG Network Connection Driver"
+NIC_Service_DispName_BG_VISTA    ="Driver da Conex„o de rede Intel(R) PRO/Wireless 2200BGpara Windows Vista"
+
+INTEL_GUID_BG           ="{1F0DA42C-13F2-4BBF-BA4E-4A7EDEB76F7B}"
+INTEL_GUID              ="{720ED9B1-9AF1-4707-BCB0-CF648BF7FE5F}"  
+
+SOURCEDISK1             ="Disco de instalaÁ„o do Intel(R) PRO/Wireless 2915"
+
+WirelessMode	        ="Modo sem fio"
+WirelessMode11a		="1. 802.11a"
+WirelessMode11b		="2. 802.11b"
+WirelessMode11g		="3. 802.11g"			
+WirelessMode11ag	       ="4. 802.11a/g"
+WirelessMode11bg	       ="5. 802.11b/g"
+WirelessMode11abg	="6. 802.11a/b/g"
+
+IBSSTxPower             ="PotÍncia de transmiss„o"
+IBSSTxPower15           ="1. Mais baixa"
+IBSSTxPower25           ="2. MÈdia a baixa"
+IBSSTxPower40           ="3. MÈdia"
+IBSSTxPower65           ="4. MÈdia a alta"
+IBSSTxPower100          ="5. Mais alta"
+
+MixEnvProtectProt	="Mixed Mode Protection"
+CTSRTS			="RTS/CTS ativado"
+CTSToSelf		="CTS em auto-ativaÁ„o ativado"
+
+PreambleMode            ="Modo do pre‚mbulo" 
+AutoPreamble            ="Pre‚mbulo Tx auto"
+LongPreamble            ="Pre‚mbulo Tx longo"
+
+RoamAggressive          ="Agressividade de roaming"
+RoamAggressive_0        ="1. Mais baixa"
+RoamAggressive_1        ="2. MÈdia a baixa"
+RoamAggressive_2        ="3. MÈdia"
+RoamAggressive_3        ="4. MÈdia a alta"
+RoamAggressive_4        ="5. Mais alta"
+
+ThroughputEnhancement   ="Aumento da throughput"
+DISABLED_STR      ="Desabilitado"
+ENABLED_STR       ="Habilitado"
+
+ADHOC_QOS_MODE_STR			="Modo QoS Ad-hoc"
+WMM_STR                     ="WMM "
+
+RecommendedChannel24 ="Canal ad-hoc 802.11b/g"
+
+RecommendedChannel52 ="Canal ad-hoc 802.11a "
+;
+; The following channels are mutally exclusive, so they will be prepended with the same digits
+; 34, 36; 38, 40; 42, 44; 46, 48
+;
+RecommendedChannel52_34 ="1. 34"
+RecommendedChannel52_36 ="1. 36"
+RecommendedChannel52_38 ="2. 38"
+RecommendedChannel52_40 ="2. 40"
+RecommendedChannel52_42 ="3. 42"
+RecommendedChannel52_44 ="3. 44"
+RecommendedChannel52_46 ="4. 46"
+RecommendedChannel52_48 ="4. 48"
+RecommendedChannel52_149 ="5. 149"
+RecommendedChannel52_153 ="6. 153"
+RecommendedChannel52_157 ="7. 157"
+RecommendedChannel52_161 ="8. 161"
+RecommendedChannel52_165 ="9. 165"
+
+
+[Strings.0816] ; Portuguese (Portugal)
+PROVIDER_NAME           ="Intel"
+COMPANY_NAME            ="Intel Corporation"
+
+NIC_MPCI3B.DeviceDesc ="Intel(R) PRO/Wireless 2915ABG Network Connection"
+NIC_MPCI3A.DeviceDesc ="Intel(R) PRO/Wireless 2915ABG Network Connection"
+NIC_MPCI3B              ="Intel(R) PRO/Wireless 2915ABG Network Connection"
+NIC_MPCI3A              ="Intel(R) PRO/Wireless 2915ABG Network Connection"
+NIC_MPCI3B_AdapterModel ="Intel(R) PRO/Wireless 2915ABG Network Connection"
+NIC_MPCI3A_AdapterModel ="Intel(R) PRO/Wireless 2915ABG Network Connection"
+
+NIC_MPCI3B_BG.DeviceDesc ="Intel(R) PRO/Wireless 2200BG Network Connection"
+NIC_MPCI3A_BG.DeviceDesc ="Intel(R) PRO/Wireless 2200BG Network Connection"
+NIC_MPCI3B_BG              ="Intel(R) PRO/Wireless 2200BG Network Connection"
+NIC_MPCI3A_BG              ="Intel(R) PRO/Wireless 2200BG Network Connection"
+NIC_MPCI3B_AdapterModel_BG ="Intel(R) PRO/Wireless 2200BG Network Connection"
+NIC_MPCI3A_AdapterModel_BG ="Intel(R) PRO/Wireless 2200BG Network Connection"
+
+NIC_DriverDesc          ="Intel(R) PRO/Wireless 2915ABG Network Connection Driver"
+NIC_Service_DispName_VISTA    ="Controlador da ligaÁ„o de rede 2915ABG Intel(R) PRO/Wireless para o Windows Vista"
+
+NIC_DriverDesc_BG          ="Intel(R) PRO/Wireless 2200BG Network Connection Driver"
+NIC_Service_DispName_BG_VISTA    ="Controlador da ligaÁ„o de rede 2200BG Intel(R) PRO/Wireless para o Windows Vista"
+
+INTEL_GUID_BG           ="{1F0DA42C-13F2-4BBF-BA4E-4A7EDEB76F7B}"
+INTEL_GUID              ="{720ED9B1-9AF1-4707-BCB0-CF648BF7FE5F}"  
+
+SOURCEDISK1             ="Disco de instalaÁ„o 2915 Intel(R) PRO/Wireless"
+
+WirelessMode	        ="Modo sem fios"
+WirelessMode11a		="1. 802.11a"
+WirelessMode11b		="2. 802.11b"
+WirelessMode11g		="3. 802.11g"			
+WirelessMode11ag	       ="4. 802.11a/g"
+WirelessMode11bg	       ="5. 802.11b/g"
+WirelessMode11abg	="6. 802.11a/b/g"
+
+IBSSTxPower             ="PotÍncia de transmiss„o"
+IBSSTxPower15           ="1. Mais baixa"
+IBSSTxPower25           ="2. MÈdia a baixa"
+IBSSTxPower40           ="3. MÈdia"
+IBSSTxPower65           ="4. MÈdia a alta"
+IBSSTxPower100          ="5. Mais alta"
+
+MixEnvProtectProt	="ProtecÁ„o do modo misto"
+CTSRTS			="RTS/CTS activado"
+CTSToSelf		="CTS-to-self activado"
+
+PreambleMode            ="Modo de introduÁ„o" 
+AutoPreamble            ="IntroduÁ„o de transmiss„o autom·tica"
+LongPreamble            ="IntroduÁ„o de transmiss„o longa"
+
+RoamAggressive          ="Agressividade do roaming"
+RoamAggressive_0        ="1. Mais baixa"
+RoamAggressive_1        ="2. MÈdia a baixa"
+RoamAggressive_2        ="3. MÈdia"
+RoamAggressive_3        ="4. MÈdia a alta"
+RoamAggressive_4        ="5. Mais alta"
+
+ThroughputEnhancement   ="Melhoria da produtividade"
+DISABLED_STR      ="Desactivado"
+ENABLED_STR       ="Activado"
+
+ADHOC_QOS_MODE_STR			="Modo Ad Hoc QoS"
+WMM_STR                     ="WMM "
+
+RecommendedChannel24 ="Canal ad-hoc 802.11b/g"
+
+RecommendedChannel52 ="Canal ad-hoc 802.11a"
+;
+; The following channels are mutally exclusive, so they will be prepended with the same digits
+; 34, 36; 38, 40; 42, 44; 46, 48
+;
+RecommendedChannel52_34 ="1. 34"
+RecommendedChannel52_36 ="1. 36"
+RecommendedChannel52_38 ="2. 38"
+RecommendedChannel52_40 ="2. 40"
+RecommendedChannel52_42 ="3. 42"
+RecommendedChannel52_44 ="3. 44"
+RecommendedChannel52_46 ="4. 46"
+RecommendedChannel52_48 ="4. 48"
+RecommendedChannel52_149 ="5. 149"
+RecommendedChannel52_153 ="6. 153"
+RecommendedChannel52_157 ="7. 157"
+RecommendedChannel52_161 ="8. 161"
+RecommendedChannel52_165 ="9. 165"
+
+
+[Strings.0419] ; Russian (Russia)
+PROVIDER_NAME           ="Intel"
+COMPANY_NAME            ="Intel Corporation"
+
+NIC_MPCI3B.DeviceDesc ="Intel(R) PRO/Wireless 2915ABG Network Connection"
+NIC_MPCI3A.DeviceDesc ="Intel(R) PRO/Wireless 2915ABG Network Connection"
+NIC_MPCI3B              ="Intel(R) PRO/Wireless 2915ABG Network Connection"
+NIC_MPCI3A              ="Intel(R) PRO/Wireless 2915ABG Network Connection"
+NIC_MPCI3B_AdapterModel ="Intel(R) PRO/Wireless 2915ABG Network Connection"
+NIC_MPCI3A_AdapterModel ="Intel(R) PRO/Wireless 2915ABG Network Connection"
+
+NIC_MPCI3B_BG.DeviceDesc ="Intel(R) PRO/Wireless 2200BG Network Connection"
+NIC_MPCI3A_BG.DeviceDesc ="Intel(R) PRO/Wireless 2200BG Network Connection"
+NIC_MPCI3B_BG              ="Intel(R) PRO/Wireless 2200BG Network Connection"
+NIC_MPCI3A_BG              ="Intel(R) PRO/Wireless 2200BG Network Connection"
+NIC_MPCI3B_AdapterModel_BG ="Intel(R) PRO/Wireless 2200BG Network Connection"
+NIC_MPCI3A_AdapterModel_BG ="Intel(R) PRO/Wireless 2200BG Network Connection"
+
+NIC_DriverDesc          ="Intel(R) PRO/Wireless 2915ABG Network Connection Driver"
+NIC_Service_DispName_VISTA    ="ƒ‡È‚Â ÒÂÚÂ‚Ó„Ó ‡‰‡ÔÚÂ‡ Intel(R) PRO/Wireless 2915ABG ‰Îˇ Windows Vista"
+
+NIC_DriverDesc_BG          ="Intel(R) PRO/Wireless 2200BG Network Connection Driver"
+NIC_Service_DispName_BG_VISTA    ="ƒ‡È‚Â ÒÂÚÂ‚Ó„Ó ‡‰‡ÔÚÂ‡ Intel(R) PRO/Wireless 2200BG ‰Îˇ Windows Vista"
+
+INTEL_GUID_BG           ="{1F0DA42C-13F2-4BBF-BA4E-4A7EDEB76F7B}"
+INTEL_GUID              ="{720ED9B1-9AF1-4707-BCB0-CF648BF7FE5F}"  
+
+SOURCEDISK1             ="”ÒÚ‡ÌÓ‚Ó˜Ì˚È ‰ËÒÍ Intel(R) PRO/Wireless 2915"
+
+WirelessMode	        ="–ÂÊËÏ ·ÂÒÔÓ‚Ó‰ÌÓÈ ÒÂÚË"
+WirelessMode11a		="1. 802.11a"
+WirelessMode11b		="2. 802.11b"
+WirelessMode11g		="3. 802.11g"			
+WirelessMode11ag	       ="4. 802.11a/g"
+WirelessMode11bg	       ="5. 802.11b/g"
+WirelessMode11abg	="6. 802.11a/b/g"
+
+IBSSTxPower             ="ÃÓ˘ÌÓÒÚ¸ ÔÂÂ‰‡˜Ë"
+IBSSTxPower15           ="1. ÃËÌ"
+IBSSTxPower25           ="2. —Â‰Ì-ÏËÌ"
+IBSSTxPower40           ="3. —Â‰Ì"
+IBSSTxPower65           ="4. —Â‰Ì-Ï‡ÍÒ"
+IBSSTxPower100          ="5. Ã‡ÍÒ"
+
+MixEnvProtectProt	="«‡˘ËÚ‡ ‚ ÒÏÂ¯‡ÌÌÓÏ ÂÊËÏÂ"
+CTSRTS			="RTS/CTS ‚ÍÎ˛˜ÂÌÓ"
+CTSToSelf		="CTS-to-self - ‚ÍÎ˛˜ÂÌ"
+
+PreambleMode            ="–ÂÊËÏ Á‡„ÓÎÓ‚Í‡" 
+AutoPreamble            ="«‡„ÓÎÓ‚ÓÍ ¿‚ÚÓ-Tx"
+LongPreamble            ="ƒÎËÌÌ˚È Á‡„ÓÎÓ‚ÓÍ Tx"
+
+RoamAggressive          ="¿„ÂÒÒË‚ÌÓÒÚ¸ ÓÛÏËÌ„‡"
+RoamAggressive_0        ="1. ÃËÌ"
+RoamAggressive_1        ="2. —Â‰Ì-ÏËÌ"
+RoamAggressive_2        ="3. —Â‰Ì"
+RoamAggressive_3        ="4. —Â‰Ì-Ï‡ÍÒ"
+RoamAggressive_4        ="5. Ã‡ÍÒ"
+
+ThroughputEnhancement   ="œÓ‚˚¯ÂÌÌ‡ˇ ÔÓÔÛÒÍÌ‡ˇ ÒÔÓÒÓ·ÌÓÒÚ¸ Intel (Intel Throughput Enhancement)"
+DISABLED_STR      ="¬˚ÍÎ˛˜ÂÌÓ"
+ENABLED_STR       ="¬ÍÎ˛˜ÂÌÓ"
+
+ADHOC_QOS_MODE_STR			="–ÂÊËÏ Ad Hoc QoS"
+WMM_STR                     ="WMM "
+
+RecommendedChannel24 =" ‡Ì‡Î Ad Hoc 802.11b/g"
+
+RecommendedChannel52 =" ‡Ì‡Î Ad Hoc 802.11a"
+;
+; The following channels are mutally exclusive, so they will be prepended with the same digits
+; 34, 36; 38, 40; 42, 44; 46, 48
+;
+RecommendedChannel52_34 ="1. 34"
+RecommendedChannel52_36 ="1. 36"
+RecommendedChannel52_38 ="2. 38"
+RecommendedChannel52_40 ="2. 40"
+RecommendedChannel52_42 ="3. 42"
+RecommendedChannel52_44 ="3. 44"
+RecommendedChannel52_46 ="4. 46"
+RecommendedChannel52_48 ="4. 48"
+RecommendedChannel52_149 ="5. 149"
+RecommendedChannel52_153 ="6. 153"
+RecommendedChannel52_157 ="7. 157"
+RecommendedChannel52_161 ="8. 161"
+RecommendedChannel52_165 ="9. 165"
+
+
+[Strings.041D] ; Swedish (Sweden)
+PROVIDER_NAME           ="Intel"
+COMPANY_NAME            ="Intel Corporation"
+
+NIC_MPCI3B.DeviceDesc ="Intel(R) PRO/Wireless 2915ABG Network Connection"
+NIC_MPCI3A.DeviceDesc ="Intel(R) PRO/Wireless 2915ABG Network Connection"
+NIC_MPCI3B              ="Intel(R) PRO/Wireless 2915ABG Network Connection"
+NIC_MPCI3A              ="Intel(R) PRO/Wireless 2915ABG Network Connection"
+NIC_MPCI3B_AdapterModel ="Intel(R) PRO/Wireless 2915ABG Network Connection"
+NIC_MPCI3A_AdapterModel ="Intel(R) PRO/Wireless 2915ABG Network Connection"
+
+NIC_MPCI3B_BG.DeviceDesc ="Intel(R) PRO/Wireless 2200BG Network Connection"
+NIC_MPCI3A_BG.DeviceDesc ="Intel(R) PRO/Wireless 2200BG Network Connection"
+NIC_MPCI3B_BG              ="Intel(R) PRO/Wireless 2200BG Network Connection"
+NIC_MPCI3A_BG              ="Intel(R) PRO/Wireless 2200BG Network Connection"
+NIC_MPCI3B_AdapterModel_BG ="Intel(R) PRO/Wireless 2200BG Network Connection"
+NIC_MPCI3A_AdapterModel_BG ="Intel(R) PRO/Wireless 2200BG Network Connection"
+
+NIC_DriverDesc          ="Intel(R) PRO/Wireless 2915ABG Network Connection Driver"
+NIC_Service_DispName_VISTA    ="N‰tverksanslutningsdrivrutin fˆr Windows Vista fˆr Intel(R) PRO/trÂdlˆst 2915ABG"
+
+NIC_DriverDesc_BG          ="Intel(R) PRO/Wireless 2200BG Network Connection Driver"
+NIC_Service_DispName_BG_VISTA    ="N‰tverksanslutningsdrivrutin fˆr Windows Vista fˆr Intel(R) PRO/trÂdlˆst 2200BG"
+
+INTEL_GUID_BG           ="{1F0DA42C-13F2-4BBF-BA4E-4A7EDEB76F7B}"
+INTEL_GUID              ="{720ED9B1-9AF1-4707-BCB0-CF648BF7FE5F}"  
+
+SOURCEDISK1             ="Installationsdisk fˆr Intel(R) PRO/trÂdlˆst 2915"
+
+WirelessMode	        ="TrÂdlˆst l‰ge"
+WirelessMode11a		="1. 802.11a"
+WirelessMode11b		="2. 802.11b"
+WirelessMode11g		="3. 802.11g"			
+WirelessMode11ag	       ="4. 802.11a/g"
+WirelessMode11bg	       ="5. 802.11b/g"
+WirelessMode11abg	="6. 802.11a/b/g"
+
+IBSSTxPower             ="÷verfˆringsenergi"
+IBSSTxPower15           ="1. L‰gsta"
+IBSSTxPower25           ="2. Medel-lÂg"
+IBSSTxPower40           ="3. Medel"
+IBSSTxPower65           ="4. Medel-hˆg"
+IBSSTxPower100          ="5. Hˆgsta"
+
+MixEnvProtectProt	="Skydd fˆr blandat l‰ge"
+CTSRTS			="RTS/CTS aktiverat"
+CTSToSelf		="CTS-till-sj‰lv aktiverat"
+
+PreambleMode            ="Blockbˆrjan-l‰ge" 
+AutoPreamble            ="Automatisk blockbˆrjan vid ˆverfˆring"
+LongPreamble            ="LÂng blockbˆrjan vid ˆverfˆring"
+
+RoamAggressive          ="Roaming-aggressivitet"
+RoamAggressive_0        ="1. L‰gsta"
+RoamAggressive_1        ="2. Medel-lÂg"
+RoamAggressive_2        ="3. Medel"
+RoamAggressive_3        ="4. Medel-hˆg"
+RoamAggressive_4        ="5. Hˆgsta"
+
+ThroughputEnhancement   ="Genomflˆdesfˆrb‰ttring"
+DISABLED_STR      ="Inaktiverad"
+ENABLED_STR       ="Aktiverad"
+
+ADHOC_QOS_MODE_STR			="Ad Hoc QoS-l‰ge"
+WMM_STR                     ="WMM "
+
+RecommendedChannel24 ="Ad hoc-kanal 802.11b/g"
+
+RecommendedChannel52 ="Ad hoc-kanal 802.11a"
+;
+; The following channels are mutally exclusive, so they will be prepended with the same digits
+; 34, 36; 38, 40; 42, 44; 46, 48
+;
+RecommendedChannel52_34 ="1. 34"
+RecommendedChannel52_36 ="1. 36"
+RecommendedChannel52_38 ="2. 38"
+RecommendedChannel52_40 ="2. 40"
+RecommendedChannel52_42 ="3. 42"
+RecommendedChannel52_44 ="3. 44"
+RecommendedChannel52_46 ="4. 46"
+RecommendedChannel52_48 ="4. 48"
+RecommendedChannel52_149 ="5. 149"
+RecommendedChannel52_153 ="6. 153"
+RecommendedChannel52_157 ="7. 157"
+RecommendedChannel52_161 ="8. 161"
+RecommendedChannel52_165 ="9. 165"
+
+
+[Strings.041E] ; Thai (Thailand)
+PROVIDER_NAME           ="Intel"
+COMPANY_NAME            ="Intel Corporation"
+
+NIC_MPCI3B.DeviceDesc ="Intel(R) PRO/Wireless 2915ABG Network Connection"
+NIC_MPCI3A.DeviceDesc ="Intel(R) PRO/Wireless 2915ABG Network Connection"
+NIC_MPCI3B              ="Intel(R) PRO/Wireless 2915ABG Network Connection"
+NIC_MPCI3A              ="Intel(R) PRO/Wireless 2915ABG Network Connection"
+NIC_MPCI3B_AdapterModel ="Intel(R) PRO/Wireless 2915ABG Network Connection"
+NIC_MPCI3A_AdapterModel ="Intel(R) PRO/Wireless 2915ABG Network Connection"
+
+NIC_MPCI3B_BG.DeviceDesc ="Intel(R) PRO/Wireless 2200BG Network Connection"
+NIC_MPCI3A_BG.DeviceDesc ="Intel(R) PRO/Wireless 2200BG Network Connection"
+NIC_MPCI3B_BG              ="Intel(R) PRO/Wireless 2200BG Network Connection"
+NIC_MPCI3A_BG              ="Intel(R) PRO/Wireless 2200BG Network Connection"
+NIC_MPCI3B_AdapterModel_BG ="Intel(R) PRO/Wireless 2200BG Network Connection"
+NIC_MPCI3A_AdapterModel_BG ="Intel(R) PRO/Wireless 2200BG Network Connection"
+
+NIC_DriverDesc          ="Intel(R) PRO/Wireless 2915ABG Network Connection Driver"
+NIC_Service_DispName_VISTA    ="‰¥√‡«Õ√ÏÕÿª°√≥Ï‡™◊ËÕ¡µËÕ‡§√◊Õ¢Ë“¬ Intel(R) PRO/Wireless 2915ABG  ”À√—∫ Windows Vista"
+
+NIC_DriverDesc_BG          ="Intel(R) PRO/Wireless 2200BG Network Connection Driver"
+NIC_Service_DispName_BG_VISTA    ="‰¥√‡«Õ√ÏÕÿª°√≥Ï‡™◊ËÕ¡µËÕ‡§√◊Õ¢Ë“¬ Intel(R) PRO/Wireless 2200BG  ”À√—∫ Windows Vista"
+
+INTEL_GUID_BG           ="{1F0DA42C-13F2-4BBF-BA4E-4A7EDEB76F7B}"
+INTEL_GUID              ="{720ED9B1-9AF1-4707-BCB0-CF648BF7FE5F}"  
+
+SOURCEDISK1             ="¥‘ °Ïµ‘¥µ—Èß Intel(R) PRO/Wireless 2915"
+
+WirelessMode	        ="‚À¡¥‰√È “¬"
+WirelessMode11a		="1. 802.11a"
+WirelessMode11b		="2. 802.11b"
+WirelessMode11g		="3. 802.11g"			
+WirelessMode11ag	       ="4. 802.11a/g"
+WirelessMode11bg	       ="5. 802.11b/g"
+WirelessMode11abg	="6. 802.11a/b/g"
+
+IBSSTxPower             ="°“√ ËßºË“πæ≈—ßß“π"
+IBSSTxPower15           ="1. µË” ÿ¥"
+IBSSTxPower25           ="2. ª“π°≈“ß-µË”"
+IBSSTxPower40           ="3. ª“π°≈“ß"
+IBSSTxPower65           ="4. ª“π°≈“ß- Ÿß"
+IBSSTxPower100          ="5.  Ÿß ÿ¥"
+
+MixEnvProtectProt	="°“√ªÈÕß°—π‚À¡¥º ¡"
+CTSRTS			="„™Èß“π RTS/CTS"
+CTSToSelf		="„™Èß“π CTS-to-self"
+
+PreambleMode            ="‚À¡¥‡√‘Ë¡π”" 
+AutoPreamble            ="°“√‡√‘Ë¡π” Tx Õ—µ‚π¡—µ‘"
+LongPreamble            ="°“√‡√‘Ë¡π” Tx ·∫∫¬“«"
+
+RoamAggressive          ="§«“¡·√ß„π°“√„™Èß“π¢È“¡‡¢µ"
+RoamAggressive_0        ="1. µË” ÿ¥"
+RoamAggressive_1        ="2. ª“π°≈“ß-µË”"
+RoamAggressive_2        ="3. ª“π°≈“ß"
+RoamAggressive_3        ="4. ª“π°≈“ß- Ÿß"
+RoamAggressive_4        ="5.  Ÿß ÿ¥"
+
+ThroughputEnhancement   ="°“√‡æ‘Ë¡ª√– ‘∑∏‘¿“æÕ—µ√“√—∫ Ëß"
+DISABLED_STR      ="¬°‡≈‘°„™Èß“π"
+ENABLED_STR       ="„™Èß“π·≈È«"
+
+ADHOC_QOS_MODE_STR			="‚À¡¥ QoS ‡©æ“–°‘®"
+WMM_STR                     ="WMM "
+
+RecommendedChannel24 ="·™π‡π≈‡©æ“–°‘® 802.11b/g"
+
+RecommendedChannel52 ="·™π‡π≈‡©æ“–°‘® 802.11a"
+;
+; The following channels are mutally exclusive, so they will be prepended with the same digits
+; 34, 36; 38, 40; 42, 44; 46, 48
+;
+RecommendedChannel52_34 ="1. 34"
+RecommendedChannel52_36 ="1. 36"
+RecommendedChannel52_38 ="2. 38"
+RecommendedChannel52_40 ="2. 40"
+RecommendedChannel52_42 ="3. 42"
+RecommendedChannel52_44 ="3. 44"
+RecommendedChannel52_46 ="4. 46"
+RecommendedChannel52_48 ="4. 48"
+RecommendedChannel52_149 ="5. 149"
+RecommendedChannel52_153 ="6. 153"
+RecommendedChannel52_157 ="7. 157"
+RecommendedChannel52_161 ="8. 161"
+RecommendedChannel52_165 ="9. 165"
+
+
+[Strings.041F] ; Turkish (Turkey)
+PROVIDER_NAME           ="Intel"
+COMPANY_NAME            ="Intel Corporation"
+
+NIC_MPCI3B.DeviceDesc ="Intel(R) PRO/Wireless 2915ABG Network Connection"
+NIC_MPCI3A.DeviceDesc ="Intel(R) PRO/Wireless 2915ABG Network Connection"
+NIC_MPCI3B              ="Intel(R) PRO/Wireless 2915ABG Network Connection"
+NIC_MPCI3A              ="Intel(R) PRO/Wireless 2915ABG Network Connection"
+NIC_MPCI3B_AdapterModel ="Intel(R) PRO/Wireless 2915ABG Network Connection"
+NIC_MPCI3A_AdapterModel ="Intel(R) PRO/Wireless 2915ABG Network Connection"
+
+NIC_MPCI3B_BG.DeviceDesc ="Intel(R) PRO/Wireless 2200BG Network Connection"
+NIC_MPCI3A_BG.DeviceDesc ="Intel(R) PRO/Wireless 2200BG Network Connection"
+NIC_MPCI3B_BG              ="Intel(R) PRO/Wireless 2200BG Network Connection"
+NIC_MPCI3A_BG              ="Intel(R) PRO/Wireless 2200BG Network Connection"
+NIC_MPCI3B_AdapterModel_BG ="Intel(R) PRO/Wireless 2200BG Network Connection"
+NIC_MPCI3A_AdapterModel_BG ="Intel(R) PRO/Wireless 2200BG Network Connection"
+
+NIC_DriverDesc          ="Intel(R) PRO/Wireless 2915ABG Network Connection Driver"
+NIC_Service_DispName_VISTA    ="Intel(R) PRO/Kablosuz 2915ABG Network Connection Driver for Windows Vista"
+
+NIC_DriverDesc_BG          ="Intel(R) PRO/Wireless 2200BG Network Connection Driver"
+NIC_Service_DispName_BG_VISTA    ="Intel(R) PRO/Kablosuz 2200ABG Network Connection Driver for Windows Vista"
+
+INTEL_GUID_BG           ="{1F0DA42C-13F2-4BBF-BA4E-4A7EDEB76F7B}"
+INTEL_GUID              ="{720ED9B1-9AF1-4707-BCB0-CF648BF7FE5F}"  
+
+SOURCEDISK1             ="Intel(R) PRO/Wireless 2915 Y¸kleme Diski"
+
+WirelessMode	        ="Kablosuz Kip"
+WirelessMode11a		="1. 802.11a"
+WirelessMode11b		="2. 802.11b"
+WirelessMode11g		="3. 802.11g"			
+WirelessMode11ag	       ="4. 802.11a/g"
+WirelessMode11bg	       ="5. 802.11b/g"
+WirelessMode11abg	="6. 802.11a/b/g"
+
+IBSSTxPower             ="Yay˝n g¸c¸"
+IBSSTxPower15           ="1. En d¸˛¸k"
+IBSSTxPower25           ="2. D¸˛¸k"
+IBSSTxPower40           ="3. Orta"
+IBSSTxPower65           ="4. Y¸ksek"
+IBSSTxPower100          ="5 En y¸ksek"
+
+MixEnvProtectProt	="Kar˝˛˝k mod korumas˝"
+CTSRTS			="RTS/CTS etkin"
+CTSToSelf		="CTS-to-self etkin"
+
+PreambleMode            ="E˛zamanlama ÷neki Modu" 
+AutoPreamble            ="Otomatik Tx E˛zamanlama ÷neki"
+LongPreamble            ="Uzun Tx E˛zamanlama ÷neki"
+
+RoamAggressive          ="Gezinme Zorlamas˝"
+RoamAggressive_0        ="1. En d¸˛¸k"
+RoamAggressive_1        ="2. D¸˛¸k"
+RoamAggressive_2        ="3. Orta"
+RoamAggressive_3        ="4. Y¸ksek"
+RoamAggressive_4        ="5. En y¸ksek"
+
+ThroughputEnhancement   ="Veri Aktar˝m Geli˛tirici"
+DISABLED_STR      ="Devre d˝˛˝"
+ENABLED_STR       ="Etkin"
+
+ADHOC_QOS_MODE_STR			="Ayg˝ttan Ayg˝ta QoS Modu"
+WMM_STR                     ="WMM "
+
+RecommendedChannel24 ="Ayg˝ttan ayg˝ta kanal 802.11b/g"
+
+RecommendedChannel52 ="Ayg˝ttan ayg˝ta kanal 802.11a"
+;
+; The following channels are mutally exclusive, so they will be prepended with the same digits
+; 34, 36; 38, 40; 42, 44; 46, 48
+;
+RecommendedChannel52_34 ="1. 34"
+RecommendedChannel52_36 ="1. 36"
+RecommendedChannel52_38 ="2. 38"
+RecommendedChannel52_40 ="2. 40"
+RecommendedChannel52_42 ="3. 42"
+RecommendedChannel52_44 ="3. 44"
+RecommendedChannel52_46 ="4. 46"
+RecommendedChannel52_48 ="4. 48"
+RecommendedChannel52_149 ="5. 149"
+RecommendedChannel52_153 ="6. 153"
+RecommendedChannel52_157 ="7. 157"
+RecommendedChannel52_161 ="8. 161"
+RecommendedChannel52_165 ="9. 165"
+

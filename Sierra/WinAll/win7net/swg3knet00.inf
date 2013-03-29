@@ -1,0 +1,134 @@
+;-------------------------------------------------------------------------------
+; swg3knet00.INF
+;
+; Qualcomm Wireless Network Device
+;
+; Copyright (c) 2010 Qualcomm Inc.  All rights reserved.
+;-------------------------------------------------------------------------------
+
+[version]
+Signature   = "$Windows NT$"
+Class       = Net
+ClassGUID   = {4d36e972-e325-11ce-bfc1-08002be10318}
+Provider    = %SWI%
+DriverVer   = 11/09/2011,11.11.1011.24
+Catalogfile = swg3kmbb00.cat
+
+[ControlFlags]
+ExcludeFromSelect = *
+
+[SourceDisksNames]
+1000 = %QcomSrcDisk%,"",,\sys\x86
+2000 = %QcomSrcDisk%,"",,\sys\amd64
+
+[SourceDisksFiles.x86]
+swg3kmbb00.sys = 1000
+
+[SourceDisksFiles.amd64]
+swg3kmbb00.sys = 2000
+
+[Manufacturer]
+%SWI% = SWI, NTx86.6.1, NTamd64.6.1
+
+[SWI]
+%gobiwwan.Sierra9011%    = gobiwwan.ndi, USB\VID_1199&PID_9011&MI_00
+%gobiwwan.DeviceDesc68A2%     = gobiwwan.ndi, USB\VID_1199&PID_68A2&MI_08
+%gobiwwan.DeviceDesc68A5%     = gobiwwan.ndi, USB\VID_1199&PID_68A5&MI_00
+%gobiwwan.DeviceDesc68A9%     = gobiwwan.ndi, USB\VID_1199&PID_68A9&MI_00
+
+[SWI.NTx86.6.1]
+%gobiwwan.Sierra9011%    = gobiwwan.ndi, USB\VID_1199&PID_9011&MI_00
+%gobiwwan.DeviceDesc68A2%     = gobiwwan.ndi, USB\VID_1199&PID_68A2&MI_08
+%gobiwwan.DeviceDesc68A5%     = gobiwwan.ndi, USB\VID_1199&PID_68A5&MI_00
+%gobiwwan.DeviceDesc68A9%     = gobiwwan.ndi, USB\VID_1199&PID_68A9&MI_00
+
+[SWI.NTamd64.6.1]
+%gobiwwan.Sierra9011%    = gobiwwan.ndi, USB\VID_1199&PID_9011&MI_00
+%gobiwwan.DeviceDesc68A2%     = gobiwwan.ndi, USB\VID_1199&PID_68A2&MI_08
+%gobiwwan.DeviceDesc68A5%     = gobiwwan.ndi, USB\VID_1199&PID_68A5&MI_00
+%gobiwwan.DeviceDesc68A9%     = gobiwwan.ndi, USB\VID_1199&PID_68A9&MI_00
+
+[gobiwwan.ndi]
+Characteristics    = 0x4                      ; NCF_PHYSICAL
+BusType            = 15                       ; PNPBus
+*IfType            = 243                      ; IF_TYPE_WWANPP 
+*MediaType         = 9                        ; NdisMediumWirelessWan 
+*PhysicalMediaType = 8                        ; NdisPhysicalMediumWirelessWan 
+EnableDhcp         = 0
+AddReg             = gobiwwan.Reg
+CopyFiles          = gobiwwan.CopyFiles
+
+[gobiwwan.ndi.Services]
+AddService         = swg3kmbb00, 2, gobiwwan.Service, gobiwwan.EventLog
+
+;-----------------------------------------------------------------------------
+; WMI security settings
+;-----------------------------------------------------------------------------
+[gobiwwan.ndi.WMI]
+WMIInterface={DE81837E-BD78-4EC8-ABA8-89B7D026C1CF},,WMIGuidSecurity_AllReadAdminFul
+
+[WMIGuidSecurity_AllReadAdminFul]
+security="O:BAG:BAD:(A;;0x12001f;;;BA)(A;;0x12001f;;;LS)(A;;0x12001f;;;NS)(A;;0x12001f;;;SY)(A;;0x12001f;;;NO)(A;;CC;;;BU)"
+
+;-----------------------------------------------------------------------------
+; Virtual Miniport Common
+;-----------------------------------------------------------------------------
+[gobiwwan.Reg]
+HKR,    ,                         BusNumber,           0, "0" 
+HKR, Ndi,                         Service,             0, "swg3kmbb00"
+
+;-----------------------------------------------------------------------------
+;Entries to be put in add-registry-section for NdisMediumWirelessWan 
+;-----------------------------------------------------------------------------
+HKR, Ndi\Interfaces, UpperRange, 0, "flpp4,flpp6"
+HKR, Ndi\Interfaces, LowerRange, 0, "ppip"
+
+;-----------------------------------------------------------------------------
+;Number of clients support
+;-----------------------------------------------------------------------------
+HKR,    ,                         MPNumClients,           0x00010001, 48
+
+;-----------------------------------------------------------------------------
+; Driver and Service Section
+;-----------------------------------------------------------------------------
+[gobiwwan.CopyFiles]
+swg3kmbb00.sys,,,2
+
+[gobiwwan.Service]
+DisplayName     = %gobiwwan.Service.DispName%
+ServiceType     = 1                                 ;%SERVICE_KERNEL_DRIVER%
+StartType       = 3                                 ;%SERVICE_DEMAND_START%
+ErrorControl    = 1                                 ;%SERVICE_ERROR_NORMAL%
+ServiceBinary   = %12%\swg3kmbb00.sys
+LoadOrderGroup  = NDIS
+AddReg          = TextModeFlags.Reg
+
+[gobiwwan.EventLog]
+AddReg = gobiwwan.AddEventLog.Reg
+
+[gobiwwan.AddEventLog.Reg]
+HKR, , EventMessageFile, 0x00020000, "%%SystemRoot%%\System32\netevent.dll"
+HKR, , TypesSupported,   0x00010001, 7
+
+[TextModeFlags.Reg]
+HKR, , TextModeFlags,    0x00010001, 0x0001
+
+[SourceDisksNames]
+1 = %DiskId1%,,,""
+
+[SourceDisksFiles]
+swg3kmbb00.sys  = 1,,
+
+[DestinationDirs]
+gobiwwan.CopyFiles = 12
+
+[Strings]
+QcomSrcDisk                   = "Sierra Wireless USB Driver Disk"
+QCOM                          = "Qualcomm Incorporated" 
+gobiwwan.Service.DispName     = "Sierra Wireless QMI USB-NDIS 6.20 miniport"
+DiskId1                       = "Sierra Wireless USB-NDIS Miniport Device Installation Disk #1"
+SWI                           = "Sierra Wireless Incorporated" 
+gobiwwan.Sierra9011           = "Sierra Wireless Mobile Broadband Network Adapter"
+gobiwwan.DeviceDesc68A2       = "Sierra Wireless Mobile Broadband Network Adapter"
+gobiwwan.DeviceDesc68A5       = "Sierra Wireless Mobile Broadband Network Adapter"
+gobiwwan.DeviceDesc68A9       = "Sierra Wireless Mobile Broadband Network Adapter"

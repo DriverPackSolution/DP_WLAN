@@ -1,0 +1,350 @@
+; Windows Virtual Serial Port Setup File
+; Copyright (c) 2002,2003 Huawei Incorporated
+; Manufacturer: Huawei Incorporated
+;
+; This INF file installs a virtual COM port on Win2K system.
+
+[Version]
+signature  = "$WINDOWS NT$"
+Class      = Ports
+Provider   = %HUAWEI%
+ClassGuid  = {4D36E978-E325-11CE-BFC1-08002BE10318}
+DriverVer  = 12/05/2009,2.0.3.828
+CatalogFile= ewser2k.cat
+
+[SourceDisksNames]
+1000 = %HWSRCDISK%,"",,
+
+[SourceDisksFiles]
+ewusbmdm.sys = 1000
+
+[ControlFlags]
+ExcludeFromSelect = *
+
+[DestinationDirs]
+DefaultDestDir = 12
+
+[Manufacturer]
+%HUAWEI% = QcomSerialPort,NTamd64
+
+[QcomSerialPort.NTamd64]
+%QcomDevice00% = QportInstall00, USB\VID_12d1&PID_1001&MI_01
+%QcomDevice01% = QportInstall01, USB\VID_12d1&PID_1003&MI_01
+%QcomDevice07% = QportInstall07, USB\VID_12d1&PID_1003&MI_04
+%QcomDevice01% = QportInstall01, USB\VID_12d1&PID_1001&MI_02
+%QcomDevice00% = QportInstall00, USB\VID_12d1&PID_1004&MI_01
+%QcomDevice01% = QportInstall01, USB\VID_12d1&PID_1004&MI_02
+%QcomDevice00% = QportInstall00, USB\VID_12d1&PID_1401&MI_00
+%QcomDevice01% = QportInstall01, USB\VID_12d1&PID_1401&MI_02
+%QcomDevice01% = QportInstall01, USB\VID_12d1&PID_1402&MI_02
+%QcomDevice01% = QportInstall01, USB\VID_12d1&PID_1403&MI_00
+%QcomDevice00% = QportInstall00, USB\VID_12d1&PID_1403&MI_02
+%QcomDevice01% = QportInstall01, USB\VID_12d1&PID_1405&MI_00
+%QcomDevice01% = QportInstall01, USB\VID_12d1&PID_1406&MI_01
+%QcomDevice07% = QportInstall07, USB\VID_12d1&PID_1406&MI_04
+%QcomDevice01% = QportInstall01, USB\VID_12d1&PID_1408&MI_00
+
+%QcomDevice00% = QportInstall00, USB\VID_12d1&PID_1409&MI_00
+%QcomDevice02% = QportInstall02, USB\VID_12d1&PID_1409&MI_01
+%QcomDevice01% = QportInstall01, USB\VID_12d1&PID_1409&MI_02
+
+%QcomDevice00% = QportInstall00, USB\VID_12d1&PID_1411&MI_01
+%QcomDevice01% = QportInstall01, USB\VID_12d1&PID_1411&MI_02
+
+%QcomDevice00% = QportInstall00, USB\VID_12d1&PID_1412&MI_01
+%QcomDevice01% = QportInstall01, USB\VID_12d1&PID_1412&MI_02
+%QcomDevice02% = QportInstall02, USB\VID_12d1&PID_1412&MI_04
+%QcomDevice03% = QportInstall03, USB\VID_12d1&PID_1412&MI_05
+
+%QcomDevice00% = QportInstall00, USB\VID_12d1&PID_1413&MI_02
+%QcomDevice01% = QportInstall01, USB\VID_12d1&PID_1413&MI_03
+%QcomDevice02% = QportInstall02, USB\VID_12d1&PID_1413&MI_04
+%QcomDevice03% = QportInstall03, USB\VID_12d1&PID_1413&MI_07
+
+%QcomDevice00% = QportInstall00, USB\VID_12d1&PID_1414&MI_01
+%QcomDevice01% = QportInstall01, USB\VID_12d1&PID_1414&MI_02
+%QcomDevice02% = QportInstall02, USB\VID_12d1&PID_1414&MI_05
+%QcomDevice03% = QportInstall03, USB\VID_12d1&PID_1414&MI_06
+
+%QcomDevice00% = QportInstall00, USB\VID_12d1&PID_1415&MI_01
+%QcomDevice01% = QportInstall01, USB\VID_12d1&PID_1415&MI_02
+%QcomDevice00% = QportInstall00, USB\VID_12d1&PID_1416&MI_01
+%QcomDevice01% = QportInstall01, USB\VID_12d1&PID_1416&MI_02
+%QcomDevice00% = QportInstall00, USB\VID_12d1&PID_1417&MI_02
+%QcomDevice01% = QportInstall01, USB\VID_12d1&PID_1417&MI_03
+%QcomDevice00% = QportInstall00, USB\VID_12d1&PID_1418&MI_01
+%QcomDevice01% = QportInstall01, USB\VID_12d1&PID_1418&MI_02
+%QcomDevice00% = QportInstall00, USB\VID_12d1&PID_1419&MI_01
+%QcomDevice01% = QportInstall01, USB\VID_12d1&PID_1419&MI_02
+%QcomDevice02% = QportInstall02, USB\VID_12d1&PID_1419&MI_04
+%QcomDevice00% = QportInstall00, USB\VID_12d1&PID_141A&MI_01
+%QcomDevice01% = QportInstall01, USB\VID_12d1&PID_141A&MI_02
+%QcomDevice07% = QportInstall07, USB\VID_12d1&PID_141A&MI_04
+%QcomDevice01% = QportInstall01, USB\VID_12d1&PID_141B&MI_01
+%QcomDevice07% = QportInstall07, USB\VID_12d1&PID_141B&MI_03
+%QcomDevice01% = QportInstall01, USB\VID_12d1&PID_141C&MI_00
+%QcomDevice00% = QportInstall00, USB\VID_12d1&PID_141D&MI_00
+%QcomDevice01% = QportInstall01, USB\VID_12d1&PID_141D&MI_01
+%QcomDevice01% = QportInstall01, USB\VID_12d1&PID_141E&MI_01
+%QcomDevice01% = QportInstall01, USB\VID_12d1&PID_141F&MI_00
+%QcomDevice01% = QportInstall01, USB\VID_12d1&PID_1420&MI_01
+%QcomDevice01% = QportInstall01, USB\VID_12d1&PID_1421&MI_00
+%QcomDevice00% = QportInstall00, USB\VID_12d1&PID_1422&MI_01
+%QcomDevice01% = QportInstall01, USB\VID_12d1&PID_1422&MI_02
+%QcomDevice00% = QportInstall00, USB\VID_12d1&PID_140A&MI_01
+%QcomDevice01% = QportInstall01, USB\VID_12d1&PID_140A&MI_02
+%QcomDevice00% = QportInstall00, USB\VID_12d1&PID_140C&MI_02
+%QcomDevice01% = QportInstall01, USB\VID_12d1&PID_140C&MI_03
+%QcomDevice07% = QportInstall07, USB\VID_12d1&PID_140C&MI_06
+%QcomDevice00% = QportInstall00, USB\VID_12d1&PID_14AC&MI_02
+%QcomDevice01% = QportInstall01, USB\VID_12d1&PID_14AC&MI_03
+%QcomDevice00% = QportInstall00, USB\VID_12d1&PID_140E&MI_01
+%QcomDevice01% = QportInstall01, USB\VID_12d1&PID_140E&MI_02
+%QcomDevice04% = QportInstall04, USB\VID_12d1&PID_140B&MI_01
+%QcomDevice05% = QportInstall05, USB\VID_12d1&PID_140B&MI_02
+%QcomDevice00% = QportInstall00, USB\VID_12d1&PID_1427&MI_02
+%QcomDevice01% = QportInstall01, USB\VID_12d1&PID_1427&MI_03
+%QcomDevice06% = QportInstall06, USB\VID_12d1&PID_1427&MI_04
+%QcomDevice00% = QportInstall00, USB\VID_12d1&PID_1428&MI_02
+%QcomDevice01% = QportInstall01, USB\VID_12d1&PID_1428&MI_03
+%QcomDevice01% = QportInstall01, USB\VID_12d1&PID_1429&MI_02
+%QcomDevice07% = QportInstall07, USB\VID_12d1&PID_1429&MI_05
+%QcomDevice01% = QportInstall01, USB\VID_12d1&PID_142A&MI_02
+
+%QcomDevice00% = QportInstall00, USB\VID_12d1&PID_1404&MI_01
+%QcomDevice01% = QportInstall01, USB\VID_12d1&PID_1404&MI_02
+%QcomDevice02% = QportInstall02, USB\VID_12d1&PID_1404&MI_03
+%QcomDevice08% = QportInstall08, USB\VID_12d1&PID_1404&MI_04
+
+%QcomDevice01% = QportInstall01, USB\VID_12d1&PID_1407&MI_01
+%QcomDevice02% = QportInstall02, USB\VID_12d1&PID_1407&MI_02
+%QcomDevice08% = QportInstall08, USB\VID_12d1&PID_1407&MI_03
+
+%QcomDevice01% = QportInstall01, USB\VID_12d1&PID_142B&MI_01
+%QcomDevice02% = QportInstall02, USB\VID_12d1&PID_142B&MI_03
+%QcomDevice08% = QportInstall08, USB\VID_12d1&PID_142B&MI_04
+
+%QcomDevice00% = QportInstall00, USB\VID_12d1&PID_142C&MI_00
+%QcomDevice01% = QportInstall01, USB\VID_12d1&PID_142C&MI_02
+%QcomDevice02% = QportInstall02, USB\VID_12d1&PID_142C&MI_04
+%QcomDevice08% = QportInstall08, USB\VID_12d1&PID_142C&MI_05
+
+%QcomDevice00% = QportInstall00, USB\VID_12d1&PID_142D&MI_00
+%QcomDevice01% = QportInstall01, USB\VID_12d1&PID_142D&MI_02
+
+%QcomDevice01% = QportInstall01, USB\VID_12d1&PID_142E&MI_00
+
+%QcomDevice00% = QportInstall00, USB\VID_12d1&PID_142F&MI_00
+%QcomDevice02% = QportInstall02, USB\VID_12d1&PID_142F&MI_01
+%QcomDevice01% = QportInstall01, USB\VID_12d1&PID_142F&MI_02
+
+%QcomDevice01% = QportInstall01, USB\VID_12d1&PID_1430&MI_00
+%QcomDevice00% = QportInstall00, USB\VID_12d1&PID_1430&MI_02
+
+%QcomDevice01% = QportInstall01, USB\VID_12d1&PID_1431&MI_00
+
+%QcomDevice01% = QportInstall01, USB\VID_12d1&PID_1432&MI_00
+
+%QcomDevice00% = QportInstall00, USB\VID_12d1&PID_1433&MI_02
+%QcomDevice01% = QportInstall01, USB\VID_12d1&PID_1433&MI_03
+
+%QcomDevice00% = QportInstall00, USB\VID_12d1&PID_1434&MI_01
+%QcomDevice01% = QportInstall01, USB\VID_12d1&PID_1434&MI_02
+
+%QcomDevice01% = QportInstall01, USB\VID_12d1&PID_1435&MI_00
+
+%QcomDevice00% = QportInstall00, USB\VID_12d1&PID_1436&MI_02
+%QcomDevice01% = QportInstall01, USB\VID_12d1&PID_1436&MI_03
+
+%QcomDevice00% = QportInstall00, USB\VID_12d1&PID_1437&MI_01
+%QcomDevice01% = QportInstall01, USB\VID_12d1&PID_1437&MI_02
+
+%QcomDevice00% = QportInstall00, USB\VID_12d1&PID_1438&MI_01
+%QcomDevice01% = QportInstall01, USB\VID_12d1&PID_1438&MI_02
+
+%QcomDevice00% = QportInstall00, USB\VID_12d1&PID_1439&MI_02
+%QcomDevice01% = QportInstall01, USB\VID_12d1&PID_1439&MI_03
+
+%QcomDevice01% = QportInstall01, USB\VID_12d1&PID_143A&MI_02
+
+%QcomDevice01% = QportInstall01, USB\VID_12d1&PID_143B&MI_02
+
+%QcomDevice01% = QportInstall01, USB\VID_12d1&PID_143E&MI_02
+
+%QcomDevice01% = QportInstall01, USB\VID_12d1&PID_1448&MI_01
+
+%QcomDevice00% = QportInstall00, USB\VID_12d1&PID_144A&MI_01
+%QcomDevice01% = QportInstall01, USB\VID_12d1&PID_144A&MI_02
+%QcomDevice09% = QportInstall09, USB\VID_12d1&PID_144A&MI_03
+
+%QcomDevice00% = QportInstall00, USB\VID_12d1&PID_144B&MI_02
+%QcomDevice01% = QportInstall01, USB\VID_12d1&PID_144B&MI_03
+%QcomDevice09% = QportInstall09, USB\VID_12d1&PID_144B&MI_04
+
+%QcomDevice00% = QportInstall00, USB\VID_12d1&PID_144C&MI_01
+%QcomDevice01% = QportInstall01, USB\VID_12d1&PID_144C&MI_02
+%QcomDevice02% = QportInstall02, USB\VID_12d1&PID_144C&MI_04
+%QcomDevice08% = QportInstall08, USB\VID_12d1&PID_144C&MI_05
+
+%QcomDevice00% = QportInstall00, USB\VID_12d1&PID_144D&MI_02
+%QcomDevice01% = QportInstall01, USB\VID_12d1&PID_144D&MI_03
+%QcomDevice02% = QportInstall02, USB\VID_12d1&PID_144D&MI_05
+%QcomDevice08% = QportInstall08, USB\VID_12d1&PID_144D&MI_06
+
+%QcomDevice00% = QportInstall00, USB\VID_12d1&PID_143F&MI_01
+%QcomDevice01% = QportInstall01, USB\VID_12d1&PID_143F&MI_02
+%QcomDevice02% = QportInstall02, USB\VID_12d1&PID_143F&MI_03
+%QcomDevice08% = QportInstall08, USB\VID_12d1&PID_143F&MI_04
+
+;for logo test
+%QcomDevice01% = QportInstall01, USB\VID_12d1&PID_1443
+%QcomDevice01% = QportInstall01, USB\VID_12d1&PID_15FF&MI_02
+
+
+; ###### Installation Section ######
+
+[QportInstall00]
+CopyFiles = CopyFileSection00
+AddReg = All00, AddReg
+
+[QportInstall01]
+CopyFiles = CopyFileSection00
+AddReg = All01, AddReg
+
+[QportInstall02]
+CopyFiles = CopyFileSection00
+AddReg = All02, AddReg.NT
+
+[QportInstall03]
+CopyFiles = CopyFileSection00
+AddReg = All03, AddReg.NT
+
+[QportInstall04]
+CopyFiles = CopyFileSection00
+AddReg = All04, AddReg.NT
+
+[QportInstall05]
+CopyFiles = CopyFileSection00
+AddReg = All05, AddReg.NT
+
+[QportInstall06]
+CopyFiles = CopyFileSection00
+AddReg = All06, AddReg.NT
+
+[QportInstall07]
+CopyFiles = CopyFileSection00
+AddReg = All07, AddReg.NT
+
+[QportInstall08]
+CopyFiles = CopyFileSection00
+AddReg = All08, AddReg.NT
+
+[QportInstall09]
+CopyFiles = CopyFileSection00
+AddReg = All09, AddReg.NT
+
+[QportInstall00.Services]
+AddService = hwdatacard,  0x00000002, Qport_Service_Inst00
+
+[QportInstall01.Services]
+AddService = hwdatacard,  0x00000002, Qport_Service_Inst00
+
+[QportInstall02.Services]
+AddService = hwdatacard,  0x00000002, Qport_Service_Inst00
+
+[QportInstall03.Services]
+AddService = hwdatacard,  0x00000002, Qport_Service_Inst00
+
+[QportInstall04.Services]
+AddService = hwdatacard,  0x00000002, Qport_Service_Inst00
+
+[QportInstall05.Services]
+AddService = hwdatacard,  0x00000002, Qport_Service_Inst00
+
+[QportInstall06.Services]
+AddService = hwdatacard,  0x00000002, Qport_Service_Inst00
+
+[QportInstall07.Services]
+AddService = hwdatacard,  0x00000002, Qport_Service_Inst00
+
+[QportInstall08.Services]
+AddService = hwdatacard,  0x00000002, Qport_Service_Inst00
+
+[QportInstall09.Services]
+AddService = hwdatacard,  0x00000002, Qport_Service_Inst00
+
+[Qport_Service_Inst00]
+DisplayName   = "Huawei DataCard USB Modem and USB Serial"
+ServiceType   = 1
+StartType     = 3
+ErrorControl  = 1
+ServiceBinary = %12%\ewusbmdm.sys
+AddReg        = PowerReg
+
+[CopyFileSection00]
+ewusbmdm.sys,,,0x20
+
+[All00]
+HKR,,NTMPDriver,,ewusbmdm.sys
+HKR,,PortIdentify,,HWDIAG
+
+[All01]
+HKR,,NTMPDriver,,ewusbmdm.sys
+HKR,,PortIdentify,,HWPCUI
+
+[All02]
+HKR,,NTMPDriver,,ewusbmdm.sys
+HKR,,PortIdentify,,HWGPS
+
+[All03]
+HKR,,NTMPDriver,,ewusbmdm.sys
+HKR,,PortIdentify,,HWPCVOICE
+
+[All04]
+HKR,,NTMPDriver,,ewusbmdm.sys
+HKR,,PortIdentify,,HWDIAG_N3G
+
+[All05]
+HKR,,NTMPDriver,,ewusbmdm.sys
+HKR,,PortIdentify,,HWPCUI
+;this is compatible for 2.0.3.822, so the identify dosn't use "HWPCUI_N3G"
+
+[All06]
+HKR,,NTMPDriver,,ewusbmdm.sys
+HKR,,PortIdentify,,HWFAKE
+
+[All07]
+HKR,,NTMPDriver,,ewusbmdm.sys
+HKR,,PortIdentify,,HWBT
+
+[All08]
+HKR,,NTMPDriver,,ewusbmdm.sys
+HKR,,PortIdentify,,HWCONTROL
+
+[All09]
+HKR,,NTMPDriver,,ewusbmdm.sys
+HKR,,PortIdentify,,HWFINGER
+
+
+[AddReg]
+HKR,,PortSubClass,1,01
+HKR,,EnumPropPages32,,"MsPorts.dll,SerialPortPropPageProvider"
+
+[PowerReg]
+HKR,,QCDriverPowerManagementEnabled,0x00010001,1
+HKR,,QCDriverResident,0x00010001,1
+HKR,,QCDriverWaitWakeEnabled,0x00010001,1
+
+[Strings]
+HUAWEI   = "HUAWEI Incorporated"
+HWSRCDISK = "HUAWEI Multimedia USB Driver Disk"
+QcomDevice00 = "HUAWEI Mobile Connect - 3G Application Interface"
+QcomDevice01 = "HUAWEI Mobile Connect - 3G PC UI Interface"
+QcomDevice02 = "HUAWEI Mobile Connect - 3G GPS Interface"
+QcomDevice03 = "HUAWEI Mobile Connect - 3G PC Voice Interface"
+QcomDevice04 = "HUAWEI Mobile Connect - Application Interface"
+QcomDevice05 = "HUAWEI Mobile Connect - PC UI Interface"
+QcomDevice06 = "HUAWEI Mobile Connect - 3G Interface"
+QcomDevice07 = "HUAWEI Mobile Connect - Bluetooth Interface"
+QcomDevice08 = "HUAWEI Mobile Connect - Control Interface"
+QcomDevice09 = "HUAWEI Mobile Connect - Fingerprint Interface"

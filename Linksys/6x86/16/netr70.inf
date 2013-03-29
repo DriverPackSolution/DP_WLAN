@@ -1,0 +1,148 @@
+;****************************************************************************************
+;
+; netr70.inf
+;
+;DESCRIPTION:(Vista x86)
+;            Linksys Wireless-G USB Network Adapter
+;	     Linksys Home Wireless-G USB Adaptor
+;            Wireless-G Portable USB Adapter
+;            Copyright (C) 2005, Cisco System, Inc. All rights reserved.
+
+;****************************************************************************************
+
+[Version]
+Signature       = "$Chicago$"
+Class           = Net
+ClassGUID       = {4d36e972-e325-11ce-bfc1-08002be10318}
+Provider        = %Provider%
+Compatible      = 1
+CatalogFile     = netr70.cat
+DriverVer       = 10/20/2006, 3.00.01.0000
+
+[ControlFlags]
+;***********Ralink 802.11g board  ***********
+;ExcludeFromSelect = USB\VID_148F&PID_2570
+
+[Manufacturer]
+%Linksys%        = Linksys
+
+[Linksys]
+; DisplayName               Section                 DeviceID
+; -----------               -------                 --------
+%HU200.DeviceDesc%          = HU200.ndi,            USB\VID_13B1&PID_001A
+%WUSB54GPv4.DeviceDesc%     = WUSB54GPv4.ndi,       USB\VID_13b1&PID_0011
+%WUSB54Gv4.DeviceDesc%      = WUSB54Gv4.ndi,        USB\VID_13b1&PID_000d
+
+;*******************************************************************************************
+; NT specific entries
+;*******************************************************************************************
+
+[HU200.ndi.NT]
+AddReg                  = Common.reg, RTUSB.ndi.NT.reg
+Characteristics         = 0x84                      ; NCF_REMOVABLE | NCF_HAS_UI | NCF_PHYSICAL
+BusType                 = 15                        ;USB
+CopyFiles               = NT.CopyFiles
+*IfType = 71             ; IF_TYPE_IEEE80211
+*MediaType = 16          ; NdisMediumNative802_11
+*PhysicalMediaType = 9   ; NdisPhysicalMediumNative802_11
+
+[WUSB54GPv4.ndi.NT]
+AddReg                  = Common.reg, RTUSB.ndi.NT.reg
+Characteristics         = 0x84                      ; NCF_REMOVABLE | NCF_HAS_UI | NCF_PHYSICAL
+BusType                 = 15                        ;USB
+CopyFiles               = NT.CopyFiles
+*IfType = 71             ; IF_TYPE_IEEE80211
+*MediaType = 16          ; NdisMediumNative802_11
+*PhysicalMediaType = 9   ; NdisPhysicalMediumNative802_11
+
+[WUSB54Gv4.ndi.NT]
+AddReg                  = Common.reg, RTUSB.ndi.NT.reg
+Characteristics         = 0x84                      ; NCF_REMOVABLE | NCF_HAS_UI | NCF_PHYSICAL
+BusType                 = 15                        ;USB
+CopyFiles               = NT.CopyFiles
+*IfType = 71             ; IF_TYPE_IEEE80211
+*MediaType = 16          ; NdisMediumNative802_11
+*PhysicalMediaType = 9   ; NdisPhysicalMediumNative802_11
+
+
+; NT services sections
+[HU200.ndi.NT.Services]
+AddService              = rt70x86, 2, HU200.Service, common.EventLog
+
+[WUSB54GPv4.ndi.NT.Services]
+AddService              = rt70x86, 2, WUSB54GPv4.Service, common.EventLog
+
+[WUSB54Gv4.ndi.NT.Services]
+AddService              = rt70x86, 2, WUSB54Gv4.Service, common.EventLog
+
+;*******************************************************************************************
+; DestinationDirs
+;*******************************************************************************************
+[NT.CopyFiles]
+netr70.sys,,,2
+
+[SourceDisksNames]
+1 = %INSTALL_DISK_STR%,netr70.sys,,
+
+[SourceDisksFiles]
+netr70.sys                = 1,,
+
+[DestinationDirs]
+NT.CopyFiles     = 12     ; system32\drivers subdirectory on NT
+DefaultDestDir   = 11
+[Common.reg]
+
+;*******************************************************************************************
+; NT specific
+;*******************************************************************************************
+[RTUSB.ndi.NT.reg]
+HKR, Ndi,                   Service,            0, "rt70x86"
+HKR, Ndi\Interfaces,        UpperRange,         0, "ndis5"
+HKR, Ndi\Interfaces,        LowerRange,         0, "wlan, ethernet"
+
+[HU200.Service]
+DisplayName                 = %HU200.Service.DispName%
+ServiceType                 = 1                             ;%SERVICE_KERNEL_DRIVER%
+StartType                   = 3                             ;%SERVICE_AUTO_START%
+ErrorControl                = 1                             ;%SERVICE_ERROR_NORMAL%
+ServiceBinary               = %12%\netr70.sys
+LoadOrderGroup              = NDIS
+
+[WUSB54GPv4.Service]
+DisplayName                 = %WUSB54GPv4.Service.DispName%
+ServiceType                 = 1                             ;%SERVICE_KERNEL_DRIVER%
+StartType                   = 3                             ;%SERVICE_AUTO_START%
+ErrorControl                = 1                             ;%SERVICE_ERROR_NORMAL%
+ServiceBinary               = %12%\netr70.sys
+LoadOrderGroup              = NDIS
+
+[WUSB54Gv4.Service]
+DisplayName                 = %WUSB54Gv4.Service.DispName%
+ServiceType                 = 1                             ;%SERVICE_KERNEL_DRIVER%
+StartType                   = 3                             ;%SERVICE_AUTO_START%
+ErrorControl                = 1                             ;%SERVICE_ERROR_NORMAL%
+ServiceBinary               = %12%\netr70.sys
+LoadOrderGroup              = NDIS
+
+[common.EventLog]
+AddReg=common.AddEventLog.reg
+
+[common.AddEventLog.reg]
+HKR, , EventMessageFile, 0x00020000, "%%SystemRoot%%\System32\netevent.dll,%%SystemRoot%%\System32\drivers\netr70.sys"
+HKR, , TypesSupported,   0x00010001, 7
+
+
+;*******************************************************************************************
+; Strings
+;*******************************************************************************************
+[strings]
+Provider                     = "Linksys"
+Linksys                      = "Linksys, A Division of Cisco Systems, Inc."
+HU200.DeviceDesc             = "Linksys Home Wireless-G USB Adaptor"
+WUSB54GPv4.DeviceDesc        = "Wireless-G Portable USB Adapter"
+WUSB54Gv4.DeviceDesc         = "Linksys Wireless-G USB Network Adapter"
+
+INSTALL_DISK_STR             = "Linksys Home Wireless-G USB Adaptor Installation Disk"
+
+Linksys.Service.DispName     = "Linksys Home Wireless-G USB Adaptor Driver"
+

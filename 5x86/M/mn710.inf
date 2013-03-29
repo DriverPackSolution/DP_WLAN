@@ -1,0 +1,228 @@
+;***********************************************************************
+;
+; MN-710.INF
+;
+; Microsoft Broadband Networking Wireless Networking Adapters.
+;
+; Copyright(c) 2004 Microsoft(R) Corporation
+; All Rights Reserved.
+;
+;***********************************************************************
+
+[Version]
+ DriverVer = 01/07/2004, 1.00.8.0
+ Signature           = "$Chicago$"
+ Compatible          = 1
+ Class               = Net
+ ClassGUID           = {4d36e972-e325-11ce-bfc1-08002be10318}
+ Provider            = %VER_VENDOR_STR%
+ CatalogFile         = MN710.cat
+ MillenniumPreferred = .ME
+
+[ControlFlags]
+ ExcludeFromSelect   = USB\VID_045E&PID_00C2
+
+
+[Manufacturer]
+ %VER_VENDOR_NAME_STR% = DeviceList
+
+[DeviceList]
+ %WLAN1_DESC_STR%     = MN710_WLAN1,        USB\VID_045E&PID_00C2
+
+
+[MN710_WLAN1]
+ AddReg         = MN710_WLAN1.reg, COMMON_WLAN.reg, COMMON_NDIS.reg, COMMON.reg
+ CopyFiles      = MN710_DRIVER.copy 
+
+[MN710_WLAN1.ME]
+ AddReg         = MN710_WLAN1.reg, COMMON_WLAN.reg, COMMON_NDIS.reg.ME, COMMON.reg
+ CopyFiles      = MN710_DRIVER.copy.ME
+
+[MN710_WLAN1.ME.ME]
+ AddReg         = MN710_WLAN1.reg, COMMON_WLAN.reg, COMMON_NDIS.reg.ME, COMMON.reg
+ CopyFiles      = MN710_DRIVER.copy.ME
+
+[MN710_WLAN1.NT]
+ AddReg         = MN710_WLAN1.reg, COMMON_WLAN.reg, COMMON_NDIS.reg.NT, COMMON.reg
+ CopyFiles      = MN710_DRIVER.copy.NT 
+ BusType        = 15
+ Characteristics= 0x84
+
+[MN710_WLAN1.NT.Services]
+ AddService= "MN710-51", 2, MN710_DRIVER_WLAN.Service, MN710_DRIVER.EventLog
+
+[MN710_WLAN1.reg]
+ HKR,Ndi,DeviceID,0,"USB\VID_045E&PID_00C2"
+ HKR,,PlatformID,0,14480
+ HKR,,VendorDesc,0,%WLAN1_DESC_STR%
+
+[MN710_DRIVER_WLAN.Service]
+ DisplayName    = %WLAN_SERVICE_STR%
+ Description    = "%HelpText%"
+ ServiceType    = 1
+ StartType      = 3
+ ErrorControl   = 1
+ ServiceBinary  = %12%\MN710-51.sys
+ LoadOrderGroup = NDIS
+
+[MN710_DRIVER.EventLog]
+ AddReg         = MN710_DRIVER.EventLog.reg
+
+[MN710_DRIVER.EventLog.reg]
+ HKR,           ,EventMessageFile       ,0x00020000     ,"%%SystemRoot%%\System32\netevent.dll"
+ HKR,           ,TypesSupported         ,0x00010001     ,7
+
+[COMMON_WLAN.reg]
+ HKR,NDI                ,CardType               ,0      ,"USB"
+ HKR,                   ,BusType                ,0      ,"0"
+
+[COMMON_NDIS.reg]
+ HKR,                   ,RunningWin9X           ,0      ,"1"
+ HKR,                   ,DevLoader              ,0      ,"*ndis"
+ HKR,                   ,EnumPropPages          ,0      ,"netdi.dll,EnumPropPages"
+ HKR,                   ,DeviceVxDs             ,0      ,"MN710-50.sys"
+ HKR,NDI\Interfaces     ,UpperRange             ,,"ndis3"
+ HKR,NDI\Interfaces     ,LowerRange             ,0      ,"ethernet"
+ HKR,NDI\Interfaces     ,DefUpper               ,,"ndis3"
+ HKR,NDI\Interfaces     ,DefLower               ,0      ,"ethernet"
+ HKR,NDIS               ,LogDriverName          ,0      ,"MN710-50"
+ HKR,NDIS               ,MajorNdisVersion       ,1      ,04
+ HKR,NDIS               ,MinorNdisVersion       ,1      ,00
+
+[COMMON_NDIS.reg.ME]
+ HKR,                   ,RunningWin9X           ,0      ,"1"
+ HKR,                   ,DevLoader              ,0      ,"*ndis"
+ HKR,                   ,EnumPropPages          ,0      ,"netdi.dll,EnumPropPages"
+ HKR,                   ,DeviceVxDs             ,0      ,"MN710-50.sys"
+ HKR,NDI\Interfaces     ,UpperRange             ,0	,"ndis5"
+ HKR,NDI\Interfaces     ,LowerRange             ,0      ,"ethernet"
+ HKR,NDI\Interfaces     ,DefUpper               ,0	,"ndis5"
+ HKR,NDI\Interfaces     ,DefLower               ,0      ,"ethernet"
+ HKR,NDIS               ,LogDriverName          ,0      ,"MN710-50"
+ HKR,NDIS               ,MajorNdisVersion       ,1      ,04
+ HKR,NDIS               ,MinorNdisVersion       ,1      ,00
+
+[COMMON_NDIS.reg.NT]
+ HKR,NDI                ,Service                ,0      ,"MN710-51"
+ HKR, Ndi, HelpText, 0, "%HelpText%"
+ HKR,NDI\Interfaces     ,UpperRange             ,0      ,"ndis5"
+ HKR,NDI\Interfaces     ,LowerRange             ,0      ,"ethernet"
+
+
+[COMMON.reg]
+ HKR,			,MacIoctl		,0      ,"MN710IOC.VXD"
+ HKR,                   ,SilentInstall          ,0      ,"1"
+
+ HKR,,RTSThresh,0,2432
+ HKR,Ndi\params\RTSThresh,default,0,2432
+ HKR,NDI\params\RTSThresh,ParamDesc,0,%RTSTHRESH_STR%
+ HKR,NDI\params\RTSThresh,type,0,int
+ HKR,NDI\params\RTSThresh,flag,1,20,00,00,00
+ HKR,NDI\params\RTSThresh,min,0,0
+ HKR,NDI\params\RTSThresh,max,0,2432
+ HKR,NDI\params\RTSThresh,step,0,64
+
+ HKR,,PSMode,0,1
+ HKR,Ndi\params\PSMode,default,0,1
+ HKR,NDI\params\PSMode,ParamDesc,,%POWER_SAVE_STR%
+ HKR,NDI\params\PSMode,type,,enum
+ HKR,NDI\params\PSMode,flag,1,30,00,00,00
+ HKR,NDI\params\PSMode\enum,1,,%POWER_SAVE_OFF_STR%
+ HKR,NDI\params\PSMode\enum,2,,%POWER_SAVE_DYN_STR%
+ HKR,NDI\params\PSMode\enum, 3,,%POWER_SAVE_MAX_STR%
+
+
+ HKR,,NetworkType,0,1
+ HKR,defaults,NetworkType,0,1
+ HKR,NDI\params\NetworkType,default,0,1
+ HKR,NDI\params\NetworkType,ParamDesc,0,%NETWORKTYPE_STR%
+ HKR,NDI\params\NetworkType,type,0,"enum"
+ HKR,NDI\params\NetworkType\enum,0,0,%NETWORKTYPE_P0_STR%
+ HKR,NDI\params\NetworkType\enum,1,0,%NETWORKTYPE_P1_STR%
+ 
+ HKR,,SSID,0,%DEFAULT_SSID_STR%
+ HKR,defaults,SSID,0,%DEFAULT_SSID_STR%
+ HKR,NDI\params\SSID,default,0,%DEFAULT_SSID_STR%
+ HKR,NDI\params\SSID,ParamDesc,0,%SSID_STR%
+ HKR,NDI\params\SSID,type,0,"edit"
+ HKR,NDI\params\SSID,limitText,0,"32"
+ HKR,NDI\params\SSID,flag,1,"30","00","00","00"
+
+ HKR,,ConfigProfile,0,256
+
+ HKR,,DSFreq,0,2437000
+ HKR,Ndi\params\DSFreq,default,0,2437000
+ HKR,NDI\params\DSFreq,ParamDesc,,%CHANNEL_STR%
+ HKR,NDI\params\DSFreq,type,,enum
+ HKR,NDI\params\DSFreq,flag,1,30,00,00,00
+ HKR,NDI\params\DSFreq\enum,2412000,," 1"
+ HKR,NDI\params\DSFreq\enum,2417000,," 2"
+ HKR,NDI\params\DSFreq\enum,2422000,," 3"
+ HKR,NDI\params\DSFreq\enum,2427000,," 4"
+ HKR,NDI\params\DSFreq\enum,2432000,," 5"
+ HKR,NDI\params\DSFreq\enum,2437000,," 6"
+ HKR,NDI\params\DSFreq\enum,2442000,," 7"
+ HKR,NDI\params\DSFreq\enum,2447000,," 8"
+ HKR,NDI\params\DSFreq\enum,2452000,," 9"
+ HKR,NDI\params\DSFreq\enum,2457000,,"10"
+ HKR,NDI\params\DSFreq\enum,2462000,,"11"
+; HKR,NDI\params\DSFreq\enum,2467000,,"12"
+; HKR,NDI\params\DSFreq\enum,2472000,,"13"
+; HKR,NDI\params\DSFreq\enum,2484000,,"14"
+
+ HKR,,11dMode,0,0 
+ HKR,,AntennaDiversity,0,0 
+
+
+[DestinationDirs]
+ DefaultDestDir         = 11 
+ MN710_DRIVER.copy      = 11 
+ MN710_DRIVER.copy.ME   = 11 
+ MN710_DRIVER.copy.NT   = 12 
+
+[MN710_DRIVER.copy]
+ MN710-50.sys
+ MN710IOC.vxd
+
+[MN710_DRIVER.copy.ME]
+ MN710-50.sys
+ MN710IOC.vxd
+
+[MN710_DRIVER.copy.NT]
+ MN710-51.sys
+
+[SourceDisksNames]
+ 1                      = %INSTALL_DISK_STR%,,,
+
+[SourceDisksFiles]
+ MN710-50.sys           = 1
+ MN710IOC.vxd           = 1
+
+[SourceDisksFiles.ME]
+ MN710-50.sys           = 1
+ MN710IOC.vxd           = 1
+
+[SourceDisksFiles.X86]
+ MN710-51.sys           = 1
+
+[Strings]
+ VER_VENDOR_STR          = "Microsoft(R)"
+ VER_VENDOR_NAME_STR     = "Microsoft(R) Corporation"
+ INSTALL_DISK_STR        = "Microsoft Broadband Networking Install Disk"
+ HelpText		 = "The Microsoft® Wireless Adapter provides wireless local area networking."
+ WLAN1_DESC_STR          = "Microsoft(R) Wireless USB 2.0 Adapter MN-710"
+ WLAN_SERVICE_STR        = "Microsoft(R) Wireless USB 2.0 Adapter"
+
+ ON_STR                  = "On"
+ OFF_STR                 = "Off"
+ RTSTHRESH_STR           = "RTS Threshold"
+ CHANNEL_STR             = "Channel"
+ POWER_SAVE_STR          = "Power Save Mode"
+ POWER_SAVE_OFF_STR      = "Disable" 
+ POWER_SAVE_DYN_STR      = "Auto Enable"
+ POWER_SAVE_MAX_STR      = "Always Enable"
+ NETWORKTYPE_STR         = "Network Type"
+ NETWORKTYPE_P0_STR      = "Peer to Peer"
+ NETWORKTYPE_P1_STR      = "Access Point"
+ SSID_STR                = "SSID"
+ DEFAULT_SSID_STR        = "MSHOME"

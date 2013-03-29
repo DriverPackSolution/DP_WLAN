@@ -1,0 +1,476 @@
+;***********************************************************************
+;
+; WLANNIC.INF
+;
+;   This installation script supports 98,Me,2000&XP for the
+;   Wireless LAN Adapters.
+;
+;
+;***********************************************************************
+
+[Version]
+ DriverVer = 10/20/2001, 1.7.29
+ Signature           = "$Chicago$"
+ Compatible          = 1
+ Class               = Net
+ ClassGUID           = {4d36e972-e325-11ce-bfc1-08002be10318}
+ Provider            = %VER_VENDOR_STR%
+; CatalogFile         = WLANNIC.cat
+ MillenniumPreferred = .ME
+
+[ControlFlags]
+;Exclude all PNP adapters from user selection
+ ExcludeFromSelect   = PCMCIA\_-SMC2642W_11Mbps_Wireless_CF_Card-0FBA
+ ExcludeFromSelect   = PCMCIA\_-SMC2642W_11Mbps_Wireless_CF_Card-2D9F
+ ExcludeFromSelect   = PCI\VEN_1260&DEV_3873&SUBSYS_38731260
+ ExcludeFromSelect   = PCI\VEN_1260&DEV_3783&SUBSYS_00001260
+ ExcludeFromSelect   = USB\VID_09AA&PID_3642
+
+[Manufacturer]
+ %VER_VENDOR_NAME_STR% = DeviceList
+
+[DeviceList]
+ %WLAN_PCMCIA1_STR% = WLAN_PCMCIA1, PCMCIA\_-SMC2642W_11Mbps_Wireless_CF_Card-0FBA
+ %WLAN_PCMCIA2_STR% = WLAN_PCMCIA2, PCMCIA\_-SMC2642W_11Mbps_Wireless_CF_Card-2D9F
+ %WLAN_PCI1_STR%    = WLAN_PCI1,    PCI\VEN_1260&DEV_3873&SUBSYS_38731260
+ %WLAN_PCI2_STR%    = WLAN_PCI2,    PCI\VEN_1260&DEV_3783&SUBSYS_00001260
+ %WLAN_USB1_STR%    = WLAN_USB1,    USB\VID_09AA&PID_3642
+
+;==========================================
+[WLAN_PCMCIA1]         ; Win9x
+ AddReg         = WLAN_PCMCIA1.reg, COMMON_PCMCIA.reg, COMMON_NDIS.reg, COMMON.reg
+ CopyFiles      = WLAN_DRIVER.copy, WLAN_APPLET.copy, WLAN_NDI.copy
+
+[WLAN_PCMCIA1.ME]      ; WinMe
+ AddReg         = WLAN_PCMCIA1.reg, COMMON_PCMCIA.reg, COMMON_NDIS.reg.ME, COMMON.reg
+ CopyFiles      = WLAN_DRIVER.copy.ME, WLAN_APPLET.copy.ME, WLAN_NDI.copy.ME
+
+[WLAN_PCMCIA1.ME.ME]   ; WinMe - Same as .ME (Needed for Update Driver)
+ AddReg         = WLAN_PCMCIA1.reg, COMMON_PCMCIA.reg, COMMON_NDIS.reg.ME, COMMON.reg
+ CopyFiles      = WLAN_DRIVER.copy.ME, WLAN_APPLET.copy.ME, WLAN_NDI.copy.ME
+
+[WLAN_PCMCIA1.NT]      ; Win2k
+ AddReg         = WLAN_PCMCIA1.reg, COMMON_PCMCIA.reg, COMMON_NDIS.reg.NT, COMMON.reg
+ CopyFiles      = WLAN_DRIVER.copy.NT, WLAN_APPLET.copy.NT
+ BusType        = 8     ; PCMCIA
+ Characteristics= 0x84  ; NCF_PHYSICAL | NCF_HAS_UI
+
+[WLAN_PCMCIA1.NT.Services]
+ AddService     = "WLAN", 2, WLAN_DRIVER.Service, WLAN_DRIVER.EventLog
+
+[WLAN_PCMCIA1.NT.CoInstallers]
+ CopyFiles      = WLAN_COINSTALL.copy.NT
+ AddReg         = WLAN_COINSTALL.reg.NT
+
+[WLAN_PCMCIA1.reg]
+ HKR,Ndi        ,DeviceID,0,"PCMCIA\_-SMC2642W_11Mbps_Wireless_CF_Card-0FBA"
+ HKR,,VendorDesc,0,"SMC2642W 11Mbps Wireless Compact Flash Card"
+
+;==========================================
+[WLAN_PCMCIA2]         ; Win9x
+ AddReg         = WLAN_PCMCIA2.reg, COMMON_PCMCIA.reg, COMMON_NDIS.reg, COMMON.reg
+ CopyFiles      = WLAN_DRIVER.copy, WLAN_APPLET.copy, WLAN_NDI.copy
+
+[WLAN_PCMCIA2.ME]      ; WinMe
+ AddReg         = WLAN_PCMCIA2.reg, COMMON_PCMCIA.reg, COMMON_NDIS.reg.ME, COMMON.reg
+ CopyFiles      = WLAN_DRIVER.copy.ME, WLAN_APPLET.copy.ME, WLAN_NDI.copy.ME
+
+[WLAN_PCMCIA2.ME.ME]   ; WinMe - Same as .ME (Needed for Update Driver)
+ AddReg         = WLAN_PCMCIA2.reg, COMMON_PCMCIA.reg, COMMON_NDIS.reg.ME, COMMON.reg
+ CopyFiles      = WLAN_DRIVER.copy.ME, WLAN_APPLET.copy.ME, WLAN_NDI.copy.ME
+
+[WLAN_PCMCIA2.NT]      ; Win2k
+ AddReg         = WLAN_PCMCIA2.reg, COMMON_PCMCIA.reg, COMMON_NDIS.reg.NT, COMMON.reg
+ CopyFiles      = WLAN_DRIVER.copy.NT, WLAN_APPLET.copy.NT
+ BusType        = 8     ; PCMCIA
+ Characteristics= 0x84  ; NCF_PHYSICAL | NCF_HAS_UI
+
+[WLAN_PCMCIA2.NT.Services]
+ AddService     = "WLAN", 2, WLAN_DRIVER.Service, WLAN_DRIVER.EventLog
+
+[WLAN_PCMCIA2.NT.CoInstallers]
+ CopyFiles      = WLAN_COINSTALL.copy.NT
+ AddReg         = WLAN_COINSTALL.reg.NT
+
+[WLAN_PCMCIA2.reg]
+ HKR,Ndi        ,DeviceID,0,"PCMCIA\_-SMC2642W_11Mbps_Wireless_CF_Card-2D9F"
+ HKR,,VendorDesc,0,"SMC2642W 11Mbps Wireless Compact Flash Card(5V)"
+
+;==========================================
+[WLAN_PCI1]            ; Win9x
+ AddReg         = WLAN_PCI1.reg, COMMON_PCI.reg, COMMON_NDIS.reg, COMMON.reg
+ CopyFiles      = WLAN_DRIVER.copy, WLAN_APPLET.copy, WLAN_NDI.copy
+
+[WLAN_PCI1.ME]         ; WinMe
+ AddReg         = WLAN_PCI1.reg, COMMON_PCI.reg, COMMON_NDIS.reg.ME, COMMON.reg
+ CopyFiles      = WLAN_DRIVER.copy.ME, WLAN_APPLET.copy.ME, WLAN_NDI.copy.ME
+
+[WLAN_PCI1.ME.ME]      ; WinMe - Same as .ME (Needed for Update Driver)
+ AddReg         = WLAN_PCI1.reg, COMMON_PCI.reg, COMMON_NDIS.reg.ME, COMMON.reg
+ CopyFiles      = WLAN_DRIVER.copy.ME, WLAN_APPLET.copy.ME, WLAN_NDI.copy.ME
+
+[WLAN_PCI1.NT]         ; Win2k
+ AddReg         = WLAN_PCI1.reg, COMMON_PCI.reg, COMMON_NDIS.reg.NT, COMMON.reg
+ CopyFiles      = WLAN_DRIVER.copy.NT, WLAN_APPLET.copy.NT
+ BusType        = 5     ; PCI
+ Characteristics= 0x84  ; NCF_PHYSICAL | NCF_HAS_UI
+
+[WLAN_PCI1.NT.Services]
+ AddService     = "WLAN", 2, WLAN_DRIVER.Service, WLAN_DRIVER.EventLog
+
+[WLAN_PCI1.NT.CoInstallers]
+ CopyFiles      = WLAN_COINSTALL.copy.NT
+ AddReg         = WLAN_COINSTALL.reg.NT
+
+[WLAN_PCI1.reg]
+ HKR,Ndi        ,DeviceID,0,"PCI\VEN_1260&DEV_3873&SUBSYS_38731260"
+ HKR,,VendorDesc,0,"MiniPCI Wireless LAN Card"
+
+;==========================================
+[WLAN_PCI2]            ; Win9x
+ AddReg         = WLAN_PCI2.reg, COMMON_PCI.reg, COMMON_NDIS.reg, COMMON.reg
+ CopyFiles      = WLAN_DRIVER.copy, WLAN_APPLET.copy, WLAN_NDI.copy
+
+[WLAN_PCI2.ME]         ; WinMe
+ AddReg         = WLAN_PCI2.reg, COMMON_PCI.reg, COMMON_NDIS.reg.ME, COMMON.reg
+ CopyFiles      = WLAN_DRIVER.copy.ME, WLAN_APPLET.copy.ME, WLAN_NDI.copy.ME
+
+[WLAN_PCI2.ME.ME]      ; WinMe - Same as .ME (Needed for Update Driver)
+ AddReg         = WLAN_PCI2.reg, COMMON_PCI.reg, COMMON_NDIS.reg.ME, COMMON.reg
+ CopyFiles      = WLAN_DRIVER.copy.ME, WLAN_APPLET.copy.ME, WLAN_NDI.copy.ME
+
+[WLAN_PCI2.NT]         ; Win2k
+ AddReg         = WLAN_PCI2.reg, COMMON_PCI.reg, COMMON_NDIS.reg.NT, COMMON.reg
+ CopyFiles      = WLAN_DRIVER.copy.NT, WLAN_APPLET.copy.NT
+ BusType        = 5     ; PCI
+ Characteristics= 0x84  ; NCF_PHYSICAL | NCF_HAS_UI
+
+[WLAN_PCI2.NT.Services]
+ AddService     = "WLAN", 2, WLAN_DRIVER.Service, WLAN_DRIVER.EventLog
+
+[WLAN_PCI2.NT.CoInstallers]
+ CopyFiles      = WLAN_COINSTALL.copy.NT
+ AddReg         = WLAN_COINSTALL.reg.NT
+
+[WLAN_PCI2.reg]
+ HKR,Ndi        ,DeviceID,0,"PCI\VEN_1260&DEV_3783&SUBSYS_00001260"
+ HKR,,VendorDesc,0,"PCI Wireless LAN Card"
+
+;==========================================
+[WLAN_USB1]            ; Win9x
+ AddReg         = WLAN_USB1.reg, COMMON_USB.reg, COMMON_NDIS.reg, COMMON.reg
+ CopyFiles      = WLAN_DRIVER.copy, WLAN_APPLET.copy, WLAN_NDI.copy
+
+[WLAN_USB1.ME]         ; WinMe
+ AddReg         = WLAN_USB1.reg, COMMON_USB.reg, COMMON_NDIS.reg.ME, COMMON.reg
+ CopyFiles      = WLAN_DRIVER.copy.ME, WLAN_APPLET.copy.ME, WLAN_NDI.copy.ME
+
+[WLAN_USB1.ME.ME]      ; WinMe - Same as .ME (Needed for Update Driver)
+ AddReg         = WLAN_USB1.reg, COMMON_USB.reg, COMMON_NDIS.reg.ME, COMMON.reg
+ CopyFiles      = WLAN_DRIVER.copy.ME, WLAN_APPLET.copy.ME, WLAN_NDI.copy.ME
+
+[WLAN_USB1.NT]         ; Win2k
+ AddReg         = WLAN_USB1.reg, COMMON_USB.reg, COMMON_NDIS.reg.NT, COMMON.reg
+ CopyFiles      = WLAN_DRIVER.copy.NT, WLAN_APPLET.copy.NT
+ BusType        = 0     ; USB
+ Characteristics= 0x84  ; NCF_PHYSICAL | NCF_HAS_UI
+
+[WLAN_USB1.NT.Services]
+ AddService     = "WLAN_USB", 2, WLAN_USB_DRIVER.Service, WLAN_DRIVER.EventLog
+
+[WLAN_USB1.NT.CoInstallers]
+ CopyFiles      = WLAN_COINSTALL.copy.NT
+ AddReg         = WLAN_COINSTALL.reg.NT
+
+[WLAN_USB1.reg]
+ HKR,Ndi        ,DeviceID,0,"USB\VID_09AA&PID_3642"
+ HKR,,VendorDesc,0,"MiniUSB Wireless Adapter"
+
+;###############################################################################
+
+[WLAN_COINSTALL.reg.NT]
+; HKR,           ,CoInstallers32         ,0x00010000     ,"WLANCFG.cpl,NdiProc"
+
+[WLAN_DRIVER.Service]
+ DisplayName    = %WLAN_SERVICE_DISPLAY%
+ ServiceType    = 1    ; SERVICE_KERNEL_DRIVER
+ StartType      = 3    ; SERVICE_DEMAND_START
+ ErrorControl   = 1    ; NORMAL
+ ServiceBinary  = %12%\SMCNDS.sys
+ LoadOrderGroup = NDIS
+
+[WLAN_USB_DRIVER.Service]
+ DisplayName    = %WLAN_USB_SERVICE_DISPLAY%
+ ServiceType    = 1    ; SERVICE_KERNEL_DRIVER
+ StartType      = 3    ; SERVICE_DEMAND_START
+ ErrorControl   = 1    ; NORMAL
+ ServiceBinary  = %12%\SMCUSB.sys
+ LoadOrderGroup = NDIS
+
+[WLAN_DRIVER.EventLog]
+ AddReg         = WLAN_DRIVER.EventLog.reg
+
+[WLAN_DRIVER.EventLog.reg]
+ HKR,           ,EventMessageFile       ,0x00020000     ,"%%SystemRoot%%\System32\netevent.dll"
+ HKR,           ,TypesSupported         ,0x00010001     ,7
+
+;###############################################################################
+[COMMON_PCMCIA.reg]
+;RegKey,SubKey          ,Name                   ,Type   ,Value
+;-------------          -----                   -----   ------
+ HKR,NDI                ,Service                ,0      ,"WLAN"
+ HKR,NDI                ,CardType               ,0      ,"PCMCIA"
+ HKR,                   ,BusType                ,0      ,"8"
+ HKR,                   ,DeviceVxDs             ,0      ,"SMCNDS.sys"
+ HKR,                   ,EnableIRQSharing       ,1      ,01,00,00,00
+ HKR,                   ,IOBaseAddress          ,1      ,02,00,00,00
+ HKR,                   ,InterruptNumber        ,1      ,04,00,00,00
+
+[COMMON_PCI.reg]
+ HKR,NDI                ,Service                ,0      ,"WLAN"
+ HKR,NDI                ,CardType               ,0      ,"PCI"
+ HKR,                   ,BusType                ,0      ,"5"
+ HKR,                   ,DeviceVxDs             ,0      ,"SMCNDS.sys"
+ HKR,                   ,EnableIRQSharing       ,1      ,01,00,00,00
+ HKR,                   ,IOBaseAddress          ,1      ,02,00,00,00
+ HKR,                   ,InterruptNumber        ,1      ,04,00,00,00
+
+[COMMON_USB.reg]
+ HKR,NDI                ,Service                ,0      ,"WLAN_USB"
+ HKR,NDI                ,CardType               ,0      ,"USB"
+ HKR,                   ,BusType                ,0      ,"0"
+ HKR,                   ,DeviceVxDs             ,0      ,"SMCUSB.sys"
+
+[COMMON_NDIS.reg]
+ HKR,                   ,RunningWin9X           ,0      ,"1"
+ HKR,                   ,DevLoader              ,0      ,"*ndis"
+ HKR,                   ,EnumPropPages          ,0      ,"netdi.dll,EnumPropPages"
+; HKR,NDI                ,NdiInstaller           ,0      ,"WLANCFG.dll,NdiProc"
+ HKR,NDI\Interfaces     ,UpperRange             ,0      ,"ndis3"
+ HKR,NDI\Interfaces     ,LowerRange             ,0      ,"ethernet"
+ HKR,NDI\Interfaces     ,DefUpper               ,0      ,"ndis3"
+ HKR,NDI\Interfaces     ,DefLower               ,0      ,"ethernet"
+ HKR,NDIS               ,LogDriverName          ,0      ,"WLAN"
+ HKR,NDIS               ,MajorNdisVersion       ,1      ,03
+ HKR,NDIS               ,MinorNdisVersion       ,1      ,0a
+
+[COMMON_NDIS.reg.ME]
+ HKR,                   ,RunningWin9X           ,0      ,"1"
+ HKR,                   ,DevLoader              ,0      ,"*ndis"
+ HKR,                   ,EnumPropPages          ,0      ,"netdi.dll,EnumPropPages"
+; HKR,NDI                ,NdiInstaller           ,0      ,"WLANCFG.dll,NdiProc"
+ HKR,NDI\Interfaces     ,UpperRange             ,0      ,"ndis3"
+ HKR,NDI\Interfaces     ,LowerRange             ,0      ,"ethernet"
+ HKR,NDI\Interfaces     ,DefUpper               ,0      ,"ndis3"
+ HKR,NDI\Interfaces     ,DefLower               ,0      ,"ethernet"
+ HKR,NDIS               ,LogDriverName          ,0      ,"WLAN"
+ HKR,NDIS               ,MajorNdisVersion       ,1      ,03
+ HKR,NDIS               ,MinorNdisVersion       ,1      ,0a
+
+[COMMON_NDIS.reg.NT]
+; HKR,                   ,EnumPropPages32        ,0      ,"WLANCFG.cpl,NetPropPageProvider"
+ HKR,NDI\Interfaces     ,UpperRange             ,0      ,"ndis5"
+ HKR,NDI\Interfaces     ,LowerRange             ,0      ,"ethernet"
+
+[COMMON.reg]
+ HKR,                   ,WLANIOC               ,0      ,"1"
+ HKR,,ListenInterval,0,"3"
+ HKR,defaults,ListenInterval,0,"3"
+ HKR,NDI\params\ListenInterval,ParamDesc,,"Listen Interval"
+ HKR,Ndi\params\ListenInterval,default,0,"3"
+ HKR,NDI\params\ListenInterval,type,,"int"
+ HKR,NDI\params\ListenInterval,min,0,"0"
+ HKR,NDI\params\ListenInterval,max,0,"77"
+ HKR,NDI\params\ListenInterval,step,0,"1"
+ HKR,NDI\params\ListenInterval,optional,0,"0"
+
+ HKR,,RTSThresh,0,2432
+ HKR,defaults,RTSThresh,0,2432
+ HKR,NDI\params\RTSThresh,ParamDesc,0,"RTS Threshold"
+ HKR,NDI\params\RTSThresh,default,0,"2432"
+ HKR,NDI\params\RTSThresh,type,0,"int"
+ HKR,NDI\params\RTSThresh,min,0,"0"
+ HKR,NDI\params\RTSThresh,max,0,"2432"
+ HKR,NDI\params\RTSThresh,step,0,"64"
+ HKR,NDI\params\RTSThresh,optional,0,"0"
+
+ HKR,,FragThresh,0,2432
+ HKR,defaults,FragThresh,0,2432
+ HKR,NDI\params\FragThresh,ParamDesc,0,"Fragmentation Threshold"
+ HKR,NDI\params\FragThresh,default,0,"2432"
+ HKR,NDI\params\FragThresh,type,0,"int"
+ HKR,NDI\params\FragThresh,min,0,"256"
+ HKR,NDI\params\FragThresh,max,0,"2432"
+ HKR,NDI\params\FragThresh,step,0,"128"
+ HKR,NDI\params\FragThresh,optional,0,"0"
+
+ HKR,,AuthentAlg,0,65535
+ HKR,defaults,AuthentAlg,,65535
+ HKR,NDI\params\AuthentAlg,ParamDesc,,"Authentication Algorithm"
+ HKR,NDI\params\AuthentAlg,default,0,"65535"
+ HKR,NDI\params\AuthentAlg,type,0,"enum"
+ HKR,NDI\params\AuthentAlg\enum,1,0,"Open System"
+ HKR,NDI\params\AuthentAlg\enum,2,0,"Shared Key"
+ HKR,NDI\params\AuthentAlg\enum,65535,0,"Base on WEP"
+
+ HKR,,PreambleMode,0,1
+ HKR,defaults,PreambleMode,0,1
+ HKR,NDI\params\PreambleMode,ParamDesc,0,"Preamble Mode"
+ HKR,NDI\params\PreambleMode,default,0,"1"
+ HKR,NDI\params\PreambleMode,type,0,"enum"
+ HKR,NDI\params\PreambleMode\enum,1,0,"Long Preamble"
+ HKR,NDI\params\PreambleMode\enum,2,0,"Short Preamble"
+ 
+ HKR,,SSID,0,"ANY"
+ HKR,defaults,SSID,0,"ANY"
+ HKR,NDI\params\SSID,ParamDesc,0,"ESSID"
+ HKR,NDI\params\SSID,default,0,"ANY"
+ HKR,Ndi\params\SSID,type,0,"edit"
+ HKR,NDI\params\SSID,limitText,0,"32"
+ 
+ HKR,,DSChannel,0,3
+ HKR,defaults,DSChannel,0,3
+ HKR,NDI\params\DSChannel,ParamDesc,0,"Channel"
+ HKR,Ndi\params\DSChannel,default,0,"3"
+ HKR,NDI\params\DSChannel,type,0,"enum"
+ HKR,NDI\params\DSChannel\enum,1,0,"01"
+ HKR,NDI\params\DSChannel\enum,2,0,"02"
+ HKR,NDI\params\DSChannel\enum,3,0,"03"
+ HKR,NDI\params\DSChannel\enum,4,0,"04"
+ HKR,NDI\params\DSChannel\enum,5,0,"05"
+ HKR,NDI\params\DSChannel\enum,6,0,"06"
+ HKR,NDI\params\DSChannel\enum,7,0,"07"
+ HKR,NDI\params\DSChannel\enum,8,0,"08"
+ HKR,NDI\params\DSChannel\enum,9,0,"09"
+ HKR,NDI\params\DSChannel\enum,10,0,"10"
+ HKR,NDI\params\DSChannel\enum,11,0,"11"
+ HKR,NDI\params\DSChannel\enum,12,0,"12"
+ HKR,NDI\params\DSChannel\enum,13,0,"13"
+ HKR,NDI\params\DSChannel\enum,14,0,"14"
+ 
+ HKR,,TxRate,,15
+ HKR,defaults,TxRate,,15
+ HKR,NDI\params\TxRate,ParamDesc,0,"Transmit Rate"
+ HKR,NDI\params\TxRate,default,0,"15"
+ HKR,NDI\params\TxRate,type,0,"enum"
+ HKR,NDI\params\TxRate\enum,1,0,"1 Mbps"
+ HKR,NDI\params\TxRate\enum,2,0,"2 Mbps"
+ HKR,NDI\params\TxRate\enum,3,0,"1 or 2 Mbps"
+ HKR,NDI\params\TxRate\enum,4,0,"5.5 Mbps"
+ HKR,NDI\params\TxRate\enum,8,0,"11 Mbps"
+ HKR,NDI\params\TxRate\enum,15,0,"Fully Auto"
+ 
+ HKR,,NetworkType,0,1
+ HKR,defaults,NetworkType,0,1
+ HKR,NDI\params\NetworkType,ParamDesc,0,"Network Type"
+ HKR,Ndi\params\NetworkType,default,0,"1"
+ HKR,NDI\params\NetworkType,type,0,"enum"
+ HKR,NDI\params\NetworkType\enum,0,0,"802.11 Ad Hoc"
+ HKR,NDI\params\NetworkType\enum,1,0,"Infrastructure"
+ HKR,NDI\params\NetworkType\enum,3,0,"Pseudo Ad Hoc"
+ 
+ HKR,,PSMode,0,1
+ HKR,defaults,PSMode,0,1
+ HKR,NDI\params\PSMode,ParamDesc,0,"Power Save Mode"
+ HKR,Ndi\params\PSMode,default,0,"1"
+ HKR,NDI\params\PSMode,type,0,"enum"
+ HKR,NDI\params\PSMode\enum,1,0,"Disable"
+ HKR,NDI\params\PSMode\enum,2,0,"Enable"
+ 
+ HKR,,WepReq,0,0
+ HKR,defaults,WepReq,0,0
+ HKR,NDI\params\WepReq,ParamDesc,0,"Use WEP"
+ HKR,Ndi\params\WepReq,default,0,"0"
+ HKR,NDI\params\WepReq,type,0,"enum"
+ HKR,NDI\params\WepReq\enum,0,0,"Disable"
+ HKR,NDI\params\WepReq\enum,2,0,"64-bit"
+ HKR,NDI\params\WepReq\enum,6,0,"128-bit"
+ HKR,NDI\params\WepReq,optional,0,"0"
+
+ HKR,,DefaultKeyId,0,"0"
+ HKR,,DefaultKeys,,"0000000000000000000000000000000000000000"
+ HKR,,BasicRates,0,"15"
+ HKR,,SupportedRates,0,"15"
+ HKR,,EncryptInDriver,0,"1"
+ HKR,,DecryptInDriver,0,"1"
+
+;###############################################################################
+[DestinationDirs]
+;CopyFiles Section      = Destination Directory ID -- see layout.inf
+;-----------------        ------------------------
+ DefaultDestDir         = 11 ; Win9x=%windir%\system Win2k=%windir%\system32
+ WLAN_DRIVER.copy      = 11 ; Win9x=%windir%\system
+ WLAN_DRIVER.copy.ME   = 11 ; Win9x=%windir%\system
+ WLAN_DRIVER.copy.NT   = 12 ; Win2k=%windir%\system32\drivers
+
+[WLAN_NDI.copy]
+; WLANR16.dll           ; Win9x NDI
+; WLANCFG.dll           ; Win9x NDI
+
+[WLAN_APPLET.copy]
+;  WLANIOC.dll
+;  WLANRES.DLL
+;  WLANUTIL.EXE
+
+[WLAN_NDI.copy.ME]
+; WLANR16.dll           ; Win9x NDI
+; WLANCFG.dll           ; Win9x NDI
+
+[WLAN_DRIVER.copy]
+ WLANIOC.vxd           ; Win9x Ioctl interface
+ SMCNDS.sys
+ ;SMCUSB.sys
+[WLAN_DRIVER.copy.ME]
+ WLANIOC.vxd           ; Win9x Ioctl interface
+ SMCNDS.sys
+;SMCUSB.sys
+
+[WLAN_DRIVER.copy.NT]
+ SMCNDS.sys
+; SMCUSB.sys
+[WLAN_COINSTALL.copy.NT]
+
+[SourceDisksNames]
+;Source Disk ID         = Disk Name
+;--------------           ---------
+ 1                      = %INSTALL_DISK_STR%,,,
+
+[SourceDisksFiles]      ; Win9x
+  WLANIOC.vxd           = 1
+;  WLANIOC.dll           = 1
+ SMCNDS.sys           = 1
+ SMCUSB.sys           = 1
+; WLANRES.DLL            = 1
+; WLANUTIL.EXE           = 1
+
+[SourceDisksFiles.ME]   ; WinMe
+  WLANIOC.vxd           = 1
+;  WLANIOC.dll           = 1
+ SMCNDS.sys           = 1
+ SMCUSB.sys           = 1
+; WLANRES.DLL            = 1
+; WLANUTIL.EXE           = 1
+
+[SourceDisksFiles.X86]  ; Win2k/winXP
+;  WLANIOC.dll           = 1
+ SMCNDS.sys           = 1
+ SMCUSB.sys           = 1
+; WLANRES.DLL            = 1
+; WLANUTIL.EXE           = 1
+
+;###############################################################################
+[Strings]
+;String ID              = String Text
+;---------                -----------
+ VER_VENDOR_STR         = " "
+ VER_VENDOR_NAME_STR    = " "
+
+ WLAN_PCMCIA1_STR      = "SMC2642W 11Mbps Wireless Compact Flash Card"
+ WLAN_PCMCIA2_STR      = "SMC2642W 11Mbps Wireless Compact Flash Card(5V)"
+ WLAN_PCI1_STR         = "MiniPCI Wireless LAN Card"
+ WLAN_PCI2_STR         = "PCI Wireless LAN Card"
+ WLAN_USB1_STR         = "MiniUSB Wireless Adapter"
+
+ WLAN_SERVICE_DISPLAY  = "  Wireless LAN Driver"
+ WLAN_USB_SERVICE_DISPLAY  = "  Wireless LAN USB Driver"
+ INSTALL_DISK_STR       = "  Wireless LAN Install Disk"

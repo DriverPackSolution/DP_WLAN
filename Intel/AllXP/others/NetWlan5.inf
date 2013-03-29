@@ -1,0 +1,600 @@
+; NetWlan5.inf
+; Symbol Based Wireless LAN Adapter Install Script for Whistler
+; Copyright (c) 2001, Microsoft
+; Copyright (c) 2001, Symbol Technologies, Inc.
+;
+;============================================================================
+; Current Version %VER 3.1.1.31
+;============================================================================
+
+[version]
+Signature  = $Windows NT$
+Class      = net
+ClassGUID  = {4d36e972-e325-11ce-bfc1-08002be10318}
+Provider   = %WLAN%
+DriverVer = 12/05/2002,3.1.1.31
+CatalogFile = NetWlan5.cat
+
+[Manufacturer]
+%Symbol_Provider%	= SYMBOL
+%Intel_Provider%	= INTEL
+%Ericsson_Provider%	= ERICSSON
+%Nortel_Provider%	= NORTEL
+%3Com_Provider%		= 3COM
+%802.11b_Provider%	= 802_11b
+;%DLink_Provider%	= DLink
+
+ 
+[ControlFlags]
+ExcludeFromSelect = PCMCIA\Symbol_Technologies-LA4111_Spectrum24_Wireless_LAN_PC_Card-077d, \
+					PCMCIA\Symbol-Spectrum24_LA4100_Series_WLAN_PC_Card-e063, \
+					PCI\VEN_1562&DEV_0001, \
+					PCMCIA\Intel-PRO/Wireless_2011_LAN_PC_Card-E11D, \
+					PCMCIA\Intel-PRO/Wireless_LAN_PC_Card-82da, \
+					PCI\VEN_8086&DEV_1042, \
+					PCMCIA\Ericsson-Ericsson_DSSS_Wireless_LAN_PC_Card-F68B, \
+					PCMCIA\Ericsson-Ericsson_DSSS_Wireless_LAN_PC_Card-bab1, \
+					PCI\VEN_5401&DEV_0101, \
+					PCMCIA\Nortel_Networks-emobility_802.11_Wireless_LAN_PC_Card-ae15, \
+					PCMCIA\Nortel_Networks-emobility_802.11_WLAN_PC_Card-b6b2, \
+					PCI\VEN_126c&DEV_1f1f, \
+					PCMCIA\3Com-3CRWE737A_AirConnect_Wireless_LAN_PC_Card-30dd, \
+					PCMCIA\3Com-3CRWE737A_AirConnect_Wireless_LAN_PC_Card-eea2, \
+					PCI\VEN_10b7&DEV_1f1f, \
+					PCMCIA\802.11b-Wireless_LAN_PC_Card-c8c8, \
+					PCMCIA\802.11b-Wireless_LAN_PC_Card-b289, \
+					PCI\VEN_1562&DEV_0001&SUBSYS_00010001
+;					PCMCIA\D-Link_Corporation-D-Link_DWL-650H_11Mbps_WLAN_Adapter-f6ae
+
+[SYMBOL]
+%SLA4111.DeviceDesc%    = SLA4111.ndi,		PCMCIA\Symbol_Technologies-LA4111_Spectrum24_Wireless_LAN_PC_Card-077d
+%SLA4100.DeviceDesc%	= SLA4100.ndi,		PCMCIA\Symbol-Spectrum24_LA4100_Series_WLAN_PC_Card-e063
+%SLA4113.DeviceDesc%    = SLA4113.ndi,		PCI\VEN_1562&DEV_0001
+
+[INTEL]
+%Wla11PC3.DeviceDesc%	= Wla11PC3.ndi,		PCMCIA\Intel-PRO/Wireless_LAN_PC_Card-82da
+%Wla11PCC.DeviceDesc%   = Wla11PCC.ndi,		PCMCIA\Intel-PRO/Wireless_2011_LAN_PC_Card-E11D
+%Wla11PCI.DeviceDesc%   = Wla11PCI.ndi,		PCI\VEN_8086&DEV_1042
+
+[ERICSSON]
+%WLANPC3.DeviceDesc%    = WLANPC3.ndi,		PCMCIA\Ericsson-Ericsson_DSSS_Wireless_LAN_PC_Card-bab1
+%WLANPCC.DeviceDesc%    = WLANPCC.ndi,		PCMCIA\Ericsson-Ericsson_DSSS_Wireless_LAN_PC_Card-F68B
+%WLANPCI.DeviceDesc%    = WLANPCI.ndi,		PCI\VEN_5401&DEV_0101
+
+[NORTEL]
+%NnxndisPC3.DeviceDesc% = NnxndisPC3.ndi,	PCMCIA\Nortel_Networks-emobility_802.11_WLAN_PC_Card-b6b2
+%NnxndisPCC.DeviceDesc% = NnxndisPCC.ndi,	PCMCIA\Nortel_Networks-emobility_802.11_Wireless_LAN_PC_Card-ae15
+%NnxndisPCI.DeviceDesc% = NnxndisPCI.ndi,	PCI\VEN_126c&DEV_1f1f
+
+[3COM]
+%3CRWE7373.DeviceDesc%	= 3CRWE7373.ndi,	PCMCIA\3Com-3CRWE737A_AirConnect_Wireless_LAN_PC_Card-eea2
+%3CRWE737A.DeviceDesc%	= 3CRWE737A.ndi,	PCMCIA\3Com-3CRWE737A_AirConnect_Wireless_LAN_PC_Card-30dd
+%3CRWE777A.DeviceDesc%	= 3CRWE777A.ndi,	PCI\VEN_10b7&DEV_1f1f
+
+[802_11b]
+%WLANPC3V.DeviceDesc%	= WLANPC3V.ndi,		PCMCIA\802.11b-Wireless_LAN_PC_Card-c8c8
+%WLANPC5V.DeviceDesc%	= WLANPC5V.ndi,		PCMCIA\802.11b-Wireless_LAN_PC_Card-b289
+%WLANPCIG.DeviceDesc%   = WLANPCIG.ndi,		PCI\VEN_1562&DEV_0001&SUBSYS_00010001
+
+;[DLink]
+;%DLINKPC.DeviceDesc%	= DLINKPC.ndi,		PCMCIA\D-Link_Corporation-D-Link_DWL-650H_11Mbps_WLAN_Adapter-f6ae
+
+;--------------------------------------------------------------------------------
+; Symbol PCMCIA Card (Win2k)
+;
+;(T2)
+[SLA4111.ndi.NT]
+Characteristics = 0x84	; NCF_HAS_UI, NCF_PHYSICAL
+BusType         = 8		; Pcmcia bus
+CopyFiles		= CopyFiles.driver
+AddReg          = AddReg.interfaces, AddReg.Params, SLA4111.AddReg
+
+;(T3)
+[SLA4100.ndi.NT]
+Characteristics = 0x84	; NCF_HAS_UI, NCF_PHYSICAL
+BusType         = 8		; Pcmcia bus
+CopyFiles		= CopyFiles.driver
+AddReg          = AddReg.interfaces, AddReg.Params, SLA4100.AddReg
+
+[SLA4111.AddReg]
+; HKR, Ndi,Service,          0,%SLA4111_DriverDesc%
+HKR,	,CLSGUID,          0,%SYMBOL_DS11_GUID%
+HKR,	,AdapterModel,     0,%SLA4111_AdapterModel%
+HKR,	,Provider,	       0,%Symbol_Provider%
+HKR,	,ESQUARE, 0x00010001,0x00000000
+
+[SLA4100.AddReg]
+; HKR, Ndi,Service,          0,%SLA4100_DriverDesc%
+HKR,	,CLSGUID,	       0,%SYMBOL_DS11_T3_GUID%
+HKR,	,AdapterModel,     0,%SLA4100_AdapterModel%
+HKR,	,Provider,	       0,%Symbol_Provider%
+HKR,	,ESQUARE, 0x00010001,0x00000001
+
+[SLA4111.ndi.NT.Services]
+AddService = NetWlan5, 2, NetWlan5.Service, NetWlan5.EventLog
+
+[SLA4100.ndi.NT.Services]
+AddService = NetWlan5, 2, NetWlan5.Service, NetWlan5.EventLog
+
+;-----------------------------------------------------------------------------
+; Intel PCMCIA Card (Win2k)
+;
+;(T2)
+[Wla11PCC.ndi.NT]
+Characteristics = 0x84	; NCF_HAS_UI, NCF_PHYSICAL
+BusType         = 8		; Pcmcia bus
+CopyFiles		= CopyFiles.driver
+AddReg          = AddReg.interfaces, AddReg.Params, Wla11PCC.AddReg
+
+;(T3)
+[Wla11PC3.ndi.NT]
+Characteristics = 0x84	; NCF_HAS_UI, NCF_PHYSICAL
+BusType         = 8		; Pcmcia bus
+CopyFiles		= CopyFiles.driver
+AddReg          = AddReg.interfaces, AddReg.Params, Wla11PC3.AddReg
+
+;(T2)
+[Wla11PCC.AddReg]
+; HKR, Ndi,Service,	       0,%Wla11PCC_DriverDesc%
+HKR,	,CLSGUID,	       0,%INTEL_GUID%
+HKR,	,AdapterModel,     0,%Wla11PCC_AdapterModel%
+HKR,	,Provider,	       0,%Intel_Provider%	
+HKR,	,ESQUARE, 0x00010001,0x00000000
+
+; T3
+[Wla11PC3.AddReg]
+; HKR, Ndi,Service,          0,%Wla11PC3_DriverDesc%
+HKR,	,CLSGUID,		   0,%INTEL_GUID_T3%
+HKR,	,AdapterModel,     0,%Wla11PC3_AdapterModel%
+HKR,	,Provider,	       0,%Intel_Provider%	
+HKR,	,ESQUARE, 0x00010001,0x00000001
+
+;(T2)
+[Wla11PCC.ndi.NT.Services]
+AddService = NetWlan5, 2, NetWlan5.Service, NetWlan5.EventLog
+
+;(T3)
+[Wla11PC3.ndi.NT.Services]
+AddService = NetWlan5, 2, NetWlan5.Service, NetWlan5.EventLog
+
+;--------------------------------------------------------------------------------
+; Ericsson PCMCIA Card (Win2k)
+;
+[WLANPCC.ndi.NT]
+Characteristics = 0x84	; NCF_HAS_UI, NCF_PHYSICAL
+BusType         = 8		; Pcmcia bus
+CopyFiles		= CopyFiles.driver
+AddReg          = AddReg.interfaces, AddReg.Params, WLANPCC.AddReg
+
+[WLANPC3.ndi.NT]
+Characteristics = 0x84	; NCF_HAS_UI, NCF_PHYSICAL
+BusType         = 8		; Pcmcia bus
+CopyFiles		= CopyFiles.driver
+AddReg          = AddReg.interfaces, AddReg.Params, WLANPC3.AddReg
+
+[WLANPCC.AddReg]
+; HKR, Ndi,Service,	       0,%WLANPCC_DriverDesc%
+HKR,	,CLSGUID,	       0,%ERICSSON_GUID%
+HKR,	,AdapterModel,     0,%WLANPCC_AdapterModel%
+HKR,	,Provider,	       0,%Ericsson_Provider%	
+HKR,	,ESQUARE, 0x00010001,0x00000000
+
+[WLANPC3.AddReg]
+; HKR, Ndi,Service,	       0,%WLANPCC_DriverDesc%
+HKR,	,CLSGUID,	       0,%ERICSSON_GUID_T3%
+HKR,	,AdapterModel,     0,%WLANPCC_AdapterModel%
+HKR,	,Provider,	       0,%Ericsson_Provider%	
+HKR,	,ESQUARE, 0x00010001,0x00000001
+
+[WLANPCC.ndi.NT.Services]
+AddService = NetWlan5, 2, NetWlan5.Service, NetWlan5.EventLog
+
+[WLANPC3.ndi.NT.Services]
+AddService = NetWlan5, 2, NetWlan5.Service, NetWlan5.EventLog
+
+;--------------------------------------------------------------------------------
+; Nortel Networks PCMCIA Card (Win2k)
+;
+[NnxndisPCC.ndi.NT]
+Characteristics = 0x84	; NCF_HAS_UI, NCF_PHYSICAL
+BusType         = 8		; Pcmcia bus
+CopyFiles		= CopyFiles.driver
+AddReg          = AddReg.interfaces, AddReg.Params, NnxndisPCC.AddReg
+
+[NnxndisPC3.ndi.NT]
+Characteristics = 0x84	; NCF_HAS_UI, NCF_PHYSICAL
+BusType         = 8		; Pcmcia bus
+CopyFiles		= CopyFiles.driver
+AddReg          = AddReg.interfaces, AddReg.Params, NnxndisPC3.AddReg
+
+[NnxndisPCC.AddReg]
+; HKR, Ndi,Service,	       0,%NnxndisPCC_DriverDesc%
+HKR,	,CLSGUID,	       0,%NORTEL_GUID%
+HKR,	,AdapterModel,     0,%NnxndisPCC_AdapterModel%
+HKR,	,Provider,	       0,%Nortel_Provider%	
+HKR,	,ESQUARE, 0x00010001,0x00000000
+
+[NnxndisPC3.AddReg]
+; HKR, Ndi,Service,	       0,%NnxndisPC3_DriverDesc%
+HKR,	,CLSGUID,	       0,%NORTEL_GUID_T3%
+HKR,	,AdapterModel,     0,%NnxndisPC3_AdapterModel%
+HKR,	,Provider,	       0,%Nortel_Provider%	
+HKR,	,ESQUARE, 0x00010001,0x00000001
+
+[NnxndisPCC.ndi.NT.Services]
+AddService = NetWlan5, 2, NetWlan5.Service, NetWlan5.EventLog
+
+[NnxndisPC3.ndi.NT.Services]
+AddService = NetWlan5, 2, NetWlan5.Service, NetWlan5.EventLog
+
+;-----------------------------------------------------------------------------
+; 3Com PCMCIA Card (Win2k)
+;-----------------------------------------------------------------------------
+[3CRWE737A.ndi.NT]
+Characteristics = 0x84	; NCF_HAS_UI, NCF_PHYSICAL
+BusType         = 8		; Pcmcia bus
+CopyFiles		= CopyFiles.driver
+AddReg          = AddReg.interfaces, AddReg.Params, 3CRWE737A.AddReg
+
+[3CRWE7373.ndi.NT]
+Characteristics = 0x84	; NCF_HAS_UI, NCF_PHYSICAL
+BusType         = 8		; Pcmcia bus
+CopyFiles		= CopyFiles.driver
+AddReg          = AddReg.interfaces, AddReg.Params, 3CRWE7373.AddReg
+
+[3CRWE737A.AddReg]
+; HKR, Ndi,Service,	       0,%3CRWE737_DriverDesc%
+HKR,	,CLSGUID,	       0,%3Com_GUID%
+HKR,	,AdapterModel,     0,%3CRWE737_AdapterModel%
+HKR,	,Provider,	       0,%3Com_Provider%
+HKR,	,ESQUARE, 0x00010001,0x00000000
+
+[3CRWE7373.AddReg]
+; HKR, Ndi,Service,	       0,%3CRWE737_DriverDesc%
+HKR,	,CLSGUID,	       0,%3Com_GUID_T3%
+HKR,	,AdapterModel,     0,%3CRWE737_AdapterModel%
+HKR,	,Provider,	       0,%3Com_Provider%
+HKR,	,ESQUARE, 0x00010001,0x00000001
+
+[3CRWE737A.ndi.NT.Services]
+AddService = NetWlan5, 2, NetWlan5.Service, NetWlan5.EventLog
+
+[3CRWE7373.ndi.NT.Services]
+AddService = NetWlan5, 2, NetWlan5.Service, NetWlan5.EventLog
+
+;-----------------------------------------------------------------------------
+; 802.11b PCMCIA Card (Win2k)
+;-----------------------------------------------------------------------------
+[WLANPC3V.ndi.NT]
+Characteristics = 0x84	; NCF_HAS_UI, NCF_PHYSICAL
+BusType         = 8		; Pcmcia bus
+CopyFiles		= CopyFiles.driver
+AddReg          = AddReg.interfaces, AddReg.Params, WLANPC3V.AddReg
+
+[WLANPC5V.ndi.NT]
+Characteristics = 0x84	; NCF_HAS_UI, NCF_PHYSICAL
+BusType         = 8		; Pcmcia bus
+CopyFiles		= CopyFiles.driver
+AddReg          = AddReg.interfaces, AddReg.Params, WLANPC5V.AddReg
+
+[WLANPC3V.AddReg]
+; HKR, Ndi,Service,	       0,%WLANPC_DriverDesc3V%
+HKR,	,CLSGUID,	       0,%802_11b_GUID_3V%
+HKR,	,AdapterModel,     0,%WLANPC_AdapterModel%
+HKR,	,Provider,	       0,%802.11b_Provider%
+HKR,	,ESQUARE, 0x00010001,0x00000001
+
+[WLANPC5V.AddReg]
+; HKR, Ndi,Service,	       0,%WLANPC_DriverDesc%
+HKR,	,CLSGUID,	       0,%802_11b_GUID_5V%
+HKR,	,AdapterModel,     0,%WLANPC_AdapterModel%
+HKR,	,Provider,	       0,%802.11b_Provider%
+HKR,	,ESQUARE, 0x00010001,0x00000000
+
+[WLANPC3V.ndi.NT.Services]
+AddService = NetWlan5, 2, NetWlan5.Service, NetWlan5.EventLog
+
+[WLANPC5V.ndi.NT.Services]
+AddService = NetWlan5, 2, NetWlan5.Service, NetWlan5.EventLog
+
+;-----------------------------------------------------------------------------
+; D-Link PCMCIA Card (Win2k)
+;-----------------------------------------------------------------------------
+;[DLINKPC.ndi.NT]
+;Characteristics = 0x84	; NCF_HAS_UI, NCF_PHYSICAL
+;PromptForESS_ID = 1		; Magic Setting to force the CoInstaller to prompt for ESS Id
+;BusType         = 8		; Pcmcia bus
+;CopyFiles		= CopyFiles.driver
+;AddReg          = AddReg.interfaces, AddReg.Params, DLINKPC.AddReg
+
+;[DLINKPC.AddReg]
+; HKR, Ndi,Service,	       0,%DLINKPC_DriverDesc%
+;HKR,	,CLSGUID,	       0,%DLINK_GUID%
+;HKR,	,AdapterModel,     0,%DLINKPC_AdapterModel%
+;HKR,	,Provider,	       0,%DLINK_Provider%
+;HKR,	,ESQUARE, 0x00010001,0x00000000
+
+;[DLINKPC.ndi.NT.Services]
+;AddService = NetWlan5, 2, NetWlan5.Service, NetWlan5.EventLog
+
+;[DLINKPC.ndi.NT.CoInstallers]
+;AddReg		= AddReg.CoInstallers
+;CopyFiles	= CopyFiles.CoInstallers
+
+;-----------------------------------------------------------------------------
+; 802.11b PCMCIA Card (Win9x)
+;-----------------------------------------------------------------------------
+;[DLINKPC.ndi]
+;CopyFiles	= CopyFiles.System, CopyFiles.Generic.Help
+;AddReg		= ndi.reg, DLINKPC.reg, Common.PCMCIA.reg
+
+;--------------------------------------------------------------------------------
+; Symbol PCI Card (Windows 2k)
+;
+[SLA4113.ndi.NT]
+Characteristics = 0x84	; NCF_HAS_UI, NCF_PHYSICAL
+BusType         = 5		; PCI bus
+CopyFiles		= CopyFiles.driver
+AddReg          = AddReg.interfaces, AddReg.Params, SLA4113.AddReg
+
+[SLA4113.AddReg]
+;HKR, Ndi,Service,			 0, %SLA4113_DriverDesc%
+HKR,	,CLSGUID,			 0, %SYMBOL_DS11_GUID%
+HKR,	,CardType,	0x00010001, 0x00000003
+HKR,	,BusType,	0x00010001, 0x00000005
+HKR,	,AdapterModel,		 0, %SLA4113_AdapterModel%
+HKR,	,Provider,			 0, %Symbol_Provider%	
+
+[SLA4113.ndi.NT.Services]
+AddService = NetWlan5, 2, NetWlan5.Service, NetWlan5.EventLog
+
+;--------------------------------------------------------------------------------
+; Intel PCI Card (Windows 2k)
+;
+[Wla11PCI.ndi.NT]
+Characteristics = 0x84	; NCF_HAS_UI, NCF_PHYSICAL
+BusType         = 5		; PCI bus
+CopyFiles		= CopyFiles.driver
+AddReg          = AddReg.interfaces, AddReg.Params, Wla11PCI.AddReg
+
+[Wla11PCI.AddReg]
+;HKR, Ndi,Service,		    0,%Wla11PCI_DriverDesc%
+HKR,	,CLSGUID,		    0,%INTEL_GUID%
+HKR,	,CardType, 0x00010001,0x00000003
+HKR,	,BusType,  0x00010001,0x00000005
+HKR,	,AdapterModel,      0,%Wla11PCI_AdapterModel%
+HKR,	,Provider,		    0,%Intel_Provider%	
+
+[Wla11PCI.ndi.NT.Services]
+AddService = NetWlan5, 2, NetWlan5.Service, NetWlan5.EventLog
+
+;--------------------------------------------------------------------------------
+; Ericsson PCI Card (Windows 2k)
+;
+[WLANPCI.ndi.NT]
+Characteristics = 0x84	; NCF_HAS_UI, NCF_PHYSICAL
+BusType         = 5		; PCI bus
+CopyFiles		= CopyFiles.driver
+AddReg          = AddReg.interfaces, AddReg.Params, WLANPCI.AddReg
+
+[WLANPCI.AddReg]
+;HKR, Ndi,Service,			 0, %WLANPCI_DriverDesc%
+HKR,	,CLSGUID,			 0, %ERICSSON_GUID%
+HKR,	,CardType,	0x00010001, 0x00000003
+HKR,	,BusType,	0x00010001, 0x00000005
+HKR,	,AdapterModel,		 0, %WLANPCI_AdapterModel%
+HKR,	,Provider,			 0, %Ericsson_Provider%	
+
+[WLANPCI.ndi.NT.Services]
+AddService = NetWlan5, 2, NetWlan5.Service, NetWlan5.EventLog
+
+;--------------------------------------------------------------------------------
+; Nortel Networks PCI Card (Windows 2k)
+;--------------------------------------------------------------------------------
+[NnxndisPCI.ndi.NT]
+Characteristics = 0x84	; NCF_HAS_UI, NCF_PHYSICAL
+BusType         = 5		; PCI bus
+CopyFiles		= CopyFiles.driver
+AddReg          = AddReg.interfaces, AddReg.Params, NnxndisPCI.AddReg
+
+[NnxndisPCI.AddReg]
+;HKR, Ndi,Service,	         0, %NnxndisPCI_DriverDesc%
+HKR,	,CLSGUID,	         0, %NORTEL_GUID%
+HKR,	,CardType,	0x00010001, 0x00000003
+HKR,	,BusType,	0x00010001, 0x00000005
+HKR,	,AdapterModel,		 0, %NnxndisPCI_AdapterModel%
+HKR,	,Provider,			 0, %Nortel_Provider%	
+
+[NnxndisPCI.ndi.NT.Services]
+AddService = NetWlan5, 2, NetWlan5.Service, NetWlan5.EventLog
+
+;-----------------------------------------------------------------------------
+; 3Com PCI Cards (Windows 2k)
+;-----------------------------------------------------------------------------
+[3CRWE777A.ndi.NT]
+Characteristics = 0x84	; NCF_HAS_UI, NCF_PHYSICAL
+BusType         = 5		; PCI bus
+CopyFiles       = CopyFiles.driver
+AddReg          = AddReg.interfaces, AddReg.Params, 3CRWE777A.AddReg
+
+[3CRWE777A.AddReg]
+;HKR, Ndi,Service,			 0, %3CRWE777_DriverDesc%
+HKR,	,CLSGUID,			 0, %3COM_GUID%
+HKR,	,CardType,	0x00010001, 0x00000003
+HKR,	,BusType,	0x00010001, 0x00000005
+HKR,	,AdapterModel,		 0, %3CRWE777_AdapterModel%
+HKR,	,Provider,			 0, %3Com_Provider%	
+
+[3CRWE777A.ndi.NT.Services]
+AddService = NetWlan5, 2, NetWlan5.Service, NetWlan5.EventLog
+
+;-----------------------------------------------------------------------------
+; 802.11b PCI Cards (Windows 2k)
+;-----------------------------------------------------------------------------
+[WLANPCIG.ndi.NT]
+Characteristics = 0x84	; NCF_HAS_UI, NCF_PHYSICAL
+BusType         = 5		; PCI bus
+CopyFiles       = CopyFiles.driver
+AddReg          = AddReg.interfaces, AddReg.Params, WLANPCIG.AddReg
+
+[WLANPCIG.AddReg]
+;HKR, Ndi,Service,			 0, %WLANPCIG_DriverDesc%
+HKR,	,CLSGUID,			 0, %802_11b_GUID_PCI%
+HKR,	,CardType,	0x00010001, 0x00000003
+HKR,	,BusType,	0x00010001, 0x00000005
+HKR,	,AdapterModel,		 0, %WLANPCIG_AdapterModel%
+HKR,	,Provider,			 0, %802.11b_Provider%	
+
+[WLANPCIG.ndi.NT.Services]
+AddService = NetWlan5, 2, NetWlan5.Service, NetWlan5.EventLog
+
+;-------------------------------------------------------------------------------
+; DS Params
+;
+[AddReg.Params]
+HKR,	, PCCardPacketFilter,0x00010001, "0x0000000B"
+HKR, 	, NetType,                    0, "WLAN"
+HKR, Ndi, Service,                    0, "NetWlan5"
+HKR,	, SerialKey,	              0, %SERIALKEY%
+
+;-------------------------------------------------------------------------------
+; Wrapper 
+;
+[AddReg.interfaces]
+HKR, Ndi\Interfaces, UpperRange, 0, "ndis5"
+HKR, Ndi\Interfaces, LowerRange, 0, "ethernet"
+
+;-------------------------------------------------------------------------------
+; Service and Driver
+;
+[NetWlan5.Service]
+DisplayName    = %NetWlan5.ServiceDesc%
+ServiceType    = 1
+StartType      = 3
+ErrorControl   = 1
+ServiceBinary  = %12%\NetWlan5.sys
+LoadOrderGroup = NDIS
+
+[NetWlan5.Eventlog]
+Addreg = NetWlan5.Eventlog.reg
+
+[NetWlan5.Eventlog.reg]
+HKR, , EventMessageFile, 0x00020000, "%%SystemRoot%%\System32\netevent.dll;%%SystemRoot%%\System32\Drivers\NetWlan5.sys"
+HKR, , TypesSupported,   0x00010001, 7
+
+[CopyFiles.driver]
+NetWlan5.img,,,2
+NetWlan5.sys,,,2
+;-----------------------------------------------------------------------------
+; End Windows Win2k/XP
+;-----------------------------------------------------------------------------
+
+;-----------------------------------------------------------------------------
+[DestinationDirs]
+CopyFiles.driver		= 12		; LDID for System[32]\Drivers directory
+
+;-----------------------------------------------------------------------------
+[SourceDisksNames]
+1=%SOURCEDISK1%,,
+
+;-----------------------------------------------------------------------------
+[SourceDisksFiles]
+NetWlan5.inf	=1
+NetWlan5.sys	=1
+NetWlan5.img 	=1
+
+;-------------------------------------------------------------------------------
+; Localizable Strings
+;
+[Strings]
+WLAN					= "WirelessLAN"
+SYMBOL_DS11_GUID		= "{0501BD06-A25B-11d3-AD24-00A0F8FFFF62}"
+SYMBOL_DS11_T3_GUID		= "{62C2CE08-E442-4839-97BA-77455AC358A8}"
+INTEL_GUID				= "{5EACEC4F-FF3E-4d84-8360-59C79D0F96F8}"
+INTEL_GUID_T3			= "{66C09AB2-AF62-4cdf-9A6D-1FEE5B5F831B}"
+ERICSSON_GUID			= "{63404C6E-632E-4111-97E4-B7FDADA46903}"
+ERICSSON_GUID_T3		= "{582D5ABA-7AE2-4fe5-8CA8-80F5749A2515}"
+NORTEL_GUID				= "{4d36e972-e325-11ce-bfc1-08002be10318}"
+NORTEL_GUID_T3			= "{59F239FD-0FE3-43d0-8D27-79D079DDCB24}"
+3COM_GUID				= "{0501BD07-A25B-11d3-AD24-00A0F8FFFF62}"
+3COM_GUID_T3			= "{D5FAAE6D-D228-43d4-920B-8D64F6B9EF29}"
+802_11b_GUID_3V			= "{C8DDFA81-F846-4b0e-A37A-A69D0EA8E9B3}"
+802_11b_GUID_5V			= "{6545B0E0-3364-4e9f-A31B-D3CC34DE6D14}"
+802_11b_GUID_PCI		= "{27670F71-FB27-488f-BF4E-BDB7A828BDC8}"
+;DLINK_GUID				= "{0C405040-AB52-4577-95C3-65BC86B41363}"
+
+SERIALKEY				= "1D43A0FCC39881E57B8030D6A6B33FE51A301717BB0BEF105B43F09C9769487C09995821D3FE16C428124E"
+
+; Supported Devices
+SLA4100.DeviceDesc		= "Symbol Spectrum24 LA-4100 Series Wireless LAN PC Card"
+SLA4111.DeviceDesc		= "Symbol LA-41x1 Spectrum24 Wireless LAN PC Card"
+SLA4113.DeviceDesc		= "Symbol LA-41x3 Spectrum24 Wireless LAN PCI Card"
+Wla11PC3.DeviceDesc		= "Intel(R) PRO/Wireless LAN PC Card"
+Wla11PCC.DeviceDesc		= "Intel(R) PRO/Wireless 2011 LAN PC Card"
+Wla11PCI.DeviceDesc		= "Intel(R) PRO/Wireless 2011 LAN PCI Card"
+WLANPC3.DeviceDesc		= "Ericsson DSSS Wireless LAN PC Card"
+WLANPCC.DeviceDesc		= "Ericsson DSSS Wireless LAN PC Card"
+WLANPCI.DeviceDesc		= "Ericsson DSSS Wireless LAN PCI Card"
+NnxndisPC3.DeviceDesc	= "Nortel Networks e-mobility 802.11b WLAN PC Card"
+NnxndisPCC.DeviceDesc	= "Nortel Networks e-mobility 802.11b Wireless LAN PC Card"
+NnxndisPCI.DeviceDesc	= "Nortel Networks e-mobility 802.11b Wireless LAN PCI Card"
+3CRWE7373.DeviceDesc	= "3Com 3CRWE737A AirConnect Wireless LAN PC Card"
+3CRWE737A.DeviceDesc	= "3Com 3CRWE737A AirConnect Wireless LAN PC Card"
+3CRWE777A.DeviceDesc	= "3Com 3CRWE777A AirConnect Wireless LAN PCI Card"
+WLANPC3V.DeviceDesc		= "802.11b Wireless LAN 3V PC Card"
+WLANPC5V.DeviceDesc		= "802.11b Wireless LAN PC Card"
+WLANPCIG.DeviceDesc		= "802.11b Wireless LAN PCI Card"
+;DLINKPC.DeviceDesc		= "D-Link Wireless LAN PC Card"
+
+; Driver Description
+SLA4100_DriverDesc		= "Symbol Spectrum24 LA-4100 Series Wireless LAN PCMCIA Card Driver"
+SLA4111_DriverDesc		= "Symbol LA-41x1 Spectrum24 Wireless LAN PCMCIA Card Driver"
+SLA4113_DriverDesc		= "Symbol LA-41x3 Spectrum24 Wireless LAN PCI Card Driver"
+Wla11PC3_DriverDesc		= "Intel(R) PRO/Wireless LAN PC Card Driver"
+Wla11PCC_DriverDesc		= "Intel(R) PRO/Wireless 2011 LAN PC Card Driver"
+Wla11PCI_DriverDesc		= "Intel(R) PRO/Wireless 2011 LAN PCI Card Driver"
+WLANPCC_DriverDesc		= "Ericsson DSSS Wireless LAN PC Card Driver"
+WLANPCI_DriverDesc		= "Ericsson DSSS Wireless LAN PCI Card Driver"
+NnxndisPC3_DriverDesc	= "Nortel Networks e-mobility 802.11b WLAN PC Card Driver"
+NnxndisPCC_DriverDesc	= "Nortel Networks e-mobility 802.11b Wireless LAN PC Card Driver"
+NnxndisPCI_DriverDesc	= "Nortel Networks e-mobility 802.11b Wireless LAN PCI Card Driver"
+3CRWE737_DriverDesc 	= "3Com 3CRWE737A AirConnect Wireless LAN Driver"
+3CRWE777_DriverDesc 	= "3Com 3CRWE777A AirConnect Wireless LAN Driver"
+WLANPC_DriverDesc3V		= "802.11b Wireless LAN 3V PC Card Driver"
+WLANPC_DriverDesc		= "802.11b Wireless LAN PC Card Driver"
+WLANPCIG_DriverDesc		= "802.11b Wireless LAN PCI Card Driver"
+;DLINKPC_DriverDesc		= "D-Link Wireless LAN PC Card Driver"
+
+; Adapter Model
+SLA4100_AdapterModel	= "Spectrum24 LA4100 Series WLAN PC Card"
+SLA4111_AdapterModel	= "LA4111 Spectrum24 Wireless LAN PC Card"
+SLA4113_AdapterModel	= "LA4113 Spectrum24 Wireless LAN PCI Card"
+Wla11PC3_AdapterModel	= "PRO/Wireless LAN PC Card"
+Wla11PCC_AdapterModel	= "PRO/Wireless 2011 LAN PC Card"
+Wla11PCI_AdapterModel	= "PRO/Wireless 2011 LAN PCI Card"
+WLANPCC_AdapterModel	= "Ericsson DSSS Wireless LAN PC Card"
+WLANPCI_AdapterModel	= "Ericsson DSSS Wireless LAN PCI Card"
+NnxndisPC3_AdapterModel	= "emobility 802.11 WLAN PC Card"
+NnxndisPCC_AdapterModel	= "emobility 802.11 Wireless LAN PC Card"
+NnxndisPCI_AdapterModel	= "emobility 802.11 Wireless LAN PCI Card"
+3CRWE737_AdapterModel	= "3CRWE737A AirConnect Wireless LAN PC Card"
+3CRWE777_AdapterModel	= "3CRWE777A AirConnect Wireless LAN PCI Card"
+WLANPC_AdapterModel		= "Wireless LAN PC Card"
+WLANPCIG_AdapterModel	= "Wireless LAN PCI Card"
+;DLINKPC_AdapterModel	= "D-Link DWL-650H 11Mbps WLAN Adapter"
+
+Symbol_Provider			= "Symbol"
+Intel_Provider			= "Intel"
+Ericsson_Provider		= "Ericsson"
+Nortel_Provider			= "Nortel"
+3Com_Provider			= "3Com"
+802.11b_Provider		= "802.11b"
+;DLink_Provider			= "D-Link"
+
+
+NetWlan5.ServiceDesc	= "802.11b Wireless LAN Adapter Driver"
+SOURCEDISK1				= "802.11b Wireless LAN Adapter Installation Disk"
+
+
+
+

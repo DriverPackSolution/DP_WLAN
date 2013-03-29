@@ -1,0 +1,101 @@
+; Qualcomm Wireless Network Device
+; Copyright (C) 2011 Qualcomm Inc.  All rights reserved.
+
+[version]
+Signature   = "$Windows NT$"
+Class       = Net
+ClassGUID   = {4d36e972-e325-11ce-bfc1-08002be10318}
+Provider    = %QCOM%
+DriverVer   = 04/11/2011,3.0.2.5
+Catalogfile = qcusbnetlno2k.cat
+
+[ControlFlags]
+ExcludeFromSelect = *
+
+[SourceDisksNames]
+1000 = %QcomSrcDisk%,"",,
+
+[SourceDisksFiles]
+qcusbnetlno2k.sys = 1000
+
+[Manufacturer]
+%QCOM% = QCOM, NTamd64
+
+[QCOM]
+%qcwwan.DeviceDesc92050%    = qcwwan.ndi, USB\VID_05C6&PID_9205&MI_00
+%qcwwan.DeviceDesc92850%    = qcwwan.ndi, USB\VID_05C6&PID_9285&MI_00
+
+[QCOM.NTamd64]
+%qcwwan.DeviceDesc92050%    = qcwwan.ndi, USB\VID_05C6&PID_9205&MI_00
+%qcwwan.DeviceDesc92850%    = qcwwan.ndi, USB\VID_05C6&PID_9285&MI_00
+
+[qcwwan.ndi]
+Characteristics    = 0x4                      ; NCF_PHYSICAL
+BusType            = 15                       ; PNPBus
+*IfType            = 244                      ; IF_TYPE_WWANPP2 
+*MediaType         = 9                        ; NdisMediumWirelessWan 
+*PhysicalMediaType = 8                        ; NdisPhysicalMediumWirelessWan 
+EnableDhcp         = 0
+AddReg             = qcwwan.Reg
+CopyFiles          = qcwwan.CopyFiles
+
+[qcwwan.ndi.Services]
+AddService      = qcusbnetlno2k, 2, qcwwan.Service, qcwwan.EventLog
+
+;-----------------------------------------------------------------------------
+; Virtual Miniport Common
+[qcwwan.Reg]
+HKR,    ,                         BusNumber,           0, "0" 
+HKR, Ndi,                         Service,             0, "qcusbnetlno2k"
+
+;-----------------------------------------------------------------------------
+;Entries to be put in add-registry-section for NdisMediumWirelessWan 
+HKR, Ndi\Interfaces, UpperRange, 0, "flpp4"
+HKR, Ndi\Interfaces, LowerRange, 0, "ppip"
+
+;-----------------------------------------------------------------------------
+;Number of clients support
+HKR,    ,                         MPNumClients,           0x00010001, 48
+
+;-----------------------------------------------------------------------------
+;Model ID
+HKR,    ,                         MPModelId,              0x00000000, "Qualcomm Gobi 2000"
+
+[qcwwan.CopyFiles]
+qcusbnetlno2k.sys,,,2
+
+[qcwwan.Service]
+DisplayName     = %qcwwan.Service.DispName%
+ServiceType     = 1 ;%SERVICE_KERNEL_DRIVER%
+StartType       = 3 ;%SERVICE_DEMAND_START%
+ErrorControl    = 1 ;%SERVICE_ERROR_NORMAL%
+ServiceBinary   = %12%\qcusbnetlno2k.sys
+LoadOrderGroup  = NDIS
+AddReg          = TextModeFlags.Reg
+
+[qcwwan.EventLog]
+AddReg = qcwwan.AddEventLog.Reg
+
+[qcwwan.AddEventLog.Reg]
+HKR, , EventMessageFile, 0x00020000, "%%SystemRoot%%\System32\netevent.dll"
+HKR, , TypesSupported,   0x00010001, 7
+
+[TextModeFlags.Reg]
+HKR, , TextModeFlags,    0x00010001, 0x0001
+
+[SourceDisksNames]
+1 = %DiskId1%,,,""
+
+[SourceDisksFiles]
+qcusbnetlno2k.sys  = 1,,
+
+[DestinationDirs]
+qcwwan.CopyFiles = 12
+
+[Strings]
+QcomSrcDisk             = "Qualcomm USB Driver Disk"
+QCOM                    = "Qualcomm Incorporated" 
+qcwwan.DeviceDesc92050  = "Qualcomm Gobi 2000 HS-USB Mobile Broadband Device 9205"
+qcwwan.DeviceDesc92850  = "Qualcomm Gobi 2000 HS-USB Mobile Broadband Device 9285"
+qcwwan.Service.DispName = "Gobi 2000 USB-NDIS miniport(05C6-9205)"
+DiskId1                 = "Qualcomm USB-NDIS Miniport Device Installation Disk #1"

@@ -1,0 +1,1206 @@
+;/*++
+;
+;Copyright (c) 2001-2004 Atheros Communications, Incorporated All Rights Reserved
+;
+;Module Name:
+;
+;    net5211.inf
+;
+;Abstract:
+;    INF file for installing Atheros AR5001 Wireless Network Adapter
+;
+;    Installs ar5211.sys (NDIS 5/5.1 driver) on NT platforms (2000, XP and greater)
+;    Installs ar52119x.sys (NDIS 5 driver) on 9x platforms
+;
+;--*/
+
+[Version]
+Signature   = "$CHICAGO$"
+Class       = Net
+ClassGUID   = {4d36e972-e325-11ce-bfc1-08002be10318}
+Provider    = %ATHEROS%
+Compatible  = 1
+DriverVer   = 11/15/2006,5.1.1.9
+Catalogfile.nt = net5211.cat
+;Catalogfile = net5211.cat
+
+[Manufacturer]
+%ATHEROS%     = Atheros
+
+[ControlFlags]
+ExcludeFromSelect = \  ;for win95 and legacy support
+  PCI\VEN_168C&DEV_0013
+
+[Atheros]
+; DisplayName               Section                 DeviceID
+; -----------               -------                 --------
+; Generic
+%ATHER.DeviceDesc.0012%  = ATHER_DEV_0012.ndi,    PCI\VEN_168C&DEV_0012
+%ATHER.DeviceDesc.0013%  = ATHER_DEV_0013.ndi,    PCI\VEN_168C&DEV_0013
+%ATHER.DeviceDesc.0013%  = ATHER_DEV_0013.ndi,    PCI\VEN_168C&DEV_0014
+%ATHER.DeviceDesc.0013%  = ATHER_DEV_0013.ndi,    PCI\VEN_168C&DEV_0015
+%ATHER.DeviceDesc.0013%  = ATHER_DEV_0013.ndi,    PCI\VEN_168C&DEV_0016
+%ATHER.DeviceDesc.0013%  = ATHER_DEV_0013.ndi,    PCI\VEN_168C&DEV_0017
+%ATHER.DeviceDesc.0013%  = ATHER_DEV_0013.ndi,    PCI\VEN_168C&DEV_0018
+%ATHER.DeviceDesc.0013%  = ATHER_DEV_0013.ndi,    PCI\VEN_168C&DEV_0019
+%ATHER.DeviceDesc.001A%  = ATHER_DEV_001A.ndi,    PCI\VEN_168C&DEV_001A
+%ATHER.DeviceDesc.001B%  = ATHER_DEV_001B.ndi,    PCI\VEN_168C&DEV_001B
+%ATHER.DeviceDesc.001B%  = ATHER_DEV_001B.ndi,    PCI\VEN_168C&DEV_001C
+%ATHER.DeviceDesc.001B%  = ATHER_DEV_001B.ndi,    PCI\VEN_168C&DEV_FF19
+
+; Atheros
+%ATHER.DeviceDesc.1021%  = ATHER_DEV_1021.ndi,    PCI\VEN_168C&DEV_0012&SUBSYS_1021168C
+%ATHER.DeviceDesc.2021%  = ATHER_DEV_2021.ndi,    PCI\VEN_168C&DEV_0012&SUBSYS_2021168C
+%ATHER.DeviceDesc.1022%  = ATHER_DEV_1022.ndi,    PCI\VEN_168C&DEV_0012&SUBSYS_1022168C
+%ATHER.DeviceDesc.2022%  = ATHER_DEV_2022.ndi,    PCI\VEN_168C&DEV_0012&SUBSYS_2022168C
+%ATHER.DeviceDesc.1025%  = ATHER_DEV_1025.ndi,    PCI\VEN_168C&DEV_0013&SUBSYS_1025168C
+%ATHER.DeviceDesc.2025%  = ATHER_DEV_2025.ndi,    PCI\VEN_168C&DEV_0013&SUBSYS_2025168C
+%ATHER.DeviceDesc.1026%  = ATHER_DEV_1026.ndi,    PCI\VEN_168C&DEV_0013&SUBSYS_1026168C
+%ATHER.DeviceDesc.2026%  = ATHER_DEV_2026.ndi,    PCI\VEN_168C&DEV_0013&SUBSYS_2026168C
+%ATHER.DeviceDesc.1027%  = ATHER_DEV_1027.ndi,    PCI\VEN_168C&DEV_0013&SUBSYS_1027168C
+%ATHER.DeviceDesc.2027%  = ATHER_DEV_2027.ndi,    PCI\VEN_168C&DEV_0013&SUBSYS_2027168C
+%ATHER.DeviceDesc.1030%  = ATHER_DEV_1030.ndi,    PCI\VEN_168C&DEV_0013&SUBSYS_1030168C
+%ATHER.DeviceDesc.2030%  = ATHER_DEV_2030.ndi,    PCI\VEN_168C&DEV_0013&SUBSYS_2030168C
+%ATHER.DeviceDesc.1031%  = ATHER_DEV_1031.ndi,    PCI\VEN_168C&DEV_0013&SUBSYS_1031168C
+%ATHER.DeviceDesc.2031%  = ATHER_DEV_2031.ndi,    PCI\VEN_168C&DEV_0013&SUBSYS_2031168C
+%ATHER.DeviceDesc.1041%  = ATHER_DEV_1041.ndi,    PCI\VEN_168C&DEV_0013&SUBSYS_1041168C
+%ATHER.DeviceDesc.2041%  = ATHER_DEV_2041.ndi,    PCI\VEN_168C&DEV_0013&SUBSYS_2041168C
+%ATHER.DeviceDesc.1042%  = ATHER_DEV_1042.ndi,    PCI\VEN_168C&DEV_0013&SUBSYS_1042168C
+%ATHER.DeviceDesc.2042%  = ATHER_DEV_2042.ndi,    PCI\VEN_168C&DEV_0013&SUBSYS_2042168C
+%ATHER.DeviceDesc.1051%  = ATHER_DEV_1051.ndi,    PCI\VEN_168C&DEV_0013&SUBSYS_1051168C
+%ATHER.DeviceDesc.2051%  = ATHER_DEV_2051.ndi,    PCI\VEN_168C&DEV_0013&SUBSYS_2051168C
+%ATHER.DeviceDesc.001A%  = ATHER_DEV_1052.ndi,    PCI\VEN_168C&DEV_001A&SUBSYS_1052168C
+%ATHER.DeviceDesc.001A%  = ATHER_DEV_2052.ndi,    PCI\VEN_168C&DEV_001A&SUBSYS_2052168C
+%ATHER.DeviceDesc.1053%  = ATHER_DEV_1053.ndi,    PCI\VEN_168C&DEV_0013&SUBSYS_1053168C
+%ATHER.DeviceDesc.2053%  = ATHER_DEV_2053.ndi,    PCI\VEN_168C&DEV_0013&SUBSYS_2053168C
+%ATHER.DeviceDesc.001A%  = ATHER_DEV_1054.ndi,    PCI\VEN_168C&DEV_001A&SUBSYS_1054168C
+%ATHER.DeviceDesc.001A%  = ATHER_DEV_2054.ndi,    PCI\VEN_168C&DEV_001A&SUBSYS_2054168C
+%ATHER.DeviceDesc.1062%  = ATHER_DEV_1062.ndi,    PCI\VEN_168C&DEV_001B&SUBSYS_1062168C
+%ATHER.DeviceDesc.2062%  = ATHER_DEV_2062.ndi,    PCI\VEN_168C&DEV_001B&SUBSYS_2062168C
+%ATHER.DeviceDesc.001B%  = ATHER_DEV_1063.ndi,    PCI\VEN_168C&DEV_001B&SUBSYS_1063168C
+%ATHER.DeviceDesc.001B%  = ATHER_DEV_2063.ndi,    PCI\VEN_168C&DEV_001B&SUBSYS_2063168C
+%ATHER.DeviceDesc.3062%  = ATHER_DEV_2062.ndi,    PCI\VEN_168C&DEV_001C&SUBSYS_3062168c
+%ATHER.DeviceDesc.3063%  = ATHER_DEV_2063.ndi,    PCI\VEN_168C&DEV_001C&SUBSYS_3063168c
+%ATHER.DeviceDesc.3061%  = ATHER_DEV_2051.ndi,    PCI\VEN_168C&DEV_001C&SUBSYS_3061168c
+%ATHER.DeviceDesc.3065%  = ATHER_DEV_2052.ndi,    PCI\VEN_168C&DEV_001C&SUBSYS_3065168c
+%ATHER.DeviceDesc.2061%  = ATHER_DEV_2051.ndi,    PCI\VEN_168C&DEV_001B&SUBSYS_2061168c
+%ATHER.DeviceDesc.1061%  = ATHER_DEV_1051.ndi,    PCI\VEN_168C&DEV_001B&SUBSYS_1061168c
+%ATHER.DeviceDesc.2065%  = ATHER_DEV_2052.ndi,    PCI\VEN_168C&DEV_001B&SUBSYS_2065168c
+%ATHER.DeviceDesc.1065%  = ATHER_DEV_1052.ndi,    PCI\VEN_168C&DEV_001B&SUBSYS_1065168c
+
+; Other
+%ATHER.DeviceDesc.2022%  = ATHER_DEV_2022.ndi,    PCI\VEN_168C&DEV_0012&SUBSYS_7005144F
+%ATHER.DeviceDesc.2026%  = ATHER_DEV_0013.ndi,    PCI\VEN_168C&DEV_0013&SUBSYS_7005144F
+%ATHER.DeviceDesc.2026%  = ATHER_DEV_0013.ndi,    PCI\VEN_168C&DEV_0013&SUBSYS_7057144F
+%ATHER.DeviceDesc.2026%  = ATHER_DEV_0013.ndi,    PCI\VEN_168C&DEV_0013&SUBSYS_7058144F
+%ATHER.DeviceDesc.2041%  = ATHER_DEV_2041.ndi,    PCI\VEN_168C&DEV_0013&SUBSYS_7064144F
+%ATHER.DeviceDesc.2042%  = ATHER_DEV_2042.ndi,    PCI\VEN_168C&DEV_0013&SUBSYS_7065144F
+%ATHER.DeviceDesc.2051%  = ATHER_DEV_2051.ndi,    PCI\VEN_168C&DEV_0013&SUBSYS_7084144F
+%ATHER.DeviceDesc.2051%  = ATHER_DEV_2051.ndi,    PCI\VEN_168C&DEV_0013&SUBSYS_7088144F
+%ATHER.DeviceDesc.2062%  = ATHER_DEV_2062.ndi,    PCI\VEN_168C&DEV_001B&SUBSYS_7092144F
+%ATHER.DeviceDesc.001A%  = ATHER_DEV_2054.ndi,    PCI\VEN_168C&DEV_001A&SUBSYS_7094144F
+%ATHER.DeviceDesc.2042%  = ATHER_DEV_2042.ndi,    PCI\VEN_168C&DEV_0013&SUBSYS_7005168C
+%ATHER.DeviceDesc.3063%  = ATHER_DEV_2063.ndi,    PCI\VEN_168C&DEV_001C&SUBSYS_7096144F
+%ATHER.DeviceDesc.3065%  = ATHER_DEV_2052.ndi,    PCI\VEN_168C&DEV_001C&SUBSYS_7106144F
+%ATHER.DeviceDesc.0013%  = ATHER_DEV_0013.ndi,    PCI\VEN_168C&DEV_0013&SUBSYS_123410CF
+%ATHER.DeviceDesc.0013%  = ATHER_DEV_0013.ndi,    PCI\VEN_168C&DEV_0013&SUBSYS_123510CF
+%ATHER.DeviceDesc.001B%  = ATHER_DEV_001B.ndi,    PCI\VEN_168C&DEV_001B&SUBSYS_132910CF
+%ATHER.DeviceDesc.3062%  = ATHER_DEV_2062.ndi,    PCI\VEN_168C&DEV_001C&SUBSYS_139C10CF
+%ATHER.DeviceDesc.0055%  = ATHER_DEV_0013.ndi,    PCI\VEN_168C&DEV_0013&SUBSYS_123610CF
+%ATHER.DeviceDesc.0055%  = ATHER_DEV_001B.ndi,    PCI\VEN_168C&DEV_001B&SUBSYS_134f10CF
+%ATHER.DeviceDesc.3062%  = ATHER_DEV_04221468.ndi,    PCI\VEN_168C&DEV_001C&SUBSYS_04221468  
+%ATHER.DeviceDesc.001A%  = ATHER_DEV_04171468.ndi,    PCI\VEN_168C&DEV_0013&SUBSYS_04171468   
+%ATHER.DeviceDesc.001A%  = ATHER_DEV_04181468.ndi,    PCI\VEN_168C&DEV_001A&SUBSYS_04181468   
+%ATHER.DeviceDesc.001A%  = ATHER_DEV_04201468.ndi,    PCI\VEN_168C&DEV_001A&SUBSYS_04201468   
+%ATHER.DeviceDesc.3067%  = ATHER_DEV_04281468.ndi,    PCI\VEN_168C&DEV_001C&SUBSYS_04281468   
+
+; Windows 9X specific entries
+[ATHER_DEV_0012.ndi]
+AddReg          = ATHER_DEV_0012.id.reg, 5211.reg, oahu.reg, ATHER.win.reg, 5211.acb.reg
+CopyFiles       = ATHER.win.CopyFiles, DEFAULTDESTDIRS
+DelFiles        = ATHER.DelIniFiles
+DelReg          = 5211.DelReg
+
+[ATHER_DEV_0013.ndi]
+AddReg          = ATHER_DEV_0013.id.reg, 5211.reg, ATHER.win.reg, 5212.abgcb.reg
+CopyFiles       = ATHER.win.CopyFiles, DEFAULTDESTDIRS
+DelFiles        = ATHER.DelIniFiles
+DelReg          = 5211.DelReg
+
+[ATHER_DEV_001A.ndi]
+AddReg          = ATHER_DEV_001A.id.reg, 5211.reg, ATHER.win.reg, 5212.bgcb.reg
+CopyFiles       = ATHER.win.CopyFiles, DEFAULTDESTDIRS
+DelFiles        = ATHER.DelIniFiles
+DelReg          = 5211.DelReg
+
+[ATHER_DEV_1021.ndi]
+AddReg          = ATHER_DEV_1021.id.reg, 5211.reg, oahu.reg, ATHER.win.reg, 5211.acb.reg
+CopyFiles       = ATHER.win.CopyFiles, DEFAULTDESTDIRS
+DelFiles        = ATHER.DelIniFiles
+DelReg          = 5211.DelReg
+
+[ATHER_DEV_2021.ndi]
+AddReg          = ATHER_DEV_2021.id.reg, 5211.reg, oahu.reg, ATHER.win.reg, 5211.amp.reg
+CopyFiles       = ATHER.win.CopyFiles, DEFAULTDESTDIRS
+DelFiles        = ATHER.DelIniFiles
+DelReg          = 5211.DelReg
+
+[ATHER_DEV_1022.ndi]
+AddReg          = ATHER_DEV_1022.id.reg, 5211.reg, oahu.reg, ATHER.win.reg, 5211.abcb.reg
+CopyFiles       = ATHER.win.CopyFiles, DEFAULTDESTDIRS
+DelFiles        = ATHER.DelIniFiles
+DelReg          = 5211.DelReg
+
+[ATHER_DEV_2022.ndi]
+AddReg          = ATHER_DEV_2022.id.reg, 5211.reg, oahu.reg, ATHER.win.reg, 5211.abmp.reg
+CopyFiles       = ATHER.win.CopyFiles, DEFAULTDESTDIRS
+DelFiles        = ATHER.DelIniFiles
+DelReg          = 5211.DelReg
+
+[ATHER_DEV_001B.ndi]
+AddReg          = ATHER_DEV_001B.id.reg, 5211.reg, ATHER.win.reg, 5212.abgcb.reg
+CopyFiles       = ATHER.win.CopyFiles, DEFAULTDESTDIRS
+DelFiles        = ATHER.DelIniFiles
+DelReg          = 5211.DelReg
+
+[ATHER_DEV_1025.ndi]
+AddReg          = ATHER_DEV_1025.id.reg, 5211.reg, ATHER.win.reg, 5212.bgcb.reg
+CopyFiles       = ATHER.win.CopyFiles, DEFAULTDESTDIRS
+DelFiles        = ATHER.DelIniFiles
+DelReg          = 5211.DelReg
+
+[ATHER_DEV_2025.ndi]
+AddReg          = ATHER_DEV_2025.id.reg, 5211.reg, ATHER.win.reg, 5212.bgmp.reg
+CopyFiles       = ATHER.win.CopyFiles, DEFAULTDESTDIRS
+DelFiles        = ATHER.DelIniFiles
+DelReg          = 5211.DelReg
+
+[ATHER_DEV_1026.ndi]
+AddReg          = ATHER_DEV_1026.id.reg, 5211.reg, ATHER.win.reg, 5212.abgcb.reg
+CopyFiles       = ATHER.win.CopyFiles, DEFAULTDESTDIRS
+DelFiles        = ATHER.DelIniFiles
+DelReg          = 5211.DelReg
+
+[ATHER_DEV_2026.ndi]
+AddReg          = ATHER_DEV_2026.id.reg, 5211.reg, ATHER.win.reg, 5212.abgmp.reg
+CopyFiles       = ATHER.win.CopyFiles, DEFAULTDESTDIRS
+DelFiles        = ATHER.DelIniFiles
+DelReg          = 5211.DelReg
+
+[ATHER_DEV_1027.ndi]
+AddReg          = ATHER_DEV_1027.id.reg, 5211.reg, ATHER.win.reg, 5212.bgcb.reg
+CopyFiles       = ATHER.win.CopyFiles, DEFAULTDESTDIRS
+DelFiles        = ATHER.DelIniFiles
+DelReg          = 5211.DelReg
+
+[ATHER_DEV_2027.ndi]
+AddReg          = ATHER_DEV_2027.id.reg, 5211.reg, ATHER.win.reg, 5212.bgmp.reg
+CopyFiles       = ATHER.win.CopyFiles, DEFAULTDESTDIRS
+DelFiles        = ATHER.DelIniFiles
+DelReg          = 5211.DelReg
+
+[ATHER_DEV_1030.ndi]
+AddReg          = ATHER_DEV_1030.id.reg, 5211.reg, ATHER.win.reg, 5212.bgcb.reg
+CopyFiles       = ATHER.win.CopyFiles, DEFAULTDESTDIRS
+DelFiles        = ATHER.DelIniFiles
+DelReg          = 5211.DelReg
+
+[ATHER_DEV_2030.ndi]
+AddReg          = ATHER_DEV_2030.id.reg, 5211.reg, ATHER.win.reg, 5212.bgmp.reg
+CopyFiles       = ATHER.win.CopyFiles, DEFAULTDESTDIRS
+DelFiles        = ATHER.DelIniFiles
+DelReg          = 5211.DelReg
+
+[ATHER_DEV_1031.ndi]
+AddReg          = ATHER_DEV_1031.id.reg, 5211.reg, ATHER.win.reg, 5212.abgcb.reg
+CopyFiles       = ATHER.win.CopyFiles, DEFAULTDESTDIRS
+DelFiles        = ATHER.DelIniFiles
+DelReg          = 5211.DelReg
+
+[ATHER_DEV_2031.ndi]
+AddReg          = ATHER_DEV_2031.id.reg, 5211.reg, ATHER.win.reg, 5212.abgmp.reg
+CopyFiles       = ATHER.win.CopyFiles, DEFAULTDESTDIRS
+DelFiles        = ATHER.DelIniFiles
+DelReg          = 5211.DelReg
+
+[ATHER_DEV_1041.ndi]
+AddReg          = ATHER_DEV_1041.id.reg, 5211.reg, ATHER.win.reg, 5212.bgcb.reg
+CopyFiles       = ATHER.win.CopyFiles, DEFAULTDESTDIRS
+DelFiles        = ATHER.DelIniFiles
+DelReg          = 5211.DelReg
+
+[ATHER_DEV_2041.ndi]
+AddReg          = ATHER_DEV_2041.id.reg, 5211.reg, ATHER.win.reg, 5212.bgmp.reg
+CopyFiles       = ATHER.win.CopyFiles, DEFAULTDESTDIRS
+DelFiles        = ATHER.DelIniFiles
+DelReg          = 5211.DelReg
+
+[ATHER_DEV_1042.ndi]
+AddReg          = ATHER_DEV_1042.id.reg, 5211.reg, ATHER.win.reg, 5212.abgcb.reg
+CopyFiles       = ATHER.win.CopyFiles, DEFAULTDESTDIRS
+DelFiles        = ATHER.DelIniFiles
+DelReg          = 5211.DelReg
+
+[ATHER_DEV_2042.ndi]
+AddReg          = ATHER_DEV_2042.id.reg, 5211.reg, ATHER.win.reg, 5212.abgmp.reg
+CopyFiles       = ATHER.win.CopyFiles, DEFAULTDESTDIRS
+DelFiles        = ATHER.DelIniFiles
+DelReg          = 5211.DelReg
+
+[ATHER_DEV_1051.ndi]
+AddReg          = ATHER_DEV_1051.id.reg, 5211.reg, ATHER.win.reg, 5212.bgcb.reg
+CopyFiles       = ATHER.win.CopyFiles, DEFAULTDESTDIRS
+DelFiles        = ATHER.DelIniFiles
+DelReg          = 5211.DelReg
+
+[ATHER_DEV_1052.ndi]
+AddReg          = ATHER_DEV_1052.id.reg, 5211.reg, ATHER.win.reg, 5212.bgcb.reg
+CopyFiles       = ATHER.win.CopyFiles, DEFAULTDESTDIRS
+DelFiles        = ATHER.DelIniFiles
+DelReg          = 5211.DelReg
+
+[ATHER_DEV_1053.ndi]
+AddReg          = ATHER_DEV_1053.id.reg, 5211.reg, ATHER.win.reg, 5212.bgcb.reg
+CopyFiles       = ATHER.win.CopyFiles, DEFAULTDESTDIRS
+DelFiles        = ATHER.DelIniFiles
+DelReg          = 5211.DelReg
+
+[ATHER_DEV_1054.ndi]
+AddReg          = ATHER_DEV_1054.id.reg, 5211.reg, ATHER.win.reg, 5212.bgcb.reg
+CopyFiles       = ATHER.win.CopyFiles, DEFAULTDESTDIRS
+DelFiles        = ATHER.DelIniFiles
+DelReg          = 5211.DelReg
+
+[ATHER_DEV_2051.ndi]
+AddReg          = ATHER_DEV_2051.id.reg, 5211.reg, ATHER.win.reg, 5212.bgmp.reg
+CopyFiles       = ATHER.win.CopyFiles, DEFAULTDESTDIRS
+DelFiles        = ATHER.DelIniFiles
+DelReg          = 5211.DelReg
+
+[ATHER_DEV_2052.ndi]
+AddReg          = ATHER_DEV_2052.id.reg, 5211.reg, ATHER.win.reg, 5212.bgmp.reg
+CopyFiles       = ATHER.win.CopyFiles, DEFAULTDESTDIRS
+DelFiles        = ATHER.DelIniFiles
+DelReg          = 5211.DelReg
+
+[ATHER_DEV_2053.ndi]
+AddReg          = ATHER_DEV_2053.id.reg, 5211.reg, ATHER.win.reg, 5212.bgmp.reg
+CopyFiles       = ATHER.win.CopyFiles, DEFAULTDESTDIRS
+DelFiles        = ATHER.DelIniFiles
+DelReg          = 5211.DelReg
+
+[ATHER_DEV_2054.ndi]
+AddReg          = ATHER_DEV_2054.id.reg, 5211.reg, ATHER.win.reg, 5212.bgmp.reg
+CopyFiles       = ATHER.win.CopyFiles, DEFAULTDESTDIRS
+DelFiles        = ATHER.DelIniFiles
+DelReg          = 5211.DelReg
+
+[ATHER_DEV_1062.ndi]
+AddReg          = ATHER_DEV_1062.id.reg, 5211.reg, ATHER.win.reg, 5212.abgcb.reg
+CopyFiles       = ATHER.win.CopyFiles, DEFAULTDESTDIRS
+DelFiles        = ATHER.DelIniFiles
+DelReg          = 5211.DelReg
+
+[ATHER_DEV_1063.ndi]
+AddReg          = ATHER_DEV_1063.id.reg, 5211.reg, ATHER.win.reg, 5212.abgcb.reg
+CopyFiles       = ATHER.win.CopyFiles, DEFAULTDESTDIRS
+DelFiles        = ATHER.DelIniFiles
+DelReg          = 5211.DelReg
+
+[ATHER_DEV_2062.ndi]
+AddReg          = ATHER_DEV_2062.id.reg, 5211.reg, ATHER.win.reg, 5212.abgmp.reg
+CopyFiles       = ATHER.win.CopyFiles, DEFAULTDESTDIRS
+DelFiles        = ATHER.DelIniFiles
+DelReg          = 5211.DelReg
+
+[ATHER_DEV_04221468.ndi]   
+AddReg          = ATHER_DEV_04221468.id.reg, 5211.reg, ATHER.win.reg, 5212.abgmp.reg, customer3.reg
+CopyFiles       = ATHER.win.CopyFiles, DEFAULTDESTDIRS
+DelFiles        = ATHER.DelIniFiles
+DelReg          = 5211.DelReg
+
+[ATHER_DEV_04171468.ndi]
+AddReg          = ATHER_DEV_04171468.id.reg, 5211.reg, ATHER.win.reg, 5212.bgmp.reg, customer3.reg
+CopyFiles       = ATHER.win.CopyFiles, DEFAULTDESTDIRS
+DelFiles        = ATHER.DelIniFiles
+DelReg          = 5211.DelReg
+
+
+[ATHER_DEV_04181468.ndi]
+AddReg          = ATHER_DEV_04181468.id.reg, 5211.reg, ATHER.win.reg, 5212.bgmp.reg, customer3.reg
+CopyFiles       = ATHER.win.CopyFiles, DEFAULTDESTDIRS
+DelFiles        = ATHER.DelIniFiles
+DelReg          = 5211.DelReg
+
+[ATHER_DEV_04201468.ndi]
+AddReg          = ATHER_DEV_04201468.id.reg, 5211.reg, ATHER.win.reg, 5212.bgmp.reg, customer3.reg
+CopyFiles       = ATHER.win.CopyFiles, DEFAULTDESTDIRS
+DelFiles        = ATHER.DelIniFiles
+DelReg          = 5211.DelReg
+
+[ATHER_DEV_04281468.ndi]
+AddReg          = ATHER_DEV_04221468.id.reg, 5211.reg, ATHER.win.reg, 5212.abgmp.reg, customer3a.reg
+CopyFiles       = ATHER.win.CopyFiles, DEFAULTDESTDIRS
+DelFiles        = ATHER.DelIniFiles
+DelReg          = 5211.DelReg
+
+[ATHER_DEV_2063.ndi]
+AddReg          = ATHER_DEV_2063.id.reg, 5211.reg, ATHER.win.reg, 5212.abgmp.reg
+CopyFiles       = ATHER.win.CopyFiles, DEFAULTDESTDIRS
+DelFiles        = ATHER.DelIniFiles
+DelReg          = 5211.DelReg
+
+; Windows NT specific entries
+
+[ATHER_DEV_0012.ndi.NT]
+Characteristics = 0x84 ; NCF_PHYSICAL | NCF_HAS_UI
+BusType         = 5
+DelReg          = 5211.DelReg
+AddReg          = 5211.reg, oahu.reg, ATHER.reg, 5211.reg, 5211.acb.reg
+CopyFiles       = ATHER.CopyFiles.nt, DEFAULTDESTDIRS
+DelFiles        = ATHER.DelIniFiles
+
+[ATHER_DEV_0013.ndi.NT]
+Characteristics = 0x84 ; NCF_PHYSICAL | NCF_HAS_UI
+BusType         = 5
+DelReg          = 5211.DelReg
+AddReg          = 5211.reg, ATHER.reg, 5211.reg, 5212.abgcb.reg
+CopyFiles       = ATHER.CopyFiles.nt, DEFAULTDESTDIRS
+DelFiles        = ATHER.DelIniFiles
+
+[ATHER_DEV_001A.ndi.NT]
+Characteristics = 0x84 ; NCF_PHYSICAL | NCF_HAS_UI
+BusType         = 5
+DelReg          = 5211.DelReg
+AddReg          = 5211.reg, ATHER.reg, 5211.reg, 5212.bgcb.reg
+CopyFiles       = ATHER.CopyFiles.nt, DEFAULTDESTDIRS
+DelFiles        = ATHER.DelIniFiles
+
+[ATHER_DEV_1021.ndi.NT]
+Characteristics = 0x84 ; NCF_PHYSICAL | NCF_HAS_UI
+BusType         = 5
+DelReg          = 5211.DelReg
+AddReg          = 5211.reg, oahu.reg, ATHER.reg, 5211.reg, 5211.acb.reg
+CopyFiles       = ATHER.CopyFiles.nt, DEFAULTDESTDIRS
+DelFiles        = ATHER.DelIniFiles
+
+[ATHER_DEV_2021.ndi.NT]
+Characteristics = 0x84 ; NCF_PHYSICAL | NCF_HAS_UI
+BusType         = 5
+DelReg          = 5211.DelReg
+AddReg          = 5211.reg, oahu.reg, ATHER.reg, 5211.reg, 5211.amp.reg
+CopyFiles       = ATHER.CopyFiles.nt, DEFAULTDESTDIRS
+DelFiles        = ATHER.DelIniFiles
+
+[ATHER_DEV_1022.ndi.NT]
+Characteristics = 0x84 ; NCF_PHYSICAL | NCF_HAS_UI
+BusType         = 5
+DelReg          = 5211.DelReg
+AddReg          = 5211.reg, oahu.reg, ATHER.reg, 5211.reg, 5211.abcb.reg
+CopyFiles       = ATHER.CopyFiles.nt, DEFAULTDESTDIRS
+DelFiles        = ATHER.DelIniFiles
+
+[ATHER_DEV_2022.ndi.NT]
+Characteristics = 0x84 ; NCF_PHYSICAL | NCF_HAS_UI
+BusType         = 5
+DelReg          = 5211.DelReg
+AddReg          = 5211.reg, oahu.reg, ATHER.reg, 5211.reg, 5211.abmp.reg
+CopyFiles       = ATHER.CopyFiles.nt, DEFAULTDESTDIRS
+DelFiles        = ATHER.DelIniFiles
+
+[ATHER_DEV_001B.ndi.NT]
+Characteristics = 0x84 ; NCF_PHYSICAL | NCF_HAS_UI
+BusType         = 5
+DelReg          = 5211.DelReg
+AddReg          = 5211.reg, ATHER.reg, 5211.reg, 5212.abgcb.reg
+CopyFiles       = ATHER.CopyFiles.nt, DEFAULTDESTDIRS
+DelFiles        = ATHER.DelIniFiles
+
+
+[ATHER_DEV_1025.ndi.NT]
+Characteristics = 0x84 ; NCF_PHYSICAL | NCF_HAS_UI
+BusType         = 5
+DelReg          = 5211.DelReg
+AddReg          = 5211.reg, ATHER.reg, 5211.reg, 5212.bgcb.reg
+CopyFiles       = ATHER.CopyFiles.nt, DEFAULTDESTDIRS
+DelFiles        = ATHER.DelIniFiles
+
+[ATHER_DEV_2025.ndi.NT]
+Characteristics = 0x84 ; NCF_PHYSICAL | NCF_HAS_UI
+BusType         = 5
+DelReg          = 5211.DelReg
+AddReg          = 5211.reg, ATHER.reg, 5211.reg, 5212.bgmp.reg
+CopyFiles       = ATHER.CopyFiles.nt, DEFAULTDESTDIRS
+DelFiles        = ATHER.DelIniFiles
+
+[ATHER_DEV_1026.ndi.NT]
+Characteristics = 0x84 ; NCF_PHYSICAL | NCF_HAS_UI
+BusType         = 5
+DelReg          = 5211.DelReg
+AddReg          = 5211.reg, ATHER.reg, 5211.reg, 5212.abgcb.reg
+CopyFiles       = ATHER.CopyFiles.nt, DEFAULTDESTDIRS
+DelFiles        = ATHER.DelIniFiles
+
+[ATHER_DEV_2026.ndi.NT]
+Characteristics = 0x84 ; NCF_PHYSICAL | NCF_HAS_UI
+BusType         = 5
+DelReg          = 5211.DelReg
+AddReg          = 5211.reg, ATHER.reg, 5211.reg, 5212.abgmp.reg
+CopyFiles       = ATHER.CopyFiles.nt, DEFAULTDESTDIRS
+DelFiles        = ATHER.DelIniFiles
+
+[ATHER_DEV_1027.ndi.NT]
+Characteristics = 0x84 ; NCF_PHYSICAL | NCF_HAS_UI
+BusType         = 5
+DelReg          = 5211.DelReg
+AddReg          = 5211.reg, ATHER.reg, 5211.reg, 5212.bgcb.reg
+CopyFiles       = ATHER.CopyFiles.nt, DEFAULTDESTDIRS
+DelFiles        = ATHER.DelIniFiles
+
+[ATHER_DEV_2027.ndi.NT]
+Characteristics = 0x84 ; NCF_PHYSICAL | NCF_HAS_UI
+BusType         = 5
+DelReg          = 5211.DelReg
+AddReg          = 5211.reg, ATHER.reg, 5211.reg, 5212.bgmp.reg
+CopyFiles       = ATHER.CopyFiles.nt, DEFAULTDESTDIRS
+DelFiles        = ATHER.DelIniFiles
+
+[ATHER_DEV_1030.ndi.NT]
+Characteristics = 0x84 ; NCF_PHYSICAL | NCF_HAS_UI
+BusType         = 5
+DelReg          = 5211.DelReg
+AddReg          = 5211.reg, ATHER.reg, 5211.reg, 5212.bgcb.reg
+CopyFiles       = ATHER.CopyFiles.nt, DEFAULTDESTDIRS
+DelFiles        = ATHER.DelIniFiles
+
+[ATHER_DEV_2030.ndi.NT]
+Characteristics = 0x84 ; NCF_PHYSICAL | NCF_HAS_UI
+BusType         = 5
+DelReg          = 5211.DelReg
+AddReg          = 5211.reg, ATHER.reg, 5211.reg, 5212.bgmp.reg
+CopyFiles       = ATHER.CopyFiles.nt, DEFAULTDESTDIRS
+DelFiles        = ATHER.DelIniFiles
+
+[ATHER_DEV_1031.ndi.NT]
+Characteristics = 0x84 ; NCF_PHYSICAL | NCF_HAS_UI
+BusType         = 5
+DelReg          = 5211.DelReg
+AddReg          = 5211.reg, ATHER.reg, 5211.reg, 5212.abgcb.reg
+CopyFiles       = ATHER.CopyFiles.nt, DEFAULTDESTDIRS
+DelFiles        = ATHER.DelIniFiles
+
+[ATHER_DEV_2031.ndi.NT]
+Characteristics = 0x84 ; NCF_PHYSICAL | NCF_HAS_UI
+BusType         = 5
+DelReg          = 5211.DelReg
+AddReg          = 5211.reg, ATHER.reg, 5211.reg, 5212.abgmp.reg
+CopyFiles       = ATHER.CopyFiles.nt, DEFAULTDESTDIRS
+DelFiles        = ATHER.DelIniFiles
+
+[ATHER_DEV_1041.ndi.NT]
+Characteristics = 0x84 ; NCF_PHYSICAL | NCF_HAS_UI
+BusType         = 5
+DelReg          = 5211.DelReg
+AddReg          = 5211.reg, ATHER.reg, 5211.reg, 5212.bgcb.reg
+CopyFiles       = ATHER.CopyFiles.nt, DEFAULTDESTDIRS
+DelFiles        = ATHER.DelIniFiles
+
+[ATHER_DEV_2041.ndi.NT]
+Characteristics = 0x84 ; NCF_PHYSICAL | NCF_HAS_UI
+BusType         = 5
+DelReg          = 5211.DelReg
+AddReg          = 5211.reg, ATHER.reg, 5211.reg, 5212.bgmp.reg
+CopyFiles       = ATHER.CopyFiles.nt, DEFAULTDESTDIRS
+DelFiles        = ATHER.DelIniFiles
+
+[ATHER_DEV_1051.ndi.NT]
+Characteristics = 0x84 ; NCF_PHYSICAL | NCF_HAS_UI
+BusType         = 5
+DelReg          = 5211.DelReg
+AddReg          = 5211.reg, ATHER.reg, 5211.reg, 5212.bgcb.reg
+CopyFiles       = ATHER.CopyFiles.nt, DEFAULTDESTDIRS
+DelFiles        = ATHER.DelIniFiles
+
+[ATHER_DEV_2051.ndi.NT]
+Characteristics = 0x84 ; NCF_PHYSICAL | NCF_HAS_UI
+BusType         = 5
+DelReg          = 5211.DelReg
+AddReg          = 5211.reg, ATHER.reg, 5211.reg, 5212.bgmp.reg
+CopyFiles       = ATHER.CopyFiles.nt, DEFAULTDESTDIRS
+DelFiles        = ATHER.DelIniFiles
+
+[ATHER_DEV_1042.ndi.NT]
+Characteristics = 0x84 ; NCF_PHYSICAL | NCF_HAS_UI
+BusType         = 5
+DelReg          = 5211.DelReg
+AddReg          = 5211.reg, ATHER.reg, 5211.reg, 5212.abgcb.reg
+CopyFiles       = ATHER.CopyFiles.nt, DEFAULTDESTDIRS
+DelFiles        = ATHER.DelIniFiles
+
+[ATHER_DEV_2042.ndi.NT]
+Characteristics = 0x84 ; NCF_PHYSICAL | NCF_HAS_UI
+BusType         = 5
+DelReg          = 5211.DelReg
+AddReg          = 5211.reg, ATHER.reg, 5211.reg, 5212.abgmp.reg
+CopyFiles       = ATHER.CopyFiles.nt, DEFAULTDESTDIRS
+DelFiles        = ATHER.DelIniFiles
+
+[ATHER_DEV_1052.ndi.NT]
+Characteristics = 0x84 ; NCF_PHYSICAL | NCF_HAS_UI
+BusType         = 5
+DelReg          = 5211.DelReg
+AddReg          = 5211.reg, ATHER.reg, 5211.reg, 5212.bgcb.reg
+CopyFiles       = ATHER.CopyFiles.nt, DEFAULTDESTDIRS
+DelFiles        = ATHER.DelIniFiles
+
+[ATHER_DEV_2052.ndi.NT]
+Characteristics = 0x84 ; NCF_PHYSICAL | NCF_HAS_UI
+BusType         = 5
+DelReg          = 5211.DelReg
+AddReg          = 5211.reg, ATHER.reg, 5211.reg, 5212.bgmp.reg
+CopyFiles       = ATHER.CopyFiles.nt, DEFAULTDESTDIRS
+DelFiles        = ATHER.DelIniFiles
+
+[ATHER_DEV_1053.ndi.NT]
+Characteristics = 0x84 ; NCF_PHYSICAL | NCF_HAS_UI
+BusType         = 5
+DelReg          = 5211.DelReg
+AddReg          = 5211.reg, ATHER.reg, 5211.reg, 5212.bgcb.reg
+CopyFiles       = ATHER.CopyFiles.nt, DEFAULTDESTDIRS
+DelFiles        = ATHER.DelIniFiles
+
+[ATHER_DEV_2053.ndi.NT]
+Characteristics = 0x84 ; NCF_PHYSICAL | NCF_HAS_UI
+BusType         = 5
+DelReg          = 5211.DelReg
+AddReg          = 5211.reg, ATHER.reg, 5211.reg, 5212.bgmp.reg
+CopyFiles       = ATHER.CopyFiles.nt, DEFAULTDESTDIRS
+DelFiles        = ATHER.DelIniFiles
+
+[ATHER_DEV_1054.ndi.NT]
+Characteristics = 0x84 ; NCF_PHYSICAL | NCF_HAS_UI
+BusType         = 5
+DelReg          = 5211.DelReg
+AddReg          = 5211.reg, ATHER.reg, 5211.reg, 5212.bgcb.reg
+CopyFiles       = ATHER.CopyFiles.nt, DEFAULTDESTDIRS
+DelFiles        = ATHER.DelIniFiles
+
+[ATHER_DEV_2054.ndi.NT]
+Characteristics = 0x84 ; NCF_PHYSICAL | NCF_HAS_UI
+BusType         = 5
+DelReg          = 5211.DelReg
+AddReg          = 5211.reg, ATHER.reg, 5211.reg, 5212.bgmp.reg
+CopyFiles       = ATHER.CopyFiles.nt, DEFAULTDESTDIRS
+DelFiles        = ATHER.DelIniFiles
+
+[ATHER_DEV_1062.ndi.NT]
+Characteristics = 0x84 ; NCF_PHYSICAL | NCF_HAS_UI
+BusType         = 5
+DelReg          = 5211.DelReg
+AddReg          = 5211.reg, ATHER.reg, 5211.reg, 5212.abgcb.reg
+CopyFiles       = ATHER.CopyFiles.nt, DEFAULTDESTDIRS
+DelFiles        = ATHER.DelIniFiles
+
+[ATHER_DEV_2062.ndi.NT]
+Characteristics = 0x84 ; NCF_PHYSICAL | NCF_HAS_UI
+BusType         = 5
+DelReg          = 5211.DelReg
+AddReg          = 5211.reg, ATHER.reg, 5211.reg, 5212.abgmp.reg
+CopyFiles       = ATHER.CopyFiles.nt, DEFAULTDESTDIRS
+DelFiles        = ATHER.DelIniFiles
+
+[ATHER_DEV_04221468.ndi.NT]  
+Characteristics = 0x84 ; NCF_PHYSICAL | NCF_HAS_UI
+BusType         = 5
+DelReg          = 5211.DelReg
+AddReg          = 5211.reg, ATHER.reg, 5211.reg, 5212.abgmp.reg, customer3.reg
+CopyFiles       = ATHER.CopyFiles.nt, DEFAULTDESTDIRS
+DelFiles        = ATHER.DelIniFiles
+
+[ATHER_DEV_04171468.ndi.NT]  
+Characteristics = 0x84 ; NCF_PHYSICAL | NCF_HAS_UI
+BusType         = 5
+DelReg          = 5211.DelReg
+AddReg          = 5211.reg, ATHER.reg, 5211.reg, 5212.bgmp.reg, customer3.reg
+CopyFiles       = ATHER.CopyFiles.nt, DEFAULTDESTDIRS
+DelFiles        = ATHER.DelIniFiles
+
+[ATHER_DEV_04181468.ndi.NT]  
+Characteristics = 0x84 ; NCF_PHYSICAL | NCF_HAS_UI
+BusType         = 5
+DelReg          = 5211.DelReg
+AddReg          = 5211.reg, ATHER.reg, 5211.reg, 5212.bgmp.reg, customer3.reg
+CopyFiles       = ATHER.CopyFiles.nt, DEFAULTDESTDIRS
+DelFiles        = ATHER.DelIniFiles
+
+[ATHER_DEV_04201468.ndi.NT]  
+Characteristics = 0x84 ; NCF_PHYSICAL | NCF_HAS_UI
+BusType         = 5
+DelReg          = 5211.DelReg
+AddReg          = 5211.reg, ATHER.reg, 5211.reg, 5212.bgmp.reg, customer3.reg
+CopyFiles       = ATHER.CopyFiles.nt, DEFAULTDESTDIRS
+DelFiles        = ATHER.DelIniFiles
+
+[ATHER_DEV_04281468.ndi.NT]
+Characteristics = 0x84 ; NCF_PHYSICAL | NCF_HAS_UI
+BusType         = 5
+DelReg          = 5211.DelReg
+AddReg          = 5211.reg, ATHER.reg, 5211.reg, 5212.abgmp.reg, customer3a.reg
+CopyFiles       = ATHER.CopyFiles.nt, DEFAULTDESTDIRS
+DelFiles        = ATHER.DelIniFiles
+
+[ATHER_DEV_1063.ndi.NT]
+Characteristics = 0x84 ; NCF_PHYSICAL | NCF_HAS_UI
+BusType         = 5
+DelReg          = 5211.DelReg
+AddReg          = 5211.reg, ATHER.reg, 5211.reg, 5212.abgcb.reg
+CopyFiles       = ATHER.CopyFiles.nt, DEFAULTDESTDIRS
+DelFiles        = ATHER.DelIniFiles
+
+[ATHER_DEV_2063.ndi.NT]
+Characteristics = 0x84 ; NCF_PHYSICAL | NCF_HAS_UI
+BusType         = 5
+DelReg          = 5211.DelReg
+AddReg          = 5211.reg, ATHER.reg, 5211.reg, 5212.abgmp.reg
+CopyFiles       = ATHER.CopyFiles.nt, DEFAULTDESTDIRS
+DelFiles        = ATHER.DelIniFiles
+
+[ATHER_DEV_0012.ndi.NT.Services]
+AddService      = AR5211, 2, ATHER.Service, common.EventLog
+
+[ATHER_DEV_0013.ndi.NT.Services]
+AddService      = AR5211, 2, ATHER.Service, common.EventLog
+
+[ATHER_DEV_001A.ndi.NT.Services]
+AddService      = AR5211, 2, ATHER.Service, common.EventLog
+
+[ATHER_DEV_1021.ndi.NT.Services]
+AddService      = AR5211, 2, ATHER.Service, common.EventLog
+
+[ATHER_DEV_2021.ndi.NT.Services]
+AddService      = AR5211, 2, ATHER.Service, common.EventLog
+
+[ATHER_DEV_1022.ndi.NT.Services]
+AddService      = AR5211, 2, ATHER.Service, common.EventLog
+
+[ATHER_DEV_2022.ndi.NT.Services]
+AddService      = AR5211, 2, ATHER.Service, common.EventLog
+
+[ATHER_DEV_001B.ndi.NT.Services]
+AddService      = AR5211, 2, ATHER.Service, common.EventLog
+
+[ATHER_DEV_1025.ndi.NT.Services]
+AddService      = AR5211, 2, ATHER.Service, common.EventLog
+
+[ATHER_DEV_2025.ndi.NT.Services]
+AddService      = AR5211, 2, ATHER.Service, common.EventLog
+
+[ATHER_DEV_1026.ndi.NT.Services]
+AddService      = AR5211, 2, ATHER.Service, common.EventLog
+
+[ATHER_DEV_2026.ndi.NT.Services]
+AddService      = AR5211, 2, ATHER.Service, common.EventLog
+
+[ATHER_DEV_1027.ndi.NT.Services]
+AddService      = AR5211, 2, ATHER.Service, common.EventLog
+
+[ATHER_DEV_2027.ndi.NT.Services]
+AddService      = AR5211, 2, ATHER.Service, common.EventLog
+
+[ATHER_DEV_1030.ndi.NT.Services]
+AddService      = AR5211, 2, ATHER.Service, common.EventLog
+
+[ATHER_DEV_2030.ndi.NT.Services]
+AddService      = AR5211, 2, ATHER.Service, common.EventLog
+
+[ATHER_DEV_1031.ndi.NT.Services]
+AddService      = AR5211, 2, ATHER.Service, common.EventLog
+
+[ATHER_DEV_2031.ndi.NT.Services]
+AddService      = AR5211, 2, ATHER.Service, common.EventLog
+
+[ATHER_DEV_1041.ndi.NT.Services]
+AddService      = AR5211, 2, ATHER.Service, common.EventLog
+
+[ATHER_DEV_2041.ndi.NT.Services]
+AddService      = AR5211, 2, ATHER.Service, common.EventLog
+
+[ATHER_DEV_1042.ndi.NT.Services]
+AddService      = AR5211, 2, ATHER.Service, common.EventLog
+
+[ATHER_DEV_2042.ndi.NT.Services]
+AddService      = AR5211, 2, ATHER.Service, common.EventLog
+
+[ATHER_DEV_1051.ndi.NT.Services]
+AddService      = AR5211, 2, ATHER.Service, common.EventLog
+
+[ATHER_DEV_2051.ndi.NT.Services]
+AddService      = AR5211, 2, ATHER.Service, common.EventLog
+
+[ATHER_DEV_1052.ndi.NT.Services]
+AddService      = AR5211, 2, ATHER.Service, common.EventLog
+
+[ATHER_DEV_2052.ndi.NT.Services]
+AddService      = AR5211, 2, ATHER.Service, common.EventLog
+
+[ATHER_DEV_1053.ndi.NT.Services]
+AddService      = AR5211, 2, ATHER.Service, common.EventLog
+
+[ATHER_DEV_2053.ndi.NT.Services]
+AddService      = AR5211, 2, ATHER.Service, common.EventLog
+
+[ATHER_DEV_1054.ndi.NT.Services]
+AddService      = AR5211, 2, ATHER.Service, common.EventLog
+
+[ATHER_DEV_2054.ndi.NT.Services]
+AddService      = AR5211, 2, ATHER.Service, common.EventLog
+
+[ATHER_DEV_1062.ndi.NT.Services]
+AddService      = AR5211, 2, ATHER.Service, common.EventLog
+
+[ATHER_DEV_2062.ndi.NT.Services]
+AddService      = AR5211, 2, ATHER.Service, common.EventLog
+
+[ATHER_DEV_04221468.ndi.NT.Services]
+AddService      = AR5211, 2, ATHER.Service, common.EventLog
+
+[ATHER_DEV_04171468.ndi.NT.Services]
+AddService      = AR5211, 2, ATHER.Service, common.EventLog
+
+[ATHER_DEV_04181468.ndi.NT.Services]
+AddService      = AR5211, 2, ATHER.Service, common.EventLog
+
+[ATHER_DEV_04201468.ndi.NT.Services]
+AddService      = AR5211, 2, ATHER.Service, common.EventLog
+
+[ATHER_DEV_04281468.ndi.NT.Services]
+AddService      = AR5211, 2, ATHER.Service, common.EventLog
+
+[ATHER_DEV_1063.ndi.NT.Services]
+AddService      = AR5211, 2, ATHER.Service, common.EventLog
+
+[ATHER_DEV_2063.ndi.NT.Services]
+AddService      = AR5211, 2, ATHER.Service, common.EventLog
+
+;----------------------------------------------------------------------------
+; Win9x id registry sections
+; These are not needed by NT
+
+[ATHER_DEV_0012.id.reg]
+HKR, Ndi, DeviceID, 0, "PCI\VEN_168C&DEV_0012"
+
+[ATHER_DEV_0013.id.reg]
+HKR, Ndi, DeviceID, 0, "PCI\VEN_168C&DEV_0013"
+
+[ATHER_DEV_001A.id.reg]
+HKR, Ndi, DeviceID, 0, "PCI\VEN_168C&DEV_001A"
+
+[ATHER_DEV_1021.id.reg]
+HKR, Ndi, DeviceID, 0, "PCI\VEN_168C&DEV_0012&SUBSYS_1021168C"
+
+[ATHER_DEV_2021.id.reg]
+HKR, Ndi, DeviceID, 0, "PCI\VEN_168C&DEV_0012&SUBSYS_2021168C"
+
+[ATHER_DEV_1022.id.reg]
+HKR, Ndi, DeviceID, 0, "PCI\VEN_168C&DEV_0012&SUBSYS_1022168C"
+
+[ATHER_DEV_2022.id.reg]
+HKR, Ndi, DeviceID, 0, "PCI\VEN_168C&DEV_0012&SUBSYS_2022168C"
+
+[ATHER_DEV_001B.id.reg]
+HKR, Ndi, DeviceID, 0, "PCI\VEN_168C&DEV_001B"
+
+[ATHER_DEV_1025.id.reg]
+HKR, Ndi, DeviceID, 0, "PCI\VEN_168C&DEV_0013&SUBSYS_1025168C"
+
+[ATHER_DEV_2025.id.reg]
+HKR, Ndi, DeviceID, 0, "PCI\VEN_168C&DEV_0013&SUBSYS_2025168C"
+
+[ATHER_DEV_1026.id.reg]
+HKR, Ndi, DeviceID, 0, "PCI\VEN_168C&DEV_0013&SUBSYS_1026168C"
+
+[ATHER_DEV_2026.id.reg]
+HKR, Ndi, DeviceID, 0, "PCI\VEN_168C&DEV_0013&SUBSYS_2026168C"
+
+[ATHER_DEV_1027.id.reg]
+HKR, Ndi, DeviceID, 0, "PCI\VEN_168C&DEV_0013&SUBSYS_1027168C"
+
+[ATHER_DEV_2027.id.reg]
+HKR, Ndi, DeviceID, 0, "PCI\VEN_168C&DEV_0013&SUBSYS_2027168C"
+
+[ATHER_DEV_1030.id.reg]
+HKR, Ndi, DeviceID, 0, "PCI\VEN_168C&DEV_0013&SUBSYS_1030168C"
+
+[ATHER_DEV_2030.id.reg]
+HKR, Ndi, DeviceID, 0, "PCI\VEN_168C&DEV_0013&SUBSYS_2030168C"
+
+[ATHER_DEV_1031.id.reg]
+HKR, Ndi, DeviceID, 0, "PCI\VEN_168C&DEV_0013&SUBSYS_1031168C"
+
+[ATHER_DEV_2031.id.reg]
+HKR, Ndi, DeviceID, 0, "PCI\VEN_168C&DEV_0013&SUBSYS_2031168C"
+
+[ATHER_DEV_1041.id.reg]
+HKR, Ndi, DeviceID, 0, "PCI\VEN_168C&DEV_0013&SUBSYS_1041168C"
+
+[ATHER_DEV_2041.id.reg]
+HKR, Ndi, DeviceID, 0, "PCI\VEN_168C&DEV_0013&SUBSYS_2041168C"
+
+[ATHER_DEV_1042.id.reg]
+HKR, Ndi, DeviceID, 0, "PCI\VEN_168C&DEV_0013&SUBSYS_1042168C"
+
+[ATHER_DEV_2042.id.reg]
+HKR, Ndi, DeviceID, 0, "PCI\VEN_168C&DEV_0013&SUBSYS_2042168C"
+
+[ATHER_DEV_1051.id.reg]
+HKR, Ndi, DeviceID, 0, "PCI\VEN_168C&DEV_0013&SUBSYS_1051168C"
+
+[ATHER_DEV_1052.id.reg]
+HKR, Ndi, DeviceID, 0, "PCI\VEN_168C&DEV_001A&SUBSYS_1052168C"
+
+[ATHER_DEV_1053.id.reg]
+HKR, Ndi, DeviceID, 0, "PCI\VEN_168C&DEV_0013&SUBSYS_1053168C"
+
+[ATHER_DEV_1054.id.reg]
+HKR, Ndi, DeviceID, 0, "PCI\VEN_168C&DEV_001A&SUBSYS_1054168C"
+
+[ATHER_DEV_2051.id.reg]
+HKR, Ndi, DeviceID, 0, "PCI\VEN_168C&DEV_0013&SUBSYS_2051168C"
+
+[ATHER_DEV_2052.id.reg]
+HKR, Ndi, DeviceID, 0, "PCI\VEN_168C&DEV_001A&SUBSYS_2052168C"
+
+[ATHER_DEV_2053.id.reg]
+HKR, Ndi, DeviceID, 0, "PCI\VEN_168C&DEV_0013&SUBSYS_2053168C"
+
+[ATHER_DEV_2054.id.reg]
+HKR, Ndi, DeviceID, 0, "PCI\VEN_168C&DEV_001A&SUBSYS_2054168C"
+
+[ATHER_DEV_1062.id.reg]
+HKR, Ndi, DeviceID, 0, "PCI\VEN_168C&DEV_001B&SUBSYS_1062168C"
+
+[ATHER_DEV_2062.id.reg]
+HKR, Ndi, DeviceID, 0, "PCI\VEN_168C&DEV_001B&SUBSYS_2062168C"
+
+[ATHER_DEV_04221468.id.reg]
+HKR, Ndi, DeviceID, 0, "PCI\VEN_168C&DEV_001C&SUBSYS_04221468"
+
+[ATHER_DEV_04171468.id.reg]
+HKR, Ndi, DeviceID, 0, "PCI\VEN_168C&DEV_0013&SUBSYS_04171468"
+
+[ATHER_DEV_04181468.id.reg]
+HKR, Ndi, DeviceID, 0, "PCI\VEN_168C&DEV_001A&SUBSYS_04181468"
+
+[ATHER_DEV_04201468.id.reg]
+HKR, Ndi, DeviceID, 0, "PCI\VEN_168C&DEV_001A&SUBSYS_04201468"
+
+[ATHER_DEV_04281468.id.reg]
+HKR, Ndi, DeviceID, 0, "PCI\VEN_168C&DEV_001C&SUBSYS_04281468"
+
+[ATHER_DEV_1063.id.reg]
+HKR, Ndi, DeviceID, 0, "PCI\VEN_168C&DEV_001B&SUBSYS_1063168C"
+
+[ATHER_DEV_2063.id.reg]
+HKR, Ndi, DeviceID, 0, "PCI\VEN_168C&DEV_001B&SUBSYS_2063168C"
+
+;
+; 5211 Enumerated Types
+;
+[5211.acb.reg]
+HKR, ,                                  NetBand,                        0x00002,  "3"
+HKR, CustomParams\Configurations,       NicType,                        0x10003,  0
+
+[5211.amp.reg]
+HKR, ,                                  NetBand,                        0x00002,  "3"
+HKR, CustomParams\Configurations,       NicType,                        0x10003,  0
+
+[5211.abcb.reg]
+HKR, ,                                  NetBand,                        0x00002,  "7"
+HKR, CustomParams\Configurations,       NicType,                        0x10003,  1
+
+[5211.abmp.reg]
+HKR, ,                                  NetBand,                        0x00002,  "7"
+HKR, CustomParams\Configurations,       NicType,                        0x10003,  2
+
+[5212.abgcb.reg]
+HKR, ,                                  NetBand,                        0x00002,  "1807"
+HKR, CustomParams\Configurations,       NicType,                        0x10003,  1
+
+[5212.abgmp.reg]
+HKR, ,                                  NetBand,                        0x00002,  "1807"
+HKR, CustomParams\Configurations,       NicType,                        0x10003,  2
+
+[5212.bgcb.reg]
+HKR, ,                                  NetBand,                        0x00002,  "12"
+HKR, CustomParams\Configurations,       NicType,                        0x10003,  1
+
+[5212.bgmp.reg]
+HKR, ,                                  NetBand,                        0x00002,  "12"
+HKR, CustomParams\Configurations,       NicType,                        0x10003,  2
+
+;-----------------------------------------------------------------------------
+
+;
+; 5211 common
+;
+[5211.DelReg]
+HKR,,NetBand
+HKR,,ssid
+HKR,,ssid2
+HKR,,ssid3
+HKR,,prefBssid1
+HKR,,prefBssid2
+HKR,,prefBssid3
+HKR,,prefBssid4
+HKR,Ndi\Params\tpc
+HKR,,tpc
+HKR,Ndi\Params\authTypeUseOnly
+HKR,,authTypeUseOnly
+HKR,,AdHocBand
+HKR,,AwakeTimePerf
+HKR,,beaconInterval
+HKR,,bkScanEnable
+HKR,,bssType
+HKR,,ccode
+HKR,,clist
+HKR,,defaultKey
+HKR,,EncryptionAlg
+HKR,,FragThreshold
+HKR,,HwTxRetries
+HKR,,privacyInvoked
+HKR,,QoS
+HKR,,rateCtrlEnable
+HKR,,RTSThreshold
+HKR,,scanType
+HKR,,SwTxRetryScale
+HKR,,SmeEnable
+HKR,,aifs
+HKR,,cwmin
+HKR,Ndi\params\sleepMode
+HKR,Ndi\params\sleepMode\enum
+
+[oahu.reg]
+HKR, ,                                  WmmEnabled,                     0x00002,  "0"
+
+[5211.reg]
+
+HKR, Ndi\params\MapRegisters,           ParamDesc,                      0,  %MapRegisters%
+HKR, Ndi\params\MapRegisters,           default,                        0,  "256"
+HKR, Ndi\params\MapRegisters,           min,                            0,  "32"
+HKR, Ndi\params\MapRegisters,           max,                            0,  "512"
+HKR, Ndi\params\MapRegisters,           step,                           0,  "8"
+HKR, Ndi\params\MapRegisters,           base,                           0,  "10"
+HKR, Ndi\params\MapRegisters,           type,                           0,  "int"
+
+HKR, Ndi\params\NetworkAddress,         ParamDesc,                      0,  %NetworkAddress%
+HKR, Ndi\params\NetworkAddress,         default,                        0,  ""
+HKR, Ndi\params\NetworkAddress,         LimitText,                      0,  "12"
+HKR, Ndi\params\NetworkAddress,         UpperCase,                      0,  "1"
+HKR, Ndi\params\NetworkAddress,         optional,                       0,  "1"
+HKR, Ndi\params\NetworkAddress,         type,                           0,  "edit"
+
+HKR, Ndi\params\sleepMode,              ParamDesc,                      0,  %sleepMode%
+HKR, Ndi\params\sleepMode,              Base,                           0,  "10"
+HKR, Ndi\params\sleepMode,              default,                        0,  "2"
+HKR, Ndi\params\sleepMode,              type,                           0,  "enum"
+HKR, Ndi\params\sleepMode\enum,         "0",                            0,  %sleepModeOff%
+HKR, Ndi\params\sleepMode\enum,         "2",                            0,  %sleepModeNormal%
+HKR, Ndi\params\sleepMode\enum,         "1",                            0,  %sleepModeMax%
+
+HKR, Ndi\params\shortPreamble,          ParamDesc,                      0,  %shortPreamble%
+HKR, Ndi\params\shortPreamble,          Base,                           0,  "10"
+HKR, Ndi\params\shortPreamble,          default,                        0,  "1"
+HKR, Ndi\params\shortPreamble,          type,                           0,  "enum"
+HKR, Ndi\params\shortPreamble\enum,     "1",                            0,  %shortPreambleEnable%
+HKR, Ndi\params\shortPreamble\enum,     "0",                            0,  %shortPreambleDisable%
+
+HKR, Ndi\params\radioEnable,            ParamDesc,                      0,  %radioEnable%
+HKR, Ndi\params\radioEnable,            Base,                           0,  "10"
+HKR, Ndi\params\radioEnable,            default,                        0,  "1"
+HKR, Ndi\params\radioEnable,            type,                           0,  "enum"
+HKR, Ndi\params\radioEnable\enum,       "1",                            0,  %radioEnableOn%
+HKR, Ndi\params\radioEnable\enum,       "0",                            0,  %radioEnableOff%
+
+HKR, Ndi\params\scanTimeValid,          ParamDesc,                      0,  %scanTimeValid%
+HKR, Ndi\params\scanTimeValid,          default,                        0,  "60"
+HKR, Ndi\params\scanTimeValid,          min,                            0,  "20"
+HKR, Ndi\params\scanTimeValid,          max,                            0,  "120"
+HKR, Ndi\params\scanTimeValid,          step,                           0,  "5"
+HKR, Ndi\params\scanTimeValid,          base,                           0,  "10"
+HKR, Ndi\params\scanTimeValid,          type,                           0,  "int"
+
+HKR, CustomParams\Configurations,       MajorVersion,                   0x10003,  2
+HKR, CustomParams\Configurations,       MinorVersion,                   0x10003,  0
+
+HKR, CustomParams\Configurations,       SelectedConfigurationIndex,     0x10003,  0
+HKR, CustomParams\Configurations,       SelectedConfigurationName,      0x00002,  "Default"
+
+; Allow non admin uses to switch profiles
+;[5211.reg.security]
+;"D:ARAI(A;;GA;;;BA)(A;;GA;;;SY)(A;CI;GA;;;IU)"
+
+[customer3.reg]
+HKR, Ndi\params\sleepMode,              ParamDesc,                      0,  %sleepMode%
+HKR, Ndi\params\sleepMode,              Base,                           0,  "10"
+HKR, Ndi\params\sleepMode,              default,                        0,  "1"
+HKR, Ndi\params\sleepMode,              type,                           0,  "enum"
+HKR, Ndi\params\sleepMode\enum,         "0",                            0,  %sleepModeOff%
+HKR, Ndi\params\sleepMode\enum,         "2",                            0,  %sleepModeNormal%
+HKR, Ndi\params\sleepMode\enum,         "1",                            0,  %sleepModeMax%
+HKR, ,                                  scanTimePreSleep,               0x00002,  "60"
+HKR, ,                                  SleepTimePerf,                  0x00002,  "500"
+HKR, ,                                  LinkLEDFunc,                    0x00002,  "3"
+HKR, ,                                  ActivityLEDFunc,                0x00002,  "5"
+
+[customer3a.reg]
+HKR, Ndi\params\sleepMode,              ParamDesc,                      0,  %sleepMode%
+HKR, Ndi\params\sleepMode,              Base,                           0,  "10"
+HKR, Ndi\params\sleepMode,              default,                        0,  "1"
+HKR, Ndi\params\sleepMode,              type,                           0,  "enum"
+HKR, Ndi\params\sleepMode\enum,         "0",                            0,  %sleepModeOff%
+HKR, Ndi\params\sleepMode\enum,         "2",                            0,  %sleepModeNormal%
+HKR, Ndi\params\sleepMode\enum,         "1",                            0,  %sleepModeMax%
+HKR, ,                                  scanTimePreSleep,               0x00002,  "60"
+HKR, ,                                  SleepTimePerf,                  0x00002,  "500"
+HKR, ,                                  LinkLEDFunc,                    0x00002,  "7"
+;-----------------------------------------------------------------------------
+
+;-----------------------------------------------------------------------------
+; ATHER NT specific
+;
+
+[ATHER.reg]
+HKR, Ndi,             Service,      0, "AR5211"
+HKR, Ndi\Interfaces,  UpperRange,   0, "ndis5"
+HKR, Ndi\Interfaces,  LowerRange,   0, "ethernet, wifi"
+
+[ATHER.Service]
+DisplayName     = %ATHER.Service.DispName%
+ServiceType     = 1 ;%SERVICE_KERNEL_DRIVER%
+StartType       = 3 ;%SERVICE_DEMAND_START%
+ErrorControl    = 1 ;%SERVICE_ERROR_NORMAL%
+ServiceBinary   = %12%\ar5211.sys
+LoadOrderGroup  = NDIS
+
+;-----------------------------------------------------------------------------
+; ATHER NT/XP common
+;
+[common.EventLog]
+AddReg = common.AddEventLog.reg
+
+[common.AddEventLog.reg]
+HKR, ,                  EventMessageFile,   0x00020000,   "%%SystemRoot%%\System32\netevent.dll"
+HKR, ,                  TypesSupported,     0x00010001,   7
+
+;----------------------------------------------------------------------------
+; ATHER Win9x specific
+;
+[ATHER.win.reg]
+HKR, ,                  DevLoader,          0,            "*ndis"
+HKR, ,                  DeviceVxDs,         0,            "ar52119x.sys"
+HKR, ,                  EnumPropPages,      0,            "netdi.dll,EnumPropPages"
+
+HKR, Ndi\Interfaces,    DefUpper,           0,            "ndis3"
+HKR, Ndi\Interfaces,    DefLower,           0,            "ethernet"
+HKR, Ndi\Interfaces,    UpperRange,         0,            "ndis3"
+HKR, Ndi\Interfaces,    LowerRange,         0,            "ethernet, wifi"
+
+
+HKR, NDIS,              LogDriverName,      0,            "AR52119X"
+HKR, NDIS,              MajorNdisVersion,   1,            03
+HKR, NDIS,              MinorNdisVersion,   1,            0A
+
+HKR, Ndi\Install,       ndis3,              0,            "ATHER.install"
+
+;----------------------------------------------------------------------------
+; Win9x Files to Copy
+[ATHER.win.CopyFiles]
+ar52119x.sys,,,2
+
+;----------------------------------------------------------------------------
+; NT Files to Copy
+[ATHER.CopyFiles.nt]
+ar5211.sys,,,2
+
+[ATHER.DelIniFiles]
+Athnic.ini,,,1
+
+[SourceDisksNames]
+;
+; diskid = description[, [tagfile] [, <unused>, subdir]]
+;
+1 = %Atheros_Disk%,,,
+
+;----------------------------------------------------------------------------
+; Source Files
+[SourceDisksFiles]
+ar52119x.sys                 = 1,, ; on distribution disk 1
+ar5211.sys                   = 1,, ; on distribution disk 1
+
+
+[DestinationDirs]
+ATHER.CopyFiles.nt           = 12
+ATHER.win.CopyFiles          = 10,system32\drivers ; %SystemRoot%\system32\drivers
+ATHER.DelIniFiles            = 10,system32\drivers ; %SystemRoot%\system32\drivers
+DefaultDestDir               = 11
+
+[DEFAULTDESTDIRS]
+;
+
+
+[Strings]
+Atheros                      = "Atheros"
+MapRegisters                 = "Map Registers"
+NetworkAddress               = "Network Address"
+sleepMode                    = "Power Save Mode"
+scanTimeValid                = "Scan Valid Interval"
+sleepModeOff                 = "Off"
+sleepModeNormal              = "Normal"
+sleepModeMax                 = "Maximum"
+shortPreamble                = "802.11b Preamble"
+shortPreambleEnable          = "Long and Short"
+shortPreambleDisable         = "Long only"
+radioEnable                  = "Radio On/Off"
+radioEnableOn                = "On"
+radioEnableOff               = "Off"
+
+Atheros_Disk                 = "Atheros Driver Disk 1"
+ATHER.Service.DispName       = "Atheros Wireless Network Adapter Service"
+ATHER.DeviceDesc.0012        = "Atheros Wireless Network Adapter"
+ATHER.DeviceDesc.0013        = "Atheros Wireless Network Adapter"
+ATHER.DeviceDesc.001A        = "Atheros AR5005G Wireless Network Adapter"
+ATHER.DeviceDesc.1021        = "Atheros AR5001A Wireless Network Adapter"
+ATHER.DeviceDesc.2021        = "Atheros AR5001A Wireless Network Adapter"
+ATHER.DeviceDesc.1022        = "Atheros AR5001X Cardbus Wireless Network Adapter"
+ATHER.DeviceDesc.2022        = "Atheros AR5001X Mini PCI Wireless Network Adapter"
+ATHER.DeviceDesc.001B        = "Atheros AR5006X Wireless Network Adapter"
+ATHER.DeviceDesc.1025        = "Atheros AR5001X+ Wireless Network Adapter"
+ATHER.DeviceDesc.2025        = "Atheros AR5001X+ Wireless Network Adapter"
+ATHER.DeviceDesc.1026        = "Atheros AR5001X+ Wireless Network Adapter"
+ATHER.DeviceDesc.2026        = "Atheros AR5001X+ Wireless Network Adapter"
+ATHER.DeviceDesc.1027        = "Atheros AR5001X+ Wireless Network Adapter"
+ATHER.DeviceDesc.2027        = "Atheros AR5001X+ Wireless Network Adapter"
+ATHER.DeviceDesc.1030        = "Atheros AR5002G Wireless Network Adapter"
+ATHER.DeviceDesc.2030        = "Atheros AR5002G Wireless Network Adapter"
+ATHER.DeviceDesc.1031        = "Atheros AR5002X Wireless Network Adapter"
+ATHER.DeviceDesc.2031        = "Atheros AR5002X Wireless Network Adapter"
+ATHER.DeviceDesc.1041        = "Atheros AR5004G Wireless Network Adapter"
+ATHER.DeviceDesc.2041        = "Atheros AR5004G Wireless Network Adapter"
+ATHER.DeviceDesc.1042        = "Atheros AR5004X Wireless Network Adapter"
+ATHER.DeviceDesc.2042        = "Atheros AR5004X Wireless Network Adapter"
+ATHER.DeviceDesc.1051        = "Atheros AR5005GS Wireless Network Adapter"
+ATHER.DeviceDesc.2051        = "Atheros AR5005GS Wireless Network Adapter"
+ATHER.DeviceDesc.1053        = "Atheros AR5005GS Wireless Network Adapter"
+ATHER.DeviceDesc.2053        = "Atheros AR5005GS Wireless Network Adapter"
+ATHER.DeviceDesc.1062        = "Atheros AR5006XS Wireless Network Adapter"
+ATHER.DeviceDesc.2062        = "Atheros AR5006XS Wireless Network Adapter"
+ATHER.DeviceDesc.3062        = "Atheros AR5006EXS Wireless Network Adapter"
+ATHER.DeviceDesc.3063        = "Atheros AR5006EX Wireless Network Adapter"
+ATHER.DeviceDesc.3061        = "Atheros AR5006EGS Wireless Network Adapter"
+ATHER.DeviceDesc.3065        = "Atheros AR5006EG Wireless Network Adapter"
+ATHER.DeviceDesc.2061        = "Atheros AR5006GS Wireless Network Adapter"
+ATHER.DeviceDesc.1061        = "Atheros AR5006GS Wireless Network Adapter"
+ATHER.DeviceDesc.2065        = "Atheros AR5006G Wireless Network Adapter"
+ATHER.DeviceDesc.1065        = "Atheros AR5006G Wireless Network Adapter"
+ATHER.DeviceDesc.0055        = "IEEE 802.11a/g Wireless LAN Adapter (A)"
+ATHER.DeviceDesc.3067        = "Atheros AR5007EG Wireless Network Adapter"

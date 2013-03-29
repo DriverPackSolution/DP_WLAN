@@ -1,0 +1,167 @@
+;
+; Copyright 2001, Agere Systems
+;
+; DATE   : $Date:   13 Jul 2001 15:47:36  $   $Revision:   1.50  $
+
+[version]
+Signature="$WINDOWS NT$"
+Class=Net
+DriverVer=07/13/2001, 7.6.0.113
+Provider=%N_PROVIDER%
+ClassGUID   = {4d36e972-e325-11ce-bfc1-08002be10318}
+Catalogfile=wlluc48.cat
+
+
+[Manufacturer]
+%N_MANUFACTURER%="Lucent Technologies"
+
+[ControlFlags]
+ExcludeFromSelect = PCMCIA\LUCENT_TECHNOLOGIES-WAVELAN/IEEE-C908
+ExcludeFromSelect = PCMCIA\LUCENT_TECHNOLOGIES-WAVELAN/IEEE-364C
+ExcludeFromSelect = PCMCIA\LUCENT_TECHNOLOGIES-WAVELAN/IEEE-911F
+
+[Lucent Technologies]
+%wlluc48_LT1.DeviceDesc%=wlluc481.Install, PCMCIA\LUCENT_TECHNOLOGIES-WAVELAN/IEEE-C908
+%wlluc48_LT2.DeviceDesc%=wlluc482.Install, PCMCIA\LUCENT_TECHNOLOGIES-WAVELAN/IEEE-364C
+%wlluc48_LT3.DeviceDesc%=wlluc483.Install, PCMCIA\LUCENT_TECHNOLOGIES-WAVELAN/IEEE-911F
+
+;****************************************************************************
+; Install section 1
+;****************************************************************************
+
+[wlluc481.Install]
+AddReg          = wlluc48.Addreg.Ndi
+Characteristics = 0x04
+BusType         = 8
+CopyFiles       = wlluc48.CopyFiles, wlluc48.CopyFiles.cfg
+DriverVer=07/13/2001, 7.6.0.113
+
+[wlluc481.Install.Services]
+AddService      = wlluc48, 2, wlluc48.Service, common.EventLog
+
+[wlluc481.Install.CoInstallers]
+CopyFiles=wlluc48.CoInst.Files
+AddReg=wlluc48.CoInst.Reg
+
+;****************************************************************************
+; Install section 2
+;****************************************************************************
+
+[wlluc482.Install]
+AddReg          = wlluc48.Addreg.Ndi
+Characteristics = 0x04
+BusType         = 8
+CopyFiles       = wlluc48.CopyFiles, wlluc48.CopyFiles.cfg
+DriverVer=07/13/2001, 7.6.0.113
+
+[wlluc482.Install.Services]
+AddService      = wlluc48, 2, wlluc48.Service, common.EventLog
+
+[wlluc482.Install.CoInstallers]
+CopyFiles=wlluc48.CoInst.Files
+AddReg=wlluc48.CoInst.Reg
+
+;****************************************************************************
+; Install section 3
+;****************************************************************************
+
+[wlluc483.Install]
+AddReg          = wlluc48.Addreg.Ndi, wlluc48.Addreg.miniPCI
+Characteristics = 0x04
+BusType         = 8
+CopyFiles       = wlluc48.CopyFiles, wlluc48.CopyFiles.cfg
+DriverVer=07/13/2001, 7.6.0.113
+
+[wlluc483.Install.Services]
+AddService      = wlluc48, 2, wlluc48.Service, common.EventLog
+
+[wlluc483.Install.CoInstallers]
+CopyFiles=wlluc48.CoInst.Files
+AddReg=wlluc48.CoInst.Reg
+
+[wlluc48.Addreg.miniPCI]
+HKR,,miniPCI,,"1"
+
+[wlluc48.Service]
+DisplayName     = %wlluc48.Service.DispName%
+ServiceType     = 1 ;%SERVICE_KERNEL_DRIVER%
+StartType       = 3 ;%SERVICE_DEMAND_START%
+ErrorControl    = 1 ;%SERVICE_ERROR_NORMAL%
+ServiceBinary   = %12%\wlluc48.sys
+LoadOrderGroup  = NDIS
+
+[common.EventLog]
+AddReg = common.AddEventLog.reg
+
+[common.AddEventLog.reg]
+HKR, , EventMessageFile, 0x00020000,"%%SystemRoot%%\System32\netevent.dll,%%SystemRoot%%\System32\drivers\wlluc48.sys"
+HKR, , TypesSupported,   0x00010001, 7
+
+[wlluc48.Addreg.Ndi]
+HKR, Ndi\Interfaces,                DefUpper,      0, "ndis5"
+HKR, Ndi\Interfaces,                DefLower,      0, "ethernet"
+HKR, Ndi\Interfaces,                UpperRange,    0, "ndis5"
+HKR, Ndi\Interfaces,                LowerRange,    0, "ethernet"
+HKR, Ndi,                           Service,       0, "wlluc48"
+
+HKR,,VendorDescription,,"ORINOCO PC Card"
+HKR,,DriverVariant,,"1"
+HKR,,DriverMajor,,"7"
+HKR,,DriverMinor,,"6"
+
+[wlluc48.Copyfiles]
+wlluc48.sys,,,2
+
+[wlluc48.Copyfiles.cfg]
+wnluc48.cpl
+wcluc48.exe
+wnluc.hlp
+wnluc.cnt
+
+[wlluc48.CoInst.Reg]
+HKR,,CoInstallers32,0x00010000,"wdluc48.dll,WLDeviceCoInstaller"
+
+[wlluc48.CoInst.Files]
+wdluc48.dll
+
+;****************************************************************************
+; Destination Directories
+;****************************************************************************
+[DestinationDirs]
+DefaultDestDir                = 11 ; LDID_SYS
+wlluc48.CopyFiles         = 12
+wlluc48.Copyfiles.cfg     = 11
+wlluc48.CoInst.Files      = 11
+
+;****************************************************************************
+; Source Disk Names
+;****************************************************************************
+[SourceDisksNames]
+1 = %DISKID%,,,
+
+;****************************************************************************
+; Source Disk Files
+;****************************************************************************
+[SourceDisksFiles]
+wlluc48.sys=1
+wdluc48.dll=1
+wnluc48.cpl=1
+wlluc48.inf=1
+wcluc48.exe=1
+wnluc.hlp=1
+wnluc.cnt=1
+
+;****************************************************************************
+; Localizable Strings
+;****************************************************************************
+[strings]
+; Provider
+N_PROVIDER="Lucent Technologies"
+; Manufacturers
+N_MANUFACTURER="Lucent Technologies"
+; PNP Devices
+DISKID="ORiNOCO Setup Disk"
+wlluc48_LT1.DeviceDesc="ORiNOCO PC Card (5 Volt)"
+wlluc48_LT2.DeviceDesc="ORiNOCO Integrated Card"
+wlluc48_LT3.DeviceDesc="ORiNOCO Mini PCI Card"
+wlluc48.Service.DispName="ORINOCO PC Card Driver"

@@ -1,0 +1,289 @@
+;; net8192u.inf 
+;;
+;; Realtek RTL8192U Wireless 802.11n USB 2.0 Network Adapter
+;;
+;; Copyright (C) 2007 Realtek Semiconductor Corp.
+;;(Win7 Driver)
+
+[Version]
+Signature	= "$Windows NT$"
+Class		= Net
+ClassGUID	= {4d36e972-e325-11ce-bfc1-08002be10318}
+Provider	= %Realtek%
+CatalogFile.NT	= net8192u.cat		;; for WHQL certified
+DriverVer = 04/13/2010,6.1372.0413.2010
+
+[Manufacturer]
+%Realtek% = Realtek,NTamd64.6.1
+%Corega% = Corega,NTamd64.6.1
+%Belkin% = Belkin,NTamd64.6.1
+%Sitecom% = Sitecom,NTamd64.6.1
+%EnGenius% = EnGenius,NTamd64.6.1
+%DLink% = DLink,NTamd64.6.1
+%Zinwell% = Zinwell,NTamd64.6.1
+%Amigo% = Amigo,NTamd64.6.1
+
+[ControlFlags]
+;ExcludeFromSelect = USB\VID_0BDA&PID_8192&REV_0100
+ExcludeFromSelect = *
+
+;;****************************************************************************
+;; IDs for X86
+;;****************************************************************************
+[Realtek.NTx86.6.1]
+%RTL8192U.DeviceDesc% = RTL8192U.ndi, USB\VID_0BDA&PID_8192&REV_0100
+
+[Corega.NTx86.6.1]
+%CG-WLUSB300N.DeviceDesc% = Corega.ndi, USB\VID_07AA&PID_0043
+
+[Belkin.NTx86.6.1]
+%Belkin.DeviceDesc% = RTL8192u.ndi, USB\VID_050D&PID_805E
+
+[Sitecom.NTx86.6.1]
+%Sitecom.DeviceDesc% = RTL8192u.ndi, USB\VID_0DF6&PID_0031
+
+[EnGenius.NTx86.6.1]
+%EnGenius.DeviceDesc% = RTL8192u.ndi, USB\VID_1740&PID_9201
+
+[DLink.NTx86.6.1]
+%DLink.DeviceDesc% = RTL8192u.ndi, USB\VID_2001&PID_3301
+
+[Zinwell.NTx86.6.1]
+%Zinwell.DeviceDesc% = RTL8192u.ndi, USB\VID_5A57&PID_0290
+
+[Amigo.NTx86.6.1]
+%Amigo.DeviceDesc% = RTL8192u.ndi, USB\VID_0E0B&PID_9051
+
+;;****************************************************************************
+;; IDs for X64
+;;****************************************************************************
+[Realtek.NTamd64.6.1]
+%RTL8192U.DeviceDesc% = RTL8192U.ndi, USB\VID_0BDA&PID_8192&REV_0100
+
+[Corega.NTamd64.6.1]
+%CG-WLUSB300N.DeviceDesc% = Corega.ndi, USB\VID_07AA&PID_0043
+
+[Belkin.NTamd64.6.1]
+%Belkin.DeviceDesc% = RTL8192u.ndi, USB\VID_050D&PID_805E
+
+[Sitecom.NTamd64.6.1]
+%Sitecom.DeviceDesc% = RTL8192u.ndi, USB\VID_0DF6&PID_0031
+
+[EnGenius.NTamd64.6.1]
+%EnGenius.DeviceDesc% = RTL8192u.ndi, USB\VID_1740&PID_9201
+
+[DLink.NTamd64.6.1]
+%DLink.DeviceDesc% = RTL8192u.ndi, USB\VID_2001&PID_3301
+
+[Zinwell.NTamd64.6.1]
+%Zinwell.DeviceDesc% = RTL8192u.ndi, USB\VID_5A57&PID_0290
+
+[Amigo.NTamd64.6.1]
+%Amigo.DeviceDesc% = RTL8192u.ndi, USB\VID_0E0B&PID_9051
+
+;;****************************************************************************
+;;X86 and X64
+;;****************************************************************************
+[RTL8192U.ndi.NT]
+Characteristics = 0x84
+BusType         = 15
+AddReg          = RTL8192U_os61.reg,RTL8192U.common.reg, RTLWLAN.reg
+CopyFiles       = RTL8192U.CopyFiles
+*IfType         = 71		; IF_TYPE_IEEE80211
+*MediaType      = 16		; NdisMediumNative802_11
+*PhysicalMediaType = 9		; NdisPhysicalMediumNative802_11
+
+[RTL8192U.ndi.NT.Services]
+AddService = rtl8192U, 2, RTL8192U.nt61.Service, RTL8192U.nt61.EventLog
+
+[RTL8192U.ndi.NT.HW]
+AddReg = RTL8192U_os61.vwifi.reg
+
+
+[Corega.ndi.NT]
+Characteristics = 0x84
+BusType         = 15
+AddReg          = RTL8192U_os61.reg,RTL8192U.common.reg, RTLWLAN.reg
+CopyFiles       = RTL8192U.CopyFiles
+*IfType         = 71		; IF_TYPE_IEEE80211
+*MediaType      = 16		; NdisMediumNative802_11
+*PhysicalMediaType = 9		; NdisPhysicalMediumNative802_11
+
+[Corega.ndi.NT.Services]
+AddService = rtl8192U, 2, RTL8192U.nt61.Service, RTL8192U.nt61.EventLog
+
+[Corega.ndi.NT.HW]
+AddReg = RTL8192U_os61.vwifi.reg
+
+;;****************************************************************************
+;; Windows 2000/XP parameters
+;;****************************************************************************
+[RTL8192U_os61.reg]
+HKR, Ndi\Interfaces,	UpperRange, 0, "ndis5,mdcwifi,wifipro"
+HKR, Ndi\Interfaces,	LowerRange, 0, "wlan, ethernet,vwifi"
+HKR, Ndi,				Service,    0, "RTL8192U"
+
+[RTL8192U.nt61.Service]
+DisplayName     = %RTL8192U.DeviceDesc.DispName%
+ServiceType     = 1 		;SERVICE_KERNEL_DRIVER
+StartType       = 3 		;SERVICE_DEMAND_START
+ErrorControl    = 1 		;SERVICE_ERROR_NORMAL
+ServiceBinary   = %12%\rtl8192U.sys
+LoadOrderGroup  = NDIS
+
+[RTL8192U.nt61.EventLog]
+AddReg = RTL8192U.nt61.AddEventLog.reg
+
+[RTL8192U.nt61.AddEventLog.reg]
+HKR, , EventMessageFile, 0x00020000, "%%SystemRoot%%\System32\netevent.dll"
+HKR, , TypesSupported,   0x00010001, 7
+
+;; Adds the VWiFi PNP filter
+[RTL8192U_os61.vwifi.reg]
+HKR,,"UpperFilters",0x00010000,"vwifibus"
+
+[RTL8192U.CopyFiles]
+rtl8192U.sys,,,2
+
+;*******************************************************************************
+; RTL8192U common paramters
+;*******************************************************************************
+[RTL8192U.common.reg]
+HKR,Ndi\params\Dot11dEnable,        ParamDesc,  0, %DOT11_ENABLE_STR%
+HKR,Ndi\params\Dot11dEnable,        type,       0, "enum"
+HKR,Ndi\params\Dot11dEnable,        default,    0, "0"
+HKR,Ndi\params\Dot11dEnable\enum,   "0",        0, %DISABLE_STR%
+HKR,Ndi\params\Dot11dEnable\enum,   "1",        0, %ENABLE_STR%
+HKR,defaults,Dot11dEnable,0,"0"
+HKR,,Dot11dEnable,0,"0"
+
+HKR,defaults,			AH_BcnIntv, 	0, "1000"
+HKR,Ndi\params\AH_BcnIntv, 	default, 	0, "100"
+HKR,Ndi\params\AH_BcnIntv,	 ParamDesc, 	0, %AH_BCNINTV_STR%
+HKR,Ndi\params\AH_BcnIntv, 	type, 		0, "int"
+HKR,Ndi\params\AH_BcnIntv, 	min, 		0, "20"
+HKR,Ndi\params\AH_BcnIntv, 	max, 		0, "1000"
+HKR,Ndi\params\AH_BcnIntv, 	step, 		0, "1"
+
+HKR,Ndi\params\WirelessMode, 		ParamDesc, 	0, %WL_MODE_STR%
+HKR,Ndi\params\WirelessMode, 		type, 		0, "enum"
+HKR,Ndi\params\WirelessMode, 		default, 	0, "8"
+HKR,Ndi\params\WirelessMode\enum, 	"2", 		0, %IEEE_802_11B_STR%
+HKR,Ndi\params\WirelessMode\enum, 	"4", 		0, %IEEE_802_11BG_STR%
+HKR,Ndi\params\WirelessMode\enum, 	"8", 		0, %IEEE_802_11BGN_STR%
+HKR,defaults,WirelessMode, 0, "8"
+HKR,,WirelessMode, 0, "8"
+
+HKR,,LedCtrl,0,"1"
+
+HKR,,CcxRm,0,"0"
+
+HKR,,CcxOffLineDurUpLimit,0,"0"
+
+;;----------------------------------------------------------------------------
+;; Realtek WLAN NIC parameters
+;;----------------------------------------------------------------------------
+[RTLWLAN.reg]
+HKR,,StaUapsd,0,"0"
+
+HKR,,HalfNMode,0,"1"
+
+HKR,,DefaultKeyID,,"0"
+HKR,,DefaultKey0,,""
+HKR,,DefaultKey1,,""
+HKR,,DefaultKey2,,""
+HKR,,DefaultKey3,,""
+
+[Realtek.reg]
+HKR,,Channel,0,"10"
+
+[Corega.reg]
+HKR,Ndi\params\Channel,       ParamDesc,  0, %CHANNEL_STR%
+HKR,Ndi\params\Channel,       type,       0, "int"
+HKR,Ndi\params\Channel,       default,    0, "1"
+HKR,Ndi\params\Channel,       Min,        0, "1"
+HKR,Ndi\params\Channel,       Max,        0, "13"
+HKR,Ndi\params\Channel,       Step,       0, "1"
+HKR,Ndi\params\Channel,       Base,       0, "10"
+HKR,defaults,Channel,0,"1"
+HKR,,Channel,0,"1"
+HKR,,Dot11dEnable,0,"0"
+
+;*******************************************************************************
+; Destination Directory
+;*******************************************************************************
+[RTL8192U.CopyFiles]
+RTL8192u.sys,,,2
+
+[DestinationDirs]
+DefaultDestDir     = 11
+RTL8192U.CopyFiles		= 12
+
+;;****************************************************************************
+;; Source Files
+;;****************************************************************************
+[SourceDisksFiles]
+RTL8192U.sys = 1
+
+[SourceDisksNames]
+1=%DISKNAME%,,,
+
+;*******************************************************************************
+; Strings
+;*******************************************************************************
+[Strings]
+Realtek 				= "Realtek Semiconductor Corp."
+Corega          			= "Allied Telesis K.K."
+Belkin          			= "Belkin Corporation"
+Sitecom					= "Sitecom"
+EnGenius				= "EnGenius Technologies"
+DLink					= "D-Link Corporation"
+Zinwell					= "Zinwell Corporation"
+Amigo					= "Amigo Technology Inc."
+
+SSID_STR				= "SSID"
+CHANNEL_STR				= "Channel"
+NETWORK_TYPE_STR			= "Network Type"
+LED_CONTROL_STR				= "LED Control" 
+POWER_SAVE_STR				= "Power Save Mode"
+QOS_STR					= "QoS"
+PSP_XLINK_STR				= "PSP XLink Mode"
+DOT11_ENABLE_STR			= "802.11d"
+
+CAM_STR 				= "CAM"
+MAX_PSP_STR 				= "MAX_PSP"
+FAST_PSP_STR 				= "Fast_PSP"
+
+DISABLE_STR 				= "Disable"
+ENABLE_STR 				= "Enable"
+AUTO_STR 				= "Auto"
+
+AD_HOC_STR 				= "Ad Hoc"
+INFRASTRUCTURE_STR 			= "Infrastructure"
+AUTO_SELECT_STR 			= "Auto select"
+AH_BCNINTV_STR 				= "Beacon Interval"
+
+WL_MODE_STR				= "Wireless Mode"
+IEEE_802_11A_STR 			= "IEEE 802.11a"
+IEEE_802_11B_STR 			= "IEEE 802.11b"
+IEEE_802_11BG_STR 			= "IEEE 802.11b/g"
+IEEE_802_11BGN_STR 			= "IEEE 802.11b/g/n"
+
+;; Source disk name
+DISKNAME				= "Realtek RTL8192u 802.11n Wireless LAN USB 2.0 Network Adapter Driver Disk"
+RTL8192U.DeviceDesc 			= "Realtek RTL8192u 802.11n Wireless LAN USB 2.0 Network Adapter"
+RTL8192U.DeviceDesc.DispName		= "Realtek RTL8192u 802.11n Wireless LAN USB 2.0 Network Adapter"
+CG-WLUSB300N.DeviceDesc 		= "CG-WLUSB300N"
+CG-WLUSB300N.DeviceDesc.DispName	= "CG-WLUSB300N"
+Belkin.DeviceDesc			= "Belkin F5D8053 N Wireless USB Adapter"
+Belkin.DeviceDesc.DispName		= "Belkin F5D8053 N Wireless USB Adapter"
+Sitecom.DeviceDesc			= "Wireless Network 300N USB dongle WL-314"
+Sitecom.DeviceDesc.DispName		= "Wireless Network 300N USB dongle WL-314"
+EnGenius.DeviceDesc			= "EnGenius 802.11n Wireless USB Adapter"
+EnGenius.DeviceDesc.DispName		= "EnGenius 802.11n Wireless USB Adapter"
+DLink.DeviceDesc			= "D-Link DWA-130 Wireless N USB Adapter(rev.C)"
+DLink.DeviceDesc.DispName		= "D-Link DWA-130 Wireless N USB Adapter(rev.C)"
+Zinwell.DeviceDesc			= "802.11b/g/n USB Wireless LAN Card"
+Zinwell.DeviceDesc.DispName		= "802.11b/g/n USB Wireless LAN Card"
+Amigo.DeviceDesc			= "802.11n wireless USB card"
+Amigo.DeviceDesc.DispName		= "802.11n wireless USB card"

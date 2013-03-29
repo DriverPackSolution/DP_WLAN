@@ -1,0 +1,136 @@
+;/*++
+;
+;Copyright (c) Microsoft Corporation.  All rights reserved.
+;
+;   THIS CODE AND INFORMATION IS PROVIDED "AS IS" WITHOUT WARRANTY OF ANY
+;   KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
+;   IMPLIED WARRANTIES OF MERCHANTABILITY AND/OR FITNESS FOR A PARTICULAR
+;   PURPOSE.
+;
+;Module Name:
+;
+;    USB3Hub.INF
+;
+;Abstract:
+;    INF file for USB3 Hub driver
+;
+;--*/
+
+[Version]
+Signature      = "$WINDOWS NT$"
+;Class=USB
+;ClassGUID={36FC9E60-C465-11CF-8056-444553540000}
+
+; During early debug, use this class for the port driver.
+; This allows us to boot into safe mode with the driver disabled.
+; When we are using the USB class, the host driver is _not_ disabled in safe mode
+Class          = UoIP BUS Driver  ;USB Hub Driver
+ClassGuid      = {8A2EDC79-C759-46f2-88AF-9D4EFE3B5EEE} ;{4FEB0907-7629-43c8-B7A8-E434BB3C583D}
+
+
+Provider=%INTEL%
+DriverVer=09/26/2012,1.0.24.13195
+CatalogFile.ntx86=usb3hubx86.cat
+CatalogFile.ntamd64=usb3hubx64.cat
+
+[DestinationDirs]
+DefaultDestDir  = 12
+
+;-------------------------------------------------------------------------
+; Class Section
+;-------------------------------------------------------------------------
+[ClassInstall32]
+Addreg         = USBClassReg
+
+[USBClassReg]
+HKR,,,0,%ClassName%
+HKR,,Icon,,-5
+HKR,,DeviceCharacteristics,0x10001,0x100     ;Use same security checks on relative opens
+HKR,,Security,,"D:P(A;;GA;;;SY)(A;;GA;;;BA)" ;Allow generic all access to system and built-in Admin.
+
+;-------------------------------------------------------------------------
+; Device Install Section
+;-------------------------------------------------------------------------
+[ControlFlags]
+ExcludeFromSelect = *
+
+[Manufacturer]
+%INTEL%=INTEL,NTx86
+
+[SourceDisksFiles]
+usb3Hub.sys     = 1
+
+[SourceDisksNames]
+1=%DISK_NAME%,
+
+[INTEL]
+%usb3Hub.DRVDESC%=usb3Hub_Inst, USB\VID_8086&PID_1111&REV_0001
+;%usb3Hub.DRVDESC%=usb3Hub_Inst, USB\CLASS_09&SUBCLASS_01
+;%usb3Hub.DRVDESC%=usb3Hub_Inst, USB\CLASS_09
+
+; For XP and later
+[INTEL.NTx86]
+; DisplayName            Section           DeviceId
+; -----------            -------           --------
+%usb3Hub.DRVDESC%=usb3Hub_Inst, USB\VID_8086&PID_1111&REV_0001
+;%usb3Hub.DRVDESC%=usb3Hub_Inst, USB\VID_1106&PID_0432&REV_0000
+;%usb3Hub.DRVDESC%=usb3Hub_Inst, USB\CLASS_09&SUBCLASS_01
+;%usb3Hub.DRVDESC%=usb3Hub_Inst, USB\CLASS_09
+%usb3Hub.DRVDESC%=usb3Hub_Inst, USB\VID_0451&PID_1446&REV_0000
+
+
+[usb3Hub_Inst.NT]
+CopyFiles      = usb3Hub.CopyFiles
+
+
+[usb3Hub.CopyFiles]
+usb3Hub.sys
+
+
+[usb3Hub_Inst.NT.Services]
+AddService     = usb3Hub,0x00000002,usb3Hub_Service
+
+
+[usb3Hub_Service]
+DisplayName    = %usb3Hub.SVCDESC%
+ServiceType    = 1                  ; SERVICE_KERNEL_DRIVER
+StartType      = 3                  ; SERVICE_DEMAND_START
+ErrorControl   = 1                  ; SERVICE_ERROR_NORMAL
+ServiceBinary  = %12%\usb3Hub.sys
+
+;-------------------------------------------------------------------------
+; WDF Coinstaller installation
+;-------------------------------------------------------------------------
+[DestinationDirs]
+CoInstaller_CopyFiles = 11
+
+[usb3Hub_Inst.NT.CoInstallers]
+AddReg         = CoInstaller_AddReg
+CopyFiles      = CoInstaller_CopyFiles
+
+[CoInstaller_CopyFiles]
+wdfcoinstaller01009.dll
+
+[SourceDisksFiles]
+wdfcoinstaller01009.dll = 1 ; make sure the number matches with SourceDisksNames
+
+[CoInstaller_AddReg]
+HKR,,CoInstallers32,0x00010000, "wdfcoinstaller01009.dll,WdfCoInstaller"
+
+[usb3Hub_Inst.NT.Wdf]
+KmdfService    = usb3Hub, usb3Hub_wdfsect
+
+[usb3Hub_wdfsect]
+KmdfLibraryVersion = 1.9
+
+;------------------------------------------------------------------------------
+;  String Definitions
+;------------------------------------------------------------------------------
+
+[Strings]
+INTEL           = "Intel Corporation"
+ClassName 		= "Intel WiUSB"
+usb3Hub.SVCDESC = "USB-IF USB 3.0 Hub"
+usb3Hub.DRVDESC = "USB-IF USB 3.0 Hub"
+DISK_NAME      = "USB3 Hub Installation Disk #1"
+

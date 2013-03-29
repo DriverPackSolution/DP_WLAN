@@ -1,0 +1,203 @@
+; /****************************************************************************
+; ** DEVELOPED BY MICROSOFT AND Realtek SEMICONDUCTOR CORP                   **
+; ****************************************************************************/
+;     Copyright 1996-2004, Realtek Semiconductor Corporation
+
+
+[version]
+Signature   = "$Windows NT$"
+Class       = Net
+ClassGUID   = {4d36e972-e325-11ce-bfc1-08002be10318}
+Provider    = %RTL8185%
+CatalogFile = net8185.cat                               ;; for WHQL certified
+DriverVer   = 10/16/2009,6.1122.1016.2009
+
+
+[Manufacturer]
+%RTL8185%     = RTL8185, NTamd64.6.0
+%Surecom%     = Surecom, NTamd64.6.0
+
+[ControlFlags]
+ExcludeFromSelect = *
+
+
+[RTL8185.NTx86.6.0]
+; DisplayName                   Section         DeviceID
+; -----------                   -------         --------
+%RTL8185.DeviceDesc_8180%       = RTL8185.ndi,  PCI\VEN_10EC&DEV_8180
+%RTL8185.DeviceDesc_8185%       = RTL8185.ndi,  PCI\VEN_10EC&DEV_8185&REV_20
+%RTL8185.DeviceDesc_8185_8225%  = RTL8185.ndi,  PCI\VEN_10EC&DEV_8185&SUBSYS_822510EC&REV_20
+%RTL8185.DeviceDesc_8185_8225%  = RTL8185.ndi,  PCI\VEN_10EC&DEV_8184&SUBSYS_822510EC&REV_20
+%RTL8185.DeviceDesc_8185_8255%  = RTL8185.ndi,  PCI\VEN_10EC&DEV_8185&SUBSYS_825510EC&REV_20
+%RTL8185.DeviceDesc_8185%       = RTL8185.ndi,  PCI\VEN_10EC&DEV_8185&SUBSYS_616518E8 
+
+[RTL8185.NTamd64.6.0]
+; DisplayName                   Section         DeviceID
+; -----------                   -------         --------
+%RTL8185.DeviceDesc_8180%       = RTL8185x64.ndi,  PCI\VEN_10EC&DEV_8180
+%RTL8185.DeviceDesc_8185%       = RTL8185x64.ndi,  PCI\VEN_10EC&DEV_8185&REV_20
+%RTL8185.DeviceDesc_8185_8225%  = RTL8185x64.ndi,  PCI\VEN_10EC&DEV_8185&SUBSYS_822510EC&REV_20
+%RTL8185.DeviceDesc_8185_8225%  = RTL8185.ndi,  PCI\VEN_10EC&DEV_8184&SUBSYS_822510EC&REV_20
+%RTL8185.DeviceDesc_8185_8255%  = RTL8185x64.ndi,  PCI\VEN_10EC&DEV_8185&SUBSYS_825510EC&REV_20
+%RTL8185.DeviceDesc_8185%       = RTL8185x64.ndi,  PCI\VEN_10EC&DEV_8185&SUBSYS_616518E8
+
+
+[Surecom.NTx86.6.0]
+%RTL8185.DeviceDesc_SURECOME_EP9321%  	= RTL8185.ndi, PCI\VEN_10EC&DEV_8185&SUBSYS_13F210BD&REV_20
+%RTL8185.DeviceDesc_SURECOME_EP9428%  	= RTL8185.ndi, PCI\VEN_10EC&DEV_8185&SUBSYS_14F210BD&REV_20
+
+[Surecom.NTamd64.6.0]
+%RTL8185.DeviceDesc_SURECOME_EP9321%  	= RTL8185x64.ndi, PCI\VEN_10EC&DEV_8185&SUBSYS_13F210BD&REV_20
+%RTL8185.DeviceDesc_SURECOME_EP9428%  	= RTL8185x64.ndi, PCI\VEN_10EC&DEV_8185&SUBSYS_14F210BD&REV_20
+
+
+[RTL8185x64.ndi.NTAMD64]
+Characteristics = 0x84
+BusType         = 5
+AddReg          = RTL8185.reg
+CopyFiles       = RTL8185x64.CopyFiles
+*IfType         = 71		; IF_TYPE_IEEE80211
+*MediaType      = 16		; NdisMediumNative802_11
+*PhysicalMediaType = 9		; NdisPhysicalMediumNative802_11
+
+
+[RTL8185x64.ndi.NTAMD64.Services]
+AddService = RTL85n64, 2, RTL8185x64.Service, RTL8185x64.EventLog
+
+[RTL8185.ndi.NTX86]
+Characteristics = 0x84
+BusType         = 5
+AddReg          = RTL8185.reg
+CopyFiles       = RTL8185.CopyFiles
+*IfType         = 71		; IF_TYPE_IEEE80211
+*MediaType      = 16		; NdisMediumNative802_11
+*PhysicalMediaType = 9		; NdisPhysicalMediumNative802_11
+
+[RTL8185.ndi.NTX86.Services]
+AddService = RTL85n86, 2, RTL8185.Service, RTL8185.EventLog
+
+; /****************************************************************************
+; ** register for both x86 and x64              			**
+; ****************************************************************************/
+
+[RTL8185.reg]
+HKR, Ndi,                         Service,    0, "NET8185"
+
+HKR, Ndi\Interfaces,              UpperRange, 0, "ndis5"
+HKR, Ndi\Interfaces,              LowerRange, 0, "wlan,ethernet"
+
+HKR, Ndi\params\*ReceiveBuffers,  ParamDesc,  0, "%ReceiveBuffers%"
+HKR, Ndi\params\*ReceiveBuffers,  default,    0, "64"
+HKR, Ndi\params\*ReceiveBuffers,  min,        0, "1"
+HKR, Ndi\params\*ReceiveBuffers,  max,        0, "00000128"
+HKR, Ndi\params\*ReceiveBuffers,  step,       0, "1"
+HKR, Ndi\params\*ReceiveBuffers,  Base,       0, "10"
+HKR, Ndi\params\*ReceiveBuffers,  type,       0, "int"
+
+HKR, Ndi\params\*TransmitBuffers, ParamDesc,  0, "%TransmitBuffers%"
+HKR, Ndi\params\*TransmitBuffers, default,    0, "64"
+HKR, Ndi\params\*TransmitBuffers, min,        0, "1"
+HKR, Ndi\params\*TransmitBuffers, max,        0, "00000064"
+HKR, Ndi\params\*TransmitBuffers, step,       0, "1"
+HKR, Ndi\params\*TransmitBuffers, Base,       0, "10"
+HKR, Ndi\params\*TransmitBuffers, type,       0, "int"
+
+
+;HKR,Ndi\params\AdhocWirelessMode, ParamDesc,  0, "AdhocWirelessMode"
+;HKR,Ndi\Params\AdhocWirelessMode, Type, 0, "enum"
+;HKR,Ndi\params\AdhocWirelessMode, default,    0, "0x02"
+;HKR,Ndi\Params\AdhocWirelessMode\enum, "0x01", 0, "WirelessMode A" ;we don't use wireless mode A now
+;HKR,Ndi\Params\AdhocWirelessMode\enum, "0x02", 0, "WirelessMode B"
+;HKR,Ndi\Params\AdhocWirelessMode\enum, "0x04", 0, "WirelessMode G"
+
+;HKR,Ndi\Params\SupportWOL, ParamDesc, 0, "Wireless WakeOnLan"
+;HKR,Ndi\Params\SupportWOL, Type, 0, "enum"
+;HKR,Ndi\Params\SupportWOL, Default, 0, "0"
+;HKR,Ndi\Params\SupportWOL\enum, "0",  0, "Disable"
+;HKR,Ndi\Params\SupportWOL\enum, "1",  0, "Enable"
+
+;HKR,Ndi\Params\bSoftwareAntennaDiversity, ParamDesc, 0, "Software Antenna Diversity"
+;HKR,Ndi\Params\bSoftwareAntennaDiversity, Type,      0, "enum"
+;HKR,Ndi\Params\bSoftwareAntennaDiversity, Default,   0, "1"
+;HKR,Ndi\Params\bSoftwareAntennaDiversity\enum, "0",  0, "Disable"
+;HKR,Ndi\Params\bSoftwareAntennaDiversity\enum, "1",  0, "Enable"
+
+
+; /****************************************************************************
+; ** X86 section              						     **
+; ****************************************************************************/
+
+[RTL8185.Service]
+DisplayName     = %RTL8185.Service.DispName%
+ServiceType     = 1 		;SERVICE_KERNEL_DRIVER
+StartType       = 3 		;SERVICE_DEMAND_START
+ErrorControl    = 1 		;SERVICE_ERROR_NORMAL
+ServiceBinary   = %12%\RTL85n86.sys
+LoadOrderGroup  = NDIS
+
+[RTL8185.EventLog]
+AddReg = RTL8185.AddEventLog.reg
+
+[RTL8185.AddEventLog.reg]
+HKR, , EventMessageFile, 0x00020000, "%%SystemRoot%%\System32\netevent.dll"
+HKR, , TypesSupported,   0x00010001, 7
+
+
+[RTL8185.CopyFiles]
+RTL85n86.sys,,,2
+
+; /****************************************************************************
+; ** X64 section              						     **
+; ****************************************************************************/
+
+[RTL8185x64.Service]
+DisplayName     = %RTL8185.Service.DispName%
+ServiceType     = 1 		;SERVICE_KERNEL_DRIVER
+StartType       = 3 		;SERVICE_DEMAND_START
+ErrorControl    = 1 		;SERVICE_ERROR_NORMAL
+ServiceBinary   = %12%\RTL85n64.sys
+LoadOrderGroup  = NDIS
+
+[RTL8185x64.EventLog]
+AddReg = RTL8185x64.AddEventLog.reg
+
+[RTL8185x64.AddEventLog.reg]
+HKR, , EventMessageFile, 0x00020000, "%%SystemRoot%%\System32\netevent.dll"
+HKR, , TypesSupported,   0x00010001, 7
+
+
+[RTL8185x64.CopyFiles]
+RTL85n64.sys,,,2
+
+; /****************************************************************************
+; ** common section           						     **
+; ****************************************************************************/
+
+[SourceDisksNames]
+1 = %DiskDescription%,,,
+
+[SourceDisksFiles]
+RTL85n86.sys = 1
+RTL85n64.sys = 1
+
+[DestinationDirs]
+RTL8185.CopyFiles          = 12
+RTL8185x64.CopyFiles	   = 12
+DefaultDestDirs            = 11
+
+[Strings]
+Msft                         = "Microsoft"
+RTL8185                      = "Realtek Semiconductor Corp"
+Surecom			     = "Surecom"
+RTL8185.DeviceDesc_8180      = "Realtek 8180 Extensible 802.11b Wireless Device"
+RTL8185.DeviceDesc_8185      = "Realtek 8185 Extensible Wireless Device"
+RTL8185.DeviceDesc_8185_8225 = "Realtek 8185 Extensible 802.11b/g Wireless Device"
+RTL8185.DeviceDesc_8185_8255 = "Realtek 8185 Extensible 802.11a/b/g Wireless Device"
+RTL8185.Service.DispName     = "Realtek 8180/8185 Extensible 802.11 Wireless Device Driver"
+RTL8185.DeviceDesc_SURECOME_EP9321 = "SURECOM EP-9321-g/g1 802.11g 54M WLAN PCI Adapter"
+RTL8185.DeviceDesc_SURECOME_EP9428 = "SURECOM EP-9428-g 802.11g 54M WLAN CardBus Adapter"
+DiskDescription              = "Realtek Driver"
+TransmitBuffers              = "Transmit Buffers"
+ReceiveBuffers               = "Receive Buffers"
+ChannelPlan	     	     = "Channel Plan"
+

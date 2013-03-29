@@ -1,0 +1,81 @@
+;/*++
+;
+;Module Name:
+;
+;    QCfilter.INF
+;
+;Abstract:
+;    INF file for installing an upper filter device driver for Qualcomm USB composite device
+;
+;--*/
+[Version]
+Signature="$WINDOWS NT$"
+Class=USB
+Provider=%QUALCOMM%
+ClassGUID={36FC9E60-C465-11CF-8056-444553540000}
+DriverVer=05/19/2009,1.0.0.0
+CatalogFile=qcfilterAD2k.cat
+
+[Manufacturer]
+%MFG% = QualcommFilter2k, NTia64, NTamd64
+
+[ControlFlags]
+ExcludeFromSelect = *
+
+[SourceDisksNames]
+  1000 = %QcomSrcDisk%,"",,
+
+[SourceDisksFiles]
+  qcfilterAD2k.sys  = 1000
+
+[QualcommFilter2k]
+%qcfilterAD2k.DeviceDesc%=qcfilterAD2k,USB\VID_05C6&PID_9215
+[QualcommFilter2k.NTamd64]
+%qcfilterAD2k.DeviceDesc%=qcfilterAD2k,USB\VID_05C6&PID_9215
+
+[QualcommFilter2k.NTia64]
+%qcfilterAD2k.DeviceDesc%=qcfilterAD2k,USB\VID_05C6&PID_9215
+
+;=====================================================================
+[qcfilterAD2k.NT]  
+;=============== Get the standard stuff from USB.inf==============
+Include=USB.inf
+Needs=Composite.Dev.NT
+CopyFiles=qcfilterAD2k.NT.Copy
+
+[qcfilterAD2k.NT.Copy]
+qcfilterAD2k.sys
+
+[DestinationDirs]
+qcfilterAD2k.NT.Copy = 12
+
+[qcfilterAD2k.NT.HW]
+AddReg=UpperFilterAddReg
+
+[UpperFilterAddReg]
+HKR,,"UpperFilters",0x00010000,"qcfilterAD2k"
+
+;*****************************************
+; QC Filter Device Filter Service Section
+;*****************************************
+
+[qcfilterAD2k.NT.Services]
+Include=USB.inf
+Needs=Composite.Dev.NT.Services
+AddService = qcfilterAD2k,, filter_Service_Inst 
+
+[filter_Service_Inst]
+DisplayName    = %filter2k.SvcDesc%                            
+ServiceType    = 1                  ; SERVICE_KERNEL_DRIVER
+StartType      = 3                  ; SERVICE_DEMAND_START
+ErrorControl   = 1                  ; SERVICE_ERROR_NORMAL
+ServiceBinary  = %12%\qcfilterAD2k.sys                            
+;LoadOrderGroup = Base
+
+[Strings]
+;SPSVCINST_ASSOCSERVICE= 0x00000002
+MFG = "Qualcomm Incorporated"
+QUALCOMM   = "Qualcomm Incorporated"
+QcomSrcDisk = "Qualcomm USB Driver Disk"
+QCFilterAD2k.DeviceDesc = "Qualcomm Gobi2000 HS-USB Composite Device 9215"
+filter2k.SvcDesc = "Gobi 2000 USB Composite Device Filter Driver(05C6-9215)"

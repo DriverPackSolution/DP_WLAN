@@ -1,0 +1,771 @@
+;=============================================================================
+; NetANI.INF
+;
+; Windows 2k/XP installation file for 
+; Airgo Networks True MIMO (tm) Wireless LAN NICs
+;
+; Copyright 2004, Airgo Networks, Inc. 
+; All rights reserved.
+;
+;=============================================================================
+
+
+; ----------------------------------------------------------------------------
+;
+; Signature:
+;   There are three possible values for the Signature entry: 
+;
+;   $Windows 95$ 
+;   If the INF file is for use only on Windows 95/98, $Windows 95$ is the 
+;   correct signature. An INF file that has a $Windows 95$ signature will not
+;    run on Windows 2000.
+;
+;   $Windows NT$ 
+;   If the INF file is for use only on Windows 2000, $Windows NT$ is the 
+;   correct signature. An INF file that has a $Windows NT$ signature will 
+;   not run on Windows 95/98.
+;   
+;   $Chicago$
+;   If the INF file will be used on both Windows 95/98 and Windows 2000, 
+;   $Chicago$ is the correct signature. A network INF file that has a 
+;   $Chicago$ signature must also have the following line in the Version 
+;   section:
+; 
+;   Compatible=1
+; 
+;   A network INF file that has a $Chicago$ signature will not run on Windows
+;   2000 unless the Compatible entry in the Version section is set to 1.
+;
+; ----------------------------------------------------------------------------
+[version]
+Signature   = "$Chicago$"
+Class       = Net
+ClassGUID   = {4d36e972-e325-11ce-bfc1-08002be10318}
+Provider    = %AirgoNet%
+Compatible  = 1
+DriverVer   = 09/21/2004, 1.2.0.80
+MillenniumPreferred = .ME
+CatalogFile = AniNet.cat
+
+; ----------------------------------------------------------------------------
+[SourceDisksNames]
+1= %Disk_1%,,,
+
+[SourceDisksFiles]
+WNIhdd51.sys  = 1
+WNIhdd50.sys  = 1
+wni6000.bin   = 1
+
+; ----------------------------------------------------------------------------
+;
+; This defines the destination directories for all files copied via this INF.
+;
+;    11 is the system directory
+;         %windir%\system on win9x systems
+;         %windir%\system32 on winNT/2k/XP systems
+;
+;    12 is the drivers directory
+;         %windir%\system32\drivers on winNT/2k/XP systems
+;
+; ----------------------------------------------------------------------------
+[DestinationDirs]
+DefaultDestDir                = 11  
+;
+Airgo_Driver.Copyfiles        = 12
+Airgo_Driver.NT.5.1.Copyfiles = 12
+
+; ----------------------------------------------------------------------------
+[Manufacturer]
+%Airgo%  = Airgo,NT.5.1
+
+[ControlFlags]
+ExcludeFromSelect =  PCI\VEN_17CB&DEV_0001&SUBSYS_000117CB, \
+                     PCI\VEN_17CB&DEV_0001&SUBSYS_80101799
+
+[Airgo]
+;
+; Display Name         DDInstall Section   hardware id
+; ------------		   -----------------   -----------
+%Belkin.DeviceDesc%   = Airgo.ndi,         PCI\VEN_17CB&DEV_0001&SUBSYS_80101799
+%Belkin.DeviceDesc%   = Airgo.ndi,         PCI\VEN_17CB&DEV_0001&SUBSYS_000117CB
+
+[Airgo.NT.5.1]
+%Belkin.DeviceDesc%   = Airgo.ndi.NT.5.1, PCI\VEN_17CB&DEV_0001&SUBSYS_80101799
+%Belkin.DeviceDesc%   = Airgo.ndi.NT.5.1, PCI\VEN_17CB&DEV_0001&SUBSYS_000117CB
+
+; ----------------------------------------------------------------------------
+;
+; This is the network install section for Windows 2000/XP
+;
+; Characteristics:
+; 
+;    0x01 = NCF_VIRTUAL	
+;           Specifies that the component is a virtual adapter.
+;
+;    0x02 = NCF_SOFTWARE_ENUMERATED 
+;           Specifies that the component is a software-enumerated adapter.
+;
+;    0x04 = NCF_PHYSICAL 
+;           Specifies that the component is a physical adapter.
+;
+;    0x08 = NCF_HIDDEN 
+;           Specifies that the component should not be shown in any user 
+;           interface
+;
+;    0x10 = NCF_NO_SERVICE 
+;           Specifies that the component does not have an associated service 
+;           (device driver).
+;
+;    0x20 = NCF_NOT_USER_REMOVEABLE
+;           Specifies that the component cannot be removed by the user (for
+;           example, through the Control Panel or Device Manager).
+;
+;    0x40 = NCF_MULTIPORT_INSTANCED_ADAPTER
+;           Specifies that the component has multiple ports, each of which is 
+;           installed as a separate device. Each port has its own hw-id 
+;           (component ID) and can be individually installed. This is 
+;           applicable only to EISA adapters
+;
+;    0x80 = NCV_HAS_UI 
+;           Specifies that the component supports a user interface (for 
+;           example,the Advanced Page or a custom properties sheet).
+; 
+;    0x400 = NCF_FILTER 
+;            Specifies that the component is a filter
+;
+; 
+; BusType:
+; 
+;   5 = PCI
+;   8 = PCMCIA
+;
+; ----------------------------------------------------------------------------
+
+; Windows 2000 specific sections ---------------------------------
+
+[Airgo.ndi.NT]
+Characteristics = 0x84  ; NCF_PHYSICAL | NCF_HAS_UI
+BusType         = 8
+AddReg          = Airgo.NT.reg, AdvancedParms, StaticParms
+CopyFiles       = Airgo_Driver.CopyFiles
+
+[Airgo.ndi.NT.Services]
+AddService      = Airgo, 2, Airgo.Service, Airgo.EventLog
+
+[Airgo.Service]
+DisplayName     = %Airgo.Service.DispName%
+ServiceType     = 1 ; %SERVICE_KERNEL_DRIVER%
+StartType       = 3 ; %SERVICE_DEMAND_START%
+ErrorControl    = 1 ; %SERVICE_ERROR_NORMAL%
+ServiceBinary   = %12%\wnihdd50.sys
+LoadOrderGroup  = NDIS
+
+
+[Airgo.EventLog]
+AddReg = Airgo.AddEventLog.reg
+
+[Airgo.AddEventLog.reg]
+HKR, , EventMessageFile, 0x00020000,"%%SystemRoot%%\System32\netevent.dll, %%SystemRoot%%\System32\drivers\wnihdd50.sys"
+HKR, , TypesSupported,   0x00010001, 7
+
+; Windows XP specific sections -----------------------------------
+
+[Airgo.ndi.NT.5.1]
+Characteristics = 0x84  ; NCF_PHYSICAL | NCF_HAS_UI
+BusType         = 8
+AddReg          = Airgo.NT.reg, AdvancedParms, StaticParms
+CopyFiles       = Airgo_Driver.NT.5.1.CopyFiles
+
+[Airgo.ndi.NT.5.1.Services]
+AddService      = Airgo, 2, Airgo.NT.5.1.Service, Airgo.EventLog
+
+
+[Airgo.NT.5.1.Service]
+DisplayName     = %Airgo.Service.DispName%
+ServiceType     = 1 ; %SERVICE_KERNEL_DRIVER%
+StartType       = 3 ; %SERVICE_DEMAND_START%
+ErrorControl    = 1 ; %SERVICE_ERROR_NORMAL%
+ServiceBinary   = %12%\wnihdd51.sys
+LoadOrderGroup  = NDIS
+
+[Airgo.EventLog]
+AddReg = Airgo.NT.5.1.AddEventLog.reg
+
+[Airgo.NT.5.1.AddEventLog.reg]
+HKR, , EventMessageFile, 0x00020000,"%%SystemRoot%%\System32\netevent.dll, %%SystemRoot%%\System32\drivers\wnihdd51.sys"
+HKR, , TypesSupported,   0x00010001, 7
+
+; Windows 2000 and Windows XP common sections --------------------
+
+[Airgo.NT.reg]
+HKR, Ndi\Interfaces, UpperRange, 0, "ndis5"
+HKR, Ndi\Interfaces, LowerRange, 0, "ethernet"
+HKR, Ndi\Interfaces, DefUpper,   0, "ndis5"
+HKR, Ndi\Interfaces, DefLower,   0, "ethernet"
+HKR, Ndi,            Service,    0, "Airgo"
+; HKR, ,EnumPropPages32, ,"NicProp.dll,NicPropPageProvider"
+
+
+; ============================================================================
+; Copyfiles sections...
+; ============================================================================
+
+[Airgo_Driver.Copyfiles]
+wnihdd50.sys,,,2
+wni6000.bin,,,2
+
+[Airgo_Driver.NT.5.1.CopyFiles]
+wnihdd51.sys,,,2
+wni6000.bin,,,2
+
+; ============================================================================
+; Parameters on the 'Advanced' Property page
+; ============================================================================
+[AdvancedParms]	  
+
+; ----------------------------------------------------------------------------
+; HardwareFileName
+; ----------------------------------------------------------------------------
+HKR,,HardwareFileName,,"WNI6000.bin"
+; HKR,NDI\params\HardwareFileName, ParamDesc, 0, "HardwareFileName"
+; HKR,NDI\params\HardwareFileName, type,      0, "edit"
+; HKR,NDI\params\HardwareFileName, default,   0, "WNI6000.bin"
+
+; ----------------------------------------------------------------------------
+; Monitor buffer size
+; ----------------------------------------------------------------------------
+HKR,,MonBufSize,,"2600"
+; HKR,NDI\params\MonBufSize, ParamDesc, 0, "Monitor Buffer Size"
+; HKR,NDI\params\MonBufSize, type,      0, "int"
+; HKR,NDI\params\MonBufSize, default,   0, "2600"
+; HKR,NDI\params\MonBufSize, min,       0, "128"
+; HKR,NDI\params\MonBufSize, max,       0, "4096"
+
+; ----------------------------------------------------------------------------
+; Monitor buffer count
+; ----------------------------------------------------------------------------
+HKR,,MonBufCount,,"12"
+; HKR,NDI\params\MonBufCount, ParamDesc, 0, "Monitor Buffer Count"
+; HKR,NDI\params\MonBufCount, type,      0, "int"
+; HKR,NDI\params\MonBufCount, default,   0, "12"
+; HKR,NDI\params\MonBufCount, min,       0, "4"
+; HKR,NDI\params\MonBufCount, max,       0, "1024"
+
+; ----------------------------------------------------------------------------
+; Mailbox message buffer size
+; ----------------------------------------------------------------------------
+HKR,,MBMsgBufSize,,"4096"
+; HKR,NDI\params\MBMsgBufSize, ParamDesc, 0, "MB Msg Buffer Size"
+; HKR,NDI\params\MBMsgBufSize, type,      0, "int"
+; HKR,NDI\params\MBMsgBufSize, default,   0, "4096"
+; HKR,NDI\params\MBMsgBufSize, min,       0, "4096"
+; HKR,NDI\params\MBMsgBufSize, max,       0, "4096"
+
+; ----------------------------------------------------------------------------
+; Mailbox message buffer count
+; ----------------------------------------------------------------------------
+HKR,,MBMsgBufCount,,"6"
+; HKR,NDI\params\MBMsgBufCount, ParamDesc, 0, "MB Msg Buffer Count"
+; HKR,NDI\params\MBMsgBufCount, type,      0, "int"
+; HKR,NDI\params\MBMsgBufCount, default,   0, "6"
+; HKR,NDI\params\MBMsgBufCount, min,       0, "4"
+; HKR,NDI\params\MBMsgBufCount, max,       0, "1024"
+
+; ----------------------------------------------------------------------------
+; Receive buffer count
+; ----------------------------------------------------------------------------
+HKR,,RxBufferCount,,"100"
+HKR,NDI\params\RxBufferCount, ParamDesc, 0, "Rx Buffer Count"
+HKR,NDI\params\RxBufferCount, type,      0, "dword"
+HKR,NDI\params\RxBufferCount, default,   0, "100"
+HKR,NDI\params\RxBufferCount, min,       0, "10"
+HKR,NDI\params\RxBufferCount, max,       0, "100000"
+HKR,NDI\params\RxBufferCount, step,      0, "10"
+
+; ----------------------------------------------------------------------------
+; Receive buffer size
+; ----------------------------------------------------------------------------
+HKR,,RxBufferSize,,"256"
+;HKR,NDI\params\RxBufferSize,       ParamDesc, 0, "Rx Buffer Size"
+;HKR,NDI\params\RxBufferSize,       type,      0, "enum"
+;HKR,NDI\params\RxBufferSize,       default,   0, "256"
+;HKR,NDI\params\RxBufferSize\enum,  "256",     0, "256 bytes"
+;HKR,NDI\params\RxBufferSize\enum,  "512",     0, "512 bytes"
+;HKR,NDI\params\RxBufferSize\enum, "1024",     0, "1024 bytes"
+;HKR,NDI\params\RxBufferSize\enum, "2048",     0, "2048 bytes"
+;HKR,NDI\params\RxBufferSize\enum, "4096",     0, "4096 bytes"
+
+; ----------------------------------------------------------------------------
+; Transmit descriptor count
+; ----------------------------------------------------------------------------
+HKR,,TxDescCount,,"128"
+;HKR,NDI\params\TxDescCount, ParamDesc, 0, "Tx Descriptor Count"
+;HKR,NDI\params\TxDescCount, type,      0, "int"
+;HKR,NDI\params\TxDescCount, default,   0, "128"
+;HKR,NDI\params\TxDescCount, min,       0, "10"
+;HKR,NDI\params\TxDescCount, max,       0, "4096"
+;HKR,NDI\params\TxDescCount, step,      0, "1"
+
+; ----------------------------------------------------------------------------
+; Receive descriptor count
+; ----------------------------------------------------------------------------
+HKR,,RxDescCount,,"128"
+;HKR,NDI\params\RxDescCount, ParamDesc, 0, "Rx Descriptor Count"
+;HKR,NDI\params\RxDescCount, type,      0, "int"
+;HKR,NDI\params\RxDescCount, default,   0, "128"
+;HKR,NDI\params\RxDescCount, min,       0, "10"
+;HKR,NDI\params\RxDescCount, max,       0, "4096"
+;HKR,NDI\params\RxDescCount, step,      0, "1"
+
+
+; ----------------------------------------------------------------------------
+; Network Density
+; ----------------------------------------------------------------------------
+HKR,,gNwDensity,,"Medium"
+HKR,NDI\params\gNwDensity,       ParamDesc, 0, "Network Density"
+HKR,NDI\params\gNwDensity,       type,      0, "enum"
+HKR,NDI\params\gNwDensity,       default,   0, "Medium"
+;HKR,NDI\params\gNwDensity\enum,  "Auto",    0, "Auto"
+HKR,NDI\params\gNwDensity\enum,  "High",    0, "High"
+HKR,NDI\params\gNwDensity\enum,  "Medium",  0, "Medium"
+HKR,NDI\params\gNwDensity\enum,  "Low",     0, "Low"
+
+
+; ----------------------------------------------------------------------------
+; Tx Power Level
+; ----------------------------------------------------------------------------
+HKR,,gTxPwrLevel,,"High"
+HKR,NDI\params\gTxPwrLevel,       ParamDesc, 0, "Tx Power"
+HKR,NDI\params\gTxPwrLevel,       type,      0, "enum"
+HKR,NDI\params\gTxPwrLevel,       default,   0, "High"
+HKR,NDI\params\gTxPwrLevel\enum,  "High",    0, "High"
+HKR,NDI\params\gTxPwrLevel\enum,  "Low",     0, "Low"
+
+
+; ----------------------------------------------------------------------------
+; Tx Antennas
+; ----------------------------------------------------------------------------
+HKR,,gNumTxAntenna,,"2"
+HKR,NDI\params\gNumTxAntenna, ParamDesc, 0, "Num Tx Antennas"
+HKR,NDI\params\gNumTxAntenna, type,      0, "int"
+HKR,NDI\params\gNumTxAntenna, default,   0, "2"
+HKR,NDI\params\gNumTxAntenna, min,       0, "1"
+HKR,NDI\params\gNumTxAntenna, max,       0, "2"
+HKR,NDI\params\gNumTxAntenna, step,      0, "1"
+
+
+; ----------------------------------------------------------------------------
+; Rx Antennas
+; ----------------------------------------------------------------------------
+HKR,,gNumRxAntenna,,"3"
+HKR,NDI\params\gNumRxAntenna, ParamDesc, 0, "Num Rx Antennas"
+HKR,NDI\params\gNumRxAntenna, type,      0, "int"
+HKR,NDI\params\gNumRxAntenna, default,   0, "3"
+HKR,NDI\params\gNumRxAntenna, min,       0, "1"
+HKR,NDI\params\gNumRxAntenna, max,       0, "3"
+HKR,NDI\params\gNumRxAntenna, step,      0, "1"
+
+; ----------------------------------------------------------------------------
+; AckTimeout11A
+; ----------------------------------------------------------------------------
+HKR,,gAckTimeout11A,,"25"
+HKR,NDI\params\gAckTimeout11A, ParamDesc, 0, "AckTimeout11A"
+HKR,NDI\params\gAckTimeout11A, type,      0, "int"
+HKR,NDI\params\gAckTimeout11A, default,   0, "25"
+HKR,NDI\params\gAckTimeout11A, min,       0, "0"
+HKR,NDI\params\gAckTimeout11A, max,       0, "100"
+HKR,NDI\params\gAckTimeout11A, step,      0, "1"
+
+; ----------------------------------------------------------------------------
+; AckTimeout11BG
+; ----------------------------------------------------------------------------
+HKR,,gAckTimeout11BG,,"30"
+HKR,NDI\params\gAckTimeout11BG, ParamDesc, 0, "AckTimeout11BG"
+HKR,NDI\params\gAckTimeout11BG, type,      0, "int"
+HKR,NDI\params\gAckTimeout11BG, default,   0, "30"
+HKR,NDI\params\gAckTimeout11BG, min,       0, "0"
+HKR,NDI\params\gAckTimeout11BG, max,       0, "100"
+HKR,NDI\params\gAckTimeout11BG, step,      0, "1"
+
+
+; ----------------------------------------------------------------------------
+; ShortRetryLimit
+; ----------------------------------------------------------------------------
+HKR,,gShortRetryLimit,,"0"
+HKR,NDI\params\gShortRetryLimit, ParamDesc, 0, "ShortRetryLimit"
+HKR,NDI\params\gShortRetryLimit, type,      0, "int"
+HKR,NDI\params\gShortRetryLimit, default,   0, "0"
+HKR,NDI\params\gShortRetryLimit, min,       0, "0"
+HKR,NDI\params\gShortRetryLimit, max,       0, "255"
+HKR,NDI\params\gShortRetryLimit, step,      0, "1"
+
+; ----------------------------------------------------------------------------
+; LongRetryLimit
+; ----------------------------------------------------------------------------
+HKR,,gLongRetryLimit,,"0"
+HKR,NDI\params\gLongRetryLimit, ParamDesc, 0, "LongRetryLimit"
+HKR,NDI\params\gLongRetryLimit, type,      0, "int"
+HKR,NDI\params\gLongRetryLimit, default,   0, "0"
+HKR,NDI\params\gLongRetryLimit, min,       0, "0"
+HKR,NDI\params\gLongRetryLimit, max,       0, "255"
+HKR,NDI\params\gLongRetryLimit, step,      0, "1"
+
+; ----------------------------------------------------------------------------
+; Fragmentation Threshold
+; ----------------------------------------------------------------------------
+HKR,,gFragmentationThreshold,,"2000"
+HKR,NDI\params\gFragmentationThreshold, ParamDesc, 0, "Fragmentation Threshold"
+HKR,NDI\params\gFragmentationThreshold, type,      0, "int"
+HKR,NDI\params\gFragmentationThreshold, default,   0, "2000"
+HKR,NDI\params\gFragmentationThreshold, min,       0, "256"
+HKR,NDI\params\gFragmentationThreshold, max,       0, "2346"
+HKR,NDI\params\gFragmentationThreshold, step,      0, "1"
+
+; ----------------------------------------------------------------------------
+; RTS Threshold
+; ----------------------------------------------------------------------------
+HKR,,gRTSThreshold,,"2347"
+HKR,NDI\params\gRTSThreshold, ParamDesc, 0, "RTS Threshold"
+HKR,NDI\params\gRTSThreshold, type,      0, "int"
+HKR,NDI\params\gRTSThreshold, default,   0, "2347"
+HKR,NDI\params\gRTSThreshold, min,       0, "0"
+HKR,NDI\params\gRTSThreshold, max,       0, "2347"
+HKR,NDI\params\gRTSThreshold, step,      0, "1"
+
+; ----------------------------------------------------------------------------
+; Max Ack Rate (11A)
+; ----------------------------------------------------------------------------
+HKR,,gMaxAckRate11A,,"5"
+HKR,NDI\params\gMaxAckRate11A, ParamDesc, 0, "Max Ack Rate (11A)"
+HKR,NDI\params\gMaxAckRate11A, type,      0, "int"
+HKR,NDI\params\gMaxAckRate11A, default,   0, "5"
+HKR,NDI\params\gMaxAckRate11A, min,       0, "1"
+HKR,NDI\params\gMaxAckRate11A, max,       0, "108"
+HKR,NDI\params\gMaxAckRate11A, step,      0, "1"
+
+; ----------------------------------------------------------------------------
+; Max Ack Rate (11B)
+; ----------------------------------------------------------------------------
+HKR,,gMaxAckRate11B,,"22"
+HKR,NDI\params\gMaxAckRate11B, ParamDesc, 0, "Max Ack Rate (11B)"
+HKR,NDI\params\gMaxAckRate11B, type,      0, "int"
+HKR,NDI\params\gMaxAckRate11B, default,   0, "22"
+HKR,NDI\params\gMaxAckRate11B, min,       0, "2"
+HKR,NDI\params\gMaxAckRate11B, max,       0, "22"
+HKR,NDI\params\gMaxAckRate11B, step,      0, "1"
+
+; ----------------------------------------------------------------------------
+; Calibration On / Off
+; ----------------------------------------------------------------------------
+HKR,,gCalibration,,"1"
+HKR,NDI\params\gCalibration,       ParamDesc, 0, "Calibration (on/off)"
+HKR,NDI\params\gCalibration,       type,      0, "enum"
+HKR,NDI\params\gCalibration,       default,   0, "1"
+HKR,NDI\params\gCalibration\enum,  "0",       0, "OFF"
+HKR,NDI\params\gCalibration\enum,  "1",       0, "ON"
+
+; ----------------------------------------------------------------------------
+; Calibration period
+; ----------------------------------------------------------------------------
+HKR,,gCalibrationPeriod,,"5"
+HKR,NDI\params\gCalibrationPeriod,       ParamDesc, 0, "Calibration period (minutes)"
+HKR,NDI\params\gCalibrationPeriod,       type,      0, "int"
+HKR,NDI\params\gCalibrationPeriod,       default,   0, "5"
+HKR,NDI\params\gCalibrationPeriod,       min,       0, "2"
+HKR,NDI\params\gCalibrationPeriod,       max,       0, "10"
+HKR,NDI\params\gCalibrationPeriod,       step,      0, "1"
+
+; ----------------------------------------------------------------------------
+; Background scan period
+; ----------------------------------------------------------------------------
+HKR,,gBgScanPeriod,,"5000"
+HKR,NDI\params\gBgScanPeriod,       ParamDesc, 0, "Background Scan period (milliseconds)"
+HKR,NDI\params\gBgScanPeriod,       type,      0, "dword"
+HKR,NDI\params\gBgScanPeriod,       default,   0, "5000"
+HKR,NDI\params\gBgScanPeriod,       min,       0, "0"
+HKR,NDI\params\gBgScanPeriod,       max,       0, "180000"
+HKR,NDI\params\gBgScanPeriod,       step,      0, "1"
+
+; ----------------------------------------------------------------------------
+; Background scan minimum channel time
+; ----------------------------------------------------------------------------
+HKR,,gBgScanMinChannelTime,,"20"
+HKR,NDI\params\gBgScanMinChannelTime,       ParamDesc, 0, "Background Min Channel Time (milliseconds)"
+HKR,NDI\params\gBgScanMinChannelTime,       type,      0, "dword"
+HKR,NDI\params\gBgScanMinChannelTime,       default,   0, "20"
+HKR,NDI\params\gBgScanMinChannelTime,       min,       0, "1"
+HKR,NDI\params\gBgScanMinChannelTime,       max,       0, "65535"
+HKR,NDI\params\gBgScanMinChannelTime,       step,      0, "1"
+
+; ----------------------------------------------------------------------------
+; Background scan maximum channel time
+; ----------------------------------------------------------------------------
+HKR,,gBgScanMaxChannelTime,,"40"
+HKR,NDI\params\gBgScanMaxChannelTime,       ParamDesc, 0, "Background Max Channel Time (milliseconds)"
+HKR,NDI\params\gBgScanMaxChannelTime,       type,      0, "dword"
+HKR,NDI\params\gBgScanMaxChannelTime,       default,   0, "40"
+HKR,NDI\params\gBgScanMaxChannelTime,       min,       0, "1"
+HKR,NDI\params\gBgScanMaxChannelTime,       max,       0, "65535"
+HKR,NDI\params\gBgScanMaxChannelTime,       step,      0, "1"
+
+
+; ----------------------------------------------------------------------------
+; Adaptive Threshold Algorithm
+; ----------------------------------------------------------------------------
+HKR,,gAdaptiveThresholdAlgo,,"D0"
+HKR,NDI\params\gAdaptiveThresholdAlgo,       ParamDesc, 0, "Adaptive Threshold Algo Selection"
+HKR,NDI\params\gAdaptiveThresholdAlgo,       type,      0, "enum"
+HKR,NDI\params\gAdaptiveThresholdAlgo,       default,   0, "D0"
+HKR,NDI\params\gAdaptiveThresholdAlgo\enum,  "Disabled",0, "Disabled"
+HKR,NDI\params\gAdaptiveThresholdAlgo\enum,  "CD",		0, "CD"
+HKR,NDI\params\gAdaptiveThresholdAlgo\enum,  "D0",		0, "D0"
+
+; ----------------------------------------------------------------------------
+; CCA Mode
+; ----------------------------------------------------------------------------
+HKR,,gCCAMode,,"7"
+HKR,NDI\params\gCCAMode,       ParamDesc, 0, "CCA Mode"
+HKR,NDI\params\gCCAMode,       type,      0, "enum"
+HKR,NDI\params\gCCAMode,       default,   0, "7"
+HKR,NDI\params\gCCAMode\enum,  "0",       0, "None"
+HKR,NDI\params\gCCAMode\enum,  "1",	      0, "ED"
+HKR,NDI\params\gCCAMode\enum,  "2",       0, "CD"
+HKR,NDI\params\gCCAMode\enum,  "3",       0, "CD and CS"
+HKR,NDI\params\gCCAMode\enum,  "4",       0, "ED and CD"
+HKR,NDI\params\gCCAMode\enum,  "5",       0, "ED or CD"
+HKR,NDI\params\gCCAMode\enum,  "6",       0, "ED and CS and CD"
+HKR,NDI\params\gCCAMode\enum,  "7",       0, "ED or CS and CD"
+								
+
+; ----------------------------------------------------------------------------
+; ED Threshold
+; ----------------------------------------------------------------------------
+HKR,,gEDThreshold,,"60"
+HKR,NDI\params\gEDThreshold,       ParamDesc,          0, "ED Threshold"
+HKR,NDI\params\gEDThreshold,       type,               0, "dword"
+HKR,NDI\params\gEDThreshold,       default,            0, "60"
+HKR,NDI\params\gEDThreshold,       min,                0, "0"
+HKR,NDI\params\gEDThreshold,       max,                0, "114"
+HKR,NDI\params\gEDThreshold,       step,               0, "1"
+
+; ----------------------------------------------------------------------------
+; ACK Policy
+; ----------------------------------------------------------------------------
+HKR,,gAckPolicy,,"0"
+HKR,NDI\params\gAckPolicy,       ParamDesc, 0, "Ack Policy"
+HKR,NDI\params\gAckPolicy,       type,      0, "enum"
+HKR,NDI\params\gAckPolicy,       default,   0, "0"
+HKR,NDI\params\gAckPolicy\enum,  "0",       0, "Immediate"
+HKR,NDI\params\gAckPolicy\enum,  "1",       0, "No Ack"
+HKR,NDI\params\gAckPolicy\enum,  "2",       0, "Automatic"
+HKR,NDI\params\gAckPolicy\enum,  "3",       0, "Burst"
+
+; ----------------------------------------------------------------------------
+; Operating Channel / Band
+; ----------------------------------------------------------------------------
+HKR,,gOperatingChannel,,"00000000"
+HKR,NDI\params\gOperatingChannel,       ParamDesc,    0, "Operating Channel or Band"
+HKR,NDI\params\gOperatingChannel,       type,         0, "enum"
+HKR,NDI\params\gOperatingChannel,       default,      0, "0"
+HKR,NDI\params\gOperatingChannel\enum,  "00000000",   0, "Any channel / Any band"
+HKR,NDI\params\gOperatingChannel\enum,  "00000001",   0, "Channel   1 only"
+HKR,NDI\params\gOperatingChannel\enum,  "00000002",   0, "Channel   2 only"
+HKR,NDI\params\gOperatingChannel\enum,  "00000003",   0, "Channel   3 only"
+HKR,NDI\params\gOperatingChannel\enum,  "00000004",   0, "Channel   4 only"
+HKR,NDI\params\gOperatingChannel\enum,  "00000005",   0, "Channel   5 only"
+HKR,NDI\params\gOperatingChannel\enum,  "00000006",   0, "Channel   6 only"
+HKR,NDI\params\gOperatingChannel\enum,  "00000007",   0, "Channel   7 only"
+HKR,NDI\params\gOperatingChannel\enum,  "00000008",   0, "Channel   8 only"
+HKR,NDI\params\gOperatingChannel\enum,  "00000009",   0, "Channel   9 only"
+HKR,NDI\params\gOperatingChannel\enum,  "0000000A",   0, "Channel  10 only"
+HKR,NDI\params\gOperatingChannel\enum,  "0000000B",   0, "Channel  11 only"
+HKR,NDI\params\gOperatingChannel\enum,  "0000000C",   0, "Channel  12 only"
+HKR,NDI\params\gOperatingChannel\enum,  "0000000D",   0, "Channel  13 only"
+HKR,NDI\params\gOperatingChannel\enum,  "0000000E",   0, "Channel  14 only"   
+HKR,NDI\params\gOperatingChannel\enum,  "00000022",   0, "Channel  34 only"   
+HKR,NDI\params\gOperatingChannel\enum,  "00000024",   0, "Channel  36 only"   
+HKR,NDI\params\gOperatingChannel\enum,  "00000026",   0, "Channel  38 only"   
+HKR,NDI\params\gOperatingChannel\enum,  "00000028",   0, "Channel  40 only"   
+HKR,NDI\params\gOperatingChannel\enum,  "0000002A",   0, "Channel  42 only"   
+HKR,NDI\params\gOperatingChannel\enum,  "0000002C",   0, "Channel  44 only"   
+HKR,NDI\params\gOperatingChannel\enum,  "0000002E",   0, "Channel  46 only"   
+HKR,NDI\params\gOperatingChannel\enum,  "00000030",   0, "Channel  48 only"   
+HKR,NDI\params\gOperatingChannel\enum,  "00000034",   0, "Channel  52 only"   
+HKR,NDI\params\gOperatingChannel\enum,  "00000038",   0, "Channel  56 only"   
+HKR,NDI\params\gOperatingChannel\enum,  "0000003C",   0, "Channel  60 only"   
+HKR,NDI\params\gOperatingChannel\enum,  "00000040",   0, "Channel  64 only"   
+HKR,NDI\params\gOperatingChannel\enum,  "00000095",   0, "Channel 149 only"   
+HKR,NDI\params\gOperatingChannel\enum,  "00000099",   0, "Channel 153 only"   
+HKR,NDI\params\gOperatingChannel\enum,  "0000009D",   0, "Channel 157 only"   
+HKR,NDI\params\gOperatingChannel\enum,  "000000A1",   0, "Channel 161 only"   
+HKR,NDI\params\gOperatingChannel\enum,  "80000001",   0, "Band 11A only"
+HKR,NDI\params\gOperatingChannel\enum,  "80000002",   0, "Band 11B only"
+HKR,NDI\params\gOperatingChannel\enum,  "80000003",   0, "Band 11A or 11B"
+HKR,NDI\params\gOperatingChannel\enum,  "80000004",   0, "Band 11G only"
+HKR,NDI\params\gOperatingChannel\enum,  "80000005",   0, "Band 11A or 11G"
+HKR,NDI\params\gOperatingChannel\enum,  "80000006",   0, "Band 11B or 11G"
+
+; ----------------------------------------------------------------------------
+; Medium Access (QoS)
+; ----------------------------------------------------------------------------
+HKR,,gMediumAccess,,"0"
+HKR,NDI\params\gMediumAccess,       ParamDesc, 0, "Medium Access (QoS)"
+HKR,NDI\params\gMediumAccess,       type,      0, "enum"
+HKR,NDI\params\gMediumAccess,       default,   0, "0"
+HKR,NDI\params\gMediumAccess\enum,  "0",       0, "Automatic"
+HKR,NDI\params\gMediumAccess\enum,  "1",       0, "DCF"
+HKR,NDI\params\gMediumAccess\enum,  "2",       0, "eDCF"
+HKR,NDI\params\gMediumAccess\enum,  "3",       0, "HCF"
+
+; ----------------------------------------------------------------------------
+; Generic CFG settings
+; ----------------------------------------------------------------------------
+HKR,,gCfg1Id,,"0"
+HKR,NDI\params\gCfg1Id,       ParamDesc,    0, "Generic Cfg 1 Id (decimal; 0 == N/A)"
+HKR,NDI\params\gCfg1Id,       type,         0, "dword"
+HKR,NDI\params\gCfg1Id,       default,      0, "0"
+
+HKR,,gCfg1Value,,"0"
+HKR,NDI\params\gCfg1Value,    ParamDesc,    0, "Generic Cfg 1 Value (decimal)"
+HKR,NDI\params\gCfg1Value,    type,         0, "dword"
+HKR,NDI\params\gCfg1Value,    default,      0, "0"
+
+HKR,,gCfg2Id,,"0"
+HKR,NDI\params\gCfg2Id,       ParamDesc,    0, "Generic Cfg 2 Id (decimal; 0 == N/A)"
+HKR,NDI\params\gCfg2Id,       type,         0, "dword"
+HKR,NDI\params\gCfg2Id,       default,      0, "0"
+
+HKR,,gCfg2Value,,"0"
+HKR,NDI\params\gCfg2Value,    ParamDesc,    0, "Generic Cfg 2 Value (decimal)"
+HKR,NDI\params\gCfg2Value,    type,         0, "dword"
+HKR,NDI\params\gCfg2Value,    default,      0, "0"
+
+HKR,,gCfg3Id,,"0"
+HKR,NDI\params\gCfg3Id,       ParamDesc,    0, "Generic Cfg 3 Id (decimal; 0 == N/A)"
+HKR,NDI\params\gCfg3Id,       type,         0, "dword"
+HKR,NDI\params\gCfg3Id,       default,      0, "0"
+
+HKR,,gCfg3Value,,"0"
+HKR,NDI\params\gCfg3Value,    ParamDesc,    0, "Generic Cfg 3 Value (decimal)"
+HKR,NDI\params\gCfg3Value,    type,         0, "dword"
+HKR,NDI\params\gCfg3Value,    default,      0, "0"
+
+HKR,,gCfg4Id,,"0"
+HKR,NDI\params\gCfg4Id,       ParamDesc,    0, "Generic Cfg 4 Id (decimal; 0 == N/A)"
+HKR,NDI\params\gCfg4Id,       type,         0, "dword"
+HKR,NDI\params\gCfg4Id,       default,      0, "0"
+
+HKR,,gCfg4Value,,"0"
+HKR,NDI\params\gCfg4Value,    ParamDesc,    0, "Generic Cfg 4 Value (decimal)"
+HKR,NDI\params\gCfg4Value,    type,         0, "dword"
+HKR,NDI\params\gCfg4Value,    default,      0, "0"
+
+HKR,,gCfg5Id,,"0"
+HKR,NDI\params\gCfg5Id,       ParamDesc,    0, "Generic Cfg 5 Id (decimal; 0 == N/A)"
+HKR,NDI\params\gCfg5Id,       type,         0, "dword"
+HKR,NDI\params\gCfg5Id,       default,      0, "0"
+
+HKR,,gCfg5Value,,"0"
+HKR,NDI\params\gCfg5Value,    ParamDesc,    0, "Generic Cfg 5 Value (decimal)"
+HKR,NDI\params\gCfg5Value,    type,         0, "dword"
+HKR,NDI\params\gCfg5Value,    default,      0, "0"
+
+
+; ----------------------------------------------------------------------------
+; Short Slot Time Enabled
+; ----------------------------------------------------------------------------
+HKR,,gShortSlotTimeEnabled,,"1"
+HKR,NDI\params\gShortSlotTimeEnabled,       ParamDesc,          0, ".11g Short Slot Time"
+HKR,NDI\params\gShortSlotTimeEnabled,       type,               0, "dword"
+HKR,NDI\params\gShortSlotTimeEnabled,       default,            0, "1"
+HKR,NDI\params\gShortSlotTimeEnabled,       min,                0, "0"
+HKR,NDI\params\gShortSlotTimeEnabled,       max,                0, "1"
+HKR,NDI\params\gShortSlotTimeEnabled,       step,               0, "1"
+
+
+
+; ----------------------------------------------------------------------------
+; 11d Support Enabled
+; ----------------------------------------------------------------------------
+HKR,,g11dSupportEnabled,,"0"
+HKR,NDI\params\g11dSupportEnabled,       ParamDesc,          0, ".11d Support"
+HKR,NDI\params\g11dSupportEnabled,       type,               0, "dword"
+HKR,NDI\params\g11dSupportEnabled,       default,            0, "0"
+HKR,NDI\params\g11dSupportEnabled,       min,                0, "0"
+HKR,NDI\params\g11dSupportEnabled,       max,                0, "1"
+HKR,NDI\params\g11dSupportEnabled,       step,               0, "1"
+
+
+; ----------------------------------------------------------------------------
+; Heartbeat Threshold (2.4 GHz)
+; ----------------------------------------------------------------------------
+HKR,,gHeartbeat24,,"10"
+HKR,NDI\params\gHeartbeat24,       ParamDesc,          0, "Heartbeat Thresh (2.4)"
+HKR,NDI\params\gHeartbeat24,       type,               0, "dword"
+HKR,NDI\params\gHeartbeat24,       default,            0, "10"
+HKR,NDI\params\gHeartbeat24,       min,                0, "1"
+HKR,NDI\params\gHeartbeat24,       max,                0, "50"
+HKR,NDI\params\gHeartbeat24,       step,               0, "1"
+
+; ----------------------------------------------------------------------------
+; Heartbeat Threshold (5.0 GHz)
+; ----------------------------------------------------------------------------
+HKR,,gHeartbeat50,,"6"
+HKR,NDI\params\gHeartbeat50,       ParamDesc,          0, "Heartbeat Thresh (5.0)"
+HKR,NDI\params\gHeartbeat50,       type,               0, "dword"
+HKR,NDI\params\gHeartbeat50,       default,            0, "6"
+HKR,NDI\params\gHeartbeat50,       min,                0, "1"
+HKR,NDI\params\gHeartbeat50,       max,                0, "50"
+HKR,NDI\params\gHeartbeat50,       step,               0, "1"
+
+
+; ----------------------------------------------------------------------------
+; Scan Results Aging Time
+; ----------------------------------------------------------------------------
+HKR,,gAgingTimerInBKScanUnits,,"3"
+HKR,NDI\params\gAgingTimerInBKScanUnits,       ParamDesc,          0, "Scan Results Age"
+HKR,NDI\params\gAgingTimerInBKScanUnits,       type,               0, "dword"
+HKR,NDI\params\gAgingTimerInBKScanUnits,       default,            0, "3"
+HKR,NDI\params\gAgingTimerInBKScanUnits,       min,                0, "2"
+HKR,NDI\params\gAgingTimerInBKScanUnits,       max,                0, "10"
+HKR,NDI\params\gAgingTimerInBKScanUnits,       step,               0, "1"
+
+
+; ----------------------------------------------------------------------------
+; ----------------------------------------------------------------------------
+; Static parameters (these do not show on the property page)
+; ----------------------------------------------------------------------------
+; ----------------------------------------------------------------------------
+[StaticParms]
+; HardwareID
+HKR, ,HardwareID, ,"WNI0000"
+
+; ----------------------------------------------------------------------------
+; Roaming Features
+; ----------------------------------------------------------------------------
+HKR,,RoamingFeatures,,"0"
+
+; ----------------------------------------------------------------------------
+; Roaming Feature:  Signal Degraded parameters
+; ----------------------------------------------------------------------------
+HKR,,RoamingSignalDegradedThresh,,"10"
+HKR,,RoamingSignalDegradedBeaconsPerPeriod,,"10"
+HKR,,RoamingSignalDegradedPeriods,,"10"
+
+
+; HKR, ,MBMsgBufSize,  0, "256"
+; HKR, ,MBSMsgCount,   0,  "10"
+; HKR, ,RxBufferCount, 0, "100"
+; HKR, ,RxBufferSize,  0, "256"
+
+
+;----------------------------------------------------------------------------
+; Replaceable strings
+;----------------------------------------------------------------------------
+[Strings]
+Airgo                    = "Belkin"
+AirgoNet                 = "Belkin Corporation"
+Disk_1                   = "Belkin WLAN Installation Disk #1"
+Airgo.Service.DispName   = "Belkin Wireless Pre-N Notebook Network Driver"
+Belkin.DeviceDesc        = "Belkin Wireless Pre-N Notebook Network Card"
+

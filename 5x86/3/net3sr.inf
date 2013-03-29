@@ -1,0 +1,211 @@
+[Version]
+Signature="$Chicago$"
+Compatible  = 1
+Provider=%ManufacturerName1%
+Class=Net
+ClassGUID  = {4D36E972-E325-11CE-BFC1-08002BE10318}
+LayoutFile=layout.inf
+DriverVer=08/13/2001,4.0.2.1
+CatalogFile= srwlnd.cat
+
+
+[Manufacturer]
+%ManufacturerName1% = 3Com,NTx86.5.1
+
+;[ControlFlags]
+;ExcludeFromSelect = PCMCIA\3Com-3CRWE62092A_Wireless_LAN_PC_Card-FAEB
+
+[3Com]
+%DeviceDesc% = srwl.ndi, PCMCIA\3Com-3CRWE62092A_Wireless_LAN_PC_Card-FAEB
+
+[3Com.NTx86.5.1]
+%DeviceDesc% = srwl.ndi.NT.5.1, PCMCIA\3Com-3CRWE62092A_Wireless_LAN_PC_Card-FAEB
+
+[srwl.ndi]
+AddReg			= srwl.ndi.win.reg,srwl.params.win.reg
+CopyFiles		= srwl.CopyFilesWin
+Reboot			= 0
+Restart			= 0
+
+[srwl.ndi.NT]
+AddReg          = srwl.ndi.reg
+CopyFiles 		= srwl.CopyFiles, srwl.CopyFilesCpl
+Characteristics = 0x4     ; NCF_PHYSICAL;
+BusType 		= 8       ; PCMCIA
+
+[srwl.ndi.NT.5.1]
+DriverVer		= 02/08/2002,4.0.4.01
+DelReg			= srwl51.ndi.DelReg
+AddReg          = srwl51.ndi.reg
+CopyFiles 		= srwl51.CopyFiles
+Characteristics = 0x84     				; NCF_PHYSICAL;
+BusType 		= 8       				; PCMCIA
+
+[SourceDisksNames]
+1=%DISK1%,,,
+
+[SourceDisksFiles]
+srwlnd4.sys = 1
+srwlnd5.sys = 1
+pcandis3.vxd = 1
+pcandis5.sys = 1
+w32n50.dll = 1
+srndi.dll = 1
+un3sr.exe = 1
+SrLocal.dll = 1
+3csr.dll  = 1
+coinst.dll=1
+W95Util.dll=1
+SRW95Rbt.exe=1
+srwlnd51.sys = 1
+
+[DestinationDirs]
+DefaultDestDir=11
+srwl.CopyFiles=12
+srwl.CopyFilesCpl=11
+srwl.CopyFilesWin=11
+srwl.CopyCoInstallFiles=11
+srwl51.CopyFiles=12
+
+[srwl.CopyFiles]
+srwlnd5.sys
+
+[srwl51.CopyFiles]
+srwlnd51.sys
+
+[srwl.CopyFilesCpl]
+w32n50.dll
+pcandis5.sys
+SrLocal.dll
+3csr.dll
+W95Util.dll
+SRW95Rbt.exe
+
+[srwl.CopyFilesWin]
+srwlnd4.sys
+srwlnd5.sys
+srndi.dll
+un3sr.exe
+pcandis3.vxd
+w32n50.dll
+SrLocal.dll
+3csr.dll
+W95Util.dll
+SRW95Rbt.exe
+
+;--------------------------------------------------
+; Win9X
+[srwl.ndi.win.reg]
+HKR, Ndi,DeviceID,0,PCMCIA\3Com-3CRWE62092A_Wireless_LAN_PC_Card-FAEB
+HKR,,NDIDIAG,,"srwl"
+HKR,,DevLoader,0,*ndis
+HKR,,DeviceVxDs,0,srwlnd4.sys
+HKR,,EnumPropPages,,"netdi.dll,EnumPropPages"
+HKR,,ProviderName,0,"3Com"
+HKR,Ndi,CardType,0,"PCMCIA"
+HKR,NDIS,LogDriverName,0,srwl
+HKR,NDIS,MajorNdisVersion,1,05
+HKR,NDIS,MinorNdisVersion,1,00
+HKR,Ndi\Interfaces,DefUpper,0,"ndis3,ndis4,ndis5"
+HKR,Ndi\Interfaces,DefLower,0,"ethernet"
+HKR,Ndi\Interfaces,UpperRange,0,"ndis3,ndis4,ndis5"
+HKR,Ndi\Interfaces,LowerRange,0,"ethernet"
+HKR,Ndi,NdiInstaller,,"srndi.dll, MyNdiProc"
+
+[srwl.params.win.reg]
+HKR,,InterruptNumber,1,04,00,00,00
+HKR,,IoBaseAddress,1,02,00,00,00
+HKR,,DriverVersion,0,"3.0.0"
+HKR,,AnyESSID,,"00 00 00 01"
+
+;--------------------------------------------------
+; Win2k
+[srwl.ndi.reg]
+HKR,Ndi, Service, 0, "srwl"
+HKR,Ndi\Interfaces,UpperRange,0,"ndis5"
+HKR,Ndi\Interfaces,LowerRange,0,"ethernet"
+HKR,NDIS,MajorNdisVersion,1,05
+HKR,NDIS,MinorNdisVersion,1,00
+
+HKR,,AnyESSID,,"00 00 00 01"
+HKR,,NDIS_VERSION,,%AUTO%
+
+;--------------------------------------------------
+; WinXP
+[srwl51.ndi.reg]
+HKR,Ndi, Service, 0, "srwl51"
+HKR,Ndi\Interfaces,UpperRange,0,"ndis5"
+HKR,Ndi\Interfaces,LowerRange,0,"ethernet"
+
+HKR,,NDIS_VERSION,  0, "NDIS5"
+
+HKR,,ActiveProbing,, "00 00 00 00"
+;HKR,Ndi\params\ActiveProbing,      ParamDesc, 		0, "Scan Type"
+;HKR,Ndi\params\ActiveProbing,      Type,      		0, "enum"
+;HKR,Ndi\params\ActiveProbing,      Default,   		0, "00 00 00 00"
+;HKR,Ndi\params\ActiveProbing\enum, "00 00 00 00",	0, "Passive"
+;HKR,Ndi\params\ActiveProbing\enum, "00 00 00 01", 	0, "Active"
+
+HKR,,dot11DesiredSSID,,"default"
+HKR,,AnyESSID,,"00 00 00 00"
+HKR,,dot11DesiredBSSType,,"00 00 00 01"
+HKR,,dot11PowerManagementMode,,"00 00 00 01"
+HKR,,HighPerformance,,"00 00 00 01"
+HKR,,Security_Infra,,"00 00 00 00"
+HKR,,SoftCRC,,"00 00 00 00"
+
+[srwl51.ndi.DelReg]
+;HKR,Ndi\params\dot11DesiredSSID
+HKR,Ndi\params
+
+
+[srwl.ndi.NT.Services]
+AddService = srwl, 2, srwl.Service, common.EventLog
+
+[srwl.Service]
+DisplayName     = %ServiceName%
+ServiceType     = 1 ; SERVICE_KERNEL_DRIVER
+StartType       = 3 ; SERVICE_ON_DEMAND
+ErrorControl    = 1 ; SERVICE_ERROR_NORMAL
+ServiceBinary   = %12%\srwlnd5.sys
+LoadOrderGroup  = NDIS
+
+[srwl.ndi.NT.5.1.Services]
+AddService = srwl, 2, srwl51.Service, common.EventLog
+
+[srwl51.Service]
+DisplayName     = %ServiceName%
+ServiceType     = 1 ; SERVICE_KERNEL_DRIVER
+StartType       = 3 ; SERVICE_ON_DEMAND
+ErrorControl    = 1 ; SERVICE_ERROR_NORMAL
+ServiceBinary   = %12%\srwlnd51.sys
+LoadOrderGroup  = NDIS
+
+;
+;  Common part
+;
+
+[common.EventLog]
+AddReg = common.AddEventLog.reg
+
+[common.AddEventLog.reg]
+HKR, , EventMessageFile, 0x00020000,"%%SystemRoot%%\System32\netevent.dll"
+HKR, , TypesSupported,   0x00010001, 7
+
+
+
+
+;---------------------------------------------------
+[Strings]
+ManufacturerName1	= "3Com"
+DeviceDesc 		= "3Com 3CRWE62092A Wireless LAN PC Card"
+ServiceName		= "3Com 3CRWE62092A Wireless LAN PC Card Driver"
+DISK1			= "3Com 3CRWE62092A Wireless LAN PC Card Driver Disk"
+
+
+AUTO	= "AUTO"
+NDV	= "NDIS Driver Version"
+AS	= "Auto Select"
+ND3	= "NDIS 3"
+ND4	= "NDIS 4"
+ND5	= "NDIS 5"

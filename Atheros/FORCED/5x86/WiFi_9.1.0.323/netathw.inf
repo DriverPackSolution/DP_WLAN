@@ -1,0 +1,436 @@
+;/*++
+;
+;Copyright (c) 2001-2008 Atheros Communications, Incorporated All Rights Reserved
+;
+;Module Name:
+;
+;    netathw.inf
+;
+;Abstract:
+;    INF file for installing Atheros AR500x Wireless Network Adapter
+;
+;    Installs athw.sys (NDIS 5/5.1 driver) on NT platforms (2000, XP and greater)
+;    Installs athwx.sys (NDIS 5/5.1 driver) on 64bit platforms  (XP and greater)
+;
+;--*/
+
+[Version]
+Signature   = "$CHICAGO$"
+Class       = Net
+ClassGUID   = {4d36e972-e325-11ce-bfc1-08002be10318}
+Provider    = %ATHEROS%
+Compatible  = 1
+DriverVer   = 09/27/2010,9.1.0.323
+Catalogfile.nt = netathw.cat
+
+[Manufacturer]
+%ATHEROS%     = Atheros
+
+[ControlFlags]
+ExcludeFromSelect = \  ;for win95 and legacy support
+  PCI\VEN_168C&DEV_0013
+
+[Atheros]
+; DisplayName               Section                 DeviceID
+; -----------               -------                 --------
+%ATHER.DeviceDesc.3067%  = ATHER_DEV_001C.ndi,    PCI\VEN_168C&DEV_001C&SUBSYS_303F103C
+%ATHER.DeviceDesc.3067%  = ATHER_DEV_001C.ndi,    PCI\VEN_168C&DEV_001C&SUBSYS_3040103C
+%ATHER.DeviceDesc.3067%  = ATHER_DEV_001C.ndi,    PCI\VEN_168C&DEV_001C&SUBSYS_137A103C
+%ATHER.DeviceDesc.3067%  = ATHER_DEV_001C.ndi,    PCI\VEN_168C&DEV_001C&SUBSYS_137B103C
+%ATHER.DeviceDesc.2063%  = ATHER_DEV_2063.ndi,    PCI\VEN_168C&DEV_001C&SUBSYS_1385103C
+%ATHER.DeviceDesc.2063%  = ATHER_DEV_2063.ndi,    PCI\VEN_168C&DEV_001C&SUBSYS_1386103C
+%ATHER.DeviceDesc.3096%  = ATHER_DEV_002A.ndi,    PCI\VEN_168C&DEV_002A&SUBSYS_1381103C
+%ATHER.DeviceDesc.3096%  = ATHER_DEV_002A.ndi,    PCI\VEN_168C&DEV_002A&SUBSYS_1382103C
+%ATHER.DeviceDesc.3096%  = ATHER_DEV_002A.ndi,    PCI\VEN_168C&DEV_002A&SUBSYS_3041103C
+%ATHER.DeviceDesc.3096%  = ATHER_DEV_002A.ndi,    PCI\VEN_168C&DEV_002A&SUBSYS_3042103C
+%ATHER.DeviceDesc.30A1%  = ATHER_DEV_30A1.ndi,    PCI\VEN_168C&DEV_002B&SUBSYS_303F103C
+%ATHER.DeviceDesc.30A1%  = ATHER_DEV_30A1.ndi,    PCI\VEN_168C&DEV_002B&SUBSYS_3040103C
+%ATHER.DeviceDesc.30AB%  = ATHER_DEV_30AB.ndi,    PCI\VEN_168C&DEV_002B&SUBSYS_1461103C
+%ATHER.DeviceDesc.30A4%  = ATHER_DEV_30A4.ndi,    PCI\VEN_168C&DEV_002E&SUBSYS_1462103C
+%ATHER.DeviceDesc.30A4%  = ATHER_DEV_3197.ndi,    PCI\VEN_168C&DEV_002E&SUBSYS_1626103C
+
+; Windows NT specific entries
+
+[ATHER_DEV_001C.ndi.NT]
+Characteristics = 0x84 ; NCF_PHYSICAL | NCF_HAS_UI
+BusType         = 5
+DelReg          = 5211.DelReg
+AddReg          = 5211.reg, ATHER.reg, 5211.reg, 5212.bgmp.reg, ledcontrol.reg, uapsd.reg
+CopyFiles       = ATHER.CopyFiles.nt, DEFAULTDESTDIRS
+DelFiles        = ATHER.DelIniFiles
+
+[ATHER_DEV_001C.ndi.NT.Services]
+AddService      = AR5416, 2, ATHER.Service, common.EventLog
+
+[ATHER_DEV_2063.ndi.NT]
+Characteristics = 0x84 ; NCF_PHYSICAL | NCF_HAS_UI
+BusType         = 5
+DelReg          = 5211.DelReg
+AddReg          = 5211.reg, ATHER.reg, 5211.reg, ledcontrol3.reg, uapsd.reg
+CopyFiles       = ATHER.CopyFiles.nt, DEFAULTDESTDIRS
+DelFiles        = ATHER.DelIniFiles
+
+[ATHER_DEV_2063.ndi.NT.Services]
+AddService      = AR5416, 2, ATHER.Service, common.EventLog
+
+[ATHER_DEV_002A.ndi.NT]
+Characteristics = 0x84 ; NCF_PHYSICAL | NCF_HAS_UI
+BusType         = 5
+DelReg          = 5416.DelReg
+AddReg          = 5416.reg, ATHER.reg, 5416.reg, sys.TcpParams.reg, ledcontrol2.reg, uapsd.reg, htAdhoc.reg
+CopyFiles       = ATHER.CopyFiles.nt, DEFAULTDESTDIRS
+DelFiles        = ATHER.DelIniFiles
+
+[ATHER_DEV_002A.ndi.NT.Services]
+AddService      = AR5416, 2, ATHER.Service, common.EventLog
+
+[ATHER_DEV_30A1.ndi.NT]
+Characteristics = 0x84 ; NCF_PHYSICAL | NCF_HAS_UI
+BusType         = 5
+DelReg          = 5416.DelReg
+AddReg          = 5416.reg, ATHER.reg, 5416.reg, sys.TcpParams.reg, ledcontrol2.reg, uapsd.reg, htAdhoc.reg
+CopyFiles       = ATHER.CopyFiles.nt, DEFAULTDESTDIRS
+DelFiles        = ATHER.DelIniFiles
+
+[ATHER_DEV_30A1.ndi.NT.Services]
+AddService      = AR5416, 2, ATHER.Service, common.EventLog
+
+[ATHER_DEV_30AB.ndi.NT]
+Characteristics = 0x84 ; NCF_PHYSICAL | NCF_HAS_UI
+BusType         = 5
+DelReg          = 5416.DelReg
+AddReg          = 5416.reg, ATHER.reg, 5416.reg, sys.TcpParams.reg, ledcontrol2.reg, uapsd.reg, htAdhoc.reg, janusda.reg
+CopyFiles       = ATHER.CopyFiles.nt, DEFAULTDESTDIRS
+DelFiles        = ATHER.DelIniFiles
+
+[ATHER_DEV_30AB.ndi.NT.Services]
+AddService      = AR5416, 2, ATHER.Service, common.EventLog
+
+[ATHER_DEV_30A4.ndi.NT]
+Characteristics = 0x84 ; NCF_PHYSICAL | NCF_HAS_UI
+BusType         = 5
+DelReg          = 5416.DelReg
+AddReg          = 5416.reg, ATHER.reg, 5416.reg, sys.TcpParams.reg, ledcontrol4.reg, uapsd.reg, htAdhoc.reg
+CopyFiles       = ATHER.CopyFiles.nt, DEFAULTDESTDIRS
+DelFiles        = ATHER.DelIniFiles
+
+[ATHER_DEV_30A4.ndi.NT.Services]
+AddService      = AR5416, 2, ATHER.Service, common.EventLog
+
+[ATHER_DEV_3197.ndi.NT]
+Characteristics = 0x84 ; NCF_PHYSICAL | NCF_HAS_UI
+BusType         = 5
+DelReg          = 5416.DelReg
+AddReg          = 5416.reg, ATHER.reg, 5416.reg, sys.TcpParams.reg, ledcontrol4.reg, uapsd.reg, htAdhoc.reg, heliusda.reg
+CopyFiles       = ATHER.CopyFiles.nt, DEFAULTDESTDIRS
+DelFiles        = ATHER.DelIniFiles
+
+[ATHER_DEV_3197.ndi.NT.Services]
+AddService      = AR5416, 2, ATHER.Service, common.EventLog
+
+;----------------------------------------------------------------------------
+; Win9x id registry sections(Win9x Not Supported)
+; 
+;
+; 5211 Enumerated Types
+;
+
+[5212.bgmp.reg]
+HKR, ,                                  NetBand,                        0x00002,  "12"
+HKR, CustomParams\Configurations,       NicType,                        0x10003,  2
+
+;-----------------------------------------------------------------------------
+
+[5211.DelReg]
+HKR,,d3forcel1disable.reg
+HKR,,pcieWaen
+HKR,,radioEnable
+HKR, Ndi\params\radioEnable
+
+[5211.reg]
+HKR, Ndi\params\MapRegisters,           ParamDesc,                      0,  %MapRegisters%
+HKR, Ndi\params\MapRegisters,           default,                        0,  "256"
+HKR, Ndi\params\MapRegisters,           min,                            0,  "32"
+HKR, Ndi\params\MapRegisters,           max,                            0,  "512"
+HKR, Ndi\params\MapRegisters,           step,                           0,  "8"
+HKR, Ndi\params\MapRegisters,           base,                           0,  "10"
+HKR, Ndi\params\MapRegisters,           type,                           0,  "int"
+
+HKR, Ndi\params\NetworkAddress,         ParamDesc,                      0,  %NetworkAddress%
+HKR, Ndi\params\NetworkAddress,         default,                        0,  ""
+HKR, Ndi\params\NetworkAddress,         LimitText,                      0,  "12"
+HKR, Ndi\params\NetworkAddress,         UpperCase,                      0,  "1"
+HKR, Ndi\params\NetworkAddress,         optional,                       0,  "1"
+HKR, Ndi\params\NetworkAddress,         type,                           0,  "edit"
+
+HKR, Ndi\params\sleepMode,              ParamDesc,                      0,  %sleepMode%
+HKR, Ndi\params\sleepMode,              Base,                           0,  "10"
+HKR, Ndi\params\sleepMode,              default,                        0,  "2"
+HKR, Ndi\params\sleepMode,              type,                           0,  "enum"
+HKR, Ndi\params\sleepMode\enum,         "0",                            0,  %sleepModeOff%
+HKR, Ndi\params\sleepMode\enum,         "2",                            0,  %sleepModeNormal%
+HKR, Ndi\params\sleepMode\enum,         "1",                            0,  %sleepModeMax%
+
+HKR, Ndi\params\shortPreamble,          ParamDesc,                      0,  %shortPreamble%
+HKR, Ndi\params\shortPreamble,          Base,                           0,  "10"
+HKR, Ndi\params\shortPreamble,          default,                        0,  "1"
+HKR, Ndi\params\shortPreamble,          type,                           0,  "enum"
+HKR, Ndi\params\shortPreamble\enum,     "1",                            0,  %shortPreambleEnable%
+HKR, Ndi\params\shortPreamble\enum,     "0",                            0,  %shortPreambleDisable%
+
+HKR, Ndi\params\scanTimeValid,          ParamDesc,                      0,  %scanTimeValid%
+HKR, Ndi\params\scanTimeValid,          default,                        0,  "60"
+HKR, Ndi\params\scanTimeValid,          min,                            0,  "20"
+HKR, Ndi\params\scanTimeValid,          max,                            0,  "120"
+HKR, Ndi\params\scanTimeValid,          step,                           0,  "5"
+HKR, Ndi\params\scanTimeValid,          base,                           0,  "10"
+HKR, Ndi\params\scanTimeValid,          type,                           0,  "int"
+
+HKR, CustomParams\Configurations,       MajorVersion,                   0x10003,  2
+HKR, CustomParams\Configurations,       MinorVersion,                   0x10003,  0
+
+HKR, CustomParams\Configurations,       SelectedConfigurationIndex,     0x10003,  0
+HKR, CustomParams\Configurations,       SelectedConfigurationName,      0x00002,  "Default"
+
+[5416.DelReg]
+HKR,,d3forcel1disable.reg
+HKR,,pcieWaen
+HKR,,radioEnable
+HKR, Ndi\params\radioEnable
+
+[5416.reg]
+HKR, Ndi\params\MapRegisters,           ParamDesc,                      0,  %MapRegisters%
+HKR, Ndi\params\MapRegisters,           default,                        0,  "256"
+HKR, Ndi\params\MapRegisters,           min,                            0,  "32"
+HKR, Ndi\params\MapRegisters,           max,                            0,  "512"
+HKR, Ndi\params\MapRegisters,           step,                           0,  "8"
+HKR, Ndi\params\MapRegisters,           base,                           0,  "10"
+HKR, Ndi\params\MapRegisters,           type,                           0,  "int"
+
+HKR, Ndi\params\NetworkAddress,         ParamDesc,                      0,  %NetworkAddress%
+HKR, Ndi\params\NetworkAddress,         default,                        0,  ""
+HKR, Ndi\params\NetworkAddress,         LimitText,                      0,  "12"
+HKR, Ndi\params\NetworkAddress,         UpperCase,                      0,  "1"
+HKR, Ndi\params\NetworkAddress,         optional,                       0,  "1"
+HKR, Ndi\params\NetworkAddress,         type,                           0,  "edit"
+
+HKR, Ndi\params\sleepMode,              ParamDesc,                      0,  %sleepMode%
+HKR, Ndi\params\sleepMode,              Base,                           0,  "10"
+HKR, Ndi\params\sleepMode,              default,                        0,  "2"
+HKR, Ndi\params\sleepMode,              type,                           0,  "enum"
+HKR, Ndi\params\sleepMode\enum,         "0",                            0,  %sleepModeOff%
+HKR, Ndi\params\sleepMode\enum,         "2",                            0,  %sleepModeNormal%
+HKR, Ndi\params\sleepMode\enum,         "1",                            0,  %sleepModeMax%
+
+HKR, Ndi\params\shortPreamble,          ParamDesc,                      0,  %shortPreamble%
+HKR, Ndi\params\shortPreamble,          Base,                           0,  "10"
+HKR, Ndi\params\shortPreamble,          default,                        0,  "1"
+HKR, Ndi\params\shortPreamble,          type,                           0,  "enum"
+HKR, Ndi\params\shortPreamble\enum,     "1",                            0,  %shortPreambleEnable%
+HKR, Ndi\params\shortPreamble\enum,     "0",                            0,  %shortPreambleDisable%
+
+HKR, Ndi\params\scanTimeValid,          ParamDesc,                      0,  %scanTimeValid%
+HKR, Ndi\params\scanTimeValid,          default,                        0,  "60"
+HKR, Ndi\params\scanTimeValid,          min,                            0,  "20"
+HKR, Ndi\params\scanTimeValid,          max,                            0,  "120"
+HKR, Ndi\params\scanTimeValid,          step,                           0,  "5"
+HKR, Ndi\params\scanTimeValid,          base,                           0,  "10"
+HKR, Ndi\params\scanTimeValid,          type,                           0,  "int"
+
+HKR, CustomParams\Configurations,       MajorVersion,                   0x10003,  2
+HKR, CustomParams\Configurations,       MinorVersion,                   0x10003,  0
+
+HKR, CustomParams\Configurations,       SelectedConfigurationIndex,     0x10003,  0
+HKR, CustomParams\Configurations,       SelectedConfigurationName,      0x00002,  "Default"
+
+[uapsd.reg]
+HKR, Ndi\params\uapsdEnabledBE,            ParamDesc,                      0,  %uapsdEnabledBE%
+HKR, Ndi\params\uapsdEnabledBE,            Base,                           0,  "10"
+HKR, Ndi\params\uapsdEnabledBE,            default,                        0,  "0"
+HKR, Ndi\params\uapsdEnabledBE,            type,                           0,  "enum"
+HKR, Ndi\params\uapsdEnabledBE\enum,       "1",                            0,  %uapsdEnabledBEOn%
+HKR, Ndi\params\uapsdEnabledBE\enum,       "0",                            0,  %uapsdEnabledBEOff%
+
+HKR, Ndi\params\uapsdEnabledBK,            ParamDesc,                      0,  %uapsdEnabledBK%
+HKR, Ndi\params\uapsdEnabledBK,            Base,                           0,  "10"
+HKR, Ndi\params\uapsdEnabledBK,            default,                        0,  "0"
+HKR, Ndi\params\uapsdEnabledBK,            type,                           0,  "enum"
+HKR, Ndi\params\uapsdEnabledBK\enum,       "1",                            0,  %uapsdEnabledBKOn%
+HKR, Ndi\params\uapsdEnabledBK\enum,       "0",                            0,  %uapsdEnabledBKOff%
+
+HKR, Ndi\params\uapsdEnabledVI,            ParamDesc,                      0,  %uapsdEnabledVI%
+HKR, Ndi\params\uapsdEnabledVI,            Base,                           0,  "10"
+HKR, Ndi\params\uapsdEnabledVI,            default,                        0,  "0"
+HKR, Ndi\params\uapsdEnabledVI,            type,                           0,  "enum"
+HKR, Ndi\params\uapsdEnabledVI\enum,       "1",                            0,  %uapsdEnabledVIOn%
+HKR, Ndi\params\uapsdEnabledVI\enum,       "0",                            0,  %uapsdEnabledVIOff%
+
+HKR, Ndi\params\uapsdEnabledVO,            ParamDesc,                      0,  %uapsdEnabledVO%
+HKR, Ndi\params\uapsdEnabledVO,            Base,                           0,  "10"
+HKR, Ndi\params\uapsdEnabledVO,            default,                        0,  "0"
+HKR, Ndi\params\uapsdEnabledVO,            type,                           0,  "enum"
+HKR, Ndi\params\uapsdEnabledVO\enum,       "1",                            0,  %uapsdEnabledVOOn%
+HKR, Ndi\params\uapsdEnabledVO\enum,       "0",                            0,  %uapsdEnabledVOOff%
+
+;;Customized Section
+
+[ledcontrol.reg]
+HKR, ,                                  gpioPinFunc0,                 	0x00002,  "3"
+HKR, ,                                  gpioFunc0ActHi,                 0x00002,  "0"
+
+[ledcontrol2.reg]
+HKR, ,                                  gpioPinFunc0,                   0x00002,  "1"
+HKR, ,                                  gpioFunc0ActHi,                 0x00002,  "0"
+HKR, ,                                  sharedGpioFunc0,                0x00002,  "1"
+
+[ledcontrol3.reg]
+HKR, ,                                  gpioPinFunc0,                 	0x00002,  "1"
+HKR, ,                                  gpioFunc0ActHi,                 0x00002,  "0"
+
+[ledcontrol4.reg]
+HKR, ,                                  gpioPinFunc0,                   0x00002,  "8"
+HKR, ,                                  gpioFunc0ActHi,                 0x00002,  "0"
+HKR, ,                                  sharedGpioFunc0,                0x00002,  "1"
+
+[htAdhoc.reg]
+HKR, Ndi\params\htAdhocEnable,            ParamDesc,                      0,  %AdHoc11n%
+HKR, Ndi\params\htAdhocEnable,            Base,                           0,  "10"
+HKR, Ndi\params\htAdhocEnable,            default,                        0,  "0"
+HKR, Ndi\params\htAdhocEnable,            type,                           0,  "enum"
+HKR, Ndi\params\htAdhocEnable\enum,       "1",                            0,  %Enable%
+HKR, Ndi\params\htAdhocEnable\enum,       "0",                            0,  %Disable%
+
+[janusda.reg]
+HKR, ,                                  btCoexEnable,                     0x00002,  "4"
+HKR, ,                                  btCoexAgent,                      0x00002,  "1"
+
+[heliusda.reg]
+HKR, ,                                  btCoexEnable,                     0x00002,  "4"
+HKR, ,                                  btCoexAgent,                      0x00002,  "1"
+HKR, ,                                  btModule,                         0x00002,  "2"
+HKR, ,                                  txChainSelectLegacy,              0x00002,  "2"
+HKR, ,                                  rxChainSelectLegacy,              0x00002,  "2"
+
+;;End Customized Section
+
+;-----------------------------------------------------------------------------
+; ATHER NT specific
+;
+
+[ATHER.reg]
+HKR, Ndi,             Service,      0, "AR5416"
+HKR, Ndi\Interfaces,  UpperRange,   0, "ndis5"
+HKR, Ndi\Interfaces,  LowerRange,   0, "ethernet"
+
+[ATHER.Service]
+DisplayName     = %ATHER.Service.DispName%
+ServiceType     = 1 ;%SERVICE_KERNEL_DRIVER%
+StartType       = 3 ;%SERVICE_DEMAND_START%
+ErrorControl    = 1 ;%SERVICE_ERROR_NORMAL%
+ServiceBinary   = %12%\athw.sys
+LoadOrderGroup  = NDIS
+
+;-----------------------------------------------------------------------------
+; ATHER NT/XP common
+;
+[common.EventLog]
+AddReg = common.AddEventLog.reg
+
+[common.AddEventLog.reg]
+HKR, ,                  EventMessageFile,   0x00020000,   "%%SystemRoot%%\System32\netevent.dll"
+HKR, ,                  TypesSupported,     0x00010001,   7
+
+;----------------------------------------------------------------------------
+; ATHER Win9x specific
+;
+;[ATHER.win.reg]
+;HKR, ,                  DevLoader,          0,            "*ndis"
+;HKR, ,                  DeviceVxDs,         0,            "ar52119x.sys"
+;HKR, ,                  EnumPropPages,      0,            "netdi.dll,EnumPropPages"
+
+;HKR, Ndi\Interfaces,    DefUpper,           0,            "ndis3"
+;HKR, Ndi\Interfaces,    DefLower,           0,            "ethernet"
+;HKR, Ndi\Interfaces,    UpperRange,         0,            "ndis3"
+;HKR, Ndi\Interfaces,    LowerRange,         0,            "ethernet"
+
+;HKR, NDIS,              LogDriverName,      0,            "AR52119X"
+;HKR, NDIS,              MajorNdisVersion,   1,            03
+;HKR, NDIS,              MinorNdisVersion,   1,            0A
+
+;HKR, Ndi\Install,       ndis3,              0,            "ATHER.install"
+
+;----------------------------------------------------------------------------
+; System TCPIP parameter changes
+;
+[sys.TcpParams.reg]
+HKLM, SYSTEM\CurrentControlSet\Services\Tcpip\Parameters, Tcp1323Opts, 0x00010001, 0x00000003
+HKLM, SYSTEM\CurrentControlSet\Services\Tcpip\Parameters, TcpWindowSize, 0x00010001, 0x00040000
+
+;----------------------------------------------------------------------------
+; Win9x Files to Copy
+;[ATHER.win.CopyFiles]
+;ar52119x.sys,,,2
+
+;----------------------------------------------------------------------------
+; NT Files to Copy
+[ATHER.CopyFiles.nt]
+athw.sys,,,2
+
+[ATHER.DelIniFiles]
+Athnic.ini,,,1
+
+[SourceDisksNames]
+;
+; diskid = description[, [tagfile] [, <unused>, subdir]]
+;
+1 = %Atheros_Disk%,,,
+
+;----------------------------------------------------------------------------
+; Source Files
+[SourceDisksFiles]
+ar52119x.sys                 = 1,, ; on distribution disk 1
+athw.sys                     = 1,, ; on distribution disk 1
+
+[DestinationDirs]
+ATHER.CopyFiles.nt           = 12
+;ATHER.win.CopyFiles         = 10,system32\drivers ; %SystemRoot%\system32\drivers
+ATHER.DelIniFiles            = 10,system32\drivers ; %SystemRoot%\system32\drivers
+DefaultDestDir               = 11
+
+[DEFAULTDESTDIRS]
+
+[Strings]
+Atheros                      = "Atheros"
+MapRegisters                 = "Map Registers"
+NetworkAddress               = "Network Address"
+sleepMode                    = "Power Save Mode"
+scanTimeValid                = "Scan Valid Interval"
+sleepModeOff                 = "Off"
+sleepModeNormal              = "Normal"
+sleepModeMax                 = "Maximum"
+shortPreamble                = "802.11b Preamble"
+shortPreambleEnable          = "Long and Short"
+shortPreambleDisable         = "Long only"
+uapsdEnabledBE               = "Power Save Policy (Best Effort)"
+uapsdEnabledBEOn             = "WMM Power Save (UAPSD)"
+uapsdEnabledBEOff            = "Legacy Power Save"
+uapsdEnabledBK               = "Power Save Policy (Background)"
+uapsdEnabledBKOn             = "WMM Power Save (UAPSD)"
+uapsdEnabledBKOff            = "Legacy Power Save"
+uapsdEnabledVI               = "Power Save Policy (Voice)"
+uapsdEnabledVIOn             = "WMM Power Save (UAPSD)"
+uapsdEnabledVIOff            = "Legacy Power Save"
+uapsdEnabledVO               = "Power Save Policy (Video)"
+uapsdEnabledVOOn             = "WMM Power Save (UAPSD)"
+uapsdEnabledVOOff            = "Legacy Power Save"
+Atheros_Disk                 = "Atheros Driver Disk 1"
+AdHoc11n                     = "AdHoc 11n"
+Enable			     = "Enable"
+Disable                      = "Disable"
+ATHER.Service.DispName       = "Atheros Wireless Adapter Service"
+ATHER.DeviceDesc.3067        = "Atheros AR5007 802.11b/g WiFi Adapter"
+ATHER.DeviceDesc.2063        = "Atheros AR5006 802.11a/b/g WiFi Adapter"
+ATHER.DeviceDesc.3096        = "Atheros AR5009 802.11a/g/n WiFi Adapter"
+ATHER.DeviceDesc.30A1        = "Atheros AR9285 802.11b/g/n WiFi Adapter"
+ATHER.DeviceDesc.30AB        = "Atheros AR9285 802.11b/g/n WiFi Adapter"
+ATHER.DeviceDesc.30A4        = "Atheros AR9287 802.11b/g/n WiFi Adapter"

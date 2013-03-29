@@ -1,0 +1,744 @@
+;****************************************************************************************
+;
+; netr73.inf
+;
+;   This installation script supports Windows 7 for the
+;   Ralink RT73 series USB Wireless LAN Card.
+;
+;   Copyright (c) 2002-2010 , Ralink Technology Corp., All Rights Reserved
+;   Developed by RaLink Technology, Corp. -- http://www.ralinktech.com
+;
+;****************************************************************************************
+
+[Version]
+Signature       = "$Windows NT$"
+Class           = Net
+ClassGUID       = {4d36e972-e325-11ce-bfc1-08002be10318}
+Provider        = %Provider%
+;Compatible      = 1
+CatalogFile     = netr73.cat
+DriverVer       = 09/30/2011, 4.00.10.0000
+
+[ControlFlags]
+;***********Ralink 802.11g board  ***********
+ExcludeFromSelect = *
+
+[Manufacturer]
+%Ralink%        = Ralink, NTx86.6.1
+%Qcom%          = Qcom, NTx86.6.1
+%Gigabyte%      = Gigabyte, NTx86.6.1
+%Conceptronic%  = Conceptronic, NTx86.6.1
+%Surecom%       = Surecom, NTx86.6.1
+%Asus%          = ASUS, NTx86.6.1
+%Amit%          = AMIT, NTx86.6.1
+%CNet%          = CNet, NTx86.6.1
+%Huawei-3Com%   = Huawei-3Com, NTx86.6.1
+%Askey%         = Askey, NTx86.6.1
+%HP%            = HP, NTx86.6.1
+%Buffalo%       = Buffalo, NTx86.6.1
+%ZyXEL%         = ZyXEL, NTx86.6.1
+%Sitecom%       = Sitecom, NTx86.6.1
+%Netopia%       = Netopia, NTx86.6.1
+%Philips%       = Philips, NTx86.6.1
+%Zcom%          = Zcom, NTx86.6.1
+%AboCom%        = AboCom, NTx86.6.1
+%EnGenius%      = EnGenius, NTx86.6.1
+%Edimax%        = Edimax, NTx86.6.1
+%AL%            = AL, NTx86.6.1
+%Planex%        = Planex, NTx86.6.1
+%Samsung%       = Samsung, NTx86.6.1
+%Billionton%    = Billionton, NTx86.6.1
+%D-Link%        = D-Link, NTx86.6.1
+%I-O%           = I-O, NTx86.6.1
+%Linksys%       = Linksys, NTx86.6.1
+%Corega%        = Corega, NTx86.6.1
+%Ovislink%      = Ovislink, NTx86.6.1
+%ALLWIN%        = ALLWIN, NTx86.6.1
+%Hawking%       = Hawking, NTx86.6.1
+
+;*******************************************************************************************
+; Win7 specific entries
+;*******************************************************************************************
+[Ralink.NTx86.6.1]
+; DisplayName               Section                 DeviceID
+; -----------               -------                 --------
+%Ralink.DeviceDesc%         = RTWLANWR.ndi,         USB\VID_148F&PID_2573
+%Ralink.DeviceDesc%         = RTWLANR.ndi,          USB\VID_148F&PID_2671
+%Ralink.DeviceDesc%         = RTWLANR.ndi,          USB\VID_18E8&PID_6238
+; MSI
+%M6877.DeviceDesc%          = RTWLANRNP.ndi,        USB\VID_0DB0&PID_6877
+%MA874.DeviceDesc%          = RTWLANR.ndi,          USB\VID_0DB0&PID_A874
+%M6874.DeviceDesc%          = RTWLANR.ndi,          USB\VID_0DB0&PID_6874
+%MA861.DeviceDesc%          = RTWLANR.ndi,          USB\VID_0DB0&PID_A861
+%M4600.DeviceDesc%          = RTWLANR.ndi,          USB\VID_0DB0&PID_4600
+;
+%GMEWLGRL.DeviceDesc%       = RTWLANR.ndi,          USB\VID_1631&PID_C019
+;
+%Amigo.DeviceDesc%          = RTWLAN.ndi,           USB\VID_0EB0&PID_9021
+;
+;widetell
+%Ralink.DeviceDesc%         = RTWLAN_C2.ndi,         USB\VID_7167&PID_3840
+
+[Qcom.NTx86.6.1]
+; DisplayName               Section                 DeviceID
+; -----------               -------                 --------
+%Qcom.DeviceDesc%           = RTWLAN.ndi,           USB\VID_18E8&PID_6196
+%Qcom.DeviceDesc%           = RTWLANR.ndi,          USB\VID_18E8&PID_6229
+
+[Gigabyte.NTx86.6.1]
+; DisplayName               Section                 DeviceID
+; -----------               -------                 --------
+%Gigabyte.DeviceDesc%       = RTWLAN.ndi,           USB\VID_1044&PID_8008
+%Gigabyte2.DeviceDesc%      = RTWLANR.ndi,          USB\VID_1044&PID_800A
+
+[Conceptronic.NTx86.6.1]
+; DisplayName               Section                 DeviceID
+; -----------               -------                 --------
+%Conceptronic.DeviceDesc%   = RTWLAN.ndi,           USB\VID_14B2&PID_3C22
+
+[Surecom.NTx86.6.1]
+; DisplayName               Section                 DeviceID
+; -----------               -------                 --------
+%Surecom.DeviceDesc%        = RTWLAN.ndi,           USB\VID_0769&PID_31F3
+
+[ASUS.NTx86.6.1]
+; DisplayName               Section                 DeviceID
+; -----------               -------                 --------
+%ASUS.DeviceDesc%           = RTWLAN.ndi,           USB\VID_0B05&PID_1723
+%ASUSGEN.DeviceDesc%        = RTWLAN.ndi,           USB\VID_0B05&PID_1724
+
+[AMIT.NTx86.6.1]
+; DisplayName               Section                 DeviceID
+; -----------               -------                 --------
+%AMIT.DeviceDesc%           = RTWLAN.ndi,           USB\VID_18C5&PID_0002
+
+[CNet.NTx86.6.1]
+; DisplayName               Section                 DeviceID
+; -----------               -------                 --------
+%CNet.DeviceDesc%           = RTWLAN.ndi,           USB\VID_1371&PID_9032
+
+[Huawei-3Com.NTx86.6.1]
+; DisplayName               Section                 DeviceID
+; -----------               -------                 --------
+%Huawei-3Com.DeviceDesc%    = RTWLAN.ndi,           USB\VID_1472&PID_0009
+
+[Askey.NTx86.6.1]
+; DisplayName               Section                 DeviceID
+; -----------               -------                 --------
+%Askey.DeviceDesc%          = RTWLAN.ndi,           USB\VID_1690&PID_0722
+
+[HP.NTx86.6.1]
+; DisplayName               Section                 DeviceID
+; -----------               -------                 --------
+%HP.DeviceDesc%             = RTWLANR.ndi,          USB\VID_15A9&PID_0004
+
+[Buffalo.NTx86.6.1]
+; DisplayName               Section                 DeviceID
+; -----------               -------                 --------
+%Buffalo_00D8.DeviceDesc%   = RTWLAN.ndi,           USB\VID_0411&PID_00D8
+%Buffalo_00D9.DeviceDesc%   = RTWLAN.ndi,           USB\VID_0411&PID_00D9
+%Buffalo_0116.DeviceDesc%   = RTWLAN.ndi,           USB\VID_0411&PID_0116
+%Buffalo_0137.DeviceDesc%   = RTWLAN.ndi,           USB\VID_0411&PID_0137
+
+[ZyXEL.NTx86.6.1]
+; DisplayName               Section                 DeviceID
+; -----------               -------                 --------
+%ZyXEL.DeviceDesc%          = RTWLAN.ndi,           USB\VID_0586&PID_3415
+
+[Sitecom.NTx86.6.1]
+; DisplayName               Section                 DeviceID
+; -----------               -------                 --------
+%Sitecom_9712.DeviceDesc%   = RTWLAN.ndi,           USB\VID_0DF6&PID_9712
+%Sitecom_90AC.DeviceDesc%   = RTWLAN.ndi,           USB\VID_0DF6&PID_90AC
+%Sitecom_0024.DeviceDesc%   = RTWLAN.ndi,           USB\VID_0DF6&PID_0024
+%Sitecom_0027.DeviceDesc%   = RTWLAN.ndi,           USB\VID_0DF6&PID_0027
+%Sitecom_002F.DeviceDesc%   = RTWLAN.ndi,           USB\VID_0DF6&PID_002F
+
+[Netopia.NTx86.6.1]
+; DisplayName               Section                 DeviceID
+; -----------               -------                 --------
+%Netopia.DeviceDesc%        = RTWLAN.ndi,           USB\VID_148F&PID_9021
+
+[Philips.NTx86.6.1]
+; DisplayName               Section                 DeviceID
+; -----------               -------                 --------
+%Philips.DeviceDesc%        = RTWLAN.ndi,           USB\VID_0471&PID_200A
+
+[Zcom.NTx86.6.1]
+; DisplayName               Section                 DeviceID
+; -----------               -------                 --------
+%Zcom.DeviceDesc%           = RTWLAN.ndi,           USB\VID_0CDE&PID_001C
+
+[AboCom.NTx86.6.1]
+; DisplayName               Section                 DeviceID
+; -----------               -------                 --------
+%AboCom_B21B.DeviceDesc%    = RTWLAN.ndi,           USB\VID_07B8&PID_B21B
+%AboCom_B21C.DeviceDesc%    = RTWLAN.ndi,           USB\VID_07B8&PID_B21C
+%AboCom_B21D.DeviceDesc%    = RTWLAN.ndi,           USB\VID_07B8&PID_B21D
+%AboCom_B21E.DeviceDesc%    = RTWLAN.ndi,           USB\VID_07B8&PID_B21E
+%AboCom_B21F.DeviceDesc%    = RTWLAN.ndi,           USB\VID_07B8&PID_B21F
+%AboCom_AB01.DeviceDesc%    = RTWLAN.ndi,           USB\VID_2019&PID_AB01
+%AboCom_3415.DeviceDesc%    = RTWLAN.ndi,           USB\VID_0586&PID_3415
+
+[EnGenius.NTx86.6.1]
+; DisplayName               Section                 DeviceID
+; -----------               -------                 --------
+%EnGenius_3701.DeviceDesc%  = RTWLAN.ndi,           USB\VID_1740&PID_3701
+%EnGenius_7100.DeviceDesc%  = RTWLAN.ndi,           USB\VID_1740&PID_7100
+
+[Edimax.NTx86.6.1]
+; DisplayName               Section                 DeviceID
+; -----------               -------                 --------
+%Edimax_7318.DeviceDesc%    = RTWLAN.ndi,           USB\VID_7392&PID_7318
+%Edimax_7618.DeviceDesc%    = RTWLAN.ndi,           USB\VID_7392&PID_7618
+
+[AL.NTx86.6.1]
+; DisplayName               Section                 DeviceID
+; -----------               -------                 --------
+%AL_3C10.DeviceDesc%        = RTWLAN.ndi,           USB\VID_14B2&PID_3C10
+
+[Planex.NTx86.6.1]
+; DisplayName               Section                 DeviceID
+; -----------               -------                 --------
+%Planex_AB50.DeviceDesc%    = RTWLAN.ndi,           USB\VID_2019&PID_AB50
+
+[Samsung.NTx86.6.1]
+; DisplayName               Section                 DeviceID
+; -----------               -------                 --------
+%Samsung_4471.DeviceDesc%   = RTWLAN.ndi,          USB\VID_04E8&PID_4471
+
+[Billionton.NTx86.6.1]
+; DisplayName               Section                 DeviceID
+; -----------               -------                 --------
+%Billionton_0120.DeviceDesc%   = RTWLANR.ndi,       USB\VID_08DD&PID_0120
+
+[D-Link.NTx86.6.1]
+; DisplayName               Section                 DeviceID
+; -----------               -------                 --------
+%D-Link_3C06.DeviceDesc%    = RTWLAN_C3.ndi,        USB\VID_07D1&PID_3C06
+%D-Link_3C03.DeviceDesc%    = RTWLAN_C3.ndi,        USB\VID_07D1&PID_3C03
+%D-Link_3C04.DeviceDesc%    = RTWLAN_C3.ndi,        USB\VID_07D1&PID_3C04
+%D-Link_3C07.DeviceDesc%    = RTWLAN_C3.ndi,        USB\VID_07D1&PID_3C07
+
+[I-O.NTx86.6.1]
+; DisplayName               Section                 DeviceID
+; -----------               -------                 --------
+%I-O_093D.DeviceDesc%       = RTWLAN.ndi,           USB\VID_04BB&PID_093D
+
+[Linksys.NTx86.6.1]
+; DisplayName               Section                 DeviceID
+; -----------               -------                 --------
+%WUSB54GC.DeviceDesc%       = RTWLAN.ndi,           USB\VID_13B1&PID_0020
+%WUSB54GR.DeviceDesc%       = RTWLAN.ndi,           USB\VID_13B1&PID_0023
+
+[Corega.NTx86.6.1]
+; DisplayName               Section                 DeviceID
+; -----------               -------                 --------
+%Corega_002E.DeviceDesc%    = RTWLAN_C1.ndi,        USB\VID_07AA&PID_002E
+
+[Ovislink.NTx86.6.1]
+; DisplayName               Section                 DeviceID
+; -----------               -------                 --------
+%Ovislink_2573.DeviceDesc%  = RTWLAN_C4.ndi,        USB\VID_1B75&PID_2573
+
+[ALLWIN.NTx86.6.1]
+; DisplayName               Section                 DeviceID
+; -----------               -------                 --------
+%ALLWIN.DeviceDesc%         = RTWLANR.ndi,          USB\VID_8516&PID_2571
+
+[Hawking.NTx86.6.1]
+; DisplayName               Section                 DeviceID
+; -----------               -------                 --------
+%Hawking_0007.DeviceDesc%   = RTWLANR.ndi,          USB\VID_0E66&PID_0007
+
+;*******************************************************************************************
+; Win7 specific entries
+;*******************************************************************************************
+[RTWLAN.ndi.NT]
+Include=netvwifibus.inf
+Needs=VWiFiBus.CopyFiles
+AddReg                  = Common.reg, RTUSB_OS61.ndi.NT.reg
+Characteristics         = 0x84                      ; NCF_REMOVABLE | NCF_HAS_UI | NCF_PHYSICAL
+BusType                 = 15                        ;USB
+CopyFiles               = NT.CopyFiles
+*IfType = 71              ; IF_TYPE_IEEE80211
+*MediaType = 16           ; NdisMediumNative802_11
+*PhysicalMediaType = 9    ; NdisPhysicalMediumNative802_11
+
+[RTWLANWR.ndi.NT]
+Include=netvwifibus.inf
+Needs=VWiFiBus.CopyFiles
+AddReg                  = Common.reg, RTUSB_OS61.ndi.NT.reg, WMMEnable.reg, RemoveFlag.reg
+Characteristics         = 0x84                      ; NCF_REMOVABLE | NCF_HAS_UI | NCF_PHYSICAL
+BusType                 = 15                        ;USB
+CopyFiles               = NT.CopyFiles
+*IfType = 71              ; IF_TYPE_IEEE80211
+*MediaType = 16           ; NdisMediumNative802_11
+*PhysicalMediaType = 9    ; NdisPhysicalMediumNative802_11
+
+[RTWLANR.ndi.NT]
+Include=netvwifibus.inf
+Needs=VWiFiBus.CopyFiles
+AddReg                  = Common.reg, RTUSB_OS61.ndi.NT.reg, RemoveFlag.reg
+Characteristics         = 0x84                      ; NCF_REMOVABLE | NCF_HAS_UI | NCF_PHYSICAL
+BusType                 = 15                        ;USB
+CopyFiles               = NT.CopyFiles
+*IfType = 71              ; IF_TYPE_IEEE80211
+*MediaType = 16           ; NdisMediumNative802_11
+*PhysicalMediaType = 9    ; NdisPhysicalMediumNative802_11
+
+[RTWLANRNP.ndi.NT]
+Include=netvwifibus.inf
+Needs=VWiFiBus.CopyFiles
+AddReg                  = Common.reg, RTUSB_OS61.ndi.NT.reg, EnableNewPS.reg, RemoveFlag.reg
+Characteristics         = 0x84                      ; NCF_REMOVABLE | NCF_HAS_UI | NCF_PHYSICAL
+BusType                 = 15                        ;USB
+CopyFiles               = NT.CopyFiles
+*IfType = 71              ; IF_TYPE_IEEE80211
+*MediaType = 16           ; NdisMediumNative802_11
+*PhysicalMediaType = 9    ; NdisPhysicalMediumNative802_11
+
+[RTWLAN_C1.ndi.NT]
+Include=netvwifibus.inf
+Needs=VWiFiBus.CopyFiles
+AddReg                  = Common.reg, RTUSB_OS61.ndi.NT.reg, Customer1.reg
+Characteristics         = 0x84                      ; NCF_REMOVABLE | NCF_HAS_UI | NCF_PHYSICAL
+BusType                 = 15                        ;USB
+CopyFiles               = NT.CopyFiles
+*IfType = 71              ; IF_TYPE_IEEE80211
+*MediaType = 16           ; NdisMediumNative802_11
+*PhysicalMediaType = 9    ; NdisPhysicalMediumNative802_11
+
+[RTWLAN_C2.ndi.NT]
+Include=netvwifibus.inf
+Needs=VWiFiBus.CopyFiles
+AddReg                  = Common.reg, RTUSB_OS61.ndi.NT.reg, WMMEnable.reg, RemoveFlag.reg, CountryRegion_C1.reg
+Characteristics         = 0x84                      ; NCF_REMOVABLE | NCF_HAS_UI | NCF_PHYSICAL
+BusType                 = 15                        ;USB
+CopyFiles               = NT.CopyFiles
+*IfType = 71              ; IF_TYPE_IEEE80211
+*MediaType = 16           ; NdisMediumNative802_11
+*PhysicalMediaType = 9    ; NdisPhysicalMediumNative802_11
+
+[RTWLAN_C3.ndi.NT]
+Include=netvwifibus.inf
+Needs=VWiFiBus.CopyFiles
+AddReg                  = Common.reg, RTUSB_OS61.ndi.NT.reg, Customer3.reg
+Characteristics         = 0x84                      ; NCF_REMOVABLE | NCF_HAS_UI | NCF_PHYSICAL
+BusType                 = 15                        ;USB
+CopyFiles               = NT.CopyFiles
+*IfType = 71              ; IF_TYPE_IEEE80211
+*MediaType = 16           ; NdisMediumNative802_11
+*PhysicalMediaType = 9    ; NdisPhysicalMediumNative802_11
+
+[RTWLAN_C4.ndi.NT]
+Include=netvwifibus.inf
+Needs=VWiFiBus.CopyFiles
+AddReg                  = Common.reg, RTUSB_OS61.ndi.NT.reg, Customer4.reg
+Characteristics         = 0x84                      ; NCF_REMOVABLE | NCF_HAS_UI | NCF_PHYSICAL
+BusType                 = 15                        ;USB
+CopyFiles               = NT.CopyFiles
+*IfType = 71              ; IF_TYPE_IEEE80211
+*MediaType = 16           ; NdisMediumNative802_11
+*PhysicalMediaType = 9    ; NdisPhysicalMediumNative802_11
+
+;*******************************************************************************************
+; Win7 services sections
+;*******************************************************************************************
+
+[RTWLAN.ndi.NT.Services]
+Include=netvwifibus.inf
+Needs=VWiFiBus.Services
+AddService              = netr73, 2, General.Service, common.EventLog
+
+[RTWLAN.ndi.NT.HW]
+Include=netvwifibus.inf
+Needs=VWiFiBus.PnPFilterRegistration
+
+[RTWLANWR.ndi.NT.Services]
+Include=netvwifibus.inf
+Needs=VWiFiBus.Services
+AddService              = netr73, 2, General.Service, common.EventLog
+
+[RTWLANWR.ndi.NT.HW]
+Include=netvwifibus.inf
+Needs=VWiFiBus.PnPFilterRegistration
+
+[RTWLANR.ndi.NT.Services]
+Include=netvwifibus.inf
+Needs=VWiFiBus.Services
+AddService              = netr73, 2, General.Service, common.EventLog
+
+[RTWLANR.ndi.NT.HW]
+Include=netvwifibus.inf
+Needs=VWiFiBus.PnPFilterRegistration
+
+[RTWLANRNP.ndi.NT.Services]
+Include=netvwifibus.inf
+Needs=VWiFiBus.Services
+AddService              = netr73, 2, General.Service, common.EventLog
+
+[RTWLANRNP.ndi.NT.HW]
+Include=netvwifibus.inf
+Needs=VWiFiBus.PnPFilterRegistration
+
+[RTWLAN_C1.ndi.NT.Services]
+Include=netvwifibus.inf
+Needs=VWiFiBus.PnPFilterRegistration
+AddService              = netr73, 2, General.Service, common.EventLog
+
+[RTWLAN_C1.ndi.NT.HW]
+Include=netvwifibus.inf
+Needs=VWiFiBus.PnPFilterRegistration
+
+[RTWLAN_C2.ndi.NT.Services]
+Include=netvwifibus.inf
+Needs=VWiFiBus.PnPFilterRegistration
+AddService              = netr73, 2, General.Service, common.EventLog
+
+[RTWLAN_C2.ndi.NT.HW]
+Include=netvwifibus.inf
+Needs=VWiFiBus.PnPFilterRegistration
+
+[RTWLAN_C3.ndi.NT.Services]
+Include=netvwifibus.inf
+Needs=VWiFiBus.PnPFilterRegistration
+AddService              = netr73, 2, General.Service, common.EventLog
+
+[RTWLAN_C3.ndi.NT.HW]
+Include=netvwifibus.inf
+Needs=VWiFiBus.PnPFilterRegistration
+
+[RTWLAN_C4.ndi.NT.Services]
+Include=netvwifibus.inf
+Needs=VWiFiBus.PnPFilterRegistration
+AddService              = netr73, 2, General.Service, common.EventLog
+
+[RTWLAN_C4.ndi.NT.HW]
+Include=netvwifibus.inf
+Needs=VWiFiBus.PnPFilterRegistration
+
+;*******************************************************************************************
+
+; common regs for NT
+;*******************************************************************************************
+
+[Common.reg]
+;
+; WirelessMode
+;
+HKR, ,                               WirelessMode,       0, "3"
+
+;
+; Channel
+;
+HKR, ,                               Channel,            0, %CHANNEL%
+HKR, Default,                        Channel,            0, %CHANNEL%
+
+;
+; Use Ofdm rate in adhoc mode
+;
+HKR, ,                               AdhocOfdm,          0, "1"
+
+;
+; Country Region G Band
+;
+HKR, ,                                 CountryRegion,      0, "0"
+HKR, NDI\params\CountryRegion,         ParamDesc,          0, %CountryRegion24G%
+HKR, NDI\params\CountryRegion,         type,               0, "enum"
+HKR, NDI\params\CountryRegion,         default,            0, "0"
+HKR, NDI\params\CountryRegion\enum,    0,                  0, %CountryRegion24G_0%
+HKR, NDI\params\CountryRegion\enum,    1,                  0, %CountryRegion24G_1%
+HKR, NDI\params\CountryRegion\enum,    2,                  0, %CountryRegion24G_2%
+HKR, NDI\params\CountryRegion\enum,    3,                  0, %CountryRegion24G_3%
+HKR, NDI\params\CountryRegion\enum,    4,                  0, %CountryRegion24G_4%
+HKR, NDI\params\CountryRegion\enum,    5,                  0, %CountryRegion24G_5%
+HKR, NDI\params\CountryRegion\enum,    6,                  0, %CountryRegion24G_6%
+HKR, NDI\params\CountryRegion\enum,    7,                  0, %CountryRegion24G_7%
+
+;
+; Country Region A Band
+;
+HKR, ,                                 CountryRegionABand, 0, "0"
+HKR, NDI\params\CountryRegionABand,    ParamDesc,          0, %CountryRegion5G%
+HKR, NDI\params\CountryRegionABand,    type,               0, "enum"
+HKR, NDI\params\CountryRegionABand,    default,            0, "0"
+HKR, NDI\params\CountryRegionABand\enum,0,                 0, %CountryRegion5G_0%
+HKR, NDI\params\CountryRegionABand\enum,1,                 0, %CountryRegion5G_1%
+HKR, NDI\params\CountryRegionABand\enum,2,                 0, %CountryRegion5G_2%
+HKR, NDI\params\CountryRegionABand\enum,3,                 0, %CountryRegion5G_3%
+HKR, NDI\params\CountryRegionABand\enum,4,                 0, %CountryRegion5G_4%
+HKR, NDI\params\CountryRegionABand\enum,5,                 0, %CountryRegion5G_5%
+HKR, NDI\params\CountryRegionABand\enum,6,                 0, %CountryRegion5G_6%
+HKR, NDI\params\CountryRegionABand\enum,7,                 0, %CountryRegion5G_7%
+HKR, NDI\params\CountryRegionABand\enum,8,                 0, %CountryRegion5G_8%
+HKR, NDI\params\CountryRegionABand\enum,9,                 0, %CountryRegion5G_9%
+HKR, NDI\params\CountryRegionABand\enum,10,                0, %CountryRegion5G_10%
+
+;
+; Radio On/Off
+;
+HKR, ,                               Radio,           0, "0"
+HKR, NDI\params\Radio,               ParamDesc,       0, %RadioOnOff%
+HKR, NDI\params\Radio,               type,            0, "enum"
+HKR, NDI\params\Radio,               default,         0, "0"
+HKR, NDI\params\Radio\enum,          1,               0, %Disable%
+HKR, NDI\params\Radio\enum,          0,               0, %Enable%
+                                 
+;
+; IEEE80211H
+;
+HKR, ,                               IEEE80211H,      0, "0"
+HKR, NDI\params\IEEE80211H,          ParamDesc,       0, %IEEE802_11h%
+HKR, NDI\params\IEEE80211H,          type,            0, "enum"
+HKR, NDI\params\IEEE80211H,          default,         0, "0"
+HKR, NDI\params\IEEE80211H\enum,     0,               0, %Disable%
+HKR, NDI\params\IEEE80211H\enum,     1,               0, %Enable%
+
+;
+; CarrierDetect
+;
+HKR, ,                               CarrierDetect,   0, "0"
+HKR, NDI\params\CarrierDetect,       ParamDesc,       0, %CarrierDetect%
+HKR, NDI\params\CarrierDetect,       type,            0, "enum"
+HKR, NDI\params\CarrierDetect,       default,         0, "0"
+HKR, NDI\params\CarrierDetect\enum,  0,               0, %Disable%
+HKR, NDI\params\CarrierDetect\enum,  1,               0, %Enable%
+
+;
+; SmartScan
+;
+HKR, ,                               SmartScan,       0, "0"
+HKR, NDI\params\SmartScan,           ParamDesc,       0, %SmartScan%
+HKR, NDI\params\SmartScan,           type,            0, "enum"
+HKR, NDI\params\SmartScan,           default,         0, "0"
+HKR, NDI\params\SmartScan\enum,      0,               0, %Disable%
+HKR, NDI\params\SmartScan\enum,      1,               0, %Enable%
+                                    
+;
+; WPS Device Name
+;
+HKR, ,                               WPSDevName,      0, %WPS_DEVNAME_DEF_STR%
+HKR, Default,                        WPSDevName,      0, %WPS_DEVNAME_DEF_STR%
+
+;
+; RaCoInstaller Options
+;
+HKR, ,                               RaCoInstOpt,     0,"00000000"
+
+;
+; EnableNewPS
+;
+HKR, ,                               EnableNewPS,     0, "0"
+
+[RemoveFlag.reg]
+HKR, ,                               SafelyRemoveOff, 0, "1"
+                                  
+[WMMEnable.reg]                   
+HKR, ,                               WMMCapable,      0, "1"
+                                  
+[EnableNewPS.reg]                 
+HKR, ,                               EnableNewPS,     0, "1"
+
+[Customer1.reg]
+HKR, ,                               WPSDevName,      0, %WPS_DEVNAME_CUSTOMER1%
+HKR, Default,                        WPSDevName,      0, %WPS_DEVNAME_CUSTOMER1%
+
+[CountryRegion_C1.reg]
+HKR, ,                                 CountryRegion,      0, "1"
+HKR, NDI\params\CountryRegion,         default,            0, "1"
+
+[Customer3.reg]
+;
+; D-Link Request
+;
+; WMMCapable
+HKR, ,                            WMMCapable,      0, "1"
+; Enable TX Burst
+HKR, ,                            TXBurst,         0, "1"
+; FrameAggregation
+HKR, ,                            FrameAggregation,0, "1"
+; DLSCapable
+HKR, ,                            DLSCapable,      0, "1"
+
+[Customer4.reg]
+;
+; For Ovislink 
+;
+HKR, ,                TurboMode125M,         0, "1"
+
+;*******************************************************************************************
+; DestinationDirs
+;*******************************************************************************************
+[NT.CopyFiles]
+netr73.sys,,,2
+
+[SourceDisksNames]
+1 = %INSTALL_DISK_STR%,,,
+
+[SourceDisksFiles]
+netr73.sys                = 1,,
+
+[DestinationDirs]
+NT.CopyFiles     = 12     ; system32\drivers subdirectory on NT
+DefaultDestDir   = 11
+
+;*******************************************************************************************
+; NT specific
+;*******************************************************************************************
+[RTUSB_OS61.ndi.NT.reg]
+HKR, Ndi,                   Service,            0, "netr73"
+HKR, Ndi\Interfaces,        UpperRange,         0, "ndis5"
+HKR, Ndi\Interfaces,        LowerRange,         0, "wlan,ethernet,vwifi"
+
+[General.Service]
+DisplayName                 = %General.Service.DispName%
+ServiceType                 = 1                             ;%SERVICE_KERNEL_DRIVER%
+StartType                   = 3                             ;%SERVICE_AUTO_START%
+ErrorControl                = 1                             ;%SERVICE_ERROR_NORMAL%
+ServiceBinary               = %12%\netr73.sys
+LoadOrderGroup              = NDIS
+
+[common.EventLog]
+AddReg=common.AddEventLog.reg
+
+[common.AddEventLog.reg]
+HKR, , EventMessageFile, 0x00020000, "%%SystemRoot%%\System32\netevent.dll,%%SystemRoot%%\System32\drivers\netr73.sys"
+HKR, , TypesSupported,   0x00010001, 7
+
+;*******************************************************************************************
+; Strings
+;*******************************************************************************************
+[strings]
+Provider                    = "Ralink"
+Ralink                      = "Ralink Technology Corp."
+Qcom                        = "Qcom Technology Inc."
+Gigabyte                    = "Gigabyte Technology Corp."
+Conceptronic                = "2L (Conceptronic)"
+Surecom                     = "SURECOM Technology Corp."
+Asus                        = "ASUSTeK Computer Inc."
+Amit                        = "AMIT Technology, Inc."
+CNet                        = "CNet Technology Inc."
+Huawei-3Com                 = "Huawei-3Com Technology Co., Ltd."
+Askey                       = "WLAN"
+HP                          = "Lite-On"
+Buffalo                     = "Buffalo Technology Inc."
+ZyXEL                       = "ZyXEL Communications Corp."
+Sitecom                     = "Sitecom Europe BV"
+Netopia                     = "Netopia, Inc."
+Philips                     = "Philips"
+Zcom                        = "Z-Com, Inc."
+AboCom                      = "AboCom Systems, Inc."
+EnGenius                    = "EnGenius Technologies"
+Edimax                      = "Edimax Technology Co., Ltd"
+AL                          = "AL Tech."
+Planex                      = "Planex Communications, Inc."
+Samsung                     = "Samsung Electronics CO., LTD"
+Billionton                  = "Billionton Systems, Inc."
+D-Link                      = "D-Link Corporation"
+I-O                         = "I-O DATA DEVICE, INC."
+Linksys                     = "Linksys,a division of Cisco Systems,Inc."
+Corega                      = "Allied Telesis K.K."
+Ovislink                    = "Ovislink Corp."
+ALLWIN                      = "ALLWIN"
+Hawking                     = "Hawking Technologies, Inc."
+
+Ralink.DeviceDesc           = "RT73 USB Wireless LAN Card"
+Qcom.DeviceDesc             = "RT73 USB Wireless LAN Card"
+Gigabyte.DeviceDesc         = "Gigabyte GN-WB01GS USB WLAN Card"
+Gigabyte2.DeviceDesc        = "Gigabyte GN-WI05GS mini WLAN Card"
+Conceptronic.DeviceDesc     = "Conceptronic 54Mbps USB adapter"
+M6877.DeviceDesc            = "802.11g Mini Card Wireless Adapter"
+MA874.DeviceDesc            = "802.11g MiniUSB 2.0 Wireless Bluetooth Combo"
+M6874.DeviceDesc            = "802.11g MiniUSB 2.0 Wireless Bluetooth Combo"
+MA861.DeviceDesc            = "802.11g USB 2.0 Stick"
+M4600.DeviceDesc            = "802.11b/g USB Turbo Wireless Adapter"
+GMEWLGRL.DeviceDesc         = "RT73 USB Wireless LAN Card"
+Surecom.DeviceDesc          = "802.11g 54M Wireless LAN USB Adapter"
+ASUS.DeviceDesc             = "ASUS USB Wireless Network Adapter"
+ASUSGEN.DeviceDesc          = "802.11b/g USB Wireless Network Adapter"
+AMIT.DeviceDesc             = "CG-WLUSB2GO, corega Wireless USB Adapter"
+CNet.DeviceDesc             = "CNet Wireless USB dongle"
+Huawei-3Com.DeviceDesc      = "Aolynk WUB320g USB Wireless LAN Card"
+Askey.DeviceDesc            = "WLAN USB Wireless LAN Stick"
+Amigo.DeviceDesc            = "802.11G Wireless USB Card"
+HP.DeviceDesc               = "USB Wireless 802.11 b/g Adaptor"
+Buffalo.DeviceDesc          = "BUFFALO WLI-U2-SG54HP"
+Buffalo_00D8.DeviceDesc     = "BUFFALO WLI-U2-SG54HP Wireless LAN Adapter"
+Buffalo_00D9.DeviceDesc     = "BUFFALO WLI-U2-G54HP Wireless LAN Adapter"
+Buffalo_0116.DeviceDesc     = "BUFFALO WLR-UC-G Wireless LAN Adapter"
+Buffalo_0137.DeviceDesc     = "BUFFALO WLI-UC-G Wireless LAN Adapter"
+ZyXEL.DeviceDesc            = "G-210H 802.11g Wireless USB Adapter"
+Sitecom_9712.DeviceDesc     = "Sitecom Wireless Network USB adapter 54g WL-113v1.002"
+Sitecom_90AC.DeviceDesc     = "Sitecom Wireless Network USB adapter Turbo g WL-172"
+Sitecom_0024.DeviceDesc     = "Sitecom Wireless Network 54G-Turbo WPS USB adapter WL-212"
+Sitecom_0027.DeviceDesc     = "Sitecom Wireless Network USB Adapter 54G Turbo WL-177"
+Sitecom_002F.DeviceDesc     = "Wireless Network USB Adapter 54g-Turbo WL-178"
+Netopia.DeviceDesc          = "Wireless USB Card"
+Philips.DeviceDesc          = "Philips USB Wireless Network Adapter"
+Zcom.DeviceDesc             = "802.11b/g USB Wireless Network Adapter"
+AboCom_B21B.DeviceDesc      = "Hawking HWU54DM Hi-Gain Wireless-G USB Adapter"
+AboCom_B21C.DeviceDesc      = "RT73 USB Wireless LAN Card"
+AboCom_B21D.DeviceDesc      = "802.11b/g Mini Wireless LAN USB 2.0 Adapter"
+AboCom_B21E.DeviceDesc      = "802.11b/g High Gain Wireless LAN USB Adapter"
+AboCom_B21F.DeviceDesc      = "WUG2700 USB Wireless LAN Card"
+AboCom_AB01.DeviceDesc      = "PCI GW-US54HP"
+AboCom_3415.DeviceDesc      = "G-210H 802.11g Wireless USB Adapter"
+EnGenius_3701.DeviceDesc    = "EnGenius 802.11b/g Wireless USB Adapter"
+EnGenius_7100.DeviceDesc    = "EnGenius 802.11b/g Wireless USB Adapter"
+Edimax_7318.DeviceDesc      = "Edimax 802.11g Wireless USB Adapter"
+Edimax_7618.DeviceDesc      = "Edimax 802.11g Wireless USB Adapter"
+AL_3C10.DeviceDesc          = "802.11g USB Wireless LAN Card"
+Planex_AB50.DeviceDesc      = "PCI GW-US54Mini2"
+Samsung_4471.DeviceDesc     = "Samsung WLAN USB Stick"
+Billionton_0120.DeviceDesc  = "RT73 USB Wireless LAN Card"
+D-Link_3C06.DeviceDesc      = "D-Link DWA-111 Wireless G USB Adapter"
+D-Link_3C03.DeviceDesc      = "D-Link AirPlus G DWL-G122 Wireless USB Adapter(rev.C)"
+D-Link_3C04.DeviceDesc      = "D-Link WUA-1340 USB Adapter"
+D-Link_3C07.DeviceDesc      = "D-Link Wireless G DWA-110 USB Adapter"
+I-O_093D.DeviceDesc         = "I-O DATA WN-G54/USB Wireless LAN Adapter"
+WUSB54GR.DeviceDesc         = "Wireless-G USB Network Adapter with RangeBooster"
+WUSB54GC.DeviceDesc         = "Compact Wireless-G USB Adapter"
+Corega_002E.DeviceDesc      = "CG-WLUSB2GPX"
+Ovislink_2573.DeviceDesc    = "Airlive WT-2000USB"
+ALLWIN.DeviceDesc           = "ALLWIN Wireless LAN Card ¡VAWM50G-US"
+Hawking_0007.DeviceDesc     = "Hawking Wireless-G USB Adapter with Removable Antenna"
+
+INSTALL_DISK_STR            = "Wireless 11g USB Installation Disk"
+
+General.Service.DispName    = "RT73 USB Extensible Wireless LAN Card Driver"
+
+;
+; Parameters
+;
+CountryRegion24G            = "Country Region 11G"
+CountryRegion24G_0          = "#0 (Channel 1 - 11)"
+CountryRegion24G_1          = "#1 (Channel 1 - 13)"
+CountryRegion24G_2          = "#2 (Channel 10 - 11)"
+CountryRegion24G_3          = "#3 (Channel 10 - 13)"
+CountryRegion24G_4          = "#4 (Channel 14)"
+CountryRegion24G_5          = "#5 (Channel 1 - 14)"
+CountryRegion24G_6          = "#6 (Channel 3 - 9)"
+CountryRegion24G_7          = "#7 (Channel 5 - 13)"
+CountryRegion5G             = "Country Region 11A"
+CountryRegion5G_0           = "#0 Ch(36 - 64,149 - 165)" 
+CountryRegion5G_1           = "#1 Ch(36 - 140)"
+CountryRegion5G_2           = "#2 Ch(36 - 64)"
+CountryRegion5G_3           = "#3 Ch(52 - 64,149 - 161)"
+CountryRegion5G_4           = "#4 Ch(149 - 165)"
+CountryRegion5G_5           = "#5 Ch(149 - 161)"
+CountryRegion5G_6           = "#6 Ch(36 - 48)"
+CountryRegion5G_7           = "#7 Ch(36 - 165)"
+CountryRegion5G_8           = "#8 Ch(52 - 64)"
+CountryRegion5G_9           = "#9 Ch(34 - 46)"
+CountryRegion5G_10          = "#10 Ch(34 - 64)"
+RadioOnOff                  = "Radio On/Off"
+Disable                     = "Disable"
+Enable                      = "Enable"
+IEEE802_11h                 = "IEEE802.11h"
+SmartScan                   = "SmartScan"
+CarrierDetect               = "Carrier Detect"
+
+CHANNEL                     = "1"
+WPS_DEVNAME_DEF_STR         = "Ralink Client"
+WPS_DEVNAME_CUSTOMER1       = "Corega Client"

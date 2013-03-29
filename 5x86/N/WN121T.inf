@@ -1,0 +1,542 @@
+;===========================================================================
+; 
+; Windows XP (32bit), 2000 NDIS driver INF for NETGEAR WN121T Wireless Adapter
+;
+;=========================================================================== 
+ 
+ 
+[Version] 
+Signature = "$Windows NT$" 
+Compatible  = 1
+Class=Net
+ClassGUID={4D36E972-E325-11CE-BFC1-08002BE10318} 
+Provider=%MRVL% 
+CatalogFile=WN121T.cat
+DriverVer=12/07/2006,1.0.5.1
+
+;===========================================================================
+; Source Media Information Sections
+;===========================================================================
+[SourceDisksNames]
+1 = %DriverDisk%,,,
+
+[SourceDisksFiles]
+; On Marvell installation disk 1 
+WN121TXP.sys = 1
+WN121T2K.sys = 1
+
+[DestinationDirs]
+W8360USB.XP.CopyFiles  = 12 
+W8360USB.2K.CopyFiles  = 12 
+DefaultDestDir = 11
+
+[Manufacturer] 
+%MRVL%=Marvell,NT.5.1
+
+[Marvell]
+%MRVL8360USB.DeviceDesc% = W8360USB.ndi.NT,USB\VID_1286&PID_2006
+%BelkinN1USB.DeviceDesc% = W8360USB.ndi.NT,USB\VID_1799&PID_8051
+%LinksysNUSB.DeviceDesc% = W8360USB.ndi.NT,USB\VID_13B1&PID_0029
+%WN121TUSB.DeviceDesc% = W8360USB.ndi.NT,USB\VID_0846&PID_7100
+%N650USB.DeviceDesc%     = W8360USB.ndi.NT,USB\VID_07D1&PID_3B10
+%AsusUSB1.DeviceDesc%    = W8360USB.ndi.NT,USB\VID_0B05&PID_172A
+%AsusUSB2.DeviceDesc%    = W8360USB.ndi.NT,USB\VID_0B05&PID_172B
+
+[Marvell.NT.5.1]
+%MRVL8360USB.DeviceDesc% = W8360USBXP.ndi,USB\VID_1286&PID_2006
+%BelkinN1USB.DeviceDesc% = W8360USBXP.ndi,USB\VID_1799&PID_8051
+%LinksysNUSB.DeviceDesc% = W8360USBXP.ndi,USB\VID_13B1&PID_0029
+%WN121TUSB.DeviceDesc%   = W8360USBXP.ndi,USB\VID_0846&PID_7100
+%N650USB.DeviceDesc%     = W8360USBXP.ndi,USB\VID_07D1&PID_3B10
+%AsusUSB1.DeviceDesc%    = W8360USBXP.ndi,USB\VID_0B05&PID_172A
+%AsusUSB2.DeviceDesc%    = W8360USBXP.ndi,USB\VID_0B05&PID_172B
+
+
+;===========================================================================
+; ControlFlags section
+;===========================================================================
+[ControlFlags]
+ExcludeFromSelect = *
+
+
+;***************************************************************************
+;**         
+;**          Win XP DDInstall section
+;**          
+;***************************************************************************
+;***************************************************************************
+[W8360USBXP.ndi]
+; "Characteristics" is (NCF_PHYSICAL | NCF_HAS_UI)
+Characteristics = 0x84 
+; "BusType" is USB
+BusType         = 15 ;Is USB
+AddReg          = W8360USBWXP.reg, W8360USB.reg, W8360USBXP.reg
+CopyFiles       = W8360USB.XP.CopyFiles
+
+[W8360USBXP.ndi.Services]
+AddService = MRVW245, 2, W8360USBXP.Service, CommonXP.EventLog
+
+;===========================================================================
+; W8360 USB WinXP registers
+;===========================================================================
+[W8360USBXP.reg]
+HKR, Ndi,            Service,    0, "MRVW245"
+HKR, Ndi\Interfaces, UpperRange, 0, "ndis5"
+HKR, Ndi\Interfaces, LowerRange, 0, "ethernet"
+
+
+[W8360USB.XP.CopyFiles]
+WN121TXP.sys,,,2 
+
+[W8360USBXP.Service]
+DisplayName    = %W8360USBXP.Service.DispName%
+ServiceType    = 1 ;%SERVICE_KERNEL_DRIVER%
+StartType      = 3 ;%SERVICE_DEMAND_START%
+ErrorControl   = 1 ;%SERVICE_ERROR_NORMAL%
+ServiceBinary  = %12%\WN121TXP.sys
+LoadOrderGroup = NDIS
+
+[CommonXP.EventLog]
+AddReg = CommonXP.AddEventLog.reg
+
+[CommonXP.AddEventLog.reg]
+HKR, , EventMessageFile, 0x00020000, "%%SystemRoot%%\System32\netevent.dll"
+HKR, , TypesSupported,   0x00010001, 7
+
+
+;***************************************************************************
+;***************************************************************************
+;**         
+;**          Win 2K DDInstall section
+;**          
+;***************************************************************************
+;***************************************************************************
+
+[W8360USB.ndi.NT]
+; "Characteristics" is (NCF_PHYSICAL | NCF_HAS_UI)
+Characteristics = 0x84 
+; "BusType" is USB
+BusType         = 15; Is USB.
+AddReg          = W8360USBW2K.reg, W8360USB.reg, W8360USB2K.reg, W8360USB2K.devID.reg
+CopyFiles       = W8360USB.2K.CopyFiles 
+
+[W8360USB.ndi.NT.Services]
+AddService = MRVW243, 2, W8360USB2K.Service, Common.EventLog
+
+;===========================================================================
+; W8360 USB Win2K registers
+;===========================================================================
+[W8360USB2K.reg]
+HKR, Ndi,            Service,    0, "MRVW243"
+HKR, Ndi\Interfaces, UpperRange, 0, "ndis5"
+HKR, Ndi\Interfaces, LowerRange, 0, "ethernet"
+
+[W8360USB2K.devID.reg]
+HKR, Ndi, DeviceID, 0, "USB\VID_1286&PID_2006"
+
+[W8360USB.2K.CopyFiles]
+WN121T2K.sys,,,2 
+
+[W8360USB2K.Service]
+DisplayName    = %W8360USB2K.Service.DispName%
+ServiceType    = 1 ;%SERVICE_KERNEL_DRIVER%
+StartType      = 3 ;%SERVICE_DEMAND_START%
+ErrorControl   = 1 ;%SERVICE_ERROR_NORMAL%
+ServiceBinary  = %12%\WN121T2K.sys
+LoadOrderGroup = NDIS
+
+[Common.EventLog]
+AddReg = Common.AddEventLog.reg
+
+[Common.AddEventLog.reg]
+HKR, , EventMessageFile, 0x00020000, "%%SystemRoot%%\System32\netevent.dll"
+HKR, , TypesSupported,   0x00010001, 7
+
+
+;===========================================================================
+; W8360 USB Common registers
+;===========================================================================
+[W8360USB.reg]
+HKR,, OpMode, 			0x00002, 0	;//STA Mode
+
+;
+; LED Control
+;
+; Mode 1 (Default)
+HKR,, LED0PowerOn,		0x00002, "0100ff00"
+HKR,, LED1PowerOn,		0x00002, "0101fe00"
+HKR,, LED0PowerOff,		0x00002, "0100fe00"
+HKR,, LED1PowerOff,		0x00002, "0101fe00"
+HKR,, LED0Scan,			0x00002, "0100ff00"
+HKR,, LED1Scan,			0x00002, "01010200"
+HKR,, LED0Associated,	0x00002, "0100ff00"
+HKR,, LED1Associated,		0x00002, "0101fe00"
+HKR,, LED0Joined,		0x00002, "0100ff00"
+HKR,, LED1Joined,		0x00002, "0101fe00"
+HKR,, LED0Started,		0x00002, "0100ff00"
+HKR,, LED1Started,		0x00002, "0101fe00"
+HKR,, LED0Tx,			0x00002, "0100ff00"
+HKR,, LED1Tx,			0x00002, "01010200"
+HKR,, LED0Rx,			0x00002, "0100ff00"
+HKR,, LED1Rx,			0x00002, "01010200"
+;HKR,, LED0TxMiddle,		0x00002, "0100ff00"
+;HKR,, LED1TxMiddle,		0x00002, "01010200"
+;HKR,, LED0RxMiddle,		0x00002, "0100ff00"
+;HKR,, LED1RxMiddle,		0x00002, "01010200"
+HKR,, LED0TxHigh,		0x00002, "0100ff00"
+HKR,, LED1TxHigh,		0x00002, "01010200"
+HKR,, LED0RxHigh,		0x00002, "0100ff00"
+HKR,, LED1RxHigh,		0x00002, "01010200"
+
+HKR,, LEDOffAfterRadioOff,	0x00002, "1" 
+
+HKR, Ndi\params\AdhocMode,ParamDesc,,"%AdhocMode%"
+HKR, Ndi\params\AdhocMode,default,,"1"
+HKR, Ndi\params\AdhocMode,type,,enum
+HKR, Ndi\params\AdhocMode\enum,"0",,"%AdhocMode_GMode%"
+HKR, Ndi\params\AdhocMode\enum,"1",,"%AdhocMode_BMode%" 
+HKR, Ndi\params\AdhocMode\enum,"4",,"%AdhocMode_NMode%" 
+
+HKR, Ndi\xparams\DesiredSSID,ParamDesc,,"%SSID%"
+HKR, Ndi\xparams\DesiredSSID,default,,""
+HKR, Ndi\xparams\DesiredSSID,type,,"edit" 
+HKR, Ndi\xparams\DesiredSSID,LimitText,,"32"
+HKR, Ndi\xparams\DesiredSSID,UpperCase,,"0" 
+HKR, Ndi\xparams\DesiredSSID,Optional,,"1" 
+
+HKR, Ndi\xparams\AuthMode,ParamDesc,,"%AuthMode%"
+HKR, Ndi\xparams\AuthMode,default,,"0"
+HKR, Ndi\xparams\AuthMode,type,,enum
+HKR, Ndi\xparams\AuthMode\enum,"0",,"%AuthMode_Open%"
+HKR, Ndi\xparams\AuthMode\enum,"1",,"%AuthMode_Shared%"
+
+HKR, Ndi\xparams\NetworkMode,ParamDesc,,"%NetworkMode%"
+HKR, Ndi\xparams\NetworkMode,default,,"1"
+HKR, Ndi\xparams\NetworkMode,type,,enum
+HKR, Ndi\xparams\NetworkMode\enum,"0",,"%NetworkMode_AdHoc%"
+HKR, Ndi\xparams\NetworkMode\enum,"1",,"%NetworkMode_Infra%"
+
+HKR, Ndi\params\FragThsd,  ParamDesc,0 , "%FragThsds%"
+HKR, Ndi\params\FragThsd,  default, 0 , "2346"
+HKR, Ndi\params\FragThsd,  min, 0 , "256"
+HKR, Ndi\params\FragThsd,  max, 0 , "2346"
+HKR, Ndi\params\FragThsd,  step, 0 , "1"
+HKR, Ndi\params\FragThsd,  Base, 0 , "10"
+HKR, Ndi\params\FragThsd,  type, 0 ,"dword"
+
+HKR, Ndi\xparams\Channel,  ParamDesc,0 , "%Channel%"
+HKR, Ndi\xparams\Channel,  default, 0 , "36"
+HKR, Ndi\xparams\Channel,  min, 0 , "1"
+HKR, Ndi\xparams\Channel,  max, 0 , "165"
+HKR, Ndi\xparams\Channel,  step, 0 , "1"
+HKR, Ndi\xparams\Channel,  Base, 0 , "10"
+HKR, Ndi\xparams\Channel,  type, 0 ,"dword"
+
+HKR, Ndi\xparams\TxAntenna,  ParamDesc,0 , "%TxAntennaStr%"
+HKR, Ndi\xparams\TxAntenna,  default, 0 , "2"
+HKR, Ndi\xparams\TxAntenna,  min, 0 , "1"
+HKR, Ndi\xparams\TxAntenna,  max, 0 , "ffff"
+HKR, Ndi\xparams\TxAntenna,  step, 0 , "1"
+HKR, Ndi\xparams\TxAntenna,  Base, 0 , "16"
+HKR, Ndi\xparams\TxAntenna,  type, 0 ,"dword"
+
+HKR, Ndi\xparams\RxAntenna,  ParamDesc,0 , "%RxAntennaStr%"
+HKR, Ndi\xparams\RxAntenna,  default, 0 , "ffff"
+HKR, Ndi\xparams\RxAntenna,  min, 0 , "1"
+HKR, Ndi\xparams\RxAntenna,  max, 0 , "ffff"
+HKR, Ndi\xparams\RxAntenna,  step, 0 , "1"
+HKR, Ndi\xparams\RxAntenna,  Base, 0 , "16"
+HKR, Ndi\xparams\RxAntenna,  type, 0 ,"dword"
+
+HKR, Ndi\params\RTSThsd,  ParamDesc, 0, "%RTSThsds%"
+HKR, Ndi\params\RTSThsd,  default, 0, "2346"
+HKR, Ndi\params\RTSThsd,  min, 0, "0"
+HKR, Ndi\params\RTSThsd,  max, 0, "2346"
+HKR, Ndi\params\RTSThsd,  step, 0, "1"
+HKR, Ndi\params\RTSThsd,  Base, 0, "10"
+HKR, Ndi\params\RTSThsd,  type, 0, "dword"
+
+HKR, Ndi\params\PowerMode,ParamDesc,,"%PowerMode%"
+HKR, Ndi\params\PowerMode,default,,"0"
+HKR, Ndi\params\PowerMode,type,,enum
+HKR, Ndi\params\PowerMode\enum,"0",,"%PowerMode_CAM%"
+HKR, Ndi\params\PowerMode\enum,"1",,"%PowerMode_Max%"
+
+HKR, Ndi\xparams\DataRate,ParamDesc,,"%DataRate%"
+HKR, Ndi\xparams\DataRate,default,,"FF"
+HKR, Ndi\xparams\DataRate,type,,enum
+HKR, Ndi\xparams\DataRate\enum,"FF",,"%DataRate_Auto%"
+HKR, Ndi\xparams\DataRate\enum,"2",,"%DataRate_1Mbps%"
+HKR, Ndi\xparams\DataRate\enum,"4",,"%DataRate_2Mbps%"
+HKR, Ndi\xparams\DataRate\enum,"b",,"%DataRate_5_5Mbps%"
+HKR, Ndi\xparams\DataRate\enum,"16",,"%DataRate_11Mbps%"
+HKR, Ndi\xparams\DataRate\enum,"C",,"%DataRate_6Mbps%" 
+HKR, Ndi\xparams\DataRate\enum,"12",,"%DataRate_9Mbps%" 
+HKR, Ndi\xparams\DataRate\enum,"18",,"%DataRate_12Mbps%" 
+HKR, Ndi\xparams\DataRate\enum,"24",,"%DataRate_18Mbps%" 
+HKR, Ndi\xparams\DataRate\enum,"30",,"%DataRate_24Mbps%" 
+HKR, Ndi\xparams\DataRate\enum,"48",,"%DataRate_36Mbps%" 
+HKR, Ndi\xparams\DataRate\enum,"60",,"%DataRate_48Mbps%" 
+HKR, Ndi\xparams\DataRate\enum,"6C",,"%DataRate_54Mbps%"
+
+HKR, Ndi\xparams\WepStatus,ParamDesc,,"%WepStatus%"
+HKR, Ndi\xparams\WepStatus,default,,"1"
+HKR, Ndi\xparams\WepStatus,type,,enum
+HKR, Ndi\xparams\WepStatus\enum,"0",,"%Enabled%"
+HKR, Ndi\xparams\WepStatus\enum,"1",,"%Disabled%"
+
+HKR, Ndi\params\Preamble,ParamDesc,,"%PreambleStr%"
+HKR, Ndi\params\Preamble,default,,"3"
+HKR, Ndi\params\Preamble,type,,enum 
+HKR, Ndi\params\Preamble\enum,"1",,"%PreambleStr_Auto%"
+HKR, Ndi\params\Preamble\enum,"2",,"%PreambleStr_Short%" 
+HKR, Ndi\params\Preamble\enum,"3",,"%PreambleStr_Long%"
+
+;HKR, Ndi\params\DefaultAdhocMediaMode,ParamDesc,,"%DefaultAdhocMediaModeStr%"
+;HKR, Ndi\params\DefaultAdhocMediaMode,default,,"0"
+;HKR, Ndi\params\DefaultAdhocMediaMode,type,,enum 
+;HKR, Ndi\params\DefaultAdhocMediaMode\enum,"0",,"%DefaultAdhocMediaModeStr_11b%"
+;HKR, Ndi\params\DefaultAdhocMediaMode\enum,"1",,"%DefaultAdhocMediaModeStr_11g%" 
+;HKR, Ndi\params\DefaultAdhocMediaMode\enum,"2",,"%DefaultAdhocMediaModeStr_11a%"
+;HKR,, DefaultAdhocMediaMode, 2, "2" 
+
+HKR,, TxWepKey, 2, "" 
+HKR,, WepKey1, 2, "" 
+HKR,, WepKey2, 2, "" 
+HKR,, WepKey3, 2, "" 
+HKR,, WepKey4, 2, "" 
+
+HKR,, RadioOn,2, "1"
+
+HKR,, DriverRel, 2, "12/07/2006"
+
+HKR,, AMSDUCompatible,2, "1"
+HKR,, AMPDUCompatible,2, "1"
+HKR,, SSIDScanOnce,2, "0"
+
+HKR, Ndi\params\BlockAckMode,ParamDesc,,"%AMPDUSettings%"
+HKR, Ndi\params\BlockAckMode,default,,"2"
+HKR, Ndi\params\BlockAckMode,type,,enum 
+HKR, Ndi\params\BlockAckMode\enum,"2",,"%Partial%" 
+HKR, Ndi\params\BlockAckMode\enum,"3",,"%Full%"
+
+;HKR, Ndi\params\AmpduFactor,ParamDesc,,"%AmpduFactor%"
+;HKR, Ndi\params\AmpduFactor,default,,"0"
+;HKR, Ndi\params\AmpduFactor,type,,enum 
+;HKR, Ndi\params\AmpduFactor\enum,"0",,"%8k%"
+;HKR, Ndi\params\AmpduFactor\enum,"1",,"%16k%" 
+;HKR, Ndi\params\AmpduFactor\enum,"2",,"%32k%"
+;HKR, Ndi\params\AmpduFactor\enum,"3",,"%64k%"
+
+HKR, Ndi\params\EncryptionType,ParamDesc,,"%EncryptionType%"
+HKR, Ndi\params\EncryptionType,default,,"0"
+HKR, Ndi\params\EncryptionType,type,,enum 
+HKR, Ndi\params\EncryptionType\enum,"0",,"%HwEncryption%" 
+HKR, Ndi\params\EncryptionType\enum,"1",,"%SwEncryption%"
+
+HKR, Ndi\params\EWCTurboMode,ParamDesc,,"%EWCTurboMode%"
+HKR, Ndi\params\EWCTurboMode,default,,"1"
+HKR, Ndi\params\EWCTurboMode,type,,enum 
+HKR, Ndi\params\EWCTurboMode\enum,"0",,"%Disabled%"
+HKR, Ndi\params\EWCTurboMode\enum,"1",,"%Enabled%" 
+
+HKR, Ndi\params\HTModeEnabled
+HKR, Ndi\params\HTModeEnabled, ParamDesc,,"%HTModeEnabled%"
+HKR, Ndi\params\HTModeEnabled, default,,"1"
+HKR, Ndi\params\HTModeEnabled, type,,enum
+HKR, Ndi\params\HTModeEnabled\enum,"0",,"%Disabled%" 
+HKR, Ndi\params\HTModeEnabled\enum,"1",,"%Enabled%"
+
+HKR, Ndi\params\ChannelWidth, ParamDesc,,"%ChannelWidth%"
+HKR, Ndi\params\ChannelWidth, default,,"-1"
+HKR, Ndi\params\ChannelWidth, type,,enum
+HKR, Ndi\params\ChannelWidth\enum,"0",,"%20MHz%" 
+HKR, Ndi\params\ChannelWidth\enum,"1",,"%40MHz%"
+HKR, Ndi\params\ChannelWidth\enum,"-1",,"%Auto%"
+
+HKR, Ndi\params\ExtChannelOffset, ParamDesc,,"%ExtChannelOffset%"
+HKR, Ndi\params\ExtChannelOffset, default,,"-1"
+HKR, Ndi\params\ExtChannelOffset, type,,enum
+HKR, Ndi\params\ExtChannelOffset\enum,"0",,"%Below%" 
+HKR, Ndi\params\ExtChannelOffset\enum,"1",,"%Above%"
+HKR, Ndi\params\ExtChannelOffset\enum,"2",,"%None%"
+HKR, Ndi\params\ExtChannelOffset\enum,"-1",,"%Auto%"
+
+HKR, Ndi\params\GuardInterval, ParamDesc,,"%GuardInterval%"
+HKR, Ndi\params\GuardInterval, default,,"-1"
+HKR, Ndi\params\GuardInterval, type,,enum
+HKR, Ndi\params\GuardInterval\enum,"0",,"%LongGI%" 
+HKR, Ndi\params\GuardInterval\enum,"1",,"%ShortGI%"
+HKR, Ndi\params\GuardInterval\enum,"-1",,"%Auto%"
+
+HKR, Ndi\params\RegistryMimoCfg, ParamDesc,,"%Antenna%"
+HKR, Ndi\params\RegistryMimoCfg, default,,"-1"
+HKR, Ndi\params\RegistryMimoCfg, type,,enum
+HKR, Ndi\params\RegistryMimoCfg\enum,"0",,"%2by3%" 
+HKR, Ndi\params\RegistryMimoCfg\enum,"1",,"%Antenna_A%"
+HKR, Ndi\params\RegistryMimoCfg\enum,"2",,"%Antenna_B%"
+HKR, Ndi\params\RegistryMimoCfg\enum,"3",,"%2by2%"
+HKR, Ndi\params\RegistryMimoCfg\enum,"4",,"%Aby2%"
+HKR, Ndi\params\RegistryMimoCfg\enum,"5",,"%Bby2%"
+HKR, Ndi\params\RegistryMimoCfg\enum,"-1",,"%Auto%"
+
+HKR, Ndi\params\RateAdaptMode, ParamDesc,,"%RateAdaptMode%"
+HKR, Ndi\params\RateAdaptMode, default,,"0"
+HKR, Ndi\params\RateAdaptMode, type,,enum
+HKR, Ndi\params\RateAdaptMode\enum,"0",,"%In%" 
+HKR, Ndi\params\RateAdaptMode\enum,"1",,"%Out%"
+
+HKR, Ndi\params\CSMode, ParamDesc,,"%LinkAdaptCSMode%"
+HKR, Ndi\params\CSMode, default,,"0"
+HKR, Ndi\params\CSMode, type,,enum
+HKR, Ndi\params\CSMode\enum,"0",,"%Conservative%" 
+HKR, Ndi\params\CSMode\enum,"1",,"%Aggressive%"
+HKR, Ndi\params\CSMode\enum,"2",,"%Auto%"
+
+
+;===========================================================================
+; W8360 USB Win2k registers
+;===========================================================================
+[W8360USBW2K.reg]
+HKR, Ndi\params\AMSDUEnabled,ParamDesc,,"%AMSDUEnabled%"
+HKR, Ndi\params\AMSDUEnabled,default,,"1"
+HKR, Ndi\params\AMSDUEnabled,type,,enum 
+HKR, Ndi\params\AMSDUEnabled\enum,"0",,"%Disabled%"
+HKR, Ndi\params\AMSDUEnabled\enum,"1",,"%AMSDUEnabled_3839Bytes%" 
+
+HKLM,System\CurrentControlSet\Services\Tcpip\Parameters,TcpWindowSize,0x00010001,00065535
+
+;===========================================================================
+; W8360 USB WinXP 32 bit registers
+;===========================================================================
+[W8360USBWXP.reg]
+HKR, Ndi\params\AMSDUEnabled,ParamDesc,,"%AMSDUEnabled%"
+HKR, Ndi\params\AMSDUEnabled,default,,"2"
+HKR, Ndi\params\AMSDUEnabled,type,,enum 
+HKR, Ndi\params\AMSDUEnabled\enum,"0",,"%Disabled%"
+HKR, Ndi\params\AMSDUEnabled\enum,"1",,"%AMSDUEnabled_3839Bytes%" 
+HKR, Ndi\params\AMSDUEnabled\enum,"2",,"%AMSDUEnabled_Max%" 
+
+HKLM,System\CurrentControlSet\Services\Tcpip\Parameters,Tcp1323Opts,0x00010001,00000001
+HKLM,System\CurrentControlSet\Services\Tcpip\Parameters,TcpWindowSize,0x00010001,00262144
+
+
+;===========================================================================
+; English Strings section
+;===========================================================================
+[Strings]
+MRVL = "Marvell"
+Enabled = "Enabled"
+Disabled = "Disabled"
+Off = "Off"
+On = "On"
+TxAntennaStr = "Tx Antenna Select"
+RxAntennaStr = "Rx Antenna Select" 
+Channel = "Channel"
+FragThsds = "Fragmentation Threshold"
+DataRate = "Data Rate"
+DataRate_Auto = "Auto"
+DataRate_1Mbps = "1 Mbps"
+DataRate_2Mbps = "2 Mbps"
+DataRate_5_5Mbps = "5.5 Mbps"
+DataRate_11Mbps = "11 Mbps"
+DataRate_6Mbps = "6 Mbps"
+DataRate_9Mbps = "9 Mbps"
+DataRate_12Mbps = "12 Mbps"
+DataRate_18Mbps = "18 Mbps"
+DataRate_24Mbps = "24 Mbps"
+DataRate_36Mbps = "36 Mbps"
+DataRate_48Mbps = "48 Mbps"
+DataRate_54Mbps = "54 Mbps"
+RTSThsds = "RTS Threshold"
+AuthMode = "Authentication Mode"
+AuthMode_Open = "Open"
+AuthMode_Shared = "Shared"
+;WirelessM = "Wireless Mode"
+NetworkMode = "Operation Mode"
+NetworkMode_AdHoc = "Ad-Hoc"
+NetworkMode_Infra = "Infrastructure"
+WepStatus = "WEP Status"
+SSID = "SSID"
+PreambleStr = "Preamble Select"
+PreambleStr_Auto = "Auto"
+PreambleStr_Short = "Short Preamble"
+PreambleStr_Long = "Long Preamble"
+PowerMode = "Power Save Mode"
+PowerMode_CAM = "CAM-Constantly Awake Mode"
+PowerMode_Max = "MaxPSP-Max Power Savings"
+PowerMode_Fast = "FastPSP-Fast Power Savings"
+AdhocMode = "Ad-Hoc Mode"
+AdhocMode_GMode = "Ad-Hoc G Mode"
+AdhocMode_BMode = "Ad-Hoc B Mode only"
+AdhocMode_NMode = "Ad-Hoc N Mode"
+DefaultAdhocMediaModeStr = "Default Ad-Hoc Media Mode"
+DefaultAdhocMediaModeStr_11b = "11b"
+DefaultAdhocMediaModeStr_11g = "11g"
+DefaultAdhocMediaModeStr_11a = "11a"
+AMSDUEnabled = "MSDU Aggregation"
+AMSDUEnabled_3839Bytes = "Enabled (3839 Bytes)" 
+AMSDUEnabled_Max = "Enabled (Device Max)" 
+EWCTurboMode = "802.11n Turbo Mode"
+AMPDUSettings= "Packet Aggregation (A-MPDU)"
+HTModeEnabled = "802.11n Network"
+ChannelWidth = "Channel Width"
+20MHz  = "20 MHz"
+40MHz = "40 MHz"
+Auto = "Auto"
+ExtChannelOffset = "Extension Channel"
+Below = "Lower"
+Above = "Upper"
+None = "None"
+GuardInterval = "Guard Interval"
+LongGI = "Standard"
+ShortGI = "Short"
+Antenna = "Antenna"
+2by3 = "2by3"
+Antenna_A = "Antenna A"
+Antenna_B = "Antenna B"
+2by2 = "2by2"
+Aby2 = "A by 2"
+Bby2 = "B by 2"
+RateAdaptMode= "Rate adapt mode"
+In = "Indoor"
+Out = "Outdoor"
+LinkAdaptCSMode = "Link Adapt CS Mode"
+Conservative = "Conservative"
+Aggressive = "Aggressive"
+Full = "Full"
+Partial = "Partial"
+;AmpduFactor= "MaxRx AMPDU Factor"
+;8k = "8k"
+;16k = "16k"
+;32k = "32k"
+;64k = "64k"
+EncryptionType= "Encryption Type"
+SwEncryption = "Sw Encryption"
+HwEncryption = "Hw Encryption"
+
+DriverDisk = "Marvell installation disk 1"
+
+MRVL8360USB.DeviceDesc       = "NETGEAR WN121T Wireless USB 2.0 Adapter"
+BelkinN1USB.DeviceDesc       = "N1 Wireless USB Network Adapter"
+LinksysNUSB.DeviceDesc       = "Wireless-N USB Network Adapter"
+WN121TUSB.DeviceDesc		 = "NETGEAR WN121T Wireless USB 2.0 Adapter"
+N650USB.DeviceDesc           = "D-Link RangeBooster N USB adapter"
+AsusUSB1.DeviceDesc	= "ASUS 802.11n Network Adapter"
+AsusUSB2.DeviceDesc	= "802.11n Network Adapter"
+
+W8360USBXP.Service.DispName = "Marvell TOPDOG 802.11n WLAN Driver for Windows XP (USB8x)"
+W8360USB2K.Service.DispName = "Marvell TOPDOG 802.11n WLAN Driver for Windows 2K (USB8x)" 
+
+
+
+
+
+
+
+
+ 
+
+
+
+

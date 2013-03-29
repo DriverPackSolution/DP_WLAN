@@ -1,0 +1,2190 @@
+;*****************************************
+; NETwNx64.INF
+;
+; Intel Wireless WiFi Link Adapters
+; Installation Script for Windows XP 64 bit
+;
+; Copyright (C) 1997-2009 Intel Corporation. All rights reserved.
+;
+; The information and source code contained herein is the exclusive
+; property of Intel Corporation and may not be disclosed, examined
+; or reproduced in whole or in part without explicit written authorization
+; from the company.
+;
+;------------------------------------------------------------------------------
+
+;******************************************************************************
+; Version Section
+;------------------------------------------------------------------------------
+[version]
+Signature   = "$Windows NT$"
+Compatible  = 1
+Class       = net
+ClassGUID   = {4d36e972-e325-11ce-bfc1-08002be10318}
+Provider    = %PROVIDER_NAME%
+DriverVer   = 01/22/2012,14.3.2.1 ;DATE HAS TO BE IN FOLLOWING FORMAT MM/DD/YYYY
+
+CatalogFile = NETwNx64.cat
+
+
+;*****************************************
+; Manufacturer
+;-----------------------------------------
+
+[Manufacturer]
+%COMPANY_NAME% = Device, NTamd64.5.2
+
+;[ControlFlags]
+;ExcludeFromSelect = \ 
+;        PCI\VEN_8086&DEV_4235&SUBSYS_10018086 , \ 
+;        PCI\VEN_8086&DEV_4235&SUBSYS_10048086 , \ 
+;        PCI\VEN_8086&DEV_4235&SUBSYS_11018086 , \ 
+;        PCI\VEN_8086&DEV_4235&SUBSYS_11048086 , \ 
+;        PCI\VEN_8086&DEV_4232&SUBSYS_13018086 , \ 
+;        PCI\VEN_8086&DEV_4232&SUBSYS_13048086 , \ 
+;        PCI\VEN_8086&DEV_4232&SUBSYS_13058086 , \ 
+;        PCI\VEN_8086&DEV_4232&SUBSYS_13068086 , \ 
+;        PCI\VEN_8086&DEV_4232&SUBSYS_12018086 , \ 
+;        PCI\VEN_8086&DEV_4232&SUBSYS_12048086 , \ 
+;        PCI\VEN_8086&DEV_4232&SUBSYS_12058086 , \ 
+;        PCI\VEN_8086&DEV_4232&SUBSYS_12068086 , \ 
+;        PCI\VEN_8086&DEV_4236&SUBSYS_10118086 , \ 
+;        PCI\VEN_8086&DEV_4236&SUBSYS_10148086 , \ 
+;        PCI\VEN_8086&DEV_4236&SUBSYS_11118086 , \ 
+;        PCI\VEN_8086&DEV_4236&SUBSYS_11148086 , \ 
+;        PCI\VEN_8086&DEV_4237&SUBSYS_12118086 , \ 
+;        PCI\VEN_8086&DEV_4237&SUBSYS_12148086 , \ 
+;        PCI\VEN_8086&DEV_4237&SUBSYS_12158086 , \ 
+;        PCI\VEN_8086&DEV_4237&SUBSYS_12168086 , \ 
+;        PCI\VEN_8086&DEV_4237&SUBSYS_13118086 , \ 
+;        PCI\VEN_8086&DEV_4237&SUBSYS_13148086 , \ 
+;        PCI\VEN_8086&DEV_4237&SUBSYS_13158086 , \ 
+;        PCI\VEN_8086&DEV_4237&SUBSYS_13168086 , \ 
+;        PCI\VEN_8086&DEV_4235&SUBSYS_10218086 , \ 
+;        PCI\VEN_8086&DEV_4235&SUBSYS_10248086 , \ 
+;        PCI\VEN_8086&DEV_4235&SUBSYS_11218086 , \ 
+;        PCI\VEN_8086&DEV_4235&SUBSYS_11248086 , \ 
+;        PCI\VEN_8086&DEV_4232&SUBSYS_12218086 , \ 
+;        PCI\VEN_8086&DEV_4232&SUBSYS_12248086 , \ 
+;        PCI\VEN_8086&DEV_4232&SUBSYS_12258086 , \ 
+;        PCI\VEN_8086&DEV_4232&SUBSYS_12268086 , \ 
+;        PCI\VEN_8086&DEV_4232&SUBSYS_13218086 , \ 
+;        PCI\VEN_8086&DEV_4232&SUBSYS_13248086 , \ 
+;        PCI\VEN_8086&DEV_4232&SUBSYS_13258086 , \ 
+;        PCI\VEN_8086&DEV_4232&SUBSYS_13268086 , \ 
+
+;*****************************************
+;Device
+;-----------------------------------------
+
+;*****************************************
+;Device XP64
+;-----------------------------------------
+[Device.NTamd64.5.2]
+
+; GEN_5300_AGN_3x3_MC
+%NIC_MPCIEX_5300AGN_3x3_MC% = Install_MPCIEX_GEN_5300_AGN_3x3_MC_XP64_MOW2    ,   PCI\VEN_8086&DEV_4235&SUBSYS_10018086 ; MOW2
+%NIC_MPCIEX_5300AGN_3x3_MC% = Install_MPCIEX_GEN_5300_AGN_3x3_MC_XP64_KRA    ,   PCI\VEN_8086&DEV_4235&SUBSYS_10048086 ; KRA
+
+; GEN_5300_AGN_3x3_HMC
+%NIC_MPCIEX_5300AGN_3x3_HMC% = Install_MPCIEX_GEN_5300_AGN_3x3_HMC_XP64_MOW2    ,   PCI\VEN_8086&DEV_4235&SUBSYS_11018086 ; MOW2
+%NIC_MPCIEX_5300AGN_3x3_HMC% = Install_MPCIEX_GEN_5300_AGN_3x3_HMC_XP64_KRA    ,   PCI\VEN_8086&DEV_4235&SUBSYS_11048086 ; KRA
+
+; GEN_5100_AGN_1x2_HMC
+%NIC_MPCIEX_5100AGN_1x2_HMC_MOW2% = Install_MPCIEX_GEN_5100_AGN_1x2_HMC_XP64_MOW2    ,   PCI\VEN_8086&DEV_4232&SUBSYS_13018086 ; MOW2
+%NIC_MPCIEX_5100AGN_1x2_HMC_KRA% = Install_MPCIEX_GEN_5100_AGN_1x2_HMC_XP64_KRA    ,   PCI\VEN_8086&DEV_4232&SUBSYS_13048086 ; KRA
+%NIC_MPCIEX_5100AGN_1x2_HMC_BG% = Install_MPCIEX_GEN_5100_AGN_1x2_HMC_XP64_BG    ,   PCI\VEN_8086&DEV_4232&SUBSYS_13058086 ; BG
+%NIC_MPCIEX_5100AGN_1x2_HMC_ABG% = Install_MPCIEX_GEN_5100_AGN_1x2_HMC_XP64_ABG    ,   PCI\VEN_8086&DEV_4232&SUBSYS_13068086 ; ABG
+
+; GEN_5100_AGN_1x2_MC
+%NIC_MPCIEX_5100AGN_1x2_MC_MOW2% = Install_MPCIEX_GEN_5100_AGN_1x2_MC_XP64_MOW2    ,   PCI\VEN_8086&DEV_4232&SUBSYS_12018086 ; MOW2
+%NIC_MPCIEX_5100AGN_1x2_MC_KRA% = Install_MPCIEX_GEN_5100_AGN_1x2_MC_XP64_KRA    ,   PCI\VEN_8086&DEV_4232&SUBSYS_12048086 ; KRA
+%NIC_MPCIEX_5100AGN_1x2_MC_BG% = Install_MPCIEX_GEN_5100_AGN_1x2_MC_XP64_BG    ,   PCI\VEN_8086&DEV_4232&SUBSYS_12058086 ; BG
+%NIC_MPCIEX_5100AGN_1x2_MC_ABG% = Install_MPCIEX_GEN_5100_AGN_1x2_MC_XP64_ABG    ,   PCI\VEN_8086&DEV_4232&SUBSYS_12068086 ; ABG
+
+; Lenovo_5300_AGN_3x3_MC
+%NIC_MPCIEX_5300AGN_3x3_MC% = Install_MPCIEX_Lenovo_5300_AGN_3x3_MC_XP64_MOW2    ,   PCI\VEN_8086&DEV_4236&SUBSYS_10118086 ; MOW2
+%NIC_MPCIEX_5300AGN_3x3_MC% = Install_MPCIEX_Lenovo_5300_AGN_3x3_MC_XP64_KRA    ,   PCI\VEN_8086&DEV_4236&SUBSYS_10148086 ; KRA
+
+; Lenovo_5300_AGN_3x3_HMC
+%NIC_MPCIEX_5300AGN_3x3_HMC% = Install_MPCIEX_Lenovo_5300_AGN_3x3_HMC_XP64_MOW2    ,   PCI\VEN_8086&DEV_4236&SUBSYS_11118086 ; MOW2
+%NIC_MPCIEX_5300AGN_3x3_HMC% = Install_MPCIEX_Lenovo_5300_AGN_3x3_HMC_XP64_KRA    ,   PCI\VEN_8086&DEV_4236&SUBSYS_11148086 ; KRA
+
+; Lenovo_5100_AGN_1x2_MC
+%NIC_MPCIEX_5100AGN_1x2_MC_MOW2% = Install_MPCIEX_Lenovo_5100_AGN_1x2_MC_XP64_MOW2    ,   PCI\VEN_8086&DEV_4237&SUBSYS_12118086 ; MOW2
+%NIC_MPCIEX_5100AGN_1x2_MC_KRA% = Install_MPCIEX_Lenovo_5100_AGN_1x2_MC_XP64_KRA    ,   PCI\VEN_8086&DEV_4237&SUBSYS_12148086 ; KRA
+%NIC_MPCIEX_5100AGN_1x2_MC_BG% = Install_MPCIEX_Lenovo_5100_AGN_1x2_MC_XP64_BG    ,   PCI\VEN_8086&DEV_4237&SUBSYS_12158086 ; BG
+%NIC_MPCIEX_5100AGN_1x2_MC_ABG% = Install_MPCIEX_Lenovo_5100_AGN_1x2_MC_XP64_ABG    ,   PCI\VEN_8086&DEV_4237&SUBSYS_12168086 ; ABG
+
+; Lenovo_5100_AGN_1x2_HMC
+%NIC_MPCIEX_5100AGN_1x2_HMC_MOW2% = Install_MPCIEX_Lenovo_5100_AGN_1x2_HMC_XP64_MOW2    ,   PCI\VEN_8086&DEV_4237&SUBSYS_13118086 ; MOW2
+%NIC_MPCIEX_5100AGN_1x2_HMC_KRA% = Install_MPCIEX_Lenovo_5100_AGN_1x2_HMC_XP64_KRA    ,   PCI\VEN_8086&DEV_4237&SUBSYS_13148086 ; KRA
+%NIC_MPCIEX_5100AGN_1x2_HMC_BG% = Install_MPCIEX_Lenovo_5100_AGN_1x2_HMC_XP64_BG    ,   PCI\VEN_8086&DEV_4237&SUBSYS_13158086 ; BG
+%NIC_MPCIEX_5100AGN_1x2_HMC_ABG% = Install_MPCIEX_Lenovo_5100_AGN_1x2_HMC_XP64_ABG    ,   PCI\VEN_8086&DEV_4237&SUBSYS_13168086 ; ABG
+
+; Dell_5300_AGN_3x3_MC
+%NIC_MPCIEX_5300AGN_3x3_MC% = Install_MPCIEX_Dell_5300_AGN_3x3_MC_XP64_MOW2    ,   PCI\VEN_8086&DEV_4235&SUBSYS_10218086 ; MOW2
+%NIC_MPCIEX_5300AGN_3x3_MC% = Install_MPCIEX_Dell_5300_AGN_3x3_MC_XP64_KRA    ,   PCI\VEN_8086&DEV_4235&SUBSYS_10248086 ; KRA
+
+; Dell_5300_AGN_3x3_HMC
+%NIC_MPCIEX_5300AGN_3x3_HMC% = Install_MPCIEX_Dell_5300_AGN_3x3_HMC_XP64_MOW2    ,   PCI\VEN_8086&DEV_4235&SUBSYS_11218086 ; MOW2
+%NIC_MPCIEX_5300AGN_3x3_HMC% = Install_MPCIEX_Dell_5300_AGN_3x3_HMC_XP64_KRA    ,   PCI\VEN_8086&DEV_4235&SUBSYS_11248086 ; KRA
+
+; Dell_5100_AGN_1x2_MC
+%NIC_MPCIEX_5100AGN_1x2_MC_MOW2% = Install_MPCIEX_Dell_5100_AGN_1x2_MC_XP64_MOW2    ,   PCI\VEN_8086&DEV_4232&SUBSYS_12218086 ; MOW2
+%NIC_MPCIEX_5100AGN_1x2_MC_KRA% = Install_MPCIEX_Dell_5100_AGN_1x2_MC_XP64_KRA    ,   PCI\VEN_8086&DEV_4232&SUBSYS_12248086 ; KRA
+%NIC_MPCIEX_5100AGN_1x2_MC_BG% = Install_MPCIEX_Dell_5100_AGN_1x2_MC_XP64_BG    ,   PCI\VEN_8086&DEV_4232&SUBSYS_12258086 ; BG
+%NIC_MPCIEX_5100AGN_1x2_MC_ABG% = Install_MPCIEX_Dell_5100_AGN_1x2_MC_XP64_ABG    ,   PCI\VEN_8086&DEV_4232&SUBSYS_12268086 ; ABG
+
+; Dell_5100_AGN_1x2_HMC
+%NIC_MPCIEX_5100AGN_1x2_HMC_MOW2% = Install_MPCIEX_Dell_5100_AGN_1x2_HMC_XP64_MOW2    ,   PCI\VEN_8086&DEV_4232&SUBSYS_13218086 ; MOW2
+%NIC_MPCIEX_5100AGN_1x2_HMC_KRA% = Install_MPCIEX_Dell_5100_AGN_1x2_HMC_XP64_KRA    ,   PCI\VEN_8086&DEV_4232&SUBSYS_13248086 ; KRA
+%NIC_MPCIEX_5100AGN_1x2_HMC_BG% = Install_MPCIEX_Dell_5100_AGN_1x2_HMC_XP64_BG    ,   PCI\VEN_8086&DEV_4232&SUBSYS_13258086 ; BG
+%NIC_MPCIEX_5100AGN_1x2_HMC_ABG% = Install_MPCIEX_Dell_5100_AGN_1x2_HMC_XP64_ABG    ,   PCI\VEN_8086&DEV_4232&SUBSYS_13268086 ; ABG
+
+
+
+;*****************************************
+;INSTALL XP64
+;-----------------------------------------
+
+;-----------------------------------------
+; Intel  XP64 GEN_5300_AGN_3x3_MC
+;-----------------------------------------
+
+[Install_MPCIEX_GEN_5300_AGN_3x3_MC_XP64_MOW2]
+AddReg         = Reg_Common, Reg_Common_XP64, Reg_SHP, Reg_GEN_5300_AGN_3x3_MC, Reg_GEN_5300_AGN_3x3_MC_MOW2, Reg_MPCIEX_5300AGN_3x3_MC, Reg_NDIS_XP64, Reg_CoInstaller64, Reg_NCPA64
+Characteristics = 0x84; NCF_HAS_UI, NCF_PHYSICAL
+BusType         = 5; PCI bus
+CopyFiles       = CopyFiles_Driver_XP64, CopyFiles_NCPA64
+
+[Install_MPCIEX_GEN_5300_AGN_3x3_MC_XP64_MOW2.Services]
+AddService      = NETwNx64, 2, NIC_Service_XP64, Common_EventLog_XP64
+
+[Install_MPCIEX_GEN_5300_AGN_3x3_MC_XP64_KRA]
+AddReg         = Reg_Common, Reg_Common_XP64, Reg_SHP, Reg_GEN_5300_AGN_3x3_MC, Reg_GEN_5300_AGN_3x3_MC_KRA, Reg_MPCIEX_5300AGN_3x3_MC, Reg_NDIS_XP64, Reg_CoInstaller64, Reg_NCPA64
+Characteristics = 0x84; NCF_HAS_UI, NCF_PHYSICAL
+BusType         = 5; PCI bus
+CopyFiles       = CopyFiles_Driver_XP64, CopyFiles_NCPA64
+
+[Install_MPCIEX_GEN_5300_AGN_3x3_MC_XP64_KRA.Services]
+AddService      = NETwNx64, 2, NIC_Service_XP64, Common_EventLog_XP64
+
+;-----------------------------------------
+; Intel  XP64 GEN_5300_AGN_3x3_HMC
+;-----------------------------------------
+
+[Install_MPCIEX_GEN_5300_AGN_3x3_HMC_XP64_MOW2]
+AddReg         = Reg_Common, Reg_Common_XP64, Reg_SHP, Reg_GEN_5300_AGN_3x3_HMC, Reg_GEN_5300_AGN_3x3_HMC_MOW2, Reg_MPCIEX_5300AGN_3x3_HMC, Reg_NDIS_XP64, Reg_CoInstaller64, Reg_NCPA64
+Characteristics = 0x84; NCF_HAS_UI, NCF_PHYSICAL
+BusType         = 5; PCI bus
+CopyFiles       = CopyFiles_Driver_XP64, CopyFiles_NCPA64
+
+[Install_MPCIEX_GEN_5300_AGN_3x3_HMC_XP64_MOW2.Services]
+AddService      = NETwNx64, 2, NIC_Service_XP64, Common_EventLog_XP64
+
+[Install_MPCIEX_GEN_5300_AGN_3x3_HMC_XP64_KRA]
+AddReg         = Reg_Common, Reg_Common_XP64, Reg_SHP, Reg_GEN_5300_AGN_3x3_HMC, Reg_GEN_5300_AGN_3x3_HMC_KRA, Reg_MPCIEX_5300AGN_3x3_HMC, Reg_NDIS_XP64, Reg_CoInstaller64, Reg_NCPA64
+Characteristics = 0x84; NCF_HAS_UI, NCF_PHYSICAL
+BusType         = 5; PCI bus
+CopyFiles       = CopyFiles_Driver_XP64, CopyFiles_NCPA64
+
+[Install_MPCIEX_GEN_5300_AGN_3x3_HMC_XP64_KRA.Services]
+AddService      = NETwNx64, 2, NIC_Service_XP64, Common_EventLog_XP64
+
+;-----------------------------------------
+; Intel  XP64 GEN_5100_AGN_1x2_HMC
+;-----------------------------------------
+
+[Install_MPCIEX_GEN_5100_AGN_1x2_HMC_XP64_MOW2]
+AddReg         = Reg_Common, Reg_Common_XP64, Reg_SHP, Reg_GEN_5100_AGN_1x2_HMC, Reg_GEN_5100_AGN_1x2_HMC_MOW2, Reg_MPCIEX_5100AGN_1x2_HMC, Reg_NDIS_XP64, Reg_CoInstaller64, Reg_NCPA64
+Characteristics = 0x84; NCF_HAS_UI, NCF_PHYSICAL
+BusType         = 5; PCI bus
+CopyFiles       = CopyFiles_Driver_XP64, CopyFiles_NCPA64
+
+[Install_MPCIEX_GEN_5100_AGN_1x2_HMC_XP64_MOW2.Services]
+AddService      = NETwNx64, 2, NIC_Service_XP64, Common_EventLog_XP64
+
+[Install_MPCIEX_GEN_5100_AGN_1x2_HMC_XP64_KRA]
+AddReg         = Reg_Common, Reg_Common_XP64, Reg_SHP, Reg_GEN_5100_AGN_1x2_HMC, Reg_GEN_5100_AGN_1x2_HMC_KRA, Reg_MPCIEX_5100AGN_1x2_HMC, Reg_NDIS_XP64, Reg_CoInstaller64, Reg_NCPA64
+Characteristics = 0x84; NCF_HAS_UI, NCF_PHYSICAL
+BusType         = 5; PCI bus
+CopyFiles       = CopyFiles_Driver_XP64, CopyFiles_NCPA64
+
+[Install_MPCIEX_GEN_5100_AGN_1x2_HMC_XP64_KRA.Services]
+AddService      = NETwNx64, 2, NIC_Service_XP64, Common_EventLog_XP64
+
+[Install_MPCIEX_GEN_5100_AGN_1x2_HMC_XP64_BG]
+AddReg         = Reg_Common, Reg_Common_XP64, Reg_SHP, Reg_GEN_5100_AGN_1x2_HMC, Reg_GEN_5100_AGN_1x2_HMC_BG, Reg_MPCIEX_5100AGN_1x2_HMC, Reg_NDIS_XP64, Reg_CoInstaller64, Reg_NCPA64
+Characteristics = 0x84; NCF_HAS_UI, NCF_PHYSICAL
+BusType         = 5; PCI bus
+CopyFiles       = CopyFiles_Driver_XP64, CopyFiles_NCPA64
+
+[Install_MPCIEX_GEN_5100_AGN_1x2_HMC_XP64_BG.Services]
+AddService      = NETwNx64, 2, NIC_Service_XP64, Common_EventLog_XP64
+
+[Install_MPCIEX_GEN_5100_AGN_1x2_HMC_XP64_ABG]
+AddReg         = Reg_Common, Reg_Common_XP64, Reg_SHP, Reg_GEN_5100_AGN_1x2_HMC, Reg_GEN_5100_AGN_1x2_HMC_ABG, Reg_MPCIEX_5100AGN_1x2_HMC, Reg_NDIS_XP64, Reg_CoInstaller64, Reg_NCPA64
+Characteristics = 0x84; NCF_HAS_UI, NCF_PHYSICAL
+BusType         = 5; PCI bus
+CopyFiles       = CopyFiles_Driver_XP64, CopyFiles_NCPA64
+
+[Install_MPCIEX_GEN_5100_AGN_1x2_HMC_XP64_ABG.Services]
+AddService      = NETwNx64, 2, NIC_Service_XP64, Common_EventLog_XP64
+
+;-----------------------------------------
+; Intel  XP64 GEN_5100_AGN_1x2_MC
+;-----------------------------------------
+
+[Install_MPCIEX_GEN_5100_AGN_1x2_MC_XP64_MOW2]
+AddReg         = Reg_Common, Reg_Common_XP64, Reg_SHP, Reg_GEN_5100_AGN_1x2_MC, Reg_GEN_5100_AGN_1x2_MC_MOW2, Reg_MPCIEX_5100AGN_1x2_MC, Reg_NDIS_XP64, Reg_CoInstaller64, Reg_NCPA64
+Characteristics = 0x84; NCF_HAS_UI, NCF_PHYSICAL
+BusType         = 5; PCI bus
+CopyFiles       = CopyFiles_Driver_XP64, CopyFiles_NCPA64
+
+[Install_MPCIEX_GEN_5100_AGN_1x2_MC_XP64_MOW2.Services]
+AddService      = NETwNx64, 2, NIC_Service_XP64, Common_EventLog_XP64
+
+[Install_MPCIEX_GEN_5100_AGN_1x2_MC_XP64_KRA]
+AddReg         = Reg_Common, Reg_Common_XP64, Reg_SHP, Reg_GEN_5100_AGN_1x2_MC, Reg_GEN_5100_AGN_1x2_MC_KRA, Reg_MPCIEX_5100AGN_1x2_MC, Reg_NDIS_XP64, Reg_CoInstaller64, Reg_NCPA64
+Characteristics = 0x84; NCF_HAS_UI, NCF_PHYSICAL
+BusType         = 5; PCI bus
+CopyFiles       = CopyFiles_Driver_XP64, CopyFiles_NCPA64
+
+[Install_MPCIEX_GEN_5100_AGN_1x2_MC_XP64_KRA.Services]
+AddService      = NETwNx64, 2, NIC_Service_XP64, Common_EventLog_XP64
+
+[Install_MPCIEX_GEN_5100_AGN_1x2_MC_XP64_BG]
+AddReg         = Reg_Common, Reg_Common_XP64, Reg_SHP, Reg_GEN_5100_AGN_1x2_MC, Reg_GEN_5100_AGN_1x2_MC_BG, Reg_MPCIEX_5100AGN_1x2_MC, Reg_NDIS_XP64, Reg_CoInstaller64, Reg_NCPA64
+Characteristics = 0x84; NCF_HAS_UI, NCF_PHYSICAL
+BusType         = 5; PCI bus
+CopyFiles       = CopyFiles_Driver_XP64, CopyFiles_NCPA64
+
+[Install_MPCIEX_GEN_5100_AGN_1x2_MC_XP64_BG.Services]
+AddService      = NETwNx64, 2, NIC_Service_XP64, Common_EventLog_XP64
+
+[Install_MPCIEX_GEN_5100_AGN_1x2_MC_XP64_ABG]
+AddReg         = Reg_Common, Reg_Common_XP64, Reg_SHP, Reg_GEN_5100_AGN_1x2_MC, Reg_GEN_5100_AGN_1x2_MC_ABG, Reg_MPCIEX_5100AGN_1x2_MC, Reg_NDIS_XP64, Reg_CoInstaller64, Reg_NCPA64
+Characteristics = 0x84; NCF_HAS_UI, NCF_PHYSICAL
+BusType         = 5; PCI bus
+CopyFiles       = CopyFiles_Driver_XP64, CopyFiles_NCPA64
+
+[Install_MPCIEX_GEN_5100_AGN_1x2_MC_XP64_ABG.Services]
+AddService      = NETwNx64, 2, NIC_Service_XP64, Common_EventLog_XP64
+
+;-----------------------------------------
+; Intel  XP64 Lenovo_5300_AGN_3x3_MC
+;-----------------------------------------
+
+[Install_MPCIEX_Lenovo_5300_AGN_3x3_MC_XP64_MOW2]
+AddReg         = Reg_Common, Reg_Common_XP64, Reg_SHP, Reg_Lenovo_5300_AGN_3x3_MC, Reg_Lenovo_5300_AGN_3x3_MC_MOW2, Reg_MPCIEX_5300AGN_3x3_MC, Reg_NDIS_XP64, Reg_CoInstaller64, Reg_NCPA64
+Characteristics = 0x84; NCF_HAS_UI, NCF_PHYSICAL
+BusType         = 5; PCI bus
+CopyFiles       = CopyFiles_Driver_XP64, CopyFiles_NCPA64
+
+[Install_MPCIEX_Lenovo_5300_AGN_3x3_MC_XP64_MOW2.Services]
+AddService      = NETwNx64, 2, NIC_Service_XP64, Common_EventLog_XP64
+
+[Install_MPCIEX_Lenovo_5300_AGN_3x3_MC_XP64_KRA]
+AddReg         = Reg_Common, Reg_Common_XP64, Reg_SHP, Reg_Lenovo_5300_AGN_3x3_MC, Reg_Lenovo_5300_AGN_3x3_MC_KRA, Reg_MPCIEX_5300AGN_3x3_MC, Reg_NDIS_XP64, Reg_CoInstaller64, Reg_NCPA64
+Characteristics = 0x84; NCF_HAS_UI, NCF_PHYSICAL
+BusType         = 5; PCI bus
+CopyFiles       = CopyFiles_Driver_XP64, CopyFiles_NCPA64
+
+[Install_MPCIEX_Lenovo_5300_AGN_3x3_MC_XP64_KRA.Services]
+AddService      = NETwNx64, 2, NIC_Service_XP64, Common_EventLog_XP64
+
+;-----------------------------------------
+; Intel  XP64 Lenovo_5300_AGN_3x3_HMC
+;-----------------------------------------
+
+[Install_MPCIEX_Lenovo_5300_AGN_3x3_HMC_XP64_MOW2]
+AddReg         = Reg_Common, Reg_Common_XP64, Reg_SHP, Reg_Lenovo_5300_AGN_3x3_HMC, Reg_Lenovo_5300_AGN_3x3_HMC_MOW2, Reg_MPCIEX_5300AGN_3x3_HMC, Reg_NDIS_XP64, Reg_CoInstaller64, Reg_NCPA64
+Characteristics = 0x84; NCF_HAS_UI, NCF_PHYSICAL
+BusType         = 5; PCI bus
+CopyFiles       = CopyFiles_Driver_XP64, CopyFiles_NCPA64
+
+[Install_MPCIEX_Lenovo_5300_AGN_3x3_HMC_XP64_MOW2.Services]
+AddService      = NETwNx64, 2, NIC_Service_XP64, Common_EventLog_XP64
+
+[Install_MPCIEX_Lenovo_5300_AGN_3x3_HMC_XP64_KRA]
+AddReg         = Reg_Common, Reg_Common_XP64, Reg_SHP, Reg_Lenovo_5300_AGN_3x3_HMC, Reg_Lenovo_5300_AGN_3x3_HMC_KRA, Reg_MPCIEX_5300AGN_3x3_HMC, Reg_NDIS_XP64, Reg_CoInstaller64, Reg_NCPA64
+Characteristics = 0x84; NCF_HAS_UI, NCF_PHYSICAL
+BusType         = 5; PCI bus
+CopyFiles       = CopyFiles_Driver_XP64, CopyFiles_NCPA64
+
+[Install_MPCIEX_Lenovo_5300_AGN_3x3_HMC_XP64_KRA.Services]
+AddService      = NETwNx64, 2, NIC_Service_XP64, Common_EventLog_XP64
+
+;-----------------------------------------
+; Intel  XP64 Lenovo_5100_AGN_1x2_MC
+;-----------------------------------------
+
+[Install_MPCIEX_Lenovo_5100_AGN_1x2_MC_XP64_MOW2]
+AddReg         = Reg_Common, Reg_Common_XP64, Reg_SHP, Reg_Lenovo_5100_AGN_1x2_MC, Reg_Lenovo_5100_AGN_1x2_MC_MOW2, Reg_MPCIEX_5100AGN_1x2_MC, Reg_NDIS_XP64, Reg_CoInstaller64, Reg_NCPA64
+Characteristics = 0x84; NCF_HAS_UI, NCF_PHYSICAL
+BusType         = 5; PCI bus
+CopyFiles       = CopyFiles_Driver_XP64, CopyFiles_NCPA64
+
+[Install_MPCIEX_Lenovo_5100_AGN_1x2_MC_XP64_MOW2.Services]
+AddService      = NETwNx64, 2, NIC_Service_XP64, Common_EventLog_XP64
+
+[Install_MPCIEX_Lenovo_5100_AGN_1x2_MC_XP64_KRA]
+AddReg         = Reg_Common, Reg_Common_XP64, Reg_SHP, Reg_Lenovo_5100_AGN_1x2_MC, Reg_Lenovo_5100_AGN_1x2_MC_KRA, Reg_MPCIEX_5100AGN_1x2_MC, Reg_NDIS_XP64, Reg_CoInstaller64, Reg_NCPA64
+Characteristics = 0x84; NCF_HAS_UI, NCF_PHYSICAL
+BusType         = 5; PCI bus
+CopyFiles       = CopyFiles_Driver_XP64, CopyFiles_NCPA64
+
+[Install_MPCIEX_Lenovo_5100_AGN_1x2_MC_XP64_KRA.Services]
+AddService      = NETwNx64, 2, NIC_Service_XP64, Common_EventLog_XP64
+
+[Install_MPCIEX_Lenovo_5100_AGN_1x2_MC_XP64_BG]
+AddReg         = Reg_Common, Reg_Common_XP64, Reg_SHP, Reg_Lenovo_5100_AGN_1x2_MC, Reg_Lenovo_5100_AGN_1x2_MC_BG, Reg_MPCIEX_5100AGN_1x2_MC, Reg_NDIS_XP64, Reg_CoInstaller64, Reg_NCPA64
+Characteristics = 0x84; NCF_HAS_UI, NCF_PHYSICAL
+BusType         = 5; PCI bus
+CopyFiles       = CopyFiles_Driver_XP64, CopyFiles_NCPA64
+
+[Install_MPCIEX_Lenovo_5100_AGN_1x2_MC_XP64_BG.Services]
+AddService      = NETwNx64, 2, NIC_Service_XP64, Common_EventLog_XP64
+
+[Install_MPCIEX_Lenovo_5100_AGN_1x2_MC_XP64_ABG]
+AddReg         = Reg_Common, Reg_Common_XP64, Reg_SHP, Reg_Lenovo_5100_AGN_1x2_MC, Reg_Lenovo_5100_AGN_1x2_MC_ABG, Reg_MPCIEX_5100AGN_1x2_MC, Reg_NDIS_XP64, Reg_CoInstaller64, Reg_NCPA64
+Characteristics = 0x84; NCF_HAS_UI, NCF_PHYSICAL
+BusType         = 5; PCI bus
+CopyFiles       = CopyFiles_Driver_XP64, CopyFiles_NCPA64
+
+[Install_MPCIEX_Lenovo_5100_AGN_1x2_MC_XP64_ABG.Services]
+AddService      = NETwNx64, 2, NIC_Service_XP64, Common_EventLog_XP64
+
+;-----------------------------------------
+; Intel  XP64 Lenovo_5100_AGN_1x2_HMC
+;-----------------------------------------
+
+[Install_MPCIEX_Lenovo_5100_AGN_1x2_HMC_XP64_MOW2]
+AddReg         = Reg_Common, Reg_Common_XP64, Reg_SHP, Reg_Lenovo_5100_AGN_1x2_HMC, Reg_Lenovo_5100_AGN_1x2_HMC_MOW2, Reg_MPCIEX_5100AGN_1x2_HMC, Reg_NDIS_XP64, Reg_CoInstaller64, Reg_NCPA64
+Characteristics = 0x84; NCF_HAS_UI, NCF_PHYSICAL
+BusType         = 5; PCI bus
+CopyFiles       = CopyFiles_Driver_XP64, CopyFiles_NCPA64
+
+[Install_MPCIEX_Lenovo_5100_AGN_1x2_HMC_XP64_MOW2.Services]
+AddService      = NETwNx64, 2, NIC_Service_XP64, Common_EventLog_XP64
+
+[Install_MPCIEX_Lenovo_5100_AGN_1x2_HMC_XP64_KRA]
+AddReg         = Reg_Common, Reg_Common_XP64, Reg_SHP, Reg_Lenovo_5100_AGN_1x2_HMC, Reg_Lenovo_5100_AGN_1x2_HMC_KRA, Reg_MPCIEX_5100AGN_1x2_HMC, Reg_NDIS_XP64, Reg_CoInstaller64, Reg_NCPA64
+Characteristics = 0x84; NCF_HAS_UI, NCF_PHYSICAL
+BusType         = 5; PCI bus
+CopyFiles       = CopyFiles_Driver_XP64, CopyFiles_NCPA64
+
+[Install_MPCIEX_Lenovo_5100_AGN_1x2_HMC_XP64_KRA.Services]
+AddService      = NETwNx64, 2, NIC_Service_XP64, Common_EventLog_XP64
+
+[Install_MPCIEX_Lenovo_5100_AGN_1x2_HMC_XP64_BG]
+AddReg         = Reg_Common, Reg_Common_XP64, Reg_SHP, Reg_Lenovo_5100_AGN_1x2_HMC, Reg_Lenovo_5100_AGN_1x2_HMC_BG, Reg_MPCIEX_5100AGN_1x2_HMC, Reg_NDIS_XP64, Reg_CoInstaller64, Reg_NCPA64
+Characteristics = 0x84; NCF_HAS_UI, NCF_PHYSICAL
+BusType         = 5; PCI bus
+CopyFiles       = CopyFiles_Driver_XP64, CopyFiles_NCPA64
+
+[Install_MPCIEX_Lenovo_5100_AGN_1x2_HMC_XP64_BG.Services]
+AddService      = NETwNx64, 2, NIC_Service_XP64, Common_EventLog_XP64
+
+[Install_MPCIEX_Lenovo_5100_AGN_1x2_HMC_XP64_ABG]
+AddReg         = Reg_Common, Reg_Common_XP64, Reg_SHP, Reg_Lenovo_5100_AGN_1x2_HMC, Reg_Lenovo_5100_AGN_1x2_HMC_ABG, Reg_MPCIEX_5100AGN_1x2_HMC, Reg_NDIS_XP64, Reg_CoInstaller64, Reg_NCPA64
+Characteristics = 0x84; NCF_HAS_UI, NCF_PHYSICAL
+BusType         = 5; PCI bus
+CopyFiles       = CopyFiles_Driver_XP64, CopyFiles_NCPA64
+
+[Install_MPCIEX_Lenovo_5100_AGN_1x2_HMC_XP64_ABG.Services]
+AddService      = NETwNx64, 2, NIC_Service_XP64, Common_EventLog_XP64
+
+;-----------------------------------------
+; Intel  XP64 Dell_5300_AGN_3x3_MC
+;-----------------------------------------
+
+[Install_MPCIEX_Dell_5300_AGN_3x3_MC_XP64_MOW2]
+AddReg         = Reg_Common, Reg_Common_XP64, Reg_SHP, Reg_Dell_5300_AGN_3x3_MC, Reg_Dell_5300_AGN_3x3_MC_MOW2, Reg_MPCIEX_5300AGN_3x3_MC, Reg_NDIS_XP64, Reg_CoInstaller64, Reg_NCPA64
+Characteristics = 0x84; NCF_HAS_UI, NCF_PHYSICAL
+BusType         = 5; PCI bus
+CopyFiles       = CopyFiles_Driver_XP64, CopyFiles_NCPA64
+
+[Install_MPCIEX_Dell_5300_AGN_3x3_MC_XP64_MOW2.Services]
+AddService      = NETwNx64, 2, NIC_Service_XP64, Common_EventLog_XP64
+
+[Install_MPCIEX_Dell_5300_AGN_3x3_MC_XP64_KRA]
+AddReg         = Reg_Common, Reg_Common_XP64, Reg_SHP, Reg_Dell_5300_AGN_3x3_MC, Reg_Dell_5300_AGN_3x3_MC_KRA, Reg_MPCIEX_5300AGN_3x3_MC, Reg_NDIS_XP64, Reg_CoInstaller64, Reg_NCPA64
+Characteristics = 0x84; NCF_HAS_UI, NCF_PHYSICAL
+BusType         = 5; PCI bus
+CopyFiles       = CopyFiles_Driver_XP64, CopyFiles_NCPA64
+
+[Install_MPCIEX_Dell_5300_AGN_3x3_MC_XP64_KRA.Services]
+AddService      = NETwNx64, 2, NIC_Service_XP64, Common_EventLog_XP64
+
+;-----------------------------------------
+; Intel  XP64 Dell_5300_AGN_3x3_HMC
+;-----------------------------------------
+
+[Install_MPCIEX_Dell_5300_AGN_3x3_HMC_XP64_MOW2]
+AddReg         = Reg_Common, Reg_Common_XP64, Reg_SHP, Reg_Dell_5300_AGN_3x3_HMC, Reg_Dell_5300_AGN_3x3_HMC_MOW2, Reg_MPCIEX_5300AGN_3x3_HMC, Reg_NDIS_XP64, Reg_CoInstaller64, Reg_NCPA64
+Characteristics = 0x84; NCF_HAS_UI, NCF_PHYSICAL
+BusType         = 5; PCI bus
+CopyFiles       = CopyFiles_Driver_XP64, CopyFiles_NCPA64
+
+[Install_MPCIEX_Dell_5300_AGN_3x3_HMC_XP64_MOW2.Services]
+AddService      = NETwNx64, 2, NIC_Service_XP64, Common_EventLog_XP64
+
+[Install_MPCIEX_Dell_5300_AGN_3x3_HMC_XP64_KRA]
+AddReg         = Reg_Common, Reg_Common_XP64, Reg_SHP, Reg_Dell_5300_AGN_3x3_HMC, Reg_Dell_5300_AGN_3x3_HMC_KRA, Reg_MPCIEX_5300AGN_3x3_HMC, Reg_NDIS_XP64, Reg_CoInstaller64, Reg_NCPA64
+Characteristics = 0x84; NCF_HAS_UI, NCF_PHYSICAL
+BusType         = 5; PCI bus
+CopyFiles       = CopyFiles_Driver_XP64, CopyFiles_NCPA64
+
+[Install_MPCIEX_Dell_5300_AGN_3x3_HMC_XP64_KRA.Services]
+AddService      = NETwNx64, 2, NIC_Service_XP64, Common_EventLog_XP64
+
+;-----------------------------------------
+; Intel  XP64 Dell_5100_AGN_1x2_MC
+;-----------------------------------------
+
+[Install_MPCIEX_Dell_5100_AGN_1x2_MC_XP64_MOW2]
+AddReg         = Reg_Common, Reg_Common_XP64, Reg_SHP, Reg_Dell_5100_AGN_1x2_MC, Reg_Dell_5100_AGN_1x2_MC_MOW2, Reg_MPCIEX_5100AGN_1x2_MC, Reg_NDIS_XP64, Reg_CoInstaller64, Reg_NCPA64
+Characteristics = 0x84; NCF_HAS_UI, NCF_PHYSICAL
+BusType         = 5; PCI bus
+CopyFiles       = CopyFiles_Driver_XP64, CopyFiles_NCPA64
+
+[Install_MPCIEX_Dell_5100_AGN_1x2_MC_XP64_MOW2.Services]
+AddService      = NETwNx64, 2, NIC_Service_XP64, Common_EventLog_XP64
+
+[Install_MPCIEX_Dell_5100_AGN_1x2_MC_XP64_KRA]
+AddReg         = Reg_Common, Reg_Common_XP64, Reg_SHP, Reg_Dell_5100_AGN_1x2_MC, Reg_Dell_5100_AGN_1x2_MC_KRA, Reg_MPCIEX_5100AGN_1x2_MC, Reg_NDIS_XP64, Reg_CoInstaller64, Reg_NCPA64
+Characteristics = 0x84; NCF_HAS_UI, NCF_PHYSICAL
+BusType         = 5; PCI bus
+CopyFiles       = CopyFiles_Driver_XP64, CopyFiles_NCPA64
+
+[Install_MPCIEX_Dell_5100_AGN_1x2_MC_XP64_KRA.Services]
+AddService      = NETwNx64, 2, NIC_Service_XP64, Common_EventLog_XP64
+
+[Install_MPCIEX_Dell_5100_AGN_1x2_MC_XP64_BG]
+AddReg         = Reg_Common, Reg_Common_XP64, Reg_SHP, Reg_Dell_5100_AGN_1x2_MC, Reg_Dell_5100_AGN_1x2_MC_BG, Reg_MPCIEX_5100AGN_1x2_MC, Reg_NDIS_XP64, Reg_CoInstaller64, Reg_NCPA64
+Characteristics = 0x84; NCF_HAS_UI, NCF_PHYSICAL
+BusType         = 5; PCI bus
+CopyFiles       = CopyFiles_Driver_XP64, CopyFiles_NCPA64
+
+[Install_MPCIEX_Dell_5100_AGN_1x2_MC_XP64_BG.Services]
+AddService      = NETwNx64, 2, NIC_Service_XP64, Common_EventLog_XP64
+
+[Install_MPCIEX_Dell_5100_AGN_1x2_MC_XP64_ABG]
+AddReg         = Reg_Common, Reg_Common_XP64, Reg_SHP, Reg_Dell_5100_AGN_1x2_MC, Reg_Dell_5100_AGN_1x2_MC_ABG, Reg_MPCIEX_5100AGN_1x2_MC, Reg_NDIS_XP64, Reg_CoInstaller64, Reg_NCPA64
+Characteristics = 0x84; NCF_HAS_UI, NCF_PHYSICAL
+BusType         = 5; PCI bus
+CopyFiles       = CopyFiles_Driver_XP64, CopyFiles_NCPA64
+
+[Install_MPCIEX_Dell_5100_AGN_1x2_MC_XP64_ABG.Services]
+AddService      = NETwNx64, 2, NIC_Service_XP64, Common_EventLog_XP64
+
+;-----------------------------------------
+; Intel  XP64 Dell_5100_AGN_1x2_HMC
+;-----------------------------------------
+
+[Install_MPCIEX_Dell_5100_AGN_1x2_HMC_XP64_MOW2]
+AddReg         = Reg_Common, Reg_Common_XP64, Reg_SHP, Reg_Dell_5100_AGN_1x2_HMC, Reg_Dell_5100_AGN_1x2_HMC_MOW2, Reg_MPCIEX_5100AGN_1x2_HMC, Reg_NDIS_XP64, Reg_CoInstaller64, Reg_NCPA64
+Characteristics = 0x84; NCF_HAS_UI, NCF_PHYSICAL
+BusType         = 5; PCI bus
+CopyFiles       = CopyFiles_Driver_XP64, CopyFiles_NCPA64
+
+[Install_MPCIEX_Dell_5100_AGN_1x2_HMC_XP64_MOW2.Services]
+AddService      = NETwNx64, 2, NIC_Service_XP64, Common_EventLog_XP64
+
+[Install_MPCIEX_Dell_5100_AGN_1x2_HMC_XP64_KRA]
+AddReg         = Reg_Common, Reg_Common_XP64, Reg_SHP, Reg_Dell_5100_AGN_1x2_HMC, Reg_Dell_5100_AGN_1x2_HMC_KRA, Reg_MPCIEX_5100AGN_1x2_HMC, Reg_NDIS_XP64, Reg_CoInstaller64, Reg_NCPA64
+Characteristics = 0x84; NCF_HAS_UI, NCF_PHYSICAL
+BusType         = 5; PCI bus
+CopyFiles       = CopyFiles_Driver_XP64, CopyFiles_NCPA64
+
+[Install_MPCIEX_Dell_5100_AGN_1x2_HMC_XP64_KRA.Services]
+AddService      = NETwNx64, 2, NIC_Service_XP64, Common_EventLog_XP64
+
+[Install_MPCIEX_Dell_5100_AGN_1x2_HMC_XP64_BG]
+AddReg         = Reg_Common, Reg_Common_XP64, Reg_SHP, Reg_Dell_5100_AGN_1x2_HMC, Reg_Dell_5100_AGN_1x2_HMC_BG, Reg_MPCIEX_5100AGN_1x2_HMC, Reg_NDIS_XP64, Reg_CoInstaller64, Reg_NCPA64
+Characteristics = 0x84; NCF_HAS_UI, NCF_PHYSICAL
+BusType         = 5; PCI bus
+CopyFiles       = CopyFiles_Driver_XP64, CopyFiles_NCPA64
+
+[Install_MPCIEX_Dell_5100_AGN_1x2_HMC_XP64_BG.Services]
+AddService      = NETwNx64, 2, NIC_Service_XP64, Common_EventLog_XP64
+
+[Install_MPCIEX_Dell_5100_AGN_1x2_HMC_XP64_ABG]
+AddReg         = Reg_Common, Reg_Common_XP64, Reg_SHP, Reg_Dell_5100_AGN_1x2_HMC, Reg_Dell_5100_AGN_1x2_HMC_ABG, Reg_MPCIEX_5100AGN_1x2_HMC, Reg_NDIS_XP64, Reg_CoInstaller64, Reg_NCPA64
+Characteristics = 0x84; NCF_HAS_UI, NCF_PHYSICAL
+BusType         = 5; PCI bus
+CopyFiles       = CopyFiles_Driver_XP64, CopyFiles_NCPA64
+
+[Install_MPCIEX_Dell_5100_AGN_1x2_HMC_XP64_ABG.Services]
+AddService      = NETwNx64, 2, NIC_Service_XP64, Common_EventLog_XP64
+
+[Reg_Common]
+HKR,,ApsdTriggerQueues,0x10001,0x0
+HKR,,BTEnableFlags,0x10001,0x3
+HKR,,CardType,0x00010001,2
+HKR,,CCXv4FeatureSet,0x10001,0x0
+HKR,,CcxSdkActive,0x10003,0x0
+HKR,,CcxVersion,0x10003,0x4
+HKR,,ConfigurationName,0,"PR0W1RELE55"
+HKR,,ConnectionPriority,0,"2"
+HKR,,CtsToItself,0x10003,0x1
+HKR,,DesiredAuthenticationMode,0x10003,0x0
+HKR,,DesiredCipher,0x10003,0x1
+HKR,,DesiredDefaultKeyId,0x10003,0x1
+HKR,,DesiredPortType,0x10003,0x1
+HKR,,DesiredPSKey1,0x2,""
+HKR,,DesiredPSKey2,0x2,""
+HKR,,DesiredPSKey3,0x2,""
+HKR,,DesiredPSKey4,0x2,""
+HKR,,FixedLongPreamble,0x10001,0x0
+HKR,,FixedSupportedRates,0x10001,0xFFF
+HKR,,IBSSTxPower,0x00000002,"100"
+HKR,,IbssQosEnabled,0x10003,0x1
+HKR,,ModulationType,2,"2"
+HKR,,NdisEnvironment,0x10001,0
+HKR,,NetType,0,"WLAN"
+HKR,,PibssShortSlot,0x10001,0x1
+HKR,,PropPacketBurstEnabled,0x10003,0x0
+HKR,,Provider,0,%PROVIDER_NAME%
+HKR,,RadioEnable,0x10003,0x1
+HKR,,RecommendedAtimWindow,0x10003,0x0
+HKR,,RecommendedBand,2,"0"
+HKR,,RecommendedBeaconInterval,0x10001,0x64
+HKR,,RoamAggressiveness,0x10003,0x2
+HKR,,BTOnThreshold,0x10001,0x4
+HKR,,HiddenNetworkEnabledDefault,0x10001,0x1
+HKR,,FastResumeReconnect,0x10001,0x0
+HKR,,Dot11ExcludeUnencrypted,0x10001,0x1
+HKR,,DDDDebugFiles,0x10001,0x1
+HKR,,DDDEnabled,0x10001,0x1
+HKR,,DDDStreamsPath,0x2,"\DosDevices\D:\Temp"
+HKR,,APMMode,0x10001,0x00
+HKR,,blockAckWindowStartMaxTolerance,0x10001,0x02
+
+[Reg_SHP]
+HKR,,CLSGUID,0,"{09F89A23-8DEB-4ec1-A674-9C8A1C1E00F6}"
+HKR,,CalibrationActive,0x10001,0x4576
+HKR,,ActivateDisconnectedAntennaOnly,0x10001,0x0
+HKR,,ChannelWidth52,0x10001,0x1
+HKR,,ChannelWidth24,0x10001,0x0
+HKR,,ScanWhenAssociated,0x10001,0x1
+HKR,,AtomMaxDpcTime,0x10001,0x14
+HKR,,MaxDpcTime,0x10001,0x1E
+
+[Reg_GEN_5300_AGN_3x3_MC]
+HKR,,BandType,0x10003,0x2
+HKR,,DesiredSsid,0x00000002,"Intel 802.11 Default SSID"
+HKR,,FeatureSet,0x10001,0x33900001
+HKR,,IEEE11nMode,0x10001,0x00000001
+HKR,,PowerIndex,0x00000002,"6"
+HKR,,RecommendedChannel24,2,"11"
+
+[Reg_GEN_5300_AGN_3x3_MC_MOW2]
+
+[Reg_GEN_5300_AGN_3x3_MC_KRA]
+HKR,,RecommendedChannel52,2,"36"
+
+[Reg_GEN_5300_AGN_3x3_HMC]
+HKR,,BandType,0x10003,0x2
+HKR,,DesiredSsid,0x00000002,"Intel 802.11 Default SSID"
+HKR,,FeatureSet,0x10001,0x33900001
+HKR,,IEEE11nMode,0x10001,0x00000001
+HKR,,PowerIndex,0x00000002,"6"
+HKR,,RecommendedChannel24,2,"11"
+
+[Reg_GEN_5300_AGN_3x3_HMC_MOW2]
+
+[Reg_GEN_5300_AGN_3x3_HMC_KRA]
+HKR,,RecommendedChannel52,2,"36"
+
+[Reg_GEN_5100_AGN_1x2_HMC]
+HKR,,FixedSupportedHtRates,0x10001,0x0000FFFF
+HKR,,DesiredSsid,0x00000002,"Intel 802.11 Default SSID"
+HKR,,PowerIndex,0x00000002,"6"
+HKR,,RecommendedChannel24,2,"11"
+HKR,,tlcValidAntenna,0x10001,0x2
+
+[Reg_GEN_5100_AGN_1x2_HMC_MOW2]
+HKR,,AdapterModel,0,%NIC_MPCIEX_AdapterModel_5100AGN_1x2%
+HKR,,DriverDesc,0,%NIC_DriverDesc_5100AGN_1x2%
+HKR,,BandType,0x10003,0x2
+HKR,,IEEE11nMode,0x10001,0x00000001
+HKR,,FeatureSet,0x10001,0x33900001
+
+[Reg_GEN_5100_AGN_1x2_HMC_KRA]
+HKR,,AdapterModel,0,%NIC_MPCIEX_AdapterModel_5100AGN_1x2%
+HKR,,DriverDesc,0,%NIC_DriverDesc_5100AGN_1x2%
+HKR,,BandType,0x10003,0x2
+HKR,,RecommendedChannel52,2,"36"
+HKR,,IEEE11nMode,0x10001,0x00000001
+HKR,,FeatureSet,0x10001,0x33900001
+
+[Reg_GEN_5100_AGN_1x2_HMC_BG]
+HKR,,AdapterModel,0,%NIC_MPCIEX_AdapterModel_5100AGN_1x2_BG%
+HKR,,DriverDesc,0,%NIC_DriverDesc_5100AGN_1x2_BG%
+HKR,,BandType,0x10003,0x0
+HKR,,RecommendedChannel52,2,"36"
+HKR,,IEEE11nMode,0x10001,0x00000000
+HKR,,ChannelWidth52,0x10001,0x0
+HKR,,FeatureSet,0x10001,0x33902001
+
+[Reg_GEN_5100_AGN_1x2_HMC_ABG]
+HKR,,AdapterModel,0,%NIC_MPCIEX_AdapterModel_5100AGN_1x2_ABG%
+HKR,,DriverDesc,0,%NIC_DriverDesc_5100AGN_1x2_ABG%
+HKR,,DesiredSsid,0x00000002,"Intel 802.11 Default SSID"
+HKR,,PowerIndex,0x00000002,"6"
+HKR,,RecommendedChannel24,2,"11"
+HKR,,FeatureSet,0x10001,0x3390F001
+HKR,,BandType,0x10003,0x2
+HKR,,RecommendedChannel52,2,"36"
+HKR,,IEEE11nMode,0x10001,0x00000000
+HKR,,ChannelWidth52,0x10001,0x0
+HKR,,ChannelWidth24,0x10001,0x0
+
+[Reg_GEN_5100_AGN_1x2_MC]
+HKR,,FixedSupportedHtRates,0x10001,0x0000FFFF
+HKR,,DesiredSsid,0x00000002,"Intel 802.11 Default SSID"
+HKR,,PowerIndex,0x00000002,"6"
+HKR,,RecommendedChannel24,2,"11"
+HKR,,tlcValidAntenna,0x10001,0x2
+
+[Reg_GEN_5100_AGN_1x2_MC_MOW2]
+HKR,,AdapterModel,0,%NIC_MPCIEX_AdapterModel_5100AGN_1x2%
+HKR,,DriverDesc,0,%NIC_DriverDesc_5100AGN_1x2%
+HKR,,BandType,0x10003,0x2
+HKR,,IEEE11nMode,0x10001,0x00000001
+HKR,,FeatureSet,0x10001,0x33900001
+
+[Reg_GEN_5100_AGN_1x2_MC_KRA]
+HKR,,AdapterModel,0,%NIC_MPCIEX_AdapterModel_5100AGN_1x2%
+HKR,,DriverDesc,0,%NIC_DriverDesc_5100AGN_1x2%
+HKR,,BandType,0x10003,0x2
+HKR,,RecommendedChannel52,2,"36"
+HKR,,IEEE11nMode,0x10001,0x00000001
+HKR,,FeatureSet,0x10001,0x33900001
+
+[Reg_GEN_5100_AGN_1x2_MC_BG]
+HKR,,AdapterModel,0,%NIC_MPCIEX_AdapterModel_5100AGN_1x2_BG%
+HKR,,DriverDesc,0,%NIC_DriverDesc_5100AGN_1x2_BG%
+HKR,,BandType,0x10003,0x0
+HKR,,RecommendedChannel52,2,"36"
+HKR,,IEEE11nMode,0x10001,0x00000000
+HKR,,ChannelWidth52,0x10001,0x0
+HKR,,ChannelWidth24,0x10001,0x0
+HKR,,FeatureSet,0x10001,0x3390F001
+
+[Reg_GEN_5100_AGN_1x2_MC_ABG]
+HKR,,AdapterModel,0,%NIC_MPCIEX_AdapterModel_5100AGN_1x2_ABG%
+HKR,,DriverDesc,0,%NIC_DriverDesc_5100AGN_1x2_ABG%
+HKR,,DesiredSsid,0x00000002,"Intel 802.11 Default SSID"
+HKR,,PowerIndex,0x00000002,"6"
+HKR,,RecommendedChannel24,2,"11"
+HKR,,FeatureSet,0x10001,0x3390F001
+HKR,,BandType,0x10003,0x2
+HKR,,RecommendedChannel52,2,"36"
+HKR,,IEEE11nMode,0x10001,0x00000000
+HKR,,ChannelWidth52,0x10001,0x0
+HKR,,ChannelWidth24,0x10001,0x0
+
+[Reg_Lenovo_5300_AGN_3x3_HMC]
+HKR,,BandType,0x10003,0x2
+HKR,,DesiredSsid,0x00000002,"WXYZ"
+HKR,,PowerIndex,0x00000002,"3"
+HKR,,RecommendedChannel24,2,"11"
+HKR,,IEEE11nMode,0x10001,0x00000001
+HKR,,FeatureSet,0x10001,0x33900001
+
+[Reg_Lenovo_5300_AGN_3x3_HMC_MOW2]
+
+[Reg_Lenovo_5300_AGN_3x3_HMC_KRA]
+HKR,,RecommendedChannel52,2,"36"
+
+[Reg_Lenovo_5300_AGN_3x3_MC]
+HKR,,BandType,0x10003,0x2
+HKR,,DesiredSsid,0x00000002,"WXYZ"
+HKR,,PowerIndex,0x00000002,"3"
+HKR,,RecommendedChannel24,2,"11"
+HKR,,IEEE11nMode,0x10001,0x00000001
+HKR,,FeatureSet,0x10001,0x33900001
+
+[Reg_Lenovo_5300_AGN_3x3_MC_MOW2]
+
+[Reg_Lenovo_5300_AGN_3x3_MC_KRA]
+HKR,,RecommendedChannel52,2,"36"
+
+[Reg_Lenovo_5100_AGN_1x2_HMC]
+HKR,,FixedSupportedHtRates,0x10001,0x0000FFFF
+HKR,,DesiredSsid,0x00000002,"WXYZ"
+HKR,,PowerIndex,0x00000002,"3"
+HKR,,RecommendedChannel24,2,"11"
+HKR,,tlcValidAntenna,0x10001,0x2
+
+[Reg_Lenovo_5100_AGN_1x2_HMC_MOW2]
+HKR,,AdapterModel,0,%NIC_MPCIEX_AdapterModel_5100AGN_1x2%
+HKR,,DriverDesc,0,%NIC_DriverDesc_5100AGN_1x2%
+HKR,,BandType,0x10003,0x2
+HKR,,IEEE11nMode,0x10001,0x00000001
+HKR,,FeatureSet,0x10001,0x33900001
+
+[Reg_Lenovo_5100_AGN_1x2_HMC_KRA]
+HKR,,AdapterModel,0,%NIC_MPCIEX_AdapterModel_5100AGN_1x2%
+HKR,,DriverDesc,0,%NIC_DriverDesc_5100AGN_1x2%
+HKR,,BandType,0x10003,0x2
+HKR,,RecommendedChannel52,2,"36"
+HKR,,IEEE11nMode,0x10001,0x00000001
+HKR,,FeatureSet,0x10001,0x33900001
+
+[Reg_Lenovo_5100_AGN_1x2_HMC_BG]
+HKR,,AdapterModel,0,%NIC_MPCIEX_AdapterModel_5100AGN_1x2_BG%
+HKR,,DriverDesc,0,%NIC_DriverDesc_5100AGN_1x2_BG%
+HKR,,BandType,0x10003,0x0
+HKR,,RecommendedChannel52,2,"36"
+HKR,,IEEE11nMode,0x10001,0x00000000
+HKR,,ChannelWidth52,0x10001,0x0
+HKR,,FeatureSet,0x10001,0x33902001
+
+[Reg_Lenovo_5100_AGN_1x2_HMC_ABG]
+HKR,,AdapterModel,0,%NIC_MPCIEX_AdapterModel_5100AGN_1x2_ABG%
+HKR,,DriverDesc,0,%NIC_DriverDesc_5100AGN_1x2_ABG%
+HKR,,DesiredSsid,0x00000002,"WXYZ"
+HKR,,PowerIndex,0x00000002,"3"
+HKR,,RecommendedChannel24,2,"11"
+HKR,,IEEE11nMode,0x10001,0x00000000
+HKR,,ChannelWidth52,0x10001,0x0
+HKR,,ChannelWidth24,0x10001,0x0
+HKR,,FeatureSet,0x10001,0x3390F001
+HKR,,BandType,0x10003,0x2
+HKR,,RecommendedChannel52,2,"36"
+
+[Reg_Lenovo_5100_AGN_1x2_MC]
+HKR,,FixedSupportedHtRates,0x10001,0x0000FFFF
+HKR,,DesiredSsid,0x00000002,"WXYZ"
+HKR,,PowerIndex,0x00000002,"3"
+HKR,,RecommendedChannel24,2,"11"
+HKR,,tlcValidAntenna,0x10001,0x2
+
+[Reg_Lenovo_5100_AGN_1x2_MC_MOW2]
+HKR,,AdapterModel,0,%NIC_MPCIEX_AdapterModel_5100AGN_1x2%
+HKR,,DriverDesc,0,%NIC_DriverDesc_5100AGN_1x2%
+HKR,,BandType,0x10003,0x2
+HKR,,IEEE11nMode,0x10001,0x00000001
+HKR,,FeatureSet,0x10001,0x33900001
+
+[Reg_Lenovo_5100_AGN_1x2_MC_KRA]
+HKR,,AdapterModel,0,%NIC_MPCIEX_AdapterModel_5100AGN_1x2%
+HKR,,DriverDesc,0,%NIC_DriverDesc_5100AGN_1x2%
+HKR,,BandType,0x10003,0x2
+HKR,,RecommendedChannel52,2,"36"
+HKR,,IEEE11nMode,0x10001,0x00000001
+HKR,,FeatureSet,0x10001,0x33900001
+
+[Reg_Lenovo_5100_AGN_1x2_MC_BG]
+HKR,,AdapterModel,0,%NIC_MPCIEX_AdapterModel_5100AGN_1x2_BG%
+HKR,,DriverDesc,0,%NIC_DriverDesc_5100AGN_1x2_BG%
+HKR,,BandType,0x10003,0x0
+HKR,,RecommendedChannel52,2,"36"
+HKR,,IEEE11nMode,0x10001,0x00000000
+HKR,,ChannelWidth52,0x10001,0x0
+HKR,,FeatureSet,0x10001,0x33902001
+
+[Reg_Lenovo_5100_AGN_1x2_MC_ABG]
+HKR,,AdapterModel,0,%NIC_MPCIEX_AdapterModel_5100AGN_1x2_ABG%
+HKR,,DriverDesc,0,%NIC_DriverDesc_5100AGN_1x2_ABG%
+HKR,,DesiredSsid,0x00000002,"WXYZ"
+HKR,,PowerIndex,0x00000002,"3"
+HKR,,RecommendedChannel24,2,"11"
+HKR,,IEEE11nMode,0x10001,0x00000000
+HKR,,ChannelWidth52,0x10001,0x0
+HKR,,ChannelWidth24,0x10001,0x0
+HKR,,FeatureSet,0x10001,0x3390F001
+HKR,,BandType,0x10003,0x2
+HKR,,RecommendedChannel52,2,"36"
+
+[Reg_Dell_5300_AGN_3x3_HMC]
+HKR,,BandType,0x10003,0x2
+HKR,,DesiredSsid,0x00000002,"101"
+HKR,,PowerIndex,0x00000002,"3"
+HKR,,RecommendedChannel24,2,"1"
+HKR,,IEEE11nMode,0x10001,0x00000001
+HKR,,FeatureSet,0x10001,0x33900001
+
+[Reg_Dell_5300_AGN_3x3_HMC_MOW2]
+
+[Reg_Dell_5300_AGN_3x3_HMC_KRA]
+HKR,,RecommendedChannel52,2,"36"
+
+[Reg_Dell_5300_AGN_3x3_MC]
+HKR,,BandType,0x10003,0x2
+HKR,,DesiredSsid,0x00000002,"101"
+HKR,,PowerIndex,0x00000002,"3"
+HKR,,RecommendedChannel24,2,"1"
+HKR,,IEEE11nMode,0x10001,0x00000001
+HKR,,FeatureSet,0x10001,0x33900001
+
+[Reg_Dell_5300_AGN_3x3_MC_MOW2]
+
+[Reg_Dell_5300_AGN_3x3_MC_KRA]
+HKR,,RecommendedChannel52,2,"36"
+
+[Reg_Dell_5100_AGN_1x2_MC]
+HKR,,FixedSupportedHtRates,0x10001,0x0000FFFF
+HKR,,DesiredSsid,0x00000002,"101"
+HKR,,PowerIndex,0x00000002,"3"
+HKR,,RecommendedChannel24,2,"1"
+HKR,,tlcValidAntenna,0x10001,0x2
+
+[Reg_Dell_5100_AGN_1x2_MC_MOW2]
+HKR,,AdapterModel,0,%NIC_MPCIEX_AdapterModel_5100AGN_1x2%
+HKR,,DriverDesc,0,%NIC_DriverDesc_5100AGN_1x2%
+HKR,,BandType,0x10003,0x2
+HKR,,IEEE11nMode,0x10001,0x00000001
+HKR,,FeatureSet,0x10001,0x33900001
+
+[Reg_Dell_5100_AGN_1x2_MC_KRA]
+HKR,,AdapterModel,0,%NIC_MPCIEX_AdapterModel_5100AGN_1x2%
+HKR,,DriverDesc,0,%NIC_DriverDesc_5100AGN_1x2%
+HKR,,BandType,0x10003,0x2
+HKR,,RecommendedChannel52,2,"36"
+HKR,,IEEE11nMode,0x10001,0x00000001
+HKR,,FeatureSet,0x10001,0x33900001
+
+[Reg_Dell_5100_AGN_1x2_MC_BG]
+HKR,,AdapterModel,0,%NIC_MPCIEX_AdapterModel_5100AGN_1x2_BG%
+HKR,,DriverDesc,0,%NIC_DriverDesc_5100AGN_1x2_BG%
+HKR,,BandType,0x10003,0x0
+HKR,,RecommendedChannel52,2,"36"
+HKR,,IEEE11nMode,0x10001,0x00000000
+HKR,,ChannelWidth52,0x10001,0x0
+HKR,,FeatureSet,0x10001,0x33902001
+
+[Reg_Dell_5100_AGN_1x2_MC_ABG]
+HKR,,AdapterModel,0,%NIC_MPCIEX_AdapterModel_5100AGN_1x2_ABG%
+HKR,,DriverDesc,0,%NIC_DriverDesc_5100AGN_1x2_ABG%
+HKR,,DesiredSsid,0x00000002,"101"
+HKR,,PowerIndex,0x00000002,"3"
+HKR,,RecommendedChannel24,2,"1"
+HKR,,IEEE11nMode,0x10001,0x00000000
+HKR,,ChannelWidth52,0x10001,0x0
+HKR,,ChannelWidth24,0x10001,0x0
+HKR,,FeatureSet,0x10001,0x3390F001
+HKR,,BandType,0x10003,0x2
+HKR,,RecommendedChannel52,2,"36"
+
+[Reg_Dell_5100_AGN_1x2_HMC]
+HKR,,FixedSupportedHtRates,0x10001,0x0000FFFF
+HKR,,DesiredSsid,0x00000002,"101"
+HKR,,PowerIndex,0x00000002,"3"
+HKR,,RecommendedChannel24,2,"1"
+HKR,,tlcValidAntenna,0x10001,0x2
+
+[Reg_Dell_5100_AGN_1x2_HMC_MOW2]
+HKR,,AdapterModel,0,%NIC_MPCIEX_AdapterModel_5100AGN_1x2%
+HKR,,DriverDesc,0,%NIC_DriverDesc_5100AGN_1x2%
+HKR,,BandType,0x10003,0x2
+HKR,,IEEE11nMode,0x10001,0x00000001
+HKR,,FeatureSet,0x10001,0x33900001
+
+[Reg_Dell_5100_AGN_1x2_HMC_KRA]
+HKR,,AdapterModel,0,%NIC_MPCIEX_AdapterModel_5100AGN_1x2%
+HKR,,DriverDesc,0,%NIC_DriverDesc_5100AGN_1x2%
+HKR,,BandType,0x10003,0x2
+HKR,,RecommendedChannel52,2,"36"
+HKR,,IEEE11nMode,0x10001,0x00000001
+HKR,,FeatureSet,0x10001,0x33900001
+
+[Reg_Dell_5100_AGN_1x2_HMC_BG]
+HKR,,AdapterModel,0,%NIC_MPCIEX_AdapterModel_5100AGN_1x2_BG%
+HKR,,DriverDesc,0,%NIC_DriverDesc_5100AGN_1x2_BG%
+HKR,,BandType,0x10003,0x0
+HKR,,RecommendedChannel52,2,"36"
+HKR,,IEEE11nMode,0x10001,0x00000000
+HKR,,ChannelWidth52,0x10001,0x0
+HKR,,FeatureSet,0x10001,0x33902001
+
+[Reg_Dell_5100_AGN_1x2_HMC_ABG]
+HKR,,AdapterModel,0,%NIC_MPCIEX_AdapterModel_5100AGN_1x2_ABG%
+HKR,,DriverDesc,0,%NIC_DriverDesc_5100AGN_1x2_ABG%
+HKR,,DesiredSsid,0x00000002,"101"
+HKR,,PowerIndex,0x00000002,"3"
+HKR,,RecommendedChannel24,2,"1"
+HKR,,IEEE11nMode,0x10001,0x00000000
+HKR,,ChannelWidth52,0x10001,0x0
+HKR,,ChannelWidth24,0x10001,0x0
+HKR,,FeatureSet,0x10001,0x3390F001
+HKR,,BandType,0x10003,0x2
+HKR,,RecommendedChannel52,2,"36"
+
+[Reg_CoInstaller64]
+HKR,,CoInstallers32,0x00010000,"NETwNc64.dll,ClassCoInstallerEntryPoint"
+
+[Reg_NCPA64]
+HKR,,EnumPropPages32,0,"NETwNc64.dll,AddWirelessPPToNCPA"
+
+[Reg_MPCIEX_5300AGN_3x3_HMC]
+HKR,,Diversity11a,0x10003,0x0
+HKR,,Diversity11b,0x10003,0x0
+HKR,,Diversity11g,0x10003,0x0
+HKR,,AdapterModel,0,%NIC_MPCIEX_AdapterModel_5300AGN_3x3%
+HKR,,DriverDesc,0,%NIC_DriverDesc_5300AGN_3x3%
+HKR,,rlcChainSettings,0x10001,0xE
+
+[Reg_MPCIEX_5300AGN_3x3_MC]
+HKR,,Diversity11a,0x10003,0x0
+HKR,,Diversity11b,0x10003,0x0
+HKR,,Diversity11g,0x10003,0x0
+HKR,,AdapterModel,0,%NIC_MPCIEX_AdapterModel_5300AGN_3x3%
+HKR,,DriverDesc,0,%NIC_DriverDesc_5300AGN_3x3%
+HKR,,rlcChainSettings,0x10001,0xE
+
+[Reg_MPCIEX_5100AGN_1x2_HMC]
+HKR,,Diversity11a,0x10003,0x0
+HKR,,Diversity11b,0x10003,0x0
+HKR,,Diversity11g,0x10003,0x0
+HKR,,rlcChainSettings,0x10001,0x6
+
+[Reg_MPCIEX_5100AGN_1x2_MC]
+HKR,,Diversity11a,0x10003,0x0
+HKR,,Diversity11b,0x10003,0x0
+HKR,,Diversity11g,0x10003,0x0
+HKR,,rlcChainSettings,0x10001,0x6
+
+[Reg_NDIS_XP64]
+HKR, Ndi\Interfaces,  UpperRange,   0, "ndis5,wifipro"
+HKR, Ndi\Interfaces,  LowerRange,   0, "ethernet,wifimon"
+HKR, Ndi,             Service,      0, "NETwNx64"
+
+[Reg_Common_XP64]
+
+[Common_EventLog_XP64]
+AddReg = Reg_CommonAddEventLog_XP64
+
+[Reg_CommonAddEventLog_XP64]
+HKR,, EventMessageFile, 0x00020000, "%%SystemRoot%%\System32\netevent.dll;%%SystemRoot%%\System32\Drivers\NETwNx64.sys"
+HKR,, TypesSupported,   0x00010001, 7
+
+
+
+[Reg_ECP]
+
+[Reg_PMA]
+
+[Reg_KLP]
+
+[Reg_TYL]
+
+[Reg_RNB]
+
+[Reg_CRN1]
+
+[Reg_CRN2]
+
+[NIC_Service_XP64]
+DisplayName = "___" %NIC_Service_DispName_XP64%
+ServiceType     = 1 ;%SERVICE_KERNEL_DRIVER%
+StartType       = 3 ;%SERVICE_DEMAND_START%
+ErrorControl    = 1 ;%SERVICE_ERROR_NORMAL%
+ServiceBinary = %12%\NETwNx64.sys
+LoadOrderGroup  = NDIS
+
+[Common_EventLog_XP64]
+AddReg = Reg_CommonAddEventLog_XP64
+
+;-----------------------------------------
+; DestinationDirs
+
+[CopyFiles_Driver_XP64]
+NETwNx64.sys,,,2
+
+
+[CopyFiles_NCPA64]
+NETwNc64.dll,,,2
+NETwNr64.dll,,,2
+
+[SourceDisksNames]
+1=%SOURCEDISK1%,,
+
+[SourceDisksFiles]
+NETwNx64.sys   = 1,,
+NETwNc64.dll = 1,,
+NETwNr64.dll = 1,,
+
+[DestinationDirs]
+DefaultDestDir = 11 ; Windows\System32
+CopyFiles_Driver_XP64=12;Windows\System32\Drivers
+CopyFiles_NCPA64          = 11 ; Windows\System32
+
+[Strings]
+PROVIDER_NAME                      = "Intel"
+COMPANY_NAME                       = "Intel Corporation"
+
+NIC_MPCIEX_5300AGN_3x3_MC          = "Intel(R) WiFi Link 5300 AGN"
+NIC_MPCIEX_5300AGN_3x3_HMC         = "Intel(R) WiFi Link 5300 AGN"
+NIC_MPCIEX_5100AGN_1x2_MC          = "Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_5100AGN_1x2_MC_MOW2	   = "Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_5100AGN_1x2_MC_KRA	   = "Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_5100AGN_1x2_MC_BG	   = "Intel(R) WiFi Link 5100 BG"
+NIC_MPCIEX_5100AGN_1x2_MC_BGN	   = "Intel(R) WiFi Link 5100 BGN"
+NIC_MPCIEX_5100AGN_1x2_MC_ABG	   = "Intel(R) WiFi Link 5100 ABG"
+NIC_MPCIEX_5100AGN_1x2_HMC         = "Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_5100AGN_1x2_HMC_MOW2	   = "Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_5100AGN_1x2_HMC_KRA	   = "Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_5100AGN_1x2_HMC_BG	   = "Intel(R) WiFi Link 5100 BG"
+NIC_MPCIEX_5100AGN_1x2_HMC_BGN	   = "Intel(R) WiFi Link 5100 BGN"
+NIC_MPCIEX_5100AGN_1x2_HMC_ABG	   = "Intel(R) WiFi Link 5100 ABG"
+NIC_MPCIEX_5100ABG_1x2_MC          = "Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_5100ABG_1x2_HMC         = "Intel(R) WiFi Link 5100 AGN"
+
+NIC_MPCIEX_AdapterModel_5300AGN_3x3 = "Intel(R) WiFi Link 5300 AGN"
+NIC_MPCIEX_AdapterModel_5100AGN_1x2  = "Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_AdapterModel_5100AGN_1x2_MOW2  = "Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_AdapterModel_5100AGN_1x2_KRA  = "Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_AdapterModel_5100AGN_1x2_BG  = "Intel(R) WiFi Link 5100 BG"
+NIC_MPCIEX_AdapterModel_5100AGN_1x2_BGN  = "Intel(R) WiFi Link 5100 BGN"
+NIC_MPCIEX_AdapterModel_5100AGN_1x2_ABG  = "Intel(R) WiFi Link 5100 ABG"
+NIC_MPCIEX_AdapterModel_5100ABG_1x2  = "Intel(R) WiFi Link 5100 AGN"
+
+NIC_DriverDesc_5300AGN_3x3      		= "Intel(R) WiFi Link 5300 Driver"
+NIC_Service_DispName_5300AGN3x3_XP64 = "Intel(R) WiFi Link 5300 Adapter Driver for Windows XP 64 Bit"
+NIC_DriverDesc_5100AGN_1x2     		= "Intel(R) WiFi Link 5100 Driver"
+NIC_Service_DispName_5100AGN1x2_XP64 = "Intel(R) WiFi Link 5100 Adapter Driver for Windows XP 64 Bit"
+NIC_DriverDesc_5100AGN_1x2_BG     		    = "Intel(R) WiFi Link 5100 BG Driver"
+NIC_Service_DispName_5100AGN1x2_BG_XP64 = "Intel(R) WiFi Link 5100 BG Adapter Driver for Windows XP 64 Bit"
+NIC_DriverDesc_5100AGN_1x2_BGN     		    = "Intel(R) WiFi Link 5100 BGN Driver"
+NIC_Service_DispName_5100AGN1x2_BGN_XP64 = "Intel(R) WiFi Link 5100 BGN Adapter Driver for Windows XP 64 Bit"
+NIC_DriverDesc_5100AGN_1x2_ABG     		    = "Intel(R) WiFi Link 5100 ABG Driver"
+NIC_Service_DispName_5100AGN1x2_ABG_XP64 = "Intel(R) WiFi Link 5100 ABG Adapter Driver for Windows XP 64 Bit"
+NIC_DriverDesc_5100ABG_1x2_ABG     		    = "Intel(R) WiFi Link 5100 ABG Driver"
+NIC_Service_DispName_5100ABG1x2_XP64 = "Intel(R) WiFi Link 5100 ABG Adapter Driver for Windows XP 64 Bit"
+
+NIC_Service_DispName_XP64				  = "Intel(R) Wireless WiFi Link 5000 Series Adapter Driver for Windows XP 64 Bit"
+SOURCEDISK1                        	  = "Intel(R) Wireless WiFi Link 5000 Series Install Disk"
+
+[Strings.0401] ; Arabic (Saudi Arabia)
+PROVIDER_NAME                      ="Intel"
+COMPANY_NAME                       ="Intel Corporation"
+
+NIC_MPCIEX_5300AGN_3x3_MC          ="Intel(R) WiFi Link 5300 AGN"
+NIC_MPCIEX_5300AGN_3x3_HMC         ="Intel(R) WiFi Link 5300 AGN"
+NIC_MPCIEX_5100AGN_1x2_MC          ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_5100AGN_1x2_MC_MOW2	   ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_5100AGN_1x2_MC_KRA	   ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_5100AGN_1x2_MC_BG	   ="Intel(R) WiFi Link 5100 BG"
+NIC_MPCIEX_5100AGN_1x2_MC_BGN	   ="Intel(R) WiFi Link 5100 BGN"
+NIC_MPCIEX_5100AGN_1x2_MC_ABG	   ="Intel(R) WiFi Link 5100 ABG"
+NIC_MPCIEX_5100AGN_1x2_HMC         ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_5100AGN_1x2_HMC_MOW2	   ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_5100AGN_1x2_HMC_KRA	   ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_5100AGN_1x2_HMC_BG	   ="Intel(R) WiFi Link 5100 BG"
+NIC_MPCIEX_5100AGN_1x2_HMC_BGN	   ="Intel(R) WiFi Link 5100 BGN"
+NIC_MPCIEX_5100AGN_1x2_HMC_ABG	   ="Intel(R) WiFi Link 5100 ABG"
+NIC_MPCIEX_5100ABG_1x2_MC          ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_5100ABG_1x2_HMC         ="Intel(R) WiFi Link 5100 AGN"
+
+NIC_MPCIEX_AdapterModel_5300AGN_3x3 ="Intel(R) WiFi Link 5300 AGN"
+NIC_MPCIEX_AdapterModel_5100AGN_1x2  ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_AdapterModel_5100AGN_1x2_MOW2  ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_AdapterModel_5100AGN_1x2_KRA  ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_AdapterModel_5100AGN_1x2_BG  ="Intel(R) WiFi Link 5100 BG"
+NIC_MPCIEX_AdapterModel_5100AGN_1x2_BGN  ="Intel(R) WiFi Link 5100 BGN"
+NIC_MPCIEX_AdapterModel_5100AGN_1x2_ABG  ="Intel(R) WiFi Link 5100 ABG"
+NIC_MPCIEX_AdapterModel_5100ABG_1x2  ="Intel(R) WiFi Link 5100 AGN"
+
+NIC_DriverDesc_5300AGN_3x3      		="»—‰«„Ã  ‘€Ì· Intel(R) WiFi Link 5300"
+NIC_Service_DispName_5300AGN3x3_XP64 ="»—‰«„Ã  ‘€Ì· „ÕÊ· Intel(R) WiFi Link 5300 ·‰Ÿ«„ Windows XP 64 Bit"
+NIC_DriverDesc_5100AGN_1x2     		="»—‰«„Ã  ‘€Ì· Intel(R) WiFi Link 5100"
+NIC_Service_DispName_5100AGN1x2_XP64 ="»—‰«„Ã  ‘€Ì· „ÕÊ· Intel(R) WiFi Link 5100 ·‰Ÿ«„ Windows XP 64 Bit"
+NIC_DriverDesc_5100AGN_1x2_BG     		    ="»—‰«„Ã  ‘€Ì· Intel(R) WiFi Link 5100 BG"
+NIC_Service_DispName_5100AGN1x2_BG_XP64 ="»—‰«„Ã  ‘€Ì· „ÕÊ· Intel(R) WiFi Link 5100 BG ·‰Ÿ«„ Windows XP 64 Bit"
+NIC_DriverDesc_5100AGN_1x2_BGN     		    ="»—‰«„Ã  ‘€Ì· Intel(R) WiFi Link 5100 BGN"
+NIC_Service_DispName_5100AGN1x2_BGN_XP64 ="»—‰«„Ã  ‘€Ì· „ÕÊ· Intel(R) WiFi Link 5100 BGN ·‰Ÿ«„ Windows XP 64 Bit"
+NIC_DriverDesc_5100AGN_1x2_ABG     		    ="»—‰«„Ã  ‘€Ì· Intel(R) WiFi Link 5100 ABG"
+NIC_Service_DispName_5100AGN1x2_ABG_XP64 ="»—‰«„Ã  ‘€Ì· „ÕÊ· Intel(R) WiFi Link 5100 ABG ·‰Ÿ«„ Windows XP 64 Bit"
+NIC_DriverDesc_5100ABG_1x2_ABG     		    ="»—‰«„Ã  ‘€Ì· Intel(R) WiFi Link 5100 ABG"
+NIC_Service_DispName_5100ABG1x2_XP64 ="»—‰«„Ã  ‘€Ì· „ÕÊ· Intel(R) WiFi Link 5100 ABG ·‰Ÿ«„ Windows XP 64 Bit"
+
+NIC_Service_DispName_XP64				  ="»—‰«„Ã  ‘€Ì· „ÕÊ· „Ã„Ê⁄… Intel(R) Wireless WiFi Link 5000 ·‰Ÿ«„ Windows XP 64 Bit"
+SOURCEDISK1                        	  ="ﬁ—’  À»Ì  „Ã„Ê⁄… Intel(R) Wireless WiFi Link 5000"
+[Strings.0804] ; Chinese (Simplified)
+PROVIDER_NAME                      ="Intel"
+COMPANY_NAME                       ="Intel Corporation"
+
+NIC_MPCIEX_5300AGN_3x3_MC          ="Intel(R) WiFi Link 5300 AGN"
+NIC_MPCIEX_5300AGN_3x3_HMC         ="Intel(R) WiFi Link 5300 AGN"
+NIC_MPCIEX_5100AGN_1x2_MC          ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_5100AGN_1x2_MC_MOW2	   ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_5100AGN_1x2_MC_KRA	   ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_5100AGN_1x2_MC_BG	   ="Intel(R) WiFi Link 5100 BG"
+NIC_MPCIEX_5100AGN_1x2_MC_BGN	   ="Intel(R) WiFi Link 5100 BGN"
+NIC_MPCIEX_5100AGN_1x2_MC_ABG	   ="Intel(R) WiFi Link 5100 ABG"
+NIC_MPCIEX_5100AGN_1x2_HMC         ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_5100AGN_1x2_HMC_MOW2	   ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_5100AGN_1x2_HMC_KRA	   ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_5100AGN_1x2_HMC_BG	   ="Intel(R) WiFi Link 5100 BG"
+NIC_MPCIEX_5100AGN_1x2_HMC_BGN	   ="Intel(R) WiFi Link 5100 BGN"
+NIC_MPCIEX_5100AGN_1x2_HMC_ABG	   ="Intel(R) WiFi Link 5100 ABG"
+NIC_MPCIEX_5100ABG_1x2_MC          ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_5100ABG_1x2_HMC         ="Intel(R) WiFi Link 5100 AGN"
+
+NIC_MPCIEX_AdapterModel_5300AGN_3x3 ="Intel(R) WiFi Link 5300 AGN"
+NIC_MPCIEX_AdapterModel_5100AGN_1x2  ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_AdapterModel_5100AGN_1x2_MOW2  ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_AdapterModel_5100AGN_1x2_KRA  ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_AdapterModel_5100AGN_1x2_BG  ="Intel(R) WiFi Link 5100 BG"
+NIC_MPCIEX_AdapterModel_5100AGN_1x2_BGN  ="Intel(R) WiFi Link 5100 BGN"
+NIC_MPCIEX_AdapterModel_5100AGN_1x2_ABG  ="Intel(R) WiFi Link 5100 ABG"
+NIC_MPCIEX_AdapterModel_5100ABG_1x2  ="Intel(R) WiFi Link 5100 AGN"
+
+NIC_DriverDesc_5300AGN_3x3      		="Intel(R) WiFi Link 5300 «˝∂Ø≥Ã–Ú"
+NIC_Service_DispName_5300AGN3x3_XP64 ="Intel(R) WiFi Link 5300   ≈‰∆˜«˝∂Ø≥Ã–Ú£®  ”√”⁄ Windows XP 64 Œª£©"
+NIC_DriverDesc_5100AGN_1x2     		="Intel(R) WiFi Link 5100 «˝∂Ø≥Ã–Ú"
+NIC_Service_DispName_5100AGN1x2_XP64 ="Intel(R) WiFi Link 5100   ≈‰∆˜«˝∂Ø≥Ã–Ú£®  ”√”⁄ Windows XP 64 Œª£©"
+NIC_DriverDesc_5100AGN_1x2_BG     		    ="Intel(R) WiFi Link 5100 BG «˝∂Ø≥Ã–Ú"
+NIC_Service_DispName_5100AGN1x2_BG_XP64 ="Intel(R) WiFi Link 5100 BG   ≈‰∆˜«˝∂Ø≥Ã–Ú£®  ”√”⁄ Windows XP 64 Œª£©"
+NIC_DriverDesc_5100AGN_1x2_BGN     		    ="Intel(R) WiFi Link 5100 BGN «˝∂Ø≥Ã–Ú"
+NIC_Service_DispName_5100AGN1x2_BGN_XP64 ="Intel(R) WiFi Link 5100 BGN   ≈‰∆˜«˝∂Ø≥Ã–Ú£®  ”√”⁄ Windows XP 64 Œª£©"
+NIC_DriverDesc_5100AGN_1x2_ABG     		    ="Intel(R) WiFi Link 5100 ABG «˝∂Ø≥Ã–Ú"
+NIC_Service_DispName_5100AGN1x2_ABG_XP64 ="Intel(R) WiFi Link 5100 ABG   ≈‰∆˜«˝∂Ø≥Ã–Ú£®  ”√”⁄ Windows XP 64 Œª£©"
+NIC_DriverDesc_5100ABG_1x2_ABG     		    ="Intel(R) WiFi Link 5100 ABG «˝∂Ø≥Ã–Ú"
+NIC_Service_DispName_5100ABG1x2_XP64 ="Intel(R) WiFi Link 5100 ABG   ≈‰∆˜«˝∂Ø≥Ã–Ú£®  ”√”⁄ Windows XP 64 Œª£©"
+
+NIC_Service_DispName_XP64				  ="Intel(R) Wireless WiFi Link 5000 œµ¡–  ≈‰∆˜«˝∂Ø≥Ã–Ú£®  ”√”⁄ Windows XP 64 Œª£©"
+SOURCEDISK1                        	  ="Intel(R) Wireless WiFi Link 5000 œµ¡–∞≤◊∞≈Ã"
+[Strings.0404] ; Chinese (Traditional)
+PROVIDER_NAME                      ="Intel"
+COMPANY_NAME                       ="Intel Corporation"
+
+NIC_MPCIEX_5300AGN_3x3_MC          ="Intel(R) WiFi Link 5300 AGN"
+NIC_MPCIEX_5300AGN_3x3_HMC         ="Intel(R) WiFi Link 5300 AGN"
+NIC_MPCIEX_5100AGN_1x2_MC          ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_5100AGN_1x2_MC_MOW2	   ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_5100AGN_1x2_MC_KRA	   ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_5100AGN_1x2_MC_BG	   ="Intel(R) WiFi Link 5100 BG"
+NIC_MPCIEX_5100AGN_1x2_MC_BGN	   ="Intel(R) WiFi Link 5100 BGN"
+NIC_MPCIEX_5100AGN_1x2_MC_ABG	   ="Intel(R) WiFi Link 5100 ABG"
+NIC_MPCIEX_5100AGN_1x2_HMC         ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_5100AGN_1x2_HMC_MOW2	   ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_5100AGN_1x2_HMC_KRA	   ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_5100AGN_1x2_HMC_BG	   ="Intel(R) WiFi Link 5100 BG"
+NIC_MPCIEX_5100AGN_1x2_HMC_BGN	   ="Intel(R) WiFi Link 5100 BGN"
+NIC_MPCIEX_5100AGN_1x2_HMC_ABG	   ="Intel(R) WiFi Link 5100 ABG"
+NIC_MPCIEX_5100ABG_1x2_MC          ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_5100ABG_1x2_HMC         ="Intel(R) WiFi Link 5100 AGN"
+
+NIC_MPCIEX_AdapterModel_5300AGN_3x3 ="Intel(R) WiFi Link 5300 AGN"
+NIC_MPCIEX_AdapterModel_5100AGN_1x2  ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_AdapterModel_5100AGN_1x2_MOW2  ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_AdapterModel_5100AGN_1x2_KRA  ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_AdapterModel_5100AGN_1x2_BG  ="Intel(R) WiFi Link 5100 BG"
+NIC_MPCIEX_AdapterModel_5100AGN_1x2_BGN  ="Intel(R) WiFi Link 5100 BGN"
+NIC_MPCIEX_AdapterModel_5100AGN_1x2_ABG  ="Intel(R) WiFi Link 5100 ABG"
+NIC_MPCIEX_AdapterModel_5100ABG_1x2  ="Intel(R) WiFi Link 5100 AGN"
+
+NIC_DriverDesc_5300AGN_3x3      		="Intel(R) WiFi Link 5300 ≈X∞ µ{¶°"
+NIC_Service_DispName_5300AGN3x3_XP64 ="•Œ©Û Windows XP 64 Bit ™∫ Intel(R) WiFi Link 5300 ”Ï∞tæπ≈X∞ µ{¶°"
+NIC_DriverDesc_5100AGN_1x2     		="Intel(R) WiFi Link 5100 ≈X∞ µ{¶°"
+NIC_Service_DispName_5100AGN1x2_XP64 ="•Œ©Û Windows XP 64 Bit ™∫ Intel(R) WiFi Link 5100 ”Ï∞tæπ≈X∞ µ{¶°"
+NIC_DriverDesc_5100AGN_1x2_BG     		    ="Intel(R) WiFi Link 5100 BG ≈X∞ µ{¶°"
+NIC_Service_DispName_5100AGN1x2_BG_XP64 ="•Œ©Û Windows XP 64 Bit ™∫ Intel(R) WiFi Link 5100 BG ”Ï∞tæπ≈X∞ µ{¶°"
+NIC_DriverDesc_5100AGN_1x2_BGN     		    ="Intel(R) WiFi Link 5100 BGN ≈X∞ µ{¶°"
+NIC_Service_DispName_5100AGN1x2_BGN_XP64 ="•Œ©Û Windows XP 64 Bit ™∫ Intel(R) WiFi Link 5100 BGN ”Ï∞tæπ≈X∞ µ{¶°"
+NIC_DriverDesc_5100AGN_1x2_ABG     		    ="Intel(R) WiFi Link 5100 ABG ≈X∞ µ{¶°"
+NIC_Service_DispName_5100AGN1x2_ABG_XP64 ="•Œ©Û Windows XP 64 Bit ™∫ Intel(R) WiFi Link 5100 ABG ”Ï∞tæπ≈X∞ µ{¶°"
+NIC_DriverDesc_5100ABG_1x2_ABG     		    ="Intel(R) WiFi Link 5100 ABG ≈X∞ µ{¶°"
+NIC_Service_DispName_5100ABG1x2_XP64 ="•Œ©Û Windows XP 64 Bit ™∫ Intel(R) WiFi Link 5100 ABG ”Ï∞tæπ≈X∞ µ{¶°"
+
+NIC_Service_DispName_XP64				  ="•Œ©Û Windows XP 64 Bit ™∫ Intel(R) Wireless WiFi Link 5000 ®t¶C”Ï∞tæπ≈X∞ µ{¶°"
+SOURCEDISK1                        	  ="Intel(R) Wireless WiFi Link 5000 ®t¶C¶w∏À∫œ∫–"
+[Strings.0C04] ; Chinese (Hong Kong)
+PROVIDER_NAME                      ="Intel"
+COMPANY_NAME                       ="Intel Corporation"
+
+NIC_MPCIEX_5300AGN_3x3_MC          ="Intel(R) WiFi Link 5300 AGN"
+NIC_MPCIEX_5300AGN_3x3_HMC         ="Intel(R) WiFi Link 5300 AGN"
+NIC_MPCIEX_5100AGN_1x2_MC          ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_5100AGN_1x2_MC_MOW2	   ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_5100AGN_1x2_MC_KRA	   ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_5100AGN_1x2_MC_BG	   ="Intel(R) WiFi Link 5100 BG"
+NIC_MPCIEX_5100AGN_1x2_MC_BGN	   ="Intel(R) WiFi Link 5100 BGN"
+NIC_MPCIEX_5100AGN_1x2_MC_ABG	   ="Intel(R) WiFi Link 5100 ABG"
+NIC_MPCIEX_5100AGN_1x2_HMC         ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_5100AGN_1x2_HMC_MOW2	   ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_5100AGN_1x2_HMC_KRA	   ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_5100AGN_1x2_HMC_BG	   ="Intel(R) WiFi Link 5100 BG"
+NIC_MPCIEX_5100AGN_1x2_HMC_BGN	   ="Intel(R) WiFi Link 5100 BGN"
+NIC_MPCIEX_5100AGN_1x2_HMC_ABG	   ="Intel(R) WiFi Link 5100 ABG"
+NIC_MPCIEX_5100ABG_1x2_MC          ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_5100ABG_1x2_HMC         ="Intel(R) WiFi Link 5100 AGN"
+
+NIC_MPCIEX_AdapterModel_5300AGN_3x3 ="Intel(R) WiFi Link 5300 AGN"
+NIC_MPCIEX_AdapterModel_5100AGN_1x2  ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_AdapterModel_5100AGN_1x2_MOW2  ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_AdapterModel_5100AGN_1x2_KRA  ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_AdapterModel_5100AGN_1x2_BG  ="Intel(R) WiFi Link 5100 BG"
+NIC_MPCIEX_AdapterModel_5100AGN_1x2_BGN  ="Intel(R) WiFi Link 5100 BGN"
+NIC_MPCIEX_AdapterModel_5100AGN_1x2_ABG  ="Intel(R) WiFi Link 5100 ABG"
+NIC_MPCIEX_AdapterModel_5100ABG_1x2  ="Intel(R) WiFi Link 5100 AGN"
+
+NIC_DriverDesc_5300AGN_3x3      		="Intel(R) WiFi Link 5300 ≈X∞ µ{¶°"
+NIC_Service_DispName_5300AGN3x3_XP64 ="•Œ©Û Windows XP 64 Bit ™∫ Intel(R) WiFi Link 5300 ”Ï∞tæπ≈X∞ µ{¶°"
+NIC_DriverDesc_5100AGN_1x2     		="Intel(R) WiFi Link 5100 ≈X∞ µ{¶°"
+NIC_Service_DispName_5100AGN1x2_XP64 ="•Œ©Û Windows XP 64 Bit ™∫ Intel(R) WiFi Link 5100 ”Ï∞tæπ≈X∞ µ{¶°"
+NIC_DriverDesc_5100AGN_1x2_BG     		    ="Intel(R) WiFi Link 5100 BG ≈X∞ µ{¶°"
+NIC_Service_DispName_5100AGN1x2_BG_XP64 ="•Œ©Û Windows XP 64 Bit ™∫ Intel(R) WiFi Link 5100 BG ”Ï∞tæπ≈X∞ µ{¶°"
+NIC_DriverDesc_5100AGN_1x2_BGN     		    ="Intel(R) WiFi Link 5100 BGN ≈X∞ µ{¶°"
+NIC_Service_DispName_5100AGN1x2_BGN_XP64 ="•Œ©Û Windows XP 64 Bit ™∫ Intel(R) WiFi Link 5100 BGN ”Ï∞tæπ≈X∞ µ{¶°"
+NIC_DriverDesc_5100AGN_1x2_ABG     		    ="Intel(R) WiFi Link 5100 ABG ≈X∞ µ{¶°"
+NIC_Service_DispName_5100AGN1x2_ABG_XP64 ="•Œ©Û Windows XP 64 Bit ™∫ Intel(R) WiFi Link 5100 ABG ”Ï∞tæπ≈X∞ µ{¶°"
+NIC_DriverDesc_5100ABG_1x2_ABG     		    ="Intel(R) WiFi Link 5100 ABG ≈X∞ µ{¶°"
+NIC_Service_DispName_5100ABG1x2_XP64 ="•Œ©Û Windows XP 64 Bit ™∫ Intel(R) WiFi Link 5100 ABG ”Ï∞tæπ≈X∞ µ{¶°"
+
+NIC_Service_DispName_XP64				  ="•Œ©Û Windows XP 64 Bit ™∫ Intel(R) Wireless WiFi Link 5000 ®t¶C”Ï∞tæπ≈X∞ µ{¶°"
+SOURCEDISK1                        	  ="Intel(R) Wireless WiFi Link 5000 ®t¶C¶w∏À∫œ∫–"
+[Strings.0405] ; Czech (Czech Republic)
+PROVIDER_NAME                      ="Intel"
+COMPANY_NAME                       ="Intel Corporation"
+
+NIC_MPCIEX_5300AGN_3x3_MC          ="Intel(R) WiFi Link 5300 AGN"
+NIC_MPCIEX_5300AGN_3x3_HMC         ="Intel(R) WiFi Link 5300 AGN"
+NIC_MPCIEX_5100AGN_1x2_MC          ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_5100AGN_1x2_MC_MOW2	   ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_5100AGN_1x2_MC_KRA	   ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_5100AGN_1x2_MC_BG	   ="Intel(R) WiFi Link 5100 BG"
+NIC_MPCIEX_5100AGN_1x2_MC_BGN	   ="Intel(R) WiFi Link 5100 BGN"
+NIC_MPCIEX_5100AGN_1x2_MC_ABG	   ="Intel(R) WiFi Link 5100 ABG"
+NIC_MPCIEX_5100AGN_1x2_HMC         ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_5100AGN_1x2_HMC_MOW2	   ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_5100AGN_1x2_HMC_KRA	   ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_5100AGN_1x2_HMC_BG	   ="Intel(R) WiFi Link 5100 BG"
+NIC_MPCIEX_5100AGN_1x2_HMC_BGN	   ="Intel(R) WiFi Link 5100 BGN"
+NIC_MPCIEX_5100AGN_1x2_HMC_ABG	   ="Intel(R) WiFi Link 5100 ABG"
+NIC_MPCIEX_5100ABG_1x2_MC          ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_5100ABG_1x2_HMC         ="Intel(R) WiFi Link 5100 AGN"
+
+NIC_MPCIEX_AdapterModel_5300AGN_3x3 ="Intel(R) WiFi Link 5300 AGN"
+NIC_MPCIEX_AdapterModel_5100AGN_1x2  ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_AdapterModel_5100AGN_1x2_MOW2  ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_AdapterModel_5100AGN_1x2_KRA  ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_AdapterModel_5100AGN_1x2_BG  ="Intel(R) WiFi Link 5100 BG"
+NIC_MPCIEX_AdapterModel_5100AGN_1x2_BGN  ="Intel(R) WiFi Link 5100 BGN"
+NIC_MPCIEX_AdapterModel_5100AGN_1x2_ABG  ="Intel(R) WiFi Link 5100 ABG"
+NIC_MPCIEX_AdapterModel_5100ABG_1x2  ="Intel(R) WiFi Link 5100 AGN"
+
+NIC_DriverDesc_5300AGN_3x3      		="OvladaË adaptÈru Intel(R) WiFi Link 5300"
+NIC_Service_DispName_5300AGN3x3_XP64 ="OvladaË adaptÈru Intel(R) WiFi Link 5300 pro systÈm Windows XP 64 Bit"
+NIC_DriverDesc_5100AGN_1x2     		="OvladaË adaptÈru Intel(R) WiFi Link 5100"
+NIC_Service_DispName_5100AGN1x2_XP64 ="OvladaË adaptÈru Intel(R) WiFi Link 5100 pro systÈm Windows XP 64 Bit"
+NIC_DriverDesc_5100AGN_1x2_BG     		    ="OvladaË adaptÈru Intel(R) WiFi Link 5100 BG"
+NIC_Service_DispName_5100AGN1x2_BG_XP64 ="OvladaË adaptÈru Intel(R) WiFi Link 5100 BG pro systÈm Windows XP 64 Bit"
+NIC_DriverDesc_5100AGN_1x2_BGN     		    ="OvladaË adaptÈru Intel(R) WiFi Link 5100 BGN"
+NIC_Service_DispName_5100AGN1x2_BGN_XP64 ="OvladaË adaptÈru Intel(R) WiFi Link 5100 BGN pro systÈm Windows XP 64 Bit"
+NIC_DriverDesc_5100AGN_1x2_ABG     		    ="OvladaË adaptÈru Intel(R) WiFi Link 5100 ABG"
+NIC_Service_DispName_5100AGN1x2_ABG_XP64 ="OvladaË adaptÈru Intel(R) WiFi Link 5100 ABG pro systÈm Windows XP 64 Bit"
+NIC_DriverDesc_5100ABG_1x2_ABG     		    ="OvladaË adaptÈru Intel(R) WiFi Link 5100 ABG"
+NIC_Service_DispName_5100ABG1x2_XP64 ="OvladaË adaptÈru Intel(R) WiFi Link 5100 ABG pro systÈm Windows XP 64 Bit"
+
+NIC_Service_DispName_XP64				  ="OvladaË adaptÈru ¯ady Intel(R) Wireless WiFi Link 5000 pro systÈm Windows XP 64 Bit"
+SOURCEDISK1                        	  ="InstalaËnÌ disk adaptÈru ¯ady Intel(R) Wireless WiFi Link 5000"
+[Strings.0406] ; Danish (Denmark)
+PROVIDER_NAME                      ="Intel"
+COMPANY_NAME                       ="Intel Corporation"
+
+NIC_MPCIEX_5300AGN_3x3_MC          ="Intel(R) WiFi Link 5300 AGN"
+NIC_MPCIEX_5300AGN_3x3_HMC         ="Intel(R) WiFi Link 5300 AGN"
+NIC_MPCIEX_5100AGN_1x2_MC          ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_5100AGN_1x2_MC_MOW2	   ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_5100AGN_1x2_MC_KRA	   ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_5100AGN_1x2_MC_BG	   ="Intel(R) WiFi Link 5100 BG"
+NIC_MPCIEX_5100AGN_1x2_MC_BGN	   ="Intel(R) WiFi Link 5100 BGN"
+NIC_MPCIEX_5100AGN_1x2_MC_ABG	   ="Intel(R) WiFi Link 5100 ABG"
+NIC_MPCIEX_5100AGN_1x2_HMC         ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_5100AGN_1x2_HMC_MOW2	   ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_5100AGN_1x2_HMC_KRA	   ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_5100AGN_1x2_HMC_BG	   ="Intel(R) WiFi Link 5100 BG"
+NIC_MPCIEX_5100AGN_1x2_HMC_BGN	   ="Intel(R) WiFi Link 5100 BGN"
+NIC_MPCIEX_5100AGN_1x2_HMC_ABG	   ="Intel(R) WiFi Link 5100 ABG"
+NIC_MPCIEX_5100ABG_1x2_MC          ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_5100ABG_1x2_HMC         ="Intel(R) WiFi Link 5100 AGN"
+
+NIC_MPCIEX_AdapterModel_5300AGN_3x3 ="Intel(R) WiFi Link 5300 AGN"
+NIC_MPCIEX_AdapterModel_5100AGN_1x2  ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_AdapterModel_5100AGN_1x2_MOW2  ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_AdapterModel_5100AGN_1x2_KRA  ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_AdapterModel_5100AGN_1x2_BG  ="Intel(R) WiFi Link 5100 BG"
+NIC_MPCIEX_AdapterModel_5100AGN_1x2_BGN  ="Intel(R) WiFi Link 5100 BGN"
+NIC_MPCIEX_AdapterModel_5100AGN_1x2_ABG  ="Intel(R) WiFi Link 5100 ABG"
+NIC_MPCIEX_AdapterModel_5100ABG_1x2  ="Intel(R) WiFi Link 5100 AGN"
+
+NIC_DriverDesc_5300AGN_3x3      		="Intel(R) WiFi Link 5300 driver"
+NIC_Service_DispName_5300AGN3x3_XP64 ="Intel(R) WiFi Link 5300 adapter driver til Windows XP 64 Bit"
+NIC_DriverDesc_5100AGN_1x2     		="Intel(R) WiFi Link 5100 driver"
+NIC_Service_DispName_5100AGN1x2_XP64 ="Intel(R) WiFi Link 5100 adapter driver til Windows XP 64 Bit"
+NIC_DriverDesc_5100AGN_1x2_BG     		    ="Intel(R) WiFi Link 5100 BG driver"
+NIC_Service_DispName_5100AGN1x2_BG_XP64 ="Intel(R) WiFi Link 5100 BG adapter driver til Windows XP 64 Bit"
+NIC_DriverDesc_5100AGN_1x2_BGN     		    ="Intel(R) WiFi Link 5100 BGN driver"
+NIC_Service_DispName_5100AGN1x2_BGN_XP64 ="Intel(R) WiFi Link 5100 BGN adapter driver til Windows XP 64 Bit"
+NIC_DriverDesc_5100AGN_1x2_ABG     		    ="Intel(R) WiFi Link 5100 ABG driver"
+NIC_Service_DispName_5100AGN1x2_ABG_XP64 ="Intel(R) WiFi Link 5100 ABG adapter driver til Windows XP 64 Bit"
+NIC_DriverDesc_5100ABG_1x2_ABG     		    ="Intel(R) WiFi Link 5100 ABG driver"
+NIC_Service_DispName_5100ABG1x2_XP64 ="Intel(R) WiFi Link 5100 ABG adapter driver til Windows XP 64 Bit"
+
+NIC_Service_DispName_XP64				  ="Intel(R) Wireless WiFi Link 5000-serien adapter driver til Windows XP 64 Bit "
+SOURCEDISK1                        	  ="Intel(R) Wireless WiFi Link 5000-serien installationsdisk"
+[Strings.0407] ; German (Germany)
+PROVIDER_NAME                      ="Intel"
+COMPANY_NAME                       ="Intel Corporation"
+
+NIC_MPCIEX_5300AGN_3x3_MC          ="Intel(R) WiFi Link 5300 AGN"
+NIC_MPCIEX_5300AGN_3x3_HMC         ="Intel(R) WiFi Link 5300 AGN"
+NIC_MPCIEX_5100AGN_1x2_MC          ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_5100AGN_1x2_MC_MOW2	   ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_5100AGN_1x2_MC_KRA	   ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_5100AGN_1x2_MC_BG	   ="Intel(R) WiFi Link 5100 BG"
+NIC_MPCIEX_5100AGN_1x2_MC_BGN	   ="Intel(R) WiFi Link 5100 BGN"
+NIC_MPCIEX_5100AGN_1x2_MC_ABG	   ="Intel(R) WiFi Link 5100 ABG"
+NIC_MPCIEX_5100AGN_1x2_HMC         ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_5100AGN_1x2_HMC_MOW2	   ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_5100AGN_1x2_HMC_KRA	   ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_5100AGN_1x2_HMC_BG	   ="Intel(R) WiFi Link 5100 BG"
+NIC_MPCIEX_5100AGN_1x2_HMC_BGN	   ="Intel(R) WiFi Link 5100 BGN"
+NIC_MPCIEX_5100AGN_1x2_HMC_ABG	   ="Intel(R) WiFi Link 5100 ABG"
+NIC_MPCIEX_5100ABG_1x2_MC          ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_5100ABG_1x2_HMC         ="Intel(R) WiFi Link 5100 AGN"
+
+NIC_MPCIEX_AdapterModel_5300AGN_3x3 ="Intel(R) WiFi Link 5300 AGN"
+NIC_MPCIEX_AdapterModel_5100AGN_1x2  ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_AdapterModel_5100AGN_1x2_MOW2  ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_AdapterModel_5100AGN_1x2_KRA  ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_AdapterModel_5100AGN_1x2_BG  ="Intel(R) WiFi Link 5100 BG"
+NIC_MPCIEX_AdapterModel_5100AGN_1x2_BGN  ="Intel(R) WiFi Link 5100 BGN"
+NIC_MPCIEX_AdapterModel_5100AGN_1x2_ABG  ="Intel(R) WiFi Link 5100 ABG"
+NIC_MPCIEX_AdapterModel_5100ABG_1x2  ="Intel(R) WiFi Link 5100 AGN"
+
+NIC_DriverDesc_5300AGN_3x3      		="Intel(R) WiFi Link 5300 Treiber"
+NIC_Service_DispName_5300AGN3x3_XP64 ="Intel(R) WiFi Link 5300 Adaptertreiber f¸r Windows XP 64-Bit"
+NIC_DriverDesc_5100AGN_1x2     		="Intel(R) WiFi Link 5100 Treiber"
+NIC_Service_DispName_5100AGN1x2_XP64 ="Intel(R) WiFi Link 5100 Adaptertreiber f¸r Windows XP 64-Bit"
+NIC_DriverDesc_5100AGN_1x2_BG     		    ="Intel(R) WiFi Link 5100 BG Treiber"
+NIC_Service_DispName_5100AGN1x2_BG_XP64 ="Intel(R) WiFi Link 5100 BG Adaptertreiber f¸r Windows XP 64-Bit"
+NIC_DriverDesc_5100AGN_1x2_BGN     		    ="Intel(R) WiFi Link 5100 BGN Treiber"
+NIC_Service_DispName_5100AGN1x2_BGN_XP64 ="Intel(R) WiFi Link 5100 BGN Adaptertreiber f¸r Windows XP 64-Bit"
+NIC_DriverDesc_5100AGN_1x2_ABG     		    ="Intel(R) WiFi Link 5100 ABG Treiber"
+NIC_Service_DispName_5100AGN1x2_ABG_XP64 ="Intel(R) WiFi Link 5100 ABG Adaptertreiber f¸r Windows XP 64-Bit"
+NIC_DriverDesc_5100ABG_1x2_ABG     		    ="Intel(R) WiFi Link 5100 ABG Treiber"
+NIC_Service_DispName_5100ABG1x2_XP64 ="Intel(R) WiFi Link 5100 ABG Adaptertreiber f¸r Windows XP 64-Bit"
+
+NIC_Service_DispName_XP64				  ="Intel(R) Wireless WiFi Link der Serie 5000 Adaptertreiber f¸r Windows XP 64-Bit"
+SOURCEDISK1                        	  ="Intel(R) Wireless WiFi Link der Serie 5000 - Installationsdiskette"
+[Strings.0408] ; Greek (Greece)
+PROVIDER_NAME                      ="Intel"
+COMPANY_NAME                       ="Intel Corporation"
+
+NIC_MPCIEX_5300AGN_3x3_MC          ="Intel(R) WiFi Link 5300 AGN"
+NIC_MPCIEX_5300AGN_3x3_HMC         ="Intel(R) WiFi Link 5300 AGN"
+NIC_MPCIEX_5100AGN_1x2_MC          ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_5100AGN_1x2_MC_MOW2	   ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_5100AGN_1x2_MC_KRA	   ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_5100AGN_1x2_MC_BG	   ="Intel(R) WiFi Link 5100 BG"
+NIC_MPCIEX_5100AGN_1x2_MC_BGN	   ="Intel(R) WiFi Link 5100 BGN"
+NIC_MPCIEX_5100AGN_1x2_MC_ABG	   ="Intel(R) WiFi Link 5100 ABG"
+NIC_MPCIEX_5100AGN_1x2_HMC         ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_5100AGN_1x2_HMC_MOW2	   ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_5100AGN_1x2_HMC_KRA	   ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_5100AGN_1x2_HMC_BG	   ="Intel(R) WiFi Link 5100 BG"
+NIC_MPCIEX_5100AGN_1x2_HMC_BGN	   ="Intel(R) WiFi Link 5100 BGN"
+NIC_MPCIEX_5100AGN_1x2_HMC_ABG	   ="Intel(R) WiFi Link 5100 ABG"
+NIC_MPCIEX_5100ABG_1x2_MC          ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_5100ABG_1x2_HMC         ="Intel(R) WiFi Link 5100 AGN"
+
+NIC_MPCIEX_AdapterModel_5300AGN_3x3 ="Intel(R) WiFi Link 5300 AGN"
+NIC_MPCIEX_AdapterModel_5100AGN_1x2  ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_AdapterModel_5100AGN_1x2_MOW2  ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_AdapterModel_5100AGN_1x2_KRA  ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_AdapterModel_5100AGN_1x2_BG  ="Intel(R) WiFi Link 5100 BG"
+NIC_MPCIEX_AdapterModel_5100AGN_1x2_BGN  ="Intel(R) WiFi Link 5100 BGN"
+NIC_MPCIEX_AdapterModel_5100AGN_1x2_ABG  ="Intel(R) WiFi Link 5100 ABG"
+NIC_MPCIEX_AdapterModel_5100ABG_1x2  ="Intel(R) WiFi Link 5100 AGN"
+
+NIC_DriverDesc_5300AGN_3x3      		="–Ò¸„Ò·ÏÏ· Ô‰ﬁ„ÁÛÁÚ Intel(R) WiFi Link 5300"
+NIC_Service_DispName_5300AGN3x3_XP64 ="–Ò¸„Ò·ÏÏ· Ô‰ﬁ„ÁÛÁÚ ÒÔÛ·ÒÏÔ„›· Intel(R) WiFi Link 5300 „È· Windows XP 64 Bit"
+NIC_DriverDesc_5100AGN_1x2     		="–Ò¸„Ò·ÏÏ· Ô‰ﬁ„ÁÛÁÚ Intel(R) WiFi Link 5100"
+NIC_Service_DispName_5100AGN1x2_XP64 ="–Ò¸„Ò·ÏÏ· Ô‰ﬁ„ÁÛÁÚ ÒÔÛ·ÒÏÔ„›· Intel(R) WiFi Link 5100 „È· Windows XP 64 Bit"
+NIC_DriverDesc_5100AGN_1x2_BG     		    ="–Ò¸„Ò·ÏÏ· Ô‰ﬁ„ÁÛÁÚ Intel(R) WiFi Link 5100 BG"
+NIC_Service_DispName_5100AGN1x2_BG_XP64 ="–Ò¸„Ò·ÏÏ· Ô‰ﬁ„ÁÛÁÚ ÒÔÛ·ÒÏÔ„›· Intel(R) WiFi Link 5100 BG „È· Windows XP 64 Bit"
+NIC_DriverDesc_5100AGN_1x2_BGN     		    ="–Ò¸„Ò·ÏÏ· Ô‰ﬁ„ÁÛÁÚ Intel(R) WiFi Link 5100 BGN"
+NIC_Service_DispName_5100AGN1x2_BGN_XP64 ="–Ò¸„Ò·ÏÏ· Ô‰ﬁ„ÁÛÁÚ ÒÔÛ·ÒÏÔ„›· Intel(R) WiFi Link 5100 BGN „È· Windows XP 64 Bit"
+NIC_DriverDesc_5100AGN_1x2_ABG     		    ="–Ò¸„Ò·ÏÏ· Ô‰ﬁ„ÁÛÁÚ Intel(R) WiFi Link 5100 ABG"
+NIC_Service_DispName_5100AGN1x2_ABG_XP64 ="–Ò¸„Ò·ÏÏ· Ô‰ﬁ„ÁÛÁÚ ÒÔÛ·ÒÏÔ„›· Intel(R) WiFi Link 5100 ABG „È· Windows XP 64 Bit"
+NIC_DriverDesc_5100ABG_1x2_ABG     		    ="–Ò¸„Ò·ÏÏ· Ô‰ﬁ„ÁÛÁÚ Intel(R) WiFi Link 5100 ABG"
+NIC_Service_DispName_5100ABG1x2_XP64 ="–Ò¸„Ò·ÏÏ· Ô‰ﬁ„ÁÛÁÚ ÒÔÛ·ÒÏÔ„›· Intel(R) WiFi Link 5100 ABG „È· Windows XP 64 Bit"
+
+NIC_Service_DispName_XP64				  ="–Ò¸„Ò·ÏÏ· Ô‰ﬁ„ÁÛÁÚ ÒÔÛ·ÒÏÔ„›· Intel(R) Wireless WiFi Link 5000 Series „È· Windows XP 64 Bit"
+SOURCEDISK1                        	  ="ƒÈÛÍ›Ù· Â„Í·Ù‹ÛÙ·ÛÁÚ Intel(R) Wireless WiFi Link 5000 Series"
+[Strings.0C0A] ; Spanish (Spain)
+PROVIDER_NAME                      ="Intel"
+COMPANY_NAME                       ="Intel Corporation"
+
+NIC_MPCIEX_5300AGN_3x3_MC          ="Intel(R) WiFi Link 5300 AGN"
+NIC_MPCIEX_5300AGN_3x3_HMC         ="Intel(R) WiFi Link 5300 AGN"
+NIC_MPCIEX_5100AGN_1x2_MC          ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_5100AGN_1x2_MC_MOW2	   ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_5100AGN_1x2_MC_KRA	   ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_5100AGN_1x2_MC_BG	   ="Intel(R) WiFi Link 5100 BG"
+NIC_MPCIEX_5100AGN_1x2_MC_BGN	   ="Intel(R) WiFi Link 5100 BGN"
+NIC_MPCIEX_5100AGN_1x2_MC_ABG	   ="Intel(R) WiFi Link 5100 ABG"
+NIC_MPCIEX_5100AGN_1x2_HMC         ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_5100AGN_1x2_HMC_MOW2	   ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_5100AGN_1x2_HMC_KRA	   ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_5100AGN_1x2_HMC_BG	   ="Intel(R) WiFi Link 5100 BG"
+NIC_MPCIEX_5100AGN_1x2_HMC_BGN	   ="Intel(R) WiFi Link 5100 BGN"
+NIC_MPCIEX_5100AGN_1x2_HMC_ABG	   ="Intel(R) WiFi Link 5100 ABG"
+NIC_MPCIEX_5100ABG_1x2_MC          ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_5100ABG_1x2_HMC         ="Intel(R) WiFi Link 5100 AGN"
+
+NIC_MPCIEX_AdapterModel_5300AGN_3x3 ="Intel(R) WiFi Link 5300 AGN"
+NIC_MPCIEX_AdapterModel_5100AGN_1x2  ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_AdapterModel_5100AGN_1x2_MOW2  ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_AdapterModel_5100AGN_1x2_KRA  ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_AdapterModel_5100AGN_1x2_BG  ="Intel(R) WiFi Link 5100 BG"
+NIC_MPCIEX_AdapterModel_5100AGN_1x2_BGN  ="Intel(R) WiFi Link 5100 BGN"
+NIC_MPCIEX_AdapterModel_5100AGN_1x2_ABG  ="Intel(R) WiFi Link 5100 ABG"
+NIC_MPCIEX_AdapterModel_5100ABG_1x2  ="Intel(R) WiFi Link 5100 AGN"
+
+NIC_DriverDesc_5300AGN_3x3      		="Controlador Intel(R) WiFi Link 5300"
+NIC_Service_DispName_5300AGN3x3_XP64 ="Controlador del adaptador Intel(R) WiFi Link 5300 para Windows XP de 64 bits"
+NIC_DriverDesc_5100AGN_1x2     		="Controlador Intel(R) WiFi Link 5100"
+NIC_Service_DispName_5100AGN1x2_XP64 ="Controlador del adaptador Intel(R) WiFi Link 5100 para Windows XP de 64 bits"
+NIC_DriverDesc_5100AGN_1x2_BG     		    ="Controlador Intel(R) WiFi Link 5100 BG"
+NIC_Service_DispName_5100AGN1x2_BG_XP64 ="Controlador del adaptador Intel(R) WiFi Link 5100 BG para Windows XP de 64 bits"
+NIC_DriverDesc_5100AGN_1x2_BGN     		    ="Controlador Intel(R) WiFi Link 5100 BGN"
+NIC_Service_DispName_5100AGN1x2_BGN_XP64 ="Controlador del adaptador Intel(R) WiFi Link 5100 BGN para Windows XP de 64 bits"
+NIC_DriverDesc_5100AGN_1x2_ABG     		    ="Controlador Intel(R) WiFi Link 5100 ABG"
+NIC_Service_DispName_5100AGN1x2_ABG_XP64 ="Controlador del adaptador Intel(R) WiFi Link 5100 ABG para Windows XP de 64 bits"
+NIC_DriverDesc_5100ABG_1x2_ABG     		    ="Controlador Intel(R) WiFi Link 5100 ABG"
+NIC_Service_DispName_5100ABG1x2_XP64 ="Controlador del adaptador Intel(R) WiFi Link 5100 ABG para Windows XP de 64 bits"
+
+NIC_Service_DispName_XP64				  ="Controlador del adaptador Intel(R) Wireless WiFi Link para Windows XP de 64 bits"
+SOURCEDISK1                        	  ="Disco de instalaciÛn de Intel(R) Wireless WiFi Link serie 5000"
+[Strings.040B] ; Finnish (Finland)
+PROVIDER_NAME                      ="Intel"
+COMPANY_NAME                       ="Intel Corporation"
+
+NIC_MPCIEX_5300AGN_3x3_MC          ="Intel(R) WiFi Link 5300 AGN"
+NIC_MPCIEX_5300AGN_3x3_HMC         ="Intel(R) WiFi Link 5300 AGN"
+NIC_MPCIEX_5100AGN_1x2_MC          ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_5100AGN_1x2_MC_MOW2	   ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_5100AGN_1x2_MC_KRA	   ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_5100AGN_1x2_MC_BG	   ="Intel(R) WiFi Link 5100 BG"
+NIC_MPCIEX_5100AGN_1x2_MC_BGN	   ="Intel(R) WiFi Link 5100 BGN"
+NIC_MPCIEX_5100AGN_1x2_MC_ABG	   ="Intel(R) WiFi Link 5100 ABG"
+NIC_MPCIEX_5100AGN_1x2_HMC         ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_5100AGN_1x2_HMC_MOW2	   ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_5100AGN_1x2_HMC_KRA	   ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_5100AGN_1x2_HMC_BG	   ="Intel(R) WiFi Link 5100 BG"
+NIC_MPCIEX_5100AGN_1x2_HMC_BGN	   ="Intel(R) WiFi Link 5100 BGN"
+NIC_MPCIEX_5100AGN_1x2_HMC_ABG	   ="Intel(R) WiFi Link 5100 ABG"
+NIC_MPCIEX_5100ABG_1x2_MC          ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_5100ABG_1x2_HMC         ="Intel(R) WiFi Link 5100 AGN"
+
+NIC_MPCIEX_AdapterModel_5300AGN_3x3 ="Intel(R) WiFi Link 5300 AGN"
+NIC_MPCIEX_AdapterModel_5100AGN_1x2  ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_AdapterModel_5100AGN_1x2_MOW2  ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_AdapterModel_5100AGN_1x2_KRA  ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_AdapterModel_5100AGN_1x2_BG  ="Intel(R) WiFi Link 5100 BG"
+NIC_MPCIEX_AdapterModel_5100AGN_1x2_BGN  ="Intel(R) WiFi Link 5100 BGN"
+NIC_MPCIEX_AdapterModel_5100AGN_1x2_ABG  ="Intel(R) WiFi Link 5100 ABG"
+NIC_MPCIEX_AdapterModel_5100ABG_1x2  ="Intel(R) WiFi Link 5100 AGN"
+
+NIC_DriverDesc_5300AGN_3x3      		="Intel(R) WiFi Link 5300 -ohjain"
+NIC_Service_DispName_5300AGN3x3_XP64 ="Intel(R) WiFi Link 5300 -sovitinohjain Windows XP 64-bit -k‰yttˆj‰rjestelm‰‰n"
+NIC_DriverDesc_5100AGN_1x2     		="Intel(R) WiFi Link 5100 -ohjain"
+NIC_Service_DispName_5100AGN1x2_XP64 ="Intel(R) WiFi Link 5100 -sovitinohjain Windows XP 64-bit -k‰yttˆj‰rjestelm‰‰n"
+NIC_DriverDesc_5100AGN_1x2_BG     		    ="Intel(R) WiFi Link 5100 BG -ohjain"
+NIC_Service_DispName_5100AGN1x2_BG_XP64 ="Intel(R) WiFi Link 5100 BG -sovitinohjain Windows XP 64-bit -k‰yttˆj‰rjestelm‰‰n"
+NIC_DriverDesc_5100AGN_1x2_BGN     		    ="Intel(R) WiFi Link 5100 BGN -ohjain"
+NIC_Service_DispName_5100AGN1x2_BGN_XP64 ="Intel(R) WiFi Link 5100 BGN -sovitinohjain Windows XP 64-bit -k‰yttˆj‰rjestelm‰‰n"
+NIC_DriverDesc_5100AGN_1x2_ABG     		    ="Intel(R) WiFi Link 5100 ABG -ohjain"
+NIC_Service_DispName_5100AGN1x2_ABG_XP64 ="Intel(R) WiFi Link 5100 ABG -sovitinohjain Windows XP 64-bit -k‰yttˆj‰rjestelm‰‰n"
+NIC_DriverDesc_5100ABG_1x2_ABG     		    ="Intel(R) WiFi Link 5100 ABG -ohjain"
+NIC_Service_DispName_5100ABG1x2_XP64 ="Intel(R) WiFi Link 5100 ABG -sovitinohjain Windows XP 64-bit -k‰yttˆj‰rjestelm‰‰n"
+
+NIC_Service_DispName_XP64				  ="Intel(R) Wireless WiFi Link 5000 -sarja sovitinohjain Windows XP 64-bit -k‰yttˆj‰rjestelm‰‰n"
+SOURCEDISK1                        	  ="Intel(R) Wireless WiFi Link 5000 -sarja asennuslevy"
+[Strings.040C] ; French (France)
+PROVIDER_NAME                      ="Intel"
+COMPANY_NAME                       ="Intel Corporation"
+
+NIC_MPCIEX_5300AGN_3x3_MC          ="Intel(R) WiFi Link 5300 AGN"
+NIC_MPCIEX_5300AGN_3x3_HMC         ="Intel(R) WiFi Link 5300 AGN"
+NIC_MPCIEX_5100AGN_1x2_MC          ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_5100AGN_1x2_MC_MOW2	   ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_5100AGN_1x2_MC_KRA	   ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_5100AGN_1x2_MC_BG	   ="Intel(R) WiFi Link 5100 BG"
+NIC_MPCIEX_5100AGN_1x2_MC_BGN	   ="Intel(R) WiFi Link 5100 BGN"
+NIC_MPCIEX_5100AGN_1x2_MC_ABG	   ="Intel(R) WiFi Link 5100 ABG"
+NIC_MPCIEX_5100AGN_1x2_HMC         ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_5100AGN_1x2_HMC_MOW2	   ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_5100AGN_1x2_HMC_KRA	   ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_5100AGN_1x2_HMC_BG	   ="Intel(R) WiFi Link 5100 BG"
+NIC_MPCIEX_5100AGN_1x2_HMC_BGN	   ="Intel(R) WiFi Link 5100 BGN"
+NIC_MPCIEX_5100AGN_1x2_HMC_ABG	   ="Intel(R) WiFi Link 5100 ABG"
+NIC_MPCIEX_5100ABG_1x2_MC          ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_5100ABG_1x2_HMC         ="Intel(R) WiFi Link 5100 AGN"
+
+NIC_MPCIEX_AdapterModel_5300AGN_3x3 ="Intel(R) WiFi Link 5300 AGN"
+NIC_MPCIEX_AdapterModel_5100AGN_1x2  ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_AdapterModel_5100AGN_1x2_MOW2  ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_AdapterModel_5100AGN_1x2_KRA  ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_AdapterModel_5100AGN_1x2_BG  ="Intel(R) WiFi Link 5100 BG"
+NIC_MPCIEX_AdapterModel_5100AGN_1x2_BGN  ="Intel(R) WiFi Link 5100 BGN"
+NIC_MPCIEX_AdapterModel_5100AGN_1x2_ABG  ="Intel(R) WiFi Link 5100 ABG"
+NIC_MPCIEX_AdapterModel_5100ABG_1x2  ="Intel(R) WiFi Link 5100 AGN"
+
+NIC_DriverDesc_5300AGN_3x3      		="Pilote Intel(R) WiFi Link 5300"
+NIC_Service_DispName_5300AGN3x3_XP64 ="Pilote de carte Intel(R) WiFi Link 5300 pour Windows XP 64 bits"
+NIC_DriverDesc_5100AGN_1x2     		="Pilote Intel(R) WiFi Link 5100"
+NIC_Service_DispName_5100AGN1x2_XP64 ="Pilote de carte Intel(R) WiFi Link 5100 pour Windows XP 64 bits"
+NIC_DriverDesc_5100AGN_1x2_BG     		    ="Pilote Intel(R) WiFi Link 5100 BG"
+NIC_Service_DispName_5100AGN1x2_BG_XP64 ="Pilote de carte Intel(R) WiFi Link 5100 BG pour Windows XP 64 bits"
+NIC_DriverDesc_5100AGN_1x2_BGN     		    ="Pilote Intel(R) WiFi Link 5100 BGN"
+NIC_Service_DispName_5100AGN1x2_BGN_XP64 ="Pilote de carte Intel(R) WiFi Link 5100 BGN pour Windows XP 64 bits"
+NIC_DriverDesc_5100AGN_1x2_ABG     		    ="Pilote Intel(R) WiFi Link 5100 ABG"
+NIC_Service_DispName_5100AGN1x2_ABG_XP64 ="Pilote de carte Intel(R) WiFi Link 5100 ABG pour Windows XP 64 bits"
+NIC_DriverDesc_5100ABG_1x2_ABG     		    ="Pilote Intel(R) WiFi Link 5100 ABG"
+NIC_Service_DispName_5100ABG1x2_XP64 ="Pilote de carte Intel(R) WiFi Link 5100 ABG pour Windows XP 64 bits"
+
+NIC_Service_DispName_XP64				  ="Pilote de carte de la sÈrie Intel(R) Wireless WiFi Link 5000 pour Windows XP 64 bits"
+SOURCEDISK1                        	  ="Disque d'installation de la sÈrie Intel(R) Wireless WiFi Link 5000"
+[Strings.040D] ; Hebrew (Israel)
+PROVIDER_NAME                      ="Intel"
+COMPANY_NAME                       ="Intel Corporation"
+
+NIC_MPCIEX_5300AGN_3x3_MC          ="Intel(R) WiFi Link 5300 AGN"
+NIC_MPCIEX_5300AGN_3x3_HMC         ="Intel(R) WiFi Link 5300 AGN"
+NIC_MPCIEX_5100AGN_1x2_MC          ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_5100AGN_1x2_MC_MOW2	   ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_5100AGN_1x2_MC_KRA	   ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_5100AGN_1x2_MC_BG	   ="Intel(R) WiFi Link 5100 BG"
+NIC_MPCIEX_5100AGN_1x2_MC_BGN	   ="Intel(R) WiFi Link 5100 BGN"
+NIC_MPCIEX_5100AGN_1x2_MC_ABG	   ="Intel(R) WiFi Link 5100 ABG"
+NIC_MPCIEX_5100AGN_1x2_HMC         ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_5100AGN_1x2_HMC_MOW2	   ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_5100AGN_1x2_HMC_KRA	   ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_5100AGN_1x2_HMC_BG	   ="Intel(R) WiFi Link 5100 BG"
+NIC_MPCIEX_5100AGN_1x2_HMC_BGN	   ="Intel(R) WiFi Link 5100 BGN"
+NIC_MPCIEX_5100AGN_1x2_HMC_ABG	   ="Intel(R) WiFi Link 5100 ABG"
+NIC_MPCIEX_5100ABG_1x2_MC          ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_5100ABG_1x2_HMC         ="Intel(R) WiFi Link 5100 AGN"
+
+NIC_MPCIEX_AdapterModel_5300AGN_3x3 ="Intel(R) WiFi Link 5300 AGN"
+NIC_MPCIEX_AdapterModel_5100AGN_1x2  ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_AdapterModel_5100AGN_1x2_MOW2  ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_AdapterModel_5100AGN_1x2_KRA  ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_AdapterModel_5100AGN_1x2_BG  ="Intel(R) WiFi Link 5100 BG"
+NIC_MPCIEX_AdapterModel_5100AGN_1x2_BGN  ="Intel(R) WiFi Link 5100 BGN"
+NIC_MPCIEX_AdapterModel_5100AGN_1x2_ABG  ="Intel(R) WiFi Link 5100 ABG"
+NIC_MPCIEX_AdapterModel_5100ABG_1x2  ="Intel(R) WiFi Link 5100 AGN"
+
+NIC_DriverDesc_5300AGN_3x3      		="Ó‰Ï ‰˙˜Ô ˘Ï Intel(R) WiFi Link 5300"
+NIC_Service_DispName_5300AGN3x3_XP64 ="Ó‰Ï ‰˙˜Ô ˘Ï Ó˙‡Ì Intel(R) WiFi Link 5300 Ú·Â¯ Windows XP 64 Bit"
+NIC_DriverDesc_5100AGN_1x2     		="Ó‰Ï ‰˙˜Ô ˘Ï Intel(R) WiFi Link 5100"
+NIC_Service_DispName_5100AGN1x2_XP64 ="Ó‰Ï ‰˙˜Ô ˘Ï Ó˙‡Ì Intel(R) WiFi Link 5100 Ú·Â¯ Windows XP 64 Bit"
+NIC_DriverDesc_5100AGN_1x2_BG     		    ="Ó‰Ï ‰˙˜Ô ˘Ï Intel(R) WiFi Link 5100 BG"
+NIC_Service_DispName_5100AGN1x2_BG_XP64 ="Ó‰Ï ‰˙˜Ô ˘Ï Ó˙‡Ì Intel(R) WiFi Link 5100 BG Ú·Â¯ Windows XP 64 Bit"
+NIC_DriverDesc_5100AGN_1x2_BGN     		    ="Ó‰Ï ‰˙˜Ô ˘Ï Intel(R) WiFi Link 5100 BGN"
+NIC_Service_DispName_5100AGN1x2_BGN_XP64 ="Ó‰Ï ‰˙˜Ô ˘Ï Ó˙‡Ì Intel(R) WiFi Link 5100 BGN Ú·Â¯ Windows XP 64 Bit"
+NIC_DriverDesc_5100AGN_1x2_ABG     		    ="Ó‰Ï ‰˙˜Ô ˘Ï Intel(R) WiFi Link 5100 ABG"
+NIC_Service_DispName_5100AGN1x2_ABG_XP64 ="Ó‰Ï ‰˙˜Ô ˘Ï Ó˙‡Ì Intel(R) WiFi Link 5100 ABG Ú·Â¯ Windows XP 64 Bit"
+NIC_DriverDesc_5100ABG_1x2_ABG     		    ="Ó‰Ï ‰˙˜Ô ˘Ï Intel(R) WiFi Link 5100 ABG"
+NIC_Service_DispName_5100ABG1x2_XP64 ="Ó‰Ï ‰˙˜Ô ˘Ï Ó˙‡Ì Intel(R) WiFi Link 5100 ABG Ú·Â¯ Windows XP 64 Bit"
+
+NIC_Service_DispName_XP64				  ="Ó‰Ï ‰˙˜Ô ˘Ï Ó˙‡Ì Intel(R) Wireless WiFi Link Ò„¯˙ 5000 Ú·Â¯ Windows XP 64 Bit"
+SOURCEDISK1                        	  ="„ÈÒ˜ ‰˙˜‰ ˘Ï Intel(R) Wireless WiFi Link Ò„¯˙ 5000"
+[Strings.040E] ; Hungarian (Hungary)
+PROVIDER_NAME                      ="Intel"
+COMPANY_NAME                       ="Intel Corporation"
+
+NIC_MPCIEX_5300AGN_3x3_MC          ="Intel(R) WiFi Link 5300 AGN"
+NIC_MPCIEX_5300AGN_3x3_HMC         ="Intel(R) WiFi Link 5300 AGN"
+NIC_MPCIEX_5100AGN_1x2_MC          ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_5100AGN_1x2_MC_MOW2	   ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_5100AGN_1x2_MC_KRA	   ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_5100AGN_1x2_MC_BG	   ="Intel(R) WiFi Link 5100 BG"
+NIC_MPCIEX_5100AGN_1x2_MC_BGN	   ="Intel(R) WiFi Link 5100 BGN"
+NIC_MPCIEX_5100AGN_1x2_MC_ABG	   ="Intel(R) WiFi Link 5100 ABG"
+NIC_MPCIEX_5100AGN_1x2_HMC         ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_5100AGN_1x2_HMC_MOW2	   ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_5100AGN_1x2_HMC_KRA	   ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_5100AGN_1x2_HMC_BG	   ="Intel(R) WiFi Link 5100 BG"
+NIC_MPCIEX_5100AGN_1x2_HMC_BGN	   ="Intel(R) WiFi Link 5100 BGN"
+NIC_MPCIEX_5100AGN_1x2_HMC_ABG	   ="Intel(R) WiFi Link 5100 ABG"
+NIC_MPCIEX_5100ABG_1x2_MC          ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_5100ABG_1x2_HMC         ="Intel(R) WiFi Link 5100 AGN"
+
+NIC_MPCIEX_AdapterModel_5300AGN_3x3 ="Intel(R) WiFi Link 5300 AGN"
+NIC_MPCIEX_AdapterModel_5100AGN_1x2  ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_AdapterModel_5100AGN_1x2_MOW2  ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_AdapterModel_5100AGN_1x2_KRA  ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_AdapterModel_5100AGN_1x2_BG  ="Intel(R) WiFi Link 5100 BG"
+NIC_MPCIEX_AdapterModel_5100AGN_1x2_BGN  ="Intel(R) WiFi Link 5100 BGN"
+NIC_MPCIEX_AdapterModel_5100AGN_1x2_ABG  ="Intel(R) WiFi Link 5100 ABG"
+NIC_MPCIEX_AdapterModel_5100ABG_1x2  ="Intel(R) WiFi Link 5100 AGN"
+
+NIC_DriverDesc_5300AGN_3x3      		="Intel(R) WiFi Link 5300 illesztıprogram"
+NIC_Service_DispName_5300AGN3x3_XP64 ="Intel(R) WiFi Link 5300 adapter illesztıprogram 64 bites Windows XP-hez"
+NIC_DriverDesc_5100AGN_1x2     		="Intel(R) WiFi Link 5100 illesztıprogram"
+NIC_Service_DispName_5100AGN1x2_XP64 ="Intel(R) WiFi Link 5100 adapter illesztıprogram 64 bites Windows XP-hez"
+NIC_DriverDesc_5100AGN_1x2_BG     		    ="Intel(R) WiFi Link 5100 BG illesztıprogram"
+NIC_Service_DispName_5100AGN1x2_BG_XP64 ="Intel(R) WiFi Link 5100 BG adapter illesztıprogram 64 bites Windows XP-hez"
+NIC_DriverDesc_5100AGN_1x2_BGN     		    ="Intel(R) WiFi Link 5100 BGN illesztıprogram"
+NIC_Service_DispName_5100AGN1x2_BGN_XP64 ="Intel(R) WiFi Link 5100 BGN adapter illesztıprogram 64 bites Windows XP-hez"
+NIC_DriverDesc_5100AGN_1x2_ABG     		    ="Intel(R) WiFi Link 5100 ABG illesztıprogram"
+NIC_Service_DispName_5100AGN1x2_ABG_XP64 ="Intel(R) WiFi Link 5100 ABG adapter illesztıprogram 64 bites Windows XP-hez"
+NIC_DriverDesc_5100ABG_1x2_ABG     		    ="Intel(R) WiFi Link 5100 ABG illesztıprogram"
+NIC_Service_DispName_5100ABG1x2_XP64 ="Intel(R) WiFi Link 5100 ABG adapter illesztıprogram 64 bites Windows XP-hez"
+
+NIC_Service_DispName_XP64				  ="Intel(R) Wireless WiFi Link 5000 Series adapter illesztıprogram 64 bites Windows XP-hez"
+SOURCEDISK1                        	  ="Intel(R) Wireless WiFi Link 5000 Series telepÌtı lemez"
+[Strings.0410] ; Italian (Italy)
+PROVIDER_NAME                      ="Intel"
+COMPANY_NAME                       ="Intel Corporation"
+
+NIC_MPCIEX_5300AGN_3x3_MC          ="Intel(R) WiFi Link 5300 AGN"
+NIC_MPCIEX_5300AGN_3x3_HMC         ="Intel(R) WiFi Link 5300 AGN"
+NIC_MPCIEX_5100AGN_1x2_MC          ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_5100AGN_1x2_MC_MOW2	   ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_5100AGN_1x2_MC_KRA	   ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_5100AGN_1x2_MC_BG	   ="Intel(R) WiFi Link 5100 BG"
+NIC_MPCIEX_5100AGN_1x2_MC_BGN	   ="Intel(R) WiFi Link 5100 BGN"
+NIC_MPCIEX_5100AGN_1x2_MC_ABG	   ="Intel(R) WiFi Link 5100 ABG"
+NIC_MPCIEX_5100AGN_1x2_HMC         ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_5100AGN_1x2_HMC_MOW2	   ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_5100AGN_1x2_HMC_KRA	   ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_5100AGN_1x2_HMC_BG	   ="Intel(R) WiFi Link 5100 BG"
+NIC_MPCIEX_5100AGN_1x2_HMC_BGN	   ="Intel(R) WiFi Link 5100 BGN"
+NIC_MPCIEX_5100AGN_1x2_HMC_ABG	   ="Intel(R) WiFi Link 5100 ABG"
+NIC_MPCIEX_5100ABG_1x2_MC          ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_5100ABG_1x2_HMC         ="Intel(R) WiFi Link 5100 AGN"
+
+NIC_MPCIEX_AdapterModel_5300AGN_3x3 ="Intel(R) WiFi Link 5300 AGN"
+NIC_MPCIEX_AdapterModel_5100AGN_1x2  ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_AdapterModel_5100AGN_1x2_MOW2  ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_AdapterModel_5100AGN_1x2_KRA  ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_AdapterModel_5100AGN_1x2_BG  ="Intel(R) WiFi Link 5100 BG"
+NIC_MPCIEX_AdapterModel_5100AGN_1x2_BGN  ="Intel(R) WiFi Link 5100 BGN"
+NIC_MPCIEX_AdapterModel_5100AGN_1x2_ABG  ="Intel(R) WiFi Link 5100 ABG"
+NIC_MPCIEX_AdapterModel_5100ABG_1x2  ="Intel(R) WiFi Link 5100 AGN"
+
+NIC_DriverDesc_5300AGN_3x3      		="Driver Intel(R) WiFi Link 5300"
+NIC_Service_DispName_5300AGN3x3_XP64 ="Driver scheda Intel(R) WiFi Link 5300 per Windows XP 32 Bit"
+NIC_DriverDesc_5100AGN_1x2     		="Driver Intel(R) WiFi Link 5100"
+NIC_Service_DispName_5100AGN1x2_XP64 ="Driver scheda Intel(R) WiFi Link 5100 per Windows XP 64 Bit"
+NIC_DriverDesc_5100AGN_1x2_BG     		    ="Driver Intel(R) WiFi Link 5100 BG"
+NIC_Service_DispName_5100AGN1x2_BG_XP64 ="Driver scheda Intel(R) WiFi Link 5100 BG per Windows XP 64 Bit"
+NIC_DriverDesc_5100AGN_1x2_BGN     		    ="Driver Intel(R) WiFi Link 5100 BGN"
+NIC_Service_DispName_5100AGN1x2_BGN_XP64 ="Driver scheda Intel(R) WiFi Link 5100 BGN per Windows XP 64 Bit"
+NIC_DriverDesc_5100AGN_1x2_ABG     		    ="Driver Intel(R) WiFi Link 5100 ABG"
+NIC_Service_DispName_5100AGN1x2_ABG_XP64 ="Driver scheda Intel(R) WiFi Link 5100 ABG per Windows XP 64 Bit"
+NIC_DriverDesc_5100ABG_1x2_ABG     		    ="Driver Intel(R) WiFi Link 5100 ABG"
+NIC_Service_DispName_5100ABG1x2_XP64 ="Driver scheda Intel(R) WiFi Link 5100 ABG per Windows XP 64 Bit"
+
+NIC_Service_DispName_XP64				  ="Driver scheda Intel(R) Wireless WiFi Link 5000 Series per Windows XP 64 Bit"
+SOURCEDISK1                        	  ="Disco di installazione per Intel(R) Wireless WiFi Link 5000 Series"
+[Strings.0411] ; Japanese (Japan)
+PROVIDER_NAME                      ="Intel"
+COMPANY_NAME                       ="Intel Corporation"
+
+NIC_MPCIEX_5300AGN_3x3_MC          ="Intel(R) WiFi Link 5300 AGN"
+NIC_MPCIEX_5300AGN_3x3_HMC         ="Intel(R) WiFi Link 5300 AGN"
+NIC_MPCIEX_5100AGN_1x2_MC          ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_5100AGN_1x2_MC_MOW2	   ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_5100AGN_1x2_MC_KRA	   ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_5100AGN_1x2_MC_BG	   ="Intel(R) WiFi Link 5100 BG"
+NIC_MPCIEX_5100AGN_1x2_MC_BGN	   ="Intel(R) WiFi Link 5100 BGN"
+NIC_MPCIEX_5100AGN_1x2_MC_ABG	   ="Intel(R) WiFi Link 5100 ABG"
+NIC_MPCIEX_5100AGN_1x2_HMC         ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_5100AGN_1x2_HMC_MOW2	   ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_5100AGN_1x2_HMC_KRA	   ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_5100AGN_1x2_HMC_BG	   ="Intel(R) WiFi Link 5100 BG"
+NIC_MPCIEX_5100AGN_1x2_HMC_BGN	   ="Intel(R) WiFi Link 5100 BGN"
+NIC_MPCIEX_5100AGN_1x2_HMC_ABG	   ="Intel(R) WiFi Link 5100 ABG"
+NIC_MPCIEX_5100ABG_1x2_MC          ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_5100ABG_1x2_HMC         ="Intel(R) WiFi Link 5100 AGN"
+
+NIC_MPCIEX_AdapterModel_5300AGN_3x3 ="Intel(R) WiFi Link 5300 AGN"
+NIC_MPCIEX_AdapterModel_5100AGN_1x2  ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_AdapterModel_5100AGN_1x2_MOW2  ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_AdapterModel_5100AGN_1x2_KRA  ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_AdapterModel_5100AGN_1x2_BG  ="Intel(R) WiFi Link 5100 BG"
+NIC_MPCIEX_AdapterModel_5100AGN_1x2_BGN  ="Intel(R) WiFi Link 5100 BGN"
+NIC_MPCIEX_AdapterModel_5100AGN_1x2_ABG  ="Intel(R) WiFi Link 5100 ABG"
+NIC_MPCIEX_AdapterModel_5100ABG_1x2  ="Intel(R) WiFi Link 5100 AGN"
+
+NIC_DriverDesc_5300AGN_3x3      		="Intel(R) WiFi Link 5300 ÉhÉâÉCÉoÅ["
+NIC_Service_DispName_5300AGN3x3_XP64 ="Windows XP 64 ÉrÉbÉgóp Intel(R) WiFi Link 5300 ÉAÉ_ÉvÉ^Å[ ÉhÉâÉCÉoÅ["
+NIC_DriverDesc_5100AGN_1x2     		="Intel(R) WiFi Link 5100 ÉhÉâÉCÉoÅ["
+NIC_Service_DispName_5100AGN1x2_XP64 ="Windows XP 64 ÉrÉbÉgóp Intel(R) WiFi Link 5100 ÉAÉ_ÉvÉ^Å[ ÉhÉâÉCÉoÅ["
+NIC_DriverDesc_5100AGN_1x2_BG     		    ="Intel(R) WiFi Link 5100 BG ÉhÉâÉCÉoÅ["
+NIC_Service_DispName_5100AGN1x2_BG_XP64 ="Windows XP 64 ÉrÉbÉgóp Intel(R) WiFi Link 5100 BG ÉAÉ_ÉvÉ^Å[ ÉhÉâÉCÉoÅ["
+NIC_DriverDesc_5100AGN_1x2_BGN     		    ="Intel(R) WiFi Link 5100 BGN ÉhÉâÉCÉoÅ["
+NIC_Service_DispName_5100AGN1x2_BGN_XP64 ="Windows XP 64 ÉrÉbÉgóp Intel(R) WiFi Link 5300 BGN ÉAÉ_ÉvÉ^Å[ ÉhÉâÉCÉoÅ["
+NIC_DriverDesc_5100AGN_1x2_ABG     		    ="Intel(R) WiFi Link 5100 ABG ÉhÉâÉCÉoÅ["
+NIC_Service_DispName_5100AGN1x2_ABG_XP64 ="Windows XP 64 ÉrÉbÉgóp Intel(R) WiFi Link 5100 ABG ÉAÉ_ÉvÉ^Å[ ÉhÉâÉCÉoÅ["
+NIC_DriverDesc_5100ABG_1x2_ABG     		    ="Intel(R) WiFi Link 5100 ABG ÉhÉâÉCÉoÅ["
+NIC_Service_DispName_5100ABG1x2_XP64 ="Windows XP 64 ÉrÉbÉgóp Intel(R) WiFi Link 5100 ABG ÉAÉ_ÉvÉ^Å[ ÉhÉâÉCÉoÅ["
+
+NIC_Service_DispName_XP64				  ="Windows XP 64 ÉrÉbÉgóp Intel(R) Wireless WiFi Link 5000 ÉVÉäÅ[ÉY ÉAÉ_ÉvÉ^Å[ ÉhÉâÉCÉoÅ["
+SOURCEDISK1                        	  ="Intel(R) Wireless WiFi Link 5000 ÉVÉäÅ[ÉY ÉCÉìÉXÉgÅ[Éã ÉfÉBÉXÉN"
+[Strings.0412] ; Korean (Korea)
+PROVIDER_NAME                      ="Intel"
+COMPANY_NAME                       ="Intel Corporation"
+
+NIC_MPCIEX_5300AGN_3x3_MC          ="Intel(R) WiFi Link 5300 AGN"
+NIC_MPCIEX_5300AGN_3x3_HMC         ="Intel(R) WiFi Link 5300 AGN"
+NIC_MPCIEX_5100AGN_1x2_MC          ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_5100AGN_1x2_MC_MOW2	   ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_5100AGN_1x2_MC_KRA	   ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_5100AGN_1x2_MC_BG	   ="Intel(R) WiFi Link 5100 BG"
+NIC_MPCIEX_5100AGN_1x2_MC_BGN	   ="Intel(R) WiFi Link 5100 BGN"
+NIC_MPCIEX_5100AGN_1x2_MC_ABG	   ="Intel(R) WiFi Link 5100 ABG"
+NIC_MPCIEX_5100AGN_1x2_HMC         ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_5100AGN_1x2_HMC_MOW2	   ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_5100AGN_1x2_HMC_KRA	   ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_5100AGN_1x2_HMC_BG	   ="Intel(R) WiFi Link 5100 BG"
+NIC_MPCIEX_5100AGN_1x2_HMC_BGN	   ="Intel(R) WiFi Link 5100 BGN"
+NIC_MPCIEX_5100AGN_1x2_HMC_ABG	   ="Intel(R) WiFi Link 5100 ABG"
+NIC_MPCIEX_5100ABG_1x2_MC          ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_5100ABG_1x2_HMC         ="Intel(R) WiFi Link 5100 AGN"
+
+NIC_MPCIEX_AdapterModel_5300AGN_3x3 ="Intel(R) WiFi Link 5300 AGN"
+NIC_MPCIEX_AdapterModel_5100AGN_1x2  ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_AdapterModel_5100AGN_1x2_MOW2  ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_AdapterModel_5100AGN_1x2_KRA  ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_AdapterModel_5100AGN_1x2_BG  ="Intel(R) WiFi Link 5100 BG"
+NIC_MPCIEX_AdapterModel_5100AGN_1x2_BGN  ="Intel(R) WiFi Link 5100 BGN"
+NIC_MPCIEX_AdapterModel_5100AGN_1x2_ABG  ="Intel(R) WiFi Link 5100 ABG"
+NIC_MPCIEX_AdapterModel_5100ABG_1x2  ="Intel(R) WiFi Link 5100 AGN"
+
+NIC_DriverDesc_5300AGN_3x3      		="Intel(R) WiFi Link 5300 µÂ∂Û¿Ãπˆ"
+NIC_Service_DispName_5300AGN3x3_XP64 ="Windows XP 64∫Ò∆ÆøÎ Intel(R) WiFi Link 5300 æÓ¥≈Õ µÂ∂Û¿Ãπˆ"
+NIC_DriverDesc_5100AGN_1x2     		="Intel(R) WiFi Link 5100 µÂ∂Û¿Ãπˆ"
+NIC_Service_DispName_5100AGN1x2_XP64 ="Windows XP 64∫Ò∆ÆøÎ Intel(R) WiFi Link 5100 æÓ¥≈Õ µÂ∂Û¿Ãπˆ"
+NIC_DriverDesc_5100AGN_1x2_BG     		    ="Intel(R) WiFi Link 5100 BG µÂ∂Û¿Ãπˆ"
+NIC_Service_DispName_5100AGN1x2_BG_XP64 ="Windows XP 64∫Ò∆ÆøÎ Intel(R) WiFi Link 5100 BG æÓ¥≈Õ µÂ∂Û¿Ãπˆ"
+NIC_DriverDesc_5100AGN_1x2_BGN     		    ="Intel(R) WiFi Link 5100 BGN µÂ∂Û¿Ãπˆ"
+NIC_Service_DispName_5100AGN1x2_BGN_XP64 ="Windows XP 64∫Ò∆ÆøÎ Intel(R) WiFi Link 5100 BGN æÓ¥≈Õ µÂ∂Û¿Ãπˆ"
+NIC_DriverDesc_5100AGN_1x2_ABG     		    ="Intel(R) WiFi Link 5100 ABG µÂ∂Û¿Ãπˆ"
+NIC_Service_DispName_5100AGN1x2_ABG_XP64 ="Windows XP 64∫Ò∆ÆøÎ Intel(R) WiFi Link 5100 ABG æÓ¥≈Õ µÂ∂Û¿Ãπˆ"
+NIC_DriverDesc_5100ABG_1x2_ABG     		    ="Intel(R) WiFi Link 5100 ABG µÂ∂Û¿Ãπˆ"
+NIC_Service_DispName_5100ABG1x2_XP64 ="Windows XP 64∫Ò∆ÆøÎ Intel(R) WiFi Link 5100 ABG æÓ¥≈Õ µÂ∂Û¿Ãπˆ"
+
+NIC_Service_DispName_XP64				  ="Windows XP 64∫Ò∆ÆøÎ Intel(R) Wireless WiFi Link 5000 Ω√∏Æ¡Ó æÓ¥≈Õ µÂ∂Û¿Ãπˆ"
+SOURCEDISK1                        	  ="Intel(R) Wireless WiFi Link 5000 Ω√∏Æ¡Ó º≥ƒ° µΩ∫≈©"
+[Strings.0413] ; Dutch (Netherlands)
+PROVIDER_NAME                      ="Intel"
+COMPANY_NAME                       ="Intel Corporation"
+
+NIC_MPCIEX_5300AGN_3x3_MC          ="Intel(R) WiFi Link 5300 AGN"
+NIC_MPCIEX_5300AGN_3x3_HMC         ="Intel(R) WiFi Link 5300 AGN"
+NIC_MPCIEX_5100AGN_1x2_MC          ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_5100AGN_1x2_MC_MOW2	   ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_5100AGN_1x2_MC_KRA	   ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_5100AGN_1x2_MC_BG	   ="Intel(R) WiFi Link 5100 BG"
+NIC_MPCIEX_5100AGN_1x2_MC_BGN	   ="Intel(R) WiFi Link 5100 BGN"
+NIC_MPCIEX_5100AGN_1x2_MC_ABG	   ="Intel(R) WiFi Link 5100 ABG"
+NIC_MPCIEX_5100AGN_1x2_HMC         ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_5100AGN_1x2_HMC_MOW2	   ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_5100AGN_1x2_HMC_KRA	   ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_5100AGN_1x2_HMC_BG	   ="Intel(R) WiFi Link 5100 BG"
+NIC_MPCIEX_5100AGN_1x2_HMC_BGN	   ="Intel(R) WiFi Link 5100 BGN"
+NIC_MPCIEX_5100AGN_1x2_HMC_ABG	   ="Intel(R) WiFi Link 5100 ABG"
+NIC_MPCIEX_5100ABG_1x2_MC          ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_5100ABG_1x2_HMC         ="Intel(R) WiFi Link 5100 AGN"
+
+NIC_MPCIEX_AdapterModel_5300AGN_3x3 ="Intel(R) WiFi Link 5300 AGN"
+NIC_MPCIEX_AdapterModel_5100AGN_1x2  ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_AdapterModel_5100AGN_1x2_MOW2  ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_AdapterModel_5100AGN_1x2_KRA  ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_AdapterModel_5100AGN_1x2_BG  ="Intel(R) WiFi Link 5100 BG"
+NIC_MPCIEX_AdapterModel_5100AGN_1x2_BGN  ="Intel(R) WiFi Link 5100 BGN"
+NIC_MPCIEX_AdapterModel_5100AGN_1x2_ABG  ="Intel(R) WiFi Link 5100 ABG"
+NIC_MPCIEX_AdapterModel_5100ABG_1x2  ="Intel(R) WiFi Link 5100 AGN"
+
+NIC_DriverDesc_5300AGN_3x3      		="Intel(R) WiFi Link 5300 stuurprogramma"
+NIC_Service_DispName_5300AGN3x3_XP64 ="Intel(R) WiFi Link 5300 adapter stuurprogramma onder Windows XP 64 Bit"
+NIC_DriverDesc_5100AGN_1x2     		="Intel(R) WiFi Link 5100 stuurprogramma"
+NIC_Service_DispName_5100AGN1x2_XP64 ="Intel(R) WiFi Link 5100 adapter stuurprogramma onder Windows XP 64 Bit"
+NIC_DriverDesc_5100AGN_1x2_BG     		    ="Intel(R) WiFi Link 5100 BG stuurprogramma"
+NIC_Service_DispName_5100AGN1x2_BG_XP64 ="Intel(R) WiFi Link 5100 BG adapter stuurprogramma onder Windows XP 64 Bit"
+NIC_DriverDesc_5100AGN_1x2_BGN     		    ="Intel(R) WiFi Link 5100 BGN stuurprogramma"
+NIC_Service_DispName_5100AGN1x2_BGN_XP64 ="Intel(R) WiFi Link 5100 BGN adapter stuurprogramma onder Windows XP 64 Bit"
+NIC_DriverDesc_5100AGN_1x2_ABG     		    ="Intel(R) WiFi Link 5100 ABG stuurprogramma"
+NIC_Service_DispName_5100AGN1x2_ABG_XP64 ="Intel(R) WiFi Link 5100 ABG adapter stuurprogramma onder Windows XP 64 Bit"
+NIC_DriverDesc_5100ABG_1x2_ABG     		    ="Intel(R) WiFi Link 5100 ABG stuurprogramma"
+NIC_Service_DispName_5100ABG1x2_XP64 ="Intel(R) WiFi Link 5100 ABG adapter stuurprogramma onder Windows XP 64 Bit"
+
+NIC_Service_DispName_XP64				  ="Intel(R) Wireless WiFi Link 5000 Series adapter stuurprogramma onder Windows XP 64 Bit"
+SOURCEDISK1                        	  ="Installatieschijf voor Intel(R) Wireless WiFi Link 5000 Series"
+[Strings.0414] ; Norwegian (BokmÂl) (Norway)
+PROVIDER_NAME                      ="Intel"
+COMPANY_NAME                       ="Intel Corporation"
+
+NIC_MPCIEX_5300AGN_3x3_MC          ="Intel(R) WiFi Link 5300 AGN"
+NIC_MPCIEX_5300AGN_3x3_HMC         ="Intel(R) WiFi Link 5300 AGN"
+NIC_MPCIEX_5100AGN_1x2_MC          ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_5100AGN_1x2_MC_MOW2	   ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_5100AGN_1x2_MC_KRA	   ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_5100AGN_1x2_MC_BG	   ="Intel(R) WiFi Link 5100 BG"
+NIC_MPCIEX_5100AGN_1x2_MC_BGN	   ="Intel(R) WiFi Link 5100 BGN"
+NIC_MPCIEX_5100AGN_1x2_MC_ABG	   ="Intel(R) WiFi Link 5100 ABG"
+NIC_MPCIEX_5100AGN_1x2_HMC         ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_5100AGN_1x2_HMC_MOW2	   ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_5100AGN_1x2_HMC_KRA	   ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_5100AGN_1x2_HMC_BG	   ="Intel(R) WiFi Link 5100 BG"
+NIC_MPCIEX_5100AGN_1x2_HMC_BGN	   ="Intel(R) WiFi Link 5100 BGN"
+NIC_MPCIEX_5100AGN_1x2_HMC_ABG	   ="Intel(R) WiFi Link 5100 ABG"
+NIC_MPCIEX_5100ABG_1x2_MC          ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_5100ABG_1x2_HMC         ="Intel(R) WiFi Link 5100 AGN"
+
+NIC_MPCIEX_AdapterModel_5300AGN_3x3 ="Intel(R) WiFi Link 5300 AGN"
+NIC_MPCIEX_AdapterModel_5100AGN_1x2  ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_AdapterModel_5100AGN_1x2_MOW2  ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_AdapterModel_5100AGN_1x2_KRA  ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_AdapterModel_5100AGN_1x2_BG  ="Intel(R) WiFi Link 5100 BG"
+NIC_MPCIEX_AdapterModel_5100AGN_1x2_BGN  ="Intel(R) WiFi Link 5100 BGN"
+NIC_MPCIEX_AdapterModel_5100AGN_1x2_ABG  ="Intel(R) WiFi Link 5100 ABG"
+NIC_MPCIEX_AdapterModel_5100ABG_1x2  ="Intel(R) WiFi Link 5100 AGN"
+
+NIC_DriverDesc_5300AGN_3x3      		="Intel(R) WiFi Link 5300 driver"
+NIC_Service_DispName_5300AGN3x3_XP64 ="Intel(R) WiFi Link 5300 kortdriver for Windows XP 64 Bit"
+NIC_DriverDesc_5100AGN_1x2     		="Intel(R) WiFi Link 5100 driver"
+NIC_Service_DispName_5100AGN1x2_XP64 ="Intel(R) WiFi Link 5100 kortdriver for Windows XP 64 Bit"
+NIC_DriverDesc_5100AGN_1x2_BG     		    ="Intel(R) WiFi Link 5100 BG driver"
+NIC_Service_DispName_5100AGN1x2_BG_XP64 ="Intel(R) WiFi Link 5100 BG kortdriver for Windows XP 64 Bit"
+NIC_DriverDesc_5100AGN_1x2_BGN     		    ="Intel(R) WiFi Link 5100 BGN driver"
+NIC_Service_DispName_5100AGN1x2_BGN_XP64 ="Intel(R) WiFi Link 5100 BGN kortdriver for Windows XP 64 Bit"
+NIC_DriverDesc_5100AGN_1x2_ABG     		    ="Intel(R) WiFi Link 5100 ABG driver"
+NIC_Service_DispName_5100AGN1x2_ABG_XP64 ="Intel(R) WiFi Link 5100 ABG kortdriver for Windows XP 64 Bit"
+NIC_DriverDesc_5100ABG_1x2_ABG     		    ="Intel(R) WiFi Link 5100 ABG driver"
+NIC_Service_DispName_5100ABG1x2_XP64 ="Intel(R) WiFi Link 5100 ABG kortdriver for Windows XP 64 Bit"
+
+NIC_Service_DispName_XP64				  ="Intel(R) Wireless WiFi Link 5000-serien kortdriver for Windows XP 64-bit"
+SOURCEDISK1                        	  ="Installasjonsplate for Intel(R) Wireless WiFi Link 5000-serien"
+[Strings.0415] ; Polish (Poland)
+PROVIDER_NAME                      ="Intel"
+COMPANY_NAME                       ="Intel Corporation"
+
+NIC_MPCIEX_5300AGN_3x3_MC          ="Intel(R) WiFi Link 5300 AGN"
+NIC_MPCIEX_5300AGN_3x3_HMC         ="Intel(R) WiFi Link 5300 AGN"
+NIC_MPCIEX_5100AGN_1x2_MC          ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_5100AGN_1x2_MC_MOW2	   ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_5100AGN_1x2_MC_KRA	   ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_5100AGN_1x2_MC_BG	   ="Intel(R) WiFi Link 5100 BG"
+NIC_MPCIEX_5100AGN_1x2_MC_BGN	   ="Intel(R) WiFi Link 5100 BGN"
+NIC_MPCIEX_5100AGN_1x2_MC_ABG	   ="Intel(R) WiFi Link 5100 ABG"
+NIC_MPCIEX_5100AGN_1x2_HMC         ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_5100AGN_1x2_HMC_MOW2	   ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_5100AGN_1x2_HMC_KRA	   ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_5100AGN_1x2_HMC_BG	   ="Intel(R) WiFi Link 5100 BG"
+NIC_MPCIEX_5100AGN_1x2_HMC_BGN	   ="Intel(R) WiFi Link 5100 BGN"
+NIC_MPCIEX_5100AGN_1x2_HMC_ABG	   ="Intel(R) WiFi Link 5100 ABG"
+NIC_MPCIEX_5100ABG_1x2_MC          ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_5100ABG_1x2_HMC         ="Intel(R) WiFi Link 5100 AGN"
+
+NIC_MPCIEX_AdapterModel_5300AGN_3x3 ="Intel(R) WiFi Link 5300 AGN"
+NIC_MPCIEX_AdapterModel_5100AGN_1x2  ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_AdapterModel_5100AGN_1x2_MOW2  ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_AdapterModel_5100AGN_1x2_KRA  ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_AdapterModel_5100AGN_1x2_BG  ="Intel(R) WiFi Link 5100 BG"
+NIC_MPCIEX_AdapterModel_5100AGN_1x2_BGN  ="Intel(R) WiFi Link 5100 BGN"
+NIC_MPCIEX_AdapterModel_5100AGN_1x2_ABG  ="Intel(R) WiFi Link 5100 ABG"
+NIC_MPCIEX_AdapterModel_5100ABG_1x2  ="Intel(R) WiFi Link 5100 AGN"
+
+NIC_DriverDesc_5300AGN_3x3      		="Sterownik Intel(R) WiFi Link 5300"
+NIC_Service_DispName_5300AGN3x3_XP64 ="Sterownik karty Intel(R) WiFi Link 5300 dla systemu Windows XP 64 Bit"
+NIC_DriverDesc_5100AGN_1x2     		="Sterownik Intel(R) WiFi Link 5100"
+NIC_Service_DispName_5100AGN1x2_XP64 ="Sterownik karty Intel(R) WiFi Link 5100 dla systemu Windows XP 64 Bit"
+NIC_DriverDesc_5100AGN_1x2_BG     		    ="Sterownik Intel(R) WiFi Link 5100 BG"
+NIC_Service_DispName_5100AGN1x2_BG_XP64 ="Sterownik karty Intel(R) WiFi Link 5100 BG dla systemu Windows XP 64 Bit"
+NIC_DriverDesc_5100AGN_1x2_BGN     		    ="Sterownik Intel(R) WiFi Link 5100 BGN"
+NIC_Service_DispName_5100AGN1x2_BGN_XP64 ="Sterownik karty Intel(R) WiFi Link 5100 BGN dla systemu Windows XP 64 Bit"
+NIC_DriverDesc_5100AGN_1x2_ABG     		    ="Sterownik Intel(R) WiFi Link 5100 ABG"
+NIC_Service_DispName_5100AGN1x2_ABG_XP64 ="Sterownik karty Intel(R) WiFi Link 5100 ABG dla systemu Windows XP 64 Bit"
+NIC_DriverDesc_5100ABG_1x2_ABG     		    ="Sterownik Intel(R) WiFi Link 5100 ABG"
+NIC_Service_DispName_5100ABG1x2_XP64 ="Sterownik karty Intel(R) WiFi Link 5100 ABG dla systemu Windows XP 64 Bit"
+
+NIC_Service_DispName_XP64				  ="Sterownik karty Intel(R) Wireless WiFi Link 5000 Series dla systemu Windows XP 64 Bit"
+SOURCEDISK1                        	  ="Dysk instalacyjny Intel(R) Wireless WiFi Link 5000 Series"
+[Strings.0416] ; Portuguese (Brazil)
+PROVIDER_NAME                      ="Intel"
+COMPANY_NAME                       ="Intel Corporation"
+
+NIC_MPCIEX_5300AGN_3x3_MC          ="Intel(R) WiFi Link 5300 AGN"
+NIC_MPCIEX_5300AGN_3x3_HMC         ="Intel(R) WiFi Link 5300 AGN"
+NIC_MPCIEX_5100AGN_1x2_MC          ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_5100AGN_1x2_MC_MOW2	   ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_5100AGN_1x2_MC_KRA	   ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_5100AGN_1x2_MC_BG	   ="Intel(R) WiFi Link 5100 BG"
+NIC_MPCIEX_5100AGN_1x2_MC_BGN	   ="Intel(R) WiFi Link 5100 BGN"
+NIC_MPCIEX_5100AGN_1x2_MC_ABG	   ="Intel(R) WiFi Link 5100 ABG"
+NIC_MPCIEX_5100AGN_1x2_HMC         ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_5100AGN_1x2_HMC_MOW2	   ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_5100AGN_1x2_HMC_KRA	   ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_5100AGN_1x2_HMC_BG	   ="Intel(R) WiFi Link 5100 BG"
+NIC_MPCIEX_5100AGN_1x2_HMC_BGN	   ="Intel(R) WiFi Link 5100 BGN"
+NIC_MPCIEX_5100AGN_1x2_HMC_ABG	   ="Intel(R) WiFi Link 5100 ABG"
+NIC_MPCIEX_5100ABG_1x2_MC          ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_5100ABG_1x2_HMC         ="Intel(R) WiFi Link 5100 AGN"
+
+NIC_MPCIEX_AdapterModel_5300AGN_3x3 ="Intel(R) WiFi Link 5300 AGN"
+NIC_MPCIEX_AdapterModel_5100AGN_1x2  ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_AdapterModel_5100AGN_1x2_MOW2  ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_AdapterModel_5100AGN_1x2_KRA  ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_AdapterModel_5100AGN_1x2_BG  ="Intel(R) WiFi Link 5100 BG"
+NIC_MPCIEX_AdapterModel_5100AGN_1x2_BGN  ="Intel(R) WiFi Link 5100 BGN"
+NIC_MPCIEX_AdapterModel_5100AGN_1x2_ABG  ="Intel(R) WiFi Link 5100 ABG"
+NIC_MPCIEX_AdapterModel_5100ABG_1x2  ="Intel(R) WiFi Link 5100 AGN"
+
+NIC_DriverDesc_5300AGN_3x3      		="Driver Intel(R) WiFi Link 5300"
+NIC_Service_DispName_5300AGN3x3_XP64 ="Driver do adaptador Intel(R) WiFi Link 5300 para Windows XP 64 bits"
+NIC_DriverDesc_5100AGN_1x2     		="Driver Intel(R) WiFi Link 5100"
+NIC_Service_DispName_5100AGN1x2_XP64 ="Driver do adaptador Intel(R) WiFi Link 5100 para Windows XP 64 bits"
+NIC_DriverDesc_5100AGN_1x2_BG     		    ="Driver Intel(R) WiFi Link 5100 BG"
+NIC_Service_DispName_5100AGN1x2_BG_XP64 ="Driver do adaptador Intel(R) WiFi Link 5100 BG para Windows XP 64 bits"
+NIC_DriverDesc_5100AGN_1x2_BGN     		    ="Driver Intel(R) WiFi Link 5100 BGN"
+NIC_Service_DispName_5100AGN1x2_BGN_XP64 ="Driver do adaptador Intel(R) WiFi Link 5100 BGN para Windows XP 64 bits"
+NIC_DriverDesc_5100AGN_1x2_ABG     		    ="Driver Intel(R) WiFi Link 5100 ABG"
+NIC_Service_DispName_5100AGN1x2_ABG_XP64 ="Driver do adaptador Intel(R) WiFi Link 5100 ABG para Windows XP 64 bits"
+NIC_DriverDesc_5100ABG_1x2_ABG     		    ="Driver Intel(R) WiFi Link 5100 ABG"
+NIC_Service_DispName_5100ABG1x2_XP64 ="Driver do adaptador Intel(R) WiFi Link 5100 ABG para Windows XP 64 bits"
+
+NIC_Service_DispName_XP64				  ="Driver do adaptador Intel(R) Wireless WiFi Link SÈrie 5000 para Windows XP 64 bits"
+SOURCEDISK1                        	  ="Disco da instalaÁ„o do Intel(R) Wireless WiFi Link SÈrie 5000"
+[Strings.0816] ; Portuguese (Portugal)
+PROVIDER_NAME                      ="Intel"
+COMPANY_NAME                       ="Intel Corporation"
+
+NIC_MPCIEX_5300AGN_3x3_MC          ="Intel(R) WiFi Link 5300 AGN"
+NIC_MPCIEX_5300AGN_3x3_HMC         ="Intel(R) WiFi Link 5300 AGN"
+NIC_MPCIEX_5100AGN_1x2_MC          ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_5100AGN_1x2_MC_MOW2	   ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_5100AGN_1x2_MC_KRA	   ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_5100AGN_1x2_MC_BG	   ="Intel(R) WiFi Link 5100 BG"
+NIC_MPCIEX_5100AGN_1x2_MC_BGN	   ="Intel(R) WiFi Link 5100 BGN"
+NIC_MPCIEX_5100AGN_1x2_MC_ABG	   ="Intel(R) WiFi Link 5100 ABG"
+NIC_MPCIEX_5100AGN_1x2_HMC         ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_5100AGN_1x2_HMC_MOW2	   ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_5100AGN_1x2_HMC_KRA	   ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_5100AGN_1x2_HMC_BG	   ="Intel(R) WiFi Link 5100 BG"
+NIC_MPCIEX_5100AGN_1x2_HMC_BGN	   ="Intel(R) WiFi Link 5100 BGN"
+NIC_MPCIEX_5100AGN_1x2_HMC_ABG	   ="Intel(R) WiFi Link 5100 ABG"
+NIC_MPCIEX_5100ABG_1x2_MC          ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_5100ABG_1x2_HMC         ="Intel(R) WiFi Link 5100 AGN"
+
+NIC_MPCIEX_AdapterModel_5300AGN_3x3 ="Intel(R) WiFi Link 5300 AGN"
+NIC_MPCIEX_AdapterModel_5100AGN_1x2  ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_AdapterModel_5100AGN_1x2_MOW2  ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_AdapterModel_5100AGN_1x2_KRA  ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_AdapterModel_5100AGN_1x2_BG  ="Intel(R) WiFi Link 5100 BG"
+NIC_MPCIEX_AdapterModel_5100AGN_1x2_BGN  ="Intel(R) WiFi Link 5100 BGN"
+NIC_MPCIEX_AdapterModel_5100AGN_1x2_ABG  ="Intel(R) WiFi Link 5100 ABG"
+NIC_MPCIEX_AdapterModel_5100ABG_1x2  ="Intel(R) WiFi Link 5100 AGN"
+
+NIC_DriverDesc_5300AGN_3x3      		="Controlador Intel(R) WiFi Link 5300"
+NIC_Service_DispName_5300AGN3x3_XP64 ="Controlador do placa Intel(R) WiFi Link 5300 para Windows XP 64 Bits"
+NIC_DriverDesc_5100AGN_1x2     		="Controlador Intel(R) WiFi Link 5100"
+NIC_Service_DispName_5100AGN1x2_XP64 ="Controlador do placa Intel(R) WiFi Link 5100 para Windows XP 64 Bits"
+NIC_DriverDesc_5100AGN_1x2_BG     		    ="Controlador Intel(R) WiFi Link 5100 BG"
+NIC_Service_DispName_5100AGN1x2_BG_XP64 ="Controlador do placa Intel(R) WiFi Link 5100 BG para Windows XP 64 Bits"
+NIC_DriverDesc_5100AGN_1x2_BGN     		    ="Controlador Intel(R) WiFi Link 5100 BGN"
+NIC_Service_DispName_5100AGN1x2_BGN_XP64 ="Controlador do placa Intel(R) WiFi Link 5100 BGN para Windows XP 64 Bits"
+NIC_DriverDesc_5100AGN_1x2_ABG     		    ="Controlador Intel(R) WiFi Link 5100 ABG"
+NIC_Service_DispName_5100AGN1x2_ABG_XP64 ="Controlador do placa Intel(R) WiFi Link 5100 ABG para Windows XP 64 Bits"
+NIC_DriverDesc_5100ABG_1x2_ABG     		    ="Controlador Intel(R) WiFi Link 5100 ABG"
+NIC_Service_DispName_5100ABG1x2_XP64 ="Controlador do placa Intel(R) WiFi Link 5100 ABG para Windows XP 64 Bits"
+
+NIC_Service_DispName_XP64				  ="Controlador do Adaptador do Intel(R) Wireless WiFi Link SÈrie 5000 para Windows XP 64 Bits"
+SOURCEDISK1                        	  ="Disco de InstalaÁ„o da Intel(R) Wireless WiFi Link SÈrie 5000"
+[Strings.0419] ; Russian (Russia)
+PROVIDER_NAME                      ="Intel"
+COMPANY_NAME                       ="Intel Corporation"
+
+NIC_MPCIEX_5300AGN_3x3_MC          ="Intel(R) WiFi Link 5300 AGN"
+NIC_MPCIEX_5300AGN_3x3_HMC         ="Intel(R) WiFi Link 5300 AGN"
+NIC_MPCIEX_5100AGN_1x2_MC          ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_5100AGN_1x2_MC_MOW2	   ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_5100AGN_1x2_MC_KRA	   ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_5100AGN_1x2_MC_BG	   ="Intel(R) WiFi Link 5100 BG"
+NIC_MPCIEX_5100AGN_1x2_MC_BGN	   ="Intel(R) WiFi Link 5100 BGN"
+NIC_MPCIEX_5100AGN_1x2_MC_ABG	   ="Intel(R) WiFi Link 5100 ABG"
+NIC_MPCIEX_5100AGN_1x2_HMC         ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_5100AGN_1x2_HMC_MOW2	   ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_5100AGN_1x2_HMC_KRA	   ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_5100AGN_1x2_HMC_BG	   ="Intel(R) WiFi Link 5100 BG"
+NIC_MPCIEX_5100AGN_1x2_HMC_BGN	   ="Intel(R) WiFi Link 5100 BGN"
+NIC_MPCIEX_5100AGN_1x2_HMC_ABG	   ="Intel(R) WiFi Link 5100 ABG"
+NIC_MPCIEX_5100ABG_1x2_MC          ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_5100ABG_1x2_HMC         ="Intel(R) WiFi Link 5100 AGN"
+
+NIC_MPCIEX_AdapterModel_5300AGN_3x3 ="Intel(R) WiFi Link 5300 AGN"
+NIC_MPCIEX_AdapterModel_5100AGN_1x2  ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_AdapterModel_5100AGN_1x2_MOW2  ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_AdapterModel_5100AGN_1x2_KRA  ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_AdapterModel_5100AGN_1x2_BG  ="Intel(R) WiFi Link 5100 BG"
+NIC_MPCIEX_AdapterModel_5100AGN_1x2_BGN  ="Intel(R) WiFi Link 5100 BGN"
+NIC_MPCIEX_AdapterModel_5100AGN_1x2_ABG  ="Intel(R) WiFi Link 5100 ABG"
+NIC_MPCIEX_AdapterModel_5100ABG_1x2  ="Intel(R) WiFi Link 5100 AGN"
+
+NIC_DriverDesc_5300AGN_3x3      		="ƒ‡È‚Â ‡‰‡ÔÚÂ‡ Intel(R) WiFi Link 5300"
+NIC_Service_DispName_5300AGN3x3_XP64 ="ƒ‡È‚Â ‡‰‡ÔÚÂ‡ Intel(R) WiFi Link 5300 ‰Îˇ Windows XP 64 Bit"
+NIC_DriverDesc_5100AGN_1x2     		="ƒ‡È‚Â ‡‰‡ÔÚÂ‡ Intel(R) WiFi Link 5100"
+NIC_Service_DispName_5100AGN1x2_XP64 ="ƒ‡È‚Â ‡‰‡ÔÚÂ‡ Intel(R) WiFi Link 5100 ‰Îˇ Windows XP 64 Bit"
+NIC_DriverDesc_5100AGN_1x2_BG     		    ="ƒ‡È‚Â ‡‰‡ÔÚÂ‡ Intel(R) WiFi Link 5100 BG"
+NIC_Service_DispName_5100AGN1x2_BG_XP64 ="ƒ‡È‚Â ‡‰‡ÔÚÂ‡ Intel(R) WiFi Link 5100 BG ‰Îˇ Windows XP 64 Bit"
+NIC_DriverDesc_5100AGN_1x2_BGN     		    ="ƒ‡È‚Â ‡‰‡ÔÚÂ‡ Intel(R) WiFi Link 5100 BGN"
+NIC_Service_DispName_5100AGN1x2_BGN_XP64 ="ƒ‡È‚Â ‡‰‡ÔÚÂ‡ Intel(R) WiFi Link 5100 BGN ‰Îˇ Windows XP 64 Bit"
+NIC_DriverDesc_5100AGN_1x2_ABG     		    ="ƒ‡È‚Â ‡‰‡ÔÚÂ‡ Intel(R) WiFi Link 5100 ABG"
+NIC_Service_DispName_5100AGN1x2_ABG_XP64 ="ƒ‡È‚Â ‡‰‡ÔÚÂ‡ Intel(R) WiFi Link 5100 ABG ‰Îˇ Windows XP 64 Bit"
+NIC_DriverDesc_5100ABG_1x2_ABG     		    ="ƒ‡È‚Â ‡‰‡ÔÚÂ‡ Intel(R) WiFi Link 5100 ABG"
+NIC_Service_DispName_5100ABG1x2_XP64 ="ƒ‡È‚Â ‡‰‡ÔÚÂ‡ Intel(R) WiFi Link 5100 ABG ‰Îˇ Windows XP 64 Bit"
+
+NIC_Service_DispName_XP64				  ="ƒ‡È‚Â ‡‰‡ÔÚÂ‡ Intel(R) Wireless WiFi Link ÒÂËË 5000 ‰Îˇ Windows XP 64 Bit "
+SOURCEDISK1                        	  ="”ÒÚ‡ÌÓ‚Ó˜Ì˚È ‰ËÒÍ ‡‰‡ÔÚÂ‡ Intel(R) Wireless WiFi Link ÒÂËË 5000"
+[Strings.041D] ; Swedish (Sweden)
+PROVIDER_NAME                      ="Intel"
+COMPANY_NAME                       ="Intel Corporation"
+
+NIC_MPCIEX_5300AGN_3x3_MC          ="Intel(R) WiFi Link 5300 AGN"
+NIC_MPCIEX_5300AGN_3x3_HMC         ="Intel(R) WiFi Link 5300 AGN"
+NIC_MPCIEX_5100AGN_1x2_MC          ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_5100AGN_1x2_MC_MOW2	   ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_5100AGN_1x2_MC_KRA	   ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_5100AGN_1x2_MC_BG	   ="Intel(R) WiFi Link 5100 BG"
+NIC_MPCIEX_5100AGN_1x2_MC_BGN	   ="Intel(R) WiFi Link 5100 BGN"
+NIC_MPCIEX_5100AGN_1x2_MC_ABG	   ="Intel(R) WiFi Link 5100 ABG"
+NIC_MPCIEX_5100AGN_1x2_HMC         ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_5100AGN_1x2_HMC_MOW2	   ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_5100AGN_1x2_HMC_KRA	   ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_5100AGN_1x2_HMC_BG	   ="Intel(R) WiFi Link 5100 BG"
+NIC_MPCIEX_5100AGN_1x2_HMC_BGN	   ="Intel(R) WiFi Link 5100 BGN"
+NIC_MPCIEX_5100AGN_1x2_HMC_ABG	   ="Intel(R) WiFi Link 5100 ABG"
+NIC_MPCIEX_5100ABG_1x2_MC          ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_5100ABG_1x2_HMC         ="Intel(R) WiFi Link 5100 AGN"
+
+NIC_MPCIEX_AdapterModel_5300AGN_3x3 ="Intel(R) WiFi Link 5300 AGN"
+NIC_MPCIEX_AdapterModel_5100AGN_1x2  ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_AdapterModel_5100AGN_1x2_MOW2  ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_AdapterModel_5100AGN_1x2_KRA  ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_AdapterModel_5100AGN_1x2_BG  ="Intel(R) WiFi Link 5100 BG"
+NIC_MPCIEX_AdapterModel_5100AGN_1x2_BGN  ="Intel(R) WiFi Link 5100 BGN"
+NIC_MPCIEX_AdapterModel_5100AGN_1x2_ABG  ="Intel(R) WiFi Link 5100 ABG"
+NIC_MPCIEX_AdapterModel_5100ABG_1x2  ="Intel(R) WiFi Link 5100 AGN"
+
+NIC_DriverDesc_5300AGN_3x3      		="Drivrutin Intel(R) WiFi Link 5300"
+NIC_Service_DispName_5300AGN3x3_XP64 ="Kortdrivrutin fˆr Windows XP 64-bitars Intel(R) WiFi Link 5300"
+NIC_DriverDesc_5100AGN_1x2     		="Drivrutin Intel(R) WiFi Link 5100"
+NIC_Service_DispName_5100AGN1x2_XP64 ="Kortdrivrutin fˆr Windows XP 64-bitars Intel(R) WiFi Link 5100"
+NIC_DriverDesc_5100AGN_1x2_BG     		    ="Drivrutin Intel(R) WiFi Link 5100 BG"
+NIC_Service_DispName_5100AGN1x2_BG_XP64 ="Kortdrivrutin fˆr Windows XP 64-bitars Intel(R) WiFi Link 5100 BG"
+NIC_DriverDesc_5100AGN_1x2_BGN     		    ="Drivrutin Intel(R) WiFi Link 5100 BGN"
+NIC_Service_DispName_5100AGN1x2_BGN_XP64 ="Kortdrivrutin fˆr Windows XP 64-bitars Intel(R) WiFi Link 5100 BGN"
+NIC_DriverDesc_5100AGN_1x2_ABG     		    ="Drivrutin Intel(R) WiFi Link 5100 ABG"
+NIC_Service_DispName_5100AGN1x2_ABG_XP64 ="Kortdrivrutin fˆr Windows XP 64-bitars Intel(R) WiFi Link 5100 ABG"
+NIC_DriverDesc_5100ABG_1x2_ABG     		    ="Drivrutin Intel(R) WiFi Link 5100 ABG"
+NIC_Service_DispName_5100ABG1x2_XP64 ="Kortdrivrutin fˆr Windows XP 64-bitars Intel(R) WiFi Link 5100 ABG"
+
+NIC_Service_DispName_XP64				  ="Kortdrivrutin fˆr Windows XP 64-bitars Intel(R) Wireless WiFi Link 5000-serien"
+SOURCEDISK1                        	  ="Installationsdisk Intel(R) Wireless WiFi Link 5000-serien"
+[Strings.041E] ; Thai (Thailand)
+PROVIDER_NAME                      ="Intel"
+COMPANY_NAME                       ="Intel Corporation"
+
+NIC_MPCIEX_5300AGN_3x3_MC          ="Intel(R) WiFi Link 5300 AGN"
+NIC_MPCIEX_5300AGN_3x3_HMC         ="Intel(R) WiFi Link 5300 AGN"
+NIC_MPCIEX_5100AGN_1x2_MC          ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_5100AGN_1x2_MC_MOW2	   ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_5100AGN_1x2_MC_KRA	   ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_5100AGN_1x2_MC_BG	   ="Intel(R) WiFi Link 5100 BG"
+NIC_MPCIEX_5100AGN_1x2_MC_BGN	   ="Intel(R) WiFi Link 5100 BGN"
+NIC_MPCIEX_5100AGN_1x2_MC_ABG	   ="Intel(R) WiFi Link 5100 ABG"
+NIC_MPCIEX_5100AGN_1x2_HMC         ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_5100AGN_1x2_HMC_MOW2	   ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_5100AGN_1x2_HMC_KRA	   ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_5100AGN_1x2_HMC_BG	   ="Intel(R) WiFi Link 5100 BG"
+NIC_MPCIEX_5100AGN_1x2_HMC_BGN	   ="Intel(R) WiFi Link 5100 BGN"
+NIC_MPCIEX_5100AGN_1x2_HMC_ABG	   ="Intel(R) WiFi Link 5100 ABG"
+NIC_MPCIEX_5100ABG_1x2_MC          ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_5100ABG_1x2_HMC         ="Intel(R) WiFi Link 5100 AGN"
+
+NIC_MPCIEX_AdapterModel_5300AGN_3x3 ="Intel(R) WiFi Link 5300 AGN"
+NIC_MPCIEX_AdapterModel_5100AGN_1x2  ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_AdapterModel_5100AGN_1x2_MOW2  ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_AdapterModel_5100AGN_1x2_KRA  ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_AdapterModel_5100AGN_1x2_BG  ="Intel(R) WiFi Link 5100 BG"
+NIC_MPCIEX_AdapterModel_5100AGN_1x2_BGN  ="Intel(R) WiFi Link 5100 BGN"
+NIC_MPCIEX_AdapterModel_5100AGN_1x2_ABG  ="Intel(R) WiFi Link 5100 ABG"
+NIC_MPCIEX_AdapterModel_5100ABG_1x2  ="Intel(R) WiFi Link 5100 AGN"
+
+NIC_DriverDesc_5300AGN_3x3      		="‰¥√‡«Õ√Ï Intel(R) WiFi Link 5300"
+NIC_Service_DispName_5300AGN3x3_XP64 ="‰¥√‡«Õ√ÏÕ·¥Áª‡µÕ√Ï Intel(R) WiFi Link 5300  ”À√—∫ Windows XP 64 ∫‘µ"
+NIC_DriverDesc_5100AGN_1x2     		="‰¥√‡«Õ√Ï Intel(R) WiFi Link 5100"
+NIC_Service_DispName_5100AGN1x2_XP64 ="‰¥√‡«Õ√ÏÕ·¥Áª‡µÕ√Ï Intel(R) WiFi Link 5100  ”À√—∫ Windows XP 64 ∫‘µ"
+NIC_DriverDesc_5100AGN_1x2_BG     		    ="‰¥√‡«Õ√Ï Intel(R) WiFi Link 5100 BG"
+NIC_Service_DispName_5100AGN1x2_BG_XP64 ="‰¥√‡«Õ√ÏÕ·¥Áª‡µÕ√Ï Intel(R) WiFi Link 5100 BG  ”À√—∫ Windows XP 64 ∫‘µ"
+NIC_DriverDesc_5100AGN_1x2_BGN     		    ="‰¥√‡«Õ√Ï Intel(R) WiFi Link 5100 BGN"
+NIC_Service_DispName_5100AGN1x2_BGN_XP64 ="‰¥√‡«Õ√ÏÕ·¥Áª‡µÕ√Ï Intel(R) WiFi Link 5100 BGN  ”À√—∫ Windows XP 64 ∫‘µ"
+NIC_DriverDesc_5100AGN_1x2_ABG     		    ="‰¥√‡«Õ√Ï Intel(R) WiFi Link 5100 ABG"
+NIC_Service_DispName_5100AGN1x2_ABG_XP64 ="‰¥√‡«Õ√ÏÕ·¥Áª‡µÕ√Ï Intel(R) WiFi Link 5100 ABG  ”À√—∫ Windows XP 64 ∫‘µ"
+NIC_DriverDesc_5100ABG_1x2_ABG     		    ="‰¥√‡«Õ√Ï Intel(R) WiFi Link 5100 ABG"
+NIC_Service_DispName_5100ABG1x2_XP64 ="‰¥√‡«Õ√ÏÕ·¥Áª‡µÕ√Ï Intel(R) WiFi Link 5100 ABG  ”À√—∫ Windows XP 64 ∫‘µ"
+
+NIC_Service_DispName_XP64				  ="‰¥√‡«Õ√ÏÕ·¥Áª‡µÕ√Ï Intel(R) Wireless WiFi Link À¡“¬‡≈¢ 5000  ”À√—∫ Windows XP 64 ∫‘µ"
+SOURCEDISK1                        	  ="¥‘ °Ïµ‘¥µ—Èß Intel(R) Wireless WiFi Link À¡“¬‡≈¢ 5000"
+[Strings.041F] ; Turkish (Turkey)
+PROVIDER_NAME                      ="Intel"
+COMPANY_NAME                       ="Intel Corporation"
+
+NIC_MPCIEX_5300AGN_3x3_MC          ="Intel(R) WiFi Link 5300 AGN"
+NIC_MPCIEX_5300AGN_3x3_HMC         ="Intel(R) WiFi Link 5300 AGN"
+NIC_MPCIEX_5100AGN_1x2_MC          ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_5100AGN_1x2_MC_MOW2	   ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_5100AGN_1x2_MC_KRA	   ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_5100AGN_1x2_MC_BG	   ="Intel(R) WiFi Link 5100 BG"
+NIC_MPCIEX_5100AGN_1x2_MC_BGN	   ="Intel(R) WiFi Link 5100 BGN"
+NIC_MPCIEX_5100AGN_1x2_MC_ABG	   ="Intel(R) WiFi Link 5100 ABG"
+NIC_MPCIEX_5100AGN_1x2_HMC         ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_5100AGN_1x2_HMC_MOW2	   ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_5100AGN_1x2_HMC_KRA	   ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_5100AGN_1x2_HMC_BG	   ="Intel(R) WiFi Link 5100 BG"
+NIC_MPCIEX_5100AGN_1x2_HMC_BGN	   ="Intel(R) WiFi Link 5100 BGN"
+NIC_MPCIEX_5100AGN_1x2_HMC_ABG	   ="Intel(R) WiFi Link 5100 ABG"
+NIC_MPCIEX_5100ABG_1x2_MC          ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_5100ABG_1x2_HMC         ="Intel(R) WiFi Link 5100 AGN"
+
+NIC_MPCIEX_AdapterModel_5300AGN_3x3 ="Intel(R) WiFi Link 5300 AGN"
+NIC_MPCIEX_AdapterModel_5100AGN_1x2  ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_AdapterModel_5100AGN_1x2_MOW2  ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_AdapterModel_5100AGN_1x2_KRA  ="Intel(R) WiFi Link 5100 AGN"
+NIC_MPCIEX_AdapterModel_5100AGN_1x2_BG  ="Intel(R) WiFi Link 5100 BG"
+NIC_MPCIEX_AdapterModel_5100AGN_1x2_BGN  ="Intel(R) WiFi Link 5100 BGN"
+NIC_MPCIEX_AdapterModel_5100AGN_1x2_ABG  ="Intel(R) WiFi Link 5100 ABG"
+NIC_MPCIEX_AdapterModel_5100ABG_1x2  ="Intel(R) WiFi Link 5100 AGN"
+
+NIC_DriverDesc_5300AGN_3x3      		="Intel(R) WiFi Link 5300 S¸r¸c¸s¸"
+NIC_Service_DispName_5300AGN3x3_XP64 ="Windows XP 64 Bit iÁin Intel(R) WiFi Link 5300 Bada˛t˝r˝c˝ S¸r¸c¸s¸"
+NIC_DriverDesc_5100AGN_1x2     		="Intel(R) WiFi Link 5100 S¸r¸c¸s¸"
+NIC_Service_DispName_5100AGN1x2_XP64 ="Windows XP 64 Bit iÁin Intel(R) WiFi Link 5100 Bada˛t˝r˝c˝ S¸r¸c¸s¸"
+NIC_DriverDesc_5100AGN_1x2_BG     		    ="Intel(R) WiFi Link 5100 BG S¸r¸c¸s¸"
+NIC_Service_DispName_5100AGN1x2_BG_XP64 ="Windows XP 64 Bit iÁin Intel(R) WiFi Link 5100 BG Bada˛t˝r˝c˝ S¸r¸c¸s¸"
+NIC_DriverDesc_5100AGN_1x2_BGN     		    ="Intel(R) WiFi Link 5100 BGN S¸r¸c¸s¸"
+NIC_Service_DispName_5100AGN1x2_BGN_XP64 ="Windows XP 64 Bit iÁin Intel(R) WiFi Link 5100 BGN Bada˛t˝r˝c˝ S¸r¸c¸s¸"
+NIC_DriverDesc_5100AGN_1x2_ABG     		    ="Intel(R) WiFi Link 5100 ABG S¸r¸c¸s¸"
+NIC_Service_DispName_5100AGN1x2_ABG_XP64 ="Windows XP 64 Bit iÁin Intel(R) WiFi Link 5100 ABG Bada˛t˝r˝c˝ S¸r¸c¸s¸"
+NIC_DriverDesc_5100ABG_1x2_ABG     		    ="Intel(R) WiFi Link 5100 ABG S¸r¸c¸s¸"
+NIC_Service_DispName_5100ABG1x2_XP64 ="Windows XP 64 Bit iÁin Intel(R) WiFi Link 5100 ABG Bada˛t˝r˝c˝ S¸r¸c¸s¸"
+
+NIC_Service_DispName_XP64				  ="Windows XP 64 Bit iÁin Intel(R) Wireless WiFi Link Bada˛t˝r˝c˝ S¸r¸c¸s¸ "
+SOURCEDISK1                        	  ="Intel(R) Wireless WiFi Link 5000 Serisi Y¸kleme Diski"
+
+

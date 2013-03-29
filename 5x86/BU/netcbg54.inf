@@ -1,0 +1,660 @@
+;;
+;; netcbg54.inf
+;;
+;; Copyright 1998-2003, Broadcom Corporation.
+;; All Rights Reserved.
+;;
+;; Copyright(C)2003 MELCO INC.
+;;
+;; This is UNPUBLISHED PROPRIETARY SOURCE CODE of Broadcom Corporation;
+;; the contents of this file may not be disclosed to third parties, copied or
+;; duplicated in any form, in whole or in part, without the prior written
+;; permission of Broadcom Corporation.
+;;
+
+[version]
+	Signature	= "$Chicago$"		; Combined Win9x/Win2k inf
+	Class=Net
+	ClassGUID	= {4d36e972-e325-11ce-bfc1-08002be10318}
+	Provider	= %V_BCM%
+	Compatible	= 1
+DriverVer=07/17/2003, 3.30.15.1
+	CatalogFile	= BCM43XX.CAT
+
+[Manufacturer]
+	%V_BCM% = BROADCOM
+
+[ControlFlags] 
+	ExcludeFromSelect = *
+
+[BROADCOM]
+	%BCM430G.DeviceDesc% = BCM43XG, PCI\VEN_14E4&DEV_4320&SUBSYS_03241154
+	%BCM430G2.DeviceDesc% = BCM43XG, PCI\VEN_14E4&DEV_4320&SUBSYS_03251154
+	%BCM430M.DeviceDesc% = BCM43XM, PCI\VEN_14E4&DEV_4324&SUBSYS_03281154
+
+;-----------------------------------------------------------------
+; Win9x specific
+;
+[BCM43XG]
+	AddReg		= BCM43XX.win.reg, BCM43XX.win.brcm.reg, common.reg, g.options.reg, bg.options.reg, bwcXG.reg
+	CopyFiles	= BCM43XX.sys.files, BWCDRV98INF.CopyFiles
+	DelReg		= bwcDel.reg
+	DriverVer	= 07/17/2003, 3.30.15.1
+
+[BCM43XM]
+	AddReg		= BCM43XX.win.reg, BCM43XX.win.brcm.reg, common.reg, bag.options.reg, bwcXG.reg
+	CopyFiles	= BCM43XX.sys.files, BWCDRV98INF.CopyFiles
+	DelReg		= bwcDel.reg
+	DriverVer	= 07/17/2003, 3.30.15.1
+
+[BCM43XX.win.reg]
+	HKR,	Ndi,	DeviceID,		,	"PCI\VEN_14E4&DEV_4320&SUBSYS_03241154"
+; if CD
+	HKR,	Ndi,	InstallInf,		0,	"NETBWC98.INF"
+; if MDRIVER
+;	HKR,	Ndi,	InstallInf,		0,	"NETBWC9M.INF"
+	; Ndis Info
+	HKR,	,		EnumPropPages,		0,	"netdi.dll,EnumPropPages"
+	HKR,	NDIS,	MajorNdisVersion,	1,	03
+	HKR,	NDIS,	MinorNdisVersion,	1,	0A
+	HKR,	NDIS,	LogDriverName,		,	"CBBCM43"
+	HKR,	NDIS,	MajorDriverVersion,	1,	1
+	HKR,	NDIS,	MinorDriverVersion,	1,	0
+	;Install sections
+	HKR,	Ndi\Install,	,		,	"BCM43XX.ndi.install"
+	; Interfaces
+	HKR,	Ndi\Interfaces,	DefUpper,	0,	"ndis3"
+	HKR,	Ndi\Interfaces,	DefLower,	0,	"ethernet"
+	HKR,	Ndi\Interfaces,	UpperRange,	0,	"ndis3"
+	HKR,	Ndi\Interfaces,	LowerRange,	0,	"ethernet"
+	; BUFFALO Wireless Configuration Required
+	HKR,	Ndi\Compatibility,	RequireAll,	,	"BWCDRV"
+
+[BCM43XX.win.brcm.reg]
+	HKR,	Ndi,	HelpText,		,	%BCM43XX_HELP%
+
+[BCM43XX.ndi.install]
+	AddReg		= BCM43XX.ndi.reg
+
+[BCM43XX.ndi.reg]
+	HKR,	,	DevLoader,		0,	"*ndis"
+	HKR,	,	DeviceVxDs,		0,	%DEFAULT_WIN9X_SYS%
+
+; Flag = 2 is COPYFLG_NOSKIP (2)
+; Flag = 33 is COPYFLG_WARN_IF_SKIP (1) | COPYFLG_NO_VERSION_DIALOG (32)
+[BCM43XX.sys.files]
+	BCMWL5.SYS,,,2
+; if MDRIVER
+;	BWCDRV.VXD,,,2
+
+[BWCDRV98INF.CopyFiles]
+; if CD
+	NETBWC98.INF,,,2
+; if MDRIVER
+;	NETBWC9M.INF,,,2
+
+;-----------------------------------------------------------------
+; Win2k specific
+;
+[BCM43XG.NT.CoInstallers]
+	AddReg		= CoCopyINF.AddReg
+	CopyFiles	= CoCopyINF.CopyFiles
+
+[BCM43XG.NT]
+	Characteristics	= 0x84	; NCF_PHYSICAL | NCF_HAS_UI
+	BusType		= 5			; PCI bus
+	AddReg		= BCM43XX.reg, BCM43XX.brcm.reg, common.reg, g.options.reg, bg.options.reg, bwcXG.reg
+	CopyFiles	= BCM43XX.files.NT
+	DelReg		= bwcDel.reg
+	DriverVer	= 07/17/2003, 3.30.15.1
+	InitService	= bwcdrv
+; if CD
+	CopyINF		= netbwc2k.inf
+; if MDRIVER
+;	CopyINF		= netbwc2m.inf
+
+[BCM43XM.NT.CoInstallers]
+	AddReg		= CoCopyINF.AddReg
+	CopyFiles	= CoCopyINF.CopyFiles
+
+[BCM43XM.NT]
+	Characteristics	= 0x84	; NCF_PHYSICAL | NCF_HAS_UI
+	BusType		= 5			; PCI bus
+	AddReg		= BCM43XX.reg, BCM43XX.brcm.reg, common.reg, bag.options.reg, bwcXG.reg
+	CopyFiles	= BCM43XX.files.NT
+	DelReg		= bwcDel.reg
+	DriverVer	= 07/17/2003, 3.30.15.1
+	InitService	= bwcdrv
+; if CD
+	CopyINF		= netbwc2k.inf
+; if MDRIVER
+;	CopyINF		= netbwc2m.inf
+
+[BCM43XG.NT.Services]
+	AddService = CBBCM43, 2, BCM43XX.Service, common.EventLog
+
+[BCM43XM.NT.Services]
+	AddService = CBBCM43, 2, BCM43XX.Service, common.EventLog
+
+[CoCopyINF.AddReg]
+	HKR,,CoInstallers32,0x10000,"bwcinst.DLL,CoCopyINF"
+
+[CoCopyINF.CopyFiles]
+	bwcinst.dll,,,0x10 
+
+[BCM43XX.reg]
+	; Ndis Info
+	; Interfaces
+	HKR,	Ndi\Interfaces,	UpperRange,	,	"ndis5"
+	HKR,	Ndi\Interfaces,	LowerRange,	,	"ethernet"
+	HKR,	Ndi,		RequiredAll,	0,	"MEL_BWCDRV2K"
+
+[BCM43XX.brcm.reg]
+	HKR,	Ndi,	HelpText,		,	%BCM43XX_HELP%
+	HKR,	Ndi,	Service,		0,	"CBBCM43"
+
+[BCM43XX.Service]
+	DisplayName	= %BCM43XX.Service.DispName%
+	ServiceType	= 1			; %SERVICE_KERNEL_DRIVER%
+	StartType	= 3			; %SERVICE_DEMAND_START%
+	ErrorControl	= 1			; %SERVICE_ERROR_NORMAL%
+	ServiceBinary	= %12%\bcmwl5.sys
+	LoadOrderGroup	= NDIS
+
+[common.EventLog]
+	AddReg = common.AddEventLog.reg
+
+[common.AddEventLog.reg]
+	HKR,	,	EventMessageFile,	0x00020000,	"%%SystemRoot%%\System32\netevent.dll"
+	HKR,	,	TypesSupported,		0x00010001,	7
+
+[BCM43XX.files.NT]
+	BCMWL5.SYS,,,2
+; if MDRIVER
+;	BWCDRV.SYS,,,2
+
+;-----------------------------------------------------------------
+; Both Win9x & Win2k
+;
+
+[common.reg]
+	HKR, ,"EnableSoftAP", 0, "0"
+	HKR, ,"EnableLeap", 0, "0"
+	HKR,					,"EnableAutoConnect", 0, "0"
+	HKR,	Ndi\params\RadioState, ParamDesc,	0,	%RadioEnableDisable%
+	HKR,	Ndi\params\RadioState, type,		0,	"enum"
+	HKR,	Ndi\params\RadioState\enum, "1",		0,	%Disabled%
+	HKR,	Ndi\params\RadioState\enum, "0",		0,	%Enabled%
+	HKR,    Ndi\params\RadioState,default,,"0"	
+
+	HKR,	Ndi\params\PowerSaveMode, ParamDesc,	0,	%PowerSaveMode%
+	HKR,	Ndi\params\PowerSaveMode, type,		0,	"enum"
+	HKR,	Ndi\params\PowerSaveMode\enum, "0",		0,	%Disabled%
+	HKR,	Ndi\params\PowerSaveMode\enum, "1",		0,	%Enabled%
+	HKR,    Ndi\params\PowerSaveMode,default,,"0"	
+
+	HKR,	Ndi\params\frag, ParamDesc,	0,	%FragmentationThreshold%
+	HKR,	Ndi\params\frag,type,0,"dword"
+	HKR,	Ndi\params\frag,min,,"256"
+	HKR,	Ndi\params\frag,max,,"2346"
+	HKR,	Ndi\params\frag,default,,"2346"
+
+	HKR,	Ndi\params\rts, ParamDesc,	0,	%RTSThreshold%
+	HKR,	Ndi\params\rts,type,0,"dword"
+	HKR,	Ndi\params\rts,min,,"0"
+	HKR,	Ndi\params\rts,max,,"2347"
+	HKR,	Ndi\params\rts,default,,"2347"
+
+	HKR,	Ndi\params\NetworkAddress, ParamDesc,	0, %LocallyAdministeredMACAddress%
+	HKR,	Ndi\params\NetworkAddress, type,	0, "edit"
+	HKR,	Ndi\params\NetworkAddress, LimitText,	0, "12"
+	HKR,	Ndi\params\NetworkAddress, UpperCase,  0, "1"
+	HKR,	Ndi\params\NetworkAddress, default,	0, ""
+	HKR,	Ndi\params\NetworkAddress, optional,	0, "1"
+
+	HKR,	Ndi\params\PwrOut, ParamDesc,	0,	%PowerOutput%
+	HKR,	Ndi\params\PwrOut, type,		0,	"enum"
+	HKR,	Ndi\params\PwrOut\enum, "100",	0,	"100%"
+	HKR,	Ndi\params\PwrOut\enum, "75",	0,	"75%"
+	HKR,	Ndi\params\PwrOut\enum, "50",	0,	"50%"
+	HKR,	Ndi\params\PwrOut\enum, "25",	0,	"25%"
+	HKR,	Ndi\params\PwrOut,default,,"100"
+
+	HKR,	Ndi\params\FrameBursting, ParamDesc,	0,	%FrameBursting%
+	HKR,	Ndi\params\FrameBursting, type,		0,	"enum"
+	HKR,	Ndi\params\FrameBursting\enum, "0",		0,	%Disabled%
+	HKR,	Ndi\params\FrameBursting\enum, "1",		0,	%Enabled%
+	HKR,    Ndi\params\FrameBursting,default,,"1"
+
+	HKR,	Ndi\params\BTCoexist, ParamDesc,	0,	%BlueToothCollaboration%
+	HKR,	Ndi\params\BTCoexist, type,		0,	"enum"
+	HKR,	Ndi\params\BTCoexist\enum, "1",	0,	%Enable%
+	HKR,	Ndi\params\BTCoexist\enum, "0",	0,	%Disable%
+	HKR,	Ndi\params\BTCoexist,default,,"1"
+
+	HKR,					,"WEP",	0,	""
+	HKR,					,"NetworkType",	0,	"-1"
+	HKR,					,"SSID",	0,	""
+
+	HKR,					,"gpio0",	0,	"-1"
+	HKR,					,"gpio1",	0,	"-1"
+	HKR,					,"gpio2",	0,	"-1"
+	HKR,					,"gpio3",	0,	"-1"
+
+	HKR,					,"scan_channel_time",	0,	"-1"
+	HKR,					,"scan_unassoc_time",	0,	"-1"
+	HKR,					,"scan_home_time",		0,	"-1"
+	HKR,					,"scan_passes",			0,	"-1"
+
+	HKR,					,"BadFramePreempt",		0,	"0"
+
+	HKR,					,"Interference_Mode",		0,	"-1"
+
+	HKR,	Ndi\params\antdiv, ParamDesc,	0,	%AntennaDiversity%
+	HKR,	Ndi\params\antdiv, type,	0,	"enum"
+	HKR,	Ndi\params\antdiv\enum, "-1",	0,	%Auto%
+	HKR,	Ndi\params\antdiv,default,,"-1"
+
+[b.options.reg]
+	HKR,	Ndi\params\PLCPHeader, ParamDesc,	0,	%PLCPHeader%
+	HKR,	Ndi\params\PLCPHeader, type,		0,	"enum"
+	HKR,	Ndi\params\PLCPHeader\enum, "-1",	0,	%Long%
+	HKR,	Ndi\params\PLCPHeader\enum, "0",	0,	%AutoShortLong%
+	HKR,	Ndi\params\PLCPHeader,default,,"0"
+
+	HKR,	Ndi\params\Rate, ParamDesc,	0,	%Rate%
+	HKR,	Ndi\params\Rate, type,		0,	"enum"
+	HKR,	Ndi\params\Rate\enum, "0",	0,	%Usebestrate%
+	HKR,	Ndi\params\Rate\enum, "2",	0,	" 1"
+	HKR,	Ndi\params\Rate\enum, "4",	0,	" 2"
+	HKR,	Ndi\params\Rate\enum, "11",	0,	" 5.5"
+	HKR,	Ndi\params\Rate\enum, "22",	0,	"11"
+	HKR,	Ndi\params\Rate,default,,"0"
+
+	HKR,	Ndi\params\Locale, ParamDesc,	0,	%Locale%
+	HKR,	Ndi\params\Locale, type,		0,	"enum"
+	HKR,	Ndi\params\Locale\enum, "0",		0,	%Worldwide%
+	HKR,	Ndi\params\Locale\enum, "1",		0,	%Thailand%
+	HKR,	Ndi\params\Locale\enum, "2",		0,	%Israel%
+	HKR,	Ndi\params\Locale\enum, "3",		0,	%Jordan%
+	HKR,	Ndi\params\Locale\enum, "5",		0,	%Japan%
+	HKR,    Ndi\params\Locale,default,,"15"	
+
+[g.options.reg]
+	HKR,    Ndi\params\IBSSGMode,default,,"0"
+	HKR,	Ndi\params\RoamTrigger, ParamDesc,	0,	%RoamingDecision%
+	HKR,	Ndi\params\RoamTrigger, type,		0,	"enum"
+	HKR,	Ndi\params\RoamTrigger\enum, "-60",	0,	%OptimizeBandwidth%
+	HKR,	Ndi\params\RoamTrigger\enum, "-70",	0,	%Default%
+	HKR,	Ndi\params\RoamTrigger\enum, "-80",	0,	%OptimizeDistance%
+	HKR,	Ndi\params\RoamTrigger,default,,"-70"
+
+	HKR,	Ndi\params\PLCPHeader, ParamDesc,	0,	%BSSPLCPHeader%
+	HKR,	Ndi\params\PLCPHeader, type,		0,	"enum"
+	HKR,	Ndi\params\PLCPHeader\enum, "-1",	0,	%Long%
+	HKR,	Ndi\params\PLCPHeader\enum, "0",	0,	%AutoShortLong%
+	HKR,	Ndi\params\PLCPHeader,default,,"0"
+
+	HKR,    Ndi\params\IBSSGMode, ParamDesc,	0,      %IBSS54gtmMode%
+	HKR,    Ndi\params\IBSSGMode, type,         0,      "enum"
+	HKR,    Ndi\params\IBSSGMode\enum, "0",     0,      %80211bOnly%
+	HKR,    Ndi\params\IBSSGMode\enum, "1",     0,      %54gLRS%
+	HKR,    Ndi\params\IBSSGMode\enum, "2",     0,      %54gAuto%
+	HKR,    Ndi\params\IBSSGMode\enum, "4",     0,      %54gPerformance%
+	;default from bcmwl5[ei].inf
+
+	HKR,    Ndi\params\IBSSGProtection, ParamDesc,	0,      %IBSS54gtmProtectionMode%
+	HKR,    Ndi\params\IBSSGProtection, type,       0,      "enum"
+	HKR,    Ndi\params\IBSSGProtection\enum, "0",   0,      %Disabled%
+	HKR,    Ndi\params\IBSSGProtection\enum, "2",   0,      %Auto%
+	HKR,    Ndi\params\IBSSGProtection,default,,"2"
+
+	HKR,	Ndi\params\Locale, ParamDesc,	0,	%Locale%
+	HKR,	Ndi\params\Locale, type,		0,	"enum"
+	HKR,	Ndi\params\Locale\enum, "0",		0,	%Worldwide%
+	HKR,	Ndi\params\Locale\enum, "1",		0,	%Thailand%
+	HKR,	Ndi\params\Locale\enum, "2",		0,	%Israel%
+	HKR,	Ndi\params\Locale\enum, "3",		0,	%Jordan%
+	HKR,	Ndi\params\Locale\enum, "5",		0,	%Japan%
+	HKR,	Ndi\params\Locale\enum, "6",		0,	%USA%
+	HKR,    Ndi\params\Locale,default,,"15"	
+
+	HKR,	Ndi\params\Rate, ParamDesc,	0,	%Rate%
+	HKR,	Ndi\params\Rate, type,		0,	"enum"
+	HKR,	Ndi\params\Rate\enum, "0",	0,	%Usebestrate%
+	HKR,	Ndi\params\Rate\enum, "2",	0,	" 1"
+	HKR,	Ndi\params\Rate\enum, "4",	0,	" 2"
+	HKR,	Ndi\params\Rate\enum, "11",	0,	" 5.5"
+	HKR,	Ndi\params\Rate\enum, "12",	0,	" 6"
+	HKR,	Ndi\params\Rate\enum, "18",	0,	" 9"
+	HKR,	Ndi\params\Rate\enum, "22",	0,	"11"
+	HKR,	Ndi\params\Rate\enum, "24",	0,	"12"
+	HKR,	Ndi\params\Rate\enum, "36",	0,	"18"
+	HKR,	Ndi\params\Rate\enum, "48",	0,	"24"
+	HKR,	Ndi\params\Rate\enum, "72",	0,	"36"
+	HKR,	Ndi\params\Rate\enum, "96",	0,	"48"
+	HKR,	Ndi\params\Rate\enum, "108",0,	"54"
+	HKR,	Ndi\params\Rate,default,,"0"
+
+; options common to both b and g
+[bg.options.reg]
+	HKR,	Ndi\params\Channel, ParamDesc, 0, %IBSSChannelNumber%
+	HKR,	Ndi\params\Channel, default,   0, "11"
+	HKR,	Ndi\params\Channel, min,       0, "1"
+	HKR,	Ndi\params\Channel, max,       0, "14"
+	HKR,	Ndi\params\Channel, step,      0, "1"
+	HKR,	Ndi\params\Channel, base,      0, "10"
+	HKR,	Ndi\params\Channel, type,      0, "int"
+
+[a.options.reg]
+	HKR,	Ndi\params\Locale, ParamDesc,	0,	%Locale%
+	HKR,	Ndi\params\Locale, type,		0,	"enum"
+	HKR,	Ndi\params\Locale\enum, "0",		0,	%Worldwide%
+	HKR,	Ndi\params\Locale\enum, "1",		0,	%Thailand%
+	HKR,	Ndi\params\Locale\enum, "2",		0,	%Israel%
+	HKR,	Ndi\params\Locale\enum, "3",		0,	%Jordan%
+	HKR,	Ndi\params\Locale\enum, "5",		0,	%Japan%
+	HKR,	Ndi\params\Locale\enum, "6",		0,	%USA%
+	HKR,    Ndi\params\Locale,default,,"15"	
+
+	HKR,	Ndi\params\Rate, ParamDesc,	0,	%Rate%
+	HKR,	Ndi\params\Rate, type,		0,	"enum"
+	HKR,	Ndi\params\Rate\enum, "0",	0,	%Usebestrate%
+	HKR,	Ndi\params\Rate\enum, "12",	0,	" 6"
+	HKR,	Ndi\params\Rate\enum, "18",	0,	" 9"
+	HKR,	Ndi\params\Rate\enum, "24",	0,	"12"
+	HKR,	Ndi\params\Rate\enum, "36",	0,	"18"
+	HKR,	Ndi\params\Rate\enum, "48",	0,	"24"
+	HKR,	Ndi\params\Rate\enum, "72",	0,	"36"
+	HKR,	Ndi\params\Rate\enum, "96",	0,	"48"
+	HKR,	Ndi\params\Rate\enum, "108",0,	"54"
+	HKR,	Ndi\params\Rate,default,,"0"
+
+	; USA Low Band
+	HKR,	Ndi\params\Channel, ParamDesc, 0, %IBSSChannelNumber%
+	HKR,	Ndi\params\Channel, type,      0, "enum"
+	HKR,	Ndi\params\Channel\enum, "36",   0, " 36"
+	HKR,	Ndi\params\Channel\enum, "40",   0, " 40"
+	HKR,	Ndi\params\Channel\enum, "44",   0, " 44"
+	HKR,	Ndi\params\Channel\enum, "48",   0, " 48"
+	HKR,	Ndi\params\Channel\enum, "52",   0, " 52"
+	HKR,	Ndi\params\Channel\enum, "56",   0, " 56"
+	HKR,	Ndi\params\Channel\enum, "60",   0, " 60"
+	HKR,	Ndi\params\Channel\enum, "64",   0, " 64"
+	; Europe
+	HKR,	Ndi\params\Channel\enum, "100",   0, "100"
+	HKR,	Ndi\params\Channel\enum, "104",   0, "104"
+	HKR,	Ndi\params\Channel\enum, "108",   0, "108"
+	HKR,	Ndi\params\Channel\enum, "112",   0, "112"
+	HKR,	Ndi\params\Channel\enum, "116",   0, "116"
+	HKR,	Ndi\params\Channel\enum, "120",   0, "120"
+
+	HKR,	Ndi\params\Channel\enum, "124",   0, "124"
+	HKR,	Ndi\params\Channel\enum, "128",   0, "128"
+	HKR,	Ndi\params\Channel\enum, "132",   0, "132"
+	HKR,	Ndi\params\Channel\enum, "136",   0, "136"
+	HKR,	Ndi\params\Channel\enum, "140",   0, "140"
+	; Japan
+	HKR,	Ndi\params\Channel\enum, "184",   0, "184"
+	HKR,	Ndi\params\Channel\enum, "188",   0, "188"
+	HKR,	Ndi\params\Channel\enum, "192",   0, "192"
+	HKR,	Ndi\params\Channel\enum, "196",   0, "196"
+	HKR,	Ndi\params\Channel\enum, "200",   0, "200"
+	HKR,	Ndi\params\Channel\enum, "204",   0, "204"
+	HKR,	Ndi\params\Channel\enum, "208",   0, "208"
+	HKR,	Ndi\params\Channel\enum, "212",   0, "212"
+	HKR,	Ndi\params\Channel\enum, "216",   0, "216"
+	HKR,	Ndi\params\Channel, default,   0, "36"
+
+[bag.options.reg]
+	HKR,    Ndi\params\IBSSGMode,default,,"0"
+	HKR,	Ndi\params\RoamTrigger, ParamDesc,	0,	%RoamingDecision%
+	HKR,	Ndi\params\RoamTrigger, type,		0,	"enum"
+	HKR,	Ndi\params\RoamTrigger\enum, "-60",	0,	%OptimizeBandwidth%
+	HKR,	Ndi\params\RoamTrigger\enum, "-70",	0,	%Default%
+	HKR,	Ndi\params\RoamTrigger\enum, "-80",	0,	%OptimizeDistance%
+	HKR,	Ndi\params\RoamTrigger,default,,"-70"
+
+	HKR,	Ndi\params\PLCPHeader, ParamDesc,	0,	%BSSPLCPHeader%
+	HKR,	Ndi\params\PLCPHeader, type,		0,	"enum"
+	HKR,	Ndi\params\PLCPHeader\enum, "-1",	0,	%Long%
+	HKR,	Ndi\params\PLCPHeader\enum, "0",	0,	%AutoShortLong%
+	HKR,	Ndi\params\PLCPHeader,default,,"0"
+
+	HKR,	Ndi\params\band, ParamDesc,	0,	%DisableBands%
+	HKR,	Ndi\params\band, type,		0,	"enum"
+	HKR,	Ndi\params\band\enum, "0",	0,	%None%
+	HKR,	Ndi\params\band\enum, "1",	0,	%Disable80211gb%
+	HKR,	Ndi\params\band\enum, "2",	0,	%Disable80211a%
+	HKR,	Ndi\params\band,default,,"0"
+
+	HKR,	Ndi\params\Locale, ParamDesc,	0,	%Locale%
+	HKR,	Ndi\params\Locale, type,		0,	"enum"
+	HKR,	Ndi\params\Locale\enum, "0",		0,	%Worldwide%
+	HKR,	Ndi\params\Locale\enum, "1",		0,	%Thailand%
+	HKR,	Ndi\params\Locale\enum, "2",		0,	%Israel%
+	HKR,	Ndi\params\Locale\enum, "3",		0,	%Jordan%
+	HKR,	Ndi\params\Locale\enum, "5",		0,	%Japan%
+	HKR,	Ndi\params\Locale\enum, "6",		0,	%USA%
+	HKR,    Ndi\params\Locale,default,,"15"	
+
+	HKR,	Ndi\params\AssocPref, ParamDesc,	0,	%AssociationPreference%
+	HKR,	Ndi\params\AssocPref, type,		0,	"enum"
+	HKR,	Ndi\params\AssocPref\enum, "0",	0,	%None%
+	HKR,	Ndi\params\AssocPref\enum, "1",	0,	%Prefer80211a%
+	HKR,	Ndi\params\AssocPref\enum, "2",	0,	%Prefer80211gb%
+	HKR,	Ndi\params\AssocPref,default,,"0"
+
+	HKR,	Ndi\params\RoamPref, ParamDesc,	0,	%RoamingPreference%
+	HKR,	Ndi\params\RoamPref, type,		0,	"enum"
+	HKR,	Ndi\params\RoamPref\enum, "0",	0,	%None%
+	HKR,	Ndi\params\RoamPref\enum, "1",	0,	%StayInBand%
+	HKR,	Ndi\params\RoamPref,default,,"0"
+
+	HKR,    Ndi\params\IBSSGMode, ParamDesc,	0,      %IBSS54gtmMode%
+	HKR,    Ndi\params\IBSSGMode, type,         0,      "enum"
+	HKR,    Ndi\params\IBSSGMode\enum, "0",     0,      %80211bOnly%
+	HKR,    Ndi\params\IBSSGMode\enum, "1",     0,      %54gLRS%
+	HKR,    Ndi\params\IBSSGMode\enum, "2",     0,      %54gAuto%
+	HKR,    Ndi\params\IBSSGMode\enum, "4",     0,      %54gPerformance%
+	;default from bcmwl5[ei].inf
+
+	HKR,    Ndi\params\IBSSGProtection, ParamDesc,	0,      %IBSS54gtmProtectionMode%
+	HKR,    Ndi\params\IBSSGProtection, type,       0,      "enum"
+	HKR,    Ndi\params\IBSSGProtection\enum, "0",   0,      %Disabled%
+	HKR,    Ndi\params\IBSSGProtection\enum, "2",   0,      %Auto%
+	HKR,    Ndi\params\IBSSGProtection,default,,"2"
+
+	HKR,	Ndi\params\Rate, ParamDesc,	0,	%Rate%
+	HKR,	Ndi\params\Rate, type,		0,	"enum"
+	HKR,	Ndi\params\Rate\enum, "0",	0,	%Usebestrate%
+	HKR,	Ndi\params\Rate\enum, "2",	0,	" 1"
+	HKR,	Ndi\params\Rate\enum, "4",	0,	" 2"
+	HKR,	Ndi\params\Rate\enum, "11",	0,	" 5.5"
+	HKR,	Ndi\params\Rate\enum, "12",	0,	" 6"
+	HKR,	Ndi\params\Rate\enum, "18",	0,	" 9"
+	HKR,	Ndi\params\Rate\enum, "22",	0,	"11"
+	HKR,	Ndi\params\Rate\enum, "24",	0,	"12"
+	HKR,	Ndi\params\Rate\enum, "36",	0,	"18"
+	HKR,	Ndi\params\Rate\enum, "48",	0,	"24"
+	HKR,	Ndi\params\Rate\enum, "72",	0,	"36"
+	HKR,	Ndi\params\Rate\enum, "96",	0,	"48"
+	HKR,	Ndi\params\Rate\enum, "108",0,	"54"
+	HKR,	Ndi\params\Rate,default,,"0"
+
+	HKR,	Ndi\params\Channel, ParamDesc, 0, %IBSSChannelNumber%
+	HKR,	Ndi\params\Channel, type,      0, "enum"
+	HKR,	Ndi\params\Channel\enum, "1",   0, "  1"
+	HKR,	Ndi\params\Channel\enum, "2",   0, "  2"
+	HKR,	Ndi\params\Channel\enum, "3",   0, "  3"
+	HKR,	Ndi\params\Channel\enum, "4",   0, "  4"
+	HKR,	Ndi\params\Channel\enum, "5",   0, "  5"
+	HKR,	Ndi\params\Channel\enum, "6",   0, "  6"
+	HKR,	Ndi\params\Channel\enum, "7",   0, "  7"
+	HKR,	Ndi\params\Channel\enum, "8",   0, "  8"
+	HKR,	Ndi\params\Channel\enum, "9",   0, "  9"
+	HKR,	Ndi\params\Channel\enum, "10",   0, " 10"
+	HKR,	Ndi\params\Channel\enum, "11",   0, " 11"
+	HKR,	Ndi\params\Channel\enum, "12",   0, " 12"
+	HKR,	Ndi\params\Channel\enum, "13",   0, " 13"
+;	HKR,	Ndi\params\Channel\enum, "14",   0, " 14"
+	; JAPAN Band
+	HKR,	Ndi\params\Channel\enum, "34",   0, " 34"
+	HKR,	Ndi\params\Channel\enum, "38",   0, " 38"
+	HKR,	Ndi\params\Channel\enum, "42",   0, " 42"
+	HKR,	Ndi\params\Channel\enum, "46",   0, " 46"
+
+	; USA Low Band
+;	HKR,	Ndi\params\Channel\enum, "36",   0, " 36"
+;	HKR,	Ndi\params\Channel\enum, "40",   0, " 40"
+;	HKR,	Ndi\params\Channel\enum, "44",   0, " 44"
+;	HKR,	Ndi\params\Channel\enum, "48",   0, " 48"
+;	HKR,	Ndi\params\Channel\enum, "52",   0, " 52"
+;	HKR,	Ndi\params\Channel\enum, "56",   0, " 56"
+;	HKR,	Ndi\params\Channel\enum, "60",   0, " 60"
+;	HKR,	Ndi\params\Channel\enum, "64",   0, " 64"
+	; Europe
+;	HKR,	Ndi\params\Channel\enum, "100",   0, "100"
+;	HKR,	Ndi\params\Channel\enum, "104",   0, "104"
+;	HKR,	Ndi\params\Channel\enum, "108",   0, "108"
+;	HKR,	Ndi\params\Channel\enum, "112",   0, "112"
+;	HKR,	Ndi\params\Channel\enum, "116",   0, "116"
+;	HKR,	Ndi\params\Channel\enum, "120",   0, "120"
+;	HKR,	Ndi\params\Channel\enum, "124",   0, "124"
+;	HKR,	Ndi\params\Channel\enum, "128",   0, "128"
+;	HKR,	Ndi\params\Channel\enum, "132",   0, "132"
+;	HKR,	Ndi\params\Channel\enum, "136",   0, "136"
+;	HKR,	Ndi\params\Channel\enum, "140",   0, "140"
+	; Japan
+;	HKR,	Ndi\params\Channel\enum, "184",   0, "184"
+;	HKR,	Ndi\params\Channel\enum, "188",   0, "188"
+;	HKR,	Ndi\params\Channel\enum, "192",   0, "192"
+;	HKR,	Ndi\params\Channel\enum, "196",   0, "196"
+;	HKR,	Ndi\params\Channel\enum, "200",   0, "200"
+;	HKR,	Ndi\params\Channel\enum, "204",   0, "204"
+;	HKR,	Ndi\params\Channel\enum, "208",   0, "208"
+;	HKR,	Ndi\params\Channel\enum, "212",   0, "212"
+;	HKR,	Ndi\params\Channel\enum, "216",   0, "216"
+	HKR,	Ndi\params\Channel, default,   0, "11"
+
+[bwcXG.reg]
+	HKR,,	BWC_Depend,	0x00010001,	0x00000001
+
+[bwcDel.reg]
+	HKR,,	BWC_TxMode
+	HKR,,	BWC_TxRate
+
+[DestinationDirs]
+	DefaultDestDir=11
+	BCM43XX.sys.files=11
+	BCM43XX.files.NT = 12
+	CoCopyINF.CopyFiles = 11
+	BWCDRV98INF.CopyFiles = 17
+
+[SourceDisksNames]
+	1=%BCM43XX.DiskName%,,
+
+[SourceDisksFiles]
+	BCMWL5.SYS=1
+	bwcinst.dll=1
+; if CD
+	netbwc2k.inf=1
+	netbwc98.inf=1
+; if MDRIVER
+;	bwcdrv.sys=1
+;	bwcdrv.vxd=1
+;	netbwc2m.inf=1
+;	netbwc9m.inf=1
+
+[strings]
+; Provider
+V_BCM = "MELCO INC."
+; PNP Devices
+BCM430G.DeviceDesc      = "BUFFALO WLI-CB-G54 Wireless LAN Adapter"
+BCM430G2.DeviceDesc      = "BUFFALO WLI-PCI-G54 Wireless LAN Adapter"
+BCM430M.DeviceDesc      = "BUFFALO WLI-CB-AG54 Wireless LAN Adapter"
+; General Strings
+BCM43XX_HELP		= "The BUFFALO Wireless LAN Adapter provides wireless local area networking."
+BCM43XX.Service.DispName = "BUFFALO WLI-CB-G54 Wireless Network Adapter"
+BCM43XX.DiskName = "AirNavigator CD"
+DEFAULT_WIN9X_SYS = "BCMWL5.SYS"
+1Mb=" 1 Mb"
+2Mb=" 2 Mb"
+55Mb=" 5.5 Mb"
+6Mb=" 6 Mb"
+9Mb=" 9 Mb"
+11Mb="11 Mb"
+12Mb="12 Mb"
+18Mb="18 Mb"
+24Mb="24 Mb"
+36Mb="36 Mb"
+48Mb="48 Mb"
+54Mb="54 Mb"
+Worldwide="Worldwide"
+USA="USA"
+PRChina="P.R. China"
+Israel="Israel"
+Japan="Japan"
+Jordan="Jordan"
+Thailand="Thailand"
+Locale="Locale"
+54g80211bCompatible="54g - 802.11b Compatible"
+54gAuto="54g - Auto"
+54gLRS="54g - LRS"
+54gPerformance="54g - Performance"
+80211bMode="802.11b Mode"
+80211bOnly="802.11b Only"
+AdHoc="Ad Hoc"
+AntennaDiversity="Antenna Diversity"
+AssociationPreference="Association Preference"
+Auto="Auto"
+AutoShortLong="Auto (Short/Long)"
+AutoTxPreamble="Auto Tx Preamble"
+BSSMode="BSS Mode"
+BSSPLCPHeader="BSS PLCP Header"
+BlueToothCollaboration="Bluetooth Collaboration"
+Channel="Channel"
+Default="Default"
+Disable="Disable"
+Disable80211a="Disable 802.11a"
+Disable80211gb="Disable 802.11g/b"
+DisableBands="Disable Bands"
+Disabled="Disabled"
+Enable="Enable"
+Enabled="Enabled"
+FragmentationThreshold="Fragmentation Threshold"
+FrameBursting="Frame Bursting"
+FullyAutomatic="Fully Automatic"
+IBSS54gtmMode="IBSS 54g(tm) Mode"
+IBSS54gtmProtectionMode="IBSS 54g(tm) Protection Mode"
+IBSSChannelNumber="IBSS Channel Number"
+IBSSMode="IBSS Mode"
+Infrastructure="Infrastructure"
+LocallyAdministeredMACAddress="Locally Administered MAC Address"
+Long="Long"
+LongTxPreamble="Long Tx Preamble"
+NetworkType="Network Type"
+None="None"
+OptimizeBandwidth="Optimize Bandwidth"
+OptimizeDistance="Optimize Distance"
+PLCPHeader="PLCP Header"
+PowerOutput="Power Output"
+PowerSaveMode="Power Save Mode"
+PreambleMode="Preamble Mode"
+Prefer80211a="Prefer 802.11a"
+Prefer80211gb="Prefer 802.11g/b"
+RTSThreshold="RTS Threshold"
+RadioEnableDisable="Radio Enable/Disable"
+Rate="Rate"
+Region1="Region 1"
+Region2="Region 2"
+Region3="Region 3"
+Region4="Region 4"
+RoamingDecision="Roaming Decision"
+RoamingPreference="Roaming Preference"
+SSID="SSID"
+StayInBand="Stay In Band"
+TransmitRate="Transmit Rate"
+Usebestrate="Use best rate"
+Normal="Normal"
+;XPress_Technology="XPress (TM) Technology"

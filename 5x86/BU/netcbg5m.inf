@@ -1,0 +1,1151 @@
+;;
+;; netcbg54.inf
+;;
+;; Copyright 1998-2003, Broadcom Corporation.
+;; All Rights Reserved.
+;;
+;; Copyright(C)2004 BUFFALO INC.
+;;
+;; This is UNPUBLISHED PROPRIETARY SOURCE CODE of Broadcom Corporation;
+;; the contents of this file may not be disclosed to third parties, copied or
+;; duplicated in any form, in whole or in part, without the prior written
+;; permission of Broadcom Corporation.
+;;
+
+[version]
+	Signature	= "$Chicago$"		; Combined Win9x/Win2k inf
+	Class=Net
+	ClassGUID	= {4d36e972-e325-11ce-bfc1-08002be10318}
+	Provider	= %V_BCM%
+	Compatible	= 1
+DriverVer=04/20/2004, 3.60.7.3
+	CatalogFile	= BCM43XX.CAT
+
+[Manufacturer]
+	%V_BCM% = BROADCOM
+
+[ControlFlags] 
+	ExcludeFromSelect = *
+
+[BROADCOM]
+	%BCM430G.DeviceDesc% = BCM43XG, PCI\VEN_14E4&DEV_4320&SUBSYS_03241154
+	%BCM430G2.DeviceDesc% = BCM43XG, PCI\VEN_14E4&DEV_4320&SUBSYS_03251154
+	%BCM430M.DeviceDesc% = BCM43XM, PCI\VEN_14E4&DEV_4324&SUBSYS_03281154
+
+;-----------------------------------------------------------------
+; Win9x specific
+;
+[BCM43XG]
+	AddReg		= BCM43XX.win.reg, BCM43XX.win.brcm.reg, common.reg, g.options.reg, bg.options.reg, bwcXG.reg
+	CopyFiles	= BCM43XX.sys.files, BWCDRV98INF.CopyFiles
+	DelReg		= common.delreg, bwcDel.reg
+	DriverVer	= 04/20/2004, 3.60.7.3
+
+[BCM43XM]
+	AddReg		= BCM43XX.win.reg, BCM43XX.win.brcm.reg, common.reg, bag.options.reg, bwcXG.reg
+	CopyFiles	= BCM43XX.sys.files, BWCDRV98INF.CopyFiles
+	DelReg		= common.delreg, bwcDel.reg
+	DriverVer	= 04/20/2004, 3.60.7.3
+
+[BCM43XX.win.reg]
+	HKR,	Ndi,	DeviceID,		,	"PCI\VEN_14E4&DEV_4320&SUBSYS_03241154"
+; if CD
+;	HKR,	Ndi,	InstallInf,		0,	"NETBWC98.INF"
+; if MDRIVER
+	HKR,	Ndi,	InstallInf,		0,	"NETBWC9M.INF"
+	; Ndis Info
+	HKR,	,		EnumPropPages,		0,	"netdi.dll,EnumPropPages"
+	HKR,	NDIS,	MajorNdisVersion,	1,	03
+	HKR,	NDIS,	MinorNdisVersion,	1,	0A
+	HKR,	NDIS,	LogDriverName,		,	"CBBCM43"
+	HKR,	NDIS,	MajorDriverVersion,	1,	1
+	HKR,	NDIS,	MinorDriverVersion,	1,	0
+	;Install sections
+	HKR,	Ndi\Install,	,		,	"BCM43XX.ndi.install"
+	; Interfaces
+	HKR,	Ndi\Interfaces,	DefUpper,	0,	"ndis3"
+	HKR,	Ndi\Interfaces,	DefLower,	0,	"ethernet"
+	HKR,	Ndi\Interfaces,	UpperRange,	0,	"ndis3"
+	HKR,	Ndi\Interfaces,	LowerRange,	0,	"ethernet"
+	; BUFFALO Wireless Configuration Required
+	HKR,	Ndi\Compatibility,	RequireAll,	,	"BWCDRV"
+
+[BCM43XX.win.brcm.reg]
+	HKR,	Ndi,	HelpText,		,	%BCM43XX_HELP%
+
+[BCM43XX.ndi.install]
+	AddReg		= BCM43XX.ndi.reg
+
+[BCM43XX.ndi.reg]
+	HKR,	,	DevLoader,		0,	"*ndis"
+	HKR,	,	DeviceVxDs,		0,	%DEFAULT_WIN9X_SYS%
+
+; Flag = 2 is COPYFLG_NOSKIP (2)
+; Flag = 33 is COPYFLG_WARN_IF_SKIP (1) | COPYFLG_NO_VERSION_DIALOG (32)
+[BCM43XX.sys.files]
+	BCMWL5.SYS,,,2
+; if MDRIVER
+	BWCDRV.VXD,,,2
+
+[BWCDRV98INF.CopyFiles]
+; if CD
+;	NETBWC98.INF,,,2
+; if MDRIVER
+	NETBWC9M.INF,,,2
+
+;-----------------------------------------------------------------
+; Win2k specific
+;
+[BCM43XG.NT.CoInstallers]
+	AddReg		= CoCopyINF.AddReg
+	CopyFiles	= CoCopyINF.CopyFiles
+
+[BCM43XG.NT]
+	Characteristics	= 0x84	; NCF_PHYSICAL | NCF_HAS_UI
+	BusType		= 5			; PCI bus
+	AddReg		= BCM43XX.reg, BCM43XX.brcm.reg, common.reg, g.options.reg, bg.options.reg, bwcXG.reg
+	CopyFiles	= BCM43XX.files.NT
+	DelReg		= common.delreg, bwcDel.reg
+	DriverVer	= 04/20/2004, 3.60.7.3
+	InitService	= bwcdrv,bwcsrv
+; if CD
+;	CopyINF		= netbwc2k.inf
+; if MDRIVER
+	CopyINF		= netbwc2m.inf
+
+[BCM43XM.NT.CoInstallers]
+	AddReg		= CoCopyINF.AddReg
+	CopyFiles	= CoCopyINF.CopyFiles
+
+[BCM43XM.NT]
+	Characteristics	= 0x84	; NCF_PHYSICAL | NCF_HAS_UI
+	BusType		= 5			; PCI bus
+	AddReg		= BCM43XX.reg, BCM43XX.brcm.reg, common.reg, bag.options.reg, bwcXG.reg
+	CopyFiles	= BCM43XX.files.NT
+	DelReg		= common.delreg, bwcDel.reg
+	DriverVer	= 04/20/2004, 3.60.7.3
+	InitService	= bwcdrv,bwcsrv
+; if CD
+;	CopyINF		= netbwc2k.inf
+; if MDRIVER
+	CopyINF		= netbwc2m.inf
+
+[BCM43XG.NT.Services]
+	AddService = CBBCM43, 2, BCM43XX.Service, common.EventLog
+
+[BCM43XGA.NT.Services]
+	AddService = CBBCM43, 2, BCM43XX.Service, common.EventLog
+
+[BCM43XM.NT.Services]
+	AddService = CBBCM43, 2, BCM43XX.Service, common.EventLog
+
+[CoCopyINF.AddReg]
+	HKR,,CoInstallers32,0x10000,"bwcinst.DLL,CoCopyINF"
+
+[CoCopyINF.CopyFiles]
+	bwcinst.dll,,,0x10 
+
+[BCM43XX.reg]
+	; Ndis Info
+	; Interfaces
+	HKR,	Ndi\Interfaces,	UpperRange,	,	"ndis5"
+	HKR,	Ndi\Interfaces,	LowerRange,	,	"ethernet"
+	HKR,	Ndi,		RequiredAll,	0,	"MEL_BWCDRV2"
+
+[BCM43XX.brcm.reg]
+	HKR,	Ndi,	HelpText,		,	%BCM43XX_HELP%
+	HKR,	Ndi,	Service,		0,	"CBBCM43"
+
+[BCM43XX.Service]
+	DisplayName	= %BCM43XX.Service.DispName%
+	ServiceType	= 1			; %SERVICE_KERNEL_DRIVER%
+	StartType	= 3			; %SERVICE_DEMAND_START%
+	ErrorControl	= 1			; %SERVICE_ERROR_NORMAL%
+	ServiceBinary	= %12%\bcmwl5.sys
+	LoadOrderGroup	= NDIS
+
+[common.EventLog]
+	AddReg = common.AddEventLog.reg
+
+[common.AddEventLog.reg]
+	HKR,	,	EventMessageFile,	0x00020000,	"%%SystemRoot%%\System32\netevent.dll"
+	HKR,	,	TypesSupported,		0x00010001,	7
+
+[BCM43XX.files.NT]
+	BCMWL5.SYS,,,2
+; if MDRIVER
+	BWCDRV.SYS,,,2
+
+;-----------------------------------------------------------------
+; Both Win9x & Win2k
+;
+
+[common.delreg]
+	HKR, Ndi\params\Locale
+	HKR,,Locale
+
+[common.reg]
+	HKR, ,"EnableSoftAP", 0, "0"
+	HKR, ,"EnableLeap", 0, "0"
+	HKR,					,"EnableAutoConnect", 0, "0"
+	HKR,	Ndi\params\Country, ParamDesc,	0,	%Location%
+	HKR,	Ndi\params\Country, type,		0,	"enum"
+;;	HKR,	Ndi\params\Country\enum, "AF",	0,	%Afghanistan%
+;;	HKR,	Ndi\params\Country\enum, "AL",	0,	%Albania%
+;;	HKR,	Ndi\params\Country\enum, "DZ",	0,	%Algeria%
+;;	HKR,	Ndi\params\Country\enum, "AS",	0,	%AmericanSamoa%
+;;	HKR,	Ndi\params\Country\enum, "AD",	0,	%Andorra%
+;;	HKR,	Ndi\params\Country\enum, "AO",	0,	%Angola%
+;;	HKR,	Ndi\params\Country\enum, "AI",	0,	%Anguilla%
+;;	HKR,	Ndi\params\Country\enum, "AQ",	0,	%Antarctica%
+;;	HKR,	Ndi\params\Country\enum, "AG",	0,	%AntiguaandBarbuda%
+;	HKR,	Ndi\params\Country\enum, "AR",	0,	%Argentina%
+;;	HKR,	Ndi\params\Country\enum, "AM",	0,	%Armenia%
+;;	HKR,	Ndi\params\Country\enum, "AW",	0,	%Aruba%
+;	HKR,	Ndi\params\Country\enum, "AU",	0,	%Australia%
+;	HKR,	Ndi\params\Country\enum, "AT",	0,	%Austria%
+;;	HKR,	Ndi\params\Country\enum, "AZ",	0,	%Azerbaijan%
+;;	HKR,	Ndi\params\Country\enum, "BS",	0,	%BahamasThe%
+;;	HKR,	Ndi\params\Country\enum, "BH",	0,	%Bahrain%
+;;	HKR,	Ndi\params\Country\enum, "BD",	0,	%Bangladesh%
+;;	HKR,	Ndi\params\Country\enum, "BB",	0,	%Barbados%
+;;	HKR,	Ndi\params\Country\enum, "BY",	0,	%Belarus%
+;	HKR,	Ndi\params\Country\enum, "BE",	0,	%Belgium%
+;;	HKR,	Ndi\params\Country\enum, "BZ",	0,	%Belize%
+;;	HKR,	Ndi\params\Country\enum, "BJ",	0,	%Benin%
+;;	HKR,	Ndi\params\Country\enum, "BM",	0,	%Bermuda%
+;;	HKR,	Ndi\params\Country\enum, "BT",	0,	%Bhutan%
+;	HKR,	Ndi\params\Country\enum, "BO",	0,	%Bolivia%
+;;	HKR,	Ndi\params\Country\enum, "BA",	0,	%BosniaandHerzegovina%
+;;	HKR,	Ndi\params\Country\enum, "BW",	0,	%Botswana%
+;;	HKR,	Ndi\params\Country\enum, "BV",	0,	%BouvetIsland%
+;	HKR,	Ndi\params\Country\enum, "BR",	0,	%Brazil%
+;;	HKR,	Ndi\params\Country\enum, "IO",	0,	%BritishIndianOceanTerritory%
+;;	HKR,	Ndi\params\Country\enum, "BN",	0,	%Brunei%
+;	HKR,	Ndi\params\Country\enum, "BG",	0,	%Bulgaria%
+;;	HKR,	Ndi\params\Country\enum, "BF",	0,	%BurkinaFaso%
+;;	HKR,	Ndi\params\Country\enum, "BI",	0,	%Burundi%
+;;	HKR,	Ndi\params\Country\enum, "KH",	0,	%Cambodia%
+;;	HKR,	Ndi\params\Country\enum, "CM",	0,	%Cameroon%
+;	HKR,	Ndi\params\Country\enum, "CA",	0,	%Canada%
+;;	HKR,	Ndi\params\Country\enum, "CV",	0,	%CapeVerde%
+;;	HKR,	Ndi\params\Country\enum, "KY",	0,	%CaymanIslands%
+;;	HKR,	Ndi\params\Country\enum, "CF",	0,	%CentralAfricanRepublic%
+;;	HKR,	Ndi\params\Country\enum, "TD",	0,	%Chad%
+;	HKR,	Ndi\params\Country\enum, "CL",	0,	%Chile%
+;	HKR,	Ndi\params\Country\enum, "CN",	0,	%China%
+;;	HKR,	Ndi\params\Country\enum, "CX",	0,	%ChristmasIsland%
+;;	HKR,	Ndi\params\Country\enum, "CC",	0,	%CocosKeelingIslands%
+;	HKR,	Ndi\params\Country\enum, "CO",	0,	%Colombia%
+;;	HKR,	Ndi\params\Country\enum, "KM",	0,	%Comoros%
+;;	HKR,	Ndi\params\Country\enum, "CD",	0,	%CongoDRC%
+;;	HKR,	Ndi\params\Country\enum, "CG",	0,	%Congo%
+;;	HKR,	Ndi\params\Country\enum, "CK",	0,	%CookIslands%
+;;	HKR,	Ndi\params\Country\enum, "CR",	0,	%CostaRica%
+;;	HKR,	Ndi\params\Country\enum, "CI",	0,	%CotedIvoire%
+;	HKR,	Ndi\params\Country\enum, "HR",	0,	%Croatia%
+;;	HKR,	Ndi\params\Country\enum, "CU",	0,	%Cuba%
+;	HKR,	Ndi\params\Country\enum, "CY",	0,	%Cyprus%
+;	HKR,	Ndi\params\Country\enum, "CZ",	0,	%CzechRepublic%
+;	HKR,	Ndi\params\Country\enum, "DK",	0,	%Denmark%
+;;	HKR,	Ndi\params\Country\enum, "DJ",	0,	%Djibouti%
+;;	HKR,	Ndi\params\Country\enum, "DM",	0,	%Dominica%
+;;	HKR,	Ndi\params\Country\enum, "DO",	0,	%DominicanRepublic%
+;;	HKR,	Ndi\params\Country\enum, "TL",	0,	%EastTimor%
+;	HKR,	Ndi\params\Country\enum, "EC",	0,	%Ecuador%
+;	HKR,	Ndi\params\Country\enum, "EG",	0,	%Egypt%
+;;	HKR,	Ndi\params\Country\enum, "SV",	0,	%ElSalvador%
+;;	HKR,	Ndi\params\Country\enum, "GQ",	0,	%EquatorialGuinea%
+;;	HKR,	Ndi\params\Country\enum, "ER",	0,	%Eritrea%
+;	HKR,	Ndi\params\Country\enum, "EE",	0,	%Estonia%
+;;	HKR,	Ndi\params\Country\enum, "ET",	0,	%Ethiopia%
+;;	HKR,	Ndi\params\Country\enum, "FK",	0,	%FalklandIslandsIslasMalvinas%
+;;	HKR,	Ndi\params\Country\enum, "FO",	0,	%FaroeIslands%
+;;	HKR,	Ndi\params\Country\enum, "FJ",	0,	%FijiIslands%
+;	HKR,	Ndi\params\Country\enum, "FI",	0,	%Finland%
+;	HKR,	Ndi\params\Country\enum, "FR",	0,	%France%
+;;	HKR,	Ndi\params\Country\enum, "GF",	0,	%FrenchGuiana%
+;;	HKR,	Ndi\params\Country\enum, "PF",	0,	%FrenchPolynesia%
+;;	HKR,	Ndi\params\Country\enum, "TF",	0,	%FrenchSouthernandAntarcticLands%
+;;	HKR,	Ndi\params\Country\enum, "GA",	0,	%Gabon%
+;;	HKR,	Ndi\params\Country\enum, "GM",	0,	%Gambia%
+;;	HKR,	Ndi\params\Country\enum, "GE",	0,	%Georgia%
+;	HKR,	Ndi\params\Country\enum, "DE",	0,	%Germany%
+;;	HKR,	Ndi\params\Country\enum, "GH",	0,	%Ghana%
+;;	HKR,	Ndi\params\Country\enum, "GI",	0,	%Gibraltar%
+;	HKR,	Ndi\params\Country\enum, "GR",	0,	%Greece%
+;;	HKR,	Ndi\params\Country\enum, "GL",	0,	%Greenland%
+;;	HKR,	Ndi\params\Country\enum, "GD",	0,	%Grenada%
+;;	HKR,	Ndi\params\Country\enum, "GP",	0,	%Guadeloupe%
+;;	HKR,	Ndi\params\Country\enum, "GU",	0,	%Guam%
+;;	HKR,	Ndi\params\Country\enum, "GT",	0,	%Guatemala%
+;;	HKR,	Ndi\params\Country\enum, "GW",	0,	%GuineaBissau%
+;;	HKR,	Ndi\params\Country\enum, "GN",	0,	%Guinea%
+;;	HKR,	Ndi\params\Country\enum, "GY",	0,	%Guyana%
+;;	HKR,	Ndi\params\Country\enum, "HT",	0,	%Haiti%
+;;	HKR,	Ndi\params\Country\enum, "HM",	0,	%HeardIslandandMcDonaldIslands%
+;;	HKR,	Ndi\params\Country\enum, "HN",	0,	%Honduras%
+;	HKR,	Ndi\params\Country\enum, "HK",	0,	%HongKongSAR%
+;	HKR,	Ndi\params\Country\enum, "HU",	0,	%Hungary%
+;	HKR,	Ndi\params\Country\enum, "IS",	0,	%Iceland%
+;	HKR,	Ndi\params\Country\enum, "IN",	0,	%India%
+;	HKR,	Ndi\params\Country\enum, "ID",	0,	%Indonesia%
+;;	HKR,	Ndi\params\Country\enum, "IR",	0,	%Iran%
+;;	HKR,	Ndi\params\Country\enum, "IQ",	0,	%Iraq%
+;	HKR,	Ndi\params\Country\enum, "IE",	0,	%Ireland%
+;	HKR,	Ndi\params\Country\enum, "IL",	0,	%Israel%
+;	HKR,	Ndi\params\Country\enum, "IT",	0,	%Italy%
+;;	HKR,	Ndi\params\Country\enum, "JM",	0,	%Jamaica%
+;	HKR,	Ndi\params\Country\enum, "JP",	0,	%Japan%
+;	HKR,	Ndi\params\Country\enum, "JO",	0,	%Jordan%
+;;	HKR,	Ndi\params\Country\enum, "KZ",	0,	%Kazakhstan%
+;;	HKR,	Ndi\params\Country\enum, "KE",	0,	%Kenya%
+;;	HKR,	Ndi\params\Country\enum, "KI",	0,	%Kiribati%
+;	HKR,	Ndi\params\Country\enum, "KR",	0,	%Korea%
+;;	HKR,	Ndi\params\Country\enum, "KW",	0,	%Kuwait%
+;;	HKR,	Ndi\params\Country\enum, "KG",	0,	%Kyrgyzstan%
+;;	HKR,	Ndi\params\Country\enum, "LA",	0,	%Laos%
+;	HKR,	Ndi\params\Country\enum, "LV",	0,	%Latvia%
+;;	HKR,	Ndi\params\Country\enum, "LB",	0,	%Lebanon%
+;;	HKR,	Ndi\params\Country\enum, "LS",	0,	%Lesotho%
+;;	HKR,	Ndi\params\Country\enum, "LR",	0,	%Liberia%
+;;	HKR,	Ndi\params\Country\enum, "LY",	0,	%Libya%
+;	HKR,	Ndi\params\Country\enum, "LI",	0,	%Liechtenstein%
+;	HKR,	Ndi\params\Country\enum, "LT",	0,	%Lithuania%
+;	HKR,	Ndi\params\Country\enum, "LU",	0,	%Luxembourg%
+;;	HKR,	Ndi\params\Country\enum, "MO",	0,	%MacauSAR%
+;;	HKR,	Ndi\params\Country\enum, "MK",	0,	%MacedoniaFormerYugoslavRepublicof%
+;;	HKR,	Ndi\params\Country\enum, "MG",	0,	%Madagascar%
+;;	HKR,	Ndi\params\Country\enum, "MW",	0,	%Malawi%
+;	HKR,	Ndi\params\Country\enum, "MY",	0,	%Malaysia%
+;;	HKR,	Ndi\params\Country\enum, "MV",	0,	%Maldives%
+;;	HKR,	Ndi\params\Country\enum, "ML",	0,	%Mali%
+;	HKR,	Ndi\params\Country\enum, "MT",	0,	%Malta%
+;;	HKR,	Ndi\params\Country\enum, "MH",	0,	%MarshallIslands%
+;;	HKR,	Ndi\params\Country\enum, "MQ",	0,	%Martinique%
+;;	HKR,	Ndi\params\Country\enum, "MR",	0,	%Mauritania%
+;;	HKR,	Ndi\params\Country\enum, "MU",	0,	%Mauritius%
+;;	HKR,	Ndi\params\Country\enum, "YT",	0,	%Mayotte%
+;	HKR,	Ndi\params\Country\enum, "MX",	0,	%Mexico%
+;;	HKR,	Ndi\params\Country\enum, "FM",	0,	%Micronesia%
+;;	HKR,	Ndi\params\Country\enum, "MD",	0,	%Moldova%
+;	HKR,	Ndi\params\Country\enum, "MC",	0,	%Monaco%
+;;	HKR,	Ndi\params\Country\enum, "MN",	0,	%Mongolia%
+;;	HKR,	Ndi\params\Country\enum, "MS",	0,	%Montserrat%
+;	HKR,	Ndi\params\Country\enum, "MA",	0,	%Morocco%
+;;	HKR,	Ndi\params\Country\enum, "MZ",	0,	%Mozambique%
+;;	HKR,	Ndi\params\Country\enum, "MM",	0,	%Myanmar%
+;;	HKR,	Ndi\params\Country\enum, "NA",	0,	%Namibia%
+;;	HKR,	Ndi\params\Country\enum, "NR",	0,	%Nauru%
+;;	HKR,	Ndi\params\Country\enum, "NP",	0,	%Nepal%
+;;	HKR,	Ndi\params\Country\enum, "AN",	0,	%NetherlandsAntilles%
+;	HKR,	Ndi\params\Country\enum, "NL",	0,	%NetherlandsThe%
+;;	HKR,	Ndi\params\Country\enum, "NC",	0,	%NewCaledonia%
+;	HKR,	Ndi\params\Country\enum, "NZ",	0,	%NewZealand%
+;;	HKR,	Ndi\params\Country\enum, "NI",	0,	%Nicaragua%
+;;	HKR,	Ndi\params\Country\enum, "NE",	0,	%Niger%
+;;	HKR,	Ndi\params\Country\enum, "NG",	0,	%Nigeria%
+;;	HKR,	Ndi\params\Country\enum, "NU",	0,	%Niue%
+;;	HKR,	Ndi\params\Country\enum, "NF",	0,	%NorfolkIsland%
+;;	HKR,	Ndi\params\Country\enum, "KP",	0,	%NorthKorea%
+;;	HKR,	Ndi\params\Country\enum, "MP",	0,	%NorthernMarianaIslands%
+;	HKR,	Ndi\params\Country\enum, "NO",	0,	%Norway%
+;;	HKR,	Ndi\params\Country\enum, "OM",	0,	%Oman%
+;;	HKR,	Ndi\params\Country\enum, "PK",	0,	%Pakistan%
+;;	HKR,	Ndi\params\Country\enum, "PW",	0,	%Palau%
+;;	HKR,	Ndi\params\Country\enum, "PS",	0,	%PalestinianAuthority%
+;	HKR,	Ndi\params\Country\enum, "PA",	0,	%Panama%
+;;	HKR,	Ndi\params\Country\enum, "PG",	0,	%PapuaNewGuinea%
+;;	HKR,	Ndi\params\Country\enum, "PY",	0,	%Paraguay%
+;	HKR,	Ndi\params\Country\enum, "PE",	0,	%Peru%
+;	HKR,	Ndi\params\Country\enum, "PH",	0,	%Philippines%
+;;	HKR,	Ndi\params\Country\enum, "PN",	0,	%Pitcairn%
+;	HKR,	Ndi\params\Country\enum, "PL",	0,	%Poland%
+;	HKR,	Ndi\params\Country\enum, "PT",	0,	%Portugal%
+;;	HKR,	Ndi\params\Country\enum, "PR",	0,	%PuertoRico%
+;;	HKR,	Ndi\params\Country\enum, "QA",	0,	%Qatar%
+;;	HKR,	Ndi\params\Country\enum, "RE",	0,	%Reunion%
+;;	HKR,	Ndi\params\Country\enum, "RO",	0,	%Romania%
+;	HKR,	Ndi\params\Country\enum, "RU",	0,	%Russia%
+;;	HKR,	Ndi\params\Country\enum, "RW",	0,	%Rwanda%
+;;	HKR,	Ndi\params\Country\enum, "WS",	0,	%Samoa%
+;;	HKR,	Ndi\params\Country\enum, "SM",	0,	%SanMarino%
+;;	HKR,	Ndi\params\Country\enum, "ST",	0,	%SaoTomeandPrincipe%
+;	HKR,	Ndi\params\Country\enum, "SA",	0,	%SaudiArabia%
+;;	HKR,	Ndi\params\Country\enum, "SN",	0,	%Senegal%
+;;	HKR,	Ndi\params\Country\enum, "SC",	0,	%Seychelles%
+;;	HKR,	Ndi\params\Country\enum, "SL",	0,	%SierraLeone%
+;	HKR,	Ndi\params\Country\enum, "SG",	0,	%Singapore%
+;	HKR,	Ndi\params\Country\enum, "SK",	0,	%Slovakia%
+;	HKR,	Ndi\params\Country\enum, "SI",	0,	%Slovenia%
+;;	HKR,	Ndi\params\Country\enum, "SB",	0,	%SolomonIslands%
+;;	HKR,	Ndi\params\Country\enum, "SO",	0,	%Somalia%
+;	HKR,	Ndi\params\Country\enum, "ZA",	0,	%SouthAfrica%
+;;	HKR,	Ndi\params\Country\enum, "GS",	0,	%SouthGeorgiaandtheSouthSandwichIslands%
+;	HKR,	Ndi\params\Country\enum, "ES",	0,	%Spain%
+;;	HKR,	Ndi\params\Country\enum, "LK",	0,	%SriLanka%
+;;	HKR,	Ndi\params\Country\enum, "SH",	0,	%StHelena%
+;;	HKR,	Ndi\params\Country\enum, "KN",	0,	%StKittsandNevis%
+;;	HKR,	Ndi\params\Country\enum, "LC",	0,	%StLucia%
+;;	HKR,	Ndi\params\Country\enum, "PM",	0,	%StPierreandMiquelon%
+;;	HKR,	Ndi\params\Country\enum, "VC",	0,	%StVincentandtheGrenadines%
+;;	HKR,	Ndi\params\Country\enum, "SD",	0,	%Sudan%
+;;	HKR,	Ndi\params\Country\enum, "SR",	0,	%Suriname%
+;;	HKR,	Ndi\params\Country\enum, "SJ",	0,	%SvalbardandJanMayen%
+;;	HKR,	Ndi\params\Country\enum, "SZ",	0,	%Swaziland%
+;	HKR,	Ndi\params\Country\enum, "SE",	0,	%Sweden%
+;	HKR,	Ndi\params\Country\enum, "CH",	0,	%Switzerland%
+;;	HKR,	Ndi\params\Country\enum, "SY",	0,	%Syria%
+;	HKR,	Ndi\params\Country\enum, "TW",	0,	%Taiwan%
+;;	HKR,	Ndi\params\Country\enum, "TJ",	0,	%Tajikistan%
+;;	HKR,	Ndi\params\Country\enum, "TZ",	0,	%Tanzania%
+;	HKR,	Ndi\params\Country\enum, "TH",	0,	%Thailand%
+;;	HKR,	Ndi\params\Country\enum, "TG",	0,	%Togo%
+;;	HKR,	Ndi\params\Country\enum, "TK",	0,	%Tokelau%
+;;	HKR,	Ndi\params\Country\enum, "TO",	0,	%Tonga%
+;;	HKR,	Ndi\params\Country\enum, "TT",	0,	%TrinidadandTobago%
+;;	HKR,	Ndi\params\Country\enum, "TN",	0,	%Tunisia%
+;	HKR,	Ndi\params\Country\enum, "TR",	0,	%Turkey%
+;;	HKR,	Ndi\params\Country\enum, "TM",	0,	%Turkmenistan%
+;;	HKR,	Ndi\params\Country\enum, "TC",	0,	%TurksandCaicosIslands%
+;;	HKR,	Ndi\params\Country\enum, "TV",	0,	%Tuvalu%
+;;	HKR,	Ndi\params\Country\enum, "UG",	0,	%Uganda%
+;;	HKR,	Ndi\params\Country\enum, "UA",	0,	%Ukraine%
+;;	HKR,	Ndi\params\Country\enum, "AE",	0,	%UnitedArabEmirates%
+;	HKR,	Ndi\params\Country\enum, "GB",	0,	%UnitedKingdom%
+;	HKR,	Ndi\params\Country\enum, "UM",	0,	%UnitedStatesMinorOutlyingIslands%
+	HKR,	Ndi\params\Country\enum, "US",	0,	%UnitedStates%
+;	HKR,	Ndi\params\Country\enum, "UY",	0,	%Uruguay%
+;;	HKR,	Ndi\params\Country\enum, "UZ",	0,	%Uzbekistan%
+;;	HKR,	Ndi\params\Country\enum, "VU",	0,	%Vanuatu%
+;;	HKR,	Ndi\params\Country\enum, "VA",	0,	%VaticanCity%
+;	HKR,	Ndi\params\Country\enum, "VE",	0,	%Venezuela%
+;	HKR,	Ndi\params\Country\enum, "VN",	0,	%VietNam%
+;;	HKR,	Ndi\params\Country\enum, "VG",	0,	%VirginIslandsBritish%
+;;	HKR,	Ndi\params\Country\enum, "VI",	0,	%VirginIslands%
+;;	HKR,	Ndi\params\Country\enum, "WF",	0,	%WallisandFutuna%
+;;	HKR,	Ndi\params\Country\enum, "EH",	0,	%WesternSahara%
+;;	HKR,	Ndi\params\Country\enum, "YE",	0,	%Yemen%
+;	HKR,	Ndi\params\Country\enum, "YU",	0,	%Yugoslavia%
+;;	HKR,	Ndi\params\Country\enum, "ZM",	0,	%Zambia%
+;;	HKR,	Ndi\params\Country\enum, "ZW",	0,	%Zimbabwe%
+	HKR,	Ndi\params\Country\enum, "",	0,	%Default%
+	HKR,	Ndi\params\Country,	default,, 	""
+	HKR,	Ndi\params\RadioState, ParamDesc,	0,	%RadioEnableDisable%
+	HKR,	Ndi\params\RadioState, type,		0,	"enum"
+	HKR,	Ndi\params\RadioState\enum, "1",		0,	%Disabled%
+	HKR,	Ndi\params\RadioState\enum, "0",		0,	%Enabled%
+	HKR,    Ndi\params\RadioState,default,,"0"	
+
+	HKR,	Ndi\params\PowerSaveMode, ParamDesc,	0,	%PowerSaveMode%
+	HKR,	Ndi\params\PowerSaveMode, type,		0,	"enum"
+	HKR,	Ndi\params\PowerSaveMode\enum, "0",		0,	%Disabled%
+	HKR,	Ndi\params\PowerSaveMode\enum, "1",		0,	%Enabled%
+	HKR,	Ndi\params\PowerSaveMode\enum, "2",		0,	%Fast%
+	HKR,    Ndi\params\PowerSaveMode,default,,"0"	
+
+	HKR,	Ndi\params\frag, ParamDesc,	0,	%FragmentationThreshold%
+	HKR,	Ndi\params\frag,type,0,"dword"
+	HKR,	Ndi\params\frag,min,,"256"
+	HKR,	Ndi\params\frag,max,,"2346"
+	HKR,	Ndi\params\frag,default,,"2346"
+
+	HKR,	Ndi\params\rts, ParamDesc,	0,	%RTSThreshold%
+	HKR,	Ndi\params\rts,type,0,"dword"
+	HKR,	Ndi\params\rts,min,,"0"
+	HKR,	Ndi\params\rts,max,,"2347"
+	HKR,	Ndi\params\rts,default,,"2347"
+
+	HKR,	Ndi\params\NetworkAddress, ParamDesc,	0, %LocallyAdministeredMACAddress%
+	HKR,	Ndi\params\NetworkAddress, type,	0, "edit"
+	HKR,	Ndi\params\NetworkAddress, LimitText,	0, "12"
+	HKR,	Ndi\params\NetworkAddress, UpperCase,  0, "1"
+	HKR,	Ndi\params\NetworkAddress, default,	0, ""
+	HKR,	Ndi\params\NetworkAddress, optional,	0, "1"
+
+	HKR,	Ndi\params\PwrOut, ParamDesc,	0,	%PowerOutput%
+	HKR,	Ndi\params\PwrOut, type,		0,	"enum"
+	HKR,	Ndi\params\PwrOut\enum, "100",	0,	"100%"
+	HKR,	Ndi\params\PwrOut\enum, "75",	0,	"75%"
+	HKR,	Ndi\params\PwrOut\enum, "50",	0,	"50%"
+	HKR,	Ndi\params\PwrOut\enum, "25",	0,	"25%"
+	HKR,	Ndi\params\PwrOut,default,,"100"
+
+	HKR,	Ndi\params\FrameBursting, ParamDesc,	0,	%XPress_Technology%
+	HKR,	Ndi\params\FrameBursting, type,		0,	"enum"
+	HKR,	Ndi\params\FrameBursting\enum, "0",		0,	%Disabled%
+	HKR,	Ndi\params\FrameBursting\enum, "1",		0,	%Enabled%
+	HKR,    Ndi\params\FrameBursting,default,,"1"	
+
+	HKR,	Ndi\params\BTCoexist, ParamDesc,	0,	%BlueToothCollaboration%
+	HKR,	Ndi\params\BTCoexist, type,		0,	"enum"
+	HKR,	Ndi\params\BTCoexist\enum, "1",	0,	%Enable%
+	HKR,	Ndi\params\BTCoexist\enum, "0",	0,	%Disable%
+	HKR,	Ndi\params\BTCoexist,default,,"0"
+
+	HKR,					,"WEP",	0,	""
+	HKR,					,"NetworkType",	0,	"-1"
+	HKR,					,"SSID",	0,	""
+
+	HKR,					,"gpio0",	0,	"-1"
+	HKR,					,"gpio1",	0,	"-1"
+	HKR,					,"gpio2",	0,	"-1"
+	HKR,					,"gpio3",	0,	"-1"
+
+	HKR,					,"scan_channel_time",	0,	"-1"
+	HKR,					,"scan_unassoc_time",	0,	"-1"
+	HKR,					,"scan_home_time",		0,	"-1"
+	HKR,					,"scan_passes",			0,	"-1"
+
+	HKR,					,"BadFramePreempt",		0,	"0"
+
+	HKR,					,"Interference_Mode",		0,	"3"
+
+	HKR,					,"ccx_rm",			0,	"1"
+	HKR,					,"ccx_rm_limit",		0,	"300"
+
+	HKR,	Ndi\params\antdiv, ParamDesc,	0,	%AntennaDiversity%
+	HKR,	Ndi\params\antdiv, type,	0,	"enum"
+	HKR,	Ndi\params\antdiv\enum, "-1",	0,	%Auto%
+	HKR,	Ndi\params\antdiv,default,,"-1"
+
+[b.options.reg]
+	HKR,	Ndi\params\PLCPHeader, ParamDesc,	0,	%PLCPHeader%
+	HKR,	Ndi\params\PLCPHeader, type,		0,	"enum"
+	HKR,	Ndi\params\PLCPHeader\enum, "-1",	0,	%Long%
+	HKR,	Ndi\params\PLCPHeader\enum, "0",	0,	%AutoShortLong%
+	HKR,	Ndi\params\PLCPHeader,default,,"0"
+
+	HKR,	Ndi\params\Rate, ParamDesc,	0,	%Rate%
+	HKR,	Ndi\params\Rate, type,		0,	"enum"
+	HKR,	Ndi\params\Rate\enum, "0",	0,	%Usebestrate%
+	HKR,	Ndi\params\Rate\enum, "2",	0,	" 1"
+	HKR,	Ndi\params\Rate\enum, "4",	0,	" 2"
+	HKR,	Ndi\params\Rate\enum, "11",	0,	" 5.5"
+	HKR,	Ndi\params\Rate\enum, "22",	0,	"11"
+	HKR,	Ndi\params\Rate,default,,"0"
+
+[g.options.reg]
+	HKR,    Ndi\params\IBSSGMode,default,,"0"
+	HKR,	Ndi\params\RoamTrigger, ParamDesc,	0,	%RoamingDecision%
+	HKR,	Ndi\params\RoamTrigger, type,		0,	"enum"
+	HKR,	Ndi\params\RoamTrigger\enum, "-60",	0,	%OptimizeBandwidth%
+	HKR,	Ndi\params\RoamTrigger\enum, "-70",	0,	%Default%
+	HKR,	Ndi\params\RoamTrigger\enum, "-80",	0,	%OptimizeDistance%
+	HKR,	Ndi\params\RoamTrigger,default,,"-70"
+
+	HKR,	Ndi\params\PLCPHeader, ParamDesc,	0,	%BSSPLCPHeader%
+	HKR,	Ndi\params\PLCPHeader, type,		0,	"enum"
+	HKR,	Ndi\params\PLCPHeader\enum, "-1",	0,	%Long%
+	HKR,	Ndi\params\PLCPHeader\enum, "0",	0,	%AutoShortLong%
+	HKR,	Ndi\params\PLCPHeader,default,,"0"
+
+	HKR,    Ndi\params\IBSSGMode, ParamDesc,	0,      %IBSS54gtmMode%
+	HKR,    Ndi\params\IBSSGMode, type,         0,      "enum"
+	HKR,    Ndi\params\IBSSGMode\enum, "0",     0,      %80211bOnly%
+	HKR,    Ndi\params\IBSSGMode\enum, "1",     0,      %54gLRS%
+	HKR,    Ndi\params\IBSSGMode\enum, "2",     0,      %54gAuto%
+	HKR,    Ndi\params\IBSSGMode\enum, "4",     0,      %54gPerformance%
+	;default from bcmwl5[ei].inf
+
+	HKR,    Ndi\params\IBSSGProtection, ParamDesc,	0,      %IBSS54gtmProtectionMode%
+	HKR,    Ndi\params\IBSSGProtection, type,       0,      "enum"
+	HKR,    Ndi\params\IBSSGProtection\enum, "0",   0,      %Disabled%
+	HKR,    Ndi\params\IBSSGProtection\enum, "2",   0,      %Auto%
+	HKR,    Ndi\params\IBSSGProtection,default,,"2"
+
+	HKR,	Ndi\params\Rate, ParamDesc,	0,	%Rate%
+	HKR,	Ndi\params\Rate, type,		0,	"enum"
+	HKR,	Ndi\params\Rate\enum, "0",	0,	%Usebestrate%
+	HKR,	Ndi\params\Rate\enum, "2",	0,	" 1"
+	HKR,	Ndi\params\Rate\enum, "4",	0,	" 2"
+	HKR,	Ndi\params\Rate\enum, "11",	0,	" 5.5"
+	HKR,	Ndi\params\Rate\enum, "12",	0,	" 6"
+	HKR,	Ndi\params\Rate\enum, "18",	0,	" 9"
+	HKR,	Ndi\params\Rate\enum, "22",	0,	"11"
+	HKR,	Ndi\params\Rate\enum, "24",	0,	"12"
+	HKR,	Ndi\params\Rate\enum, "36",	0,	"18"
+	HKR,	Ndi\params\Rate\enum, "48",	0,	"24"
+	HKR,	Ndi\params\Rate\enum, "72",	0,	"36"
+	HKR,	Ndi\params\Rate\enum, "96",	0,	"48"
+	HKR,	Ndi\params\Rate\enum, "108",0,	"54"
+	HKR,	Ndi\params\Rate,default,,"0"
+
+[abon.options.reg]
+	HKR,    Ndi\params\Afterburner, ParamDesc,	0,      "Afterburner"
+	HKR,    Ndi\params\Afterburner, type,       0,      "enum"
+	HKR,    Ndi\params\Afterburner\enum, "0",   0,      %Disabled%
+	HKR,    Ndi\params\Afterburner\enum, "1",   0,      %Enabled%
+	HKR,    Ndi\params\Afterburner,default,,"1"
+
+[aboff.options.reg]
+	HKR,    Ndi\params\Afterburner, ParamDesc,	0,      "Afterburner"
+	HKR,    Ndi\params\Afterburner, type,       0,      "enum"
+	HKR,    Ndi\params\Afterburner\enum, "0",   0,      %Disabled%
+	HKR,    Ndi\params\Afterburner\enum, "1",   0,      %Enabled%
+	HKR,    Ndi\params\Afterburner,default,,"0"
+
+; options common to both b and g
+[bg.options.reg]
+	HKR,	Ndi\params\Channel, ParamDesc, 0, %IBSSChannelNumber%
+	HKR,	Ndi\params\Channel, default,   0, "11"
+	HKR,	Ndi\params\Channel, min,       0, "1"
+	HKR,	Ndi\params\Channel, max,       0, "14"
+	HKR,	Ndi\params\Channel, step,      0, "1"
+	HKR,	Ndi\params\Channel, base,      0, "10"
+	HKR,	Ndi\params\Channel, type,      0, "int"
+
+[a.options.reg]
+;	HKR,    Ndi\params\Afterburner, ParamDesc,	0,      "Afterburner"
+;	HKR,    Ndi\params\Afterburner, type,       0,      "enum"
+;	HKR,    Ndi\params\Afterburner\enum, "0",   0,      %Disabled%
+;	HKR,    Ndi\params\Afterburner\enum, "1",   0,      %Enabled%
+;	HKR,    Ndi\params\Afterburner,default,,"0"
+
+	HKR,	Ndi\params\Rate, ParamDesc,	0,	%Rate%
+	HKR,	Ndi\params\Rate, type,		0,	"enum"
+	HKR,	Ndi\params\Rate\enum, "0",	0,	%Usebestrate%
+	HKR,	Ndi\params\Rate\enum, "12",	0,	" 6"
+	HKR,	Ndi\params\Rate\enum, "18",	0,	" 9"
+	HKR,	Ndi\params\Rate\enum, "24",	0,	"12"
+	HKR,	Ndi\params\Rate\enum, "36",	0,	"18"
+	HKR,	Ndi\params\Rate\enum, "48",	0,	"24"
+	HKR,	Ndi\params\Rate\enum, "72",	0,	"36"
+	HKR,	Ndi\params\Rate\enum, "96",	0,	"48"
+	HKR,	Ndi\params\Rate\enum, "108",0,	"54"
+	HKR,	Ndi\params\Rate,default,,"0"
+
+	; USA Low Band
+	HKR,	Ndi\params\Channel, ParamDesc, 0, %IBSSChannelNumber%
+	HKR,	Ndi\params\Channel, type,      0, "enum"
+	HKR,	Ndi\params\Channel\enum, "36",   0, " 36"
+	HKR,	Ndi\params\Channel\enum, "40",   0, " 40"
+	HKR,	Ndi\params\Channel\enum, "44",   0, " 44"
+	HKR,	Ndi\params\Channel\enum, "48",   0, " 48"
+	HKR,	Ndi\params\Channel\enum, "52",   0, " 52"
+	HKR,	Ndi\params\Channel\enum, "56",   0, " 56"
+	HKR,	Ndi\params\Channel\enum, "60",   0, " 60"
+	HKR,	Ndi\params\Channel\enum, "64",   0, " 64"
+	; Europe
+	HKR,	Ndi\params\Channel\enum, "100",   0, "100"
+	HKR,	Ndi\params\Channel\enum, "104",   0, "104"
+	HKR,	Ndi\params\Channel\enum, "108",   0, "108"
+	HKR,	Ndi\params\Channel\enum, "112",   0, "112"
+	HKR,	Ndi\params\Channel\enum, "116",   0, "116"
+	HKR,	Ndi\params\Channel\enum, "120",   0, "120"
+
+	HKR,	Ndi\params\Channel\enum, "124",   0, "124"
+	HKR,	Ndi\params\Channel\enum, "128",   0, "128"
+	HKR,	Ndi\params\Channel\enum, "132",   0, "132"
+	HKR,	Ndi\params\Channel\enum, "136",   0, "136"
+	HKR,	Ndi\params\Channel\enum, "140",   0, "140"
+
+; 	Additional channels supported only on SPROM map version 2
+;	HKR,	Ndi\params\Channel\enum, "149",   0, "149"
+;	HKR,	Ndi\params\Channel\enum, "153",   0, "153"
+;	HKR,	Ndi\params\Channel\enum, "157",   0, "157"
+;	HKR,	Ndi\params\Channel\enum, "161",   0, "161"
+
+	; Japan
+	HKR,	Ndi\params\Channel\enum, "184",   0, "184"
+	HKR,	Ndi\params\Channel\enum, "188",   0, "188"
+	HKR,	Ndi\params\Channel\enum, "192",   0, "192"
+	HKR,	Ndi\params\Channel\enum, "196",   0, "196"
+	HKR,	Ndi\params\Channel\enum, "200",   0, "200"
+	HKR,	Ndi\params\Channel\enum, "204",   0, "204"
+	HKR,	Ndi\params\Channel\enum, "208",   0, "208"
+	HKR,	Ndi\params\Channel\enum, "212",   0, "212"
+	HKR,	Ndi\params\Channel\enum, "216",   0, "216"
+	HKR,	Ndi\params\Channel, default,   0, "36"
+
+[bag.options.reg]
+	HKR,    Ndi\params\IBSSGMode,default,,"0"
+;	HKR,    Ndi\params\Afterburner, ParamDesc,	0,      "Afterburner"
+;	HKR,    Ndi\params\Afterburner, type,       0,      "enum"
+;	HKR,    Ndi\params\Afterburner\enum, "0",   0,      %Disabled%
+;	HKR,    Ndi\params\Afterburner\enum, "1",   0,      %Enabled%
+;	HKR,    Ndi\params\Afterburner,default,,"0"
+
+	HKR, 	Ndi\params\11HNetworks, ParamDesc, 0, 	"802.11h"
+	HKR, 	Ndi\params\11HNetworks, type, 		0, "enum"
+	HKR, 	Ndi\params\11HNetworks\enum, "0", 	0, %Disabled%
+	HKR, 	Ndi\params\11HNetworks\enum, "1", 	0, %Loose%
+	HKR, 	Ndi\params\11HNetworks\enum, "2", 	0, %Strict%
+	HKR, 	Ndi\params\11HNetworks,default,,"0" 
+
+	HKR,	Ndi\params\RoamTrigger, ParamDesc,	0,	%RoamingDecision%
+	HKR,	Ndi\params\RoamTrigger, type,		0,	"enum"
+	HKR,	Ndi\params\RoamTrigger\enum, "-60",	0,	%OptimizeBandwidth%
+	HKR,	Ndi\params\RoamTrigger\enum, "-70",	0,	%Default%
+	HKR,	Ndi\params\RoamTrigger\enum, "-80",	0,	%OptimizeDistance%
+	HKR,	Ndi\params\RoamTrigger,default,,"-70"
+
+	HKR,	Ndi\params\PLCPHeader, ParamDesc,	0,	%BSSPLCPHeader%
+	HKR,	Ndi\params\PLCPHeader, type,		0,	"enum"
+	HKR,	Ndi\params\PLCPHeader\enum, "-1",	0,	%Long%
+	HKR,	Ndi\params\PLCPHeader\enum, "0",	0,	%AutoShortLong%
+	HKR,	Ndi\params\PLCPHeader,default,,"0"
+
+	HKR,	Ndi\params\band, ParamDesc,	0,	%DisableBands%
+	HKR,	Ndi\params\band, type,		0,	"enum"
+	HKR,	Ndi\params\band\enum, "0",	0,	%None%
+	HKR,	Ndi\params\band\enum, "1",	0,	%Disable80211gb%
+	HKR,	Ndi\params\band\enum, "2",	0,	%Disable80211a%
+	HKR,	Ndi\params\band,default,,"0"
+
+	HKR,	Ndi\params\AssocPref, ParamDesc,	0,	%AssociationPreference%
+	HKR,	Ndi\params\AssocPref, type,		0,	"enum"
+	HKR,	Ndi\params\AssocPref\enum, "0",	0,	%None%
+	HKR,	Ndi\params\AssocPref\enum, "1",	0,	%Prefer80211a%
+	HKR,	Ndi\params\AssocPref\enum, "2",	0,	%Prefer80211gb%
+	HKR,	Ndi\params\AssocPref,default,,"0"
+
+	HKR,	Ndi\params\RoamPref, ParamDesc,	0,	%RoamingPreference%
+	HKR,	Ndi\params\RoamPref, type,		0,	"enum"
+	HKR,	Ndi\params\RoamPref\enum, "0",	0,	%None%
+	HKR,	Ndi\params\RoamPref\enum, "1",	0,	%StayInBand%
+	HKR,	Ndi\params\RoamPref,default,,"0"
+
+	HKR,    Ndi\params\IBSSGMode, ParamDesc,	0,      %IBSS54gtmMode%
+	HKR,    Ndi\params\IBSSGMode, type,         0,      "enum"
+	HKR,    Ndi\params\IBSSGMode\enum, "0",     0,      %80211bOnly%
+	HKR,    Ndi\params\IBSSGMode\enum, "1",     0,      %54gLRS%
+	HKR,    Ndi\params\IBSSGMode\enum, "2",     0,      %54gAuto%
+	HKR,    Ndi\params\IBSSGMode\enum, "4",     0,      %54gPerformance%
+	;default from bcmwl5[ei].inf
+
+	HKR,    Ndi\params\IBSSGProtection, ParamDesc,	0,      %IBSS54gtmProtectionMode%
+	HKR,    Ndi\params\IBSSGProtection, type,       0,      "enum"
+	HKR,    Ndi\params\IBSSGProtection\enum, "0",   0,      %Disabled%
+	HKR,    Ndi\params\IBSSGProtection\enum, "2",   0,      %Auto%
+	HKR,    Ndi\params\IBSSGProtection,default,,"2"
+
+	HKR,	Ndi\params\Rate, ParamDesc,	0,	%Rate%
+	HKR,	Ndi\params\Rate, type,		0,	"enum"
+	HKR,	Ndi\params\Rate\enum, "0",	0,	%Usebestrate%
+	HKR,	Ndi\params\Rate\enum, "2",	0,	" 1"
+	HKR,	Ndi\params\Rate\enum, "4",	0,	" 2"
+	HKR,	Ndi\params\Rate\enum, "11",	0,	" 5.5"
+	HKR,	Ndi\params\Rate\enum, "12",	0,	" 6"
+	HKR,	Ndi\params\Rate\enum, "18",	0,	" 9"
+	HKR,	Ndi\params\Rate\enum, "22",	0,	"11"
+	HKR,	Ndi\params\Rate\enum, "24",	0,	"12"
+	HKR,	Ndi\params\Rate\enum, "36",	0,	"18"
+	HKR,	Ndi\params\Rate\enum, "48",	0,	"24"
+	HKR,	Ndi\params\Rate\enum, "72",	0,	"36"
+	HKR,	Ndi\params\Rate\enum, "96",	0,	"48"
+	HKR,	Ndi\params\Rate\enum, "108",0,	"54"
+	HKR,	Ndi\params\Rate,default,,"0"
+
+	HKR,	Ndi\params\Channel, ParamDesc, 0, %IBSSChannelNumber%
+	HKR,	Ndi\params\Channel, type,      0, "enum"
+	HKR,	Ndi\params\Channel\enum, "1",   0, "  1"
+	HKR,	Ndi\params\Channel\enum, "2",   0, "  2"
+	HKR,	Ndi\params\Channel\enum, "3",   0, "  3"
+	HKR,	Ndi\params\Channel\enum, "4",   0, "  4"
+	HKR,	Ndi\params\Channel\enum, "5",   0, "  5"
+	HKR,	Ndi\params\Channel\enum, "6",   0, "  6"
+	HKR,	Ndi\params\Channel\enum, "7",   0, "  7"
+	HKR,	Ndi\params\Channel\enum, "8",   0, "  8"
+	HKR,	Ndi\params\Channel\enum, "9",   0, "  9"
+	HKR,	Ndi\params\Channel\enum, "10",   0, " 10"
+	HKR,	Ndi\params\Channel\enum, "11",   0, " 11"
+	HKR,	Ndi\params\Channel\enum, "12",   0, " 12"
+	HKR,	Ndi\params\Channel\enum, "13",   0, " 13"
+	HKR,	Ndi\params\Channel\enum, "14",   0, " 14"
+	; USA Low Band
+	HKR,	Ndi\params\Channel\enum, "36",   0, " 36"
+	HKR,	Ndi\params\Channel\enum, "40",   0, " 40"
+	HKR,	Ndi\params\Channel\enum, "44",   0, " 44"
+	HKR,	Ndi\params\Channel\enum, "48",   0, " 48"
+	HKR,	Ndi\params\Channel\enum, "52",   0, " 52"
+	HKR,	Ndi\params\Channel\enum, "56",   0, " 56"
+	HKR,	Ndi\params\Channel\enum, "60",   0, " 60"
+	HKR,	Ndi\params\Channel\enum, "64",   0, " 64"
+	; Europe
+	HKR,	Ndi\params\Channel\enum, "100",   0, "100"
+	HKR,	Ndi\params\Channel\enum, "104",   0, "104"
+	HKR,	Ndi\params\Channel\enum, "108",   0, "108"
+	HKR,	Ndi\params\Channel\enum, "112",   0, "112"
+	HKR,	Ndi\params\Channel\enum, "116",   0, "116"
+	HKR,	Ndi\params\Channel\enum, "120",   0, "120"
+	HKR,	Ndi\params\Channel\enum, "124",   0, "124"
+	HKR,	Ndi\params\Channel\enum, "128",   0, "128"
+	HKR,	Ndi\params\Channel\enum, "132",   0, "132"
+	HKR,	Ndi\params\Channel\enum, "136",   0, "136"
+	HKR,	Ndi\params\Channel\enum, "140",   0, "140"
+	; Japan
+	HKR,	Ndi\params\Channel\enum, "184",   0, "184"
+	HKR,	Ndi\params\Channel\enum, "188",   0, "188"
+	HKR,	Ndi\params\Channel\enum, "192",   0, "192"
+	HKR,	Ndi\params\Channel\enum, "196",   0, "196"
+	HKR,	Ndi\params\Channel\enum, "200",   0, "200"
+	HKR,	Ndi\params\Channel\enum, "204",   0, "204"
+	HKR,	Ndi\params\Channel\enum, "208",   0, "208"
+	HKR,	Ndi\params\Channel\enum, "212",   0, "212"
+	HKR,	Ndi\params\Channel\enum, "216",   0, "216"
+	HKR,	Ndi\params\Channel, default,   0, "11"
+
+[bwcXG.reg]
+	HKR,,	BWC_Depend,	0x00010001,	0x00000001
+
+[bwcDel.reg]
+	HKR,,	BWC_TxMode
+	HKR,,	BWC_TxRate
+
+[DestinationDirs]
+	DefaultDestDir=11
+	BCM43XX.sys.files=11
+	BCM43XX.files.NT = 12
+	CoCopyINF.CopyFiles = 11
+	BWCDRV98INF.CopyFiles = 17
+
+[SourceDisksNames]
+	1=%BCM43XX.DiskName%,,
+
+[SourceDisksFiles]
+	BCMWL5.SYS=1
+	bwcinst.dll=1
+; if CD
+;	netbwc2k.inf=1
+;	netbwc98.inf=1
+; if MDRIVER
+	bwcdrv.sys=1
+	bwcdrv.vxd=1
+	netbwc2m.inf=1
+	netbwc9m.inf=1
+
+[strings]
+; Provider
+V_BCM = "MELCO INC."
+; PNP Devices
+BCM430G.DeviceDesc      = "BUFFALO WLI-CB-G54 Wireless LAN Adapter"
+BCM430G2.DeviceDesc      = "BUFFALO WLI-PCI-G54 Wireless LAN Adapter"
+BCM430M.DeviceDesc      = "BUFFALO WLI-CB-AG54 Wireless LAN Adapter"
+; General Strings
+BCM43XX_HELP		= "The BUFFALO Wireless LAN Adapter provides wireless local area networking."
+BCM43XX.Service.DispName = "BUFFALO WLI-CB-XXX Series Wireless LAN Adapter"
+BCM43XX.DiskName = "AirNavigator CD"
+DEFAULT_WIN9X_SYS = "BCMWL5.SYS"
+1Mb=" 1 Mb"
+2Mb=" 2 Mb"
+55Mb=" 5.5 Mb"
+6Mb=" 6 Mb"
+9Mb=" 9 Mb"
+11Mb="11 Mb"
+12Mb="12 Mb"
+18Mb="18 Mb"
+24Mb="24 Mb"
+36Mb="36 Mb"
+48Mb="48 Mb"
+54Mb="54 Mb"
+Worldwide="Worldwide"
+USA="USA"
+PRChina="P.R. China"
+Israel="Israel"
+Japan="Japan"
+Jordan="Jordan"
+Thailand="Thailand"
+Locale="Locale"
+54g80211bCompatible="54g - 802.11b Compatible"
+54gAuto="54g - Auto"
+54gLRS="54g - LRS"
+54gPerformance="54g - Performance"
+80211bMode="802.11b Mode"
+80211bOnly="802.11b Only"
+AdHoc="Ad Hoc"
+AntennaDiversity="Antenna Diversity"
+AssociationPreference="Association Preference"
+Auto="Auto"
+AutoShortLong="Auto (Short/Long)"
+AutoTxPreamble="Auto Tx Preamble"
+BSSMode="BSS Mode"
+BSSPLCPHeader="BSS PLCP Header"
+BlueToothCollaboration="Bluetooth Collaboration"
+Channel="Channel"
+Default="Default"
+Disable="Disable"
+Disable80211a="Disable 802.11a"
+Disable80211gb="Disable 802.11g/b"
+DisableBands="Disable Bands"
+Disabled="Disabled"
+Enable="Enable"
+Enabled="Enabled"
+FragmentationThreshold="Fragmentation Threshold"
+FrameBursting="Frame Bursting"
+FullyAutomatic="Fully Automatic"
+IBSS54gtmMode="IBSS 54g(tm) Mode"
+IBSS54gtmProtectionMode="IBSS 54g(tm) Protection Mode"
+IBSSChannelNumber="IBSS Channel Number"
+IBSSMode="IBSS Mode"
+Infrastructure="Infrastructure"
+LocallyAdministeredMACAddress="Locally Administered MAC Address"
+Long="Long"
+LongTxPreamble="Long Tx Preamble"
+NetworkType="Network Type"
+None="None"
+OptimizeBandwidth="Optimize Bandwidth"
+OptimizeDistance="Optimize Distance"
+PLCPHeader="PLCP Header"
+PowerOutput="Power Output"
+PowerSaveMode="Power Save Mode"
+PreambleMode="Preamble Mode"
+Prefer80211a="Prefer 802.11a"
+Prefer80211gb="Prefer 802.11g/b"
+RTSThreshold="RTS Threshold"
+RadioEnableDisable="Radio Enable/Disable"
+Rate="Rate"
+Region1="Region 1"
+Region2="Region 2"
+Region3="Region 3"
+Region4="Region 4"
+RoamingDecision="Roaming Decision"
+RoamingPreference="Roaming Preference"
+SSID="SSID"
+StayInBand="Stay In Band"
+TransmitRate="Transmit Rate"
+Usebestrate="Use best rate"
+Normal="Normal"
+XPress_Technology="Frame Bursting"
+USA_TAIWAN="USA/Taiwan"
+Location="Location"
+Afghanistan="Afghanistan"
+Albania="Albania"
+Algeria="Algeria"
+AmericanSamoa="American Samoa"
+Andorra="Andorra"
+Angola="Angola"
+Anguilla="Anguilla"
+Antarctica="Antarctica"
+AntiguaandBarbuda="Antigua and Barbuda"
+Argentina="Argentina"
+Armenia="Armenia"
+Aruba="Aruba"
+Australia="Australia"
+Austria="Austria"
+Azerbaijan="Azerbaijan"
+BahamasThe="Bahamas, The"
+Bahrain="Bahrain"
+Bangladesh="Bangladesh"
+Barbados="Barbados"
+Belarus="Belarus"
+Belgium="Belgium"
+Belize="Belize"
+Benin="Benin"
+Bermuda="Bermuda"
+Bhutan="Bhutan"
+Bolivia="Bolivia"
+BosniaandHerzegovina="Bosnia and Herzegovina"
+Botswana="Botswana"
+BouvetIsland="Bouvet Island"
+Brazil="Brazil"
+BritishIndianOceanTerritory="British Indian Ocean Territory"
+Brunei="Brunei"
+Bulgaria="Bulgaria"
+BurkinaFaso="Burkina Faso"
+Burundi="Burundi"
+Cambodia="Cambodia"
+Cameroon="Cameroon"
+Canada="Canada"
+CapeVerde="Cape Verde"
+CaymanIslands="Cayman Islands"
+CentralAfricanRepublic="Central African Republic"
+Chad="Chad"
+Chile="Chile"
+China="China"
+ChristmasIsland="Christmas Island"
+CocosKeelingIslands="Cocos (Keeling) Islands"
+Colombia="Colombia"
+Comoros="Comoros"
+CongoDRC="Congo (DRC)"
+Congo="Congo"
+CookIslands="Cook Islands"
+CostaRica="Costa Rica"
+CotedIvoire="Cote d'Ivoire"
+Croatia="Croatia"
+Cuba="Cuba"
+Cyprus="Cyprus"
+CzechRepublic="Czech Republic"
+Denmark="Denmark"
+Djibouti="Djibouti"
+Dominica="Dominica"
+DominicanRepublic="Dominican Republic"
+EastTimor="East Timor"
+Ecuador="Ecuador"
+Egypt="Egypt"
+ElSalvador="El Salvador"
+EquatorialGuinea="Equatorial Guinea"
+Eritrea="Eritrea"
+Estonia="Estonia"
+Ethiopia="Ethiopia"
+FalklandIslandsIslasMalvinas="Falkland Islands (Islas Malvinas)"
+FaroeIslands="Faroe Islands"
+FijiIslands="Fiji Islands"
+Finland="Finland"
+France="France"
+FrenchGuiana="French Guiana"
+FrenchPolynesia="French Polynesia"
+FrenchSouthernandAntarcticLands="French Southern and Antarctic Lands"
+Gabon="Gabon"
+Gambia="Gambia"
+Georgia="Georgia"
+Germany="Germany"
+Ghana="Ghana"
+Gibraltar="Gibraltar"
+Greece="Greece"
+Greenland="Greenland"
+Grenada="Grenada"
+Guadeloupe="Guadeloupe"
+Guam="Guam"
+Guatemala="Guatemala"
+GuineaBissau="Guinea-Bissau"
+Guinea="Guinea"
+Guyana="Guyana"
+Haiti="Haiti"
+HeardIslandandMcDonaldIslands="Heard Island and McDonald Islands"
+Honduras="Honduras"
+HongKongSAR="Hong Kong S.A.R."
+Hungary="Hungary"
+Iceland="Iceland"
+India="India"
+Indonesia="Indonesia"
+Iran="Iran"
+Iraq="Iraq"
+Ireland="Ireland"
+Italy="Italy"
+Jamaica="Jamaica"
+Kazakhstan="Kazakhstan"
+Kenya="Kenya"
+Kiribati="Kiribati"
+Korea="Korea"
+Kuwait="Kuwait"
+Kyrgyzstan="Kyrgyzstan"
+Laos="Laos"
+Latvia="Latvia"
+Lebanon="Lebanon"
+Lesotho="Lesotho"
+Liberia="Liberia"
+Libya="Libya"
+Liechtenstein="Liechtenstein"
+Lithuania="Lithuania"
+Luxembourg="Luxembourg"
+MacauSAR="Macau S.A.R."
+MacedoniaFormerYugoslavRepublicof="Macedonia, Former Yugoslav Republic of"
+Madagascar="Madagascar"
+Malawi="Malawi"
+Malaysia="Malaysia"
+Maldives="Maldives"
+Mali="Mali"
+Malta="Malta"
+MarshallIslands="Marshall Islands"
+Martinique="Martinique"
+Mauritania="Mauritania"
+Mauritius="Mauritius"
+Mayotte="Mayotte"
+Mexico="Mexico"
+Micronesia="Micronesia"
+Moldova="Moldova"
+Monaco="Monaco"
+Mongolia="Mongolia"
+Montserrat="Montserrat"
+Morocco="Morocco"
+Mozambique="Mozambique"
+Myanmar="Myanmar"
+Namibia="Namibia"
+Nauru="Nauru"
+Nepal="Nepal"
+NetherlandsAntilles="Netherlands Antilles"
+NetherlandsThe="Netherlands, The"
+NewCaledonia="New Caledonia"
+NewZealand="New Zealand"
+Nicaragua="Nicaragua"
+Niger="Niger"
+Nigeria="Nigeria"
+Niue="Niue"
+NorfolkIsland="Norfolk Island"
+NorthKorea="North Korea"
+NorthernMarianaIslands="Northern Mariana Islands"
+Norway="Norway"
+Oman="Oman"
+Pakistan="Pakistan"
+Palau="Palau"
+PalestinianAuthority="Palestinian Authority"
+Panama="Panama"
+PapuaNewGuinea="Papua New Guinea"
+Paraguay="Paraguay"
+Peru="Peru"
+Philippines="Philippines"
+Pitcairn="Pitcairn"
+Poland="Poland"
+Portugal="Portugal"
+PuertoRico="Puerto Rico"
+Qatar="Qatar"
+Reunion="Reunion"
+Romania="Romania"
+Russia="Russia"
+Rwanda="Rwanda"
+Samoa="Samoa"
+SanMarino="San Marino"
+SaoTomeandPrincipe="Sao Tome and Principe"
+SaudiArabia="Saudi Arabia"
+Senegal="Senegal"
+Seychelles="Seychelles"
+SierraLeone="Sierra Leone"
+Singapore="Singapore"
+Slovakia="Slovakia"
+Slovenia="Slovenia"
+SolomonIslands="Solomon Islands"
+Somalia="Somalia"
+SouthAfrica="South Africa"
+SouthGeorgiaandtheSouthSandwichIslands="South Georgia and the South Sandwich Islands"
+Spain="Spain"
+SriLanka="Sri Lanka"
+StHelena="St. Helena"
+StKittsandNevis="St. Kitts and Nevis"
+StLucia="St. Lucia"
+StPierreandMiquelon="St. Pierre and Miquelon"
+StVincentandtheGrenadines="St. Vincent and the Grenadines"
+Sudan="Sudan"
+Suriname="Suriname"
+SvalbardandJanMayen="Svalbard and Jan Mayen"
+Swaziland="Swaziland"
+Sweden="Sweden"
+Switzerland="Switzerland"
+Syria="Syria"
+Taiwan="Taiwan"
+Tajikistan="Tajikistan"
+Tanzania="Tanzania"
+Togo="Togo"
+Tokelau="Tokelau"
+Tonga="Tonga"
+TrinidadandTobago="Trinidad and Tobago"
+Tunisia="Tunisia"
+Turkey="Turkey"
+Turkmenistan="Turkmenistan"
+TurksandCaicosIslands="Turks and Caicos Islands"
+Tuvalu="Tuvalu"
+Uganda="Uganda"
+Ukraine="Ukraine"
+UnitedArabEmirates="United Arab Emirates"
+UnitedKingdom="United Kingdom"
+UnitedStatesMinorOutlyingIslands="US Minor Outlying Islands"
+UnitedStates="United States"
+Uruguay="Uruguay"
+Uzbekistan="Uzbekistan"
+Vanuatu="Vanuatu"
+VaticanCity="Vatican City"
+Venezuela="Venezuela"
+VietNam="Viet Nam"
+VirginIslandsBritish="Virgin Islands, British"
+VirginIslands="Virgin Islands"
+WallisandFutuna="Wallis and Futuna"
+WesternSahara="Western Sahara"
+Yemen="Yemen"
+Yugoslavia="Yugoslavia"
+Zambia="Zambia"
+Zimbabwe="Zimbabwe"
+Strict="Strict"
+Loose="Loose"
+Fast="Fast"
+MaxPowerSavings="Max Power Savings"
+HighPerformance="High Performance"

@@ -1,0 +1,577 @@
+; 
+; USR11G.INF
+;
+; Win98/WinME/Win2000/WinXP installation file for USR 11g WLAN Adapter
+;
+; Copyright (c) All Rights Reserved.
+;
+
+
+[Version]
+;CatalogFile=usr11g.cat
+Signature = "$Windows NT$"
+Provider  = %TI%
+Class     = Net
+ClassGUID={4d36e972-e325-11ce-bfc1-08002be10318}
+DriverVer=06/28/2004,6.0.1.6
+
+[Manufacturer]
+%TI% = USR
+
+; pnp cards should be excluded from select
+[ControlFlags]
+ExcludeFromSelect = PCI\VEN_104C&DEV_9066&SUBSYS_16EC010D
+ExcludeFromSelect = PCI\VEN_104C&DEV_9066&SUBSYS_16EC010E
+
+;For WinXP
+[USR.NT.5.1]
+%USR11G.DeviceDesc% = USR11GXP, PCI\VEN_104C&DEV_9066&SUBSYS_16EC010D
+%USR11G.DeviceDesc% = USR11GXP, PCI\VEN_104C&DEV_9066&SUBSYS_16EC010E
+
+; For Win98,ME,2K
+[USR]
+%USR11G.DeviceDesc% = USR11G, PCI\VEN_104C&DEV_9066&SUBSYS_16EC010D
+%USR11G.DeviceDesc% = USR11G, PCI\VEN_104C&DEV_9066&SUBSYS_16EC010E
+
+
+;~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+;~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~   Windows XP   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+;~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+;******************************   Windows XP B & G ******************************
+[USR11GXP]
+BusType         = 5
+AddReg          =USR11GXP.ndi.reg.NT, TI.Param.Reg, BG.Param.Reg
+Characteristics = 0x84
+CopyFiles       =USR11GXP.CopyFiles
+
+[USR11GXP.ndi.reg.NT]
+HKR, Ndi,               Service,    0,  "USR11G"
+HKR, Ndi\Interfaces,    LowerRange, 0,  "ethernet"
+HKR, Ndi\Interfaces,    UpperRange, 0,  "ndis5"
+
+[USR11GXP.Services]
+AddService = USR11G, 2, USR11GXP.Service, USR11GXP.EventLog
+
+[USR11GXP.CopyFiles]
+;FwRad16.bin
+;FwRad17.bin
+;USR11G.sys
+
+;******************************   Windows XP A & G ******************************
+[USR11GAGXP]
+BusType         = 5
+AddReg          =USR11GAGXP.ndi.reg.NT, TI.Param.Reg, AG.Param.Reg
+Characteristics = 0x84
+CopyFiles       =USR11GAGXP.CopyFiles
+
+[USR11GAGXP.ndi.reg.NT]
+HKR, Ndi,               Service,    0,  "USR11G"
+HKR, Ndi\Interfaces,    LowerRange, 0,  "ethernet"
+HKR, Ndi\Interfaces,    UpperRange, 0,  "ndis5"
+
+[USR11GAGXP.Services]
+AddService = USR11G, 2, USR11GXP.Service, USR11GXP.EventLog
+
+
+[USR11GAGXP.CopyFiles]
+;FwRad16.bin
+;FwRad17.bin
+;USR11G.sys
+
+;******************************   Windows XP Common A & B & G **************************
+
+[USR11GXP.Service]
+DisplayName     = %USR11G.Service.DispName%
+ServiceType     = 1 ;%SERVICE_KERNEL_DRIVER%
+StartType       = 3 ;%SERVICE_DEMAND_START%
+ErrorControl    = 1 ;%SERVICE_ERROR_NORMAL%
+ServiceBinary   = %12%\USR11G.sys
+LoadOrderGroup  = NDIS
+
+[USR11GXP.EventLog]
+AddReg = USR11GXP.AddEventLog.reg
+
+[USR11GXP.AddEventLog.reg]
+HKR, , EventMessageFile, 0x00020000, "%%SystemRoot%%\System32\netevent.dll"
+HKR, , TypesSupported,   0x00010001, 7
+
+
+;~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+;~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~   End of Windows XP   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+;~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+;~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~   Windows 2k/ME   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+;~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+;******************************   Windows 2k/ME   B & G   ******************************
+[USR11G.NT]
+BusType         = 5
+AddReg          =USR11G.ndi.reg.NT, TI.Param.Reg, BG.Param.Reg
+Characteristics = 0x84
+CopyFiles       =USR11G.CopyFiles.NT, USR11G.BinFiles.NT
+
+[USR11G.ndi.reg.NT]
+HKR, Ndi,               Service,    0,  "USR11G"
+HKR, Ndi\Interfaces,    LowerRange, 0,  "ethernet"
+HKR, Ndi\Interfaces,    UpperRange, 0,  "ndis5"
+
+[USR11G.NT.Services]
+AddService = USR11G, 2, USR11G.Service, USR11G.EventLog
+
+[USR11G.CopyFiles.NT]
+;FwRad16.bin
+;FwRad17.bin
+;USR11G.sys
+
+;
+; Copy .bin to system directory for ME
+;
+[USR11G.BinFiles.NT]
+;FwRad16.bin
+;FwRad17.bin
+
+;******************************   Windows 2k/ME   A & G   ******************************
+[USR11GAG.NT]
+BusType         = 5
+AddReg          =USR11GAG.ndi.reg.NT, TI.Param.Reg, AG.Param.Reg
+Characteristics = 0x84
+CopyFiles       =USR11GAG.CopyFiles.NT, USR11GAG.BinFiles.NT
+
+[USR11GAG.ndi.reg.NT]
+HKR, Ndi,               Service,    0,  "USR11G"
+HKR, Ndi\Interfaces,    LowerRange, 0,  "ethernet"
+HKR, Ndi\Interfaces,    UpperRange, 0,  "ndis5"
+
+[USR11GAG.NT.Services]
+AddService = USR11G, 2, USR11G.Service, USR11G.EventLog
+
+[USR11GAG.CopyFiles.NT]
+;FwRad16.bin
+;FwRad17.bin
+;USR11G.sys
+
+;
+; Copy USR11Gsn.bin to system directory for ME
+;
+[USR11GAG.BinFiles.NT]
+;FwRad16.bin
+;FwRad17.bin
+
+;******************************   Windows 2K/ME Common A & B & G **************************
+
+[USR11G.Service]
+DisplayName     = %USR11G.Service.DispName%
+ServiceType     = 1 ;%SERVICE_KERNEL_DRIVER%
+StartType       = 3 ;%SERVICE_DEMAND_START%
+ErrorControl    = 1 ;%SERVICE_ERROR_NORMAL%
+ServiceBinary   = %12%\USR11G.sys
+LoadOrderGroup  = NDIS
+
+[USR11G.EventLog]
+AddReg = USR11G.AddEventLog.reg
+
+[USR11G.AddEventLog.reg]
+HKR, , EventMessageFile, 0x00020000, "%%SystemRoot%%\System32\netevent.dll"
+HKR, , TypesSupported,   0x00010001, 7
+
+;~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+;~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~   End of Windows 2k/ME  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+;~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+;~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~   Windows 98   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+;~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+;*********************************   Windows 98 B & G  ********************************
+
+[USR11G]
+AddReg=USR11G.ndi.reg, TI.Param.Reg, USR11G.Install, BG.Param.Reg
+
+[USR11G.Copy]
+CopyFiles=USR11G.CopyFiles
+
+[USR11G.Install]
+HKR,Ndi\Install,,,"USR11G.Copy"
+HKR,Ndi\Remove,,,"USR11G.Remove"
+
+[USR11G.ndi.reg]
+HKR,Ndi,DeviceID,,"PCI\VEN_104C&DEV_9066"
+
+HKR,Ndi,HelpText,0,%WLANAdapterHelpText%
+
+; key,subkey,valuname,type,value
+HKR,,DevLoader,,*ndis
+HKR,,DeviceVxDs,,USR11G.sys
+HKR,,EnumPropPages,,"netdi.dll,EnumPropPages"
+
+; NDIS Info
+HKR, NDIS, LogDriverName, , "USR11G"
+HKR, NDIS, MajorNdisVersion, 1, 03
+HKR, NDIS, MinorNdisVersion, 1, 0A
+HKR,Ndi\Interfaces,DefLower,,"ethernet"
+HKR,Ndi\Interfaces,LowerRange,,"ethernet"
+HKR,Ndi\Interfaces,DefUpper,,"ndis3,ndis4,ndis5"
+HKR,Ndi\Interfaces,UpperRange,,"ndis3,ndis4,ndis5"
+
+
+[USR11G.CopyFiles]
+;FwRad16.bin
+;FwRad17.bin
+;USR11G.sys
+
+;*********************************   Windows 98 A & G  ********************************
+
+[USR11GAG]
+AddReg=USR11GAG.ndi.reg, TI.Param.Reg, USR11GAG.Install, AG.Param.Reg
+
+[USR11GAG.Copy]
+CopyFiles=USR11G.CopyFiles
+
+[USR11GAG.Install]
+HKR,Ndi\Install,,,"USR11G.Copy"
+HKR,Ndi\Remove,,,"USR11G.Remove"
+
+[USR11GAG.ndi.reg]
+HKR,Ndi,DeviceID,,"PCI\VEN_104C&DEV_9066"
+
+HKR,Ndi,HelpText,0,%WLANAdapterHelpText%
+
+; key,subkey,valuname,type,value
+HKR,,DevLoader,,*ndis
+HKR,,DeviceVxDs,,USR11G.sys
+HKR,,EnumPropPages,,"netdi.dll,EnumPropPages"
+
+; NDIS Info
+HKR, NDIS, LogDriverName, , "USR11G"
+HKR, NDIS, MajorNdisVersion, 1, 03
+HKR, NDIS, MinorNdisVersion, 1, 0A
+HKR,Ndi\Interfaces,DefLower,,"ethernet"
+HKR,Ndi\Interfaces,LowerRange,,"ethernet"
+HKR,Ndi\Interfaces,DefUpper,,"ndis3,ndis4,ndis5"
+HKR,Ndi\Interfaces,UpperRange,,"ndis3,ndis4,ndis5"
+
+
+[USR11GAG.CopyFiles]
+;FwRad16.bin
+;FwRad17.bin
+;USR11G.sys
+
+
+;~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+;~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~   End of Windows  98   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+;~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+;***********************************   B & G All OSes ***********************************
+
+[BG.Param.Reg]
+
+
+HKR, ,dot11NetworkType,, "3"
+
+; Desired supported Rate Set 
+HKR, ,dot11SupportedRateMask, ,"8"
+;HKR,NDI\params\dot11SupportedRateMask,ParamDesc,, "Desired Supported Rate Set"
+;HKR,NDI\params\dot11SupportedRateMask,type,,"enum"
+;HKR,NDI\params\dot11SupportedRateMask,default,,"8"
+;HKR,NDI\params\dot11SupportedRateMask\enum,"0",,"1,2 Mbps"
+;HKR,NDI\params\dot11SupportedRateMask\enum,"1",,"1,2,5.5,11 Mbps"
+;HKR,NDI\params\dot11SupportedRateMask\enum,"2",,"1,2,5.5,11,22 Mbps"
+;HKR,NDI\params\dot11SupportedRateMask\enum,"3",,"Up to 18Mbps"
+;HKR,NDI\params\dot11SupportedRateMask\enum,"4",,"Up to 24Mbps"
+;HKR,NDI\params\dot11SupportedRateMask\enum,"5",,"Up to 36Mbps"
+;HKR,NDI\params\dot11SupportedRateMask\enum,"6",,"Up to 48Mbps"
+;HKR,NDI\params\dot11SupportedRateMask\enum,"7",,"Up to 54Mbps"
+;HKR,NDI\params\dot11SupportedRateMask\enum,"8",,"All"
+;HKR,NDI\params\dot11SupportedRateMask\enum,"9",,"All OFDM"
+
+
+; Desired Basic Rate Set 
+HKR, ,dot11BasicRateMask, ,"1"
+;HKR,NDI\params\dot11BasicRateMask,ParamDesc,, "Desired Basic Rate Set"
+;HKR,NDI\params\dot11BasicRateMask,type,,"enum"
+;HKR,NDI\params\dot11BasicRateMask,default,,"1"
+;HKR,NDI\params\dot11BasicRateMask\enum,"0",,"1,2 Mbps"
+;HKR,NDI\params\dot11BasicRateMask\enum,"1",,"1,2,5.5,11 Mbps"
+;HKR,NDI\params\dot11BasicRateMask\enum,"2",,"Up to 12Mbps"
+;HKR,NDI\params\dot11BasicRateMask\enum,"3",,"Up to 18Mbps"
+;HKR,NDI\params\dot11BasicRateMask\enum,"4",,"1,2,5.5,6,11,12,24"
+;HKR,NDI\params\dot11BasicRateMask\enum,"5",,"Up to 36Mbps"
+;HKR,NDI\params\dot11BasicRateMask\enum,"6",,"Up to 48Mbps"
+;HKR,NDI\params\dot11BasicRateMask\enum,"7",,"Up to 54Mbps"
+;HKR,NDI\params\dot11BasicRateMask\enum,"8",,"Up to 24Mbps"
+;HKR,NDI\params\dot11BasicRateMask\enum,"9",,"OFDM 6,9,24"
+
+;************************************   A & G All OSes ************************************
+
+[AG.Param.Reg]
+
+HKR, ,dot11NetworkType,, "4"
+
+; Desired supported Rate Set 
+HKR, ,dot11SupportedRateMask, ,"8"
+;HKR,NDI\params\dot11SupportedRateMask,ParamDesc,, "Desired Supported Rate Set"
+;HKR,NDI\params\dot11SupportedRateMask,type,,"enum"
+;HKR,NDI\params\dot11SupportedRateMask,default,,"8"
+;HKR,NDI\params\dot11SupportedRateMask\enum,"0",,"1,2 Mbps"
+;HKR,NDI\params\dot11SupportedRateMask\enum,"1",,"1,2,5.5,11 Mbps"
+;HKR,NDI\params\dot11SupportedRateMask\enum,"2",,"1,2,5.5,11,22 Mbps"
+;HKR,NDI\params\dot11SupportedRateMask\enum,"3",,"Up to 18Mbps"
+;HKR,NDI\params\dot11SupportedRateMask\enum,"4",,"Up to 24Mbps"
+;HKR,NDI\params\dot11SupportedRateMask\enum,"5",,"Up to 36Mbps"
+;HKR,NDI\params\dot11SupportedRateMask\enum,"6",,"Up to 48Mbps"
+;HKR,NDI\params\dot11SupportedRateMask\enum,"7",,"Up to 54Mbps"
+;HKR,NDI\params\dot11SupportedRateMask\enum,"8",,"All"
+;HKR,NDI\params\dot11SupportedRateMask\enum,"9",,"All OFDM"
+
+
+; Desired Basic Rate Set 
+HKR, ,dot11BasicRateMask, ,"0"
+;HKR,NDI\params\dot11BasicRateMask,ParamDesc,, "Desired Basic Rate Set"
+;HKR,NDI\params\dot11BasicRateMask,type,,"enum"
+;HKR,NDI\params\dot11BasicRateMask,default,,"0"
+;HKR,NDI\params\dot11BasicRateMask\enum,"0",,"1,2 Mbps"
+;HKR,NDI\params\dot11BasicRateMask\enum,"1",,"1,2,5.5,11 Mbps"
+;HKR,NDI\params\dot11BasicRateMask\enum,"2",,"Up to 12Mbps"
+;HKR,NDI\params\dot11BasicRateMask\enum,"3",,"Up to 18Mbps"
+;HKR,NDI\params\dot11BasicRateMask\enum,"4",,"1,2,5.5,6,11,12,24"
+;HKR,NDI\params\dot11BasicRateMask\enum,"5",,"Up to 36Mbps"
+;HKR,NDI\params\dot11BasicRateMask\enum,"6",,"Up to 48Mbps"
+;HKR,NDI\params\dot11BasicRateMask\enum,"7",,"Up to 54Mbps"
+;HKR,NDI\params\dot11BasicRateMask\enum,"8",,"Up to 24Mbps"
+;HKR,NDI\params\dot11BasicRateMask\enum,"9",,"OFDM 6,9,24"
+
+;******************************  Common Registry Settings  ******************************
+
+[TI.Param.Reg]
+
+; MultiRegulatory Domain Indicates 802.11d support
+HKR, ,MultiRegulatoryDomain, ,"0"
+;HKR,NDI\params\MultiRegulatoryDomain,ParamDesc,,"MultiRegulatory Domain"
+;HKR,NDI\params\MultiRegulatoryDomain,type,,"enum"
+;HKR,NDI\params\MultiRegulatoryDomain,default,,"0"
+;HKR,NDI\params\MultiRegulatoryDomain\enum,"0",,"Disabled"
+;HKR,NDI\params\MultiRegulatoryDomain\enum,"1",,"Enabled"
+
+; Spectrum Management Indicates 802.11h support
+HKR, ,SpectrumManagement, ,"0"
+;HKR,NDI\params\SpectrumManagement,ParamDesc,,"Spectrum Management"
+;HKR,NDI\params\SpectrumManagement,type,,"enum"
+;HKR,NDI\params\SpectrumManagement,default,,"0"
+;HKR,NDI\params\SpectrumManagement\enum,"0",,"Enabled"
+;HKR,NDI\params\SpectrumManagement\enum,"1",,"Disabled"
+
+; Desired Tx Power 
+HKR, ,TxPower, ,"1"
+;HKR,NDI\params\TxPower,ParamDesc,, "Desired Tx Power"
+;HKR,NDI\params\TxPower,type,,"enum"
+;HKR,NDI\params\TxPower,default,,"1"
+;HKR,NDI\params\TxPower\enum,"0",,"Auto"
+;HKR,NDI\params\TxPower\enum,"1",,"Level 1"
+;HKR,NDI\params\TxPower\enum,"2",,"Level 2"
+;HKR,NDI\params\TxPower\enum,"3",,"Level 3"
+;HKR,NDI\params\TxPower\enum,"4",,"Level 4"
+;HKR,NDI\params\TxPower\enum,"5",,"Level 5"
+
+; GlobalMaxTcpWindowSize - TCP Window size
+;HKLM,System\CurrentControlSet\Services\Tcpip\Parameters, TcpWindowSize, ,40320
+HKLM,System\CurrentControlSet\Services\Tcpip\Parameters, TcpWindowSize, ,60480
+
+HKR,NDI\params\dot11DesiredBSSType,ParamDesc,,"Desired BSS Type"
+HKR,NDI\params\dot11DesiredBSSType,type,,"enum"
+HKR,NDI\params\dot11DesiredBSSType,default,,"1"
+HKR,NDI\params\dot11DesiredBSSType\enum,"0",,"Ad-Hoc"
+HKR,NDI\params\dot11DesiredBSSType\enum,"1",,"Infrastructure"
+
+HKR, Ndi\Params\dot11DesiredSSID, ParamDesc, ,"Desired SSID"
+HKR, Ndi\Params\dot11DesiredSSID, Type, ,"edit"
+HKR, Ndi\Params\dot11DesiredSSID, LimitText, ,"32"
+HKR, Ndi\Params\dot11DesiredSSID, Default,,"Any"
+HKR, Ndi\Params\dot11DesiredSSID, UpperCase,,"0"
+
+HKR, ,dot11PowerMode, ,"0"
+;HKR,NDI\params\dot11PowerMode,ParamDesc,,"Power Mode"
+;HKR,NDI\params\dot11PowerMode,type,,"enum"
+;HKR,NDI\params\dot11PowerMode,default,,"0"
+;HKR,NDI\params\dot11PowerMode\enum,"0",,"Continuous Access Mode"
+;HKR,NDI\params\dot11PowerMode\enum,"1",,"Maximum Power Save"
+;HKR,NDI\params\dot11PowerMode\enum,"2",,"Fast Power Save"
+
+
+; IBSS protection
+HKR, ,IbssProtectionType, ,"0"
+;HKR,NDI\params\IbssProtectionType,ParamDesc,, "Desired IBSS Protection"
+;HKR,NDI\params\IbssProtectionType,type,,"enum"
+;HKR,NDI\params\IbssProtectionType,default,,"1"
+;HKR,NDI\params\IbssProtectionType\enum,"0",,"None"
+;HKR,NDI\params\IbssProtectionType\enum,"1",,"Standard"
+
+
+; Desired Tx Rate 
+HKR,NDI\params\dot11DesiredTxRate,ParamDesc,, "Desired Tx Rate"
+HKR,NDI\params\dot11DesiredTxRate,type,,"enum"
+HKR,NDI\params\dot11DesiredTxRate,default,,"0"
+HKR,NDI\params\dot11DesiredTxRate\enum,"0",,"Auto"
+HKR,NDI\params\dot11DesiredTxRate\enum,"1",,"1 Mbps"
+HKR,NDI\params\dot11DesiredTxRate\enum,"2",,"2 Mbps"
+HKR,NDI\params\dot11DesiredTxRate\enum,"3",,"5.5 Mbps"
+HKR,NDI\params\dot11DesiredTxRate\enum,"4",,"6 Mbps"
+HKR,NDI\params\dot11DesiredTxRate\enum,"5",,"9 Mbps"
+HKR,NDI\params\dot11DesiredTxRate\enum,"6",,"11 Mbps"
+HKR,NDI\params\dot11DesiredTxRate\enum,"7",,"12 Mbps"
+HKR,NDI\params\dot11DesiredTxRate\enum,"8",,"18 Mbps"
+HKR,NDI\params\dot11DesiredTxRate\enum,"9",,"22 Mbps"
+HKR,NDI\params\dot11DesiredTxRate\enum,"10",,"24 Mbps"
+HKR,NDI\params\dot11DesiredTxRate\enum,"11",,"36 Mbps"
+HKR,NDI\params\dot11DesiredTxRate\enum,"12",,"48 Mbps"
+HKR,NDI\params\dot11DesiredTxRate\enum,"13",,"54 Mbps"
+
+
+; Fragmentation Threshold 
+HKR, ,dot11FragmentationThreshold, ,"4096"
+;HKR, Ndi\Params\dot11FragmentationThreshold, ParamDesc, ,"Fragmentation Threshold"
+;HKR, Ndi\Params\dot11FragmentationThreshold, Type, , "int"
+;HKR, Ndi\Params\dot11FragmentationThreshold, Default, , "4096"
+;HKR, Ndi\Params\dot11FragmentationThreshold, Min, , "256"
+;HKR, Ndi\Params\dot11FragmentationThreshold, Max, , "4096"
+;HKR, Ndi\Params\dot11FragmentationThreshold, Step, , "1"
+;HKR, Ndi\Params\dot11FragmentationThreshold, Base, , "10"
+
+; RTS Threshold 
+HKR, ,dot11RTSThreshold, ,"4096"
+;HKR, Ndi\Params\dot11RTSThreshold, ParamDesc, ,"RTS Threshold"
+;HKR, Ndi\Params\dot11RTSThreshold, Type, , "int"
+;HKR, Ndi\Params\dot11RTSThreshold, Default, , "4096"
+;HKR, Ndi\Params\dot11RTSThreshold, Min, , "0"
+;HKR, Ndi\Params\dot11RTSThreshold, Max, , "4096"
+;HKR, Ndi\Params\dot11RTSThreshold, Step, , "1"
+;HKR, Ndi\Params\dot11RTSThreshold, Base, , "10"
+
+HKR, ,dot11WEPStatus, ,"1"
+;HKR,NDI\params\dot11WEPStatus,ParamDesc,,"WEP Option"
+;HKR,NDI\params\dot11WEPStatus,type,,"enum"
+;HKR,NDI\params\dot11WEPStatus,default,,"1"
+;HKR,NDI\params\dot11WEPStatus\enum,"0",,"WEP Enabled"
+;HKR,NDI\params\dot11WEPStatus\enum,"1",,"WEP Disabled"
+
+HKR, ,dot11AuthenticationMode, ,"0"
+;HKR,NDI\params\dot11AuthenticationMode,ParamDesc,,"Authentication Mode"
+;HKR,NDI\params\dot11AuthenticationMode,type,,"enum"
+;HKR,NDI\params\dot11AuthenticationMode,default,,"0"
+;HKR,NDI\params\dot11AuthenticationMode\enum,"0",,"Open Authentication"
+;HKR,NDI\params\dot11AuthenticationMode\enum,"1",,"Shared Authentication"
+;HKR,NDI\params\dot11AuthenticationMode\enum,"2",,"Auto Switch"
+
+HKR, ,dot11ShortPreambleInvoked, ,"0"
+;HKR,NDI\params\dot11ShortPreambleInvoked,ParamDesc,,"Short Preamble"
+;HKR,NDI\params\dot11ShortPreambleInvoked,type,,"enum"
+;HKR,NDI\params\dot11ShortPreambleInvoked,default,,"0"
+;HKR,NDI\params\dot11ShortPreambleInvoked\enum,"0",,"Off"
+;HKR,NDI\params\dot11ShortPreambleInvoked\enum,"1",,"On"
+
+HKR, ,ELPSupport, ,"0"
+;HKR,NDI\params\ELPSupport,ParamDesc,,"ELP Support"
+;HKR,NDI\params\ELPSupport,type,,"enum"
+;HKR,NDI\params\ELPSupport,default,,"0"
+;HKR,NDI\params\ELPSupport\enum,"1",,"Enabled"
+;HKR,NDI\params\ELPSupport\enum,"0",,"Disabled"
+
+HKR, ,LeapUserName, ,"usrwlan"
+;HKR, Ndi\Params\LeapUserName, ParamDesc, ,"LeapUserName"
+;HKR, Ndi\Params\LeapUserName, Type, ,"edit"
+;HKR, Ndi\Params\LeapUserName, LimitText, ,"32"
+;HKR, Ndi\Params\LeapUserName, Default,,"tiwlan"
+;HKR, Ndi\Params\LeapUserName, UpperCase,,"0"
+
+HKR, ,LeapEnabled, ,"0"
+;HKR,NDI\params\LeapEnabled,ParamDesc,,"LeapEnabled"
+;HKR,NDI\params\LeapEnabled,type,,"enum"
+;HKR,NDI\params\LeapEnabled,default,,"0"
+;HKR,NDI\params\LeapEnabled\enum,"1",,"Enabled"
+;HKR,NDI\params\LeapEnabled\enum,"0",,"Disabled"
+
+HKR, ,Mode4x, ,"1"
+;HKR,NDI\params\Mode4x,ParamDesc,,"Mode4x"
+;HKR,NDI\params\Mode4x,type,,"enum"
+;HKR,NDI\params\Mode4x,default,,"1"
+;HKR,NDI\params\Mode4x\enum,"0",,"Off"
+;HKR,NDI\params\Mode4x\enum,"1",,"On"
+
+HKR, ,g80211DraftNumber, ,"6"
+;HKR,NDI\params\g80211DraftNumber,ParamDesc,,"802.11G Draft Number"
+;HKR,NDI\params\g80211DraftNumber,type,,"enum"
+;HKR,NDI\params\g80211DraftNumber,default,,"6"
+;HKR,NDI\params\g80211DraftNumber\enum,"5",,"Draft 5"
+;HKR,NDI\params\g80211DraftNumber\enum,"6",,"Draft 6"
+
+HKR, ,PrivacyMode, ,"0"
+;HKR,NDI\params\PrivacyMode,ParamDesc,,"Privacy Mode"
+;HKR,NDI\params\PrivacyMode,type,,"enum"
+;HKR,NDI\params\PrivacyMode,default,,"2"
+;HKR,NDI\params\PrivacyMode\enum,"0",,"None"
+;HKR,NDI\params\PrivacyMode\enum,"1",,"WEP"
+;HKR,NDI\params\PrivacyMode\enum,"2",,"External"
+;HKR,NDI\params\PrivacyMode\enum,"3",,"CCX"
+
+HKR, ,CCXSecurityType, ,"0"
+;HKR,NDI\params\CCXSecurityType,ParamDesc,,"CCX Security Type"
+;HKR,NDI\params\CCXSecurityType,type,,"enum"
+;HKR,NDI\params\CCXSecurityType,default,,"0"
+;HKR,NDI\params\CCXSecurityType\enum,"0",,"None"
+;HKR,NDI\params\CCXSecurityType\enum,"1",,"LEAP"
+;HKR,NDI\params\CCXSecurityType\enum,"2",,"External"
+
+HKR, ,MixedMode, ,"0"
+;HKR,NDI\params\MixedMode,ParamDesc,,"Mixed Mode"
+;HKR,NDI\params\MixedMode,type,,"enum"
+;HKR,NDI\params\MixedMode,default,,"0"
+;HKR,NDI\params\MixedMode\enum,"1",,"Enabled"
+;HKR,NDI\params\MixedMode\enum,"0",,"Disabled"
+
+; Desired channel
+HKR, Ndi\Params\dot11DesiredChannel, ParamDesc, ,"Desired Channel"
+HKR, Ndi\Params\dot11DesiredChannel, Type, , "int"
+HKR, Ndi\Params\dot11DesiredChannel, Default, , "11"
+HKR, Ndi\Params\dot11DesiredChannel, Min, , "1"
+HKR, Ndi\Params\dot11DesiredChannel, Max, , "11"
+HKR, Ndi\Params\dot11DesiredChannel, Step, , "1"
+HKR, Ndi\Params\dot11DesiredChannel, Base, , "10"
+
+;HKR, ,EnergyDetection, ,"0"
+HKR, ,EnergyDetection, ,"1"
+
+; Rate Adaptation
+HKR, ,FBLongInterval,, "100"
+HKR, ,FBShortInterval,, "2000"
+
+HKR, ,dot11MaxSiteLifetime, ,"3"
+
+HKR, ,TxOpContinuation, ,"1"
+
+
+;******************************   Common Misc Settings ******************************
+
+[DestinationDirs]
+DefaultDestDir  =     12 ; Windows\System32\Drivers
+USR11GXP.CopyFiles =   12 ; Winnt\System32\Drivers Directory ; WinXP
+USR11GAGXP.CopyFiles = 12 ; Winnt\System32\Drivers Directory ; WinXP
+USR11G.CopyFiles =     11 ; Windows\System or Winnt\System32 Directory ; Win98/ME
+USR11G.BinFiles.NT =   10,system
+USR11GAG.CopyFiles =   11 ; Windows\System or Winnt\System32 Directory ; Win98/ME
+USR11GAG.BinFiles.NT = 10,system
+
+;USR11G.CopyFiles.NT = 12 ; Winnt\System32\Drivers Directory ; Win2k
+
+
+[SourceDisksNames]
+1 = %DiskName%,,
+
+[SourceDisksFiles]
+FwRad16.bin   = 1
+FwRad17.bin   = 1
+USR11G.sys  = 1
+
+
+[Strings]
+TI="U.S. Robotics"
+USR11G.DeviceDesc = "U.S. Robotics 802.11g Wireless Turbo Adapter"
+USR11G.Service.DispName  = "U.S. Robotics 802.11g Wireless Turbo Adapter"
+WLANAdapterHelpText= "A WLAN Adapter provides high speed connection to the Internet through 802.11g technology"
+DiskName="USR WLAN Installation Disk"

@@ -1,0 +1,532 @@
+;; net8192du.inf 
+;;
+;; Realtek RTL8192D Wireless 802.11b/g/n USB 2.0 Network Adapter
+;;
+;; Copyright (C) 2008 Realtek Semiconductor Corp.
+;;
+;; this release is primarily for WHQL test.
+;;
+
+[Version]
+Signature	= "$Windows NT$"
+Class		= Net
+ClassGUID	= {4d36e972-e325-11ce-bfc1-08002be10318}
+Provider	= %Realtek%
+CatalogFile.NT	= net8192du.cat		;; for WHQL certified
+DriverVer =  08/16/2011,1002.01.0816.2011
+
+[Manufacturer]
+%Realtek% = Realtek,NTx86.6.0
+%PCI% = PCI,NTx86.6.0
+%TRENDnet% = TRENDnet,NTx86.6.0
+%Abocom% = Abocom,NTx86.6.0
+
+[ControlFlags]
+ExcludeFromSelect = *
+
+;;****************************************************************************
+;; IDs for X86
+;;****************************************************************************
+[Realtek.NTx86.6.0]
+%RTL8192du.DeviceDesc% = RTL8192du.ndi, USB\VID_0BDA&PID_8194
+%RTL8192du.DeviceDesc% = RTL8192du.ndi, USB\VID_0BDA&PID_8111
+%RTL8192du0.DeviceDesc% = RTL8192du.ndi, USB\VID_0BDA&PID_8193&MI_00
+%RTL8192du1.DeviceDesc% = RTL8192du1.ndi, USB\VID_0BDA&PID_8193&MI_01
+%RTL8192du2.DeviceDesc% = RTL8192du.ndi, USB\VID_0BDA&PID_0193&MI_00
+%RTL8192du3.DeviceDesc% = RTL8192du1.ndi, USB\VID_0BDA&PID_0193&MI_01
+
+[PCI.NTx86.6.0]
+%PCI_Abocom_du0.DeviceDesc% = RTL8192du.ndi, USB\VID_2019&PID_AB2C&MI_00
+%PCI_Abocom_du1.DeviceDesc% = RTL8192du.ndi, USB\VID_2019&PID_AB2C&MI_01
+%PCI_3_du0.DeviceDesc% = RTL8192du.ndi, USB\VID_2019&PID_4903&MI_00
+%PCI_3_du1.DeviceDesc% = RTL8192du1.ndi, USB\VID_2019&PID_4903&MI_01
+%PCI_4_du0.DeviceDesc% = RTL8192du.ndi, USB\VID_2019&PID_4904&MI_00
+%PCI_4_du1.DeviceDesc% = RTL8192du1.ndi, USB\VID_2019&PID_4904&MI_01
+%PCIWIDI.DeviceDesc% = RTL8192du.ndi, USB\VID_2019&PID_AB2D
+
+[TRENDnet.NTx86.6.0]
+%TRENDnet_du.DeviceDesc% = RTL8192du.ndi, USB\VID_20F4&PID_664B
+
+[Abocom.NTx86.6.0]
+%Abocom0.DeviceDesc% = RTL8192du.ndi, USB\VID_07B8&PID_8193&MI_00
+%Abocom1.DeviceDesc% = RTL8192du1.ndi, USB\VID_07B8&PID_8193&MI_01
+
+;;****************************************************************************
+;; IDs for X64
+;;****************************************************************************
+[Realtek.NTamd64.6.0]
+%RTL8192du.DeviceDesc% = RTL8192du.ndi, USB\VID_0BDA&PID_8194
+%RTL8192du.DeviceDesc% = RTL8192du.ndi, USB\VID_0BDA&PID_8111
+%RTL8192du0.DeviceDesc% = RTL8192du.ndi, USB\VID_0BDA&PID_8193&MI_00
+%RTL8192du1.DeviceDesc% = RTL8192du1.ndi, USB\VID_0BDA&PID_8193&MI_01
+
+
+[PCI.NTamd64.6.0]
+%PCI_Abocom_du0.DeviceDesc% = RTL8192du.ndi, USB\VID_2019&PID_AB2C&MI_00
+%PCI_Abocom_du1.DeviceDesc% = RTL8192du.ndi, USB\VID_2019&PID_AB2C&MI_01
+%PCI_3_du0.DeviceDesc% = RTL8192du.ndi, USB\VID_2019&PID_4903&MI_00
+%PCI_3_du1.DeviceDesc% = RTL8192du1.ndi, USB\VID_2019&PID_4903&MI_01
+%PCI_4_du0.DeviceDesc% = RTL8192du.ndi, USB\VID_2019&PID_4904&MI_00
+%PCI_4_du1.DeviceDesc% = RTL8192du1.ndi, USB\VID_2019&PID_4904&MI_01
+%PCIWIDI.DeviceDesc% = RTL8192du.ndi, USB\VID_2019&PID_AB2D
+
+[TRENDnet.NTamd64.6.0]
+%TRENDnet_du.DeviceDesc% = RTL8192du.ndi, USB\VID_20F4&PID_664B
+
+[Abocom.NTamd64.6.0]
+%Abocom0.DeviceDesc% = RTL8192du.ndi, USB\VID_07B8&PID_8193&MI_00
+%Abocom1.DeviceDesc% = RTL8192du1.ndi, USB\VID_07B8&PID_8193&MI_01
+
+;;****************************************************************************
+;; Windows 2000/XP
+;;****************************************************************************
+;;----------------------------------------------------------------------------
+;; Realtek default installation
+;;----------------------------------------------------------------------------
+[RTL8192du.ndi.NT]
+AddReg			= RTL8192du.nt5.reg, RTL8192du.common.reg, RTLWLAN.reg, RxReorder_MAC0.reg
+Characteristics	= 0x84
+BusType			= 15 
+CopyFiles		= RTL8192du.CopyFiles
+*IfType			= 71            ; IF_TYPE_IEEE80211
+*MediaType		= 16            ; NdisMediumNative802_11
+*PhysicalMediaType	= 9          ; NdisPhysicalMediumNative802_11
+
+[RTL8192du.ndi.NT.Services]
+AddService		= RTL8192du, 2, RTL8192du.nt5.Service, RTL8192du.nt5.EventLog
+
+;;----------------------------------------------------------------------------
+;; Realtek default installation
+;;----------------------------------------------------------------------------
+[RTL8192du1.ndi.NT]
+AddReg			= RTL8192du.nt5.reg, RTL8192du.common.reg, RTLWLAN.reg, ConcurrentMode.reg, RxReorder_MAC1.reg
+Characteristics	= 0x84
+BusType			= 15 
+CopyFiles		= RTL8192du.CopyFiles
+*IfType			= 71            ; IF_TYPE_IEEE80211
+*MediaType		= 16            ; NdisMediumNative802_11
+*PhysicalMediaType	= 9          ; NdisPhysicalMediumNative802_11
+
+[RTL8192du1.ndi.NT.Services]
+AddService		= RTL8192du, 2, RTL8192du.nt5.Service, RTL8192du.nt5.EventLog
+
+;;----------------------------------------------------------------------------
+;; Corega customized installation
+;;----------------------------------------------------------------------------
+[Corega.ndi.NT]
+AddReg			= RTL8192du.nt5.reg, RTL8192du.common.reg, Corega.reg
+Characteristics	= 0x84
+BusType			= 15 
+CopyFiles		= RTL8192du.CopyFiles
+*IfType			= 71            ; IF_TYPE_IEEE80211
+*MediaType		= 16            ; NdisMediumNative802_11
+*PhysicalMediaType	= 9          ; NdisPhysicalMediumNative802_11
+
+[Corega.ndi.NT.Services]
+AddService		= RTL8192du, 2, RTL8192du.nt5.Service, RTL8192du.nt5.EventLog
+
+;;****************************************************************************
+;; Windows 2000/XP parameters
+;;****************************************************************************
+[RTL8192du.nt5.reg]
+HKR, Ndi\Interfaces,	UpperRange, 0, "ndis5,mdcwifi"
+HKR, Ndi\Interfaces,	LowerRange, 0, "wlan, ethernet"
+HKR, Ndi,				Service,    0, "RTL8192du"
+
+[RTL8192du.nt5.Service]
+DisplayName    = %RTL8192du.DeviceDesc.DispName%
+ServiceType    = 1		; %SERVICE_KERNEL_DRIVER%
+StartType      = 3		; %SERRVICE_DEMAND_START%
+ErrorControl   = 1		; %SERRVICE_ERROR_NORMAL%
+ServiceBinary  = %12%\RTL8192du.sys
+LoadOrderGroup = NDIS
+
+[RTL8192du.nt5.EventLog]
+AddReg = RTL8192du.nt5.AddEventLog.reg
+
+[RTL8192du.nt5.AddEventLog.reg]
+HKR, , EventMessageFile, 0x00020000, "%%SystemRoot%%\System32\netevent.dll"
+HKR, , TypesSupported  , 0x00010001, 7
+
+;*******************************************************************************
+; RTL8192du common paramters
+;*******************************************************************************
+[RTL8192du.common.reg]
+HKR,Ndi\params\LedCtrl,				ParamDesc,  0, %LED_CONTROL_STR%
+HKR,Ndi\params\LedCtrl,				type,       0, "enum"
+HKR,Ndi\params\LedCtrl,				default,    0, "1"
+HKR,Ndi\params\LedCtrl\enum,			"0",        0, %DISABLE_STR%
+HKR,Ndi\params\LedCtrl\enum,			"1",        0, %ENABLE_STR%
+HKR,defaults,LedCtrl,0,"1"
+HKR,,LedCtrl,0,"1"
+
+HKR,Ndi\params\WiFi11bIbss,			ParamDesc,  0, %WIFI_IBSS_STR%
+HKR,Ndi\params\WiFi11bIbss,			type,       0, "enum"
+HKR,Ndi\params\WiFi11bIbss,			default,    0, "0"
+HKR,Ndi\params\WiFi11bIbss\enum,		"0",        0, %DISABLE_STR%
+HKR,Ndi\params\WiFi11bIbss\enum,		"1",        0, %ENABLE_STR%
+HKR,defaults,WiFi11bIbss,0,"0"
+HKR,,WiFi11bIbss,0,"0"
+
+HKR,Ndi\params\bRateAdaptive,			ParamDesc,  0, %RATE_ADAPTIVE_STR%
+HKR,Ndi\params\bRateAdaptive,			type,       0, "enum"
+HKR,Ndi\params\bRateAdaptive,			default,    0, "1"
+HKR,Ndi\params\bRateAdaptive\enum,		"0",        0, %DISABLE_STR%
+HKR,Ndi\params\bRateAdaptive\enum,		"1",        0, %ENABLE_STR%
+HKR,defaults,bRateAdaptive,0,"1"
+HKR,,bRateAdaptive,0,"1"
+
+HKR,Ndi\params\QoS,				ParamDesc,  0, %QOS_STR%
+HKR,Ndi\params\QoS,				type,       0, "enum"
+HKR,Ndi\params\QoS,				default,    0, "1"
+HKR,Ndi\params\QoS\enum,			"0",        0, %DISABLE_STR%
+HKR,Ndi\params\QoS\enum,			"1",        0, %ENABLE_STR%
+HKR,defaults,QoS,0,"1"
+HKR,,QoS,0,"1"
+
+HKR,Ndi\params\WiFiConfg,				ParamDesc,  0, %WiFiConfg_STR%
+HKR,Ndi\params\WiFiConfg,				type,       0, "enum"
+HKR,Ndi\params\WiFiConfg,				default,    0, "0"
+HKR,Ndi\params\WiFiConfg\enum,			"0",        0, %DISABLE_STR%
+HKR,Ndi\params\WiFiConfg\enum,			"1",        0, %ENABLE_STR%
+HKR,defaults,WiFiConfg,0,"0"
+HKR,,WiFiConfg,0,"0"
+
+HKR,Ndi\params\CcxRm,				ParamDesc,  0, %CCX_RM_STR%
+HKR,Ndi\params\CcxRm,				type,       0, "enum"
+HKR,Ndi\params\CcxRm,				default,    0, "1"
+HKR,Ndi\params\CcxRm\enum,			"0",        0,  %DISABLE_STR%
+HKR,Ndi\params\CcxRm\enum,			"1",        0, %ENABLE_STR%
+HKR,defaults,CcxRm,0,"1"
+HKR,,CcxRm,0,"1"
+
+HKR,Ndi\params\CcxOffLineDurUpLimit,		ParamDesc,  0, %CCX_OFF_LINE_DUR_UP_LIMIT_STR%
+HKR,Ndi\params\CcxOffLineDurUpLimit,		type,       0, "word"
+HKR,Ndi\params\CcxOffLineDurUpLimit,		default,    0, "0"
+HKR,Ndi\params\CcxOffLineDurUpLimit,		min,        0, "0"
+HKR,Ndi\params\CcxOffLineDurUpLimit,		max,        0, "65535"
+HKR,Ndi\params\CcxOffLineDurUpLimit,		step,       0, "1"
+HKR,Ndi\params\CcxOffLineDurUpLimit,		base,       0, "10"
+HKR,defaults,CcxOffLineDurUpLimit,0,"0"
+HKR,,CcxOffLineDurUpLimit,0,"0"
+
+;;----------------------------------------------------------------------------
+;; Realtek WLAN NIC parameters
+;;----------------------------------------------------------------------------
+[RTLWLAN.reg]
+HKR,Ndi\params\SSID,				ParamDesc,  0, %SSID_STR%
+HKR,Ndi\params\SSID,				type,       0, "edit"
+HKR,Ndi\params\SSID,				default,    0, "ANY"
+HKR,Ndi\params\SSID,				LimitText,  0, "32"
+HKR,defaults,SSID,0,"ANY"
+HKR,,SSID,0,"ANY"
+
+HKR,Ndi\params\Channel,				ParamDesc,  0, %CHANNEL_STR%
+HKR,Ndi\params\Channel,				type,       0, "int"
+HKR,Ndi\params\Channel,				default,    0, "1"
+HKR,Ndi\params\Channel,				Min,        0, "1"
+HKR,Ndi\params\Channel,				Max,        0, "14"
+HKR,Ndi\params\Channel,				Step,       0, "1"
+HKR,Ndi\params\Channel,				Base,       0, "10"
+HKR,defaults,Channel,0,"1"
+HKR,,Channel,0,"1"
+HKR,,Channel5G,0,"36"
+
+HKR,Ndi\params\NetworkType,			ParamDesc,  0, %NETWORK_TYPE_STR%
+HKR,Ndi\params\NetworkType,			type,       0, "enum"
+HKR,Ndi\params\NetworkType,			default,    0, "1"
+HKR,Ndi\params\NetworkType\enum,		"0",        0, %AD_HOC_STR%
+HKR,Ndi\params\NetworkType\enum,		"1",        0, %INFRASTRUCTURE_STR%
+HKR,Ndi\params\NetworkType\enum,		"2",        0, %AUTO_SELECT%
+HKR,defaults,NetworkType,0,"1"
+HKR,,NetworkType,0,"1"
+
+HKR,NDI\params\PowerSaveMode,			ParamDesc,  0, %POWER_SAVE_STR%
+HKR,NDI\params\PowerSaveMode,			type,       0, "enum"
+HKR,Ndi\params\PowerSaveMode,			default,    0, "0"
+HKR,NDI\params\PowerSaveMode\enum,		"0",        0, %CAM_STR%
+HKR,NDI\params\PowerSaveMode\enum,		"1",        0, %MAX_PSP_STR%
+HKR,NDI\params\PowerSaveMode\enum,		"2",        0, %Fast_PSP_STR%
+HKR,defaults,PowerSaveMode,0,"0"
+HKR,,PowerSaveMode,0,"0"
+
+HKR,Ndi\params\StaUapsd,			 ParamDesc,  0, %WMM_APSD%
+HKR,Ndi\params\StaUapsd,			type,       0, "enum"
+HKR,Ndi\params\StaUapsd,			default,    0, "0"
+HKR,Ndi\params\StaUapsd\enum,			"0",        0, %No_AC_STR%
+HKR,Ndi\params\StaUapsd\enum,			"15",       0, %ALL_AC_STR%
+HKR,defaults,StaUapsd,0,"0"
+HKR,,StaUapsd,0,"0"
+
+;HKR,Ndi\params\PSPXlinkMode,			ParamDesc,  0, %PSP_XLINK_STR%
+;HKR,Ndi\params\PSPXlinkMode,			type,       0, "enum"
+;HKR,Ndi\params\PSPXlinkMode,			default,    0, "0"
+;HKR,Ndi\params\PSPXlinkMode\enum,		"0",        0, %DISABLE_STR%
+;HKR,Ndi\params\PSPXlinkMode\enum,		"1",        0, %ENABLE_STR%
+HKR,defaults,PSPXlinkMode,0,"0"
+HKR,,PSPXlinkMode,0,"0"
+
+;HKR,Ndi\params\RxReorder,        		ParamDesc,  0, %RX_REORDER_STR%
+;HKR,Ndi\params\RxReorder,        		type,       0, "enum"
+;HKR,Ndi\params\RxReorder,        		default,    0, "1"
+;HKR,Ndi\params\RxReorder\enum,   		"0",        0, %DISABLE_STR%
+;HKR,Ndi\params\RxReorder\enum,   		"1",        0, %ENABLE_STR%
+;HKR,defaults,RxReorder,0,"1"
+;HKR,,RxReorder,0,"1"
+
+
+HKR,,DefaultKeyID,,"0"
+HKR,,DefaultKey0,,""
+HKR,,DefaultKey1,,""
+HKR,,DefaultKey2,,""
+HKR,,DefaultKey3,,""
+
+;Inactive Power Save
+HKR,defaults,InactivePs,0,"2"
+HKR,,InactivePs,0,"2"
+
+;WidiPairingEnable
+HKR,defaults,bWiDiPairingEnable,0,"0"
+HKR,,bWiDiPairingEnable,0,"0"
+
+;Reset Tx Hang
+HKR,defaults,USBResetTxHang,0,"1"
+HKR,,USBResetTxHang,0,"1"
+
+;Leisure Power Save
+HKR,defaults,bLeisurePs,0,"2"
+HKR,,bLeisurePs,0,"2"
+
+;Fw Control LPS
+HKR,defaults,bFwCtrlLPS,0,"3"
+HKR,,bFwCtrlLPS,0,"3"
+
+;; LPS Interval
+;HKR,defaults,LPSIntvl,0,"5"
+HKR,,LPSIntvl,0,"5"
+
+;; For Earlymode 1:Enable 0:Disable
+HKR,,bEarlymodeEnable,,"1"
+
+;; For Easy SmartConcurrent 1:Support 0:UnSupport
+HKR,,bSTAAndSTAEasySmartConcurrentSupport,,"0"
+
+;-------------------------------------------------------------------------------
+;	USB Tx/Rx aggregation
+;-------------------------------------------------------------------------------
+HKR,Ndi\params\UsbRxAggMode,        		ParamDesc,  0, %RX_AGG_MODE_STR%
+HKR,Ndi\params\UsbRxAggMode,        		type,       0, "enum"
+HKR,Ndi\params\UsbRxAggMode,        		default,    0, "0"
+HKR,Ndi\params\UsbRxAggMode\enum,   		"0",        0, %DISABLE_STR%
+HKR,Ndi\params\UsbRxAggMode\enum,   		"1",        0, %RX_AGG_MODE_PAGE_STR%
+HKR,Ndi\params\UsbRxAggMode\enum,   		"2",        0, %RX_AGG_MODE_BLOCK_STR%
+HKR,Ndi\params\UsbRxAggMode\enum,   		"3",        0, %RX_AGG_MODE_MIXED_STR%
+HKR,defaults,UsbRxAggMode,0,"2"
+HKR,,UsbRxAggMode,0,"2"
+
+HKR,Ndi\params\UsbRxAggBlockCount,		ParamDesc,  0, %RX_AGG_USB_BLOCK_STR%
+HKR,Ndi\params\UsbRxAggBlockCount,		type,       0, "int"
+HKR,Ndi\params\UsbRxAggBlockCount,		default,    0, "1"
+HKR,Ndi\params\UsbRxAggBlockCount,		Min,        0, "0"
+HKR,Ndi\params\UsbRxAggBlockCount,		Max,        0, "255"
+HKR,Ndi\params\UsbRxAggBlockCount,		Step,       0, "1"
+HKR,Ndi\params\UsbRxAggBlockCount,		Base,       0, "10"
+HKR,defaults,UsbRxAggBlockCount,0,"18"
+HKR,,UsbRxAggBlockCount,0,"18"
+
+HKR,Ndi\params\UsbRxAggBlockTimeout,		ParamDesc,  0, %RX_AGG_USB_TIMEOUT_STR%
+HKR,Ndi\params\UsbRxAggBlockTimeout,		type,       0, "int"
+HKR,Ndi\params\UsbRxAggBlockTimeout,		default,    0, "1"
+HKR,Ndi\params\UsbRxAggBlockTimeout,		Min,        0, "1"
+HKR,Ndi\params\UsbRxAggBlockTimeout,		Max,        0, "15"
+HKR,Ndi\params\UsbRxAggBlockTimeout,		Step,       0, "1"
+HKR,Ndi\params\UsbRxAggBlockTimeout,		Base,       0, "10"
+HKR,defaults,UsbRxAggBlockTimeout,0,"7"
+HKR,,UsbRxAggBlockTimeout,0,"7"
+
+HKR,Ndi\params\UsbRxAggPageCount,		ParamDesc,  0, %RX_AGG_DMA_PAGE_STR%
+HKR,Ndi\params\UsbRxAggPageCount,		type,       0, "int"
+HKR,Ndi\params\UsbRxAggPageCount,		default,    0, "1"
+HKR,Ndi\params\UsbRxAggPageCount,		Min,        0, "0"
+HKR,Ndi\params\UsbRxAggPageCount,		Max,        0, "255"
+HKR,Ndi\params\UsbRxAggPageCount,		Step,       0, "1"
+HKR,Ndi\params\UsbRxAggPageCount,		Base,       0, "10"
+HKR,defaults,UsbRxAggPageCount,0,"1"
+HKR,,UsbRxAggPageCount,0,"1"
+
+HKR,Ndi\params\UsbRxAggPageTimeout,		ParamDesc,  0, %RX_AGG_DMA_TIMEOUT_STR%
+HKR,Ndi\params\UsbRxAggPageTimeout,		type,       0, "int"
+HKR,Ndi\params\UsbRxAggPageTimeout,		default,    0, "1"
+HKR,Ndi\params\UsbRxAggPageTimeout,		Min,        0, "1"
+HKR,Ndi\params\UsbRxAggPageTimeout,		Max,        0, "15"
+HKR,Ndi\params\UsbRxAggPageTimeout,		Step,       0, "1"
+HKR,Ndi\params\UsbRxAggPageTimeout,		Base,       0, "10"
+HKR,defaults,UsbRxAggPageTimeout,0,"5"
+HKR,,UsbRxAggPageTimeout,0,"5"
+
+
+HKR,Ndi\params\UsbTxAggMode,        		ParamDesc,  0, %TX_AGG_MODE_STR%
+HKR,Ndi\params\UsbTxAggMode,        		type,       0, "enum"
+HKR,Ndi\params\UsbTxAggMode,        		default,    0, "0"
+HKR,Ndi\params\UsbTxAggMode\enum,   		"0",        0, %DISABLE_STR%
+HKR,Ndi\params\UsbTxAggMode\enum,   		"1",        0, %ENABLE_STR%
+HKR,defaults,UsbTxAggMode,0,"1"
+HKR,,UsbTxAggMode,0,"1"
+
+HKR,Ndi\params\UsbTxAggDescNum,			ParamDesc,  0, %TX_AGG_DESC_PER_OUT_STR%
+HKR,Ndi\params\UsbTxAggDescNum,			type,       0, "int"
+HKR,Ndi\params\UsbTxAggDescNum,			default,    0, "0"
+HKR,Ndi\params\UsbTxAggDescNum,			Min,        0, "0"
+HKR,Ndi\params\UsbTxAggDescNum,			Max,        0, "15"
+HKR,Ndi\params\UsbTxAggDescNum,			Step,       0, "1"
+HKR,Ndi\params\UsbTxAggDescNum,			Base,       0, "10"
+HKR,defaults,UsbTxAggDescNum,0,"4"
+HKR,,UsbTxAggDescNum,0,"4"
+
+;*******************************************************************************
+; Two STA Concurrent Mode Reg
+;*******************************************************************************
+[ConcurrentMode.reg]
+HKR,Ndi\params\TwoStaConcurrentMode,		ParamDesc,  0, %TWO_STA_CONCURRENT_MODE%
+HKR,Ndi\params\TwoStaConcurrentMode,		type,       0, "enum"
+HKR,Ndi\params\TwoStaConcurrentMode,			default,    0, "1"
+HKR,Ndi\params\TwoStaConcurrentMode\enum,		"0",        0, %SECONDARY_DISABLE%
+HKR,Ndi\params\TwoStaConcurrentMode\enum,		"1",        0, %SECONDARY_ENABLE%
+HKR,Ndi\params\TwoStaConcurrentMode\enum,		"2",        0, %SECONDARY_AUTO%
+HKR,defaults,TwoStaConcurrentMode,0,"0"
+HKR,,TwoStaConcurrentMode,0,"0"
+
+[RxReorder_MAC0.reg]
+HKR,defaults,RxReorder,0,"1"
+HKR,,RxReorder,0,"1"
+
+[RxReorder_MAC1.reg]
+HKR,defaults,RxReorder,0,"0"
+HKR,,RxReorder,0,"0"
+
+;*******************************************************************************
+; Destination Directory
+;*******************************************************************************
+[RTL8192du.CopyFiles]
+RTL8192du.sys,,,2
+
+[DestinationDirs]
+DefaultDestDir     = 11
+RTL8192du.CopyFiles		= 12
+
+;;****************************************************************************
+;; Source Files
+;;****************************************************************************
+[SourceDisksFiles]
+RTL8192du.sys = 1
+
+[SourceDisksNames]
+1=%DISKNAME%,,,
+
+;*******************************************************************************
+; Strings
+;*******************************************************************************
+[Strings]
+SSID_STR				= "SSID"
+CHANNEL_STR				= "Channel"
+NETWORK_TYPE_STR			= "Network Type"
+LED_CONTROL_STR				= "LED Control" 
+POWER_SAVE_STR				= "Power Save Mode"
+WIFI_IBSS_STR				= "IBSS Default 11b Mode"
+RATE_ADAPTIVE_STR			= "Rate Adaptive"
+QOS_STR					= "QoS"
+WiFiConfg_STR	  = "WiFiConfg"
+WMM_APSD				= "WMM APSD"
+CCX_RM_STR				= "CCX Radio Measurement"
+CCX_OFF_LINE_DUR_UP_LIMIT_STR		= "CCX Max Off-Line Measurement (0: unlimited)"
+FORCE_PRIORITY_STR			= "Forced Priority"
+HW_PARA_STR				= "Init from HwParaFile"
+THREE_WIRE_MODE_STR			= "Three Wire Programming Mode"
+BOARD_TYPE_STR				= "Board Type"
+PROTECTION_MODE_STR			= "Protection Mode"
+TPC_STR					= "Transmit Power Control"
+TPC_POLARITY_STR			= "TPC Polarity Select"
+HIGH_POWER_STR				= "High Power Mechanism"
+INIT_GAIN_STR				= "Initial Gain State"
+CW_MAX_MIN_STR				= "Contention Window"
+PSP_XLINK_STR				= "PSP XLink Mode"
+DISABLE_STR				= "Disable"
+ENABLE_STR				= "Enable"
+AD_HOC_STR				= "Ad Hoc"
+INFRASTRUCTURE_STR			= "Infrastructure"
+AUTO_SELECT				= "Auto select"
+RX_REORDER_STR				= "Rx Reorder"
+CAM_STR						= "CAM"
+MAX_PSP_STR				= "MAX_PSP"
+Fast_PSP_STR			= "Fast_PSP"
+NO_AC_STR					= "No AC (Disable)"
+ALL_AC_STR				= "ALL AC"
+
+;-------------------------------------------------------------------------------
+;	USB Tx/Rx aggregation strings
+;-------------------------------------------------------------------------------
+RX_AGG_MODE_STR				= "Rx Aggregation Mode"
+RX_AGG_MODE_BLOCK_STR			= "Rx Agg USB Block Mode"
+RX_AGG_MODE_PAGE_STR			= "Rx Agg DMA Page Mode"
+RX_AGG_MODE_MIXED_STR			= "Rx Agg USB and Page Mixed Mode"
+RX_AGG_USB_BLOCK_STR			= "Rx Agg USB Block Threshold"
+RX_AGG_USB_TIMEOUT_STR			= "Rx Agg USB Timeout"
+RX_AGG_DMA_PAGE_STR			= "Rx Agg DMA Page Threshold"
+RX_AGG_DMA_TIMEOUT_STR			= "Rx Agg DMA Timeout"
+TX_AGG_MODE_STR				= "Tx Aggregation Mode"
+TX_AGG_DESC_PER_OUT_STR			= "Tx Agg Number of descriptor per bulk out"
+
+;-------------------------------------------------------------------------------
+;	Two STA Concurrent Mode
+;-------------------------------------------------------------------------------
+TWO_STA_CONCURRENT_MODE			= "Two STA Concurrent Mode"
+SECONDARY_DISABLE			= "Secondary client Disable"
+SECONDARY_ENABLE			= "Secondary Client Enable"
+SECONDARY_AUTO				= "Secondary Client Auto Select"
+
+;*******************************************************************************
+; manufacture description
+;*******************************************************************************
+Realtek					= "Realtek Semiconductor Corp."
+PCI             			= "PLANEX COMMUNICATIONS INC"
+TRENDnet				= "TRENDnet"
+Abocom                                  = "AboCom System, Inc" 
+
+;*******************************************************************************
+;	Source disk name
+;*******************************************************************************
+DISKNAME				= "Realtek RTL8192DU Wireless LAN 802.11n USB 2.0 Network Adapter Driver Disk"
+RTL8192du.DeviceDesc 		= "Realtek RTL8192DU Wireless LAN 802.11n USB 2.0 Network Adapter"
+RTL8192du.DeviceDesc.DispName	= "Realtek RTL8192DU Wireless LAN 802.11n USB 2.0 Network Adapter"
+RTL8192du0.DeviceDesc 		= "Realtek RTL8192DU Wireless LAN 802.11n USB 2.0 Network Adapter MAC0"
+RTL8192du0.DeviceDesc.DispName	= "Realtek RTL8192DU Wireless LAN 802.11n USB 2.0 Network Adapter MAC0"
+RTL8192du1.DeviceDesc 		= "Realtek RTL8192DU Wireless LAN 802.11n USB 2.0 Network Adapter MAC1"
+RTL8192du1.DeviceDesc.DispName	= "Realtek RTL8192DU Wireless LAN 802.11n USB 2.0 Network Adapter MAC1"
+
+RTL8192du2.DeviceDesc 		= "Realtek RTL8192DU Wireless LAN 802.11n USB 2.0 Network Adapter MAC0"
+RTL8192du2.DeviceDesc.DispName	= "Realtek RTL8192DU Wireless LAN 802.11n USB 2.0 Network Adapter MAC0"
+RTL8192du3.DeviceDesc 		= "Realtek RTL8192DU Wireless LAN 802.11n USB 2.0 Network Adapter MAC1"
+RTL8192du3.DeviceDesc.DispName	= "Realtek RTL8192DU Wireless LAN 802.11n USB 2.0 Network Adapter MAC1"
+
+PCIWIDI.DeviceDesc 		= "MZK-WD300DH"
+PCIWIDI.DeviceDesc.DispName	= "MZK-WD300DH"
+
+PCI_Abocom_du0.DeviceDesc 		= "GW-USDual300 MAC0"
+PCI_Abocom_du0.DeviceDesc.DispName	= "GW-USDual300 MAC0"
+PCI_Abocom_du1.DeviceDesc 		= "GW-USDual300 MAC1"
+PCI_Abocom_du1.DeviceDesc.DispName	= "GW-USDual300 MAC1"
+PCI_3_du0.DeviceDesc 			= "GW-USFang300 MAC0"
+PCI_3_du0.DeviceDesc.DispName		= "GW-USFang300 MAC0"
+PCI_3_du1.DeviceDesc 			= "GW-USFang300 MAC1"
+PCI_3_du1.DeviceDesc.DispName		= "GW-USFang300 MAC1"
+PCI_4_du0.DeviceDesc 			= "GW-USUltra300 MAC0"
+PCI_4_du0.DeviceDesc.DispName		= "GW-USUltra300 MAC0"
+PCI_4_du1.DeviceDesc 			= "GW-USUltra300 MAC1"
+PCI_4_du1.DeviceDesc.DispName		= "GW-USUltra300 MAC1"
+TRENDnet_du.DeviceDesc		= "TRENDnet 300Mbps Dual Band Wireless USB Adapter"
+TRENDnet_du.DeviceDesc.DispName	= "TRENDnet 300Mbps Dual Band Wireless USB Adapter"
+
+Abocom0.DeviceDesc		= "802.11 a/b/g/n Wireless LAN USB 2.0 Network Adapter MAC0"
+Abocom0.DeviceDesc.DispName	= "802.11 a/b/g/n Wireless LAN USB 2.0 Network Adapter MAC0"
+Abocom1.DeviceDesc		= "802.11 a/b/g/n Wireless LAN USB 2.0 Network Adapter MAC1"
+Abocom1.DeviceDesc.DispName	= "802.11 a/b/g/n Wireless LAN USB 2.0 Network Adapter MAC1"

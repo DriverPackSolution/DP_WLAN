@@ -1,0 +1,216 @@
+.   MN-720.INF
+;   Copyright(c) 2003 Microsoft(R) Corporation
+;   All Rights Reserved.
+[version]
+	Signature	= "$Chicago$"
+	Class=Net
+	ClassGUID	= {4d36e972-e325-11ce-bfc1-08002be10318}
+	Provider	= %Msft%
+	Compatible	= 1
+DriverVer=07/07/2003, 3.20.26.0
+	CatalogFile=MN720.CAT
+
+[Manufacturer]
+	%Msft% = Microsoft
+
+[ControlFlags] 
+	ExcludeFromSelect = *
+
+[Microsoft]
+	%MSFT720G.DeviceDesc% = MSFT43XG2, PCI\VEN_14E4&DEV_4325&SUBSYS_00031414
+	%MSFT730G.DeviceDesc% = MSFT43XG3, PCI\VEN_14E4&DEV_4325&SUBSYS_00041414
+
+[MSFT43XG2]
+	AddReg		= MSFT43XX.win.reg, MSFT43XX.win.msft.reg, common.reg, g.options.reg
+	DelReg		= common.delreg
+	CopyFiles	= MSFT43XX.sys.files
+DriverVer=07/07/2003, 3.20.26.0
+
+[MSFT43XG3]
+	AddReg		= MSFT43XX.win.reg, MSFT43XX.win.msft.reg, common.reg, g.options.reg, mn730.reg
+	DelReg		= common.delreg
+	CopyFiles	= MSFT43XX.sys.files
+DriverVer=07/07/2003, 3.20.26.0
+
+[MSFT43XX.win.reg]
+	HKR,	Ndi,	DeviceID,		,	"PCI\VEN_14E4&DEV_4320"
+	HKR,	,		EnumPropPages,		0,	"netdi.dll,EnumPropPages"
+	HKR,	NDIS,	MajorNdisVersion,	1,	03
+	HKR,	NDIS,	MinorNdisVersion,	1,	0A
+	HKR,	NDIS,	LogDriverName,		,	"MSFT43XX"
+	HKR,	NDIS,	MajorDriverVersion,	1,	1
+	HKR,	NDIS,	MinorDriverVersion,	1,	0
+	HKR,	Ndi\Install,	,		,	"MSFT43XX.ndi.install"
+	HKR,	Ndi\Interfaces,	DefUpper,	0,	"ndis3"
+	HKR,	Ndi\Interfaces,	DefLower,	0,	"ethernet"
+	HKR,	Ndi\Interfaces,	UpperRange,	0,	"ndis3"
+	HKR,	Ndi\Interfaces,	LowerRange,	0,	"ethernet"
+
+[MSFT43XX.win.msft.reg]
+	HKR,	Ndi,	HelpText,		,	%MSFT43XX_HELP%
+
+[MSFT43XX.ndi.install]
+	AddReg		= MSFT43XX.ndi.reg
+
+[MSFT43XX.ndi.reg]
+	HKR,	,	DevLoader,		0,	"*ndis"
+	HKR,	,	DeviceVxDs,		0,	"mn720-50.sys"
+
+[MSFT43XX.sys.files]
+	mn720-50.sys,mn720-50.sys,,2
+
+[MSFT43XG2.NT]
+	Characteristics	= 0x84
+	BusType		= 5
+	AddReg		= MSFT43XX.reg, MSFT43XX.msft.reg, common.reg, g.options.reg
+	DelReg		= common.delreg
+	CopyFiles	= MSFT43XX.files.NT
+DriverVer=07/07/2003, 3.20.26.0
+
+[MSFT43XG2.NT.Services]
+	AddService = MSFT43XX, 2, MSFT43XX.Service, common.EventLog
+
+[MSFT43XG3.NT]
+	Characteristics	= 0x84
+	BusType		= 5
+	AddReg		= MSFT43XX.reg, MSFT43XX.msft.reg, common.reg, g.options.reg, mn730.reg
+	DelReg		= common.delreg
+	CopyFiles	= MSFT43XX.files.NT
+DriverVer=07/07/2003, 3.20.26.0
+
+[MSFT43XG3.NT.Services]
+	AddService = MSFT43XX, 2, MSFT43XX.Service, common.EventLog
+
+[MSFT43XX.reg]
+	HKR,	Ndi\Interfaces,	UpperRange,	,	"ndis5"
+	HKR,	Ndi\Interfaces,	LowerRange,	,	"ethernet"
+
+[MSFT43XX.msft.reg]
+	HKR,	Ndi,	HelpText,		,	%MSFT43XX_HELP%
+	HKR,	Ndi,	Service,		0,	"MSFT43XX"
+
+[MSFT43XX.Service]
+	DisplayName	= %MSFT43XX.Service.DispName%
+	ServiceType	= 1
+	StartType	= 3
+	ErrorControl	= 1
+	ServiceBinary	= %12%\mn720-50.sys
+	LoadOrderGroup	= NDIS
+
+[common.EventLog]
+	AddReg = common.AddEventLog.reg
+
+[common.AddEventLog.reg]
+	HKR,	,	EventMessageFile,	0x00020000,	"%%SystemRoot%%\System32\netevent.dll"
+	HKR,	,	TypesSupported,		0x00010001,	7
+
+[MSFT43XX.files.NT]
+	mn720-50.sys,mn720-50.sys,,2
+
+[common.reg]
+	HKR,	Ndi\params\PowerSaveMode, ParamDesc,	0,	"Power Save Mode"
+	HKR,	Ndi\params\PowerSaveMode, type,		0,	"enum"
+	HKR,	Ndi\params\PowerSaveMode\enum, "0",		0,	"Disabled"
+	HKR,	Ndi\params\PowerSaveMode\enum, "1",		0,	"Enabled"
+	HKR,    Ndi\params\PowerSaveMode,default,,"0"	
+
+	HKR,	Ndi\params\PLCPHeader, ParamDesc,	0,	"Preamble Mode"
+	HKR,	Ndi\params\PLCPHeader, type,		0,	"enum"
+	HKR,	Ndi\params\PLCPHeader\enum, "-1",	0,	"Long Tx Preamble"
+	HKR,	Ndi\params\PLCPHeader\enum, "0",	0,	"Auto Tx Preamble"
+	HKR,	Ndi\params\PLCPHeader,default,,"0"
+
+	HKR,	Ndi\params\frag, ParamDesc,	0,	"Fragmentation Threshold"
+	HKR,	Ndi\params\frag,type,0,"dword"
+	HKR,	Ndi\params\frag,min,,"256"
+	HKR,	Ndi\params\frag,max,,"2432"
+	HKR,	Ndi\params\frag,step,,"128"
+	HKR,	Ndi\params\frag,default,,"2432"
+
+	HKR,	Ndi\params\rts, ParamDesc,	0,	"RTS Threshold"
+	HKR,	Ndi\params\rts,type,0,"dword"
+	HKR,	Ndi\params\rts,min,,"0"
+	HKR,	Ndi\params\rts,max,,"2432"
+	HKR,	Ndi\params\rts,step,,"64"
+	HKR,	Ndi\params\rts,default,,"2432"
+
+	HKR,	Ndi\params\Channel, ParamDesc, 0, "Channel"
+	HKR,	Ndi\params\Channel, type,      0, "enum"
+	HKR,	Ndi\params\Channel\enum, "1",   0, "  1"
+	HKR,	Ndi\params\Channel\enum, "2",   0, "  2"
+	HKR,	Ndi\params\Channel\enum, "3",   0, "  3"
+	HKR,	Ndi\params\Channel\enum, "4",   0, "  4"
+	HKR,	Ndi\params\Channel\enum, "5",   0, "  5"
+	HKR,	Ndi\params\Channel\enum, "6",   0, "  6"
+	HKR,	Ndi\params\Channel\enum, "7",   0, "  7"
+	HKR,	Ndi\params\Channel\enum, "8",   0, "  8"
+	HKR,	Ndi\params\Channel\enum, "9",   0, "  9"
+	HKR,	Ndi\params\Channel\enum, "10",   0, " 10"
+	HKR,	Ndi\params\Channel\enum, "11",   0, " 11"
+	HKR,	Ndi\params\Channel, default,   0, "6"
+
+	HKR,					,"EnableAutoConnect", 0,	"1"
+	HKR,					,"WEP",	0,	""
+	HKR,					,"Interference_Mode",		0,	"-1"
+
+	HKR,	Ndi\params\NetworkType, ParamDesc,	0,	"Network Type"
+	HKR,	Ndi\params\NetworkType, type,		0,	"enum"
+	HKR,	Ndi\params\NetworkType\enum, "0",	0,	"Infrastructure"
+	HKR,	Ndi\params\NetworkType\enum, "1",	0,	"Ad Hoc"
+	HKR,	Ndi\params\NetworkType,default,,"0"
+
+	HKR,	Ndi\params\SSID, ParamDesc,	0, "SSID"
+	HKR,	Ndi\params\SSID, type,	0, "edit"
+	HKR,	Ndi\params\SSID, LimitText,	0, "32"
+	HKR,	Ndi\params\SSID, default,	0, "MSHOME"
+	HKR,	Ndi\params\SSID, optional,	0, "0"
+
+[common.delreg]
+	HKR,    Ndi\params\IBSSGMode\enum, "1"
+
+[g.options.reg]
+	HKR,    Ndi\params\IBSSGMode, ParamDesc,	0,      "IBSS 54g(tm) Mode"
+	HKR,    Ndi\params\IBSSGMode, type,         0,      "enum"
+	HKR,    Ndi\params\IBSSGMode\enum, "0",     0,      "802.11b Mode"
+	HKR,    Ndi\params\IBSSGMode\enum, "2",     0,      "54g - 802.11b Compatible"
+	HKR,    Ndi\params\IBSSGMode\enum, "4",     0,      "54g - Performance"
+	HKR,    Ndi\params\IBSSGMode,default,,"0"
+
+	HKR,	Ndi\params\Rate, ParamDesc,	0,	"Transmit Rate"
+	HKR,	Ndi\params\Rate, type,		0,	"enum"
+	HKR,	Ndi\params\Rate\enum, "0",	0,	"Fully Automatic"
+	HKR,	Ndi\params\Rate\enum, "2",	0,	" 1 Mb"
+	HKR,	Ndi\params\Rate\enum, "4",	0,	" 2 Mb"
+	HKR,	Ndi\params\Rate\enum, "11",	0,	" 5.5 Mb"
+	HKR,	Ndi\params\Rate\enum, "12",	0,	" 6 Mb"
+	HKR,	Ndi\params\Rate\enum, "18",	0,	" 9 Mb"
+	HKR,	Ndi\params\Rate\enum, "22",	0,	"11 Mb"
+	HKR,	Ndi\params\Rate\enum, "24",	0,	"12 Mb"
+	HKR,	Ndi\params\Rate\enum, "36",	0,	"18 Mb"
+	HKR,	Ndi\params\Rate\enum, "48",	0,	"24 Mb"
+	HKR,	Ndi\params\Rate\enum, "72",	0,	"36 Mb"
+	HKR,	Ndi\params\Rate\enum, "96",	0,	"48 Mb"
+	HKR,	Ndi\params\Rate\enum, "108",0,	"54 Mb"
+	HKR,	Ndi\params\Rate,default,,"0"
+
+[mn730.reg]
+	HKR,					,"antdiv", 0,	"0"
+
+[DestinationDirs]
+	DefaultDestDir=11
+	MSFT43XX.sys.files=11
+	MSFT43XX.files.NT = 12
+
+[SourceDisksNames]
+	1=%MSFT43XX.DiskName%,,
+
+[SourceDisksFiles]
+	mn720-50.sys=1
+
+[Strings]
+	Msft = "Microsoft"
+	MSFT720G.DeviceDesc      = "Microsoft Wireless Notebook Adapter MN-720"
+   	MSFT730G.DeviceDesc      = "Microsoft Wireless PCI Adapter MN-730"
+   	MSFT43XX_HELP      = "The Microsoft Wireless Notebook Adapter provides wireless local area networking."
+   	MSFT43XX.Service.DispName = "Microsoft Wireless Notebook Adapter Driver"
+	MSFT43XX.DiskName = "Microsoft Broadband Networking Install Disk"

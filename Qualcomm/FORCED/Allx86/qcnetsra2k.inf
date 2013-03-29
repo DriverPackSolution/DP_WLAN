@@ -1,0 +1,116 @@
+; Qualcomm Wireless Network Device
+; Copyright (c) 2010 Qualcomm Inc.  All rights reserved.
+
+[version]
+Signature   = "$Windows NT$"
+Class       = Net
+ClassGUID   = {4d36e972-e325-11ce-bfc1-08002be10318}
+Provider    = %QCOM%
+DriverVer   = 05/11/2010,1.0.4.6
+Catalogfile = qcusbnetsra2k.cat
+
+[ControlFlags]
+ExcludeFromSelect = *
+
+[SourceDisksNames]
+1000 = %QcomSrcDisk%,"",,
+
+[SourceDisksFiles]
+qcusbnetsra2k.sys = 1000
+
+[Manufacturer]
+%QCOM% = QCOM, NTamd64
+
+[QCOM]
+%qcwwan.DeviceDesc90010%    = qcwwan.ndi, USB\VID_1199&PID_9001&MI_00
+%qcwwan.DeviceDesc90020%    = qcwwan.ndi, USB\VID_1199&PID_9002&MI_00
+%qcwwan.DeviceDesc90030%    = qcwwan.ndi, USB\VID_1199&PID_9003&MI_00
+%qcwwan.DeviceDesc90040%    = qcwwan.ndi, USB\VID_1199&PID_9004&MI_00
+%qcwwan.DeviceDesc90050%    = qcwwan.ndi, USB\VID_1199&PID_9005&MI_00
+%qcwwan.DeviceDesc90060%    = qcwwan.ndi, USB\VID_1199&PID_9006&MI_00
+%qcwwan.DeviceDesc90070%    = qcwwan.ndi, USB\VID_1199&PID_9007&MI_00
+%qcwwan.DeviceDesc90080%    = qcwwan.ndi, USB\VID_1199&PID_9008&MI_00
+%qcwwan.DeviceDesc90090%    = qcwwan.ndi, USB\VID_1199&PID_9009&MI_00
+%qcwwan.DeviceDesc900A0%    = qcwwan.ndi, USB\VID_1199&PID_900A&MI_00
+
+[QCOM.NTamd64]
+%qcwwan.DeviceDesc90010%    = qcwwan.ndi, USB\VID_1199&PID_9001&MI_00
+%qcwwan.DeviceDesc90020%    = qcwwan.ndi, USB\VID_1199&PID_9002&MI_00
+%qcwwan.DeviceDesc90030%    = qcwwan.ndi, USB\VID_1199&PID_9003&MI_00
+%qcwwan.DeviceDesc90040%    = qcwwan.ndi, USB\VID_1199&PID_9004&MI_00
+%qcwwan.DeviceDesc90050%    = qcwwan.ndi, USB\VID_1199&PID_9005&MI_00
+%qcwwan.DeviceDesc90060%    = qcwwan.ndi, USB\VID_1199&PID_9006&MI_00
+%qcwwan.DeviceDesc90070%    = qcwwan.ndi, USB\VID_1199&PID_9007&MI_00
+%qcwwan.DeviceDesc90080%    = qcwwan.ndi, USB\VID_1199&PID_9008&MI_00
+%qcwwan.DeviceDesc90090%    = qcwwan.ndi, USB\VID_1199&PID_9009&MI_00
+%qcwwan.DeviceDesc900A0%    = qcwwan.ndi, USB\VID_1199&PID_900A&MI_00
+
+;-------------------------------------------------------------------------------
+; Virtual Ethernet Adapter
+[qcwwan.ndi]
+Characteristics = 0x4 ; NCF_PHYSICAL
+BusType         = 15  ; PNPBus
+AddReg          = qcwwan.Reg
+CopyFiles       = qcwwan.CopyFiles
+
+[qcwwan.ndi.Services]
+AddService      = qcusbnetsra2k, 2, qcwwan.Service, qcwwan.EventLog
+
+;-----------------------------------------------------------------------------
+; Virtual Miniport Common
+[qcwwan.Reg]
+HKR,    ,                         BusNumber,           0, "0" 
+HKR, Ndi,                         Service,             0, "qcusbnetsra2k"
+HKR, Ndi\Interfaces,              UpperRange,          0, "ndis5"
+HKR, Ndi\Interfaces,              LowerRange,          0, "ethernet"
+
+;-----------------------------------------------------------------------------
+;Number of clients support
+HKR,    ,                         MPNumClients,           0x00010001, 48
+
+[qcwwan.CopyFiles]
+qcusbnetsra2k.sys,,,2
+
+[qcwwan.Service]
+DisplayName     = %qcwwan.Service.DispName%
+ServiceType     = 1 ;%SERVICE_KERNEL_DRIVER%
+StartType       = 3 ;%SERVICE_DEMAND_START%
+ErrorControl    = 1 ;%SERVICE_ERROR_NORMAL%
+ServiceBinary   = %12%\qcusbnetsra2k.sys
+LoadOrderGroup  = NDIS
+AddReg          = TextModeFlags.Reg
+
+[qcwwan.EventLog]
+AddReg = qcwwan.AddEventLog.Reg
+
+[qcwwan.AddEventLog.Reg]
+HKR, , EventMessageFile, 0x00020000, "%%SystemRoot%%\System32\netevent.dll"
+HKR, , TypesSupported,   0x00010001, 7
+
+[TextModeFlags.Reg]
+HKR, , TextModeFlags,    0x00010001, 0x0001
+
+[SourceDisksNames]
+1 = %DiskId1%,,,""
+
+[SourceDisksFiles]
+qcusbnetsra2k.sys  = 1,,
+
+[DestinationDirs]
+qcwwan.CopyFiles = 12
+
+[Strings]
+QcomSrcDisk             = "Qualcomm USB Driver Disk"
+QCOM                    = "Qualcomm Incorporated" 
+qcwwan.DeviceDesc90010  = "Sierra Wireless Gobi 2000 Wireless HS-USB Ethernet Adapter 9001"
+qcwwan.DeviceDesc90020  = "Sierra Wireless Gobi 2000 Wireless HS-USB Ethernet Adapter 9002"
+qcwwan.DeviceDesc90030  = "Sierra Wireless Gobi 2000 Wireless HS-USB Ethernet Adapter 9003"
+qcwwan.DeviceDesc90040  = "Sierra Wireless Gobi 2000 Wireless HS-USB Ethernet Adapter 9004"
+qcwwan.DeviceDesc90050  = "Sierra Wireless Gobi 2000 Wireless HS-USB Ethernet Adapter 9005"
+qcwwan.DeviceDesc90060  = "Sierra Wireless Gobi 2000 Wireless HS-USB Ethernet Adapter 9006"
+qcwwan.DeviceDesc90070  = "Sierra Wireless Gobi 2000 Wireless HS-USB Ethernet Adapter 9007"
+qcwwan.DeviceDesc90080  = "Sierra Wireless Gobi 2000 Wireless HS-USB Ethernet Adapter 9008"
+qcwwan.DeviceDesc90090  = "Sierra Wireless Gobi 2000 Wireless HS-USB Ethernet Adapter 9009"
+qcwwan.DeviceDesc900A0  = "Sierra Wireless Gobi 2000 Wireless HS-USB Ethernet Adapter 900A"
+qcwwan.Service.DispName = "Gobi 2000 USB-NDIS miniport(1199-9001)"
+DiskId1                 = "Qualcomm USB-NDIS Miniport Device Installation Disk #1"

@@ -1,0 +1,334 @@
+;****************************************************************************************
+;
+;    FILE:
+;            LSIPNDS.inf
+;
+;    DESCRIPTION:
+;            Instant Wireless PCI Card inf file.
+;            Copyright (C) 2003, Linksys, All rights reserved.   
+;
+;*******************************************************************************************
+
+[version]
+Signature   = "$Chicago$"
+CatalogFile = LSIPNDS.cat
+Class       = Net
+ClassGUID   = {4d36e972-e325-11ce-bfc1-08002be10318}
+Provider    = %Provider%
+Compatible  = 1
+MillenniumPreferred = .ME
+DriverVer   = 07/09/2003,3.01.7.2003
+
+[Manufacturer]
+%Provider% = Linksys, NT.5.1
+
+[ControlFlags]
+ExcludeFromSelect = PCI\VEN_17FE&DEV_2120&SUBSYS_00201737
+
+[Linksys]
+%Linksys.DeviceDesc% = IPN2120.ndi,   PCI\VEN_17FE&DEV_2120&SUBSYS_00201737
+
+[Linksys.NT.5.1]
+%Linksys.DeviceDesc% = IPN2120.ndi.nt51,   PCI\VEN_17FE&DEV_2120&SUBSYS_00201737
+
+
+
+; Instant Wireless PCI Card V4
+
+; Windows NT51 specific entry
+;;****************************************************************************
+;; NT 5.1
+;;****************************************************************************
+
+
+; Windows NT specific entry
+[IPN2120.ndi.nt51]
+Characteristics = 0x84
+BusType         = 5
+AddReg          = IPN2120.common.reg, IPN2120WinNT.reg
+DelReg          = IPN2120.common.DelReg
+CopyFiles       = IPN2120WinNT51.CopyFiles
+
+[IPN2120.ndi.nt51.Services]
+AddService = IPN2120, 2, IPN2120.Service, common.EventLog
+
+;;****************************************************************************
+;; NT 5.0
+;;****************************************************************************
+
+; Windows NT specific entry
+[IPN2120.ndi.NT]
+Characteristics = 0x84
+BusType         = 5
+AddReg          = IPN2120.common.reg, IPN2120WinNT.reg
+DelReg          = IPN2120.common.DelReg
+CopyFiles       = IPN2120WinNT.CopyFiles
+
+[IPN2120.ndi.NT.Services]
+AddService = IPN2120, 2, IPN2120.Service, common.EventLog
+
+;;****************************************************************************
+
+; Windows Me specific entry
+[IPN2120.ndi.ME]
+Characteristics = 0x84
+BusType         = 5
+AddReg          = IPN2120.common.reg, IPN2120WinME.reg
+DelReg          = IPN2120.common.DelReg
+CopyFiles       = IPN2120WinME.CopyFiles
+
+[IPN2120.ndi.ME.Services]
+AddService = IPN2120, 2, IPN2120.Service, common.EventLog
+
+; Windows 9X specific entry
+[IPN2120.ndi]
+DriverVer = 07/09/2003,3.01.07.2003
+AddReg    = IPN2120Win9X.id.reg, IPN2120.common.reg, IPN2120Win9X.flags.reg, IPN2120Win9X.win.reg
+DelReg    = IPN2120.common.DelReg
+CopyFiles = IPN2120Win9X.CopyFiles
+
+;-----------------------------------------------------------------------------
+; IPN2120 common registry section
+;
+[IPN2120.common.reg]
+HKR, Ndi\params\networkaddress,     ParamDesc,  0, %NetworkAddress%
+HKR, Ndi\params\networkaddress,     Type,       0, "edit"
+HKR, Ndi\params\networkaddress,     Default,    0, " "
+HKR, Ndi\params\networkaddress,     Optional,   0, "1"
+HKR, Ndi\params\networkaddress,     LimitText,  0, "12"
+HKR, Ndi\params\networkaddress,     UpperCase,  0, "1"
+
+HKR, Ndi\params\Rate,               ParamDesc,  0, %Rate%
+HKR, Ndi\params\Rate,               Type,       0, "enum"
+HKR, Ndi\params\Rate,               Default,    0, "15"
+HKR, Ndi\params\Rate\enum,          "1",        0, %Rate1M%
+HKR, Ndi\params\Rate\enum,          "2",        0, %Rate2M%
+HKR, Ndi\params\Rate\enum,          "4",        0, %Rate5_5M%
+HKR, Ndi\params\Rate\enum,          "8",        0, %Rate11M%
+HKR, Ndi\params\Rate\enum,          "15",       0, %RateAutomatic%
+
+HKR, Ndi\params\Ssid,               ParamDesc,  0, %SSID%
+HKR, Ndi\params\Ssid,               Type,       0, "edit"
+HKR, Ndi\params\Ssid,               Default,    0, ""
+HKR, Ndi\params\Ssid,               Optional,   0, "1"
+HKR, Ndi\params\Ssid,               LimitText,  0, "32"
+
+HKR, Ndi\params\BssType,            ParamDesc,  0, %BSSType%
+HKR, Ndi\params\BssType,            Type,       0, "enum"
+HKR, Ndi\params\BssType,            Default,    0, "1"
+HKR, Ndi\params\BssType\enum,       "1",        0, %ESS%
+HKR, Ndi\params\BssType\enum,       "2",        0, %IBSS%
+
+HKR, Ndi\params\IbssChannel,        ParamDesc,  0, %IBSSChannel%
+HKR, Ndi\params\IbssChannel,        Type,       0, "int"
+HKR, Ndi\params\IbssChannel,        Default,    0, "11"
+HKR, Ndi\params\IbssChannel,        Min,        0, "1"
+HKR, Ndi\params\IbssChannel,        Max,        0, "14"
+HKR, Ndi\params\IbssChannel,        Step,       0, "1"
+HKR, Ndi\params\IbssChannel,        Base,       0, "10"
+
+HKR, Ndi\params\IbssBasicRateSet,   ParamDesc,  0, %IBSSBasicRateSet%
+HKR, Ndi\params\IbssBasicRateSet,   Type,       0, "enum"
+HKR, Ndi\params\IbssBasicRateSet,   Default,    0, "15"
+HKR, Ndi\params\IbssBasicRateSet\enum, "3",     0, %IBSSBasicRateSet1%
+HKR, Ndi\params\IbssBasicRateSet\enum, "15",    0, %IBSSBasicRateSet2%
+
+HKR, Ndi\params\RtsThreshold,       ParamDesc,  0, %RTSThreshold%
+HKR, Ndi\params\RtsThreshold,       Type,       0, "int"
+HKR, Ndi\params\RtsThreshold,       Default,    0, "2347"
+HKR, Ndi\params\RtsThreshold,       Min,        0, "0"
+HKR, Ndi\params\RtsThreshold,       Max,        0, "00002347"
+HKR, Ndi\params\RtsThreshold,       Step,       0, "1"
+HKR, Ndi\params\RtsThreshold,       Base,       0, "10"
+
+HKR, Ndi\params\FragThreshold,      ParamDesc,  0, %FragmentationThreshold%
+HKR, Ndi\params\FragThreshold,      Type,       0, "int"
+HKR, Ndi\params\FragThreshold,      Default,    0, "2346"
+HKR, Ndi\params\FragThreshold,      Min,        0, "256"
+HKR, Ndi\params\FragThreshold,      Max,        0, "00002346"
+HKR, Ndi\params\FragThreshold,      Step,       0, "1"
+HKR, Ndi\params\FragThreshold,      Base,       0, "10"
+
+
+[IPN2120.common.DelReg]
+HKR,,NumRfb
+HKR, Ndi\params\NumRfb
+
+HKR,,NumTfcb
+HKR, Ndi\params\NumTfcb
+
+HKR, Ndi\params\BssType\enum,   130
+
+HKR,,ScanType
+HKR, Ndi\params\ScanType
+
+HKR, Ndi\params\AuthType
+
+HKR, Ndi\params\EncryptionMode
+
+HKR, Ndi\params\WepDefaultKeyId
+
+HKR,,WepDefaultKey
+HKR, Ndi\params\WepDefaultKey
+
+
+;-----------------------------------------------------------------------------
+; IPN2120 NT specific
+;
+[IPN2120WinNT.reg]
+HKR, Ndi,               Service,            0, "IPN2120"
+HKR, Ndi\Interfaces,    UpperRange,         0, "ndis5"
+HKR, Ndi\Interfaces,    LowerRange,         0, "ethernet"
+
+;-----------------------------------------------------------------------------
+; IPN2120 Windows Me specific
+;
+[IPN2120WinME.reg]
+HKR, ,                  DevLoader,          0, "*ndis"
+HKR, ,                  DeviceVxDs,         0, "LSIPNDS.sys"
+HKR, ,                  EnumPropPages,      0, "netdi.dll,EnumPropPages"
+
+HKR, Ndi,               CardType,           0, "PCI"
+HKR, Ndi,               Service,            0, "IPN2120"
+HKR, Ndi\Interfaces,    UpperRange,         0, "ndis5"
+HKR, Ndi\Interfaces,    LowerRange,         0, "ethernet"
+
+HKR, NDIS,              LogDriverName,      0, "IPN2120"
+HKR, NDIS,              MajorNdisVersion,   1, 05
+HKR, NDIS,              MinorNdisVersion,   1, 00
+
+;----------------------------------------------------------------------------
+; IPN2120 Win9x id registry section
+; These are not needed by NT
+;
+[IPN2120Win9X.id.reg]
+HKR, Ndi, CardType, 0, "PCI"
+HKR, Ndi, DeviceID, 0, "PCI\VEN_17FE&DEV_2120&SUBSYS_212017FE"
+
+;----------------------------------------------------------------------------
+; IPN2120 Win9x flags section
+; Flags are not needed by NT
+;
+[IPN2120Win9X.flags.reg]
+HKR, Ndi\params\IbssChannel,    flag, 1, 20,00,00,00
+HKR, Ndi\params\RtsThreshold,   flag, 1, 20,00,00,00
+HKR, Ndi\params\FragThreshold,  flag, 1, 20,00,00,00
+
+;----------------------------------------------------------------------------
+; IPN2120 Win9X specific
+;
+[IPN2120Win9X.win.reg]
+HKR, ,                  DriverVersion,      0, "3.01.07.2003"
+HKR, ,                  DevLoader,          0, "*ndis"
+HKR, ,                  DeviceVxDs,         0, "LSIPNDS.sys"
+HKR, ,                  EnumPropPages,      0, "netdi.dll,EnumPropPages"
+
+HKR, Ndi\Interfaces,    DefUpper,   	    0, "ndis3"
+HKR, Ndi\Interfaces,    DefLower,   	    0, "ethernet"
+HKR, Ndi\Interfaces,    UpperRange, 	    0, "ndis3"
+HKR, Ndi\Interfaces,    LowerRange, 	    0, "ethernet"
+
+HKR, NDIS,              LogDriverName,      0, "IPN2120"
+HKR, NDIS,              MajorNdisVersion,   1, 03
+HKR, NDIS,              MinorNdisVersion,   1, 0A
+
+HKR, Ndi\Install,       ndis3,              0, "IPN2120.ndis3"
+
+;-----------------------------------------------------------------------------
+; IPN2120 common service section
+;
+[IPN2120.Service]
+DisplayName     = %IPN2120.Service.DispName%
+ServiceType     = 1
+StartType       = 3
+ErrorControl    = 1
+ServiceBinary   = %12%\LSIPNDS.sys
+LoadOrderGroup  = NDIS
+
+;-----------------------------------------------------------------------------
+; common event log section
+;
+[common.EventLog]
+AddReg = common.AddEventLog.reg
+
+[common.AddEventLog.reg]
+HKR, , EventMessageFile, 0x00020000, "%%SystemRoot%%\System32\netevent.dll"
+HKR, , TypesSupported,   0x00010001, 7
+
+;-----------------------------------------------------------------------------
+; CopyFiles sections
+;
+
+;For win2K,Me,98
+[IPN2120WinNT.CopyFiles]
+LSIPNDS.sys,,,2
+
+;For winxp
+[IPN2120WinNT51.CopyFiles]
+LSIPNDS.sys,LSIPNDSX.sys,,2
+
+
+[IPN2120WinME.CopyFiles]
+LSIPNDS.sys,,,2
+
+[IPN2120Win9X.CopyFiles]
+LSIPNDS.sys,,,2
+
+;-----------------------------------------------------------------------------
+; source
+;
+[SourceDisksNames]
+1 = %IPN2120.SourceDiskName%,,,
+
+[SourceDisksFiles]
+LSIPNDS.sys = 1,,
+LSIPNDSX.sys = 1,,
+
+
+;-----------------------------------------------------------------------------
+; target
+;
+[DestinationDirs]
+IPN2120WinNT.CopyFiles    = 12
+IPN2120WinNT51.CopyFiles  = 12
+IPN2120WinME.CopyFiles    = 11
+IPN2120Win9X.CopyFiles    = 11
+DefaultDestDir            = 11
+
+;-----------------------------------------------------------------------------
+; strings section
+;
+[Strings]
+Provider                 = "Linksys"
+
+Rate                        = "Transmission Rate"
+Rate1M                      = "1   Mbps"
+Rate2M                      = "2   Mbps"
+Rate5_5M                    = "5.5 Mbps"
+Rate11M                     = "11  Mbps"
+RateAutomatic               = "Automatic"
+
+NetworkAddress              = "Network Address"
+
+SSID                        = "SSID"
+
+BSSType                     = "Network Type"
+ESS                         = "Infrastructure"
+IBSS                        = "Ad Hoc (IBSS)"
+
+IBSSChannel                 = "Channel to Create Ad Hoc"
+
+IBSSBasicRateSet            = "Basic Rates to Create Ad Hoc"
+IBSSBasicRateSet1           = "1 and 2 Mbps"
+IBSSBasicRateSet2           = "1, 2, 5.5, and 11 Mbps"
+
+RTSThreshold                = "RTS Threshold"
+
+FragmentationThreshold      = "Fragmentation Threshold"
+
+Linksys.DeviceDesc        = "Instant Wireless-B PCI Adapter"
+
+IPN2120.Service.DispName    = "Instant Wireless-B PCI Adapter Driver"
+
+IPN2120.SourceDiskName      = "Instant Wireless-B PCI Adapter Driver Disk"
+

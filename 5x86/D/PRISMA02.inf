@@ -1,0 +1,279 @@
+;***********************************************************************
+; PRISMA02.INF
+;
+;   This installation script supports Windows 98, Me, 2000 and XP for the
+;   PRISM 802.11a/g Adapters.
+;
+; Copyright (c) 2004 D-Link Corporation, Incorporated All Rights Reserved
+;***********************************************************************
+
+[Version]
+ DriverVer = 08/05/2004, 3.00.22.0
+ Signature           = "$Chicago$"
+ Compatible          = 1
+ Class               = Net
+ ClassGUID           = {4d36e972-e325-11ce-bfc1-08002be10318}
+ Provider            = %VER_VENDOR_STR%
+CatalogFile         = PRISMA02.cat
+
+[ControlFlags]
+;Exclude all PNP adapters from user selection
+ ExcludeFromSelect   = VID_2001&PID_3703
+ ExcludeFromSelect   = VID_2001&PID_3701
+ ExcludeFromSelect   = VID_2001&PID_3704
+ ExcludeFromSelect   = VID_2001&PID_3705
+ 
+[Manufacturer]
+ %VER_VENDOR_NAME_STR% = DeviceList
+
+[DeviceList]
+%A0210_DESC_STR%     = PRISM_A0210,        USB\VID_2001&PID_3701
+ %A021_DESC_STR%     = PRISM_A021,        USB\VID_2001&PID_3703
+ %A022_DESC_STR%     = PRISM_A022,        USB\VID_2001&PID_3704
+ %A0221_DESC_STR%     = PRISM_A0221,        USB\VID_2001&PID_3705
+ 
+;==========
+[PRISM_A021]       ; Win9x
+ AddReg         = PRISM_A021.reg, COMMON_A02.reg, COMMON_NDIS.reg, COMMON.reg
+ CopyFiles      = PRISM_DRIVER.copy
+
+[PRISM_A021.NT]    ; Win2k and WinXP
+ AddReg         = PRISM_A021.reg, COMMON_A02.reg, COMMON_NDIS.reg.NT, COMMON.reg
+ CopyFiles      = PRISM_DRIVER.copy.NT
+ BusType        = 15
+ Characteristics= 0x84
+
+[PRISM_A021.NT.Services]
+ AddService= PRISM_A02, 2, PRISM_DRIVER.Service, PRISM_DRIVER.EventLog
+
+[PRISM_A021.reg]
+ HKR,Ndi,DeviceID,0,"USB\VID_2001&PID_3703"
+ HKR,,PlatformID,0,14480
+ HKR,,UsbVariant,0,8832
+ HKR,,VendorDesc,0,%A021_DESC_STR%
+ HKR,,FWFileName,0,"PRISMA02.arm"
+ 
+;=================
+
+[PRISM_A0210]       ; Win9x
+ AddReg         = PRISM_A0210.reg, COMMON_A02.reg, COMMON_NDIS.reg, COMMON.reg
+ CopyFiles      = PRISM_DRIVER.copy
+
+[PRISM_A0210.NT]    ; Win2k and WinXP
+ AddReg         = PRISM_A0210.reg, COMMON_A02.reg, COMMON_NDIS.reg.NT, COMMON.reg
+ CopyFiles      = PRISM_DRIVER.copy.NT
+ BusType        = 15
+ Characteristics= 0x84
+
+[PRISM_A0210.NT.Services]
+ AddService= PRISM_A02, 2, PRISM_DRIVER.Service, PRISM_DRIVER.EventLog
+
+[PRISM_A0210.reg]
+ HKR,Ndi,DeviceID,0,"USB\VID_2001&PID_3701"
+ HKR,,PlatformID,0,14480
+ HKR,,UsbVariant,0,8832
+ HKR,,VendorDesc,0,%A021_DESC_STR%
+ HKR,,FWFileName,0,"PRISMA02.arm"
+ 
+;=================
+
+[PRISM_A022]       ; Win9x
+ AddReg         = PRISM_A022.reg, COMMON_A02.reg, COMMON_NDIS.reg, COMMON.reg
+ CopyFiles      = PRISM_DRIVER.copy
+
+[PRISM_A022.NT]    ; Win2k and WinXP
+ AddReg         = PRISM_A022.reg, COMMON_A02.reg, COMMON_NDIS.reg.NT, COMMON.reg
+ CopyFiles      = PRISM_DRIVER.copy.NT
+ BusType        = 15
+ Characteristics= 0x84
+
+[PRISM_A022.NT.Services]
+ AddService= PRISM_A02, 2, PRISM_DRIVER.Service, PRISM_DRIVER.EventLog
+
+[PRISM_A022.reg]
+ HKR,Ndi,DeviceID,0,"USB\VID_2001&PID_3704"
+; 0x3890 = 14480 0x3887 = 14471
+ HKR,,PlatformID,0,14480
+ HKR,,UsbVariant,0,14471
+ HKR,,VendorDesc,0,%A022_DESC_STR%
+ HKR,,FWFileName,0,"PRISMA02.arm"
+  
+;=================
+
+[PRISM_A0221]       ; Win9x
+ AddReg         = PRISM_A0221.reg, COMMON_A02.reg, COMMON_NDIS.reg, COMMON.reg
+ CopyFiles      = PRISM_DRIVER.copy
+
+[PRISM_A0221.NT]    ; Win2k and WinXP
+ AddReg         = PRISM_A0221.reg, COMMON_A02.reg, COMMON_NDIS.reg.NT, COMMON.reg
+ CopyFiles      = PRISM_DRIVER.copy.NT
+ BusType        = 15
+ Characteristics= 0x84
+
+[PRISM_A0221.NT.Services]
+ AddService= PRISM_A02, 2, PRISM_DRIVER.Service, PRISM_DRIVER.EventLog
+
+[PRISM_A0221.reg]
+ HKR,Ndi,DeviceID,0,"USB\VID_2001&PID_3705"
+; 0x3890 = 14480 0x3887 = 14471
+ HKR,,PlatformID,0,14480
+ HKR,,UsbVariant,0,14471
+ HKR,,VendorDesc,0,%A0221_DESC_STR%
+ HKR,,FWFileName,0,"PRISMA02.arm"
+   
+;###############################################################################
+
+[PRISM_DRIVER.Service]
+ DisplayName    = %A02_SERVICE_STR%
+ ServiceType    = 1    ; SERVICE_KERNEL_DRIVER
+ StartType      = 3    ; SERVICE_DEMAND_START
+ ErrorControl   = 1    ; NORMAL
+ ServiceBinary  = %12%\PRISMA02.sys
+ LoadOrderGroup = NDIS
+
+[PRISM_DRIVER.EventLog]
+ AddReg         = PRISM_DRIVER.EventLog.reg
+
+[PRISM_DRIVER.EventLog.reg]
+ HKR,           ,EventMessageFile       ,0x00020000     ,"%%SystemRoot%%\System32\netevent.dll"
+ HKR,           ,TypesSupported         ,0x00010001     ,7
+
+;###############################################################################
+
+[COMMON_A02.reg]
+ HKR,NDI                ,CardType               ,0      ,"USB"
+ HKR,                   ,BusType                ,0      ,"15"
+
+[COMMON_NDIS.reg]
+; Win9X
+ HKR,                   ,RunningWin9X           ,0      ,"1"
+ HKR,                   ,DevLoader              ,0      ,"*ndis"
+ HKR,                   ,EnumPropPages          ,0      ,"netdi.dll,EnumPropPages"
+ HKR,                   ,DeviceVxDs             ,0      ,"PRISMA02.sys"
+ HKR,NDI\Interfaces     ,UpperRange             ,0      ,"ndis3"
+ HKR,NDI\Interfaces     ,LowerRange             ,0      ,"ethernet"
+ HKR,NDI\Interfaces     ,DefUpper               ,0      ,"ndis3"
+ HKR,NDI\Interfaces     ,DefLower               ,0      ,"ethernet"
+ HKR,NDIS               ,LogDriverName          ,0      ,"PRISM_A02"
+ HKR,NDIS               ,MajorNdisVersion       ,1      ,04
+ HKR,NDIS               ,MinorNdisVersion       ,1      ,00
+
+[COMMON_NDIS.reg.NT]
+ HKR,NDI                ,Service                ,0      ,"PRISM_A02"
+ HKR,NDI\Interfaces     ,UpperRange             ,0      ,"ndis5"
+ HKR,NDI\Interfaces     ,LowerRange             ,0      ,"ethernet"
+
+[COMMON.reg]
+ HKR,                   ,PRISMIOC               ,0      ,"1"
+ HKR,                   ,SilentInstall          ,0      ,"1"
+;Uncomment the line above to install without user interface prompts
+
+ HKR,,ConfigProfile,0,"256"
+ ;HKR,NDI\params\ConfigProfile,,0,256
+ HKR,NDI\params\ConfigProfile,default,0,"256"
+ HKR,NDI\params\ConfigProfile,ParamDesc,,%CONFIG_PROFILE%
+ HKR,NDI\params\ConfigProfile,type,,"enum"
+ HKR,NDI\params\ConfigProfile,flag,1,"30","00","00","00"
+ HKR,NDI\params\ConfigProfile\enum,0,,%CONFIG_PROF_B_ONLY%
+ HKR,NDI\params\ConfigProfile\enum,1,,%CONFIG_PROF_MIXED%
+ HKR,NDI\params\ConfigProfile\enum,2,,%CONFIG_PROF_MIXED_LONG%
+ HKR,NDI\params\ConfigProfile\enum,3,,%CONFIG_PROF_G_ONLY%
+ HKR,NDI\params\ConfigProfile\enum,4,,%CONFIG_PROF_TEST%
+ HKR,NDI\params\ConfigProfile\enum,5,,%CONFIG_PROF_B_WIFI%
+ HKR,NDI\params\ConfigProfile\enum,6,,%CONFIG_PROF_MIXED_SHORT%
+ HKR,NDI\params\ConfigProfile\enum,256,,%CONFIG_PROF_WIFI_SPEC%
+ HKR,NDI\params\ConfigProfile,optional,0,"1"
+
+ HKR,,NitroMode,0,"1"
+ HKR,NDI\params\NitroMode,default,0,1
+ HKR,NDI\params\NitroMode,ParamDesc,,%NITRO_MODE%
+ HKR,NDI\params\NitroMode,type,0,"enum"
+ HKR,NDI\params\NitroMode,flag,1,30,00,00,00
+ HKR,NDI\params\NitroMode,default,0,"1"
+ HKR,NDI\params\NitroMode\enum,0,,%OFF_STR%
+ HKR,NDI\params\NitroMode\enum,1,,%ON_STR%
+ HKR,NDI\params\NitroMode,optional,0,1
+
+ HKR,,PSMode,0,1
+ HKR,Ndi\params\PSMode,default,0,1
+ HKR,NDI\params\PSMode,ParamDesc,0,%POWER_SAVE_STR%
+ HKR,NDI\params\PSMode,type,0,"enum"
+ HKR,NDI\params\PSMode,flag,1,30,00,00,00
+ HKR,NDI\params\PSMode,default,0,"1"
+ HKR,NDI\params\PSMode\enum,1,,%POWER_SAVE_OFF_STR%
+ HKR,NDI\params\PSMode\enum,2,,%POWER_SAVE_DYN_STR%
+ HKR,NDI\params\PSMode\enum,3,,%POWER_SAVE_MAX_STR%
+ HKR,NDI\params\PSMode,optional,0,1
+
+; HKR,,11dMode,0,0  ; Default 11dMode to none.
+ 
+
+ HKR,,DSFreq,0,"2437000"
+ HKR,,SSID,0,"default"
+
+
+;###############################################################################
+[DestinationDirs]
+;CopyFiles Section      = Destination Directory ID -- see layout.inf
+;-----------------        ------------------------
+ DefaultDestDir         = 11 ; Win9x=%windir%\system Win2k=%windir%\system32
+ PRISM_DRIVER.copy      = 11 ; Win9x=%windir%\system
+ PRISM_DRIVER.copy.NT   = 12 ; Win2k=%windir%\system32\drivers
+
+
+[PRISM_DRIVER.copy]
+ PRISMA02.sys
+
+[PRISM_DRIVER.copy.NT]
+ PRISMA02.sys
+
+[SourceDisksNames]
+;Source Disk ID         = Disk Name
+;--------------           ---------
+ 1                      = %INSTALL_DISK_STR%,,,
+
+[SourceDisksFiles]      ; Win9x
+;File Name              = Source Disk ID
+;---------                --------------
+ PRISMA02.sys           = 1
+; PRISMIOC.vxd           = 1,win9x
+; PRISMNDI.dll           = 1,win9x
+; PRISMAPI.dll           = 1
+; PRISMSVR.exe           = 1
+
+[SourceDisksFiles.X86]  ; Win2k/Xp
+ PRISMA02.sys           = 1,winxp
+; PRISMNDI.dll           = 1,win2k
+; PRISMAPI.dll           = 1
+; PRISMSVR.exe           = 1
+
+;###############################################################################
+[Strings]
+;String ID               = String Text
+;---------                 -----------
+ VER_VENDOR_STR          = "D-Link"
+ VER_VENDOR_NAME_STR     = "D-Link"
+ INSTALL_DISK_STR        = "D-Link Wireless LAN Install Disk"
+
+ A021_DESC_STR           = "D-Link AirPlus G DWL-G122 Wireless USB Adapter"
+ A0210_DESC_STR           = "D-Link AirPlus G DWL-G120 Wireless USB Adapter"
+ A022_DESC_STR           = "D-Link AirPlus G DWL-G122 Wireless USB Adapter(rev.A2)" 
+ A0221_DESC_STR          = "D-Link AirPlus G DWL-G120 Wireless USB Adapter(rev.C)"
+ A02_SERVICE_STR         = "D-Link Wireless 802.11b/g Driver (USB)"
+
+ ON_STR                  = "On"
+ OFF_STR                 = "Off"
+ POWER_SAVE_STR          = "Power Save Mode"
+ POWER_SAVE_OFF_STR      = "Disabled"
+ POWER_SAVE_DYN_STR      = "Dynamic"
+ POWER_SAVE_MAX_STR      = "Maximum"
+ CONFIG_PROFILE          = "Configuration Profile"
+ CONFIG_PROF_B_ONLY      = "B only"
+ CONFIG_PROF_MIXED       = "Mixed"
+ CONFIG_PROF_MIXED_LONG  = "Mixed Long"
+ CONFIG_PROF_G_ONLY      = "G only"
+ CONFIG_PROF_TEST        = "Test"
+ CONFIG_PROF_B_WIFI      = "B WiFi"
+ CONFIG_PROF_MIXED_SHORT = "Mixed Short"
+ CONFIG_PROF_WIFI_SPEC   = "WiFi Spec"
+ NITRO_MODE              = "Nitro Mode"

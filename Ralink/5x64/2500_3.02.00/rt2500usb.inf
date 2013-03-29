@@ -1,0 +1,1126 @@
+;****************************************************************************************
+;
+; rt2500usb.inf
+;
+;   This installation script supports Windows 98,Me,2000 & XP for the
+;   Ralink RT2500 series USB Wireless LAN Card.
+;
+;   Copyright (c)2002-2009, Ralink Technology Corp., All Rights Reserved
+;   Developed by RaLink Technology, Corp. -- http://www.ralinktech.com
+;
+;****************************************************************************************
+
+[Version]
+DriverVer=02/12/2009, 2.01.01.0015
+Signature="$Chicago$"
+Compatible=1
+Class=Net
+ClassGUID={4d36e972-e325-11ce-bfc1-08002be10318}
+Provider=%Provider%
+CatalogFile=rt2500usb.CAT            ;for WHQL certified
+
+
+[ControlFlags]
+;***********Ralink 802.11g board  ***********
+;ExcludeFromSelect = USB\VID_148F&PID_2570
+
+[Manufacturer]
+%Ralink%        = Ralink, NTamd64
+%Amigo%         = Amigo, NTamd64
+%MSI%           = MSI, NTamd64
+%SMC%           = SMC, NTamd64
+%ASUS%          = ASUS, NTamd64
+%ZINWELL%       = ZINWELL, NTamd64
+%VTech%         = VTech, NTamd64
+%SURECOM%       = SURECOM, NTamd64
+%Gigabyte%      = Gigabyte, NTamd64
+%Siemens%       = Siemens, NTamd64
+%BUFFALO%       = BUFFALO, NTamd64
+%Sagem%         = Sagem, NTamd64
+%Conceptronic%  = Conceptronic, NTamd64
+%CNet%          = CNet, NTamd64
+
+[Ralink.NTamd64]
+; DisplayName               Section                 DeviceID
+; -----------               -------                 --------
+%Ralink.DeviceDesc%         = RALINK.ndi,           USB\VID_148F&PID_2570
+
+[Amigo.NTamd64]
+; DisplayName               Section                 DeviceID
+; -----------               -------                 --------
+%Amigo_1.DeviceDesc%        = AMIGO_1.ndi,          USB\VID_148F&PID_9020
+%Amigo_2.DeviceDesc%        = AMIGO_2.ndi,          USB\VID_0EB0&PID_9020
+
+[MSI.NTamd64]
+; DisplayName               Section                 DeviceID
+; -----------               -------                 --------
+%m2500usb_6861.DeviceDesc%  = m2500usb_6861.ndi,    USB\VID_0DB0&PID_6861
+%m2500usb_6865.DeviceDesc%  = m2500usb_6865.ndi,    USB\VID_0DB0&PID_6865
+%m2500usb_6869.DeviceDesc%  = m2500usb_6869.ndi,    USB\VID_0DB0&PID_6869
+
+[SMC.NTamd64]
+; DisplayName               Section               DeviceID
+; -----------               -------               --------
+%SMC.DeviceDesc%            = SMC.ndi,              USB\VID_0707&PID_EE13
+
+[ASUS.NTamd64]
+; DisplayName               Section                 DeviceID
+; -----------               -------                 --------
+%ASUS.DeviceDesc%           = ASUS.ndi,             USB\VID_0B05&PID_1706
+%ASUSGEN.DeviceDesc%        = ASUSGEN.ndi,          USB\VID_0B05&PID_1707
+
+[ZINWELL.NTamd64]
+; DisplayName               Section                 DeviceID
+; -----------               -------                 --------
+%ZINWELLUSB.DeviceDesc%     = ZINWELLUSB.ndi,       USB\VID_5A57&PID_0260
+
+[VTech.NTamd64]
+; DisplayName               Section                 DeviceID
+; -----------               -------                 --------
+%VTechUSB.DeviceDesc%       = VTech.ndi,            USB\VID_0F88&PID_3012
+
+[SURECOM.NTamd64]
+; DisplayName               Section                 DeviceID
+; -----------               -------                 --------
+%SURECOM.DeviceDesc%        = SURECOM.ndi,          USB\VID_0769&PID_11F3
+
+[Gigabyte.NTamd64]
+; DisplayName               Section                 DeviceID
+; -----------               -------                 --------
+%Gigabyte.DeviceDesc%       = Gigabyte.ndi,         USB\VID_1044&PID_8007
+
+[Siemens.NTamd64]
+; DisplayName               Section                 DeviceID
+; -----------               -------                 --------
+%Siemens.DeviceDesc%       = SIEMENS.ndi,           USB\VID_0681&PID_3C06
+
+[BUFFALO.NTamd64]
+; DisplayName               Section                 DeviceID
+; -----------               -------                 --------
+%BUFFALO_5E.DeviceDesc%     = BUFFALO_5E.ndi,       USB\VID_0411&PID_005E
+%BUFFALO_66.DeviceDesc%     = BUFFALO_66.ndi,       USB\VID_0411&PID_0066
+%BUFFALO_67.DeviceDesc%     = BUFFALO_67.ndi,       USB\VID_0411&PID_0067
+%BUFFALO_97.DeviceDesc%     = BUFFALO_97.ndi,       USB\VID_0411&PID_0097
+
+[Sagem.NTamd64]
+; DisplayName               Section                 DeviceID
+; -----------               -------                 --------
+%Sagem.DeviceDesc%          = Sagem.ndi,            USB\VID_079B&PID_004B
+
+[Conceptronic.NTamd64]
+; DisplayName               Section                 DeviceID
+; -----------               -------                 --------
+%Conceptronic.DeviceDesc%   = Conceptronic.ndi,     USB\VID_14B2&PID_3C02
+
+[CNet.NTamd64]
+; DisplayName               Section                 DeviceID
+; -----------               -------                 --------
+%CNet.DeviceDesc%           = CNet.ndi,             USB\VID_1371&PID_9022
+
+;*******************************************************************************************
+; Windows 9X specific entries
+;*******************************************************************************************
+
+[RALINK.ndi]
+AddReg                  = USB_184F_2570.ndi.reg, Common.reg, USB9X.ndi.reg
+CopyFiles=win9x.CopyFiles
+
+[AMIGO_1.ndi]
+AddReg                  = USB_148F_9020.ndi.reg, Common.reg, USB9X.ndi.reg
+CopyFiles               = win9x.CopyFiles
+
+[AMIGO_2.ndi]
+AddReg                  = USB_0EB0_9020.ndi.reg, Common.reg, USB9X.ndi.reg
+CopyFiles               = win9x.CopyFiles
+
+[m2500usb_6861.ndi]
+AddReg                  = USB_0DB0_6861.ndi.reg, Common.reg, USB9X.ndi.reg
+CopyFiles               = win9x.CopyFiles
+
+[m2500usb_6865.ndi]
+AddReg                  = USB_0DB0_6865.ndi.reg, Common.reg, USB9X.ndi.reg
+CopyFiles               = win9x.CopyFiles
+
+[m2500usb_6869.ndi]
+AddReg                  = USB_0DB0_6869.ndi.reg, Common.reg, USB9X.ndi.reg
+CopyFiles               = win9x.CopyFiles
+
+[SMC.ndi]
+AddReg                  = USB_0707_EE13.ndi.reg, Common.reg, USB9X.ndi.reg
+CopyFiles               = win9x.CopyFiles
+
+[ASUS.ndi]
+AddReg                  = USB_0B05_1706.ndi.reg, Common.reg, USB9X.ndi.reg
+CopyFiles=win9x.CopyFiles
+
+[ASUSGEN.ndi]
+AddReg                  = USB_0B05_1707.ndi.reg, Common.reg, USB9X.ndi.reg
+CopyFiles               = win9x.CopyFiles
+
+[ZINWELLUSB.ndi]
+AddReg                  = USB_5A57_0260.ndi.reg, Common.reg, USB9X.ndi.reg
+CopyFiles               = win9x.CopyFiles
+
+[VTech.ndi]
+AddReg                  = USB_0F88_3012.ndi.reg, Common.reg, USB9X.ndi.reg
+CopyFiles               = win9x.CopyFiles
+
+[SURECOM.ndi]
+AddReg                  = USB_0769_11F3.ndi.reg, Common.reg, USB9X.ndi.reg
+CopyFiles               = win9x.CopyFiles
+
+[Gigabyte.ndi]
+AddReg                  = USB_1044_8007.ndi.reg, Common.reg, USB9X.ndi.reg
+CopyFiles               = win9x.CopyFiles
+
+[SIEMENS.ndi]
+AddReg                  = USB_0681_3C06.ndi.reg, Common.reg, USB9X.ndi.reg
+CopyFiles               = win9x.CopyFiles
+
+[BUFFALO_5E.ndi]
+AddReg                  = USB_0411_005E.ndi.reg, Common.reg, USB9X.ndi.reg
+CopyFiles               = win9x.CopyFiles
+
+[BUFFALO_66.ndi]
+AddReg                  = USB_0411_0066.ndi.reg, Common.reg, USB9X.ndi.reg
+CopyFiles               = win9x.CopyFiles
+
+[BUFFALO_67.ndi]
+AddReg                  = USB_0411_0067.ndi.reg, Common.reg, USB9X.ndi.reg
+CopyFiles               = win9x.CopyFiles
+
+[BUFFALO_97.ndi]
+AddReg                  = USB_0411_0097.ndi.reg, Common.reg, USB9X.ndi.reg
+CopyFiles               = win9x.CopyFiles
+
+[Sagem.ndi]
+AddReg                  = USB_079B_004B.ndi.reg, Common.reg, USB9X.ndi.reg
+CopyFiles               = win9x.CopyFiles
+
+[Conceptronic.ndi]
+AddReg                  = USB_14B2_3C02.ndi.reg, Common.reg, USB9X.ndi.reg
+CopyFiles               = win9x.CopyFiles
+
+[CNet.ndi]
+AddReg                  = USB_1371_9022.ndi.reg, Common.reg, USB9X.ndi.reg
+CopyFiles               = win9x.CopyFiles
+
+;*******************************************************************************************
+; NT specific entries
+;*******************************************************************************************
+
+[RALINK.ndi.NT]
+AddReg                  = Common.reg, RTUSB.ndi.NT.reg
+Characteristics         = 0x84                      ; NCF_REMOVABLE | NCF_HAS_UI | NCF_PHYSICAL
+BusType                 = 15                        ;USB
+CopyFiles               = NT.CopyFiles
+
+[AMIGO_1.ndi.NT]
+AddReg                  = Common.reg, RTUSB.ndi.NT.reg
+Characteristics         = 0x84                      ; NCF_REMOVABLE | NCF_HAS_UI | NCF_PHYSICAL
+BusType                 = 15                        ;USB
+CopyFiles               = NT.CopyFiles
+
+[AMIGO_2.ndi.NT]
+AddReg                  = Common.reg, RTUSB.ndi.NT.reg
+Characteristics         = 0x84                      ; NCF_REMOVABLE | NCF_HAS_UI | NCF_PHYSICAL
+BusType                 = 15                        ;USB
+CopyFiles               = NT.CopyFiles
+
+[m2500usb_6861.ndi.NT]
+AddReg                  = Common.reg, RTUSB.ndi.NT.reg
+Characteristics         = 0x84                      ; NCF_REMOVABLE | NCF_HAS_UI | NCF_PHYSICAL
+BusType                 = 15                        ;USB
+CopyFiles               = NT.CopyFiles
+
+[m2500usb_6865.ndi.NT]
+AddReg                  = Common.reg, RTUSB.ndi.NT.reg
+Characteristics         = 0x84                      ; NCF_REMOVABLE | NCF_HAS_UI | NCF_PHYSICAL
+BusType                 = 15                        ;USB
+CopyFiles               = NT.CopyFiles
+
+[m2500usb_6869.ndi.NT]
+AddReg                  = Common.reg, RTUSB.ndi.NT.reg
+Characteristics         = 0x84                      ; NCF_REMOVABLE | NCF_HAS_UI | NCF_PHYSICAL
+BusType                 = 15                        ;USB
+CopyFiles               = NT.CopyFiles
+
+[SMC.ndi.NT]
+AddReg                  = Common.reg, RTUSB.ndi.NT.reg
+Characteristics         = 0x84                      ; NCF_REMOVABLE | NCF_HAS_UI | NCF_PHYSICAL
+BusType                 = 15                        ;USB
+CopyFiles               = NT.CopyFiles
+
+[ASUS.ndi.NT]
+AddReg                  = Common.reg, RTUSB.ndi.NT.reg
+Characteristics         = 0x84                      ; NCF_REMOVABLE | NCF_HAS_UI | NCF_PHYSICAL
+BusType                 = 15                        ;USB
+CopyFiles               = NT.CopyFiles
+
+[ASUSGEN.ndi.NT]
+AddReg                  = Common.reg, RTUSB.ndi.NT.reg
+Characteristics		=0x84			    ; NCF_REMOVABLE | NCF_HAS_UI | NCF_PHYSICAL
+BusType			=15			    ;USB
+CopyFiles=NT.CopyFiles
+
+[ZINWELLUSB.ndi.NT]
+AddReg                  = Common.reg, RTUSB.ndi.NT.reg
+Characteristics         = 0x84                      ; NCF_REMOVABLE | NCF_HAS_UI | NCF_PHYSICAL
+BusType                 = 15                        ;USB
+CopyFiles               = NT.CopyFiles
+
+[VTech.ndi.NT]
+AddReg                  = Common.reg, RTUSB.ndi.NT.reg
+Characteristics         = 0x84                      ; NCF_REMOVABLE | NCF_HAS_UI | NCF_PHYSICAL
+BusType                 = 15                        ;USB
+CopyFiles               = NT.CopyFiles
+
+[SURECOM.ndi.NT]
+AddReg                  = Common.reg, RTUSB.ndi.NT.reg
+Characteristics         = 0x84                      ; NCF_REMOVABLE | NCF_HAS_UI | NCF_PHYSICAL
+BusType                 = 15                        ;USB
+CopyFiles               = NT.CopyFiles
+
+[Gigabyte.ndi.NT]
+AddReg                  = Common.reg, RTUSB.ndi.NT.reg
+Characteristics         = 0x84                      ; NCF_REMOVABLE | NCF_HAS_UI | NCF_PHYSICAL
+BusType                 = 15                        ;USB
+CopyFiles               = NT.CopyFiles
+
+[SIEMENS.ndi.NT]
+AddReg                  = Common.reg, RTUSB.ndi.NT.reg
+Characteristics         = 0x84                      ; NCF_REMOVABLE | NCF_HAS_UI | NCF_PHYSICAL
+BusType                 = 15                        ;USB
+CopyFiles               = NT.CopyFiles
+
+[BUFFALO_5E.ndi.NT]
+AddReg                  = Common.reg, RTUSB.ndi.NT.reg
+Characteristics         = 0x84                      ; NCF_REMOVABLE | NCF_HAS_UI | NCF_PHYSICAL
+BusType                 = 15                        ;USB
+CopyFiles               = NT.CopyFiles
+
+[BUFFALO_66.ndi.NT]
+AddReg                  = Common.reg, RTUSB.ndi.NT.reg
+Characteristics         = 0x84                      ; NCF_REMOVABLE | NCF_HAS_UI | NCF_PHYSICAL
+BusType                 = 15                        ;USB
+CopyFiles               = NT.CopyFiles
+
+[BUFFALO_67.ndi.NT]
+AddReg                  = Common.reg, RTUSB.ndi.NT.reg
+Characteristics         = 0x84                      ; NCF_REMOVABLE | NCF_HAS_UI | NCF_PHYSICAL
+BusType                 = 15                        ;USB
+CopyFiles               = NT.CopyFiles
+
+[BUFFALO_97.ndi.NT]
+AddReg                  = Common.reg, RTUSB.ndi.NT.reg
+Characteristics         = 0x84                      ; NCF_REMOVABLE | NCF_HAS_UI | NCF_PHYSICAL
+BusType                 = 15                        ;USB
+CopyFiles               = NT.CopyFiles
+
+[Sagem.ndi.NT]
+AddReg                  = Common.reg, RTUSB.ndi.NT.reg
+Characteristics         = 0x84                      ; NCF_REMOVABLE | NCF_HAS_UI | NCF_PHYSICAL
+BusType                 = 15                        ;USB
+CopyFiles               = NT.CopyFiles
+
+[Conceptronic.ndi.NT]
+AddReg                  = Common.reg, RTUSB.ndi.NT.reg
+Characteristics         = 0x84                      ; NCF_REMOVABLE | NCF_HAS_UI | NCF_PHYSICAL
+BusType                 = 15                        ;USB
+CopyFiles               = NT.CopyFiles
+
+[CNet.ndi.NT]
+AddReg                  = Common.reg, RTUSB.ndi.NT.reg
+Characteristics         = 0x84                      ; NCF_REMOVABLE | NCF_HAS_UI | NCF_PHYSICAL
+BusType                 = 15                        ;USB
+CopyFiles               = NT.CopyFiles
+
+; NT services sections
+[RALINK.ndi.NT.Services]
+AddService              = RT2500USB, 2, RALINK.Service, common.EventLog
+
+[AMIGO_1.ndi.NT.Services]
+AddService              = RT2500USB, 2, AMIGO.Service, common.EventLog
+
+[AMIGO_2.ndi.NT.Services]
+AddService              = RT2500USB, 2, AMIGO.Service, common.EventLog
+
+[m2500usb_6861.ndi.NT.Services]
+AddService              = RT2500USB, 2, m2500usb.Service, common.EventLog
+
+[m2500usb_6865.ndi.NT.Services]
+AddService              = RT2500USB, 2, m2500usb.Service, common.EventLog
+
+[m2500usb_6869.ndi.NT.Services]
+AddService              = RT2500USB, 2, m2500usb.Service, common.EventLog
+
+[SMC.ndi.NT.Services]
+AddService              = RT2500USB, 2, SMC.Service, common.EventLog
+
+[ASUS.ndi.NT.Services]
+AddService              = RT2500USB, 2, ASUS.Service, common.EventLog
+
+[ASUSGEN.ndi.NT.Services]
+AddService              = RT2500USB, 2, ASUS.Service, common.EventLog
+
+[ZINWELLUSB.ndi.NT.Services]
+AddService              = RT2500USB, 2, ZINWELLUSB.Service, common.EventLog
+
+[VTech.ndi.NT.Services]
+AddService              = RT2500USB, 2, VTech.Service, common.EventLog
+
+[SURECOM.ndi.NT.Services]
+AddService              = RT2500USB, 2, SURECOM.Service, common.EventLog
+
+[Gigabyte.ndi.NT.Services]
+AddService              = RT2500USB, 2, Gigabyte.Service, common.EventLog
+
+[SIEMENS.ndi.NT.Services]
+AddService              = RT2500USB, 2, SIEMENS.Service, common.EventLog
+
+[BUFFALO_5E.ndi.NT.Services]
+AddService              = RT2500USB, 2, BUFFALO.Service, common.EventLog
+
+[BUFFALO_66.ndi.NT.Services]
+AddService              = RT2500USB, 2, BUFFALO.Service, common.EventLog
+
+[BUFFALO_67.ndi.NT.Services]
+AddService              = RT2500USB, 2, BUFFALO.Service, common.EventLog
+
+[BUFFALO_97.ndi.NT.Services]
+AddService              = RT2500USB, 2, BUFFALO.Service, common.EventLog
+
+[Sagem.ndi.NT.Services]
+AddService              = RT2500USB, 2, Sagem.Service, common.EventLog
+
+[Conceptronic.ndi.NT.Services]
+AddService              = RT2500USB, 2, Conceptronic.Service, common.EventLog
+
+[CNet.ndi.NT.Services]
+AddService              = RT2500USB, 2, CNet.Service, common.EventLog
+
+;*******************************************************************************************
+; common regs for NT and W9x
+;*******************************************************************************************
+
+
+[Common.reg]
+;*******************************************************************************************
+; System Level Property
+
+;
+; Current Profile
+;
+HKR, ,                  CurProfile,      0,""
+HKR, Default,           CurProfile,      0,""
+
+;
+; Radio On/Off
+;
+HKR, ,                            Radio,           0, "0"
+HKR, NDI\params\Radio,            ParamDesc,       0, "Radio On/Off"
+HKR, NDI\params\Radio,            type,            0, "enum"
+HKR, NDI\params\Radio,            default,         0, "0"
+HKR, NDI\params\Radio\enum,       1,               0, "Disable"
+HKR, NDI\params\Radio\enum,       0,               0, "Enable"
+
+;
+; Auto Reconnect Mode
+;
+HKR, ,                                  AutoReconnect,   0, "1"
+HKR, NDI\params\AutoReconnect,          ParamDesc,       0, "Auto Reconnect Mode"
+HKR, NDI\params\AutoReconnect,          type,            0, "enum"
+HKR, NDI\params\AutoReconnect,          default,         0, "1"
+HKR, NDI\params\AutoReconnect\enum,     0,               0, "Disable"
+HKR, NDI\params\AutoReconnect\enum,     1,               0, "Enable"
+
+;
+; Show Hidden SSID in Site Survey Page
+;
+HKR, ,                                  ShowHiddenSSID,  0, "0" ; 0=disable(default), 1=enable
+
+;
+; Select Config Utility
+;
+HKR, ,                                  ConfigSelect,    0, "0"  ; 0=RaConfig, 1=ZeroConfig
+
+;
+; Country Region 
+;
+HKR, ,                                  CountryRegion,      0, "0"
+;HKR, NDI\params\CountryRegion,         ParamDesc,          0, "Country Region"
+;HKR, NDI\params\CountryRegion,         type,               0, "enum"
+;HKR, NDI\params\CountryRegion,         default,            0, "0"
+;HKR, NDI\params\CountryRegion\enum,    0,                  0, "FCC (Channel 1 - 11)"
+;HKR, NDI\params\CountryRegion\enum,    1,                  0, "IC (Channel 1 - 11)"
+;HKR, NDI\params\CountryRegion\enum,    2,                  0, "ETSI (Channel 1 - 13)"
+;HKR, NDI\params\CountryRegion\enum,    3,                  0, "Spain (Channel 10 - 11)"
+;HKR, NDI\params\CountryRegion\enum,    4,                  0, "France (Channel 10 - 13)"
+;HKR, NDI\params\CountryRegion\enum,    5,                  0, "MKK (Channel 14)"
+;HKR, NDI\params\CountryRegion\enum,    6,                  0, "MKK1 (Channel 1 - 14)"
+;HKR, NDI\params\CountryRegion\enum,    7,                  0, "Israel (Channel 3 - 9)"
+
+;*******************************************************************************************
+; Advance Page
+
+;
+; WirelessMode
+;
+HKR, ,                            WirelessMode,    0, "0"
+
+;
+; Enable TX Burst
+;
+HKR, ,                            TXBurst,         0, "0"
+
+;
+; Use Short Slot Time
+;
+HKR, ,                            ShortSlot,       0, "0"
+
+;
+; Use Turbo rate
+;
+HKR, ,                            TurboRate,       0, "0"
+
+;
+; Use Ofdm rate in adhoc mode
+;
+HKR, ,                            AdhocOfdm,       0, "0"
+
+;
+; Use BG Protection
+;
+HKR, ,                            BGProtection,    0, "0"
+ 
+;
+; Vendor Description
+;
+HKR, ,                            VendorDesc,      0, %VENDOR_DESC_DEF_STR%
+HKR, Default,                     VendorDesc,      0, %VENDOR_DESC_DEF_STR%
+
+;
+; PSP XLink mode
+;
+HKR, ,                            PSPXlink,        0, "0"
+HKR, NDI\params\PSPXlink,         ParamDesc,       0, "PSP Xlink Mode"
+HKR, NDI\params\PSPXlink,         type,            0, "enum"
+HKR, NDI\params\PSPXlink,         default,         0, "0"
+HKR, NDI\params\PSPXlink\enum,    0,               0, "Disable"
+HKR, NDI\params\PSPXlink\enum,    1,               0, "Enable"
+
+;*******************************************************************************************
+; Profile
+
+;
+; SSID
+;
+;HKR, ,                            SSID,            0, %SSID_DEF_STR%
+;HKR, Default,                     SSID,            0, %SSID_DEF_STR%
+;HKR, NDI\params\SSID,             ParamDesc,       0, "SSID"
+;HKR, NDI\params\SSID,             type,            0, "edit"
+;HKR, NDI\params\SSID,             limitText,       0, "32"
+;HKR, NDI\params\SSID,             default,         0, %SSID_DEF_STR%
+
+;
+; Network Type
+;
+HKR, ,                            NetworkType,     0, %NETWORK_TYPE_DEF_STR%
+HKR, Default,                     NetworkType,     0, %NETWORK_TYPE_DEF_STR%
+HKR, NDI\params\NetworkType,      ParamDesc,       0, "Network Type"
+HKR, NDI\params\NetworkType,      type,            0, "enum"
+HKR, NDI\params\NetworkType,      default,         0, %NETWORK_TYPE_DEF_STR%
+HKR, NDI\params\NetworkType\enum, 0,               0, "802.11 Ad Hoc"
+HKR, NDI\params\NetworkType\enum, 1,               0, "Infrastructure"
+
+;
+; Channel
+;
+HKR, ,                            Channel,         0, %CHANNEL%
+HKR, Default,                     Channel,         0, %CHANNEL%
+
+
+;*******************************************************************************************
+; System Configuration Page
+
+;
+; Local Administration MAC Network Address
+;
+HKR, ,                            NetworkAddress,  0, ""
+HKR, Default,                     NetworkAddress,  0, ""
+HKR, NDI\params\NetworkAddress,   ParamDesc,       0, "Local Administration MAC Network Address"
+HKR, NDI\params\NetworkAddress,   type,            0, "edit"
+HKR, NDI\params\NetworkAddress,   limitText,       0, "12"
+HKR, NDI\params\NetworkAddress,   default,         0, ""
+HKR, NDI\params\NetworkAddress,   optional,        0,  "1"
+
+;
+; Power Saving Mode
+;
+HKR, ,                            PSMode,          0, "0"
+HKR, Default,                     PSMode,          0, "0"
+HKR, NDI\params\PSMode,           ParamDesc,       0, "Power Saving Mode"
+HKR, NDI\params\PSMode,           type,            0, "enum"
+HKR, NDI\params\PSMode,           default,         0, "0"
+HKR, NDI\params\PSMode\enum,      0,               0, "CAM (Constantly Awake Mode)"
+HKR, NDI\params\PSMode\enum,      1,               0, "Max_PSP (Max Power Savings)"
+HKR, NDI\params\PSMode\enum,      2,               0, "Fast_PSP (Power Save Mode)"
+
+;
+; CAM when AC Power
+;
+HKR, ,                            ACPowerCam,      0, "0"
+HKR, Default,                     ACPowerCam,      0, "0"
+HKR, NDI\params\ACPowerCam,       ParamDesc,       0, "CAM when AC Power"
+HKR, NDI\params\ACPowerCam,       type,            0, "enum"
+HKR, NDI\params\ACPowerCam,       default,         0, "0"
+HKR, NDI\params\ACPowerCam\enum,  0,               0, "Disable"
+HKR, NDI\params\ACPowerCam\enum,  1,               0, "Enable"
+
+;
+; Preamble Type
+;
+HKR, ,                            PreambleType,    0, "0"
+HKR, Default,                     PreambleType,    0, "0"
+
+;
+; TX Power
+;
+HKR, ,                            TXPower,         0, "0"
+HKR, Default,                     TXPower,         0, "0"
+
+;
+; RTS Threshold
+;
+HKR, ,                            RTSThresh,       0, "2347"
+HKR, Default,                     RTSThresh,       0, "2347"
+HKR, NDI\params\RTSThresh,        ParamDesc,       0, "RTS Threshold"
+HKR, NDI\params\RTSThresh,        type,            0, "int"
+HKR, Ndi\params\RTSThresh,        default,         0, "2347"
+HKR, NDI\params\RTSThresh,        min,             0, "0"
+HKR, NDI\params\RTSThresh,        max,             0, "2347"
+HKR, NDI\params\RTSThresh,        step,            0, "1"
+HKR, NDI\params\RTSThresh,        optional,        0, "0"
+
+;
+; Fragment Threshold
+;
+HKR, ,                            FragThresh,      0, "2346"
+HKR, Default,                     FragThresh,      0, "2346"
+HKR, NDI\params\FragThresh,       ParamDesc,       0, "Fragment Threshold"
+HKR, NDI\params\FragThresh,       type,            0, "int"
+HKR, Ndi\params\FragThresh,       default,         0, "2346"
+HKR, NDI\params\FragThresh,       min,             0, "256"
+HKR, NDI\params\FragThresh,       max,             0, "2346"
+HKR, NDI\params\FragThresh,       step,            0, "1"
+HKR, NDI\params\FragThresh,       optional,        0, "0"
+
+;*******************************************************************************************
+; Authentication & Security Page
+
+;
+; Authentication Type
+;
+HKR, ,                            AuthenType,      0, "0" ; Open System
+HKR, Default,                     AuthenType,      0, "0"
+
+;
+; Encryption
+;
+HKR, ,                            Encryption,      0, "1" ; Disable
+HKR, Default,                     Encryption,      0, "1"
+
+;
+; WEP Keys Length
+;
+HKR, ,                            WEPKeyLen,       0, "0"
+HKR, Default,                     WEPKeyLen,       0, "0"
+
+;
+; WEP Key to use
+;
+HKR, ,                            WEPKeyUse,       0,"1"
+HKR, Default,                     WEPKeyUse,       0,"1"
+
+;
+; WEP Key1
+;
+HKR, ,                  WEPKey1,         0,""
+HKR, Default,           WEPKey1,         0,""
+
+;
+; WEP Key2
+;
+HKR, ,                  WEPKey2,         0,""
+HKR, Default,           WEPKey2,         0,""
+
+;
+; WEP Key3
+;
+HKR, ,                  WEPKey3,         0,""
+HKR, Default,           WEPKey3,         0,""
+
+;
+; WEP Key4
+;
+HKR, ,                  WEPKey4,         0,""
+HKR, Default,           WEPKey4,         0,""
+
+;
+; WPA PSK
+;
+HKR, ,                WPAPSK,          0, ""
+HKR, Default,         WPAPSK,          0, ""
+
+;*******************************************************************************************
+; 802.1x & LEAP
+
+;
+; Use 8021X
+;
+HKR, ,                Use8021X,        0, "0"
+HKR, Default,         Use8021X,        0, "0"
+ 
+;
+; Authen Protocol
+;
+HKR, ,                AuthenProtocol,  0, "0"
+HKR, Default,         AuthenProtocol,  0, "0"
+
+;
+; Tunnel Protocol
+;
+HKR, ,                TunnelProtocol,  0, "3"
+HKR, Default,         TunnelProtocol,  0, "3"
+
+;
+; ID
+;
+HKR, ,                ID,              0, ""
+HKR, Default,         ID,              0, ""
+
+;
+; Password
+;
+HKR, ,                Password,        0, ""
+HKR, Default,         Password,        0, ""
+
+;
+; Tunnel ID
+;
+HKR, ,                TunnelID,        0, ""
+HKR, Default,         TunnelID,        0, ""
+
+;
+; Tunnel Password
+;
+HKR, ,                TunnelPassword,  0, ""
+HKR, Default,         TunnelPassword,  0, ""
+
+;
+; Session Resumption
+;
+HKR, ,                SessionResumption, 0, "0"
+HKR, Default,         SessionResumption, 0, "0"
+
+;
+; Password Mode
+;
+HKR, ,                PasswordMode,    0, "1"
+HKR, Default,         PasswordMode,    0, "1"
+
+;
+; Use Client Cert
+;
+HKR, ,                UseClientCert,   0, "0"
+HKR, Default,         UseClientCert,   0, "0"
+
+;
+; Use Server Cert
+;
+HKR, ,                UseServerCert,   0, "0"
+HKR, Default,         UseServerCert,   0, "0"
+
+;
+; Client Cert Len
+;
+HKR, ,                ClientCertLen,   0, "0"
+HKR, Default,         ClientCertLen,   0, "0"
+
+;
+; Client Cert Data
+;
+HKR, ,                ClientCertData,  0, ""
+HKR, Default,         ClientCertData,  0, ""
+
+;
+; Server Cert Len
+;
+HKR, ,                ServerCertLen,   0, "0"
+HKR, Default,         ServerCertLen,   0, "0"
+
+;
+; Server Cert Data
+;
+HKR, ,                ServerCertData,  0, ""
+HKR, Default,         ServerCertData,  0, ""
+
+;
+; Server Name
+;
+HKR, ,                ServerName,      0, ""
+HKR, Default,         ServerName,      0, ""
+
+;
+; Name Rule
+;
+HKR, ,                NameRule,        0, "0"
+HKR, Default,         NameRule,        0, "0"
+
+;
+; Intermediate Cert
+;
+HKR, ,                IntermediateCert, 0, "0"
+HKR, Default,         IntermediateCert, 0, "0"
+
+;
+; Leap Enabled
+;
+HKR, ,                LeapEnabled,     0, "0"
+HKR, Default,         LeapEnabled,     0, "0"
+
+;
+; Leap User Name
+;
+HKR, ,                LeapUserName,    0, ""
+HKR, Default,         LeapUserName,    0, ""
+
+;
+; Leap Password
+;
+HKR, ,                LeapPassword,    0, ""
+HKR, Default,         LeapPassword,    0, ""
+
+;*******************************************************************************************
+; APConfig use
+;
+
+;
+; WPA Group-Key ReKey Interval
+;
+HKR, ,                  RekeyInterval,   0, "60"
+
+;
+; WPA Group-Key ReKey Method
+;
+HKR, ,                  RekeyMethod,     0, "0"
+
+;*******************************************************************************************
+; DeviceID for Win9X 
+;*******************************************************************************************
+[USB_184F_2570.ndi.reg]
+HKR, Ndi,                         DeviceID,        0, "USB\VID_148F&PID_2570"
+
+[USB_148F_9020.ndi.reg]
+HKR, Ndi,                         DeviceID,         0, "USB\VID_148F&PID_9020"
+
+[USB_0EB0_9020.ndi.reg]
+HKR, Ndi,                         DeviceID,         0, "USB\VID_0EB0&PID_9020"
+
+[USB_0DB0_6861.ndi.reg]
+HKR, Ndi,                         DeviceID,         0, "USB\VID_0DB0&PID_6861"
+
+[USB_0DB0_6865.ndi.reg]
+HKR, Ndi,                         DeviceID,         0, "USB\VID_0DB0&PID_6865"
+
+[USB_0DB0_6869.ndi.reg]
+HKR, Ndi,                         DeviceID,         0, "USB\VID_0DB0&PID_6869"
+
+[USB_0707_EE13.ndi.reg]
+HKR, Ndi,                         DeviceID,         0, "USB\VID_0707&PID_EE13"
+
+[USB_0B05_1706.ndi.reg]
+HKR, Ndi,                         DeviceID,         0, "USB\VID_0B05&PID_1706"
+
+[USB_0B05_1707.ndi.reg]
+HKR, Ndi,                         DeviceID,         0, "USB\VID_0B05&PID_1707"
+
+[USB_5A57_0260.ndi.reg]
+HKR, Ndi,                         DeviceID,         0, "USB\VID_5A57&PID_0260"
+
+[USB_0F88_3012.ndi.reg]
+HKR, Ndi,                         DeviceID,         0, "USB\VID_0F88&PID_3012"
+
+[USB_0769_11F3.ndi.reg]
+HKR, Ndi,                         DeviceID,         0, "USB\VID_0769&PID_11F3"
+
+[USB_1044_8007.ndi.reg]
+HKR, Ndi,                         DeviceID,         0, "USB\VID_1044&PID_8007"
+
+[USB_0681_3C06.ndi.reg]
+HKR, Ndi,                         DeviceID,        0, "USB\VID_0681&PID_3C06"
+
+[USB_0411_005E.ndi.reg]
+HKR, Ndi,                         DeviceID,        0, "USB\VID_0411&PID_005E"
+
+[USB_0411_0066.ndi.reg]
+HKR, Ndi,                         DeviceID,        0, "USB\VID_0411&PID_0066"
+
+[USB_0411_0067.ndi.reg]
+HKR, Ndi,                         DeviceID,        0, "USB\VID_0411&PID_0067"
+
+[USB_0411_0097.ndi.reg]
+HKR, Ndi,                         DeviceID,        0, "USB\VID_0411&PID_0097"
+
+[USB_079B_004B.ndi.reg]
+HKR, Ndi,                         DeviceID,        0, "USB\VID_079B&PID_004B"
+
+[USB_14B2_3C02.ndi.reg]
+HKR, Ndi,                         DeviceID,        0, "USB\VID_14B2&PID_3C02"
+
+[USB_1371_9022.ndi.reg]
+HKR, Ndi,                         DeviceID,        0, "USB\VID_1371&PID_9022"
+
+[USB9X.ndi.reg]
+HKR, ,                            NTMPDriver,      0, rt25u98.sys
+
+HKR, ,                            BusType,          0, 15
+HKR, NDI,                         CardType,         0, "PNP"
+
+HKR, ,                            RunningWin9X,     0, "1"
+HKR, ,                            DevLoader,        0, "*ndis"
+HKR, ,                            DeviceVxDs,       0, "rt25u98.sys"
+HKR, ,                            EnumPropPages,    0, "netdi.dll,EnumPropPages"
+
+HKR, Ndi\Interfaces,              DefUpper,         0, "ndis3"
+HKR, Ndi\Interfaces,              DefLower,         0, "ethernet"
+HKR, Ndi\Interfaces,              UpperRange,       0, "ndis3"
+HKR, Ndi\Interfaces,              LowerRange,       0, "ethernet"
+
+HKR, NDIS,                        LogDriverName,    0, "rt25u98"
+HKR, NDIS,                        MajorNdisVersion, 1, 03
+HKR, NDIS,                        MinorNdisVersion, 1, 0A
+
+;
+; Interfaces
+;
+;
+; Install sections
+;HKR,Ndi\Install,ndis3,,"rt25u98.install"
+
+;*******************************************************************************************
+; DestinationDirs
+;*******************************************************************************************
+
+[DestinationDirs]
+NT.CopyFiles=12    ; system32\drivers subdirectory on NT
+win9x.CopyFiles=11    ; system32 subdirectory on win9x
+
+[NT.CopyFiles]
+rt2500usb.sys ; NT Installation
+
+[win9x.CopyFiles]
+rt25u98.sys                    ; Win9x Installation
+
+[SourceDisksNames]
+1=%INSTALL_DISK_STR%,,,
+
+[SourceDisksFiles] 
+rt2500usb.sys=1
+rt25u98.sys=1
+
+
+;*******************************************************************************************
+; NT specific
+;*******************************************************************************************
+[RTUSB.ndi.NT.reg]
+HKR, Ndi,                   Service,            0, "rt2500usb"
+HKR, Ndi\Interfaces,        UpperRange,         0, "ndis5"
+HKR, Ndi\Interfaces,        LowerRange,         0, "ethernet"
+
+[Ralink.Service]
+DisplayName                 = %Ralink.Service.DispName%
+ServiceType                 = 1                             ;%SERVICE_KERNEL_DRIVER%
+StartType                   = 3                             ;%SERVICE_AUTO_START%
+ErrorControl                = 1                             ;%SERVICE_ERROR_NORMAL%
+ServiceBinary               = %12%\rt2500usb.sys
+LoadOrderGroup              = NDIS
+
+[AMIGO.Service]
+DisplayName                 = %AMIGO.Service.DispName%
+ServiceType                 = 1                             ;%SERVICE_KERNEL_DRIVER%
+StartType                   = 3                             ;%SERVICE_AUTO_START%
+ErrorControl                = 1                             ;%SERVICE_ERROR_NORMAL%
+ServiceBinary               = %12%\rt2500usb.sys
+LoadOrderGroup              = NDIS
+
+[m2500usb.Service]
+DisplayName                 = %m2500usb.Service.DispName%
+ServiceType                 = 1                             ;%SERVICE_KERNEL_DRIVER%
+StartType                   = 3                             ;%SERVICE_AUTO_START%
+ErrorControl                = 1                             ;%SERVICE_ERROR_NORMAL%
+ServiceBinary               = %12%\rt2500usb.sys
+LoadOrderGroup              = NDIS
+
+[SMC.Service]
+DisplayName                = %SMC.Service.DispName%
+ServiceType                 = 1                             ;%SERVICE_KERNEL_DRIVER%
+StartType                   = 3                             ;%SERVICE_AUTO_START%
+ErrorControl                = 1                             ;%SERVICE_ERROR_NORMAL%
+ServiceBinary               = %12%\rt2500usb.sys
+LoadOrderGroup              = NDIS
+
+[ASUS.Service]
+DisplayName                 = %ASUS.Service.DispName%
+ServiceType                 = 1                             ;%SERVICE_KERNEL_DRIVER%
+StartType                   = 3                             ;%SERVICE_AUTO_START%
+ErrorControl                = 1                             ;%SERVICE_ERROR_NORMAL%
+ServiceBinary               = %12%\rt2500usb.sys
+LoadOrderGroup              = NDIS
+
+[ZINWELLUSB.Service]
+DisplayName                 = %ZINWELL.Service.DispName%
+ServiceType                 = 1                             ;%SERVICE_KERNEL_DRIVER%
+StartType                   = 3                             ;%SERVICE_AUTO_START%
+ErrorControl                = 1                             ;%SERVICE_ERROR_NORMAL%
+ServiceBinary               = %12%\rt2500usb.sys
+LoadOrderGroup              = NDIS
+
+[VTech.Service]
+DisplayName                 = %VTech.Service.DispName%
+ServiceType                 = 1                             ;%SERVICE_KERNEL_DRIVER%
+StartType                   = 3                             ;%SERVICE_AUTO_START%
+ErrorControl                = 1                             ;%SERVICE_ERROR_NORMAL%
+ServiceBinary               = %12%\rt2500usb.sys
+LoadOrderGroup              = NDIS
+
+[SURECOM.Service]
+DisplayName                 = %SURECOM.Service.DispName%
+ServiceType                 = 1                             ;%SERVICE_KERNEL_DRIVER%
+StartType                   = 3                             ;%SERVICE_AUTO_START%
+ErrorControl                = 1                             ;%SERVICE_ERROR_NORMAL%
+ServiceBinary               = %12%\rt2500usb.sys
+LoadOrderGroup              = NDIS
+
+[Gigabyte.Service]
+DisplayName                 = %Gigabyte.Service.DispName%
+ServiceType                 = 1                             ;%SERVICE_KERNEL_DRIVER%
+StartType                   = 3                             ;%SERVICE_AUTO_START%
+ErrorControl                = 1                             ;%SERVICE_ERROR_NORMAL%
+ServiceBinary               = %12%\rt2500usb.sys
+LoadOrderGroup              = NDIS
+
+[SIEMENS.Service]
+DisplayName                 = %SIEMENS.Service.DispName%
+ServiceType                 = 1                             ;%SERVICE_KERNEL_DRIVER%
+StartType                   = 3                             ;%SERVICE_AUTO_START%
+ErrorControl                = 1                             ;%SERVICE_ERROR_NORMAL%
+ServiceBinary               = %12%\rt2500usb.sys
+LoadOrderGroup              = NDIS
+
+[BUFFALO.Service]
+DisplayName                 = %BUFFALO.Service.DispName%
+ServiceType                 = 1                             ;%SERVICE_KERNEL_DRIVER%
+StartType                   = 3                             ;%SERVICE_AUTO_START%
+ErrorControl                = 1                             ;%SERVICE_ERROR_NORMAL%
+ServiceBinary               = %12%\rt2500usb.sys
+LoadOrderGroup              = NDIS
+
+[Sagem.Service]
+DisplayName                 = %Sagem.Service.DispName%
+ServiceType                 = 1                             ;%SERVICE_KERNEL_DRIVER%
+StartType                   = 3                             ;%SERVICE_AUTO_START%
+ErrorControl                = 1                             ;%SERVICE_ERROR_NORMAL%
+ServiceBinary               = %12%\rt2500usb.sys
+LoadOrderGroup              = NDIS
+
+[Conceptronic.Service]
+DisplayName                 = %Conceptronic.Service.DispName%
+ServiceType                 = 1                             ;%SERVICE_KERNEL_DRIVER%
+StartType                   = 3                             ;%SERVICE_AUTO_START%
+ErrorControl                = 1                             ;%SERVICE_ERROR_NORMAL%
+ServiceBinary               = %12%\rt2500usb.sys
+LoadOrderGroup              = NDIS
+
+[CNet.Service]
+DisplayName                 = %CNet.Service.DispName%
+ServiceType                 = 1                             ;%SERVICE_KERNEL_DRIVER%
+StartType                   = 3                             ;%SERVICE_AUTO_START%
+ErrorControl                = 1                             ;%SERVICE_ERROR_NORMAL%
+ServiceBinary               = %12%\rt2500usb.sys
+LoadOrderGroup              = NDIS
+
+[common.EventLog]
+AddReg=common.AddEventLog.reg
+
+[common.AddEventLog.reg]
+HKR, , EventMessageFile, 0x00020000,"%%SystemRoot%%\System32\netevent.dll,%%SystemRoot%%\System32\drivers\rt2500usb.sys"
+HKR, , TypesSupported,   0x00010001, 7
+
+
+;*******************************************************************************************
+; Strings
+;*******************************************************************************************
+[strings]
+Provider                    = "Ralink"
+Ralink                      = "Ralink Technology Corp."
+Amigo                       = "Amigo Technology Inc."
+MSI                         = "802.11 Wireless"
+SMC                         = "SMC Networks, Inc"
+ASUS                        = "ASUSTeK Computer Inc."
+ZINWELL                     = "ZINWELL"
+VTech                       = "VTech Telecommunications Ltd"
+SURECOM                     = "SURECOM Technology Corp"
+Gigabyte                    = "Gigabyte Technology Corp."
+Siemens                     = "Siemens"
+BUFFALO                     = "BUFFALO INC."
+Sagem                       = "Sagem, SA"
+Conceptronic                = "2L (Conceptronic)"
+CNet                        = "CNet Technology Inc."
+
+RALINK.DeviceDesc           = "RT2500 USB Wireless LAN Card"
+Amigo_1.DeviceDesc          = "Wireless USB Card"
+Amigo_2.DeviceDesc          = "IEEE 802.11g Wireless Pocket USB"
+m2500usb_6861.DeviceDesc    = "Wireless 11g USB 2.0 Stick"
+m2500usb_6865.DeviceDesc    = "Wireless 11g MiniUSB 2.0 Adapter"
+m2500usb_6869.DeviceDesc    = "Wireless 11g MiniUSB 2.0 Bluetooth Combo"
+SMC.DeviceDesc              = "EZ Connect g 2.4GHz 802.11g Wireless USB Adapter"
+ASUS.DeviceDesc             = "ASUS USB Wireless Network Adapter"
+ASUSGEN.DeviceDesc          = "802.11b/g USB Wireless Network Adapter"
+ZINWELLUSB.DeviceDesc       = "802.11g USB Adapter"
+VTechUSB.DeviceDesc         = "VTech Wireless 802.11g USB 2.0 Adapter"
+SURECOM.DeviceDesc          = "SURECOM 802.11g WLAN USB Adapter"
+Gigabyte.DeviceDesc         = "Gigabyte WBKG USB WLAN Card"
+Siemens.DeviceDesc          = "Siemens 802.11g USB Wireless Network Adapter"
+BUFFALO_5E.DeviceDesc       = "BUFFALO WLI-U2-KG54-YB Wireless LAN Adapter"
+BUFFALO_66.DeviceDesc       = "BUFFALO WLI-U2-KG54 Wireless LAN Adapter"
+BUFFALO_67.DeviceDesc       = "BUFFALO WLI-U2-KG54-AI Wireless LAN Adapter"
+BUFFALO_97.DeviceDesc       = "BUFFALO WLI-U2-KG54-BB Wireless LAN Adapter"
+Sagem.DeviceDesc            = "SAGEM Wi-Fi 11g USB adapter"
+Conceptronic.DeviceDesc     = "Conceptronic 54Mbps USB adapter"
+CNet.DeviceDesc             = "CNet Wireless-G USB dongle"
+
+INSTALL_DISK_STR            = "Wireless 11g USB Installation Disk"
+
+RALINK.Service.DispName     = "RT2500 USB Wireless LAN Driver"
+AMIGO.Service.DispName      = "AMIGO RT2500 USB Wieless Driver"
+m2500usb.Service.DispName   = "Wireless 11g RT2500 USB 2.0 Network Driver"
+SMC.Service.DispName        = "SMC RT2500 USB Wireless LAN Driver"
+ASUS.Service.DispName       = "ASUS RT2500 USB Wireless LAN Driver"
+ZINWELL.Service.DispName    = "ZINWELL RT2500 USB 802.11g Wireless Driver"
+VTech.Service.DispName      = "VTech RT2500 USB 802.11g Wireless Driver"
+SURECOM.Service.DispName    = "SURECOM RT2500 USB 802.11g WLAN Driver"
+Gigabyte.Service.DispName   = "Gigabyte RT2500 USB WLAN Driver"
+SIEMENS.Service.DispName    = "Siemens 802.11g RT2500 USB Wireless Driver"
+BUFFALO.Service.DispName    = "BUFFALO RT2500 USB Wireless Driver"
+Sagem.Service.DispName      = "SAGEM Wi-Fi 11g RT2500 USB adapter Driver"
+Conceptronic.Service.DispName = "Conceptronic 54Mbps RT2500 USB adapter Driver"
+CNet.Service.DispName       = "CNet RT2500 USB Wireless Driver"
+
+;
+; Don't put spaces around=sign otherwise installer will not be able to
+; find these lines.
+;SSID_DEF_STR            = ""
+VENDOR_DESC_DEF_STR     = ""
+NETWORK_TYPE_DEF_STR    = "1"
+CHANNEL                 = "1"

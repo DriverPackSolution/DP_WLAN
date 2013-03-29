@@ -1,0 +1,457 @@
+; netA504.INF
+;
+; Install driver for 802.11a/b radio on Win98, WinME, Win2K, WinXP
+;
+; Copyright 2002, Cisco Systems, Inc.
+;
+[version]
+signature   = "$CHICAGO$"
+Compatible  = 1
+Class       = Net
+ClassGUID   = {4d36e972-e325-11ce-bfc1-08002be10318}
+provider    = %V_CISCO%
+MillenniumPreferred = .ME
+DriverVer   = 09/20/2004, 3.9.16
+CatalogFile = neta504.cat
+
+
+
+[SourceDisksNames]
+;diskid = disk-description[,[tag-or-cab-file],[unused,path][,flags]]
+1= %Disk_1_Desc%,,,,
+
+
+
+[SourceDisksFiles]
+;filename = diskid[,[subdir][,size]]
+PCX504.sys    =1,,
+PCX504.51     =1,,
+vxdx500.vxd   =1,,
+pcx504a.img   =1,,
+pcx504b.img   =1,,
+CInsX500.dll  =1,,
+CInst16.dll   =1,,
+CUtil16.exe   =1,,
+
+
+
+[DestinationDirs]
+CopySys_NT               = 12 ; Drivers directory (%windir%\system32\drivers)
+CopySys_XP               = 12 ; Drivers directory (%windir%\system32\drivers)
+CopyFW_a_NT              = 12 ; Drivers directory (%windir%\system32\drivers)
+CopyFW_b_NT              = 12 ; Drivers directory (%windir%\system32\drivers)
+CopyCoInst_NT            = 11
+;
+; win9x
+;
+CopySys_9x               = 11 ; Win9x Only (%windir%\system)
+CopyFW_a_9x              = 11 ; Win9x Only (%windir%\system)
+CopyFW_b_9x              = 11 ; Win9x Only (%windir%\system)
+CopyCoInst_9x            = 11 ; Win9x Only (%windir%\system)
+DefaultDestDir           = 11 ; Win9x Only (%windir%\system)
+
+
+
+[Manufacturer]
+%V_CISCO%  = CISCO,NT.5.1
+
+
+
+[ControlFlags]
+ExcludeFromSelect = *
+
+
+
+[CISCO]
+; DisplayName           Section             DeviceID
+; -----------           -------             --------
+%PCX504_b.DevDesc%      = PCX504_b.ndi,     PCI\VEN_14B9&DEV_A504&SUBSYS_500014B9
+%PCX504_a.DevDesc%      = PCX504_a.ndi,     PCI\VEN_14B9&DEV_A505&SUBSYS_640014B9
+
+
+[CISCO.NT.5.1]
+; DisplayName           Section             DeviceID
+; -----------           -------             --------
+%PCX504_b.DevDesc%      = PCX504_b_XP.ndi,  PCI\VEN_14B9&DEV_A504&SUBSYS_500014B9
+%PCX504_a.DevDesc%      = PCX504_a_XP.ndi,  PCI\VEN_14B9&DEV_A505&SUBSYS_640014B9
+
+
+
+;------------------------------------------------------------------------------
+; 802.11b -- 2.4 GHz 
+;------------------------------------------------------------------------------
+[PCX504_b_XP.ndi]
+AddReg          =   NDI5, COMMON, DATARATE_b, SSID, RADIONAME_b, BUSPCI
+Characteristics =   0x84
+BusType         =   5
+CopyFiles       =   CopySys_XP, CopyFW_b_NT
+
+[PCX504_b_XP.ndi.Services]
+AddService      =   PCX504, 2, PCX504.Service, common.AddEventLog
+
+[PCX504_b_XP.ndi.CoInstallers]
+AddReg          =   CoInstaller.NT.AddReg
+CopyFiles       =   CopyCoInst_NT
+
+
+
+[PCX504_b.ndi.NT]
+AddReg          =   NDI5, COMMON, DATARATE_b, SSID, RADIONAME_b, BUSPCI
+Characteristics =   0x84
+BusType         =   5
+CopyFiles       =   CopySys_NT, CopyFW_b_NT
+
+[PCX504_b.ndi.NT.Services]
+AddService      =   PCX504, 2, PCX504.Service, common.AddEventLog
+
+[PCX504_b.ndi.NT.CoInstallers]
+AddReg          =   CoInstaller.NT.AddReg
+CopyFiles       =   CopyCoInst_NT
+
+
+
+[PCX504_b.ndi.ME]
+AddReg          =   NDI5_ME, COMMON, DATARATE_b, SSID, RADIONAME_b, BUSPCI, DEVID_b
+Characteristics =   0x84
+BusType         =   5
+CopyFiles       =   CopyCoInst_9x,CopySys_9x,CopyFW_b_9x
+
+[PCX504_b.ndi.ME.Services]
+AddService      =   PCX504, 2, PCX504.Service, common.AddEventLog
+
+
+
+[PCX504_b.ndi]
+AddReg          =   NDI3, COMMON, DATARATE_b, SSID, RADIONAME_b, BUSPCI, DEVID_b
+CopyFiles       =   CopyCoInst_9x,CopySys_9x,CopyFW_b_9x
+
+
+
+;------------------------------------------------------------------------------
+; 802.11a -- 5.0 GHz 
+;------------------------------------------------------------------------------
+[PCX504_a_XP.ndi]
+AddReg          =   NDI5, COMMON, DATARATE_a, SSID, RADIONAME_a, BUSCARDBUS
+Characteristics =   0x84
+BusType         =   5
+CopyFiles       =   CopySys_XP, CopyFW_a_NT
+
+[PCX504_a_XP.ndi.Services]
+AddService      =   PCX504, 2, PCX504.Service, common.AddEventLog
+
+[PCX504_a_XP.ndi.CoInstallers]
+AddReg          =   CoInstaller.NT.AddReg
+CopyFiles       =   CopyCoInst_NT
+
+
+
+[PCX504_a.ndi.NT]
+AddReg          =   NDI5, COMMON, DATARATE_a, SSID, RADIONAME_a, BUSCARDBUS
+Characteristics =   0x84
+BusType         =   5
+CopyFiles       =   CopySys_NT, CopyFW_a_NT
+
+[PCX504_a.ndi.NT.Services]
+AddService      =   PCX504, 2, PCX504.Service, common.AddEventLog
+
+[PCX504_a.ndi.NT.CoInstallers]
+AddReg          =   CoInstaller.NT.AddReg
+CopyFiles       =   CopyCoInst_NT
+
+
+
+[PCX504_a.ndi.ME]
+AddReg          =   NDI5_ME, COMMON, DATARATE_a, SSID, RADIONAME_a, BUSCARDBUS, DEVID_a
+Characteristics =   0x84
+BusType         =   5
+CopyFiles       =   CopyCoInst_9x,CopySys_9x,CopyFW_a_9x
+
+[PCX504_a.ndi.ME.Services]
+AddService      =   PCX504, 2, PCX504.Service, common.AddEventLog
+
+
+
+[PCX504_a.ndi]
+AddReg          =   NDI3, COMMON, DATARATE_a, SSID, RADIONAME_a, BUSCARDBUS, DEVID_a
+CopyFiles       =   CopyCoInst_9x,CopySys_9x,CopyFW_a_9x
+
+
+
+[DEVID_b]
+HKR,Ndi,DeviceID,,"PCI\VEN_14B9&DEV_A504"
+
+
+
+[DEVID_a]
+HKR,Ndi,DeviceID,,"PCI\VEN_14B9&DEV_A505"
+
+
+
+[NDI5]
+HKR,Ndi,Service,0,"PCX504"
+HKR,Ndi\Interfaces,DefUpper,0,"ndis5"
+HKR,Ndi\Interfaces,DefLower,0,"ethernet"
+HKR,Ndi\Interfaces,UpperRange,0,"ndis5"
+HKR,Ndi\Interfaces,LowerRange,0,"ethernet"
+HKR,,MediaDisconnectDamper,,"10"
+HKR,,AdapterType,,"1"
+
+
+
+[NDI5_ME]
+HKR,Ndi,Service,0,"PCX504"
+HKR,,DevLoader,,*ndis
+HKR,,DeviceVxDs,,PCX504.sys
+HKR,,EnumPropPages,,"netdi.dll,EnumPropPages"
+;
+; NDIS Info
+;
+HKR,NDIS,LogDriverName,,"PCX504"
+HKR,NDIS,MajorNdisVersion,1,05
+HKR,NDIS,MinorNdisVersion,1,00
+;
+; Interfaces
+;
+HKR,Ndi\Interfaces,DefUpper,,"ndis5"
+HKR,Ndi\Interfaces,DefLower,,"ethernet"
+HKR,Ndi\Interfaces,UpperRange,,"ndis5"
+HKR,Ndi\Interfaces,LowerRange,,"ethernet"
+HKR,,AdapterType,,1
+; Co-installer
+HKR,Ndi,NdiInstaller,0,"CINST16.DLL,CiscoNdiProc"
+
+
+
+[NDI3]
+HKR,,PnPCapabilities,0x10001,0x138
+HKR,,DevLoader,,*ndis
+HKR,,DeviceVxDs,,PCX504.sys
+HKR,,EnumPropPages,,"netdi.dll,EnumPropPages"
+;
+; NDIS Info
+;
+HKR,NDIS,LogDriverName,,"PCX504"
+HKR,NDIS,MajorNdisVersion,1,03
+HKR,NDIS,MinorNdisVersion,1,0A
+;
+; Interfaces
+;
+HKR,Ndi\Interfaces,DefUpper,,"ndis3"
+HKR,Ndi\Interfaces,DefLower,,"ethernet"
+HKR,Ndi\Interfaces,UpperRange,,"ndis3"
+HKR,Ndi\Interfaces,LowerRange,,"ethernet"
+HKR,,AdapterType,,1
+; Co-installer
+HKR,Ndi,NdiInstaller,0,"CINST16.DLL,CiscoNdiProc"
+
+
+
+[BUSPCI]
+HKR,,FormFactor,,"PCI"
+
+
+
+[BUSCARDBUS]
+HKR,,FormFactor,,"CARDBUS"
+
+
+
+[COMMON]
+HKR,,NodeName,2,""
+HKR,NDI\params\NodeName,ParamDesc,,%ClientName%
+HKR,NDI\params\NodeName,flag,1,30,00,00,00
+HKR,NDI\params\NodeName,type,,"edit"
+HKR,NDI\params\NodeName,LimitText,,"16"
+HKR,NDI\params\NodeName,default,2,""
+HKR,NDI\params\NodeName,optional,0,"1"
+
+HKR,,InfrastructureMode,2,"1"
+HKR,NDI\params\InfrastructureMode,ParamDesc,,%InfraMode%
+HKR,NDI\params\InfrastructureMode,flag,1,30,00,00,00
+HKR,NDI\params\InfrastructureMode,type,,"enum"
+HKR,NDI\params\InfrastructureMode,default,,"1" 
+HKR,NDI\params\InfrastructureMode\enum,0,0,%No%
+HKR,NDI\params\InfrastructureMode\enum,1,0,%Yes%
+
+HKR,,PowerSaveMode,2,"0"
+HKR,NDI\params\PowerSaveMode,ParamDesc,,%PSP%
+HKR,NDI\params\PowerSaveMode,flag,1,30,00,00,00
+HKR,NDI\params\PowerSaveMode,type,,"enum"
+HKR,NDI\params\PowerSaveMode,default,,"0" 
+HKR,NDI\params\PowerSaveMode\enum,0,,%CAM%
+HKR,NDI\params\PowerSaveMode\enum,2,,%PSP-CAM%
+HKR,NDI\params\PowerSaveMode\enum,3,,%MAXPSP%
+
+
+[SSID]
+HKR,, SSID1,2,""
+HKR,NDI\params\SSID1,ParamDesc,0,"SSID"
+HKR,NDI\params\SSID1,type,0,"edit"
+HKR,NDI\params\SSID1,flag,1,30,0,0,0
+HKR,NDI\params\SSID1,optional,0,"1"
+HKR,NDI\params\SSID1,default,2,""
+
+
+
+[DATARATE_b]
+;
+; 2.4 GHz data rates
+;
+HKR,,SupportedRates,2,"0"
+HKR,NDI\params\SupportedRates,ParamDesc,,%DataRates%    
+HKR,NDI\params\SupportedRates,flag,1,30,00,00,00
+HKR,NDI\params\SupportedRates,type,,"enum"
+HKR,NDI\params\SupportedRates,default,,"0" 
+HKR,NDI\params\SupportedRates\enum,0,,%Auto%            
+HKR,NDI\params\SupportedRates\enum,2,,%1Mb%                 
+HKR,NDI\params\SupportedRates\enum,4,,%2Mb%         
+HKR,NDI\params\SupportedRates\enum,B,,%5Mb%         
+HKR,NDI\params\SupportedRates\enum,16,,%11Mb%       
+HKR,NDI\params\SupportedRates,base,0,"16"
+
+
+
+[DATARATE_a]
+;
+; 5 GHz data rates
+;
+HKR,,SupportedRates,2,"0"
+HKR,NDI\params\SupportedRates,ParamDesc,,%DataRates%    
+HKR,NDI\params\SupportedRates,flag,1,30,00,00,00
+HKR,NDI\params\SupportedRates,type,,"enum"
+HKR,NDI\params\SupportedRates,default,,"0" 
+HKR,NDI\params\SupportedRates\enum,0,,%Auto%            
+HKR,NDI\params\SupportedRates\enum,C,,%6Mb%                 
+HKR,NDI\params\SupportedRates\enum,12,,%9Mb%                 
+HKR,NDI\params\SupportedRates\enum,18,,%12Mb%                 
+HKR,NDI\params\SupportedRates\enum,24,,%18Mb%                 
+HKR,NDI\params\SupportedRates\enum,30,,%24Mb%                 
+HKR,NDI\params\SupportedRates\enum,48,,%36Mb%                 
+HKR,NDI\params\SupportedRates\enum,60,,%48Mb%                 
+HKR,NDI\params\SupportedRates\enum,6C,,%54Mb%                 
+HKR,NDI\params\SupportedRates,base,0,"16"
+
+
+
+[RADIONAME_b] 
+HKR,,RadioName,,"PCX504"
+
+
+
+[RADIONAME_a] 
+HKR,,RadioName,,"PCX5045G"
+
+
+
+[PCX504.Service]
+DisplayName     = %PCX504.Service.DispName%
+ServiceType     = 1 ;%SERVICE_KERNEL_DRIVER%
+StartType       = 3 ;%SERVICE_DEMAND_START%
+ErrorControl    = 1 ;%SERVICE_ERROR_NORMAL%
+ServiceBinary   = %12%\PCX504.sys
+LoadOrderGroup  = NDIS
+
+
+
+[CoInstaller.NT.AddReg]
+HKR,,CoInstallers32,0x00010000,"CInsX500.dll,CiscoX500CoInstaller"
+
+
+
+[common.AddEventLog]
+AddReg = common.AddEventLog.reg
+
+
+
+[common.AddEventLog.reg]
+HKR,,EventMessageFile,0x00020000,"%%SystemRoot%%\System32\netevent.dll"
+HKR,,TypesSupported,0x00010001,7
+
+
+
+[CopySys_NT]
+PCX504.sys,,,2
+
+
+
+[CopySys_XP]
+PCX504.sys,pcx504.51,,2
+
+
+
+[CopyFW_b_NT]
+pcx504b.img
+
+
+
+[CopyFW_a_NT]
+pcx504a.img
+
+
+
+[CopySys_9x]
+PCX504.sys,,,2
+vxdX500.vxd,,,2
+
+
+
+[CopyFW_a_9x]
+pcx504a.img
+
+
+
+[CopyFW_b_9x]
+pcx504b.img
+
+
+
+[CopyCoInst_NT]
+CInsX500.dll,,,2
+
+
+
+[CopyCoInst_9x]
+CUtil16.exe,,,2
+CInst16.dll,,,2
+
+
+
+[strings]
+V_CISCO                     = "Cisco"
+ClientName                  = "Client Name"
+InfraMode                   = "Infrastructure Mode"
+No                          = "No"
+Yes                         = "Yes"
+Disabled                    = "Disabled"
+Enabled                     = "Enabled"
+PSP                         = "Power Saving Mode(PSP)"
+CAM                         = "CAM"
+PSP-CAM                     = "PSP-CAM (FASTPSP)"
+MAXPSP                      = "Max Power Save/PSP"
+DataRates                   = "Data Rates"
+Auto                        = "Auto"
+;
+; 802.11b -- 2.4 GHz data rates
+;
+1Mb                         = " 1 Mb"            
+2Mb                         = " 2 Mb"
+5Mb                         = " 5.5 Mb"
+11Mb                        = "11 Mb"
+;
+; 802.11a -- 5.0 GHz data rates
+;
+6Mb                         = " 6 Mb"
+9Mb                         = " 9 Mb"
+12Mb                        = "12 Mb"
+18Mb                        = "18 Mb"
+24Mb                        = "24 Mb"
+36Mb                        = "36 Mb"
+48Mb                        = "48 Mb"
+54Mb                        = "54 Mb"
+;
+; descriptions
+;
+Disk_1_Desc                 = "Cisco Systems Wireless LAN Adapter Installation Disk"
+PCX504.Service.DispName     = "Cisco Systems Wireless LAN Adapter Driver"
+PCX504_b.DevDesc            = "Cisco Systems PCI Wireless LAN Adapter"
+PCX504_a.DevDesc            = "Cisco Systems AIR-CB20A 802.11a Wireless LAN Adapter"

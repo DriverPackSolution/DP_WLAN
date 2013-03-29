@@ -1,0 +1,274 @@
+;*******************************************************************************************
+;
+;FILE:
+;
+;    net5211.inf
+;
+;DESCRIPTION:
+;    Linksys Dual-Band Wireless A+G PCI Adapter
+;
+;
+;*******************************************************************************************
+
+[Version]
+Signature   = "$CHICAGO$"
+Class       = Net
+ClassGUID   = {4d36e972-e325-11ce-bfc1-08002be10318}
+Provider    = %LINKSYS%
+Compatible  = 1
+DriverVer   = 04/01/2005,4.1.2.38
+Catalogfile = net5211.cat
+
+[Manufacturer]
+%LINKSYS%     = Linksys
+
+[ControlFlags]
+ExcludeFromSelect =  *
+
+[Linksys]
+%ATHER.DeviceDesc.v1.3%  = ATHER_DEV_0013.ndi,    PCI\VEN_168C&DEV_001B&SUBSYS_00441737
+%ATHER.DeviceDesc.v1.2%  = ATHER_DEV_0013.ndi,    PCI\VEN_168C&DEV_0013&SUBSYS_00361731
+%ATHER.DeviceDesc.v1.2%  = ATHER_DEV_0013.ndi,    PCI\VEN_168C&DEV_0013&SUBSYS_00361737
+%ATHER.DeviceDesc.v1.1%  = ATHER_DEV_0013.ndi,    PCI\VEN_168C&DEV_0012&SUBSYS_2022168C 
+%ATHER.DeviceDesc.v1.1%  = ATHER_DEV_0013.ndi,    PCI\VEN_168C&DEV_0013&SUBSYS_2026168C
+%ATHER.DeviceDesc.v1.1%  = ATHER_DEV_0013.ndi,    PCI\VEN_168C&DEV_0013&SUBSYS_00181737 
+%ATHER.DeviceDesc.v1.1%  = ATHER_DEV_0013.ndi,    PCI\VEN_168C&DEV_0013&SUBSYS_00261737
+
+; Windows 9X specific entries
+[ATHER_DEV_0013.ndi]
+AddReg          = ATHER_DEV_0013.id.reg, 5211.reg, ATHER.win.reg, 5212.abgmp.reg
+CopyFiles       = ATHER.win.CopyFiles, DEFAULTDESTDIRS
+DelFiles        = ATHER.DelIniFiles
+DelReg          = 5211.DelReg
+
+
+; Windows NT specific entries
+
+[ATHER_DEV_0013.ndi.NT]
+Characteristics = 0x84 ; NCF_PHYSICAL | NCF_HAS_UI
+BusType         = 5
+DelReg          = 5211.DelReg
+AddReg          = 5211.reg, ATHER.reg, 5212.abgmp.reg
+CopyFiles       = ATHER.CopyFiles.nt, DEFAULTDESTDIRS
+DelFiles        = ATHER.DelIniFiles
+
+
+[ATHER_DEV_0013.ndi.NT.Services]
+AddService      = AR5211, 2, ATHER.Service, common.EventLog
+
+;----------------------------------------------------------------------------
+; Win9x id registry sections
+; These are not needed by NT
+
+[ATHER_DEV_0013.id.reg]
+HKR, Ndi, DeviceID, 0, "PCI\VEN_168C&DEV_0013"
+
+;
+; 5211 Enumerated Types
+;
+
+[5212.abgmp.reg]
+HKR, ,                                  NetBand,                        0x00002,  "15"
+HKR, CustomParams\Configurations,       NicType,                        0x10003,  1
+
+;-----------------------------------------------------------------------------
+
+;
+; 5211 common
+;
+[5211.DelReg]
+HKR,,NetBand
+HKR,,ssid
+HKR,,ssid2
+HKR,,ssid3
+HKR,,prefBssid1
+HKR,,prefBssid2
+HKR,,prefBssid3
+HKR,,prefBssid4
+HKR,Ndi\Params\tpc
+HKR,,tpc
+HKR,Ndi\Params\authTypeUseOnly
+HKR,,authTypeUseOnly
+HKR,,AdHocBand
+HKR,,AwakeTimePerf
+HKR,,beaconInterval
+HKR,,bkScanEnable
+HKR,,bssType
+HKR,,ccode
+HKR,,clist
+HKR,,defaultKey
+HKR,,EncryptionAlg
+HKR,,FragThreshold
+HKR,,HwTxRetries
+HKR,,privacyInvoked
+HKR,,QoS
+HKR,,rateCtrlEnable
+HKR,,RTSThreshold
+HKR,,scanType
+HKR,,SwTxRetryScale
+HKR,,SmeEnable
+HKR,,aifs
+HKR,,cwmin
+
+[5211.reg]
+HKR,                        ,           softLEDEnable,                  0, "1"
+HKR, Ndi\params\MapRegisters,           ParamDesc,                      0,  %MapRegisters%
+HKR, Ndi\params\MapRegisters,           default,                        0,  "256"
+HKR, Ndi\params\MapRegisters,           min,                            0,  "32"
+HKR, Ndi\params\MapRegisters,           max,                            0,  "512"
+HKR, Ndi\params\MapRegisters,           step,                           0,  "8"
+HKR, Ndi\params\MapRegisters,           base,                           0,  "10"
+HKR, Ndi\params\MapRegisters,           type,                           0,  "int"
+
+HKR, Ndi\params\NetworkAddress,         ParamDesc,                      0,  %NetworkAddress%
+HKR, Ndi\params\NetworkAddress,         default,                        0,  ""
+HKR, Ndi\params\NetworkAddress,         LimitText,                      0,  "12"
+HKR, Ndi\params\NetworkAddress,         UpperCase,                      0,  "1"
+HKR, Ndi\params\NetworkAddress,         optional,                       0,  "1"
+HKR, Ndi\params\NetworkAddress,         type,                           0,  "edit"
+
+HKR, Ndi\params\sleepMode,              ParamDesc,                      0,  %sleepMode%
+HKR, Ndi\params\sleepMode,              Base,                           0,  "10"
+HKR, Ndi\params\sleepMode,              default,                        0,  "2"
+HKR, Ndi\params\sleepMode,              type,                           0,  "enum"
+HKR, Ndi\params\sleepMode\enum,         "0",                            0,  %sleepModeOff%
+HKR, Ndi\params\sleepMode\enum,         "2",                            0,  %sleepModeNormal%
+HKR, Ndi\params\sleepMode\enum,         "1",                            0,  %sleepModeMax%
+
+HKR, Ndi\params\shortPreamble,          ParamDesc,                      0,  %shortPreamble%
+HKR, Ndi\params\shortPreamble,          Base,                           0,  "10"
+HKR, Ndi\params\shortPreamble,          default,                        0,  "1"
+HKR, Ndi\params\shortPreamble,          type,                           0,  "enum"
+HKR, Ndi\params\shortPreamble\enum,     "1",                            0,  %shortPreambleEnable%
+HKR, Ndi\params\shortPreamble\enum,     "0",                            0,  %shortPreambleDisable%
+
+HKR, Ndi\params\radioEnable,            ParamDesc,                      0,  %radioEnable%
+HKR, Ndi\params\radioEnable,            Base,                           0,  "10"
+HKR, Ndi\params\radioEnable,            default,                        0,  "1"
+HKR, Ndi\params\radioEnable,            type,                           0,  "enum"
+HKR, Ndi\params\radioEnable\enum,       "1",                            0,  %radioEnableOn%
+HKR, Ndi\params\radioEnable\enum,       "0",                            0,  %radioEnableOff%
+
+HKR, Ndi\params\scanTimeValid,          ParamDesc,                      0,  %scanTimeValid%
+HKR, Ndi\params\scanTimeValid,          default,                        0,  "60"
+HKR, Ndi\params\scanTimeValid,          min,                            0,  "20"
+HKR, Ndi\params\scanTimeValid,          max,                            0,  "120"
+HKR, Ndi\params\scanTimeValid,          step,                           0,  "5"
+HKR, Ndi\params\scanTimeValid,          base,                           0,  "10"
+HKR, Ndi\params\scanTimeValid,          type,                           0,  "int"
+
+HKR, CustomParams\Configurations,       MajorVersion,                   0x10003,  2
+HKR, CustomParams\Configurations,       MinorVersion,                   0x10003,  0
+
+HKR, CustomParams\Configurations,       SelectedConfigurationIndex,     0x10003,  0
+HKR, CustomParams\Configurations,       SelectedConfigurationName,      0x00002,  "Default"
+
+; Allow non admin uses to switch profiles
+[5211.reg.security]
+"D:ARAI(A;;GA;;;BA)(A;;GA;;;SY)(A;CI;GA;;;IU)"
+
+;-----------------------------------------------------------------------------
+; ATHER NT specific
+;
+
+[ATHER.reg]
+HKR, Ndi,             Service,      0, "AR5211"
+HKR, Ndi\Interfaces,  UpperRange,   0, "ndis5"
+HKR, Ndi\Interfaces,  LowerRange,   0, "ethernet"
+
+[ATHER.Service]
+DisplayName     = %ATHER.Service.DispName%
+ServiceType     = 1 ;%SERVICE_KERNEL_DRIVER%
+StartType       = 3 ;%SERVICE_DEMAND_START%
+ErrorControl    = 1 ;%SERVICE_ERROR_NORMAL%
+ServiceBinary   = %12%\ar5211.sys
+LoadOrderGroup  = NDIS
+
+;-----------------------------------------------------------------------------
+; ATHER NT/XP common
+;
+[common.EventLog]
+AddReg = common.AddEventLog.reg
+
+[common.AddEventLog.reg]
+HKR, ,                  EventMessageFile,   0x00020000,   "%%SystemRoot%%\System32\netevent.dll"
+HKR, ,                  TypesSupported,     0x00010001,   7
+
+;----------------------------------------------------------------------------
+; ATHER Win9x specific
+;
+[ATHER.win.reg]
+HKR, ,                  DevLoader,          0,            "*ndis"
+HKR, ,                  DeviceVxDs,         0,            "ar52119x.sys"
+HKR, ,                  EnumPropPages,      0,            "netdi.dll,EnumPropPages"
+
+HKR, Ndi\Interfaces,    DefUpper,           0,            "ndis3"
+HKR, Ndi\Interfaces,    DefLower,           0,            "ethernet"
+HKR, Ndi\Interfaces,    UpperRange,         0,            "ndis3"
+HKR, Ndi\Interfaces,    LowerRange,         0,            "ethernet"
+
+
+HKR, NDIS,              LogDriverName,      0,            "AR52119X"
+HKR, NDIS,              MajorNdisVersion,   1,            03
+HKR, NDIS,              MinorNdisVersion,   1,            0A
+
+HKR, Ndi\Install,       ndis3,              0,            "ATHER.install"
+
+;----------------------------------------------------------------------------
+; Win9x Files to Copy
+[ATHER.win.CopyFiles]
+ar52119x.sys,,,2
+
+;----------------------------------------------------------------------------
+; NT Files to Copy
+[ATHER.CopyFiles.nt]
+ar5211.sys,,,2
+
+[ATHER.DelIniFiles]
+Athnic.ini,,,1
+
+[SourceDisksNames]
+;
+; diskid = description[, [tagfile] [, <unused>, subdir]]
+;
+1 = %Atheros_Disk%,,,
+
+;----------------------------------------------------------------------------
+; Source Files
+[SourceDisksFiles]
+ar52119x.sys                 = 1,, ; on distribution disk 1
+ar5211.sys                   = 1,, ; on distribution disk 1
+
+
+[DestinationDirs]
+ATHER.CopyFiles.nt           = 12
+ATHER.win.CopyFiles          = 10,system32\drivers ; %SystemRoot%\system32\drivers
+ATHER.DelIniFiles            = 10,system32\drivers ; %SystemRoot%\system32\drivers
+DefaultDestDir               = 11
+
+[DEFAULTDESTDIRS]
+;
+
+
+[Strings]
+Linksys                      = "Linksys"
+MapRegisters                 = "Map Registers"
+NetworkAddress               = "Network Address"
+sleepMode                    = "Power Save Mode"
+scanTimeValid                = "Scan Valid Interval"
+sleepModeOff                 = "Off"
+sleepModeNormal              = "Normal"
+sleepModeMax                 = "Maximum"
+shortPreamble                = "802.11b Preamble"
+shortPreambleEnable          = "Long and Short"
+shortPreambleDisable         = "Long only"
+radioEnable                  = "Radio On/Off"
+radioEnableOn                = "On"
+radioEnableOff               = "Off"
+
+Atheros_Disk                 = "Linksys Dual-Band Wireless A+G PCI Adapter Install Disk"
+ATHER.Service.DispName       = "Linksys Dual-Band Wireless A+G PCI Adapter v1.3 Service"
+
+ATHER.DeviceDesc.v1.1        = "Linksys Dual-Band Wireless A+G PCI Adapter ver 1.1"
+ATHER.DeviceDesc.v1.2        = "Linksys Dual-Band Wireless A+G PCI Adapter ver 1.2"
+ATHER.DeviceDesc.v1.3        = "Linksys Dual-Band Wireless A+G PCI Adapter ver 1.3"

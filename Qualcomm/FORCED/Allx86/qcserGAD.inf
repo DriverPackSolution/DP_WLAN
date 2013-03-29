@@ -1,0 +1,83 @@
+; Windows Vista Virtual Serial Port Setup File
+; Copyright (c) 2007 Qualcomm Incorporated
+; Manufacturer: Qualcomm Incorporated
+;
+
+[Version]
+signature  = "$WINDOWS NT$"
+Class      = Ports
+Provider   = %QUALCOMM%
+ClassGuid  = {4D36E978-E325-11CE-BFC1-08002BE10318}
+DriverVer=03/12/2008,6.0.5.4
+Catalogfile= qcusbserGAD.cat
+
+[ControlFlags]
+ExcludeFromSelect = *
+
+[Manufacturer]
+%QUALCOMM% = QcomSerialPortGAD, NTia64, NTamd64
+
+[SourceDisksNames]
+  1000 = %QcomSrcDisk%,"",,
+
+[SourceDisksFiles]
+  qcusbserGAD.sys = 1000
+
+[QcomSerialPortGAD]
+%QcomDevice92110%  = QportInstall00, USB\VID_05C6&PID_9211
+%QcomDevice92120%  = QportInstall00, USB\VID_05C6&PID_9212&MI_00
+%QcomDevice92121%  = QportInstall00, USB\VID_05C6&PID_9212&MI_01
+%QcomDevice92130%  = QportInstall00, USB\VID_05C6&PID_9213&MI_00
+%QcomDevice92131%  = QportInstall00, USB\VID_05C6&PID_9213&MI_01
+
+[QcomSerialPortGAD.NTia64]
+%QcomDevice92110%  = QportInstall00, USB\VID_05C6&PID_9211
+%QcomDevice92120%  = QportInstall00, USB\VID_05C6&PID_9212&MI_00
+%QcomDevice92121%  = QportInstall00, USB\VID_05C6&PID_9212&MI_01
+%QcomDevice92130%  = QportInstall00, USB\VID_05C6&PID_9213&MI_00
+%QcomDevice92131%  = QportInstall00, USB\VID_05C6&PID_9213&MI_01
+
+[QcomSerialPortGAD.NTamd64]
+%QcomDevice92110%  = QportInstall00, USB\VID_05C6&PID_9211
+%QcomDevice92120%  = QportInstall00, USB\VID_05C6&PID_9212&MI_00
+%QcomDevice92121%  = QportInstall00, USB\VID_05C6&PID_9212&MI_01
+%QcomDevice92130%  = QportInstall00, USB\VID_05C6&PID_9213&MI_00
+%QcomDevice92131%  = QportInstall00, USB\VID_05C6&PID_9213&MI_01
+
+[QportInstall00.NT]
+CopyFiles=QCUsbDriverFiles
+AddReg = All00, AddReg
+
+[QCUsbDriverFiles]
+qcusbserGAD.sys
+
+[DestinationDirs]
+DefaultDestDir = 12
+
+[QportInstall00.NT.Services]
+AddService=qcusbserGAD,  0x00000002, QC_USBSerialService
+
+[QC_USBSerialService]
+DisplayName   = %QCUSBSER%
+ServiceType   = 1
+StartType     = 3
+ErrorControl  = 1
+ServiceBinary = %12%\qcusbserGAD.sys
+
+[All00]
+HKR,,NTMPDriver,,qcusbserGAD.sys
+
+[AddReg]
+HKR,,PortSubClass,1,01
+HKR,,EnumPropPages32,,"MsPorts.dll,SerialPortPropPageProvider"
+
+[Strings]
+QCUSBSER = "Gobi AD USB Device for Legacy Serial Communication"
+QcomSrcDisk = "Gobi AD USB Driver Disk"
+QUALCOMM   = "Qualcomm Incorporated"
+QcomDevice92110 = "Qualcomm HS-USB QDLoader 9211"
+QcomDevice92120 = "Qualcomm HS-USB Diagnostics 9212"
+QcomDevice92121 = "Qualcomm HS-USB NMEA 9212"
+QcomDevice92130 = "Qualcomm HS-USB Diagnostics 9213"
+QcomDevice92131 = "Qualcomm HS-USB NMEA 9213"
+

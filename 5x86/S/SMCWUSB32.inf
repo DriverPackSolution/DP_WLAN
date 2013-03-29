@@ -1,0 +1,347 @@
+;***********************************************************************
+;
+; WLAN.INF
+;
+;   This installation script supports Windows 95, 98, Me, 2000 & XP
+;   for the 802.11b Wireless LAN Adapters.
+;
+;   Copyright (c) 2001, 2002
+;   All Rights Reserved.
+;
+;***********************************************************************
+
+[Version]
+ DriverVer           = 01/17/2003, 3.0.2
+ Signature           = "$Chicago$"
+ Compatible          = 1
+ Class               = Net
+ ClassGUID           = {4d36e972-e325-11ce-bfc1-08002be10318}
+ Provider            = %VER_VENDOR_STR%
+; CatalogFile         = Smc2662w32m.cat
+ MillenniumPreferred = .ME
+
+[ControlFlags]
+;Exclude all PNP adapters from user selection
+ ExcludeFromSelect   = *
+
+[Manufacturer]
+ %VER_VENDOR_NAME_STR% = DeviceList
+
+[DeviceList]
+
+ %USB_DESC_STR%     = WLAN_USB,         USB\VID_09AA&PID_3642
+ %USB_DESC_STR%     = WLAN_USB,         USB\VID_0707&PID_EE04
+
+;===============
+; WLAN USB Card
+;===============
+[WLAN_USB]
+ AddReg    = WLAN_USB.reg, COMMON_USB.reg, COMMON_NDIS.reg, COMMON.reg
+ CopyFiles = WLAN_DRIVER_USB, WLAN_CONFIG
+
+[WLAN_USB.ME]
+ AddReg    = WLAN_USB.reg, COMMON_USB.reg, COMMON_NDIS.reg.ME, COMMON.reg
+ CopyFiles = WLAN_DRIVER_USB, WLAN_CONFIG
+
+[WLAN_USB.NT]
+ AddReg    = WLAN_USB.reg, COMMON_USB.reg, COMMON_NDIS.reg.NT, COMMON.reg
+ CopyFiles = WLAN_DRIVER_USB.NT
+ BusType   = 0
+ Characteristics= 0x84
+
+[WLAN_USB.NT.Services]
+ AddService= "PRISM_USB", 2, WLAN_DRIVER_USB.Service, WLAN_DRIVER.EventLog
+
+[WLAN_USB.NT.CoInstallers]
+ AddReg    = WLAN_COINSTALL.reg.NT
+
+[WLAN_USB.reg]
+ HKR,Ndi,DeviceID,0,"USB\VID_09AA&PID_3642"
+ HKR,,PlatformId,0,"0"
+ HKR,,VendorDesc,0,%USB_DESC_STR%
+ HKR,,LoadFirmware,0,1
+ HKR,NDI\params\LoadFirmware,,0,1
+
+;###############################################################################
+[WLAN_COINSTALL.reg.NT]
+ HKR,           ,CoInstallers32         ,0x00010000     ,"PRISMCFG.cpl,NdiProc"
+
+[WLAN_DRIVER.Service]
+ DisplayName    = %WLAN_SERVICE_DISPLAY%
+ ServiceType    = 1    ; SERVICE_KERNEL_DRIVER
+ StartType      = 3    ; SERVICE_DEMAND_START
+ ErrorControl   = 1    ; NORMAL
+ ServiceBinary  = %12%\WLANNDS.sys
+ LoadOrderGroup = NDIS
+
+[WLAN_DRIVER_USB.Service]
+ DisplayName    = %WLAN_SERVICE_DISPLAY_USB%
+ ServiceType    = 1    ; SERVICE_KERNEL_DRIVER
+ StartType      = 3    ; SERVICE_DEMAND_START
+ ErrorControl   = 1    ; NORMAL
+ ServiceBinary  = %12%\SMCWUSB.sys
+ LoadOrderGroup = NDIS
+
+[WLAN_DRIVER.EventLog]
+ AddReg         = WLAN_DRIVER.EventLog.reg
+
+[WLAN_DRIVER.EventLog.reg]
+ HKR,           ,EventMessageFile       ,0x00020000     ,"%%SystemRoot%%\System32\netevent.dll"
+ HKR,           ,TypesSupported         ,0x00010001     ,7
+
+;###############################################################################
+
+[COMMON_USB.reg]
+ HKR,NDI                ,Service                ,0      ,"PRISM_USB"
+ HKR,NDI                ,CardType               ,0      ,"USB"
+ HKR,                   ,BusType                ,0      ,"0"
+ HKR,                   ,DeviceVxDs             ,0      ,"SMCWUSB.sys"
+
+[COMMON_NDIS.reg]
+ HKR,                   ,RunningWin9X           ,0      ,"1"
+ HKR,                   ,DevLoader              ,0      ,"*ndis"
+ HKR,                   ,EnumPropPages          ,0      ,"netdi.dll,EnumPropPages"
+; HKR,NDI                ,NdiInstaller           ,0      ,"PRISMCFG.dll,NdiProc"
+ HKR,NDI\Interfaces     ,UpperRange             ,0      ,"ndis3"
+ HKR,NDI\Interfaces     ,LowerRange             ,0      ,"ethernet"
+ HKR,NDI\Interfaces     ,DefUpper               ,0      ,"ndis3"
+ HKR,NDI\Interfaces     ,DefLower               ,0      ,"ethernet"
+ HKR,NDIS               ,LogDriverName          ,0      ,"PRISM"
+ HKR,NDIS               ,MajorNdisVersion       ,1      ,03
+ HKR,NDIS               ,MinorNdisVersion       ,1      ,0a
+
+ HKR,defaults,PSMode,0,1
+ HKR,NDI\params\PSMode,,0,1
+ HKR,Ndi\params\PSMode,default,0,1
+ HKR,NDI\params\PSMode,ParamDesc,,%POWER_SAVE_STR%
+ HKR,NDI\params\PSMode,type,,enum
+ HKR,NDI\params\PSMode,flag,1,30,00,00,00
+ HKR,NDI\params\PSMode\enum,1,,"Disable"
+ HKR,NDI\params\PSMode\enum,2,,"Always Enable"
+ HKR,NDI\params\PSMode,optional,0,1
+
+[COMMON_NDIS.reg.ME]
+ HKR,                   ,RunningWin9X           ,0      ,"1"
+ HKR,                   ,DevLoader              ,0      ,"*ndis"
+ HKR,                   ,EnumPropPages          ,0      ,"netdi.dll,EnumPropPages"
+; HKR,NDI                ,NdiInstaller           ,0      ,"PRISMCFG.dll,NdiProc"
+ HKR,NDI\Interfaces     ,UpperRange             ,0      ,"ndis3"
+ HKR,NDI\Interfaces     ,LowerRange             ,0      ,"ethernet"
+ HKR,NDI\Interfaces     ,DefUpper               ,0      ,"ndis3"
+ HKR,NDI\Interfaces     ,DefLower               ,0      ,"ethernet"
+ HKR,NDIS               ,LogDriverName          ,0      ,"PRISM"
+ HKR,NDIS               ,MajorNdisVersion       ,1      ,03
+ HKR,NDIS               ,MinorNdisVersion       ,1      ,0a
+
+ HKR,defaults,PSMode,0,1
+ HKR,NDI\params\PSMode,,0,1
+ HKR,Ndi\params\PSMode,default,0,1
+ HKR,NDI\params\PSMode,ParamDesc,,%POWER_SAVE_STR%
+ HKR,NDI\params\PSMode,type,,enum
+ HKR,NDI\params\PSMode,flag,1,30,00,00,00
+ HKR,NDI\params\PSMode\enum,1,,"Disable"
+ HKR,NDI\params\PSMode\enum,2,,"Always Enable"
+ HKR,NDI\params\PSMode,optional,0,1
+
+[COMMON_NDIS.reg.NT]
+ HKR,                   ,EnumPropPages32        ,0      ,"PRISMCFG.cpl,Configure"
+ HKR,NDI\Interfaces     ,UpperRange             ,0      ,"ndis5"
+ HKR,NDI\Interfaces     ,LowerRange             ,0      ,"ethernet"
+
+ HKR,defaults,PSMode,0,1
+ HKR,NDI\params\PSMode,,0,1
+ HKR,Ndi\params\PSMode,default,0,1
+ HKR,NDI\params\PSMode,ParamDesc,,%POWER_SAVE_STR%
+ HKR,NDI\params\PSMode,type,,enum
+ HKR,NDI\params\PSMode,flag,1,30,00,00,00
+ HKR,NDI\params\PSMode\enum,1,,"Disable"
+ HKR,NDI\params\PSMode\enum,2,,"Always Enable"
+ HKR,NDI\params\PSMode\enum,3,,"Auto Enable"
+ HKR,NDI\params\PSMode,optional,0,1
+
+[COMMON.reg]
+ HKR,                   ,PRISMIOC               ,0      ,"1"
+ HKR,                   ,SilentInstall          ,0      ,"1"
+;Uncomment the line above to install without user interface prompts
+
+ HKR,defaults,ListenInterval,0,3
+ HKR,NDI\params\ListenInterval,,0,3
+ HKR,Ndi\params\ListenInterval,default,0,3
+ HKR,NDI\params\ListenInterval,ParamDesc,,%LISTENINTERVAL_STR%
+ HKR,NDI\params\ListenInterval,type,,int
+ HKR,NDI\params\ListenInterval,flag,1,30,00,00,00
+ HKR,NDI\params\ListenInterval,min,0,0
+ HKR,NDI\params\ListenInterval,max,0,77
+ HKR,NDI\params\ListenInterval,step,0,1
+ HKR,NDI\params\ListenInterval,optional,0,1
+
+ HKR,defaults,RTSThresh,0,2432
+ HKR,NDI\params\RTSThresh,,0,2432
+ HKR,Ndi\params\RTSThresh,default,0,2432
+ HKR,NDI\params\RTSThresh,ParamDesc,0,%RTSTHRESH_STR%
+ HKR,NDI\params\RTSThresh,type,0,int
+ HKR,NDI\params\RTSThresh,flag,1,20,00,00,00
+ HKR,NDI\params\RTSThresh,min,0,0
+ HKR,NDI\params\RTSThresh,max,0,2432
+ HKR,NDI\params\RTSThresh,step,0,64
+ HKR,NDI\params\RTSThresh,optional,0,1
+
+ HKR,defaults,FragThresh,0,2432
+ HKR,NDI\params\FragThresh,,0,2432
+ HKR,Ndi\params\FragThresh,default,0,2432
+ HKR,NDI\params\FragThresh,ParamDesc,0,%FRAGTHRESH_STR%
+ HKR,NDI\params\FragThresh,type,0,int
+ HKR,NDI\params\FragThresh,flag,1,20,00,00,00
+ HKR,NDI\params\FragThresh,min,0,256
+ HKR,NDI\params\FragThresh,max,0,2432
+ HKR,NDI\params\FragThresh,step,0,128
+ HKR,NDI\params\FragThresh,optional,0,1
+
+ HKR,defaults,PreambleMode,0,1
+ HKR,NDI\params\PreambleMode,,0,1
+ HKR,Ndi\params\PreambleMode,default,0,1
+ HKR,NDI\params\PreambleMode,ParamDesc,,%SHORT_PREAM_STR%
+ HKR,NDI\params\PreambleMode,type,,enum
+ HKR,NDI\params\PreambleMode,flag,1,30,00,00,00
+ HKR,NDI\params\PreambleMode\enum,1,,"Long Tx Preamble"
+ HKR,NDI\params\PreambleMode\enum,2,,"Short Tx Preamble"
+ HKR,NDI\params\PreambleMode\enum,3,,"Auto Tx Preamble"
+ HKR,NDI\params\PreambleMode,optional,0,1
+
+ HKR,defaults,AuthentAlg,0,65535
+ HKR,NDI\params\AuthentAlg,,0,65535
+ HKR,NDI\params\AuthentAlg,default,0,65535
+ HKR,NDI\params\AuthentAlg,ParamDesc,,%AUTHENT_TYPE_STR%
+ HKR,NDI\params\AuthentAlg,type,,enum
+ HKR,NDI\params\AuthentAlg,flag,1,30,00,00,00
+ HKR,NDI\params\AuthentAlg\enum,1,,"WECA Compliant (always use Open)"
+ HKR,NDI\params\AuthentAlg\enum,2,,"Must use Shared with WEP"
+ HKR,NDI\params\AuthentAlg\enum,65535,,"Automatic based on WEP setting"
+ HKR,NDI\params\AuthentAlg,optional,0,1
+
+ HKR,defaults,AdhocDemoMode,0,0
+ HKR,NDI\params\AdhocDemoMode,,0,0
+ HKR,Ndi\params\AdhocDemoMode,default,0,0
+ HKR,NDI\params\AdhocDemoMode,ParamDesc,,%ADHOC_DEMO_STR%
+ HKR,NDI\params\AdhocDemoMode,type,,enum
+ HKR,NDI\params\AdhocDemoMode,flag,1,30,00,00,00
+ HKR,NDI\params\AdhocDemoMode\enum,0,,"Disable"
+ HKR,NDI\params\AdhocDemoMode\enum,1,,"Enable"
+ HKR,NDI\params\AdhocDemoMode,optional,0,1
+
+ HKR,defaults,LoadFirmware,0,1
+;HKR,NDI\params\LoadFirmware,,0,1 ; Moved to device specific entry
+ HKR,Ndi\params\LoadFirmware,default,0,1
+ HKR,NDI\params\LoadFirmware,ParamDesc,,%LOAD_FIRMWARE_STR%
+ HKR,NDI\params\LoadFirmware,type,,enum
+ HKR,NDI\params\LoadFirmware,flag,1,30,00,00,00
+ HKR,NDI\params\LoadFirmware\enum,0,,"Disable"
+ HKR,NDI\params\LoadFirmware\enum,1,,"Enable"
+ HKR,NDI\params\LoadFirmware,optional,0,1
+
+ HKR,defaults,PDwellTime,0,120
+ HKR,NDI\params\PDwellTime,,0,120
+ HKR,Ndi\params\PDwellTime,default,0,120
+ HKR,NDI\params\PDwellTime,ParamDesc,0,%PDWELL_STR%
+ HKR,NDI\params\PDwellTime,type,0,int
+ HKR,NDI\params\PDwellTime,flag,1,20,00,00,00
+ HKR,NDI\params\PDwellTime,min,0,0
+ HKR,NDI\params\PDwellTime,max,0,1000
+ HKR,NDI\params\PDwellTime,step,0,10
+ HKR,NDI\params\PDwellTime,optional,0,1
+
+ HKR,defaults,11dMode,0,0
+ HKR,NDI\params\11dMode,,0,0
+ HKR,Ndi\params\11dMode,default,0,0
+ HKR,NDI\params\11dMode,ParamDesc,,%MDC_CONTROL_STR%
+ HKR,NDI\params\11dMode,type,,enum
+ HKR,NDI\params\11dMode,flag,1,30,00,00,00
+ HKR,NDI\params\11dMode\enum,0,,"None"
+ HKR,NDI\params\11dMode\enum,1,,"Strict"
+ HKR,NDI\params\11dMode\enum,2,,"Flexible"
+ HKR,NDI\params\11dMode,optional,0,1
+
+;###############################################################################
+[DestinationDirs]
+CopyFiles Section      = Destination Directory ID -- see layout.inf
+;-----------------        ------------------------
+ DefaultDestDir         = 11 ; Win9x=%windir%\system Win2k=%windir%\system32
+ WLAN_DRIVER            = 11 ; Win9x=%windir%\system
+ WLAN_DRIVER_USB        = 11 ; Win9x=%windir%\system
+ WLAN_CONFIG            = 11 ; Win9x=%windir%\system
+ WLAN_DRIVER.NT         = 12 ; Win2k=%windir%\system32\drivers
+ WLAN_DRIVER_USB.NT     = 12 ; Win2k=%windir%\system32\drivers
+
+[WLAN_CONFIG]
+ PRISMCFG.dll           ; Win9x NDI
+ PRISMRES.dll
+ PRISMIOC.dll
+
+[WLAN_DRIVER]
+ WLANNDS.sys
+
+[WLAN_DRIVER_USB]
+ SMCWUSB.sys
+
+[WLAN_DRIVER.NT]
+ WLANNDS.sys
+ PRISMRES.dll
+ PRISMIOC.dll
+ PRISMCFG.CPL
+
+[WLAN_DRIVER_USB.NT]
+ SMCWUSB.sys
+ PRISMRES.dll
+ PRISMIOC.dll
+ PRISMCFG.CPL
+
+[SourceDisksNames]
+;Source Disk ID         = Disk Name
+;--------------           ---------
+ 1                      = %INSTALL_DISK_STR%,,,
+
+[SourceDisksFiles]      ; Win9x
+;File Name              = Source Disk ID
+;---------                --------------
+ PRISMCFG.dll           = 1
+ SMCWUSB.sys        = 1
+ PRISMRES.dll           = 1
+ PRISMIOC.dll           = 1
+
+[SourceDisksFiles.ME]   ; WinMe
+ PRISMCFG.dll           = 1
+ SMCWUSB.sys        = 1
+ PRISMRES.dll           = 1
+ PRISMIOC.dll           = 1
+
+[SourceDisksFiles.X86]  ; Win2k/Xp
+ SMCWUSB.sys        = 1
+ PRISMRES.dll           = 1
+ PRISMIOC.dll           = 1
+ PRISMCFG.cpl           = 1
+
+;###############################################################################
+[Strings]
+;String ID              = String Text
+;---------                -----------
+ VER_VENDOR_STR         = " "
+ VER_VENDOR_NAME_STR    = " "
+
+ WLAN_SERVICE_DISPLAY  = "Wireless LAN Driver"
+ WLAN_SERVICE_DISPLAY_USB  = "Wireless LAN USB Driver"
+ INSTALL_DISK_STR       = "Wireless LAN Install Disk"
+
+ ADHOC_DEMO_STR         = "Adhoc Demo Mode"
+ SHORT_PREAM_STR        = "Preamble Mode"
+ RTSTHRESH_STR          = "RTS Threshold"
+ FRAGTHRESH_STR         = "Fragmentation Threshold"
+ AUTHENT_TYPE_STR       = "Authentication Algorithm"
+ LISTENINTERVAL_STR     = "Listen Interval"
+ POWER_SAVE_STR         = "Power Save Mode"
+ POWER_LEVEL_STR        = "Power Save Level"
+ LOAD_FIRMWARE_STR      = "Firmware Download"
+ PDWELL_STR             = "Passive Scan Dwell Time"
+ MDC_CONTROL_STR        = "802.11D Control"
+
+ USB_DESC_STR           = "SMCWUSB32 802.11b Wireless LAN USB Card"
+

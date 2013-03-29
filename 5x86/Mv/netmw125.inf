@@ -1,0 +1,596 @@
+;===========================================================================
+; 
+; Windows XP, 2000 NDIS driver INF for Libertas 802.11g/b Wireless
+; Copyright (C) 2004 Marvell Semiconductor, Inc.
+;
+;=========================================================================== 
+ 
+ 
+[Version] 
+Signature = "$Windows NT$" 
+Compatible  = 1
+Class=Net
+ClassGUID={4D36E972-E325-11CE-BFC1-08002BE10318} 
+Provider=%MRVL% 
+CatalogFile=netmw125.cat
+DriverVer=12/30/2005,3.2.3.2
+
+;===========================================================================
+; Source Media Information Sections
+;===========================================================================
+[SourceDisksNames]
+1 = "Marvell installation disk 1",,,
+
+[SourceDisksFiles]
+; On Marvell installation disk 1 
+Mrvw123.sys = 1
+Mrvw125.sys = 1
+
+[DestinationDirs]
+W8335PCI.XP.CopyFiles  = 12 
+W8335PCI.2K.CopyFiles  = 12 
+DefaultDestDirs        = 11
+
+[Manufacturer] 
+%MRVL%=Marvell,NT.5.1
+
+[Marvell]
+%W8335PCI.DeviceDesc% = W8335PCI.ndi.NT, PCI\VEN_11AB&DEV_1FAA
+%W8335PCI.DeviceDesc% = W8335PCI.ndi.NT, PCI\VEN_11AB&DEV_1FAA&SUBSYS_54011148
+%W8335PXPCI.DeviceDesc% = W8335PCI.ndi.NT, PCI\VEN_11AB&DEV_1FAB
+
+[Marvell.NT.5.1]
+%W8335PCI.DeviceDesc% = W8335PCIXP.ndi, PCI\VEN_11AB&DEV_1FAA
+%W8335PCI.DeviceDesc% = W8335PCIXP.ndi, PCI\VEN_11AB&DEV_1FAA&SUBSYS_54011148
+%W8335PXPCI.DeviceDesc% = W8335PCIXP.ndi, PCI\VEN_11AB&DEV_1FAB
+
+;===========================================================================
+; ControlFlags section
+;===========================================================================
+[ControlFlags]
+ExcludeFromSelect = *
+
+;***************************************************************************
+;**         
+;**          Win XP DDInstall section
+;**          
+;***************************************************************************
+;***************************************************************************
+[W8335PCIXP.ndi]
+; "Characteristics" is (NCF_PHYSICAL | NCF_HAS_UI)
+Characteristics = 0x84 
+; "BusType" is PCI or CardBus
+BusType         = 5 
+AddReg          = W8335PCI.reg, W8335PCIXP.reg, W8335PCIXP.zerocfg
+CopyFiles       = W8335PCI.XP.CopyFiles
+
+[W8335PCIXP.ndi.Services]
+AddService = W8335XP, 2, W8335PCIXP.Service, CommonXP.EventLog
+
+;===========================================================================
+; W8335 PCI WinXP registers
+;===========================================================================
+[W8335PCIXP.reg]
+HKR, Ndi,            Service,    0, "W8335XP"
+HKR, Ndi\Interfaces, UpperRange, 0, "ndis5"
+HKR, Ndi\Interfaces, LowerRange, 0, "ethernet"
+
+
+[W8335PCI.XP.CopyFiles]
+Mrvw125.sys,,,2 
+
+[W8335PCIXP.Service]
+DisplayName    = %W8335PCIXP.Service.DispName%
+ServiceType    = 1 ;%SERVICE_KERNEL_DRIVER%
+StartType      = 3 ;%SERVICE_DEMAND_START%
+ErrorControl   = 1 ;%SERVICE_ERROR_NORMAL%
+ServiceBinary  = %12%\Mrvw125.sys
+LoadOrderGroup = NDIS
+
+
+[CommonXP.EventLog]
+AddReg = CommonXP.AddEventLog.reg
+
+[CommonXP.AddEventLog.reg]
+HKR, , EventMessageFile, 0x00020000, "%%SystemRoot%%\System32\netevent.dll"
+HKR, , TypesSupported,   0x00010001, 7
+
+
+
+;***************************************************************************
+;***************************************************************************
+;**         
+;**          Win 2K DDInstall section
+;**          
+;***************************************************************************
+;***************************************************************************
+
+[W8335PCI.ndi.NT]
+; "Characteristics" is (NCF_PHYSICAL | NCF_HAS_UI)
+Characteristics = 0x84 
+; "BusType" is PCI or CardBus
+BusType         = 5 
+AddReg          = W8335PCI.reg, W8335PCI2K.reg, W8335PCI.devID.reg
+CopyFiles       = W8335PCI.2K.CopyFiles 
+
+DeviceID = "PCI\VEN_11AB&DEV_1FAA"
+
+[W8335PCI.ndi.NT.Services]
+AddService = W8335PCI, 2, W8335PCI2K.Service, Common.EventLog
+
+;===========================================================================
+; W8335 PCI Win2K registers
+;===========================================================================
+[W8335PCI2K.reg]
+HKR, Ndi,            Service,    0, "W8335PCI"
+HKR, Ndi\Interfaces, UpperRange, 0, "ndis5"
+HKR, Ndi\Interfaces, LowerRange, 0, "ethernet"
+
+[W8335PCI.2K.CopyFiles]
+Mrvw123.sys,,,2 
+
+
+[W8335PCI2K.Service]
+DisplayName    = %W8335PCI2K.Service.DispName%
+ServiceType    = 1 ;%SERVICE_KERNEL_DRIVER%
+StartType      = 3 ;%SERVICE_DEMAND_START%
+ErrorControl   = 1 ;%SERVICE_ERROR_NORMAL%
+ServiceBinary  = %12%\Mrvw123.sys
+LoadOrderGroup = NDIS
+
+[Common.EventLog]
+AddReg = Common.AddEventLog.reg
+
+[Common.AddEventLog.reg]
+HKR, , EventMessageFile, 0x00020000, "%%SystemRoot%%\System32\netevent.dll"
+HKR, , TypesSupported,   0x00010001, 7
+
+[W8335PCI.devID.reg]
+HKR, Ndi, DeviceID, 0, "PCI\VEN_11AB&DEV_1FAA"
+
+;===========================================================================
+; W8335 PCI common, MIB can be defined here
+;===========================================================================
+[W8335PCI.reg]
+HKR, Ndi\params\FragThsd,  ParamDesc,0 , "%FragThsd%"
+HKR, Ndi\params\FragThsd,  default, 0 , "2346"
+HKR, Ndi\params\FragThsd,  min, 0 , "256"
+HKR, Ndi\params\FragThsd,  max, 0 , "2346"
+HKR, Ndi\params\FragThsd,  step, 0 , "1"
+HKR, Ndi\params\FragThsd,  Base, 0 , "10"
+HKR, Ndi\params\FragThsd,  type, 0 ,"dword"
+
+HKR, Ndi\params\RTSThsd,  ParamDesc, 0, "%RTSThsd%"
+HKR, Ndi\params\RTSThsd,  default, 0, "2346"
+HKR, Ndi\params\RTSThsd,  min, 0, "0"
+HKR, Ndi\params\RTSThsd,  max, 0, "2346"
+HKR, Ndi\params\RTSThsd,  step, 0, "1"
+HKR, Ndi\params\RTSThsd,  Base, 0, "10"
+HKR, Ndi\params\RTSThsd,  type, 0, "dword"
+
+HKR, Ndi\params\PowerMode,ParamDesc,,"%PowerMode%"
+HKR, Ndi\params\PowerMode,default,,"0"
+HKR, Ndi\params\PowerMode,type,,enum
+HKR, Ndi\params\PowerMode\enum,"0",,"CAM-Constantly Awake Mode"
+HKR, Ndi\params\PowerMode\enum,"1",,"MaxPSP-Max Power Savings"
+;HKR, Ndi\params\PowerMode\enum,"2",,"FastPSP-Fast Power Savings"
+
+HKR, Ndi\params\ChannelRange,ParamDesc,,"%RegionControl%"
+HKR, Ndi\params\ChannelRange,default,,"0"
+HKR, Ndi\params\ChannelRange,type,,enum
+HKR, Ndi\params\ChannelRange\enum,"0",,"Default"
+HKR, Ndi\params\ChannelRange\enum,"010B",,"FCC"
+HKR, Ndi\params\ChannelRange\enum,"010B",,"IC"
+HKR, Ndi\params\ChannelRange\enum,"010D",,"ETSI"
+HKR, Ndi\params\ChannelRange\enum,"0A0B",,"Spain"
+HKR, Ndi\params\ChannelRange\enum,"0A0D",,"France"
+HKR, Ndi\params\ChannelRange\enum,"0E0E",,"MKK"
+HKR, Ndi\params\ChannelRange\enum,"010E",,"MKK1"
+HKR, Ndi\params\ChannelRange\enum,"0309",,"Israel" 
+
+HKR, Ndi\params\Preamble,ParamDesc,,"%PreambleStr%"
+HKR, Ndi\params\Preamble,default,,"3"
+HKR, Ndi\params\Preamble,type,,enum 
+HKR, Ndi\params\Preamble\enum,"1",,"Auto"
+HKR, Ndi\params\Preamble\enum,"2",,"Short Preamble" 
+HKR, Ndi\params\Preamble\enum,"3",,"Long Preamble"
+
+HKR, Ndi\params\AdhocGMode,ParamDesc,,"%AdhocGMode%"
+HKR, Ndi\params\AdhocGMode,default,,"1"
+HKR, Ndi\params\AdhocGMode,type,,enum
+HKR, Ndi\params\AdhocGMode\enum,"0",,"Adhoc G Mode"
+HKR, Ndi\params\AdhocGMode\enum,"1",,"Adhoc B Mode only" 
+
+HKR, Ndi\params\DesiredSSID,ParamDesc,,"%SSID%"
+HKR, Ndi\params\DesiredSSID,default,,"MarvellAP3x"
+HKR, Ndi\params\DesiredSSID,type,,"edit" 
+HKR, Ndi\params\DesiredSSID,LimitText,,"32"
+HKR, Ndi\params\DesiredSSID,UpperCase,,"0" 
+HKR, Ndi\params\DesiredSSID,Optional,,"0" 
+
+HKR, Ndi\params\WMM,ParamDesc,,"%WMM%"
+HKR, Ndi\params\WMM,default,,"0"
+HKR, Ndi\params\WMM,type,,enum
+HKR, Ndi\params\WMM\enum,"0",,"Disable"
+HKR, Ndi\params\WMM\enum,"1",,"Enable" 
+
+HKR, Ndi\xparams\WIFI,ParamDesc,,"%WIFI%"
+HKR, Ndi\xparams\WIFI,default,,"0"
+HKR, Ndi\xparams\WIFI,type,,enum
+HKR, Ndi\xparams\WIFI\enum,"0",,"Disable"
+HKR, Ndi\xparams\WIFI\enum,"1",,"Enable" 
+
+HKR, Ndi\xparams\AuthMode,ParamDesc,,"%AuthMode%"
+HKR, Ndi\xparams\AuthMode,default,,"0"
+HKR, Ndi\xparams\AuthMode,type,,enum
+HKR, Ndi\xparams\AuthMode\enum,"0",,"Open"
+HKR, Ndi\xparams\AuthMode\enum,"1",,"Shared"
+
+HKR, Ndi\xparams\NetworkMode,ParamDesc,,"%NetworkMode%"
+HKR, Ndi\xparams\NetworkMode,default,,"1"
+HKR, Ndi\xparams\NetworkMode,type,,enum
+HKR, Ndi\xparams\NetworkMode\enum,"0",,"Ad Hoc"
+HKR, Ndi\xparams\NetworkMode\enum,"1",,"Infrastructure"
+
+;HKR, Ndi\xparams\Wireless,ParamDesc,,"%WirelessM%"
+;HKR, Ndi\xparams\Wireless,default,,"0"
+;HKR, Ndi\xparams\Wireless,type,,enum
+;HKR, Ndi\xparams\Wireless\enum,"0",,"Auto"
+;HKR, Ndi\xparams\Wireless\enum,"1",,"B rates only"
+ 
+
+HKR, Ndi\params\Channel,  ParamDesc,0 , "%Channel%"
+HKR, Ndi\params\Channel,  default, 0 , "1"
+HKR, Ndi\params\Channel,  min, 0 , "0"
+HKR, Ndi\params\Channel,  max, 0 , "14"
+HKR, Ndi\params\Channel,  step, 0 , "1"
+HKR, Ndi\params\Channel,  Base, 0 , "10"
+HKR, Ndi\params\Channel,  type, 0 ,"dword"
+
+HKR, Ndi\xparams\TxAntenna,  ParamDesc,0 , "%TxAntennaStr%"
+HKR, Ndi\xparams\TxAntenna,  default, 0 , "2"
+HKR, Ndi\xparams\TxAntenna,  min, 0 , "1"
+HKR, Ndi\xparams\TxAntenna,  max, 0 , "ffff"
+HKR, Ndi\xparams\TxAntenna,  step, 0 , "1"
+HKR, Ndi\xparams\TxAntenna,  Base, 0 , "16"
+HKR, Ndi\xparams\TxAntenna,  type, 0 ,"dword"
+
+HKR, Ndi\xparams\RxAntenna,  ParamDesc,0 , "%RxAntennaStr%"
+HKR, Ndi\xparams\RxAntenna,  default, 0 , "ffff"
+HKR, Ndi\xparams\RxAntenna,  min, 0 , "1"
+HKR, Ndi\xparams\RxAntenna,  max, 0 , "ffff"
+HKR, Ndi\xparams\RxAntenna,  step, 0 , "1"
+HKR, Ndi\xparams\RxAntenna,  Base, 0 , "16"
+HKR, Ndi\xparams\RxAntenna,  type, 0 ,"dword"
+
+;
+; LED Control
+;
+HKR,, LED0PowerOn, 2,"30001"
+HKR,, LED1PowerOn, 2,"fe0101"
+HKR,, LED0PowerOff, 2,"fe0000"
+HKR,, LED1PowerOff, 2,"fe0100"
+HKR,, LED0Scan, 2,"ff0002"
+HKR,, LED1Scan, 2,"40102"
+HKR,, LED0Associated, 2,"ff0005"
+HKR,, LED1Associated, 2,"fe0105"
+HKR,, LED0Joined, 2,"ff0006"
+HKR,, LED1Joined, 2,"fe0106"
+HKR,, LED0Started, 2,"30007"
+HKR,, LED1Started, 2,"fe0107"
+HKR,, LED0Tx, 2,"ff0008"
+HKR,, LED1Tx, 2,"30108"
+HKR,, LED0Rx, 2,"ff0009"
+HKR,, LED1Rx, 2,"30109"
+HKR,, LED0TxHigh, 2,"ff000c"
+HKR,, LED1TxHigh, 2,"2010c"
+HKR,, LED0RxHigh, 2,"ff000d"
+HKR,, LED1RxHigh, 2,"2010d"
+
+HKR, Ndi\xparams\LED0PowerOn,ParamDesc,,"%LED0PowerOnStr%"
+HKR, Ndi\xparams\LED0PowerOn,default,,"ff0001"
+HKR, Ndi\xparams\LED0PowerOn,type,,enum
+HKR, Ndi\xparams\LED0PowerOn\enum,"ff0001",,"LED Stays On"
+HKR, Ndi\xparams\LED0PowerOn\enum,"fe0001",,"LED Stays Off"
+HKR, Ndi\xparams\LED0PowerOn\enum,"fd0001",,"No Change"
+HKR, Ndi\xparams\LED0PowerOn\enum,"40001",,"Slow blink"
+HKR, Ndi\xparams\LED0PowerOn\enum,"30001",,"Regular blink"
+HKR, Ndi\xparams\LED0PowerOn\enum,"20001",,"Fast blink" 
+
+HKR, Ndi\xparams\LED1PowerOn,ParamDesc,,"%LED1PowerOnStr%"
+HKR, Ndi\xparams\LED1PowerOn,default,,"fe0101"
+HKR, Ndi\xparams\LED1PowerOn,type,,enum
+HKR, Ndi\xparams\LED1PowerOn\enum,"ff0101",,"LED Stays On"
+HKR, Ndi\xparams\LED1PowerOn\enum,"fe0101",,"LED Stays Off"
+HKR, Ndi\xparams\LED1PowerOn\enum,"fd0101",,"No Change"
+HKR, Ndi\xparams\LED1PowerOn\enum,"40101",,"Slow blink"
+HKR, Ndi\xparams\LED1PowerOn\enum,"30101",,"Regular blink"
+HKR, Ndi\xparams\LED1PowerOn\enum,"20101",,"Fast blink" 
+
+HKR, Ndi\xparams\LED0PowerOff,ParamDesc,,"%LED0PowerOffStr%"
+HKR, Ndi\xparams\LED0PowerOff,default,,"fe0001"
+HKR, Ndi\xparams\LED0PowerOff,type,,enum
+HKR, Ndi\xparams\LED0PowerOff\enum,"ff0001",,"LED Stays On"
+HKR, Ndi\xparams\LED0PowerOff\enum,"fe0001",,"LED Stays Off"
+HKR, Ndi\xparams\LED0PowerOff\enum,"fd0001",,"No Change"
+HKR, Ndi\xparams\LED0PowerOff\enum,"40001",,"Slow blink"
+HKR, Ndi\xparams\LED0PowerOff\enum,"30001",,"Regular blink"
+HKR, Ndi\xparams\LED0PowerOff\enum,"20001",,"Fast blink" 
+
+HKR, Ndi\xparams\LED1PowerOff,ParamDesc,,"%LED1PowerOffStr%"
+HKR, Ndi\xparams\LED1PowerOff,default,,"fe0101"
+HKR, Ndi\xparams\LED1PowerOff,type,,enum
+HKR, Ndi\xparams\LED1PowerOff\enum,"ff0101",,"LED Stays On"
+HKR, Ndi\xparams\LED1PowerOff\enum,"fe0101",,"LED Stays Off"
+HKR, Ndi\xparams\LED1PowerOff\enum,"fd0101",,"No Change"
+HKR, Ndi\xparams\LED1PowerOff\enum,"40101",,"Slow blink"
+HKR, Ndi\xparams\LED1PowerOff\enum,"30101",,"Regular blink"
+HKR, Ndi\xparams\LED1PowerOff\enum,"20101",,"Fast blink" 
+
+HKR, Ndi\xparams\LED0Scan,ParamDesc,,"%LED0ScanStr%"
+HKR, Ndi\xparams\LED0Scan,default,,"ff0001"
+HKR, Ndi\xparams\LED0Scan,type,,enum
+HKR, Ndi\xparams\LED0Scan\enum,"ff0001",,"LED Stays On"
+HKR, Ndi\xparams\LED0Scan\enum,"fe0001",,"LED Stays Off"
+HKR, Ndi\xparams\LED0Scan\enum,"fd0001",,"No Change"
+HKR, Ndi\xparams\LED0Scan\enum,"40001",,"Slow blink"
+HKR, Ndi\xparams\LED0Scan\enum,"30001",,"Regular blink"
+HKR, Ndi\xparams\LED0Scan\enum,"20001",,"Fast blink" 
+
+HKR, Ndi\xparams\LED1Scan,ParamDesc,,"%LED1ScanStr%"
+HKR, Ndi\xparams\LED1Scan,default,,"40101"
+HKR, Ndi\xparams\LED1Scan,type,,enum
+HKR, Ndi\xparams\LED1Scan\enum,"ff0101",,"LED Stays On"
+HKR, Ndi\xparams\LED1Scan\enum,"fe0101",,"LED Stays Off"
+HKR, Ndi\xparams\LED1Scan\enum,"fd0101",,"No Change"
+HKR, Ndi\xparams\LED1Scan\enum,"40101",,"Slow blink"
+HKR, Ndi\xparams\LED1Scan\enum,"30101",,"Regular blink"
+HKR, Ndi\xparams\LED1Scan\enum,"20101",,"Fast blink" 
+
+HKR, Ndi\xparams\LED0Associated,ParamDesc,,"%LED0AssociatedStr%"
+HKR, Ndi\xparams\LED0Associated,default,,"ff0001"
+HKR, Ndi\xparams\LED0Associated,type,,enum
+HKR, Ndi\xparams\LED0Associated\enum,"ff0001",,"LED Stays On"
+HKR, Ndi\xparams\LED0Associated\enum,"fe0001",,"LED Stays Off"
+HKR, Ndi\xparams\LED0Associated\enum,"fd0001",,"No Change"
+HKR, Ndi\xparams\LED0Associated\enum,"40001",,"Slow blink"
+HKR, Ndi\xparams\LED0Associated\enum,"30001",,"Regular blink"
+HKR, Ndi\xparams\LED0Associated\enum,"20001",,"Fast blink" 
+
+HKR, Ndi\xparams\LED1Associated,ParamDesc,,"%LED1AssociatedStr%"
+HKR, Ndi\xparams\LED1Associated,default,,"ff0101"
+HKR, Ndi\xparams\LED1Associated,type,,enum
+HKR, Ndi\xparams\LED1Associated\enum,"ff0101",,"LED Stays On"
+HKR, Ndi\xparams\LED1Associated\enum,"fe0101",,"LED Stays Off"
+HKR, Ndi\xparams\LED1Associated\enum,"fd0101",,"No Change"
+HKR, Ndi\xparams\LED1Associated\enum,"40101",,"Slow blink"
+HKR, Ndi\xparams\LED1Associated\enum,"30101",,"Regular blink"
+HKR, Ndi\xparams\LED1Associated\enum,"20101",,"Fast blink" 
+
+HKR, Ndi\xparams\LED0Joined,ParamDesc,,"%LED0JoinedStr%"
+HKR, Ndi\xparams\LED0Joined,default,,"ff0001"
+HKR, Ndi\xparams\LED0Joined,type,,enum
+HKR, Ndi\xparams\LED0Joined\enum,"ff0001",,"LED Stays On"
+HKR, Ndi\xparams\LED0Joined\enum,"fe0001",,"LED Stays Off"
+HKR, Ndi\xparams\LED0Joined\enum,"fd0001",,"No Change"
+HKR, Ndi\xparams\LED0Joined\enum,"40001",,"Slow blink"
+HKR, Ndi\xparams\LED0Joined\enum,"30001",,"Regular blink"
+HKR, Ndi\xparams\LED0Joined\enum,"20001",,"Fast blink" 
+
+HKR, Ndi\xparams\LED1Joined,ParamDesc,,"%LED1JoinedStr%"
+HKR, Ndi\xparams\LED1Joined,default,,"ff0101"
+HKR, Ndi\xparams\LED1Joined,type,,enum
+HKR, Ndi\xparams\LED1Joined\enum,"ff0101",,"LED Stays On"
+HKR, Ndi\xparams\LED1Joined\enum,"fe0101",,"LED Stays Off"
+HKR, Ndi\xparams\LED1Joined\enum,"fd0101",,"No Change"
+HKR, Ndi\xparams\LED1Joined\enum,"40101",,"Slow blink"
+HKR, Ndi\xparams\LED1Joined\enum,"30101",,"Regular blink"
+HKR, Ndi\xparams\LED1Joined\enum,"20101",,"Fast blink" 
+
+HKR, Ndi\xparams\LED0Started,ParamDesc,,"%LED0StartedStr%"
+HKR, Ndi\xparams\LED0Started,default,,"ff0001"
+HKR, Ndi\xparams\LED0Started,type,,enum
+HKR, Ndi\xparams\LED0Started\enum,"ff0001",,"LED Stays On"
+HKR, Ndi\xparams\LED0Started\enum,"fe0001",,"LED Stays Off"
+HKR, Ndi\xparams\LED0Started\enum,"fd0001",,"No Change"
+HKR, Ndi\xparams\LED0Started\enum,"40001",,"Slow blink"
+HKR, Ndi\xparams\LED0Started\enum,"30001",,"Regular blink"
+HKR, Ndi\xparams\LED0Started\enum,"20001",,"Fast blink" 
+
+HKR, Ndi\xparams\LED1Started,ParamDesc,,"%LED1StartedStr%"
+HKR, Ndi\xparams\LED1Started,default,,"ff0101"
+HKR, Ndi\xparams\LED1Started,type,,enum
+HKR, Ndi\xparams\LED1Started\enum,"ff0101",,"LED Stays On"
+HKR, Ndi\xparams\LED1Started\enum,"fe0101",,"LED Stays Off"
+HKR, Ndi\xparams\LED1Started\enum,"fd0101",,"No Change"
+HKR, Ndi\xparams\LED1Started\enum,"40101",,"Slow blink"
+HKR, Ndi\xparams\LED1Started\enum,"30101",,"Regular blink"
+HKR, Ndi\xparams\LED1Started\enum,"20101",,"Fast blink" 
+
+HKR, Ndi\xparams\LED0Tx,ParamDesc,,"%LED0TxStr%"
+HKR, Ndi\xparams\LED0Tx,default,,"ff0001"
+HKR, Ndi\xparams\LED0Tx,type,,enum
+HKR, Ndi\xparams\LED0Tx\enum,"ff0001",,"LED Stays On"
+HKR, Ndi\xparams\LED0Tx\enum,"fe0001",,"LED Stays Off"
+HKR, Ndi\xparams\LED0Tx\enum,"fd0001",,"No Change"
+HKR, Ndi\xparams\LED0Tx\enum,"40001",,"Slow blink"
+HKR, Ndi\xparams\LED0Tx\enum,"30001",,"Regular blink"
+HKR, Ndi\xparams\LED0Tx\enum,"20001",,"Fast blink" 
+
+HKR, Ndi\xparams\LED1Tx,ParamDesc,,"%LED1TxStr%"
+HKR, Ndi\xparams\LED1Tx,default,,"30101"
+HKR, Ndi\xparams\LED1Tx,type,,enum
+HKR, Ndi\xparams\LED1Tx\enum,"ff0101",,"LED Stays On"
+HKR, Ndi\xparams\LED1Tx\enum,"fe0101",,"LED Stays Off"
+HKR, Ndi\xparams\LED1Tx\enum,"fd0101",,"No Change"
+HKR, Ndi\xparams\LED1Tx\enum,"40101",,"Slow blink"
+HKR, Ndi\xparams\LED1Tx\enum,"30101",,"Regular blink"
+HKR, Ndi\xparams\LED1Tx\enum,"20101",,"Fast blink" 
+
+HKR, Ndi\xparams\LED0Rx,ParamDesc,,"%LED0RxStr%"
+HKR, Ndi\xparams\LED0Rx,default,,"ff0001"
+HKR, Ndi\xparams\LED0Rx,type,,enum
+HKR, Ndi\xparams\LED0Rx\enum,"ff0001",,"LED Stays On"
+HKR, Ndi\xparams\LED0Rx\enum,"fe0001",,"LED Stays Off"
+HKR, Ndi\xparams\LED0Rx\enum,"fd0001",,"No Change"
+HKR, Ndi\xparams\LED0Rx\enum,"40001",,"Slow blink"
+HKR, Ndi\xparams\LED0Rx\enum,"30001",,"Regular blink"
+HKR, Ndi\xparams\LED0Rx\enum,"20001",,"Fast blink" 
+
+HKR, Ndi\xparams\LED1Rx,ParamDesc,,"%LED1RxStr%"
+HKR, Ndi\xparams\LED1Rx,default,,"30101"
+HKR, Ndi\xparams\LED1Rx,type,,enum
+HKR, Ndi\xparams\LED1Rx\enum,"ff0101",,"LED Stays On"
+HKR, Ndi\xparams\LED1Rx\enum,"fe0101",,"LED Stays Off"
+HKR, Ndi\xparams\LED1Rx\enum,"fd0101",,"No Change"
+HKR, Ndi\xparams\LED1Rx\enum,"40101",,"Slow blink"
+HKR, Ndi\xparams\LED1Rx\enum,"30101",,"Regular blink"
+HKR, Ndi\xparams\LED1Rx\enum,"20101",,"Fast blink" 
+
+HKR, Ndi\xparams\LED0TxHigh,ParamDesc,,"%LED0TxHighStr%"
+HKR, Ndi\xparams\LED0TxHigh,default,,"ff0001"
+HKR, Ndi\xparams\LED0TxHigh,type,,enum
+HKR, Ndi\xparams\LED0TxHigh\enum,"ff0001",,"LED Stays On"
+HKR, Ndi\xparams\LED0TxHigh\enum,"fe0001",,"LED Stays Off"
+HKR, Ndi\xparams\LED0TxHigh\enum,"fd0001",,"No Change"
+HKR, Ndi\xparams\LED0TxHigh\enum,"40001",,"Slow blink"
+HKR, Ndi\xparams\LED0TxHigh\enum,"30001",,"Regular blink"
+HKR, Ndi\xparams\LED0TxHigh\enum,"20001",,"Fast blink" 
+
+HKR, Ndi\xparams\LED1TxHigh,ParamDesc,,"%LED1TxHighStr%"
+HKR, Ndi\xparams\LED1TxHigh,default,,"20101"
+HKR, Ndi\xparams\LED1TxHigh,type,,enum
+HKR, Ndi\xparams\LED1TxHigh\enum,"ff0101",,"LED Stays On"
+HKR, Ndi\xparams\LED1TxHigh\enum,"fe0101",,"LED Stays Off"
+HKR, Ndi\xparams\LED1TxHigh\enum,"fd0101",,"No Change"
+HKR, Ndi\xparams\LED1TxHigh\enum,"40101",,"Slow blink"
+HKR, Ndi\xparams\LED1TxHigh\enum,"30101",,"Regular blink"
+HKR, Ndi\xparams\LED1TxHigh\enum,"20101",,"Fast blink" 
+
+HKR, Ndi\xparams\LED0RxHigh,ParamDesc,,"%LED0RxHighStr%"
+HKR, Ndi\xparams\LED0RxHigh,default,,"ff0001"
+HKR, Ndi\xparams\LED0RxHigh,type,,enum
+HKR, Ndi\xparams\LED0RxHigh\enum,"ff0001",,"LED Stays On"
+HKR, Ndi\xparams\LED0RxHigh\enum,"fe0001",,"LED Stays Off"
+HKR, Ndi\xparams\LED0RxHigh\enum,"fd0001",,"No Change"
+HKR, Ndi\xparams\LED0RxHigh\enum,"40001",,"Slow blink"
+HKR, Ndi\xparams\LED0RxHigh\enum,"30001",,"Regular blink"
+HKR, Ndi\xparams\LED0RxHigh\enum,"20001",,"Fast blink" 
+
+HKR, Ndi\xparams\LED1RxHigh,ParamDesc,,"%LED1RxHighStr%"
+HKR, Ndi\xparams\LED1RxHigh,default,,"20101"
+HKR, Ndi\xparams\LED1RxHigh,type,,enum
+HKR, Ndi\xparams\LED1RxHigh\enum,"ff0101",,"LED Stays On"
+HKR, Ndi\xparams\LED1RxHigh\enum,"fe0101",,"LED Stays Off"
+HKR, Ndi\xparams\LED1RxHigh\enum,"fd0101",,"No Change"
+HKR, Ndi\xparams\LED1RxHigh\enum,"40101",,"Slow blink"
+HKR, Ndi\xparams\LED1RxHigh\enum,"30101",,"Regular blink"
+HKR, Ndi\xparams\LED1RxHigh\enum,"20101",,"Fast blink" 
+
+HKR,, LEDOffAfterRadioOff, 2, "1" 
+
+HKR, Ndi\xparams\DataRate,ParamDesc,,"%DataRate%"
+HKR, Ndi\xparams\DataRate,default,,"FF"
+HKR, Ndi\xparams\DataRate,type,,enum
+HKR, Ndi\xparams\DataRate\enum,"FF",,"Auto"
+HKR, Ndi\xparams\DataRate\enum,"2",,"1 Mbps"
+HKR, Ndi\xparams\DataRate\enum,"4",,"2 Mbps"
+HKR, Ndi\xparams\DataRate\enum,"b",,"5.5 Mbps"
+HKR, Ndi\xparams\DataRate\enum,"16",,"11 Mbps"
+;HKR, Ndi\xparams\DataRate\enum,"2C",,"22 Mbps" 
+HKR, Ndi\xparams\DataRate\enum,"C",,"6 Mbps" 
+HKR, Ndi\xparams\DataRate\enum,"12",,"9 Mbps" 
+HKR, Ndi\xparams\DataRate\enum,"18",,"12 Mbps" 
+HKR, Ndi\xparams\DataRate\enum,"24",,"18 Mbps" 
+HKR, Ndi\xparams\DataRate\enum,"30",,"24 Mbps" 
+HKR, Ndi\xparams\DataRate\enum,"48",,"36 Mbps" 
+HKR, Ndi\xparams\DataRate\enum,"60",,"48 Mbps" 
+HKR, Ndi\xparams\DataRate\enum,"6C",,"54 Mbps"
+
+HKR, Ndi\xparams\WepStatus,ParamDesc,,"%WepStatus%"
+HKR, Ndi\xparams\WepStatus,default,,"1"
+HKR, Ndi\xparams\WepStatus,type,,enum
+HKR, Ndi\xparams\WepStatus\enum,"0",,"Enabled"
+HKR, Ndi\xparams\WepStatus\enum,"1",,"Disabled"
+
+HKR,, TxWepKey, 2, "" 
+HKR,, WepKey1, 2, "" 
+HKR,, WepKey2, 2, "" 
+HKR,, WepKey3, 2, "" 
+HKR,, WepKey4, 2, "" 
+HKR,, WIFI, 2, "0" 
+
+;HKR,, DriverVer, 2, "3.2.3.2"
+HKR,, DriverRel, 2, "12/30/2005"
+
+
+;Special for Driver on WinXP OS.
+[W8335PCIXP.zerocfg]
+ 
+;===========================================================================
+; Strings section
+;===========================================================================
+[Strings]
+MRVL = "Marvell"
+
+TxAntennaStr = "Tx Antenna Select"
+RxAntennaStr = "Rx Antenna Select" 
+Channel = "Channel"
+FragThsd = "Fragamentation Threshold"
+DataRate = "Data Rate"
+RTSThsd = "RTS Threshold"
+AuthMode = "Authentication Mode"
+;WirelessM = "Wireless Mode"
+NetworkMode = "Operation Mode"
+WepStatus = "WEP Status"
+SSID = "SSID"
+PreambleStr = "Preamble Select"
+PowerMode = "Power Save Mode"
+AdhocGMode = "Adhoc Mode"
+WMM = "WMM"
+WIFI = "WIFI"
+
+LED0PowerOnStr    = "LED 0 Power On"
+LED0PowerOffStr   = "LED 0 Power Off"
+LED0ScanStr       = "LED 0 Site Survey"
+LED0AssociatedStr = "LED 0 Associated"
+LED0JoinedStr     = "LED 0 IBSS Joined"
+LED0StartedStr    = "LED 0 IBSS Started"
+LED0TxStr         = "LED 0 Tx"
+LED0RxStr         = "LED 0 Rx"
+LED0TxHighStr     = "LED 0 Tx High Traffic"
+LED0RxHighStr     = "LED 0 Rx High Traffic"
+
+LED1PowerOnStr    = "LED 1 Power On"
+LED1PowerOffStr   = "LED 1 Power Off"
+LED1ScanStr       = "LED 1 Site Survey"
+LED1AssociatedStr = "LED 1 Associated"
+LED1JoinedStr     = "LED 1 IBSS Joined"
+LED1StartedStr    = "LED 1 IBSS Started"
+LED1TxStr         = "LED 1 Tx"
+LED1RxStr         = "LED 1 Rx"
+LED1TxHighStr     = "LED 1 Tx High Traffic"
+LED1RxHighStr     = "LED 1 Rx High Traffic"
+RegionControl = "Region Control"
+
+W8335PCI.DeviceDesc     = "802.11g/b Wireless LAN Client Adapter"
+W8335PXPCI.DeviceDesc     = "802.11g/b Wireless LAN Client Adapter"
+W8335PCIXP.Service.DispName = "802.11g/b Driver for Windows XP (8335)"
+W8335PCI2K.Service.DispName = "802.11g/b Driver for Windows 2K (8335)" 
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+

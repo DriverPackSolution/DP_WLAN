@@ -1,0 +1,154 @@
+;****************************************************************************************
+;
+; NETR61.INF
+;
+;   This installation script supports Windows Vista for the
+;   Linksys SMB 200 series PCI/CardBus Wireless LAN Card.
+;
+;   Copyright (c)2007 , Linksys, A Division of Cisco Systems, Inc. All Rights Reserved.
+;
+;   Developed by Linksys, Corp. -- http://www.Linksys.com
+;
+;****************************************************************************************
+
+[Version]
+Signature   	= "$Chicago$"
+Class       	= Net
+ClassGUID   	= {4d36e972-e325-11ce-bfc1-08002be10318}
+Provider        = %VENDOR%
+Compatible  	= 1
+CatalogFile	= netr61.cat
+DriverVer       = 12/11/2006,2.00.03.0000
+
+[ControlFlags]
+;ExcludeFromSelect = PCI\VEN_1814&DEV_0401
+
+[Manufacturer]
+%VENDOR%        = Linksys
+
+[Linksys]
+; DisplayName               Section                 DeviceID
+; -----------               -------                 --------
+
+%WPC200.DeviceDesc%	=	WPC200.ndi,	PCI\VEN_1814&DEV_0401&SUBSYS_00621737	    
+
+;*******************************************************************************************
+; NT specific entries
+;*******************************************************************************************
+
+[WPC200.ndi.NT]
+AddReg                  = RT61.reg
+Characteristics         = 0x84                      ; NCF_REMOVABLE | NCF_HAS_UI | NCF_PHYSICAL
+BusType                 = 5
+CopyFiles               = NT.CopyFiles
+*IfType                 = 71                        ; IF_TYPE_IEEE80211
+*MediaType              = 16                        ; NdisMediumNative802_11
+*PhysicalMediaType      = 9                         ; NdisPhysicalMediumNative802_11
+
+
+
+;*******************************************************************************************
+; NT services sections
+;*******************************************************************************************
+[WPC200.ndi.NT.Services]
+AddService              = rt61x86, 2, WPC200.Service, common.EventLog
+
+;*******************************************************************************************
+; RT61 registry for Windows Vista
+;*******************************************************************************************
+[RT61.reg]
+HKR, Ndi,                       Service,    0, "rt61x86"
+
+HKR, Ndi\Interfaces,            UpperRange, 0, "ndis5"
+HKR, Ndi\Interfaces,            LowerRange, 0, "wlan,ethernet"
+
+HKR, Ndi\params\*ReceiveBuffers,  ParamDesc,  0, "ReceiveBuffers"
+HKR, Ndi\params\*ReceiveBuffers,  default,    0, "64"
+HKR, Ndi\params\*ReceiveBuffers,  min,        0, "1"
+HKR, Ndi\params\*ReceiveBuffers,  max,        0, "00000128"
+HKR, Ndi\params\*ReceiveBuffers,  step,       0, "1"
+HKR, Ndi\params\*ReceiveBuffers,  Base,       0, "10"
+HKR, Ndi\params\*ReceiveBuffers,  type,       0, "int"
+
+HKR, Ndi\params\*TransmitBuffers, ParamDesc,  0, "TransmitBuffers"
+HKR, Ndi\params\*TransmitBuffers, default,    0, "64"
+HKR, Ndi\params\*TransmitBuffers, min,        0, "1"
+HKR, Ndi\params\*TransmitBuffers, max,        0, "00000064"
+HKR, Ndi\params\*TransmitBuffers, step,       0, "1"
+HKR, Ndi\params\*TransmitBuffers, Base,       0, "10"
+HKR, Ndi\params\*TransmitBuffers, type,       0, "int"
+
+;
+; WirelessMode
+;
+HKR, ,                            WirelessMode,    0, "3"
+
+;
+; Channel
+;
+HKR, ,                            Channel,         0, %CHANNEL%
+HKR, Default,                     Channel,         0, %CHANNEL%
+
+;
+; Country Region G Band
+;
+HKR, ,                                 CountryRegion,      0, "0"
+HKR, NDI\params\CountryRegion,         ParamDesc,          0, "Country Region 11G"
+HKR, NDI\params\CountryRegion,         type,               0, "enum"
+HKR, NDI\params\CountryRegion,         default,            0, "0"
+
+;*******************************************************************************************
+; DestinationDirs
+;*******************************************************************************************
+
+[NT.CopyFiles]
+netr61.sys,,,2
+
+[SourceDisksNames]
+1 = %INSTALL_DISK_STR%,,,
+
+[SourceDisksFiles]
+netr61.sys                = 1,,
+
+[DestinationDirs]
+NT.CopyFiles     = 12     ; system32\drivers subdirectory on NT
+DefaultDestDir   = 11
+
+;*******************************************************************************************
+; NT specific
+;*******************************************************************************************
+
+[WPC200.Service]
+DisplayName                 = %WPC200.Service.DispName%
+ServiceType                 = 1                             ;%SERVICE_KERNEL_DRIVER%
+StartType                   = 3                             ;%SERVICE_AUTO_START%
+ErrorControl                = 1                             ;%SERVICE_ERROR_NORMAL%
+ServiceBinary               = %12%\netr61.sys
+LoadOrderGroup              = NDIS
+
+[common.EventLog]
+AddReg = common.AddEventLog.reg
+
+[common.AddEventLog.reg]
+HKR, , EventMessageFile, 0x00020000, "%%SystemRoot%%\System32\netevent.dll"
+HKR, , TypesSupported,   0x00010001, 7
+
+;*******************************************************************************************
+; Strings
+;*******************************************************************************************
+[Strings]
+VENDOR                      = "Linksys, A Division of Cisco Systems, Inc."
+
+;*******************************************************************************************
+; Device description
+;*******************************************************************************************
+WPC200.DeviceDesc	= "Wireless-G Business Notebook Adapter with RangeBooster"
+
+INSTALL_DISK_STR	= "WPC200 Installation Disk"
+
+WPC200.Service.DispName	= "WPC200 for Windows Vista"
+;
+; Parameters
+;
+CHANNEL			= "1"
+

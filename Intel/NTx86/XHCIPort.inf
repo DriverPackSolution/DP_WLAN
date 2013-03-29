@@ -1,0 +1,138 @@
+;/*++
+;
+;Copyright (c) Microsoft Corporation.  All rights reserved.
+;
+;   THIS CODE AND INFORMATION IS PROVIDED "AS IS" WITHOUT WARRANTY OF ANY
+;   KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
+;   IMPLIED WARRANTIES OF MERCHANTABILITY AND/OR FITNESS FOR A PARTICULAR
+;   PURPOSE.
+;
+;Module Name:
+;
+;    xHCIPort.INF
+;
+;Abstract:
+;    INF file for XHCI Port driver
+;
+;--*/
+
+[Version]
+Signature      = "$WINDOWS NT$"
+;Class=USB
+;ClassGUID={36FC9E60-C465-11CF-8056-444553540000}
+
+; During early debug, use this class for the port driver.
+; This allows us to boot into safe mode with the driver disabled.
+; When we are using the USB class, the host driver is _not_ disabled in safe mode
+Class          = UoIP BUS Driver  ;XHCI Port Driver
+ClassGuid      = {8A2EDC79-C759-46f2-88AF-9D4EFE3B5EEE}
+
+
+Provider=%INTEL%
+DriverVer=09/26/2012,1.0.24.13195
+CatalogFile.ntx86=xhciportx86.cat
+CatalogFile.ntamd64=xhciportx64.cat
+
+[DestinationDirs]
+DefaultDestDir  = 12
+
+;-------------------------------------------------------------------------
+; Class Section
+;-------------------------------------------------------------------------
+[ClassInstall32]
+Addreg         = XHCIClassReg
+
+[XHCIClassReg]
+HKR,,,0,%ClassName%
+HKR,,Icon,,-5
+HKR,,DeviceCharacteristics,0x10001,0x100     ;Use same security checks on relative opens
+HKR,,Security,,"D:P(A;;GA;;;SY)(A;;GA;;;BA)" ;Allow generic all access to system and built-in Admin.
+
+;-------------------------------------------------------------------------
+; Device Install Section
+;-------------------------------------------------------------------------
+[ControlFlags]
+ExcludeFromSelect = *
+
+[Manufacturer]
+%INTEL%=INTEL,NTx86
+
+[SourceDisksFiles]
+xHCIPort.sys     = 1
+
+[SourceDisksNames]
+1=%DISK_NAME%,
+
+[INTEL]
+%XHCIPort.DRVDESC%=XHCIPort_Inst, root\usbpalbus
+
+[INTEL.ntamd64]
+%XHCIPort.DRVDESC%=XHCIPort_Inst, root\usbpalbus
+
+; For XP and later
+[INTEL.NTx86]
+; DisplayName            Section           DeviceId
+; -----------            -------           --------
+%XHCIPort.DRVDESC%=XHCIPort_Inst, root\usbpalbus
+
+[XHCIPort_Inst.NT]
+CopyFiles      = XHCIPort.CopyFiles
+
+
+[XHCIPort.CopyFiles]
+xHCIPort.sys
+
+[XHCIPort_Inst.NT.HW]
+AddReg = XHCIPort_Inst.NT.AddReg
+
+[XHCIPort_Inst.NT.AddReg]
+HKR,"Interrupt Management",,0x00000010
+HKR,"Interrupt Management\MessageSignaledInterruptProperties",,0x00000010
+HKR,"Interrupt Management\MessageSignaledInterruptProperties",MSISupported,0x00010001,1
+
+[XHCIPort_Inst.NT.Services]
+AddService     = XHCIPort,0x00000002,XHCIPort_Service
+
+[XHCIPort_Service]
+DisplayName    = %XHCIPort.SVCDESC%
+ServiceType    = 1                  ; SERVICE_KERNEL_DRIVER
+StartType      = 3                  ; SERVICE_DEMAND_START
+ErrorControl   = 1                  ; SERVICE_ERROR_NORMAL
+ServiceBinary  = %12%\XHCIPort.sys
+
+;-------------------------------------------------------------------------
+; WDF Coinstaller installation
+;-------------------------------------------------------------------------
+[DestinationDirs]
+CoInstaller_CopyFiles = 11
+
+[XHCIPort_Inst.NT.CoInstallers]
+AddReg         = CoInstaller_AddReg
+CopyFiles      = CoInstaller_CopyFiles
+
+[CoInstaller_CopyFiles]
+wdfcoinstaller01009.dll
+
+[SourceDisksFiles]
+wdfcoinstaller01009.dll = 1 ; make sure the number matches with SourceDisksNames
+
+[CoInstaller_AddReg]
+HKR,,CoInstallers32,0x00010000, "wdfcoinstaller01009.dll,WdfCoInstaller"
+
+[XHCIPort_Inst.NT.Wdf]
+KmdfService    = XHCIPort, XHCIPort_wdfsect
+
+[XHCIPort_wdfsect]
+KmdfLibraryVersion = 1.9
+
+;------------------------------------------------------------------------------
+;  String Definitions
+;------------------------------------------------------------------------------
+
+[Strings]
+INTEL           = "Intel Corporation"
+ClassName 		= "Intel WiUSB"
+XHCIPort.SVCDESC = "USB-IF xHCI USB Host Controller"
+XHCIPort.DRVDESC = "USB-IF xHCI USB Host Controller"
+DISK_NAME      = "xHCI Host Controller Installation Disk #1"
+

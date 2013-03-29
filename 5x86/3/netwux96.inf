@@ -1,0 +1,368 @@
+;======================================================================
+;  3Com Corporation Copyright (C) 2003									
+;----------------------------------------------------------------------
+;  NETWUX96.INF - 3COM 3CRSHEW696 11Mbps Wireless LAN USB Adapter
+;  NDIS 5.X Setup File
+;======================================================================
+
+[Version]
+Signature   = "$CHICAGO$"
+Compatible  = 1
+Class       = Net
+ClassGUID   = {4d36e972-e325-11ce-bfc1-08002be10318}
+Provider    = %V_3COM%
+CatalogFile = netwux96.cat
+DriverVer   = 1/28/2003,1.0.1.14
+
+[Manufacturer]
+%V_3COM%    = 3COM,NTx86,NTx86.5.1
+
+[ControlFlags]
+ExcludeFromSelect.NTx86 = *
+
+[3COM]
+%WLUX96.DeviceDesc% = WLUX96.Ndi,USB\VID_0506&PID_0a01&Rev_0100
+
+[3COM.NTx86]
+%WLUX96.DeviceDesc% = WLUX96.Ndi.NT,USB\VID_0506&PID_0a01&Rev_0100
+
+[3COM.NTx86.5.1]
+%WLUX96.DeviceDesc% = WLUX96.Ndi.NT.5.1,USB\VID_0506&PID_0a01&Rev_0100
+
+;*******************************************************************************
+; Win 9x main sections
+;*******************************************************************************
+
+[WLUX96.Ndi]
+AddReg          = WLUX96.9x.Reg, WLUX96.Params, Advanced.Params
+CopyFiles       = CopyFile.NDIS50.Sys, WLUX96.Apps
+
+;*******************************************************************************
+; Win 2K main sections
+;*******************************************************************************
+
+[WLUX96.Ndi.NT]
+Characteristics = 0x84  ; NCF_HAS_UI | NCF_PHYSICAL
+BusType         = 15    ; USB
+AddReg          = WLUX96.NT.Reg, WLUX96.Params, Advanced.Params
+CopyFiles       = CopyFile.NDIS50.NT.Sys, WLUX96.Apps
+
+[WLUX96.Ndi.NT.Services]
+AddService = WLUX96, 2, WLUX96.2k.Service, Common.EventLog.NDIS50
+
+; This is to start CoHelper.exe afer driver installs on Win2K systems.
+; RunOnce will not work because Win2K does not require reboot after driver install.
+[WLUX96.Ndi.NT.CoInstallers]
+CopyFiles = WLUX96CoInstallFiles
+AddReg = WLUX96.CoInstallers_AddReg
+
+;*******************************************************************************
+; Win XP main sections
+;*******************************************************************************
+
+[WLUX96.Ndi.NT.5.1]
+Characteristics = 0x84  ; NCF_HAS_UI | NCF_PHYSICAL
+BusType         = 15    ; USB
+AddReg          = WLUX96.NT.Reg, WLUX96.Params
+CopyFiles       = CopyFile.NDIS51.Sys, WLUX96.Apps
+
+[WLUX96.Ndi.NT.5.1.Services]
+AddService = WLUX96, 2, WLUX96.XP.Service, Common.EventLog.NDIS51
+
+; This is to start CoHelper.exe afer driver installs on WinXP systems.
+; RunOnce will not work because WinXP does not require reboot after driver install.
+[WLUX96.Ndi.NT.5.1.CoInstallers]
+CopyFiles = WLUX96CoInstallFiles
+AddReg = WLUX96.CoInstallers_AddReg
+
+;*******************************************************************************
+; Driver parameters
+;*******************************************************************************
+
+[WLUX96.Params]
+HKR, Ndi\params\Rate,               ParamDesc,          0, "Rate (Mbps)"
+HKR, Ndi\params\Rate,               default,            0, "4"
+HKR, Ndi\params\Rate,               type,               0, "enum"
+HKR, Ndi\params\Rate\enum,          0,                  0, "1"
+HKR, Ndi\params\Rate\enum,          1,                  0, "2"
+HKR, Ndi\params\Rate\enum,          2,                  0, "5.5"
+HKR, Ndi\params\Rate\enum,          3,                  0, "11"
+HKR, Ndi\params\Rate\enum,          4,                  0, "Auto"
+HKR, ,                              Rate,               0, "4"
+
+HKR, Ndi\params\RTS_Threshold,      ParamDesc,          0, "RTS Threshold"
+HKR, Ndi\params\RTS_Threshold,      default,            0, "2347"
+HKR, Ndi\params\RTS_Threshold,      type,               0, "int"
+HKR, Ndi\params\RTS_Threshold,      min,                0, "0"
+HKR, Ndi\params\RTS_Threshold,      max,                0, "2347"
+HKR, Ndi\params\RTS_Threshold,      step,               0, "1"
+HKR, ,                              RTS_Threshold,      0, "2347"
+
+HKR, Ndi\params\Frag_Threshold,     ParamDesc,          0, "Fragmentation Threshold"
+HKR, Ndi\params\Frag_Threshold,     default,            0, "2346"
+HKR, Ndi\params\Frag_Threshold,     type,               0, "int"
+HKR, Ndi\params\Frag_Threshold,     min,                0, "256"
+HKR, Ndi\params\Frag_Threshold,     max,                0, "2346"
+HKR, Ndi\params\Frag_Threshold,     step,               0, "1"
+HKR, ,                              Frag_Threshold,     0, "2346"
+
+HKR, Ndi\params\PreambleType,       ParamDesc,          0, "Preamble Type"
+HKR, Ndi\params\PreambleType,       default,            0, "2"
+HKR, Ndi\params\PreambleType,       type,               0, "enum"
+HKR, Ndi\params\PreambleType\enum,  0,                  0, "Long"
+HKR, Ndi\params\PreambleType\enum,  1,                  0, "Short"
+HKR, Ndi\params\PreambleType\enum,  2,                  0, "Auto"
+HKR, ,                              PreambleType,       0, "2"
+
+HKR,Ndi\params\PowerMgmtMode,       ParamDesc,          0,"802.11 Power Save"
+HKR,Ndi\params\PowerMgmtMode,       type,               0,"enum"
+HKR,Ndi\params\PowerMgmtMode,       default,            0,"0"
+HKR,Ndi\params\PowerMgmtMode\enum,  0,                  0,"Disabled"
+HKR,Ndi\params\PowerMgmtMode\enum,  1,                  0,"Enabled"
+HKR,,                               PowerMgmtMode,      0,"0"
+
+;*******************************************************************************
+; Advanced properties page config parameters
+;*******************************************************************************
+
+[Advanced.Params]
+
+HKR, Ndi\params\Channel,                          ParamDesc,           0, "Channel"
+HKR, Ndi\params\Channel,                          default,             0, "3"
+HKR, Ndi\params\Channel,                          type,                0, "int"
+HKR, Ndi\params\Channel,                          min,                 0, "1"
+HKR, Ndi\params\Channel,                          max,                 0, "14"
+HKR, Ndi\params\Channel,                          step,                0, "1"
+HKR, ,                                            Channel,             0, "3"
+
+HKR, Ndi\params\Operating_Mode,                   ParamDesc,           0, "Operating Mode"
+HKR, Ndi\params\Operating_Mode,                   default,             0, "1"
+HKR, Ndi\params\Operating_Mode,                   type,                0, "enum"
+HKR, Ndi\params\Operating_Mode\enum,              0,                   0, "Ad-Hoc"
+HKR, Ndi\params\Operating_Mode\enum,              1,                   0, "Infrastructure"
+HKR, ,                                            Operating_Mode,      0, "1"
+
+HKR, Ndi\params\InternationalRoaming,             ParamDesc,           0, "International Roaming"
+HKR, Ndi\params\InternationalRoaming,             default,             0, "0"
+HKR, Ndi\params\InternationalRoaming,             type,                0, "enum"
+HKR, Ndi\params\InternationalRoaming\enum,        0,                   0, "Disabled (Reg. Domain)"
+HKR, Ndi\params\InternationalRoaming\enum,        1,                   0, "Enabled (Int. Roaming)"
+HKR, ,                                            InternationalRoaming,0, "0"
+
+HKR, Ndi\params\ESSID,                            ParamDesc,           0, "ESSID"
+HKR, Ndi\params\ESSID,                            default,             0, ""
+HKR, Ndi\params\ESSID,                            type,                0, "edit"
+HKR, Ndi\params\ESSID,                            LimitText,           0, "32"
+HKR, Ndi\params\ESSID,                            UpperCase,           0, "0"
+HKR, ,                                            ESSID,               0, ""
+
+HKR, Ndi\params\AuthenticationType,               ParamDesc,           0, "Authentication Type"
+HKR, Ndi\params\AuthenticationType,               default,             0, "2"
+HKR, Ndi\params\AuthenticationType,               type,                0, "enum"
+HKR, Ndi\params\AuthenticationType\enum,          0,                   0, "Open System"
+HKR, Ndi\params\AuthenticationType\enum,          1,                   0, "Shared Key"
+HKR, Ndi\params\AuthenticationType\enum,          2,                   0, "Auto"
+HKR, ,                                            AuthenticationType,  0, "2"
+
+HKR, Ndi\params\WEP_Mode,                         ParamDesc,           0, "WEP Mode"
+HKR, Ndi\params\WEP_Mode,                         default,             0, "0"
+HKR, Ndi\params\WEP_Mode,                         type,                0, "enum"
+HKR, Ndi\params\WEP_Mode\enum,                    0,                   0, "Mandatory"
+HKR, Ndi\params\WEP_Mode\enum,                    1,                   0, "Optional"
+HKR, ,                                            WEP_Mode,            0, "0"
+
+HKR,Ndi\params\EncryptionLevel,                   ParamDesc,           0, "Encryption Level"
+HKR,Ndi\params\EncryptionLevel,                   type,                0, "enum"
+HKR,Ndi\params\EncryptionLevel,                   default,             0, "0"
+HKR,Ndi\params\EncryptionLevel\enum,              0,                   0, "None"
+HKR,Ndi\params\EncryptionLevel\enum,              1,                   0, "64-bit encryption"
+HKR,Ndi\params\EncryptionLevel\enum,              2,                   0, "128-bit encryption"
+HKR,,                                             EncryptionLevel,     0, "0"
+
+HKR,Ndi\params\WEP_KEY_INDEX,                     ParamDesc,           0, "WEP Key to use"
+HKR,Ndi\params\WEP_KEY_INDEX,                     type,                0, "enum"
+HKR,Ndi\params\WEP_KEY_INDEX,                     default,             0, "0"
+HKR,Ndi\params\WEP_KEY_INDEX\enum,                0,                   0, "1"
+HKR,Ndi\params\WEP_KEY_INDEX\enum,                1,                   0, "2"
+HKR,Ndi\params\WEP_KEY_INDEX\enum,                2,                   0, "3"
+HKR,Ndi\params\WEP_KEY_INDEX\enum,                3,                   0, "4"
+HKR,,                                             WEP_KEY_INDEX,       0, "0"
+
+HKR,Ndi\params\WEP_KEY_1,                         ParamDesc,           0, "WEP KEY #1"
+HKR,Ndi\params\WEP_KEY_1,                         default,             0, "00000000000000000000000000"
+HKR,Ndi\params\WEP_KEY_1,                         type,                0, "edit"
+HKR,Ndi\params\WEP_KEY_1,                         LimitText,           0, "26"
+HKR,Ndi\params\WEP_KEY_1,                         UpperCase,           0, "1"
+HKR,,                                             WEP_KEY_1,           0, "00000000000000000000000000"
+
+HKR,Ndi\params\WEP_KEY_2,                         ParamDesc,           0, "WEP KEY #2"
+HKR,Ndi\params\WEP_KEY_2,                         default,             0, "00000000000000000000000000"
+HKR,Ndi\params\WEP_KEY_2,                         type,                0, "edit"
+HKR,Ndi\params\WEP_KEY_2,                         LimitText,           0, "26"
+HKR,Ndi\params\WEP_KEY_2,                         UpperCase,           0, "1"
+HKR,,                                             WEP_KEY_2,           0, "00000000000000000000000000"
+
+HKR,Ndi\params\WEP_KEY_3,                         ParamDesc,           0, "WEP KEY #3"
+HKR,Ndi\params\WEP_KEY_3,                         default,             0, "00000000000000000000000000"
+HKR,Ndi\params\WEP_KEY_3,                         type,                0, "edit"
+HKR,Ndi\params\WEP_KEY_3,                         LimitText,           0, "26"
+HKR,Ndi\params\WEP_KEY_3,                         UpperCase,           0, "1"
+HKR,,                                             WEP_KEY_3,           0, "00000000000000000000000000"
+
+HKR,Ndi\params\WEP_KEY_4,                         ParamDesc,           0, "WEP KEY #4"
+HKR,Ndi\params\WEP_KEY_4,                         default,             0, "00000000000000000000000000"
+HKR,Ndi\params\WEP_KEY_4,                         type,                0, "edit"
+HKR,Ndi\params\WEP_KEY_4,                         LimitText,           0, "26"
+HKR,Ndi\params\WEP_KEY_4,                         UpperCase,           0, "1"
+HKR,,                                             WEP_KEY_4,           0, "00000000000000000000000000"
+
+HKR,Ndi\params\BasicRates,                        ParamDesc,           0, "Basic Rates"
+HKR,Ndi\params\BasicRates,                        type,                0, "enum"
+HKR,Ndi\params\BasicRates,                        default,             0, "1"
+HKR,Ndi\params\BasicRates\enum,                   0,                   0, "1,2 Mbps"
+HKR,Ndi\params\BasicRates\enum,                   1,                   0, "1,2,5.5,11 Mbps"
+HKR,,                                             BasicRates,          0, "1"
+
+HKR, Ndi\params\BeaconPeriod,                     ParamDesc,           0, "Beacon Period"
+HKR, Ndi\params\BeaconPeriod,                     type,                0, "int"
+HKR, Ndi\params\BeaconPeriod,                     default,             0, "100"
+HKR, Ndi\params\BeaconPeriod,                     min,                 0, "20"
+HKR, Ndi\params\BeaconPeriod,                     max,                 0, "1000"
+HKR, Ndi\params\BeaconPeriod,                     step,                0, "1"
+HKR,,                                             BeaconPeriod,        0, "100"
+
+;*******************************************************************************
+; AddReg section for 9x
+;*******************************************************************************
+[WLUX96.9x.Reg]
+HKR,Ndi,DeviceID,0,USB\VID_0506&PID_0a01&Rev_0100
+
+HKR,Ndi,CardType,,"PNP"
+
+HKR,, DevLoader,,*ndis,*ntkern,*ndis
+
+HKR,, DriverDesc,0,%WLUX96.DeviceDesc%
+HKR,, DeviceVxDs,,wlux96e.sys
+HKR,, EnumPropPages,0,netdi.dll,EnumPropPages
+
+; NDIS Info
+HKR,NDIS,MajorNdisVersion,1,05
+HKR,NDIS,MinorNdisVersion,1,00
+HKR,NDIS,LogDriverName,,WLUX96E
+
+; Interfaces
+HKR,Ndi\Interfaces,DefUpper,,"ndis3"
+HKR,Ndi\Interfaces,DefLower,,"ethernet"
+HKR,Ndi\Interfaces,UpperRange,,"ndis3"
+HKR,Ndi\Interfaces,LowerRange,,"ethernet"
+
+
+HKLM,SOFTWARE\Microsoft\Windows\CurrentVersion\RunOnce, "WLUX96E",, "%11%\CoHelper.exe /Device"
+HKR,Ndi,HelpText,,%Help_Text%
+
+;*******************************************************************************
+; AddReg section for 2k/XP
+;*******************************************************************************
+
+[WLUX96.NT.Reg]
+; Interfaces
+HKR, Ndi\Interfaces, LowerRange, 0, "ethernet"
+HKR, Ndi\Interfaces, UpperRange, 0, "ndis5"
+HKR, Ndi,            Service,    0, "WLUX96"
+
+;*******************************************************************************
+; Add Service section for 2k
+;*******************************************************************************
+
+[WLUX96.2k.Service]
+DisplayName    = %WLUX96.DisplayName%
+ServiceType    = 1
+StartType      = 3
+ErrorControl   = 1
+ServiceBinary  = %12%\WLUX96E.SYS
+LoadOrderGroup = NDIS
+
+[Ndis50.EventLog]
+AddReg = Ndis50.AddEventLog.Reg
+
+[Ndis50.AddEventLog.Reg]
+HKR, , EventMessageFile, 0x00020000, %%SystemRoot%%\System32\netevent.dll, %%SystemRoot%%\System32\drivers\wlux96e.sys
+HKR, , TypesSupported  , 0x00010001, 7
+
+;*******************************************************************************
+; Add Service section for CoInstaller
+;*******************************************************************************
+
+[WLUX96.CoInstallers_AddReg]
+HKR,,CoInstallers32,0x00010000,"coinst.dll, SrwlCoInstaller"
+
+;*******************************************************************************
+; Add Service section for XP
+;*******************************************************************************
+
+[WLUX96.XP.Service]
+DisplayName    = %WLUX96.DisplayName%
+ServiceType    = 1
+StartType      = 3
+ErrorControl   = 1
+ServiceBinary  = %12%\WLUX96F.SYS
+LoadOrderGroup = NDIS
+
+[Ndis51.EventLog]
+AddReg = Ndis51.AddEventLog.Reg
+
+[Ndis51.AddEventLog.Reg]
+HKR, , EventMessageFile, 0x00020000, %%SystemRoot%%\System32\netevent.dll, %%SystemRoot%%\System32\drivers\wlux96f.sys
+HKR, , TypesSupported  , 0x00010001, 7
+
+;*******************************************************************************
+; Copy Files
+;*******************************************************************************
+
+[CopyFile.NDIS51.Sys]
+wlux96f.sys,,,2
+
+[CopyFile.NDIS50.Sys]
+wlux96e.sys,,,2
+
+[CopyFile.NDIS50.NT.Sys]
+wlux96e.sys,,,2
+
+[WLUX96.Apps]
+cohelper.exe,,,2
+
+[WLUX96CoInstallFiles]
+coinst.dll,,,2
+
+;*******************************************************************************
+; Destination directories
+;*******************************************************************************
+
+[DestinationDirs]
+DefaultDestDir   = 12 ; Drivers directory
+CopyFile.NDIS50.Sys  = 11
+CopyFile.NDIS50.NT.Sys  = 12
+CopyFile.NDIS51.Sys  = 12
+WLUX96.Apps		        = 11 ; System directory
+WLUX96CoInstallFiles    = 11 ; System directory
+
+[SourceDisksNames]
+50=%DriverDisketteName%,,
+
+[SourceDisksFiles]
+wlux96e.sys=50,.,wlux96e.sys,60000
+wlux96f.sys=50,.,wlux96f.sys,60000
+coinst.dll=50,.,coinst.dll,3000
+cohelper.exe=50,.,cohelper.exe,160000
+
+;*******************************************************************************
+; Localizable strings
+;*******************************************************************************
+
+[Strings]
+V_3COM = "3COM"
+
+WLUX96.DeviceDesc   = "3Com 3CRSHEW696 Wireless LAN USB Adapter"
+WLUX96.DisplayName  = "3Com 3CRSHEW696 Wireless LAN USB Adapter"
+DriverDisketteName  = "3Com 3CRSHEW696 Drivers Disk"
+Help_Text = "3Com 3CRSHEW696 lets you set up easily and operate a Wireless LAN compliant with 802.11 Standard. It operates in the license free 2.4 GHz ISM band and achieves a peak data rate of 11 Mbs."

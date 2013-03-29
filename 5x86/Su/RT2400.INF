@@ -1,0 +1,618 @@
+;****************************************************************************************
+;
+; rt2400.inf
+;
+;   This installation script supports Windows 98,Me,2000 & XP for the
+;   Ralink Wireless LAN Card.
+;   For 8 Domain Setting
+;****************************************************************************************
+
+[Version]
+DriverVer=09/19/2003, 1.09.01.0000
+Signature="$Chicago$"
+Compatible=1
+Class=Net
+ClassGUID={4d36e972-e325-11ce-bfc1-08002be10318}
+Provider=%Provider%
+
+
+
+[ControlFlags]
+
+;***********Ralink 802.11b board  ***********
+ExcludeFromSelect = PCI\VEN_1814&DEV_0101&SUBSYS_00081371 
+ExcludeFromSelect = PCI\VEN_1814&DEV_0101&SUBSYS_000A1371 
+ExcludeFromSelect = PCI\VEN_1814&DEV_0101&SUBSYS_00101371 
+
+[Manufacturer]
+%V_Provider%=Adapters
+
+
+[Adapters]
+; DisplayName                Section                DeviceID
+; -----------                -------                --------
+%RT2400.DeviceDesc%         =RT2400.ndi,          PCI\VEN_1814&DEV_0101&SUBSYS_00081371 
+%RT2400PCI.DeviceDesc%      =RT2400PCI.ndi,       PCI\VEN_1814&DEV_0101&SUBSYS_00101371
+%RT2400MINIPCI.DeviceDesc%   =RT2400MINIPCI.ndi,   PCI\VEN_1814&DEV_0101&SUBSYS_000A1371
+
+
+;***********************************CardBus**************************************************
+;*******************************************************************************************
+; Windows 9X specific entries
+;*******************************************************************************************
+
+[RT2400.ndi]
+AddReg=Common.reg, RT2400.ndi.reg
+CopyFiles=win9x.CopyFiles
+
+
+;*******************************************************************************************
+; NT specific entries
+;*******************************************************************************************
+
+[RT2400.ndi.NT]
+AddReg=Common.reg, RT2400.ndi.NT.reg
+Characteristics=0x84              ; NCF_REMOVABLE | NCF_HAS_UI | NCF_PHYSICAL
+BusType=5
+CopyFiles=NT.CopyFiles
+
+; NT services sections
+[RT2400.ndi.NT.Services]
+AddService=RT2400, 2, RT2400.Service, common.EventLog
+
+
+[RT2400.ndi.reg]
+HKR, ,                            NTMPDriver,      0, RT2400.sys
+HKR, Ndi,                         DeviceID,        0, "PCI\VEN_1814&DEV_0101&SUBSYS_00081371"
+
+HKR, ,                            RunningWin9X,    0, "1"
+HKR, ,                            DevLoader,       0, *ndis
+HKR, ,                            DeviceVxDs,      0, RT2400.sys
+HKR, ,                            EnumPropPages,   0, "netdi.dll,EnumPropPages"
+
+;
+; NDIS Info
+;
+HKR, NDIS,                        LogDriverName,   0, "RT2400"
+HKR, NDIS,                        MajorNdisVersion,1, 03
+HKR, NDIS,                        MinorNdisVersion,1, 0A
+
+HKR, ,                            BusType,         0, 5
+HKR, NDI,                         CardType,        0, "PCI"
+
+;
+; Interfaces
+;
+HKR, Ndi\Interfaces,              DefUpper,        0, "ndis3"
+HKR, Ndi\Interfaces,              DefLower,        0, "ethernet"
+HKR, Ndi\Interfaces,              UpperRange,      0, "ndis3"
+HKR, Ndi\Interfaces,              LowerRange,      0, "ethernet"
+
+;
+; Install sections
+;HKR,Ndi\Install,ndis3,,"RT2400.install"
+
+
+[win9x.CopyFiles]
+RT2400.sys ; Win9x Installation
+
+;********************************************************************************************
+
+
+
+;***********************************   MINI_PCI   ********************************************
+;*******************************************************************************************
+; Windows 9X specific entries
+;*******************************************************************************************
+
+[RT2400MINIPCI.ndi]
+AddReg=Common.reg, RT2400MINIPCI.ndi.reg
+CopyFiles=win9x.CopyFiles
+
+
+;*******************************************************************************************
+; NT specific entries
+;*******************************************************************************************
+
+[RT2400MINIPCI.ndi.NT]
+AddReg=Common.reg, RT2400MINIPCI.ndi.NT.reg
+Characteristics=0x84              ; NCF_REMOVABLE | NCF_HAS_UI | NCF_PHYSICAL
+BusType=5
+CopyFiles=NT.CopyFiles
+
+; NT services sections
+[RT2400MINIPCI.ndi.NT.Services]
+AddService=RT2400MINIPCI, 2, RT2400MINIPCI.Service, common.EventLog
+
+
+[RT2400MINIPCI.ndi.reg]
+HKR, ,                            NTMPDriver,      0, RT2400.sys
+HKR, Ndi,                         DeviceID,        0, "PCI\VEN_1814&DEV_0101&SUBSYS_000A1371"
+
+HKR, ,                            RunningWin9X,    0, "1"
+HKR, ,                            DevLoader,       0, *ndis
+HKR, ,                            DeviceVxDs,      0, RT2400.sys
+HKR, ,                            EnumPropPages,   0, "netdi.dll,EnumPropPages"
+
+;
+; NDIS Info
+;
+HKR, NDIS,                        LogDriverName,   0, "RT2400"
+HKR, NDIS,                        MajorNdisVersion,1, 03
+HKR, NDIS,                        MinorNdisVersion,1, 0A
+
+HKR, ,                            BusType,         0, 5
+HKR, NDI,                         CardType,        0, "PCI"
+
+;
+; Interfaces
+;
+HKR, Ndi\Interfaces,              DefUpper,        0, "ndis3"
+HKR, Ndi\Interfaces,              DefLower,        0, "ethernet"
+HKR, Ndi\Interfaces,              UpperRange,      0, "ndis3"
+HKR, Ndi\Interfaces,              LowerRange,      0, "ethernet"
+
+;
+; Install sections
+;HKR,Ndi\Install,ndis3,,"RT2400.install"
+
+
+[win9x.CopyFiles]
+RT2400.sys ; Win9x Installation
+
+;********************************************************************************************
+
+
+
+
+;***********************************    PCI   ***********************************************
+;*******************************************************************************************
+; Windows 9X specific entries
+;*******************************************************************************************
+
+[RT2400PCI.ndi]
+AddReg=Common.reg, RT2400PCI.ndi.reg
+CopyFiles=win9x.CopyFiles
+
+
+;*******************************************************************************************
+; NT specific entries
+;*******************************************************************************************
+
+[RT2400PCI.ndi.NT]
+AddReg=Common.reg, RT2400PCI.ndi.NT.reg
+Characteristics=0x84              ; NCF_REMOVABLE | NCF_HAS_UI | NCF_PHYSICAL
+BusType=5
+CopyFiles=NT.CopyFiles
+
+; NT services sections
+[RT2400PCI.ndi.NT.Services]
+AddService=RT2400PCI, 2, RT2400PCI.Service, common.EventLog
+
+
+[RT2400PCI.ndi.reg]
+HKR, ,                            NTMPDriver,      0, RT2400.sys
+HKR, Ndi,                         DeviceID,        0, "PCI\VEN_1814&DEV_0101&SUBSYS_00101371"
+
+HKR, ,                            RunningWin9X,    0, "1"
+HKR, ,                            DevLoader,       0, *ndis
+HKR, ,                            DeviceVxDs,      0, RT2400.sys
+HKR, ,                            EnumPropPages,   0, "netdi.dll,EnumPropPages"
+
+;
+; NDIS Info
+;
+HKR, NDIS,                        LogDriverName,   0, "RT2400"
+HKR, NDIS,                        MajorNdisVersion,1, 03
+HKR, NDIS,                        MinorNdisVersion,1, 0A
+
+HKR, ,                            BusType,         0, 5
+HKR, NDI,                         CardType,        0, "PCI"
+
+;
+; Interfaces
+;
+HKR, Ndi\Interfaces,              DefUpper,        0, "ndis3"
+HKR, Ndi\Interfaces,              DefLower,        0, "ethernet"
+HKR, Ndi\Interfaces,              UpperRange,      0, "ndis3"
+HKR, Ndi\Interfaces,              LowerRange,      0, "ethernet"
+
+;
+; Install sections
+;HKR,Ndi\Install,ndis3,,"RT2400.install"
+
+
+[win9x.CopyFiles]
+RT2400.sys ; Win9x Installation
+
+;********************************************************************************************
+
+
+;*******************************************************************************************
+; common regs for NT and W9x
+;*******************************************************************************************
+
+[Common.reg]
+
+;
+; SSID
+;
+HKR, ,                            SSID,            0, %SSID_DEF_STR%
+HKR, Default,                     SSID,            0, %SSID_DEF_STR%
+HKR, NDI\params\SSID,             ParamDesc,       0, "SSID"
+HKR, NDI\params\SSID,             type,            0, "edit"
+HKR, NDI\params\SSID,             limitText,       0, "32"
+HKR, NDI\params\SSID,             default,         0, %SSID_DEF_STR%
+
+;
+; Network Type
+;
+HKR, ,                            NetworkType,     0, %NETWORK_TYPE_DEF_STR%
+HKR, Default,                     NetworkType,     0, %NETWORK_TYPE_DEF_STR%
+HKR, NDI\params\NetworkType,      ParamDesc,       0, "Network Type"
+HKR, NDI\params\NetworkType,      type,            0, "enum"
+HKR, NDI\params\NetworkType,      default,         0, %NETWORK_TYPE_DEF_STR%
+HKR, NDI\params\NetworkType\enum, 0,               0, "802.11 Ad Hoc"
+HKR, NDI\params\NetworkType\enum, 1,               0, "Infrastructure"
+
+;
+; Channel
+;
+HKR, ,                            Channel,         0, %CHANNEL%
+HKR, Default,                     Channel,         0, %CHANNEL%
+HKR, NDI\params\Channel,          ParamDesc,       0, "Channel"
+HKR, NDI\params\Channel,          type,            0, "enum"
+HKR, NDI\params\Channel,          default,         0, %CHANNEL%
+HKR, NDI\params\Channel\enum,     1,               0, "01"
+HKR, NDI\params\Channel\enum,     2,               0, "02"
+HKR, NDI\params\Channel\enum,     3,               0, "03"
+HKR, NDI\params\Channel\enum,     4,               0, "04"
+HKR, NDI\params\Channel\enum,     5,               0, "05"
+HKR, NDI\params\Channel\enum,     6,               0, "06"
+HKR, NDI\params\Channel\enum,     7,               0, "07"
+HKR, NDI\params\Channel\enum,     8,               0, "08"
+HKR, NDI\params\Channel\enum,     9,               0, "09"
+HKR, NDI\params\Channel\enum,     10,              0, "10"
+HKR, NDI\params\Channel\enum,     11,              0, "11"
+;HKR, NDI\params\Channel\enum,     12,              0, "12" ; Default Country Region USA(1-11)
+;HKR, NDI\params\Channel\enum,     13,              0, "13"
+;HKR, NDI\params\Channel\enum,     14,              0, "14"
+
+
+;*******************************************************************************************
+; System Configuration Page
+
+;
+; Local Administration MAC Network Address
+;
+HKR, ,                            NetworkAddress,  0, ""
+HKR, Default,                     NetworkAddress,  0, ""
+HKR, NDI\params\NetworkAddress,   ParamDesc,       0, "Local Administration MAC Network Address"
+HKR, NDI\params\NetworkAddress,   type,            0, "edit"
+HKR, NDI\params\NetworkAddress,   limitText,       0, "12"
+HKR, NDI\params\NetworkAddress,   default,         0, ""
+
+;
+; First Run (Setup Country Region)
+;
+HKR, ,                            FirstRun,	   0, "0"
+
+;
+; Select Config Utility
+;
+HKR, ,                            ConfigSelect,	   0, "0"      ;0=RaConfig, 1=ZeroConfig
+
+;
+; Country Region (US, Europe, Japan)
+;
+HKR, ,                            	CountryRegion,		0, "0"
+;HKR, Default,                     	CountryRegion,      	0, "0"
+HKR, NDI\params\CountryRegion,          ParamDesc,       	0, "Country Region"
+HKR, NDI\params\CountryRegion,          type,            	0, "enum"
+HKR, NDI\params\CountryRegion,          default,         	0, "0"
+HKR, NDI\params\CountryRegion\enum,     0,               	0, "USA   (Channel  1 - 11)"
+HKR, NDI\params\CountryRegion\enum,	1,               	0, "CANADA(Channel  1 - 11)"
+HKR, NDI\params\CountryRegion\enum,     2,               	0, "EUROPE(Channel  1 - 13)"
+HKR, NDI\params\CountryRegion\enum,     3,               	0, "SPAIN (Channel 10 - 11)"
+HKR, NDI\params\CountryRegion\enum,	4,               	0, "FRANCE(Channel 10 - 13)"
+HKR, NDI\params\CountryRegion\enum,     5,               	0, "JAPAN (Channel 14)"
+HKR, NDI\params\CountryRegion\enum,     6,               	0, "JAPAN (Channel  1 - 14)"
+HKR, NDI\params\CountryRegion\enum,     7,               	0, "ISRAEL(Channel  3 - 9)"
+
+;
+; Power Saving Mode
+;
+HKR, ,                            PSMode,          0, "0"
+HKR, Default,                     PSMode,          0, "0"
+HKR, NDI\params\PSMode,           ParamDesc,       0, "Power Saving Mode"
+HKR, NDI\params\PSMode,           type,            0, "enum"
+HKR, NDI\params\PSMode,           default,         0, "0"
+HKR, NDI\params\PSMode\enum,      0,               0, "CAM (Constantly Awake Mode)"
+HKR, NDI\params\PSMode\enum,      1,               0, "Max_PSP (Max Power Savings)"
+HKR, NDI\params\PSMode\enum,      2,               0, "Fast_PSP (Power Save Mode)"
+
+;
+; CAM when AC Power
+;
+HKR, ,                            ACPowerCam,      0, "0"
+HKR, Default,                     ACPowerCam,      0, "0"
+HKR, NDI\params\ACPowerCam,       ParamDesc,       0, "CAM when AC Power"
+HKR, NDI\params\ACPowerCam,       type,            0, "enum"
+HKR, NDI\params\ACPowerCam,       default,         0, "0"
+HKR, NDI\params\ACPowerCam\enum,  0,               0, "Disable"
+HKR, NDI\params\ACPowerCam\enum,  1,               0, "Enable"
+
+;
+; Antenna Tx Diversity 
+;
+HKR, ,                            AntennaTx,       0, "0"
+HKR, Default,                     AntennaTx,       0, "0"
+HKR, NDI\params\AntennaTx,        ParamDesc,       0, "Antenna Tx Diversity"
+HKR, NDI\params\AntennaTx,        type,            0, "enum"
+HKR, NDI\params\AntennaTx,        default,         0, "0"
+HKR, NDI\params\AntennaTx\enum,   0,               0, "Diversity"
+HKR, NDI\params\AntennaTx\enum,   1,               0, "Antenna A Only"
+HKR, NDI\params\AntennaTx\enum,   2,               0, "Antenna B Only"
+
+;
+; Antenna Rx Diversity 
+;
+HKR, ,                            AntennaRx,       0, "0"
+HKR, Default,                     AntennaRx,       0, "0"
+HKR, NDI\params\AntennaRx,        ParamDesc,       0, "Antenna Rx Diversity"
+HKR, NDI\params\AntennaRx,        type,            0, "enum"
+HKR, NDI\params\AntennaRx,        default,         0, "0"
+HKR, NDI\params\AntennaRx\enum,   0,               0, "Diversity"
+HKR, NDI\params\AntennaRx\enum,   1,               0, "Antenna A Only"
+HKR, NDI\params\AntennaRx\enum,   2,               0, "Antenna B Only"
+
+;
+; Transmit Rate
+;
+HKR, ,                            TransRate,       0, "0"
+HKR, Default,                     TransRate,       0, "0"
+HKR, NDI\params\TransRate,        ParamDesc,       0, "Transmit Rate"
+HKR, NDI\params\TransRate,        type,            0, "enum"
+HKR, NDI\params\TransRate,        default,         0, "0"
+HKR, NDI\params\TransRate\enum,   0,               0, "Auto"
+HKR, NDI\params\TransRate\enum,   1,               0, "11 Mb/s"
+HKR, NDI\params\TransRate\enum,   2,               0, "5.5 Mb/s"
+HKR, NDI\params\TransRate\enum,   3,               0, "2 Mb/s"
+HKR, NDI\params\TransRate\enum,   4,               0, "1 Mb/s"
+
+
+;
+; Preamble Type
+;
+HKR, ,                            PreambleType,    0, "2"
+HKR, Default,                     PreambleType,    0, "2"
+HKR, NDI\params\PreambleType,     ParamDesc,       0, "Preamble Type"
+HKR, NDI\params\PreambleType,     type,            0, "enum"
+HKR, Ndi\params\PreambleType,     default,         0, "2"
+HKR, NDI\params\PreambleType\enum,0,               0, "Long"
+HKR, NDI\params\PreambleType\enum,1,               0, "Short"
+HKR, NDI\params\PreambleType\enum,2,               0, "Auto"
+HKR, NDI\params\PreambleType,     optional,        0, "0"
+
+
+;
+; RTS Threshold
+;
+HKR, ,                            RTSThresh,       0, "2347"
+HKR, Default,                     RTSThresh,       0, "2347"
+HKR, NDI\params\RTSThresh,        ParamDesc,       0, "RTS Threshold"
+HKR, NDI\params\RTSThresh,        type,            0, "int"
+HKR, Ndi\params\RTSThresh,        default,         0, "2347"
+HKR, NDI\params\RTSThresh,        min,             0, "0"
+HKR, NDI\params\RTSThresh,        max,             0, "2347"
+HKR, NDI\params\RTSThresh,        step,            0, "32"
+HKR, NDI\params\RTSThresh,        optional,        0, "0"
+
+;
+; Fragment Threshold
+;
+HKR, ,                            FragThresh,      0, "2346"
+HKR, Default,                     FragThresh,      0, "2346"
+HKR, NDI\params\FragThresh,       ParamDesc,       0, "Fragment Threshold"
+HKR, NDI\params\FragThresh,       type,            0, "int"
+HKR, Ndi\params\FragThresh,       default,         0, "2346"
+HKR, NDI\params\FragThresh,       min,             0, "256"
+HKR, NDI\params\FragThresh,       max,             0, "2346"
+HKR, NDI\params\FragThresh,       step,            0, "32"
+HKR, NDI\params\FragThresh,       optional,        0, "0"
+
+
+;
+; Radio Status
+;
+HKR, ,                            Radio,      0, "0"
+HKR, NDI\params\Radio,       ParamDesc,       0, "Radio Status"
+HKR, NDI\params\Radio,       type,            0, "enum"
+HKR, NDI\params\Radio,       default,         0, "0"
+HKR, NDI\params\Radio\enum,  1,               0, "Disable"
+HKR, NDI\params\Radio\enum,  0,               0, "Enable"
+
+
+;*******************************************************************************************
+; Authentication & Security Page
+
+;
+; Authentication Type
+;
+HKR, ,				  AuthenType,      0, "0"
+HKR, Default,			  AuthenType,      0, "0"
+HKR, NDI\params\AuthenType,       ParamDesc,	   0, "Authentication Type"
+HKR, NDI\params\AuthenType,       type,		   0, "enum"
+HKR, NDI\params\AuthenType,       default,	   0, "0"
+HKR, NDI\params\AuthenType\enum,  0,		   0, "Open System"
+HKR, NDI\params\AuthenType\enum,  1,		   0, "Shared Key"
+
+;
+; Encryption
+;
+HKR, ,                            Encryption,      0, "0"
+HKR, Default,                     Encryption,      0, "0"
+
+
+;
+; WEP Keys Length
+;
+HKR, ,                            WEPKeyLen,       0, "0"
+HKR, Default,                     WEPKeyLen,       0, "0"
+
+
+
+;
+; WEP Key to use
+;
+HKR, ,                            WEPKeyUse,       0,"1"
+HKR, Default,                     WEPKeyUse,       0,"1"
+
+
+;
+; WEP Key1
+;
+HKR, , 				  WEPKey1,         0,""
+HKR, Default, 			  WEPKey1,         0,""
+
+
+;
+; WEP Key2
+;
+HKR, , 				  WEPKey2,         0,""
+HKR, Default, 			  WEPKey2,         0,""
+
+;
+; WEP Key3
+;
+HKR, , 				  WEPKey3,         0,""
+HKR, Default, 			  WEPKey3,         0,""
+
+
+;
+; WEP Key4
+;
+HKR, , 				  WEPKey4,         0,""
+HKR, Default, 			  WEPKey4,         0,""
+
+
+;
+; Current Profile
+;
+HKR, , 				  CurProfile,      0,""
+HKR, Default, 			  CurProfile,      0,""
+
+;*******************************************************************************************
+; DestinationDirs
+;*******************************************************************************************
+
+[DestinationDirs]
+NT.CopyFiles=12    ; system32\drivers subdirectory on NT
+win9x.CopyFiles=11    ; system32 subdirectory on win9x
+
+[NT.CopyFiles]
+RT2400.sys ; NT Installation
+
+[SourceDisksNames]
+1=%INSTALL_DISK_STR%,,,
+
+[SourceDisksFiles] 
+Rt2400.sys=1
+
+
+;*******************************************************************************************
+; NT specific FOR CardBus
+;*******************************************************************************************
+[RT2400.ndi.NT.reg]
+HKR, Ndi,                         Service,         0, "RT2400"
+HKR, Ndi\Interfaces,              UpperRange,      0, "ndis5"
+HKR, Ndi\Interfaces,              LowerRange,      0, "ethernet"
+
+[RT2400.Service]
+DisplayName=%RT2400.Service.DispName%
+ServiceType=1                	;%SERVICE_KERNEL_DRIVER%
+StartType=3                	;%SERVICE_AUTO_START%
+ErrorControl=1                	;%SERVICE_ERROR_NORMAL%
+ServiceBinary=%12%\RT2400.sys
+LoadOrderGroup=NDIS
+
+[common.EventLog]
+AddReg=common.AddEventLog.reg
+
+[common.AddEventLog.reg]
+HKR, , EventMessageFile, 0x00020000,"%%SystemRoot%%\System32\netevent.dll,%%SystemRoot%%\System32\drivers\RT2400.sys"
+HKR, , TypesSupported,   0x00010001, 7
+
+;*******************************************************************************************
+; NT specific FOR PCI&MIN_PCI
+;*******************************************************************************************
+
+[RT2400PCI.ndi.NT.reg]
+HKR, Ndi,                         Service,         0, "RT2400"
+HKR, Ndi\Interfaces,              UpperRange,      0, "ndis5"
+HKR, Ndi\Interfaces,              LowerRange,      0, "ethernet"
+
+[RT2400PCI.Service]
+DisplayName=%RT2400PCI.Service.DispName%
+ServiceType=1                	;%SERVICE_KERNEL_DRIVER%
+StartType=3                	;%SERVICE_AUTO_START%
+ErrorControl=1                	;%SERVICE_ERROR_NORMAL%
+ServiceBinary=%12%\RT2400.sys
+LoadOrderGroup=NDIS
+
+[common.EventLog]
+AddReg=common.AddEventLog.reg
+
+[common.AddEventLog.reg]
+HKR, , EventMessageFile, 0x00020000,"%%SystemRoot%%\System32\netevent.dll,%%SystemRoot%%\System32\drivers\RT2400.sys"
+HKR, , TypesSupported,   0x00010001, 7
+
+;*******************************************************************************************
+; NT specific FOR MINI_PCI
+;*******************************************************************************************
+
+[RT2400MINIPCI.ndi.NT.reg]
+HKR, Ndi,                         Service,         0, "RT2400"
+HKR, Ndi\Interfaces,              UpperRange,      0, "ndis5"
+HKR, Ndi\Interfaces,              LowerRange,      0, "ethernet"
+
+[RT2400MINIPCI.Service]
+DisplayName=%RT2400MINIPCI.Service.DispName%
+ServiceType=1                	;%SERVICE_KERNEL_DRIVER%
+StartType=3                	;%SERVICE_AUTO_START%
+ErrorControl=1                	;%SERVICE_ERROR_NORMAL%
+ServiceBinary=%12%\RT2400.sys
+LoadOrderGroup=NDIS
+
+[common.EventLog]
+AddReg=common.AddEventLog.reg
+
+[common.AddEventLog.reg]
+HKR, , EventMessageFile, 0x00020000,"%%SystemRoot%%\System32\netevent.dll,%%SystemRoot%%\System32\drivers\RT2400.sys"
+HKR, , TypesSupported,   0x00010001, 7
+
+
+
+;*******************************************************************************************
+; Strings
+;*******************************************************************************************
+
+[strings]
+Provider=			"OEM"
+V_Provider=			"802.11b Technology Corp."
+
+RT2400.DeviceDesc=		"802.11b WLAN CardBus"
+RT2400.Service.DispName=	"802.11b WLAN CardBus"
+RT2400PCI.DeviceDesc=		"802.11b WLAN PCI"
+RT2400PCI.Service.DispName=	"802.11b WLAN PCI"
+RT2400MINIPCI.DeviceDesc=	"802.11b WLAN Mini-PCI"
+RT2400MINIPCI.Service.DispName=	"802.11b WLAN Mini-PCI"
+
+INSTALL_DISK_STR=		"802.11b WLAN Installation Disk"
+
+;
+; Don't put spaces around=sign otherwise installer will not be able to
+; find these lines.
+SSID_DEF_STR		= ""
+NETWORK_TYPE_DEF_STR	= "1"
+CHANNEL			= "1"

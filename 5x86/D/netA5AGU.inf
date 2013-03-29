@@ -1,0 +1,450 @@
+;/*++
+;
+;Copyright (c) 2007 D-Link Corporation, Incorporated All Rights Reserved
+;
+;Module Name:
+;
+;    NetA5AGU.inf
+
+;
+;Abstract:
+;    For US
+;    INF file for installing D-Link 802.11b/g Wireless Adapter
+; 
+;    Installs A5AGU.sys (NDIS 5/5.1 driver) on NT platforms (2000, XP and greater)
+;    Installs A5AGU9x.sys (NDIS 5 driver) on 9x platforms 
+;--*/
+
+[Version]
+Signature   = "$CHICAGO$"
+Class       = Net
+ClassGUID   = {4d36e972-e325-11ce-bfc1-08002be10318}
+Provider    = %DLink%
+Compatible  = 1
+DriverVer   = 06/12/2008,1.5.206.2
+Catalogfile = netA5AGU.cat
+
+[Manufacturer]
+%DLink%     = DLink
+
+[ControlFlags]
+ExcludeFromSelect = VID_2001&PID_3A01
+ExcludeFromSelect = VID_2001&PID_3A03
+ExcludeFromSelect = VID_2001&PID_3A05  
+ExcludeFromSelect = VID_07D1&PID_3A08
+ExcludeFromSelect = VID_07D1&PID_3A0B
+
+[DLink]
+; DisplayName               Section                 DeviceID
+; -----------               -------                 --------
+; D-Link
+%DWLAG132%  = DAG132_DEV.ndi,    	USB\VID_2001&PID_3A01
+%DWLG132C%  = DG132C_DEV.ndi,    	USB\VID_2001&PID_3A03
+%WUA2340%   = WUA2340_DEV.ndi,    	USB\VID_07D1&PID_3A08
+%DWLAG122%  = DAG122_DEV.ndi,    	USB\VID_2001&PID_3A05
+%ALICEG132% = ITG132_DEV.ndi,    	USB\VID_07D1&PID_3A0B
+%DWA120%  = DWA120_DEV.ndi, 	   	USB\VID_07D1&PID_3A0D
+
+; Windows 9X specific entries
+
+[DAG132_DEV.ndi]
+AddReg          = DAG132_DEV.id.reg, 5523.reg, DLink.win.reg, 5523.abg.reg, UpDom.reg
+CopyFiles       = DLink.win.CopyFiles, DEFAULTDESTDIRS
+DelFiles        = DLink.DelIniFiles
+DelReg          = 5523.DelReg
+
+[DG132C_DEV.ndi]
+AddReg          = DG132C_DEV.id.reg, 5523.reg, DLink.win.reg, 5523.bg.reg, TIWmm.reg
+CopyFiles       = DLink.win.CopyFiles, DEFAULTDESTDIRS
+DelFiles        = DLink.DelIniFiles
+DelReg          = 5523.DelReg
+
+[WUA2340_DEV.ndi]
+AddReg          = WUA2340_DEV.id.reg, 5523.reg, DLink.win.reg, 5523.bg.reg
+CopyFiles       = DLink.win.CopyFiles, DEFAULTDESTDIRS
+DelFiles        = DLink.DelIniFiles
+DelReg          = 5523.DelReg
+
+[DAG122_DEV.ndi]
+AddReg          = DAG122_DEV.id.reg, 5523.reg, DLink.win.reg, 5523.nsabg.reg
+CopyFiles       = DLink.win.CopyFiles, DEFAULTDESTDIRS
+DelFiles        = DLink.DelIniFiles
+DelReg          = 5523.DelReg
+
+[ITG132_DEV.ndi]
+AddReg          = ITG132_DEV.id.reg, 5523.reg, DLink.win.reg, 5523.bg.reg, TIWmm.reg
+CopyFiles       = DLink.win.CopyFiles, DEFAULTDESTDIRS
+DelFiles        = DLink.DelIniFiles
+DelReg          = 5523.DelReg
+
+[DWA120_DEV.ndi]
+AddReg          = DWA120_DEV.id.reg, 5523.reg, DLink.win.reg, 5523.bg.reg
+CopyFiles       = DLink.win.CopyFiles, DEFAULTDESTDIRS
+DelFiles        = DLink.DelIniFiles
+DelReg          = 5523.DelReg
+
+; Windows NT specific entries
+
+[DAG132_DEV.ndi.NT]
+Characteristics = 0x84 ; NCF_PHYSICAL | NCF_HAS_UI
+BusType         = 15
+AddReg          = 5523.reg, DLink.reg, 5523.reg, 5523.abg.reg, UpDom.reg
+CopyFiles       = DLink.CopyFiles.nt, DEFAULTDESTDIRS
+DelFiles        = DLink.DelIniFiles
+DelReg          = 5523.DelReg
+
+[DG132C_DEV.ndi.NT]
+Characteristics = 0x84 ; NCF_PHYSICAL | NCF_HAS_UI
+BusType         = 15
+AddReg          = 5523.reg, DLink.reg, 5523.reg, 5523.bg.reg, TIWmm.reg
+CopyFiles       = DLink.CopyFiles.nt, DEFAULTDESTDIRS
+DelFiles        = DLink.DelIniFiles
+DelReg          = 5523.DelReg
+
+[WUA2340_DEV.ndi.NT]
+Characteristics = 0x84 ; NCF_PHYSICAL | NCF_HAS_UI
+BusType         = 15
+AddReg          = 5523.reg, DLink.reg, 5523.reg, 5523.bg.reg
+CopyFiles       = DLink.CopyFiles.nt, DEFAULTDESTDIRS
+DelFiles        = DLink.DelIniFiles
+DelReg          = 5523.DelReg
+
+[DAG122_DEV.ndi.NT]
+Characteristics = 0x84 ; NCF_PHYSICAL | NCF_HAS_UI
+BusType         = 15
+AddReg          = 5523.reg, DLink.reg, 5523.reg, 5523.nsabg.reg
+CopyFiles       = DLink.CopyFiles.nt, DEFAULTDESTDIRS
+DelFiles        = DLink.DelIniFiles
+DelReg          = 5523.DelReg
+
+[ITG132_DEV.ndi.NT]
+Characteristics = 0x84 ; NCF_PHYSICAL | NCF_HAS_UI
+BusType         = 15
+AddReg          = 5523.reg, DLink.reg, 5523.reg, 5523.bg.reg, TIWmm.reg
+CopyFiles       = DLink.CopyFiles.nt, DEFAULTDESTDIRS
+DelFiles        = DLink.DelIniFiles
+DelReg          = 5523.DelReg
+
+[DWA120_DEV.ndi.NT]
+Characteristics = 0x84 ; NCF_PHYSICAL | NCF_HAS_UI
+BusType         = 15
+AddReg          = 5523.reg, DLink.reg, 5523.reg, 5523.bg.reg
+CopyFiles       = DLink.CopyFiles.nt, DEFAULTDESTDIRS
+DelFiles        = DLink.DelIniFiles
+DelReg          = 5523.DelReg
+
+[DAG132_DEV.ndi.NT.Services]
+AddService      = A5AGU, 2, DLink.Service, common.EventLog
+[DAG132_DEV.ndi.NT.CoInstallers]
+AddReg=CoInstallers_AddReg
+CopyFiles=CoInstallers_CopyFiles
+
+[DG132C_DEV.ndi.NT.Services]
+AddService      = A5AGU, 2, DLink.Service, common.EventLog
+[DG132C_DEV.ndi.NT.CoInstallers]
+AddReg=CoInstallers_AddReg
+CopyFiles=CoInstallers_CopyFiles
+
+[WUA2340_DEV.ndi.NT.Services]
+AddService      = A5AGU, 2, DLink.Service, common.EventLog
+[WUA2340_DEV.ndi.NT.CoInstallers]
+AddReg=CoInstallers_AddReg
+CopyFiles=CoInstallers_CopyFiles
+
+[DAG122_DEV.ndi.NT.Services]
+AddService      = A5AGU, 2, DLink.Service, common.EventLog
+[DAG122_DEV.ndi.NT.CoInstallers]
+AddReg=CoInstallers_AddReg
+CopyFiles=CoInstallers_CopyFiles
+
+[ITG132_DEV.ndi.NT.Services]
+AddService      = A5AGU, 2, DLink.Service, common.EventLog
+[ITG132_DEV.ndi.NT.CoInstallers]
+AddReg=CoInstallers_AddReg
+CopyFiles=CoInstallers_CopyFiles
+
+[DWA120_DEV.ndi.NT.Services]
+AddService      = A5AGU, 2, DLink.Service, common.EventLog
+[DWA120_DEV.ndi.NT.CoInstallers]
+AddReg=CoInstallers_AddReg
+CopyFiles=CoInstallers_CopyFiles
+
+[CoInstallers_AddReg]
+HKR,,CoInstallers32,0x00010000,"DWLInst.dll,DWLInst"
+
+
+;----------------------------------------------------------------------------
+; Win9x id registry sections
+; These are not needed by NT
+
+[DAG132_DEV.id.reg]
+HKR, Ndi, DeviceID, 0, "USB\VID_2001&PID_3A01"
+
+[DG132C_DEV.id.reg]
+HKR, Ndi, DeviceID, 0, "USB\VID_2001&PID_3A03"
+
+[WUA2340_DEV.id.reg]
+HKR, Ndi, DeviceID, 0, "USB\VID_07D1&PID_3A08"
+
+[DAG122_DEV.id.reg]
+HKR, Ndi, DeviceID, 0, "USB\VID_2001&PID_3A05"
+
+[ITG132_DEV.id.reg]
+HKR, Ndi, DeviceID, 0, "USB\VID_07D1&PID_3A0B"
+
+[DWA120_DEV.id.reg]
+HKR, Ndi, DeviceID, 0, "USB\VID_07D1&PID_3A0D"
+
+;
+; 5523 Enumerated Types
+;
+[5523.abg.reg]
+HKR, ,                                  NetBand,                        0x00002,  "31"
+HKR, ,                                  AdHocBand,                      0x00002,  "0"
+HKR, ,    		        	NicType,                        0x10003,  "2"
+HKR, ,					abolt,				0x00002,  "3"
+
+[5523.bg.reg]
+HKR, ,                                  NetBand,                        0x00002,  "28"
+HKR, ,                                  AdHocBand,                      0x00002,  "0"
+HKR, ,					NicType,                        0x10003,  "0"
+HKR, ,					abolt,				0x00002,  "3"
+
+[5523.nsabg.reg]
+HKR, ,                                  NetBand,                        0x00002,  "13"
+HKR, ,                                  AdHocBand,                      0x00002,  "0"
+HKR, ,    		        	NicType,                        0x10003,  "2"
+HKR, ,					abolt,				0x00002,  "0"
+
+;-----------------------------------------------------------------------------
+
+;
+; 5523 common
+;
+
+[5523.DelReg]
+HKR,,NetBand
+HKR,,ssid
+HKR,,ssid2
+HKR,,ssid3
+HKR,,prefBssid1
+HKR,,prefBssid2
+HKR,,prefBssid3
+HKR,,prefBssid4
+
+
+[5523.reg]
+HKR, ,					SSID,				0x00002,  "default"
+HKR, ,					AdHocChannel,			0x00002,  "2437"
+HKR, ,                                  RTSThreshold,                   0x00002,  "2346"
+HKR, ,                                  FragThreshold,                  0x00002,  "2346"
+
+HKR, Ndi\params\MapRegisters,           ParamDesc,                      0,  %MapRegisters%
+HKR, Ndi\params\MapRegisters,           default,                        0,  "256"
+HKR, Ndi\params\MapRegisters,           min,                            0,  "32"
+HKR, Ndi\params\MapRegisters,           max,                            0,  "512"
+HKR, Ndi\params\MapRegisters,           step,                           0,  "8"
+HKR, Ndi\params\MapRegisters,           base,                           0,  "10"
+HKR, Ndi\params\MapRegisters,           type,                           0,  "int"
+
+HKR, Ndi\params\NetworkAddress,         ParamDesc,                      0,  %NetworkAddress%
+HKR, Ndi\params\NetworkAddress,         default,                        0,  ""
+HKR, Ndi\params\NetworkAddress,         LimitText,                      0,  "12"
+HKR, Ndi\params\NetworkAddress,         UpperCase,                      0,  "1"
+HKR, Ndi\params\NetworkAddress,         optional,                       0,  "1"
+HKR, Ndi\params\NetworkAddress,         type,                           0,  "edit"
+
+HKR, Ndi\params\sleepMode,              ParamDesc,                      0,  %sleepMode%
+HKR, Ndi\params\sleepMode,              Base,                           0,  "10"
+HKR, Ndi\params\sleepMode,              default,                        0,  "0"
+HKR, Ndi\params\sleepMode,              type,                           0,  "enum"
+HKR, Ndi\params\sleepMode\enum,         "0",                            0,  %sleepModeOff%
+HKR, Ndi\params\sleepMode\enum,         "2",                            0,  %sleepModeNormal%
+HKR, Ndi\params\sleepMode\enum,         "1",                            0,  %sleepModeMax%
+
+HKR, Ndi\params\tpc,                    ParamDesc,                      0,  %tpc%
+HKR, Ndi\params\tpc,                    Base,                           0,  "10"
+HKR, Ndi\params\tpc,                    default,                        0,  "0"
+HKR, Ndi\params\tpc,                    type,                           0,  "enum"
+HKR, Ndi\params\tpc\enum,               "0",                            0,  %tpc100%
+HKR, Ndi\params\tpc\enum,               "1",                            0,  %tpc50%
+HKR, Ndi\params\tpc\enum,               "2",                            0,  %tpc25%
+HKR, Ndi\params\tpc\enum,               "3",                            0,  %tpc12%
+HKR, Ndi\params\tpc\enum,               "4",                            0,  %tpcLowest%
+
+HKR, Ndi\params\shortPreamble,          ParamDesc,                      0,  %shortPreamble%
+HKR, Ndi\params\shortPreamble,          Base,                           0,  "10"
+HKR, Ndi\params\shortPreamble,          default,                        0,  "1"
+HKR, Ndi\params\shortPreamble,          type,                           0,  "enum"
+HKR, Ndi\params\shortPreamble\enum,     "1",                            0,  %shortPreambleEnable%
+HKR, Ndi\params\shortPreamble\enum,     "0",                            0,  %shortPreambleDisable%
+
+HKR, Ndi\params\radioEnable,            ParamDesc,                      0,  %radioEnable%
+HKR, Ndi\params\radioEnable,            Base,                           0,  "10"
+HKR, Ndi\params\radioEnable,            default,                        0,  "1"
+HKR, Ndi\params\radioEnable,            type,                           0,  "enum"
+HKR, Ndi\params\radioEnable\enum,       "1",                            0,  %radioEnableOn%
+HKR, Ndi\params\radioEnable\enum,       "0",                            0,  %radioEnableOff%
+
+HKR, Ndi\params\authTypeUseOnly,        ParamDesc,                      0,  %authTypeUseOnly%
+HKR, Ndi\params\authTypeUseOnly,        Base,                           0,  "10"
+HKR, Ndi\params\authTypeUseOnly,        default,                        0,  "0"
+HKR, Ndi\params\authTypeUseOnly,        type,                           0,  "enum"
+HKR, Ndi\params\authTypeUseOnly\enum,   "0",                            0,  %authAuto%
+HKR, Ndi\params\authTypeUseOnly\enum,   "1",                            0,  %authOpen%
+HKR, Ndi\params\authTypeUseOnly\enum,   "2",                            0,  %authShared%
+
+HKR, ,					pciDetectEnable,		0x00002, "0"
+
+
+HKR, CustomParams\Configurations,       MajorVersion,                   0x10003,  2
+HKR, CustomParams\Configurations,       MinorVersion,                   0x10003,  0
+
+HKR, CustomParams\Configurations,       SelectedConfigurationIndex,     0x10003,  0
+HKR, CustomParams\Configurations,       SelectedConfigurationName,      0x00002,  "Default"
+
+; for specify wmm
+[TIWmm.reg]
+HKR, Ndi\params\eneConfigEnable,              ParamDesc,                      0,  %DSCP0_OFF%
+HKR, Ndi\params\eneConfigEnable,              Base,                           0,  "10"
+HKR, Ndi\params\eneConfigEnable,              default,                        0,  "0"
+HKR, Ndi\params\eneConfigEnable,              type,                           0,  "enum"
+HKR, Ndi\params\eneConfigEnable\enum,         "1",                            0,  %AC_BK%
+HKR, Ndi\params\eneConfigEnable\enum,         "0",                            0,  %AC_BE%
+
+; for new fcc checking
+[UpDom.reg]
+HKR, ,					eneConfigEnable,		0x00002, "0"
+
+
+
+
+; Allow non-admin users to switch profiles
+[5523.reg.security]
+"D:ARAI(A;;GA;;;BA)(A;;GA;;;SY)(A;CI;GA;;;IU)"
+
+;-----------------------------------------------------------------------------
+; D-Link NT specific
+;
+
+[DLink.reg]
+HKR, Ndi,             Service,      0, "A5AGU"
+HKR, Ndi\Interfaces,  UpperRange,   0, "ndis5"
+HKR, Ndi\Interfaces,  LowerRange,   0, "ethernet"
+
+[DLink.Service]
+DisplayName     = %DLink.Service.DispName%
+ServiceType     = 1 ;%SERVICE_KERNEL_DRIVER%
+StartType       = 3 ;%SERVICE_DEMAND_START%
+ErrorControl    = 1 ;%SERVICE_ERROR_NORMAL%
+ServiceBinary   = %12%\A5AGU.sys
+LoadOrderGroup  = NDIS
+
+;-----------------------------------------------------------------------------
+; D-Link NT/XP common
+;
+[common.EventLog]
+AddReg = common.AddEventLog.reg
+
+[common.AddEventLog.reg]
+HKR, ,                  EventMessageFile,   0x00020000,   "%%SystemRoot%%\System32\netevent.dll"
+HKR, ,                  TypesSupported,     0x00010001,   7
+
+;----------------------------------------------------------------------------
+; D-Link Win9x specific
+;
+[DLink.win.reg]
+HKR, ,                  DevLoader,          0,            "*ndis"
+HKR, ,                  DeviceVxDs,         0,            "A5AGU9x.sys"
+HKR, ,                  EnumPropPages,      0,            "netdi.dll,EnumPropPages"
+
+HKR, Ndi\Interfaces,    DefUpper,           0,            "ndis3"
+HKR, Ndi\Interfaces,    DefLower,           0,            "ethernet"
+HKR, Ndi\Interfaces,    UpperRange,         0,            "ndis3"
+HKR, Ndi\Interfaces,    LowerRange,         0,            "ethernet"
+
+
+HKR, NDIS,              LogDriverName,      0,            "A5AGU9x"
+HKR, NDIS,              MajorNdisVersion,   1,            03
+HKR, NDIS,              MinorNdisVersion,   1,            0A
+
+HKR, Ndi\Install,       ndis3,              0,            "DLink.install"
+
+;----------------------------------------------------------------------------
+; Win9x Files to Copy
+[DLink.win.CopyFiles]
+A5AGU9x.sys,,,2
+
+;----------------------------------------------------------------------------
+; NT Files to Copy
+[DLink.CopyFiles.nt]
+A5AGU.sys,,,2
+ar5523.bin,,,2
+
+[CoInstallers_CopyFiles]
+DWLInst.dll
+
+[DLink.DelIniFiles]
+Athnic.ini,,,1
+
+[SourceDisksNames]
+;
+; diskid = description[, [tagfile] [, <unused>, subdir]]
+;
+1 = %DLink_Disk%,,,
+
+;----------------------------------------------------------------------------
+; Source Files
+[SourceDisksFiles]
+A5AGU9x.sys                  = 1,, ; on distribution disk 1
+A5AGU.sys                    = 1,, ; on distribution disk 1
+ar5523.bin                   = 1,, ; on distribution disk 1
+DWLInst.dll                  = 1,, ; on distribution disk 1
+
+[DestinationDirs]
+DLink.CopyFiles.nt           = 12
+DLink.win.CopyFiles          = 10,system32\drivers ; %SystemRoot%\system32\drivers
+DLink.DelIniFiles            = 10,system32\drivers ; %SystemRoot%\system32\drivers
+DefaultDestDir               = 11
+
+[DEFAULTDESTDIRS]
+;
+
+
+[Strings]
+DLink                        = "D-Link"
+authTypeUseOnly              = "802.11 Authentication Type"
+authAuto                     = "Auto"
+authOpen                     = "Open"
+authShared                   = "Shared"
+MapRegisters                 = "Map Registers"
+NetworkAddress               = "Network Address"
+sleepMode                    = "Power Save Mode"
+sleepModeOff                 = "Off"
+sleepModeNormal              = "Normal"
+sleepModeMax                 = "Maximum"
+tpc                          = "Transmit Power"
+tpcLowest                    = "Lowest"
+tpc12                        = "12.5%"
+tpc25                        = "25%"
+tpc50                        = "50%"
+tpc100                       = "100%"
+shortPreamble                = "802.11b Preamble"
+shortPreambleEnable          = "Long and Short"
+shortPreambleDisable         = "Long only"
+radioEnable                  = "Radio On/Off"
+radioEnableOn                = "On"
+radioEnableOff               = "Off"
+
+DSCP0_OFF		     = "DSCP0"
+AC_BK			     = "AC_BK"
+AC_BE			     = "AC_BE"
+
+DLink_Disk                   = "D-Link Wireless Driver Disk"
+DLink.Service.DispName       = "D-Link USB Wireless Network Adapter Service"
+DWLAG132        = "D-Link AirPremier DWL-AG132 Wireless USB Adapter(rev.B)"
+DWLG132C        = "D-Link AirPlus Xtreme G DWL-G132 Wireless USB Adapter(rev.A)"
+DWLAG122	= "D-Link AirPlus AG DWL-AG122 Wireless USB Adapter(rev.A)"
+WUA2340 	= "D-Link WUA-2340 USB Adapter"
+ALICEG132	= "Alice G-132"
+DWA120        = "D-Link Wireless 108G DWA-120 USB Adapter"

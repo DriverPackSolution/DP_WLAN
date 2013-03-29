@@ -1,0 +1,90 @@
+;-------------------------------------------------------------------------
+; WBSECDRV.INF -- Windows 2000 Install file for wbsecdrv Protocol Driver
+;
+; Copyright (c) 2001
+;-------------------------------------------------------------------------
+[version]
+Signature   = "$Windows NT$"
+Class       = NetTrans
+ClassGUID   = {4d36e975-e325-11ce-bfc1-08002be10318}
+Provider    = %Winbond%
+DriverVer   = 04/19/2005,1.0.9.1000
+
+[Manufacturer]
+%Winbond%=COMPANY
+
+[COMPANY]
+%WBSECDRV_Desc%=Install, COMPANY_WBSECDRV
+
+;-------------------------------------------------------------------------
+; Installation Section
+;-------------------------------------------------------------------------
+[Install]
+AddReg=Inst_Ndi
+Characteristics=0 ; Has no characterstic
+CopyFiles=CpyFiles_Sys
+
+;-------------------------------------------------------------------------
+; Ndi installation support. 
+;-------------------------------------------------------------------------
+[Inst_Ndi]
+HKR,Ndi,Service,,"wbsecdrv"
+HKR,Ndi,HelpText,,%WBSECDRV_HelpText%
+HKR, Ndi\Interfaces, UpperRange,, noupper
+HKR,"Ndi\Interfaces","LowerRange",,"ndis5,ndis4"
+
+
+;-------------------------------------------------------------------------
+; Service installation support
+;-------------------------------------------------------------------------
+[Install.Services]
+AddService=wbsecdrv,,WBSECDRV_Service_Inst
+
+[wbsecdrv_Service_Inst]
+DisplayName     = %WBSECDRV_Desc%
+ServiceType     = 1 ;SERVICE_KERNEL_DRIVER
+; StartType       = 2 ;SERVICE_AUTO_START
+StartType       = 1 ;SERVICE_SYSTEM_START
+ErrorControl    = 1 ;SERVICE_ERROR_NORMAL
+ServiceBinary   = %12%\wbsecdrv.sys
+LoadOrderGroup  = NDIS
+; AddReg          = AddReg_WBSECDRV_Service_Inst
+Description     = %WBSECDRV_Desc%
+
+[AddReg_WBSECDRV_Service_Inst]
+;HKLM,"System\CurrentControlSet\Services\wbsecdrv","TextModeFlags",%REG_DWORD%,0x0001
+;HKR,"Parameters","Test",,"Hello"
+
+;-------------------------------------------------------------------------
+; Support for removal of static registry settings
+;-------------------------------------------------------------------------
+[Install.Remove]
+DelReg=Del_Static_Reg
+
+[Install.Remove.Services]
+DelService=wbsecdrv
+
+[Del_Static_Reg]
+;HKLM,"System\CurrentControlSet\Services\wbsecdrv","TextModeFlags"
+
+;-------------------------------------------------------------------------
+; Declare Destination Directories for file copy/deletion
+;-------------------------------------------------------------------------
+[DestinationDirs]
+CpyFiles_Sys    = 12    ; DIRID_DRIVERS
+
+
+;-------------------------------------------------------------------------
+; Files to Copy/Delete - Referenced by Install and Remove sections above
+;-------------------------------------------------------------------------
+[CpyFiles_Sys]
+wbsecdrv.sys,,,2
+
+[Strings]
+Winbond = "Winbond"
+WBSECDRV_Desc = "wbsecdrv Protocol Driver"
+WBSECDRV_HelpText = "fill wbsecdrv Protocol Driver help text here"
+REG_DWORD = 0x10001
+
+
+

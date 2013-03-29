@@ -1,0 +1,98 @@
+; Qualcomm Wireless Network Device
+; Copyright (c) 2010 Qualcomm Inc.  All rights reserved.
+
+[version]
+Signature   = "$Windows NT$"
+Class       = Net
+ClassGUID   = {4d36e972-e325-11ce-bfc1-08002be10318}
+Provider    = %QCOM%
+DriverVer   = 06/03/2010,3.0.2.3
+Catalogfile = qcusbnethp2k.cat
+
+[ControlFlags]
+ExcludeFromSelect = *
+
+[SourceDisksNames]
+1000 = %QcomSrcDisk%,"",,
+
+[SourceDisksFiles]
+qcusbnethp2k.sys = 1000
+
+[Manufacturer]
+%QCOM% = QCOM, NTamd64
+
+[QCOM]
+%qcwwan.DeviceDesc251D0%    = qcwwan.ndi, USB\VID_03F0&PID_251D&MI_00
+
+[QCOM.NTamd64]
+%qcwwan.DeviceDesc251D0%    = qcwwan.ndi, USB\VID_03F0&PID_251D&MI_00
+
+[qcwwan.ndi]
+Characteristics    = 0x4                      ; NCF_PHYSICAL
+BusType            = 15                       ; PNPBus
+*IfType            = 244                      ; IF_TYPE_WWANPP2 
+*MediaType         = 9                        ; NdisMediumWirelessWan 
+*PhysicalMediaType = 8                        ; NdisPhysicalMediumWirelessWan 
+EnableDhcp         = 0
+AddReg             = qcwwan.Reg
+CopyFiles          = qcwwan.CopyFiles
+
+[qcwwan.ndi.Services]
+AddService      = qcusbnethp2k, 2, qcwwan.Service, qcwwan.EventLog
+
+;-----------------------------------------------------------------------------
+; Virtual Miniport Common
+[qcwwan.Reg]
+HKR,    ,                         BusNumber,           0, "0" 
+HKR, Ndi,                         Service,             0, "qcusbnethp2k"
+
+;-----------------------------------------------------------------------------
+;Entries to be put in add-registry-section for NdisMediumWirelessWan 
+HKR, Ndi\Interfaces, UpperRange, 0, "flpp4"
+HKR, Ndi\Interfaces, LowerRange, 0, "ppip"
+
+;-----------------------------------------------------------------------------
+;Number of clients support
+HKR,    ,                         MPNumClients,           0x00010001, 48
+
+;-----------------------------------------------------------------------------
+;Model ID
+HKR,    ,                         MPModelId,              0x00000000, "HP un2420 MB Module"
+
+[qcwwan.CopyFiles]
+qcusbnethp2k.sys,,,2
+
+[qcwwan.Service]
+DisplayName     = %qcwwan.Service.DispName%
+ServiceType     = 1 ;%SERVICE_KERNEL_DRIVER%
+StartType       = 3 ;%SERVICE_DEMAND_START%
+ErrorControl    = 1 ;%SERVICE_ERROR_NORMAL%
+ServiceBinary   = %12%\qcusbnethp2k.sys
+LoadOrderGroup  = NDIS
+AddReg          = TextModeFlags.Reg
+
+[qcwwan.EventLog]
+AddReg = qcwwan.AddEventLog.Reg
+
+[qcwwan.AddEventLog.Reg]
+HKR, , EventMessageFile, 0x00020000, "%%SystemRoot%%\System32\netevent.dll"
+HKR, , TypesSupported,   0x00010001, 7
+
+[TextModeFlags.Reg]
+HKR, , TextModeFlags,    0x00010001, 0x0001
+
+[SourceDisksNames]
+1 = %DiskId1%,,,""
+
+[SourceDisksFiles]
+qcusbnethp2k.sys  = 1,,
+
+[DestinationDirs]
+qcwwan.CopyFiles = 12
+
+[Strings]
+QcomSrcDisk             = "Qualcomm USB Driver Disk"
+QCOM                    = "Qualcomm Incorporated" 
+qcwwan.DeviceDesc251D0  = "HP un2420 Mobile Broadband Module Network Device"
+qcwwan.Service.DispName = "Gobi 2000 USB-NDIS miniport(03F0-251D)"
+DiskId1                 = "Qualcomm USB-NDIS Miniport Device Installation Disk #1"

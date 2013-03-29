@@ -1,0 +1,5 @@
+2010/06/23 WHQL'd driver v5.100.249.2 BCM_Ori_Installer for Windows7 x32/x64.This driver version passed MSFT OEM Ready Logo Test.(Ready for Digital Signature)
+Support BCM 4315(T77H030/T77H106) & BCM 4357(T77H103).
+Silent installation: This command: setup /s or double click "SilentInstall.bat".
+
+1.Only update BCM Win7 x64 driver SYS/DLL files for Non-WHQL issue if user update driver manually.

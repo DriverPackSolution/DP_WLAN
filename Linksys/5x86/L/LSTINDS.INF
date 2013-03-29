@@ -1,0 +1,279 @@
+;****************************************************************************************
+;
+;    FILE:
+;            LSTINDS.inf
+;
+;    DESCRIPTION:
+;            Wireless-G Notebook Adapter inf file.
+;            Copyright (C) 2004, Linksys, All rights reserved.
+;
+;*******************************************************************************************
+
+
+[Version]
+CatalogFile=LSTINDS.cat
+Signature = "$Windows NT$"
+Provider  = %TI%
+Class     = Net
+ClassGUID={4d36e972-e325-11ce-bfc1-08002be10318}
+DriverVer=03/10/2004,6.0.0.18
+
+[Manufacturer]
+%TI% = TexasInstruments,NT.5.1
+
+; pnp cards should be excluded from select
+[ControlFlags]
+ExcludeFromSelect = PCI\VEN_104C&DEV_9066&SUBSYS_00331737
+
+;For WinXP
+[TexasInstruments.NT.5.1]
+%TIACX.DeviceDesc% = TIACXXP, PCI\VEN_104C&DEV_9066&SUBSYS_00331737	; B & G
+
+; For Win98,ME,2K
+[TexasInstruments]
+%TIACX.DeviceDesc% = TIACX, PCI\VEN_104C&DEV_9066&SUBSYS_00331737	; B & G
+
+;~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+;~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~   Windows XP   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+;~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+;******************************   Windows XP B & G ******************************
+[TIACXXP]
+BusType         = 5
+AddReg          =TIACXXP.ndi.reg.NT, TI.Param.Reg, BG.Param.Reg, WXP.Param.Reg
+Characteristics = 0x84
+CopyFiles       =TIACXXP.CopyFiles
+
+[TIACXXP.ndi.reg.NT]
+HKR, Ndi,               Service,    0,  "TNET1130x"
+HKR, Ndi\Interfaces,    LowerRange, 0,  "ethernet"
+HKR, Ndi\Interfaces,    UpperRange, 0,  "ndis5"
+
+[TIACXXP.Services]
+AddService = TNET1130x, 2, TIACXLNXP.Service, TIACXLNXP.EventLog
+
+[TIACXXP.CopyFiles]
+FwRad16.bin
+FwRad17.bin
+TNET1130x.sys
+
+;******************************   Windows XP Common A & B & G **************************
+
+[TIACXLNXP.Service]
+DisplayName     = %TIACXLN.Service.DispName%
+ServiceType     = 1 ;%SERVICE_KERNEL_DRIVER%
+StartType       = 3 ;%SERVICE_DEMAND_START%
+ErrorControl    = 1 ;%SERVICE_ERROR_NORMAL%
+ServiceBinary   = %12%\tnet1130x.sys
+LoadOrderGroup  = NDIS
+
+[TIACXLNXP.EventLog]
+AddReg = TIACXLNXP.AddEventLog.reg
+
+[TIACXLNXP.AddEventLog.reg]
+HKR, , EventMessageFile, 0x00020000, "%%SystemRoot%%\System32\netevent.dll"
+HKR, , TypesSupported,   0x00010001, 7
+
+[WXP.Param.Reg]
+HKR, ,PrivacyMode,, "2"
+HKR, ,utlPrivacyMode,, "0"
+HKR, ,utlAuthenticationMode,, "0"
+
+
+;~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+;~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~   End of Windows XP   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+;~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+;~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~   Windows 2k/ME   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+;~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+;******************************   Windows 2k/ME   B & G   ******************************
+[TIACX.NT]
+BusType         = 5
+AddReg          =TIACX.ndi.reg.NT, TI.Param.Reg, BG.Param.Reg, W2K.Param.Reg
+Characteristics = 0x84
+CopyFiles       =TIACX.CopyFiles.NT, TIACX.BinFiles.NT
+
+[TIACX.ndi.reg.NT]
+HKR, Ndi,               Service,    0,  "TNET1130"
+HKR, Ndi\Interfaces,    LowerRange, 0,  "ethernet"
+HKR, Ndi\Interfaces,    UpperRange, 0,  "ndis5"
+
+[TIACX.NT.Services]
+AddService = TNET1130, 2, TIACXLN.Service, TIACXLN.EventLog
+
+[TIACX.CopyFiles.NT]
+FwRad16.bin
+FwRad17.bin
+TNET1130.sys
+
+;
+; Copy tiacxsn.bin to system directory for ME
+;
+[TIACX.BinFiles.NT]
+FwRad16.bin
+FwRad17.bin
+
+;******************************   Windows 2K/ME Common A & B & G **************************
+
+[TIACXLN.Service]
+DisplayName     = %TIACXLN.Service.DispName%
+ServiceType     = 1 ;%SERVICE_KERNEL_DRIVER%
+StartType       = 3 ;%SERVICE_DEMAND_START%
+ErrorControl    = 1 ;%SERVICE_ERROR_NORMAL%
+ServiceBinary   = %12%\tnet1130.sys
+LoadOrderGroup  = NDIS
+
+[TIACXLN.EventLog]
+AddReg = TIACXLN.AddEventLog.reg
+
+[TIACXLN.AddEventLog.reg]
+HKR, , EventMessageFile, 0x00020000, "%%SystemRoot%%\System32\netevent.dll"
+HKR, , TypesSupported,   0x00010001, 7
+
+[W2K.Param.Reg]
+HKR, ,PrivacyMode,, "2"
+HKR, ,utlPrivacyMode,, "0"
+HKR, ,utlAuthenticationMode,, "0"
+
+;~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+;~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~   End of Windows 2k/ME  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+;~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+;~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~   Windows 98   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+;~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+;*********************************   Windows 98 B & G  ********************************
+
+[TIACX]
+AddReg=TIACX.ndi.reg, TI.Param.Reg, TIACX.Install, BG.Param.Reg, W98.Param.Reg
+
+[TIACX.Copy]
+CopyFiles=TIACX.CopyFiles
+
+[TIACX.Install]
+HKR,Ndi\Install,,,"TIACX.Copy"
+HKR,Ndi\Remove,,,"TIACX.Remove"
+
+[TIACX.ndi.reg]
+HKR,Ndi,DeviceID,,"PCI\VEN_104C&DEV_9066"
+
+HKR,Ndi,HelpText,0,%WLANAdapterHelpText%
+
+; key,subkey,valuname,type,value
+HKR,,DevLoader,,*ndis
+HKR,,DeviceVxDs,,LSTINDS4.sys
+HKR,,EnumPropPages,,"netdi.dll,EnumPropPages"
+
+; NDIS Info
+HKR, NDIS, LogDriverName, , "LSTINDS4"
+HKR, NDIS, MajorNdisVersion, 1, 03
+HKR, NDIS, MinorNdisVersion, 1, 0A
+HKR,Ndi\Interfaces,DefLower,,"ethernet"
+HKR,Ndi\Interfaces,LowerRange,,"ethernet"
+HKR,Ndi\Interfaces,DefUpper,,"ndis3,ndis4,ndis5"
+HKR,Ndi\Interfaces,UpperRange,,"ndis3,ndis4,ndis5"
+
+
+[TIACX.CopyFiles]
+FwRad16.bin
+FwRad17.bin
+LSTINDS4.sys
+
+
+[W98.Param.Reg]
+HKR, ,PrivacyMode,, "2"
+HKR, ,utlPrivacyMode,, "0"
+HKR, ,utlAuthenticationMode,, "0"
+
+
+;~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+;~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~   End of Windows  98   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+;~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+;***********************************   B & G All OSes ***********************************
+
+[BG.Param.Reg]
+HKR, ,dot11SupportedRateMask,, "8"
+HKR, ,dot11BasicRateMask,, "1"
+
+; Network Type
+HKR,NDI\params\dot11NetworkType,ParamDesc,, "Network Type"
+HKR,NDI\params\dot11NetworkType,type,,"enum"
+HKR,NDI\params\dot11NetworkType,default,,"3"
+HKR,NDI\params\dot11NetworkType\enum,"1",,"11b"
+HKR,NDI\params\dot11NetworkType\enum,"2",,"11a"
+HKR,NDI\params\dot11NetworkType\enum,"3",,"11g"
+HKR,NDI\params\dot11NetworkType\enum,"4",,"11a&g"
+
+HKR, ,dot11DesiredChannel, ,1
+
+
+;******************************  Common Registry Settings  ******************************
+
+[TI.Param.Reg]
+
+HKR, ,dot11DesiredBSSType,, "1"
+HKR, ,WiFiAdhoc,, "0"
+HKR, ,DisableSsidPending,, "1"
+
+
+HKR,NDI\params\dot11PowerMode,ParamDesc,,"Power Mode"
+HKR,NDI\params\dot11PowerMode,type,,"enum"
+HKR,NDI\params\dot11PowerMode,default,,"0"
+HKR,NDI\params\dot11PowerMode\enum,"0",,"Continuous Access Mode"
+HKR,NDI\params\dot11PowerMode\enum,"1",,"Maximum Power Save"
+;HKR,NDI\params\dot11PowerMode\enum,"2",,"Fast Power Save"
+
+; Fragmentation Threshold 
+HKR, Ndi\Params\dot11FragmentationThreshold, ParamDesc, ,"Fragmentation Threshold"
+HKR, Ndi\Params\dot11FragmentationThreshold, Type, , "int"
+HKR, Ndi\Params\dot11FragmentationThreshold, Default, , "4096"
+HKR, Ndi\Params\dot11FragmentationThreshold, Min, , "256"
+HKR, Ndi\Params\dot11FragmentationThreshold, Max, , "4096"
+HKR, Ndi\Params\dot11FragmentationThreshold, Step, , "1"
+HKR, Ndi\Params\dot11FragmentationThreshold, Base, , "10"
+
+; RTS Threshold 
+HKR, Ndi\Params\dot11RTSThreshold, ParamDesc, ,"RTS Threshold"
+HKR, Ndi\Params\dot11RTSThreshold, Type, , "int"
+HKR, Ndi\Params\dot11RTSThreshold, Default, , "4096"
+HKR, Ndi\Params\dot11RTSThreshold, Min, , "0"
+HKR, Ndi\Params\dot11RTSThreshold, Max, , "4096"
+HKR, Ndi\Params\dot11RTSThreshold, Step, , "1"
+HKR, Ndi\Params\dot11RTSThreshold, Base, , "10"
+
+HKR,NDI\params\Mode4x,ParamDesc,,"Mode4x"
+HKR,NDI\params\Mode4x,type,,"enum"
+HKR,NDI\params\Mode4x,default,,"1"
+HKR,NDI\params\Mode4x\enum,"0",,"Off"
+HKR,NDI\params\Mode4x\enum,"1",,"On"
+
+;******************************   Common Misc Settings ******************************
+
+[DestinationDirs]
+DefaultDestDir  =     12 ; Windows\System32\Drivers
+TIACXXP.CopyFiles =   12 ; Winnt\System32\Drivers Directory ; WinXP
+TIACXAGXP.CopyFiles = 12 ; Winnt\System32\Drivers Directory ; WinXP
+TIACX.CopyFiles =     11 ; Windows\System or Winnt\System32 Directory ; Win98/ME
+TIACX.BinFiles.NT =   10,system
+TIACXAG.CopyFiles =   11 ; Windows\System or Winnt\System32 Directory ; Win98/ME
+TIACXAG.BinFiles.NT = 10,system
+
+;TIACX.CopyFiles.NT = 12 ; Winnt\System32\Drivers Directory ; Win2k
+
+
+[SourceDisksNames]
+1 = %DiskName%,,
+
+[SourceDisksFiles]
+FwRad16.bin   = 1
+FwRad17.bin   = 1
+TNET1130x.sys  = 1
+TNET1130.sys  = 1
+LSTINDS4.sys  = 1
+
+[Strings]
+TI="Linksys"
+TIACX.DeviceDesc = "Wireless-G Notebook Adapter v.2.0"
+TIACXLN.Service.DispName  = "Wireless-G Notebook Adapter v.2.0"
+WLANAdapterHelpText= "A WLAN Adapter provides high speed connection to the Internet through 802.11b technology"
+DiskName="Linksys Wireless-G Notebook Adapter Installation Disk"

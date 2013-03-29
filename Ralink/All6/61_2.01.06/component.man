@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<assembly xmlns="urn:schemas-microsoft-com:asm.v3" manifestVersion="1.0">
+  <assemblyIdentity name="netr61.inf" version="2.1.6.0" processorArchitecture="x86" language="neutral" publicKeyToken="F370745522ED9CB33272B7C735787F612C743719" type="driver" xmlns:cmiv3ns="urn:schemas-microsoft-com:asm.v3" cmiv3ns:date="07/17/2009" />
+  <file name="netr61.inf" sourceName="netr61.inf">
+    <infFile xmlns="urn:schemas-microsoft-com:asm.v3" />
+  </file>
+  <file name="netr61.cat" sourceName="">
+    <catalog xmlns="urn:schemas-microsoft-com:asm.v3" />
+  </file>
+  <file name="netr61.sys" destinationPath="$(runtime.drivers)\" sourceName="netr61.sys" />
+  <file name="RaCoInst.dll" destinationPath="$(runtime.system32)\" sourceName="RaCoInst.dll" />
+  <memberships>
+    <categoryMembership>
+      <id name="Microsoft.Windows.Categories.Services" version="1.0.0.0" typeName="Service" />
+      <categoryInstance subcategory="rt61x86">
+        <serviceData name="rt61x86" displayName="Ralink RT61 Wireless Driver for Windows Vista" errorControl="normal" group="NDIS" imagePath="\SystemRoot\system32\drivers\netr61.sys" start="demand" type="kernelDriver" />
+      </categoryInstance>
+    </categoryMembership>
+  </memberships>
+  <registryKeys>
+    <registryKey keyName="HKLM\System\CurrentControlSet\Services\EventLog\System\rt61x86" owner="false">
+      <registryValue name="EventMessageFile" valueType="REG_EXPAND_SZ" value="%SystemRoot%\System32\netevent.dll" operationHint="replace" owner="true" />
+      <registryValue name="TypesSupported" valueType="REG_DWORD" value="0x00000007" operationHint="replace" owner="true" />
+    </registryKey>
+  </registryKeys>
+  <pnpInfo xmlns="urn:schemas-microsoft-com:asm.v3" xmlns:p1="urn:schemas-microsoft-com:asm.v3" p1:isCriticalDevice="false" p1:classGuid="{4d36e972-e325-11ce-bfc1-08002be10318}">
+    <pnpID p1:pnpID="PCI\VEN_1814&amp;DEV_0301&amp;SUBSYS_25611814" p1:isOriginalID="true" p1:isCompatibleID="false" p1:serviceName="rt61x86" p1:lowerFilter="" p1:upperFilter="" />
+    <pnpID p1:pnpID="PCI\VEN_1814&amp;DEV_0302&amp;SUBSYS_25611814" p1:isOriginalID="true" p1:isCompatibleID="false" p1:serviceName="rt61x86" p1:lowerFilter="" p1:upperFilter="" />
+    <pnpID p1:pnpID="PCI\VEN_1814&amp;DEV_0401&amp;SUBSYS_26611814" p1:isOriginalID="true" p1:isCompatibleID="false" p1:serviceName="rt61x86" p1:lowerFilter="" p1:upperFilter="" />
+    <pnpID p1:pnpID="PCI\VEN_1814&amp;DEV_0301&amp;SUBSYS_B8331462" p1:isOriginalID="true" p1:isCompatibleID="false" p1:serviceName="rt61x86" p1:lowerFilter="" p1:upperFilter="" />
+    <pnpID p1:pnpID="PCI\VEN_1814&amp;DEV_0301&amp;SUBSYS_B8341462" p1:isOriginalID="true" p1:isCompatibleID="false" p1:serviceName="rt61x86" p1:lowerFilter="" p1:upperFilter="" />
+    <pnpID p1:pnpID="PCI\VEN_1814&amp;DEV_0301&amp;SUBSYS_B8351462" p1:isOriginalID="true" p1:isCompatibleID="false" p1:serviceName="rt61x86" p1:lowerFilter="" p1:upperFilter="" />
+    <pnpID p1:pnpID="PCI\VEN_1814&amp;DEV_0302&amp;SUBSYS_B8331462" p1:isOriginalID="true" p1:isCompatibleID="false" p1:serviceName="rt61x86" p1:lowerFilter="" p1:upperFilter="" />
+    <pnpID p1:pnpID="PCI\VEN_1814&amp;DEV_0302&amp;SUBSYS_B8341462" p1:isOriginalID="true" p1:isCompatibleID="false" p1:serviceName="rt61x86" p1:lowerFilter="" p1:upperFilter="" />
+    <pnpID p1:pnpID="PCI\VEN_1814&amp;DEV_0302&amp;SUBSYS_B8351462" p1:isOriginalID="true" p1:isCompatibleID="false" p1:serviceName="rt61x86" p1:lowerFilter="" p1:upperFilter="" />
+    <pnpID p1:pnpID="PCI\VEN_1814&amp;DEV_0302&amp;SUBSYS_C8551462" p1:isOriginalID="true" p1:isCompatibleID="false" p1:serviceName="rt61x86" p1:lowerFilter="" p1:upperFilter="" />
+    <pnpID p1:pnpID="PCI\VEN_1814&amp;DEV_0302&amp;SUBSYS_12A0185F" p1:isOriginalID="true" p1:isCompatibleID="false" p1:serviceName="rt61x86" p1:lowerFilter="" p1:upperFilter="" />
+    <pnpID p1:pnpID="PCI\VEN_1814&amp;DEV_0302&amp;SUBSYS_22A0185F" p1:isOriginalID="true" p1:isCompatibleID="false" p1:serviceName="rt61x86" p1:lowerFilter="" p1:upperFilter="" />
+    <pnpID p1:pnpID="PCI\VEN_1814&amp;DEV_0301&amp;SUBSYS_914216EF" p1:isOriginalID="true" p1:isCompatibleID="false" p1:serviceName="rt61x86" p1:lowerFilter="" p1:upperFilter="" />
+    <pnpID p1:pnpID="PCI\VEN_1814&amp;DEV_0301&amp;SUBSYS_922216EF" p1:isOriginalID="true" p1:isCompatibleID="false" p1:serviceName="rt61x86" p1:lowerFilter="" p1:upperFilter="" />
+    <pnpID p1:pnpID="PCI\VEN_1814&amp;DEV_0301&amp;SUBSYS_926216EF" p1:isOriginalID="true" p1:isCompatibleID="false" p1:serviceName="rt61x86" p1:lowerFilter="" p1:upperFilter="" />
+    <pnpID p1:pnpID="PCI\VEN_1814&amp;DEV_0302&amp;SUBSYS_914216EF" p1:isOriginalID="true" p1:isCompatibleID="false" p1:serviceName="rt61x86" p1:lowerFilter="" p1:upperFilter="" />
+    <pnpID p1:pnpID="PCI\VEN_1814&amp;DEV_0302&amp;SUBSYS_922116EF" p1:isOriginalID="true" p1:isCompatibleID="false" p1:serviceName="rt61x86" p1:lowerFilter="" p1:upperFilter="" />
+    <pnpID p1:pnpID="PCI\VEN_1814&amp;DEV_0302&amp;SUBSYS_926116EF" p1:isOriginalID="true" p1:isCompatibleID="false" p1:serviceName="rt61x86" p1:lowerFilter="" p1:upperFilter="" />
+    <pnpID p1:pnpID="PCI\VEN_1814&amp;DEV_0401&amp;SUBSYS_922316EF" p1:isOriginalID="true" p1:isCompatibleID="false" p1:serviceName="rt61x86" p1:lowerFilter="" p1:upperFilter="" />
+    <pnpID p1:pnpID="PCI\VEN_1814&amp;DEV_0302&amp;SUBSYS_00251371" p1:isOriginalID="true" p1:isCompatibleID="false" p1:serviceName="rt61x86" p1:lowerFilter="" p1:upperFilter="" />
+    <pnpID p1:pnpID="PCI\VEN_1814&amp;DEV_0302&amp;SUBSYS_00261371" p1:isOriginalID="true" p1:isCompatibleID="false" p1:serviceName="rt61x86" p1:lowerFilter="" p1:upperFilter="" />
+    <pnpID p1:pnpID="PCI\VEN_1814&amp;DEV_0302&amp;SUBSYS_00271371" p1:isOriginalID="true" p1:isCompatibleID="false" p1:serviceName="rt61x86" p1:lowerFilter="" p1:upperFilter="" />
+    <pnpID p1:pnpID="PCI\VEN_1814&amp;DEV_0302&amp;SUBSYS_619418E8" p1:isOriginalID="true" p1:isCompatibleID="false" p1:serviceName="rt61x86" p1:lowerFilter="" p1:upperFilter="" />
+    <pnpID p1:pnpID="PCI\VEN_1814&amp;DEV_0301&amp;SUBSYS_E8321458" p1:isOriginalID="true" p1:isCompatibleID="false" p1:serviceName="rt61x86" p1:lowerFilter="" p1:upperFilter="" />
+    <pnpID p1:pnpID="PCI\VEN_1814&amp;DEV_0301&amp;SUBSYS_E9331458" p1:isOriginalID="true" p1:isCompatibleID="false" p1:serviceName="rt61x86" p1:lowerFilter="" p1:upperFilter="" />
+    <pnpID p1:pnpID="PCI\VEN_1814&amp;DEV_0301&amp;SUBSYS_E9341458" p1:isOriginalID="true" p1:isCompatibleID="false" p1:serviceName="rt61x86" p1:lowerFilter="" p1:upperFilter="" />
+    <pnpID p1:pnpID="PCI\VEN_1814&amp;DEV_0302&amp;SUBSYS_E8321458" p1:isOriginalID="true" p1:isCompatibleID="false" p1:serviceName="rt61x86" p1:lowerFilter="" p1:upperFilter="" />
+    <pnpID p1:pnpID="PCI\VEN_1814&amp;DEV_0302&amp;SUBSYS_E9331458" p1:isOriginalID="true" p1:isCompatibleID="false" p1:serviceName="rt61x86" p1:lowerFilter="" p1:upperFilter="" />
+    <pnpID p1:pnpID="PCI\VEN_1814&amp;DEV_0302&amp;SUBSYS_E9341458" p1:isOriginalID="true" p1:isCompatibleID="false" p1:serviceName="rt61x86" p1:lowerFilter="" p1:upperFilter="" />
+    <pnpID p1:pnpID="PCI\VEN_1814&amp;DEV_0401&amp;SUBSYS_E9351458" p1:isOriginalID="true" p1:isCompatibleID="false" p1:serviceName="rt61x86" p1:lowerFilter="" p1:upperFilter="" />
+    <pnpID p1:pnpID="PCI\VEN_1814&amp;DEV_0401&amp;SUBSYS_E8331458" p1:isOriginalID="true" p1:isCompatibleID="false" p1:serviceName="rt61x86" p1:lowerFilter="" p1:upperFilter="" />
+    <pnpID p1:pnpID="PCI\VEN_1814&amp;DEV_0401&amp;SUBSYS_E9361458" p1:isOriginalID="true" p1:isCompatibleID="false" p1:serviceName="rt61x86" p1:lowerFilter="" p1:upperFilter="" />
+    <pnpID p1:pnpID="PCI\VEN_1814&amp;DEV_0301&amp;SUBSYS_71081432" p1:isOriginalID="true" p1:isCompatibleID="false" p1:serviceName="rt61x86" p1:lowerFilter="" p1:upperFilter="" />
+    <pnpID p1:pnpID="PCI\VEN_1814&amp;DEV_0301&amp;SUBSYS_71281432" p1:isOriginalID="true" p1:isCompatibleID="false" p1:serviceName="rt61x86" p1:lowerFilter="" p1:upperFilter="" />
+    <pnpID p1:pnpID="PCI\VEN_1814&amp;DEV_0302&amp;SUBSYS_71081432" p1:isOriginalID="true" p1:isCompatibleID="false" p1:serviceName="rt61x86" p1:lowerFilter="" p1:upperFilter="" />
+    <pnpID p1:pnpID="PCI\VEN_1814&amp;DEV_0302&amp;SUBSYS_71281432" p1:isOriginalID="true" p1:isCompatibleID="false" p1:serviceName="rt61x86" p1:lowerFilter="" p1:upperFilter="" />
+    <pnpID p1:pnpID="PCI\VEN_1814&amp;DEV_0401&amp;SUBSYS_76081432" p1:isOriginalID="true" p1:isCompatibleID="false" p1:serviceName="rt61x86" p1:lowerFilter="" p1:upperFilter="" />
+    <pnpID p1:pnpID="PCI\VEN_1814&amp;DEV_0401&amp;SUBSYS_76281432" p1:isOriginalID="true" p1:isCompatibleID="false" p1:serviceName="rt61x86" p1:lowerFilter="" p1:upperFilter="" />
+    <pnpID p1:pnpID="PCI\VEN_1814&amp;DEV_0301&amp;SUBSYS_9072182D" p1:isOriginalID="true" p1:isCompatibleID="false" p1:serviceName="rt61x86" p1:lowerFilter="" p1:upperFilter="" />
+    <pnpID p1:pnpID="PCI\VEN_1814&amp;DEV_0301&amp;SUBSYS_9074182D" p1:isOriginalID="true" p1:isCompatibleID="false" p1:serviceName="rt61x86" p1:lowerFilter="" p1:upperFilter="" />
+    <pnpID p1:pnpID="PCI\VEN_1814&amp;DEV_0301&amp;SUBSYS_90AA182D" p1:isOriginalID="true" p1:isCompatibleID="false" p1:serviceName="rt61x86" p1:lowerFilter="" p1:upperFilter="" />
+    <pnpID p1:pnpID="PCI\VEN_1814&amp;DEV_0301&amp;SUBSYS_90AB182D" p1:isOriginalID="true" p1:isCompatibleID="false" p1:serviceName="rt61x86" p1:lowerFilter="" p1:upperFilter="" />
+    <pnpID p1:pnpID="PCI\VEN_1814&amp;DEV_0301&amp;SUBSYS_0025182D" p1:isOriginalID="true" p1:isCompatibleID="false" p1:serviceName="rt61x86" p1:lowerFilter="" p1:upperFilter="" />
+    <pnpID p1:pnpID="PCI\VEN_1814&amp;DEV_0301&amp;SUBSYS_0026182D" p1:isOriginalID="true" p1:isCompatibleID="false" p1:serviceName="rt61x86" p1:lowerFilter="" p1:upperFilter="" />
+    <pnpID p1:pnpID="PCI\VEN_1814&amp;DEV_0401&amp;SUBSYS_9096182D" p1:isOriginalID="true" p1:isCompatibleID="false" p1:serviceName="rt61x86" p1:lowerFilter="" p1:upperFilter="" />
+    <pnpID p1:pnpID="PCI\VEN_1814&amp;DEV_0401&amp;SUBSYS_9097182D" p1:isOriginalID="true" p1:isCompatibleID="false" p1:serviceName="rt61x86" p1:lowerFilter="" p1:upperFilter="" />
+    <pnpID p1:pnpID="PCI\VEN_1814&amp;DEV_0301&amp;SUBSYS_701C4033" p1:isOriginalID="true" p1:isCompatibleID="false" p1:serviceName="rt61x86" p1:lowerFilter="" p1:upperFilter="" />
+    <pnpID p1:pnpID="PCI\VEN_1814&amp;DEV_0301&amp;SUBSYS_701B4033" p1:isOriginalID="true" p1:isCompatibleID="false" p1:serviceName="rt61x86" p1:lowerFilter="" p1:upperFilter="" />
+    <pnpID p1:pnpID="PCI\VEN_1814&amp;DEV_0302&amp;SUBSYS_0C541432" p1:isOriginalID="true" p1:isCompatibleID="false" p1:serviceName="rt61x86" p1:lowerFilter="" p1:upperFilter="" />
+    <pnpID p1:pnpID="PCI\VEN_1814&amp;DEV_0302&amp;SUBSYS_0B541432" p1:isOriginalID="true" p1:isCompatibleID="false" p1:serviceName="rt61x86" p1:lowerFilter="" p1:upperFilter="" />
+    <pnpID p1:pnpID="PCI\VEN_1814&amp;DEV_0302&amp;SUBSYS_020514CB" p1:isOriginalID="true" p1:isCompatibleID="false" p1:serviceName="rt61x86" p1:lowerFilter="" p1:upperFilter="" />
+    <pnpID p1:pnpID="PCI\VEN_1814&amp;DEV_0302&amp;SUBSYS_020614CB" p1:isOriginalID="true" p1:isCompatibleID="false" p1:serviceName="rt61x86" p1:lowerFilter="" p1:upperFilter="" />
+    <pnpID p1:pnpID="PCI\VEN_1814&amp;DEV_0301&amp;SUBSYS_837E1043" p1:isOriginalID="true" p1:isCompatibleID="false" p1:serviceName="rt61x86" p1:lowerFilter="" p1:upperFilter="" />
+    <pnpID p1:pnpID="PCI\VEN_1814&amp;DEV_0302&amp;SUBSYS_107F1043" p1:isOriginalID="true" p1:isCompatibleID="false" p1:serviceName="rt61x86" p1:lowerFilter="" p1:upperFilter="" />
+    <pnpID p1:pnpID="PCI\VEN_1814&amp;DEV_0302&amp;SUBSYS_127F1043" p1:isOriginalID="true" p1:isCompatibleID="false" p1:serviceName="rt61x86" p1:lowerFilter="" p1:upperFilter="" />
+    <pnpID p1:pnpID="PCI\VEN_1814&amp;DEV_0302&amp;SUBSYS_130F1043" p1:isOriginalID="true" p1:isCompatibleID="false" p1:serviceName="rt61x86" p1:lowerFilter="" p1:upperFilter="" />
+    <pnpID p1:pnpID="PCI\VEN_1814&amp;DEV_0302&amp;SUBSYS_137F1043" p1:isOriginalID="true" p1:isCompatibleID="false" p1:serviceName="rt61x86" p1:lowerFilter="" p1:upperFilter="" />
+    <pnpID p1:pnpID="PCI\VEN_1814&amp;DEV_0302&amp;SUBSYS_137E1043" p1:isOriginalID="true" p1:isCompatibleID="false" p1:serviceName="rt61x86" p1:lowerFilter="" p1:upperFilter="" />
+    <pnpID p1:pnpID="PCI\VEN_1814&amp;DEV_0302&amp;SUBSYS_03615A57" p1:isOriginalID="true" p1:isCompatibleID="false" p1:serviceName="rt61x86" p1:lowerFilter="" p1:upperFilter="" />
+    <pnpID p1:pnpID="PCI\VEN_1814&amp;DEV_0302&amp;SUBSYS_03605A57" p1:isOriginalID="true" p1:isCompatibleID="false" p1:serviceName="rt61x86" p1:lowerFilter="" p1:upperFilter="" />
+    <pnpID p1:pnpID="PCI\VEN_1814&amp;DEV_0302&amp;SUBSYS_01605A57" p1:isOriginalID="true" p1:isCompatibleID="false" p1:serviceName="rt61x86" p1:lowerFilter="" p1:upperFilter="" />
+    <pnpID p1:pnpID="PCI\VEN_1814&amp;DEV_0302&amp;SUBSYS_300918A3" p1:isOriginalID="true" p1:isCompatibleID="false" p1:serviceName="rt61x86" p1:lowerFilter="" p1:upperFilter="" />
+    <pnpID p1:pnpID="PCI\VEN_1814&amp;DEV_0302&amp;SUBSYS_301018A3" p1:isOriginalID="true" p1:isCompatibleID="false" p1:serviceName="rt61x86" p1:lowerFilter="" p1:upperFilter="" />
+    <pnpID p1:pnpID="PCI\VEN_1814&amp;DEV_0302&amp;SUBSYS_531018EB" p1:isOriginalID="true" p1:isCompatibleID="false" p1:serviceName="rt61x86" p1:lowerFilter="" p1:upperFilter="" />
+    <pnpID p1:pnpID="PCI\VEN_1814&amp;DEV_0302&amp;SUBSYS_531118EB" p1:isOriginalID="true" p1:isCompatibleID="false" p1:serviceName="rt61x86" p1:lowerFilter="" p1:upperFilter="" />
+    <pnpID p1:pnpID="PCI\VEN_1814&amp;DEV_0302&amp;SUBSYS_531218EB" p1:isOriginalID="true" p1:isCompatibleID="false" p1:serviceName="rt61x86" p1:lowerFilter="" p1:upperFilter="" />
+    <pnpID p1:pnpID="PCI\VEN_1814&amp;DEV_0401&amp;SUBSYS_010018EB" p1:isOriginalID="true" p1:isCompatibleID="false" p1:serviceName="rt61x86" p1:lowerFilter="" p1:upperFilter="" />
+    <pnpID p1:pnpID="PCI\VEN_1814&amp;DEV_0401&amp;SUBSYS_020018EB" p1:isOriginalID="true" p1:isCompatibleID="false" p1:serviceName="rt61x86" p1:lowerFilter="" p1:upperFilter="" />
+    <pnpID p1:pnpID="PCI\VEN_1814&amp;DEV_0401&amp;SUBSYS_030018EB" p1:isOriginalID="true" p1:isCompatibleID="false" p1:serviceName="rt61x86" p1:lowerFilter="" p1:upperFilter="" />
+    <pnpID p1:pnpID="PCI\VEN_1814&amp;DEV_0401&amp;SUBSYS_020218EB" p1:isOriginalID="true" p1:isCompatibleID="false" p1:serviceName="rt61x86" p1:lowerFilter="" p1:upperFilter="" />
+    <pnpID p1:pnpID="PCI\VEN_1814&amp;DEV_0401&amp;SUBSYS_030218EB" p1:isOriginalID="true" p1:isCompatibleID="false" p1:serviceName="rt61x86" p1:lowerFilter="" p1:upperFilter="" />
+    <pnpID p1:pnpID="PCI\VEN_1814&amp;DEV_0401&amp;SUBSYS_020318EB" p1:isOriginalID="true" p1:isCompatibleID="false" p1:serviceName="rt61x86" p1:lowerFilter="" p1:upperFilter="" />
+    <pnpID p1:pnpID="PCI\VEN_1814&amp;DEV_0401&amp;SUBSYS_030318EB" p1:isOriginalID="true" p1:isCompatibleID="false" p1:serviceName="rt61x86" p1:lowerFilter="" p1:upperFilter="" />
+    <pnpID p1:pnpID="PCI\VEN_1814&amp;DEV_0401&amp;SUBSYS_020418EB" p1:isOriginalID="true" p1:isCompatibleID="false" p1:serviceName="rt61x86" p1:lowerFilter="" p1:upperFilter="" />
+    <pnpID p1:pnpID="PCI\VEN_1814&amp;DEV_0401&amp;SUBSYS_030418EB" p1:isOriginalID="true" p1:isCompatibleID="false" p1:serviceName="rt61x86" p1:lowerFilter="" p1:upperFilter="" />
+    <pnpID p1:pnpID="PCI\VEN_1814&amp;DEV_0401&amp;SUBSYS_C11E1259" p1:isOriginalID="true" p1:isCompatibleID="false" p1:serviceName="rt61x86" p1:lowerFilter="" p1:upperFilter="" />
+    <pnpID p1:pnpID="PCI\VEN_1814&amp;DEV_0401&amp;SUBSYS_000618C5" p1:isOriginalID="true" p1:isCompatibleID="false" p1:serviceName="rt61x86" p1:lowerFilter="" p1:upperFilter="" />
+    <pnpID p1:pnpID="PCI\VEN_1814&amp;DEV_0302&amp;SUBSYS_12801688" p1:isOriginalID="true" p1:isCompatibleID="false" p1:serviceName="rt61x86" p1:lowerFilter="" p1:upperFilter="" />
+    <pnpID p1:pnpID="PCI\VEN_1814&amp;DEV_0302&amp;SUBSYS_43061113" p1:isOriginalID="true" p1:isCompatibleID="false" p1:serviceName="rt61x86" p1:lowerFilter="" p1:upperFilter="" />
+    <pnpID p1:pnpID="PCI\VEN_1814&amp;DEV_0302&amp;SUBSYS_13F310BD" p1:isOriginalID="true" p1:isCompatibleID="false" p1:serviceName="rt61x86" p1:lowerFilter="" p1:upperFilter="" />
+    <pnpID p1:pnpID="PCI\VEN_1814&amp;DEV_0302&amp;SUBSYS_14F310BD" p1:isOriginalID="true" p1:isCompatibleID="false" p1:serviceName="rt61x86" p1:lowerFilter="" p1:upperFilter="" />
+    <pnpID p1:pnpID="PCI\VEN_1814&amp;DEV_0302&amp;SUBSYS_701A1799" p1:isOriginalID="true" p1:isCompatibleID="false" p1:serviceName="rt61x86" p1:lowerFilter="" p1:upperFilter="" />
+    <pnpID p1:pnpID="PCI\VEN_1814&amp;DEV_0302&amp;SUBSYS_700A1799" p1:isOriginalID="true" p1:isCompatibleID="false" p1:serviceName="rt61x86" p1:lowerFilter="" p1:upperFilter="" />
+    <pnpID p1:pnpID="PCI\VEN_1814&amp;DEV_0401&amp;SUBSYS_901B1799" p1:isOriginalID="true" p1:isCompatibleID="false" p1:serviceName="rt61x86" p1:lowerFilter="" p1:upperFilter="" />
+    <pnpID p1:pnpID="PCI\VEN_1814&amp;DEV_0401&amp;SUBSYS_901C1799" p1:isOriginalID="true" p1:isCompatibleID="false" p1:serviceName="rt61x86" p1:lowerFilter="" p1:upperFilter="" />
+    <pnpID p1:pnpID="PCI\VEN_1814&amp;DEV_0301&amp;SUBSYS_700E1799" p1:isOriginalID="true" p1:isCompatibleID="false" p1:serviceName="rt61x86" p1:lowerFilter="" p1:upperFilter="" />
+    <pnpID p1:pnpID="PCI\VEN_1814&amp;DEV_0302&amp;SUBSYS_700E1799" p1:isOriginalID="true" p1:isCompatibleID="false" p1:serviceName="rt61x86" p1:lowerFilter="" p1:upperFilter="" />
+    <pnpID p1:pnpID="PCI\VEN_1814&amp;DEV_0301&amp;SUBSYS_701E1799" p1:isOriginalID="true" p1:isCompatibleID="false" p1:serviceName="rt61x86" p1:lowerFilter="" p1:upperFilter="" />
+    <pnpID p1:pnpID="PCI\VEN_1814&amp;DEV_0302&amp;SUBSYS_701E1799" p1:isOriginalID="true" p1:isCompatibleID="false" p1:serviceName="rt61x86" p1:lowerFilter="" p1:upperFilter="" />
+    <pnpID p1:pnpID="PCI\VEN_1814&amp;DEV_0302&amp;SUBSYS_301118A3" p1:isOriginalID="true" p1:isCompatibleID="false" p1:serviceName="rt61x86" p1:lowerFilter="" p1:upperFilter="" />
+    <pnpID p1:pnpID="PCI\VEN_1814&amp;DEV_0302&amp;SUBSYS_301318A3" p1:isOriginalID="true" p1:isCompatibleID="false" p1:serviceName="rt61x86" p1:lowerFilter="" p1:upperFilter="" />
+    <pnpID p1:pnpID="PCI\VEN_1814&amp;DEV_0302&amp;SUBSYS_3C800681" p1:isOriginalID="true" p1:isCompatibleID="false" p1:serviceName="rt61x86" p1:lowerFilter="" p1:upperFilter="" />
+    <pnpID p1:pnpID="PCI\VEN_1814&amp;DEV_0302&amp;SUBSYS_3C231948" p1:isOriginalID="true" p1:isCompatibleID="false" p1:serviceName="rt61x86" p1:lowerFilter="" p1:upperFilter="" />
+    <pnpID p1:pnpID="PCI\VEN_1814&amp;DEV_0302&amp;SUBSYS_3C241948" p1:isOriginalID="true" p1:isCompatibleID="false" p1:serviceName="rt61x86" p1:lowerFilter="" p1:upperFilter="" />
+    <pnpID p1:pnpID="PCI\VEN_1814&amp;DEV_0401&amp;SUBSYS_EE041113" p1:isOriginalID="true" p1:isCompatibleID="false" p1:serviceName="rt61x86" p1:lowerFilter="" p1:upperFilter="" />
+    <pnpID p1:pnpID="PCI\VEN_1814&amp;DEV_0401&amp;SUBSYS_EE051113" p1:isOriginalID="true" p1:isCompatibleID="false" p1:serviceName="rt61x86" p1:lowerFilter="" p1:upperFilter="" />
+    <pnpID p1:pnpID="PCI\VEN_1814&amp;DEV_0301&amp;SUBSYS_62211371" p1:isOriginalID="true" p1:isCompatibleID="false" p1:serviceName="rt61x86" p1:lowerFilter="" p1:upperFilter="" />
+    <pnpID p1:pnpID="PCI\VEN_1814&amp;DEV_0301&amp;SUBSYS_72211371" p1:isOriginalID="true" p1:isCompatibleID="false" p1:serviceName="rt61x86" p1:lowerFilter="" p1:upperFilter="" />
+    <pnpID p1:pnpID="PCI\VEN_1814&amp;DEV_0301&amp;SUBSYS_82211371" p1:isOriginalID="true" p1:isCompatibleID="false" p1:serviceName="rt61x86" p1:lowerFilter="" p1:upperFilter="" />
+    <pnpID p1:pnpID="PCI\VEN_1814&amp;DEV_0302&amp;SUBSYS_61211371" p1:isOriginalID="true" p1:isCompatibleID="false" p1:serviceName="rt61x86" p1:lowerFilter="" p1:upperFilter="" />
+    <pnpID p1:pnpID="PCI\VEN_1814&amp;DEV_0302&amp;SUBSYS_71211371" p1:isOriginalID="true" p1:isCompatibleID="false" p1:serviceName="rt61x86" p1:lowerFilter="" p1:upperFilter="" />
+    <pnpID p1:pnpID="PCI\VEN_1814&amp;DEV_0302&amp;SUBSYS_81211371" p1:isOriginalID="true" p1:isCompatibleID="false" p1:serviceName="rt61x86" p1:lowerFilter="" p1:upperFilter="" />
+    <pnpID p1:pnpID="PCI\VEN_1814&amp;DEV_0401&amp;SUBSYS_63211371" p1:isOriginalID="true" p1:isCompatibleID="false" p1:serviceName="rt61x86" p1:lowerFilter="" p1:upperFilter="" />
+    <pnpID p1:pnpID="PCI\VEN_1814&amp;DEV_0401&amp;SUBSYS_73211371" p1:isOriginalID="true" p1:isCompatibleID="false" p1:serviceName="rt61x86" p1:lowerFilter="" p1:upperFilter="" />
+    <pnpID p1:pnpID="PCI\VEN_1814&amp;DEV_0401&amp;SUBSYS_83211371" p1:isOriginalID="true" p1:isCompatibleID="false" p1:serviceName="rt61x86" p1:lowerFilter="" p1:upperFilter="" />
+    <pnpID p1:pnpID="PCI\VEN_1814&amp;DEV_0401&amp;SUBSYS_C11D1259" p1:isOriginalID="true" p1:isCompatibleID="false" p1:serviceName="rt61x86" p1:lowerFilter="" p1:upperFilter="" />
+    <pnpID p1:pnpID="PCI\VEN_1814&amp;DEV_0302&amp;SUBSYS_914116EF" p1:isOriginalID="true" p1:isCompatibleID="false" p1:serviceName="rt61x86" p1:lowerFilter="" p1:upperFilter="" />
+    <pnpID p1:pnpID="PCI\VEN_1814&amp;DEV_0301&amp;SUBSYS_ABA113D1" p1:isOriginalID="true" p1:isCompatibleID="false" p1:serviceName="rt61x86" p1:lowerFilter="" p1:upperFilter="" />
+    <pnpID p1:pnpID="PCI\VEN_1814&amp;DEV_0301&amp;SUBSYS_ABA213D1" p1:isOriginalID="true" p1:isCompatibleID="false" p1:serviceName="rt61x86" p1:lowerFilter="" p1:upperFilter="" />
+    <pnpID p1:pnpID="PCI\VEN_1814&amp;DEV_0301&amp;SUBSYS_ABA413D1" p1:isOriginalID="true" p1:isCompatibleID="false" p1:serviceName="rt61x86" p1:lowerFilter="" p1:upperFilter="" />
+    <pnpID p1:pnpID="PCI\VEN_1814&amp;DEV_0301&amp;SUBSYS_ABA513D1" p1:isOriginalID="true" p1:isCompatibleID="false" p1:serviceName="rt61x86" p1:lowerFilter="" p1:upperFilter="" />
+    <pnpID p1:pnpID="PCI\VEN_1814&amp;DEV_0301&amp;SUBSYS_ABE313D1" p1:isOriginalID="true" p1:isCompatibleID="false" p1:serviceName="rt61x86" p1:lowerFilter="" p1:upperFilter="" />
+    <pnpID p1:pnpID="PCI\VEN_1814&amp;DEV_0301&amp;SUBSYS_ABE413D1" p1:isOriginalID="true" p1:isCompatibleID="false" p1:serviceName="rt61x86" p1:lowerFilter="" p1:upperFilter="" />
+    <pnpID p1:pnpID="PCI\VEN_1814&amp;DEV_0302&amp;SUBSYS_ABA113D1" p1:isOriginalID="true" p1:isCompatibleID="false" p1:serviceName="rt61x86" p1:lowerFilter="" p1:upperFilter="" />
+    <pnpID p1:pnpID="PCI\VEN_1814&amp;DEV_0401&amp;SUBSYS_ABA713D1" p1:isOriginalID="true" p1:isCompatibleID="false" p1:serviceName="rt61x86" p1:lowerFilter="" p1:upperFilter="" />
+    <pnpID p1:pnpID="PCI\VEN_1814&amp;DEV_0401&amp;SUBSYS_ABA113D1" p1:isOriginalID="true" p1:isCompatibleID="false" p1:serviceName="rt61x86" p1:lowerFilter="" p1:upperFilter="" />
+    <pnpID p1:pnpID="PCI\VEN_1814&amp;DEV_0401&amp;SUBSYS_ABA313D1" p1:isOriginalID="true" p1:isCompatibleID="false" p1:serviceName="rt61x86" p1:lowerFilter="" p1:upperFilter="" />
+    <pnpID p1:pnpID="PCI\VEN_1814&amp;DEV_0401&amp;SUBSYS_ABE513D1" p1:isOriginalID="true" p1:isCompatibleID="false" p1:serviceName="rt61x86" p1:lowerFilter="" p1:upperFilter="" />
+    <pnpID p1:pnpID="PCI\VEN_1814&amp;DEV_0401&amp;SUBSYS_ABA613D1" p1:isOriginalID="true" p1:isCompatibleID="false" p1:serviceName="rt61x86" p1:lowerFilter="" p1:upperFilter="" />
+    <pnpID p1:pnpID="PCI\VEN_1814&amp;DEV_0401&amp;SUBSYS_AB1914EA" p1:isOriginalID="true" p1:isCompatibleID="false" p1:serviceName="rt61x86" p1:lowerFilter="" p1:upperFilter="" />
+    <pnpID p1:pnpID="PCI\VEN_1814&amp;DEV_0301&amp;SUBSYS_002C6409" p1:isOriginalID="true" p1:isCompatibleID="false" p1:serviceName="rt61x86" p1:lowerFilter="" p1:upperFilter="" />
+    <pnpID p1:pnpID="PCI\VEN_1814&amp;DEV_0301&amp;SUBSYS_C1231259" p1:isOriginalID="true" p1:isCompatibleID="false" p1:serviceName="rt61x86" p1:lowerFilter="" p1:upperFilter="" />
+    <pnpID p1:pnpID="PCI\VEN_1814&amp;DEV_0301&amp;SUBSYS_3C081186" p1:isOriginalID="true" p1:isCompatibleID="false" p1:serviceName="rt61x86" p1:lowerFilter="" p1:upperFilter="" />
+    <pnpID p1:pnpID="PCI\VEN_1814&amp;DEV_0301&amp;SUBSYS_3C091186" p1:isOriginalID="true" p1:isCompatibleID="false" p1:serviceName="rt61x86" p1:lowerFilter="" p1:upperFilter="" />
+    <pnpID p1:pnpID="PCI\VEN_1814&amp;DEV_0302&amp;SUBSYS_3C081186" p1:isOriginalID="true" p1:isCompatibleID="false" p1:serviceName="rt61x86" p1:lowerFilter="" p1:upperFilter="" />
+    <pnpID p1:pnpID="PCI\VEN_1814&amp;DEV_0302&amp;SUBSYS_3C091186" p1:isOriginalID="true" p1:isCompatibleID="false" p1:serviceName="rt61x86" p1:lowerFilter="" p1:upperFilter="" />
+    <pnpID p1:pnpID="PCI\VEN_1814&amp;DEV_0302&amp;SUBSYS_3C101186" p1:isOriginalID="true" p1:isCompatibleID="false" p1:serviceName="rt61x86" p1:lowerFilter="" p1:upperFilter="" />
+    <pnpID p1:pnpID="PCI\VEN_1814&amp;DEV_0302&amp;SUBSYS_3C111186" p1:isOriginalID="true" p1:isCompatibleID="false" p1:serviceName="rt61x86" p1:lowerFilter="" p1:upperFilter="" />
+    <pnpID p1:pnpID="PCI\VEN_1814&amp;DEV_0302&amp;SUBSYS_3A711186" p1:isOriginalID="true" p1:isCompatibleID="false" p1:serviceName="rt61x86" p1:lowerFilter="" p1:upperFilter="" />
+    <pnpID p1:pnpID="PCI\VEN_1814&amp;DEV_0302&amp;SUBSYS_3A721186" p1:isOriginalID="true" p1:isCompatibleID="false" p1:serviceName="rt61x86" p1:lowerFilter="" p1:upperFilter="" />
+    <pnpID p1:pnpID="PCI\VEN_1814&amp;DEV_0401&amp;SUBSYS_3C121186" p1:isOriginalID="true" p1:isCompatibleID="false" p1:serviceName="rt61x86" p1:lowerFilter="" p1:upperFilter="" />
+    <pnpID p1:pnpID="PCI\VEN_1814&amp;DEV_0401&amp;SUBSYS_3C131186" p1:isOriginalID="true" p1:isCompatibleID="false" p1:serviceName="rt61x86" p1:lowerFilter="" p1:upperFilter="" />
+  </pnpInfo>
+  <driverPackage xmlns="urn:schemas-microsoft-com:asm.v3" />
+</assembly>

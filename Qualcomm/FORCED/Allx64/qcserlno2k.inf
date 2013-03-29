@@ -1,0 +1,103 @@
+; Windows Serial Port Setup File
+; Copyright (c) 2010 Qualcomm Incorporated
+; Manufacturer: Qualcomm Incorporated
+;
+
+[Version]
+signature  = "$WINDOWS NT$"
+Class      = Ports
+Provider   = %QUALCOMM%
+ClassGuid  = {4D36E978-E325-11CE-BFC1-08002BE10318}
+DriverVer=05/09/2011,2.0.7.4
+Catalogfile= qcusbserlno2k.cat
+
+[ControlFlags]
+ExcludeFromSelect = *
+
+[Manufacturer]
+%MFG% =  QcomSerialPort, NTamd64
+
+[SourceDisksNames]
+  1000 = %QcomSrcDisk%,"",,
+
+[SourceDisksFiles]
+  qcusbserlno2k.sys = 1000
+
+[QcomSerialPort]
+%QcomDevice92040%  = QportInstall00, USB\VID_05C6&PID_9204
+%QcomDevice92051%  = QportInstall01, USB\VID_05C6&PID_9205&MI_01
+%QcomDevice92053%  = QportInstall03, USB\VID_05C6&PID_9205&MI_03
+%QcomDevice92840%  = QportInstall00, USB\VID_05C6&PID_9284
+%QcomDevice92851%  = QportInstall01, USB\VID_05C6&PID_9285&MI_01
+%QcomDevice92853%  = QportInstall03, USB\VID_05C6&PID_9285&MI_03
+%QcomDevice92854%  = QportInstall01, USB\VID_05C6&PID_9285&MI_04
+
+[QcomSerialPort.NTamd64]
+%QcomDevice92040%  = QportInstall00, USB\VID_05C6&PID_9204
+%QcomDevice92051%  = QportInstall01, USB\VID_05C6&PID_9205&MI_01
+%QcomDevice92053%  = QportInstall03, USB\VID_05C6&PID_9205&MI_03
+%QcomDevice92840%  = QportInstall00, USB\VID_05C6&PID_9284
+%QcomDevice92851%  = QportInstall01, USB\VID_05C6&PID_9285&MI_01
+%QcomDevice92853%  = QportInstall03, USB\VID_05C6&PID_9285&MI_03
+%QcomDevice92854%  = QportInstall01, USB\VID_05C6&PID_9285&MI_04
+
+[QportInstall00]
+CopyFiles = QCUsbDriverFiles
+AddReg    = All00, QCAddReg, DevFunction2
+
+[QportInstall01]
+CopyFiles = QCUsbDriverFiles
+AddReg    = All00, QCAddReg
+
+[QportInstall03]
+CopyFiles = QCUsbDriverFiles
+AddReg    = All00, QCAddReg, DevFunction1
+
+[QCUsbDriverFiles]
+qcusbserlno2k.sys
+
+[DestinationDirs]
+DefaultDestDir = 12
+
+[QportInstall00.Services]
+AddService=qcusbserlno2k,  0x00000002, QC_USBSerialService
+
+[QportInstall01.Services]
+AddService=qcusbserlno2k,  0x00000002, QC_USBSerialService
+
+[QportInstall03.Services]
+AddService=qcusbserlno2k,  0x00000002, QC_USBSerialService
+
+[QC_USBSerialService]
+DisplayName   = %QCUSBSER%
+ServiceType   = 1
+StartType     = 3
+ErrorControl  = 1
+ServiceBinary = %12%\qcusbserlno2k.sys
+
+[All00]
+HKR,,NTMPDriver,,qcusbserlno2k.sys
+
+[DevFunction1]
+HKR,,QCDeviceFunction,0x00010001,1
+
+[DevFunction2]
+HKR,,QCDeviceFunction,0x00010001,2
+
+[QCAddReg]
+HKR,,PortSubClass,1,01
+HKR,,EnumPropPages32,,"MsPorts.dll,SerialPortPropPageProvider"
+
+[Strings]
+QCUSBSER = "Gobi 2000 USB Device for Legacy Serial Communication(05C6-9205)"
+QcomSrcDisk = "Qualcomm USB Driver Disk"
+MFG = "Qualcomm Incorporated"
+QUALCOMM   = "Qualcomm Incorporated"
+QcomDevice92040 = "Qualcomm Gobi 2000 HS-USB QDLoader 9204"
+QcomDevice92051 = "Qualcomm Gobi 2000 HS-USB Diagnostics 9205"
+QcomDevice92053 = "Qualcomm Gobi 2000 HS-USB NMEA 9205"
+QcomDevice92840 = "Qualcomm Gobi 2000 HS-USB QDLoader 9284"
+QcomDevice92851 = "Qualcomm Gobi 2000 HS-USB Diagnostics 9285"
+QcomDevice92853 = "Qualcomm Gobi 2000 HS-USB NMEA 9285"
+QcomDevice92854 = "Qualcomm Gobi 2000 HS-USB AT Port 9285"
+

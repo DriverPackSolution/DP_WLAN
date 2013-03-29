@@ -1,0 +1,253 @@
+; Copyright (c) 2004, Silicon Integrated Systems Corp.
+;
+; INF file for Windows XP--- SIS162.INF
+;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+[Version]
+Signature           = "$Windows NT$"
+Class               = Net
+ClassGUID           = {4d36e972-e325-11ce-bfc1-08002be10318}
+Provider            = %SiSMfg%
+CatalogFile	    = sis162.cat
+DriverVer=10/26/2004,5.1.1039.1050
+
+[Manufacturer]
+%SiSMfg%               = SiS
+
+[ControlFlags]
+;;ExcludeFromSelect   =PCI\VEN_1039&DEV_0162  
+ExcludeFromSelect   =PCI\VEN_1039&DEV_0162&SUBSYS_01621039 
+ExcludeFromSelect   =PCI\VEN_1039&DEV_0162&SUBSYS_1C371019    
+ExcludeFromSelect   =PCI\VEN_1039&DEV_0162&SUBSYS_71591432                     
+;----------------------------------------------------------------------------
+; Device section
+;
+[SiS]
+;;%sis162.DeviceDesc%  = SiS162.ndi1, PCI\VEN_1039&DEV_0162
+%sis162.DeviceDesc%  = SiS162.ndi1, PCI\VEN_1039&DEV_0162&SUBSYS_01621039
+%ECS.DeviceDesc%     = SiS162.ndi2, PCI\VEN_1039&DEV_0162&SUBSYS_1C371019
+%Edimax2.DeviceDesc% = SiS162.ndi3, PCI\VEN_1039&DEV_0162&SUBSYS_71591432
+
+;------------------------------------------------------------------------
+; SIS
+;
+
+[sis162.ndi1]
+Characteristics     = 0x84    ; NCF_PHYSICAL | NCF_HAS_UI
+BusType             = 5       ; PCI
+DelReg              = SiSDefault.reg,SiSWireless.reg, nt5.reg,sisuninstall.reg,sisuninstall1.reg, Inst.reg
+AddReg              = SiSDefault.reg,SiSWireless.reg, nt5.reg,sisuninstall.reg,sisuninstall1.reg, Inst.reg
+CopyFiles           = sis162.CopyFiles,Uninstall.CopyFiles,Inst.CopyFiles
+
+[sis162.ndi2]
+Characteristics     = 0x84    ; NCF_PHYSICAL | NCF_HAS_UI
+BusType             = 5       ; PCI
+DelReg              = SiSDefault.reg,SiSWireless.reg, nt5.reg,sisuninstall.reg,sisuninstall2.reg, Inst.reg
+AddReg              = SiSDefault.reg,SiSWireless.reg, nt5.reg,sisuninstall.reg,sisuninstall2.reg, Inst.reg
+CopyFiles           = sis162.CopyFiles,Uninstall.CopyFiles,Inst.CopyFiles
+
+[sis162.ndi3]
+Characteristics     = 0x84    ; NCF_PHYSICAL | NCF_HAS_UI
+BusType             = 5       ; PCI
+DelReg              = SiSDefault.reg,SiSWireless.reg, nt5.reg,sisuninstall.reg,sisuninstall3.reg, Inst.reg
+AddReg              = SiSDefault.reg,SiSWireless.reg, nt5.reg,sisuninstall.reg,sisuninstall3.reg, Inst.reg
+CopyFiles           = sis162.CopyFiles,Uninstall.CopyFiles,Inst.CopyFiles
+
+
+[sis162.ndi1.Services]
+AddService          = SIS162, 2, sis162.Service, common.EventLog
+[sis162.ndi2.Services]
+AddService          = SIS162, 2, sis162.Service, common.EventLog
+[sis162.ndi3.Services]
+AddService          = SIS162, 2, sis162.Service, common.EventLog
+
+;----------------------------------------------------------------------------
+; Common driver parameters
+;
+[SiSDefault.reg]
+;====== Driver Information for UI ======;
+HKR,,DriverName   ,2,"sis162.sys"
+HKR,Ndi\SiSdefault\,SiSWirelessLan  ,2,"VEN_1039&DEV_0162"
+;================ only set init value ==================
+HKR,Ndi\SiSdefault\,Channel,2,"000"
+HKR,Ndi\SiSdefault\,InfrastructureMode,2,"000"
+HKR,Ndi\SiSdefault\,AuthenticationMode,2,"000"
+HKR,Ndi\SiSdefault\,Preamble,2,"002"
+HKR,Ndi\SiSdefault\,AntennaSelect,2,"0ff"
+HKR,Ndi\SiSdefault\,SSID,2,"LOCAL"
+HKR,Ndi\SiSdefault\,Password,2,""
+HKR,Ndi\SiSdefault\,WepStatus,2,"000"
+HKR,Ndi\SiSdefault\,TransmitKey,2,"001"
+HKR,Ndi\SiSdefault\,WepStatus1,2, "001"
+HKR,Ndi\SiSdefault\,KeyData1,2,""
+HKR,Ndi\SiSdefault\,WepStatus2,2,"001"
+HKR,Ndi\SiSdefault\,KeyData2,2,""
+HKR,Ndi\SiSdefault\,WepStatus3,2,"001"
+HKR,Ndi\SiSdefault\,KeyData3,2,""
+HKR,Ndi\SiSdefault\,WepStatus4,2,"001"
+HKR,Ndi\SiSdefault\,KeyData4,2,""
+HKR,Ndi\SiSdefault\,HWProbe,2,"000"
+HKR,Ndi\SiSdefault\,FrameThreshold,2,"2312"
+HKR,Ndi\SiSdefault\,RTSThreshold,2,"2312"
+HKR,Ndi\SiSdefault\,TxRate,2,"003"
+HKR,Ndi\SiSdefault\,BeaconInterval,2,"100"
+HKR,Ndi\SiSdefault\,ListenInterval,2,"1"
+HKR,Ndi\SiSdefault\,CTxPower12345,2,"24924924"
+HKR,Ndi\SiSdefault\,CTxPower6789A,2,"24924924"
+HKR,Ndi\SiSdefault\,CTxPowerBCDE,2,"924924"
+HKR,Ndi\SiSdefault\,SiSRFReg,2,"80"
+HKR,Ndi\SiSdefault\,TxRetryCounts,2,"7"
+HKR,Ndi\SiSdefault\,TxPowerLevel,2,"3f"
+HKR,Ndi\SiSdefault\,PowerMode,2,"000"
+HKR,Ndi\SiSdefault\,ATIMWindow,2,"5"
+HKR,Ndi\SiSdefault\,PromiscuousOption,2,"1"
+HKR,Ndi\SiSdefault\,RFType,2,"3"
+HKR,Ndi\SiSdefault\,Distance,2,"0"
+HKR,Ndi\SiSdefault\,Radio,2,"1"
+;-----------------------------------------------------------------------------
+[SiSWireless.reg]
+;====== Driver Information for UI ======;
+HKR,,SiSWirelessLan  ,2,"VEN_1039&DEV_0162"
+;=======================================;
+HKR, Ndi\params\NetworkAddress,ParamDesc,,"NetworkAddress"
+HKR, NDI\params\NetworkAddress,default,,""
+HKR, Ndi\params\NetworkAddress,optional,,"1"
+HKR, NDI\params\NetworkAddress,type,,"edit"
+HKR, NDI\params\NetworkAddress,LimitText,,"12"
+HKR, NDI\params\NetworkAddress,UpperCase,,"1"
+
+;HKR, Ndi\params\Radio,		ParamDesc, 0, "Radio"
+;HKR, Ndi\params\Radio,		default,   0, "1"
+;HKR, Ndi\params\Radio,		type,      0, "enum"
+;HKR, Ndi\params\Radio\enum,	"0",     0, "Radio Off"
+;HKR, Ndi\params\Radio\enum,	"1",     0, "Radio On"
+
+
+;================ only set init value ==================
+HKR,,Channel,2,"000"
+HKR,,InfrastructureMode,2,"000"
+HKR,,AuthenticationMode,2,"000"
+HKR,,Preamble,2,"002"
+HKR,,AntennaSelect,2,"0ff"
+HKR,,SSID,2,"LOCAL"
+HKR,,Password,2,""
+HKR,,WepStatus,2,"000"
+HKR,,TransmitKey,2,"001"
+HKR,,WepStatus1,2, "001"
+HKR,,KeyData1,2,""
+HKR,,WepStatus2,2,"001"
+HKR,,KeyData2,2,""
+HKR,,WepStatus3,2,"001"
+HKR,,KeyData3,2,""
+HKR,,WepStatus4,2,"001"
+HKR,,KeyData4,2,""
+HKR,,HWProbe,2,"000"
+HKR,,FrameThreshold,2,"2312"
+HKR,,RTSThreshold,2,"2312"
+HKR,,TxRate,2,"003"
+HKR,,BeaconInterval,2,"100"
+HKR,,ListenInterval,2,"1"
+HKR,,CTxPower12345,2,"24924924"
+HKR,,CTxPower6789A,2,"24924924"
+HKR,,CTxPowerBCDE,2,"924924"
+HKR,,SiSRFReg,2,"80"
+HKR,,TxRetryCounts,2,"7"
+HKR,,TxPowerLevel,2,"3f"
+HKR,,PowerMode,2,"000"
+HKR,,ATIMWindow,2,"5"
+HKR,,PromiscuousOption,2,"1"
+HKR,,RFType,2,"3"
+HKR,,Distance,2,"0"
+HKR,,USE_SW_AUTO_TXRATE,2,"1"
+HKR,,Radio,2,"1"
+;-----------------------------------------------------------------------------
+
+[sisuninstall.reg]
+HKLM,%SiS162Uninst%,UninstallString,0,"%11%\unwlsdrv.exe PCI\VEN_1039&DEV_0162"
+
+[sisuninstall1.reg]
+HKLM,%SiS162Uninst%,DisplayName,0,%sis162.DeviceDesc%
+
+
+[sisuninstall2.reg]
+HKLM,%SiS162Uninst%,DisplayName,0,%ECS.DeviceDesc%
+
+[sisuninstall3.reg]
+HKLM,%SiS162Uninst%,DisplayName,0,%Edimax2.DeviceDesc%
+
+
+;--------------------------------------------------------------------------------
+
+[Inst.reg]
+HKLM,Software\Microsoft\Windows\CurrentVersion\RunOnce,Inst,,"Rundll32.exe SiSWInst.dll,Inst sis162.inf,VEN_1039&DEV_0162,%01%"
+
+;-----------------------------------------------------------------------------
+; Ndi object registration
+;
+;NT specific
+[nt5.reg]
+HKR, Ndi,                               Service,            0, "SIS162"
+HKR, Ndi\Interfaces,                    UpperRange,         0, "ndis5"
+HKR, Ndi\Interfaces,                    LowerRange,         0, "ethernet"
+
+;----------------------------------------------------------------------------
+; Services Sections for NT
+;
+[sis162.Service]
+DisplayName         = %sis162.Service.DispName%
+ServiceType         = 1 ;%SERVICE_KERNEL_DRIVER%
+StartType           = 3 ;%SERVICE_DEMAND_START%
+ErrorControl        = 1 ;%SERVICE_ERROR_NORMAL%
+ServiceBinary       = %12%\sis162.sys
+LoadOrderGroup      = NDIS
+
+[common.EventLog]
+AddReg              = common.AddEventLog.reg
+
+[common.AddEventLog.reg]
+HKR,,EventMessageFile,   0x00020000, = "%%SystemRoot%%\System32\netevent.dll"
+HKR,,TypesSupported,     0x00010001, = 7
+
+[DestinationDirs]
+DefaultDestDir      = 12
+sis162.CopyFiles    = 12
+Uninstall.CopyFiles  = 11 
+Inst.CopyFiles       =11
+
+[SourceDisksNames]
+1                   = %SiSSourceDiskName%,,,""
+
+[SourceDisksFiles]
+sis162.sys=1
+Unwlsdrv.exe=1
+;sis162.cat=1
+SiSWInst.dll=1
+SiSWPars.dll=1
+SiSWBase.dll=1
+
+[sis162.CopyFiles]
+sis162.sys
+
+[Uninstall.CopyFiles]
+unwlsdrv.exe
+
+[Inst.CopyFiles]
+SiSWInst.dll
+SiSWPars.dll
+SiSWBase.dll
+
+[Strings]
+SiS                           = "SiS"
+SiSMfg                        = "Silicon Integrated Systems Corp.(1.05.01)"
+sis162.DeviceDesc             = "802.11b Wireless LAN Adapter"
+ECS.DeviceDesc                = "Elitegroup Computer Systems WLAN card WL-162"
+Edimax2.DeviceDesc            = "Edimax EW-7159 Series Wireless LAN Mini-PCI Card"
+
+;=============================================================================;
+
+sis162.Service.DispName       = "SiS 162 Series Wireless LAN Adapter Driver"
+SiSSourceDiskName             = "SiS162 Series Wireless LAN Adapter Drivers Disk"
+
+SiSNetworkAddress             = "NetworkAddress"
+SiS162Uninst                  ="Software\Microsoft\Windows\CurrentVersion\Uninstall\SiS162"
+;===============================================================================

@@ -1,0 +1,280 @@
+;***********************************************************************
+; .INF
+;
+;   This installation script supports Windows 98, Me, 2000 and XP for the
+;   BWU713 802.11 G Adapters.
+;
+;   Copyright 2001-2003
+;***********************************************************************
+
+[Version]
+ DriverVer = 3/2/2004, 1.00.8
+ Signature           = "$Chicago$"
+ Compatible          = 1
+ Class               = Net
+ ClassGUID           = {4d36e972-e325-11ce-bfc1-08002be10318}
+ Provider            = %VER_VENDOR_STR%
+;CatalogFile         = G2054i.cat
+ MillenniumPreferred = .ME
+
+[ControlFlags]
+;Exclude all PNP adapters from user selection
+ ExcludeFromSelect   = *
+
+[Manufacturer]
+ %VER_VENDOR_NAME_STR% = DeviceList
+
+[DeviceList]
+ %A021_DESC_STR%     = BWU713_A021,        USB\VID_124A&PID_4023
+
+;==========
+[BWU713_A021]       ; Win9x
+ AddReg         = BWU713_A021.reg, COMMON_A02.reg, COMMON_NDIS.reg, COMMON.reg
+ ;CopyFiles      = BWU713_DRIVER.copy, BWU713_APPLET.copy, BWU713_NDI.copy
+
+[BWU713_A021.ME]    ; WinMe
+ AddReg         = BWU713_A021.reg, COMMON_A02.reg, COMMON_NDIS.reg.ME, COMMON.reg
+ ;CopyFiles      = BWU713_DRIVER.copy.ME, BWU713_APPLET.copy.ME, BWU713_NDI.copy.ME
+
+[BWU713_A021.ME.ME] ; WinMe - Same as .ME (Needed for Update Driver)
+ AddReg         = BWU713_A021.reg, COMMON_A02.reg, COMMON_NDIS.reg.ME, COMMON.reg
+ ;CopyFiles      = BWU713_DRIVER.copy.ME, BWU713_APPLET.copy.ME, BWU713_NDI.copy.ME
+
+[BWU713_A021.NT]    ; Win2k
+ AddReg         = BWU713_A021.reg, COMMON_A02.reg, COMMON_NDIS.reg.NT, COMMON.reg
+ CopyFiles      = BWU713_DRIVER.copy.NT, BWU713_APPLET.copy.NT
+ BusType        = 0
+ Characteristics= 0x84
+
+[BWU713_A021.NT.Services]
+ AddService= "BWU713_A02", 2, BWU713_DRIVER_A02.Service, BWU713_DRIVER.EventLog
+
+[BWU713_A021.NT.CoInstallers]
+ CopyFiles      = BWU713_COINSTALL.copy.NT
+ AddReg         = BWU713_COINSTALL.reg.NT
+
+[BWU713_A021.reg]
+ HKR,Ndi,DeviceID,0,"USB\VID_124A&PID_4023"
+; 0x3890 = 14480
+ HKR,,PlatformID,0,14480
+ HKR,,VendorDesc,0,%A021_DESC_STR%
+
+;###############################################################################
+[BWU713_COINSTALL.reg.NT]
+ HKR,           ,CoInstallers32         ,0x00010000     ,"WU713cfg.cpl,NdiProc"
+
+[BWU713_DRIVER_A02.Service]
+ DisplayName    = %A02_SERVICE_STR%
+ ServiceType    = 1    ; SERVICE_KERNEL_DRIVER
+ StartType      = 3    ; SERVICE_DEMAND_START
+ ErrorControl   = 1    ; NORMAL
+ ServiceBinary  = %12%\BWU713.sys
+ LoadOrderGroup = NDIS
+
+[BWU713_DRIVER.EventLog]
+ AddReg         = BWU713_DRIVER.EventLog.reg
+
+[BWU713_DRIVER.EventLog.reg]
+ HKR,           ,EventMessageFile       ,0x00020000     ,"%%SystemRoot%%\System32\netevent.dll"
+ HKR,           ,TypesSupported         ,0x00010001     ,7
+
+;###############################################################################
+
+[COMMON_A02_DEL.reg]
+ HKR,                   ,FWFileName
+
+[COMMON_A02.reg]
+ HKR,NDI                ,Service                ,0      ,"BWU713_A02"
+ HKR,NDI                ,CardType               ,0      ,"USB"
+ HKR,                   ,BusType                ,0      ,"0"
+ HKR,                   ,DeviceVxDs             ,0      ,"BWU713.sys"
+;HKR,                   ,CardBusBridgeLatencyTimer  ,0  ,"32"
+;HKR,                   ,CardBusBridgeCacheLineSize ,0  ,"8"
+
+[COMMON_NDIS.reg]
+; Win9X
+ HKR,                   ,RunningWin9X           ,0      ,"1"
+ HKR,                   ,DevLoader              ,0      ,"*ndis"
+ HKR,                   ,EnumPropPages          ,0      ,"netdi.dll,EnumPropPages"
+ HKR,NDI                ,NdiInstaller           ,0      ,"WU713cfg.dll,NdiProc"
+ HKR,NDI\Interfaces     ,UpperRange             ,0      ,"ndis3"
+ HKR,NDI\Interfaces     ,LowerRange             ,0      ,"ethernet"
+ HKR,NDI\Interfaces     ,DefUpper               ,0      ,"ndis3"
+ HKR,NDI\Interfaces     ,DefLower               ,0      ,"ethernet"
+ HKR,NDIS               ,LogDriverName          ,0      ,"BWU713"
+ HKR,NDIS               ,MajorNdisVersion       ,1      ,03
+ HKR,NDIS               ,MinorNdisVersion       ,1      ,0a
+
+[COMMON_NDIS.reg.ME]
+ HKR,                   ,RunningWin9X           ,0      ,"1"
+ HKR,                   ,DevLoader              ,0      ,"*ndis"
+ HKR,                   ,EnumPropPages          ,0      ,"netdi.dll,EnumPropPages"
+ HKR,NDI                ,NdiInstaller           ,0      ,"WU713cfg.dll,NdiProc"
+ HKR,NDI\Interfaces     ,UpperRange             ,0      ,"ndis3"
+ HKR,NDI\Interfaces     ,LowerRange             ,0      ,"ethernet"
+ HKR,NDI\Interfaces     ,DefUpper               ,0      ,"ndis3"
+ HKR,NDI\Interfaces     ,DefLower               ,0      ,"ethernet"
+ HKR,NDIS               ,LogDriverName          ,0      ,"BWU713"
+ HKR,NDIS               ,MajorNdisVersion       ,1      ,03
+ HKR,NDIS               ,MinorNdisVersion       ,1      ,0a
+
+[COMMON_NDIS.reg.NT]
+ HKR,                   ,EnumPropPages32        ,0      ,"WU713cfg.cpl,NetPropPageProvider"
+ HKR,NDI\Interfaces     ,UpperRange             ,0      ,"ndis5"
+ HKR,NDI\Interfaces     ,LowerRange             ,0      ,"ethernet"
+
+[COMMON.reg]
+ HKR,                   ,WU713IOC               ,0      ,"1"
+ HKR,                   ,PRISMIOC               ,0      ,"1"
+ HKR,			,MACIOCTL		,0	,"BWU713"
+ HKR,                   ,SilentInstall          ,0      ,"1"
+;Uncomment the line above to install without user interface prompts
+
+ HKR,NDI\params\RTSThresh,,0,2347
+ HKR,Ndi\params\RTSThresh,default,0,2347
+ HKR,NDI\params\RTSThresh,ParamDesc,0,%RTSTHRESH_STR%
+ HKR,NDI\params\RTSThresh,type,0,int
+ HKR,NDI\params\RTSThresh,flag,1,20,00,00,00
+ HKR,NDI\params\RTSThresh,min,0,0
+ HKR,NDI\params\RTSThresh,max,0,2347
+ HKR,NDI\params\RTSThresh,step,0,1
+ HKR,NDI\params\RTSThresh,optional,0,1
+
+ HKR,NDI\params\ShortRetryLimit,,0,7
+ HKR,NDI\params\ShortRetryLimit,default,0,7
+ HKR,NDI\params\ShortRetryLimit,ParamDesc,,%SHORT_RETRY_STR%
+ HKR,NDI\params\ShortRetryLimit,type,,int
+ HKR,NDI\params\ShortRetryLimit,min,0,1
+ HKR,NDI\params\ShortRetryLimit,max,0,255
+ HKR,NDI\params\ShortRetryLimit,step,0,1
+ HKR,NDI\params\ShortRetryLimit,optional,0,1
+
+ HKR,NDI\params\LongRetryLimit,,0,4
+ HKR,NDI\params\LongRetryLimit,default,0,4
+ HKR,NDI\params\LongRetryLimit,ParamDesc,,%LONG_RETRY_STR%
+ HKR,NDI\params\LongRetryLimit,type,0,int
+ HKR,NDI\params\LongRetryLimit,min,0,1
+ HKR,NDI\params\LongRetryLimit,max,0,255
+ HKR,NDI\params\LongRetryLimit,step,0,1
+ HKR,NDI\params\LongRetryLimit,optional,0,1
+
+ HKR,,ConfigProfile,0,1
+ HKR,NDI\params\ConfigProfile,,0,256
+ HKR,NDI\params\ConfigProfile,default,0,256
+ HKR,NDI\params\ConfigProfile,ParamDesc,,%CONFIG_PROFILE%
+ HKR,NDI\params\ConfigProfile,type,,enum
+ HKR,NDI\params\ConfigProfile,flag,1,30,00,00,00
+ HKR,NDI\params\ConfigProfile\enum,0,,%CONFIG_PROF_B_ONLY%
+ HKR,NDI\params\ConfigProfile\enum,1,,%CONFIG_PROF_MIXED%
+ HKR,NDI\params\ConfigProfile\enum,2,,%CONFIG_PROF_MIXED_LONG%
+ HKR,NDI\params\ConfigProfile\enum,3,,%CONFIG_PROF_G_ONLY%
+ HKR,NDI\params\ConfigProfile\enum,4,,%CONFIG_PROF_TEST%
+ HKR,NDI\params\ConfigProfile\enum,5,,%CONFIG_PROF_B_WIFI%
+ HKR,NDI\params\ConfigProfile\enum,6,,%CONFIG_PROF_MIXED_SHORT%
+ HKR,NDI\params\ConfigProfile\enum,256,,%CONFIG_PROF_WIFI_SPEC%
+ HKR,NDI\params\ConfigProfile,optional,0,1
+
+ HKR,,NitroMode,0,"1"
+ HKR,NDI\params\NitroMode,,0,1
+ HKR,NDI\params\NitroMode,default,0,1
+ HKR,NDI\params\NitroMode,ParamDesc,,%NITRO_MODE%
+ HKR,NDI\params\NitroMode,type,,enum
+ HKR,NDI\params\NitroMode,flag,1,30,00,00,00
+ HKR,NDI\params\NitroMode\enum,0,,%OFF_STR%
+ HKR,NDI\params\NitroMode\enum,1,,%ON_STR%
+ HKR,NDI\params\NitroMode,optional,0,1
+
+ HKR,,PSMode,0,1
+ HKR,NDI\params\PSMode,,0,1
+ HKR,Ndi\params\PSMode,default,0,1
+ HKR,NDI\params\PSMode,ParamDesc,,%POWER_SAVE_STR%
+ HKR,NDI\params\PSMode,type,,enum
+ HKR,NDI\params\PSMode,flag,1,30,00,00,00
+ HKR,NDI\params\PSMode\enum,1,,%POWER_SAVE_OFF_STR%
+ HKR,NDI\params\PSMode\enum,2,,%POWER_SAVE_DYN_STR%
+ HKR,NDI\params\PSMode\enum,3,,%POWER_SAVE_MAX_STR%
+ HKR,NDI\params\PSMode,optional,0,1
+
+;###############################################################################
+[DestinationDirs]
+;CopyFiles Section      = Destination Directory ID -- see layout.inf
+;-----------------        ------------------------
+ DefaultDestDir         = 11 ; Win9x=%windir%\system Win2k=%windir%\system32
+ BWU713_DRIVER.copy      = 11 ; Win9x=%windir%\system
+ BWU713_DRIVER.copy.ME   = 11 ; Win9x=%windir%\system
+ BWU713_DRIVER.copy.NT   = 12 ; Win2k=%windir%\system32\drivers
+
+[BWU713_NDI.copy]
+
+[BWU713_NDI.copy.ME]
+
+[BWU713_COINSTALL.copy.NT]
+
+[BWU713_DRIVER.copy]
+ BWU713.sys
+
+
+[BWU713_DRIVER.copy.ME]
+ BWU713.sys
+
+
+[BWU713_DRIVER.copy.NT]
+ BWU713.sys
+
+
+[BWU713_APPLET.copy]
+
+[BWU713_APPLET.copy.ME]
+
+[BWU713_APPLET.copy.NT]
+
+[SourceDisksNames]
+;Source Disk ID         = Disk Name
+;--------------           ---------
+ 1                      = %INSTALL_DISK_STR%,,,
+
+[SourceDisksFiles]      ; Win9x
+;File Name              = Source Disk ID
+;---------                --------------
+ BWU713.sys           = 1
+
+
+[SourceDisksFiles.ME]   ; WinMe
+ BWU713.sys           = 1
+
+[SourceDisksFiles.X86]  ; Win2k/Xp
+ BWU713.sys           = 1
+
+
+;###############################################################################
+[Strings]
+;String ID               = String Text
+;---------                 -----------
+ VER_VENDOR_STR          = "Blitzz"
+ VER_VENDOR_NAME_STR     = "Blitzz Technology Inc."
+ INSTALL_DISK_STR        = "Blitzz Wireless LAN Install Disk"
+
+ A021_DESC_STR           = "Blitzz Wireless G USB Controller"
+ A02_SERVICE_STR         = "Blitzz Wireless G USB Controller"
+
+ ON_STR                  = "On"
+ OFF_STR                 = "Off"
+ RTSTHRESH_STR           = "RTS Threshold"
+ AUTHENT_TYPE_STR        = "Authentication Algorithm"
+ POWER_SAVE_STR          = "Power Save Mode"
+ POWER_SAVE_OFF_STR      = "Disabled"
+ POWER_SAVE_DYN_STR      = "Dynamic"
+ POWER_SAVE_MAX_STR      = "Maximum"
+ SHORT_RETRY_STR         = "Short Retry Limit"
+ LONG_RETRY_STR          = "Long Retry Limit"
+ CONFIG_PROFILE          = "Configuration Profile"
+ CONFIG_PROF_B_ONLY      = "B only"
+ CONFIG_PROF_MIXED       = "B/G Mixed"
+ CONFIG_PROF_MIXED_LONG  = "Mixed Long"
+ CONFIG_PROF_G_ONLY      = "G only"
+ CONFIG_PROF_TEST        = "Test"
+ CONFIG_PROF_B_WIFI      = "B WiFi"
+ CONFIG_PROF_MIXED_SHORT = "Mixed Short"
+ CONFIG_PROF_WIFI_SPEC   = "WiFi Spec"
+ NITRO_MODE              = "Nitro Mode"
+

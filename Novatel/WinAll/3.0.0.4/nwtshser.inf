@@ -1,0 +1,147 @@
+;-------------------------------------------------------------------------------
+; Novatel Wireless Merlin USB Serial Port
+; Module Name -- NWTshSer.inf
+; Copyright (c) 2004-2005 Novatel Wireless Inc.
+;-------------------------------------------------------------------------------
+;
+;when          who   what, where, why
+;-----------   ---   -----------------------------------------------------------
+;19 Aug 2004   SK    Added Resident mode
+;24 Aug 2004   SK    Removed upperfilters
+;30 Aug 2004   SK    Removed resident mode
+;24 Feb 2005   SK    Fixed HT issue
+;01 Apr 2005   SK    Driver Fix + Device list
+;28 Sep 2005   SK    Updated driver 
+;19 Oct 2005   SK    Added PowerMgt and updated driver
+;15 Dec 2005   SK    Added Modem response strings
+; 5 Jan 2006   SK    Updated hardwared ids
+;08 Mar 2006   SK    Fixed standby BSOD
+;-------------------------------------------------------------------------------
+
+;-------------------------------------------------------------------------------
+; INF Version Section
+;-------------------------------------------------------------------------------
+[Version]
+signature  = "$WINDOWS NT$"
+Class      = Ports
+Provider   = %NW%
+ClassGuid  = {4D36E978-E325-11CE-BFC1-08002BE10318}
+DriverVer  = 09/14/2006,3.0.0.3
+CatalogFile.NT = NWTshMdm.cat
+CatalogFile.NTAMD64 = nwtshx64.cat
+
+;-------------------------------------------------------------------------------
+; INF Manufactuerer Section
+;-------------------------------------------------------------------------------
+[Manufacturer]
+%NW% = Models,NTamd64
+
+;-------------------------------------------------------------------------------
+; INF ControlFlags Section
+;-------------------------------------------------------------------------------
+[ControlFlags]
+ExcludeFromSelect = *
+
+;-------------------------------------------------------------------------------
+; INF Models Section
+;-------------------------------------------------------------------------------
+
+[Models]
+%NW000% = Port,  USB\VID_0930&PID_1300&MI_01
+%NW001% = Port,  USB\VID_0930&PID_1301&MI_01
+%NW002% = Port,  USB\VID_0930&PID_1302&MI_01
+%NW003% = Port,  USB\VID_0930&PID_1303&MI_01
+
+[Models.NTamd64]
+%NW000% = Port,  USB\VID_0930&PID_1300&MI_01
+%NW001% = Port,  USB\VID_0930&PID_1301&MI_01
+%NW002% = Port,  USB\VID_0930&PID_1302&MI_01
+%NW003% = Port,  USB\VID_0930&PID_1303&MI_01
+
+
+;-------------------------------------------------------------------------------
+; INF SourceDisksNames Section
+;-------------------------------------------------------------------------------
+[SourceDisksNames]
+1000 = %NWSrcDisk%,"",,
+
+;-------------------------------------------------------------------------------
+; INF SourceDisksFiles Section
+;-------------------------------------------------------------------------------
+[SourceDisksFiles]
+nwtshmdm.sys = 1000
+
+[SourceDisksFiles.amd64]
+nwtshx64.sys = 1000
+
+[NWUsbDriverFiles]
+nwtshser.sys,nwtshmdm.sys,,0x20
+
+[NWUsbDriverFilesamd64]
+nwtshser.sys,nwtshx64.sys,,0x20
+
+;-------------------------------------------------------------------------------
+; INF DestinationDirs Section
+;-------------------------------------------------------------------------------
+[DestinationDirs]
+DefaultDestDir = 12
+
+;-------------------------------------------------------------------------------
+; INF DDInstall Section
+;-------------------------------------------------------------------------------
+[Port.NT]
+CopyFiles = NWUsbDriverFiles
+AddReg    = All, AddReg.NT, Debug
+
+[Port.NTamd64]
+CopyFiles = NWUsbDriverFilesamd64
+AddReg    = All, AddReg.NT, Debug
+
+;-------------------------------------------------------------------------------
+; INF DDInstall.Services Section
+;-------------------------------------------------------------------------------
+[Port.NT.Services]
+AddService = NWTshPort,  0x00000002, NWPort_Service_Inst
+
+[Port.NTamd64.Services]
+AddService = NWTshPort,  0x00000002, NWPort_Service_Inst
+
+[NWPort_Service_Inst]
+DisplayName   = %NWPortSvcName%
+ServiceType   = 1
+StartType     = 3
+ErrorControl  = 1
+ServiceBinary = %12%\nwtshser.sys
+AddReg	      = PowerMgt
+
+;-------------------------------------------------------------------------------
+; INF DDInstall Addreg Sections
+;-------------------------------------------------------------------------------
+[All]
+HKR,,NTMPDriver,,nwtshser.sys
+
+[AddReg.NT]
+HKR,,PortSubClass,1,01
+HKR,,EnumPropPages32,,"MsPorts.dll,SerialPortPropPageProvider"
+
+[Debug]
+HKR,,QCDriverConfig,0x00010001,0x00000000
+HKR,,QCDriverLoggingDirectory,0,"\??\C:\"
+HKR,,QCDriverDebugMask,0x00010001,0x00000000
+
+[PowerMgt]
+HKR,,QCDriverPowerManagementEnabled,0x00010001,0x00000001
+HKR,,QCDriverWaitWakeEnabled,0x00010001,0x00000001
+
+;-------------------------------------------------------------------------------
+; INF Strings Section
+;-------------------------------------------------------------------------------
+[Strings]
+NW               = "Novatel Wireless Inc"
+NWSrcDisk        = "Novatel Wireless USB Driver Disk"
+NWPortSvcName    = "Toshiba Broadband Status Port Driver"
+NW000            = "Toshiba Broadband (CDMA EV-DO) SM-Bus Minicard Status Port"
+NW001            = "Toshiba Broadband (CDMA EV-DO) Minicard Status Port"
+NW002            = "Toshiba Broadband (3G HSDPA) SM-Bus Minicard Status Port"
+NW003            = "Toshiba Broadband (3G HSDPA) Minicard Status Port"
+

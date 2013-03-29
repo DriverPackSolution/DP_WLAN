@@ -1,0 +1,172 @@
+; Windows Modem Setup File
+; Copyright (c) 2010 Qualcomm Incorporated
+; Manufacturer: Qualcomm Incorporated
+;
+; This INF file installs a proprietary USB CDC driver
+
+[Version]
+Signature   = "$WINDOWS NT$"
+Class       = Modem
+Provider    = %QUALCOMM%
+CLASSGUID   = {4D36E96D-E325-11CE-BFC1-08002BE10318}
+DriverVer=05/11/2010,2.0.7.3
+Catalogfile = qcusbsersra2k.cat
+
+[Manufacturer]
+%MFG% = Models, NTamd64
+
+[SourceDisksNames]
+1000 = %QcomSrcDisk%,"",,
+
+[SourceDisksFiles]
+qcusbsersra2k.sys = 1000
+
+[ControlFlags]
+ExcludeFromSelect = *
+
+[Models]
+%QUALCOMM90012% = Modem2, USB\VID_1199&PID_9001&MI_02
+%QUALCOMM90022% = Modem2, USB\VID_1199&PID_9002&MI_02
+%QUALCOMM90032% = Modem2, USB\VID_1199&PID_9003&MI_02
+%QUALCOMM90042% = Modem2, USB\VID_1199&PID_9004&MI_02
+%QUALCOMM90052% = Modem2, USB\VID_1199&PID_9005&MI_02
+%QUALCOMM90062% = Modem2, USB\VID_1199&PID_9006&MI_02
+%QUALCOMM90072% = Modem2, USB\VID_1199&PID_9007&MI_02
+%QUALCOMM90082% = Modem2, USB\VID_1199&PID_9008&MI_02
+%QUALCOMM90092% = Modem2, USB\VID_1199&PID_9009&MI_02
+%QUALCOMM900A2% = Modem2, USB\VID_1199&PID_900A&MI_02
+
+[Models.NTamd64]
+%QUALCOMM90012% = Modem2, USB\VID_1199&PID_9001&MI_02
+%QUALCOMM90022% = Modem2, USB\VID_1199&PID_9002&MI_02
+%QUALCOMM90032% = Modem2, USB\VID_1199&PID_9003&MI_02
+%QUALCOMM90042% = Modem2, USB\VID_1199&PID_9004&MI_02
+%QUALCOMM90052% = Modem2, USB\VID_1199&PID_9005&MI_02
+%QUALCOMM90062% = Modem2, USB\VID_1199&PID_9006&MI_02
+%QUALCOMM90072% = Modem2, USB\VID_1199&PID_9007&MI_02
+%QUALCOMM90082% = Modem2, USB\VID_1199&PID_9008&MI_02
+%QUALCOMM90092% = Modem2, USB\VID_1199&PID_9009&MI_02
+%QUALCOMM900A2% = Modem2, USB\VID_1199&PID_900A&MI_02
+
+[Modem2.NT]
+CopyFiles = QCUsbDriverFiles
+AddReg    = All, MfgAddReg, Modem1.QCAddReg, USB
+
+[QCUsbDriverFiles]
+qcusbsersra2k.sys
+
+[DestinationDirs]
+QCUsbDriverFiles = 12
+
+[Modem2.NT.Services]
+AddService = qcusbsersra2k,  0x00000000, QC_USBSerialService
+
+[QC_USBSerialService]
+DisplayName   = %QCUSBSER%
+ServiceType   = 1
+StartType     = 3
+ErrorControl  = 1
+ServiceBinary = %12%\qcusbsersra2k.sys
+
+[Modem2.NT.HW]
+AddReg = LowerFilterAddReg2
+
+[LowerFilterAddReg2]
+HKR,,"LowerFilters",0x00010000,"qcusbsersra2k"
+
+[Strings]
+QCUSBSER      = "Gobi 2000 USB Device for Legacy Serial Communication(1199-9001)"
+QcomSrcDisk   = "Qualcomm USB Driver Disk"
+MFG           = "Sierra Wireless Inc"
+QUALCOMM      = "Qualcomm Incorporated"
+QUALCOMM90012 = "Sierra Wireless Gobi 2000 HS-USB Modem 9001"
+QUALCOMM90022 = "Sierra Wireless Gobi 2000 HS-USB Modem 9002"
+QUALCOMM90032 = "Sierra Wireless Gobi 2000 HS-USB Modem 9003"
+QUALCOMM90042 = "Sierra Wireless Gobi 2000 HS-USB Modem 9004"
+QUALCOMM90052 = "Sierra Wireless Gobi 2000 HS-USB Modem 9005"
+QUALCOMM90062 = "Sierra Wireless Gobi 2000 HS-USB Modem 9006"
+QUALCOMM90072 = "Sierra Wireless Gobi 2000 HS-USB Modem 9007"
+QUALCOMM90082 = "Sierra Wireless Gobi 2000 HS-USB Modem 9008"
+QUALCOMM90092 = "Sierra Wireless Gobi 2000 HS-USB Modem 9009"
+QUALCOMM900A2 = "Sierra Wireless Gobi 2000 HS-USB Modem 900A"
+
+[All]
+HKR,,FriendlyDriver,0,Unimodem.vxd
+HKR,,DevLoader,0,*vcomm
+HKR,,ConfigDialog,0,modemui.dll
+HKR,,EnumPropPages,0,modemui.dll,EnumPropPages
+HKR,,PortSubClass,1,02
+HKR, Init,      1,, "AT<cr>"
+
+[Modem1.QCAddReg]
+HKR,, Properties, 1, 80,01,00,00, 00,00,00,00, 00,00,00,00, 00,00,00,00, 00,00,00,00, 00,01,00,00, 00,C2,01,00, 00,C2,01,00
+HKR,, FClass, 1, c3,00,00,00
+HKR, Fax, CL1FCS,, "2"
+HKR, Fax, HardwareFlowControl,, "1"
+
+[USB]
+HKR,, DeviceType, 1, 01
+HKR,,Contention,,""
+
+[MfgAddReg]
+HKR,, InactivityScale,1, 3c,00,00,00
+HKR, Init,      1,, "AT<cr>" 
+HKR, Init, 2,, "ATE0V1<cr>"
+HKR, Monitor, 1,, "ATS0=0<cr>"
+HKR, Monitor, 2,, "None"
+HKR, Answer,    1,, "ATA<cr>"
+HKR, Hangup,    1,, "ATH E1<cr>"
+HKR,, Reset,, "AT&F<cr>"   
+HKR, Settings, Prefix,, "AT"
+HKR, Settings, Terminator,, "<cr>"
+HKR, Settings, DialPrefix,, "D"
+HKR, Settings, DialSuffix,, ""
+HKR, Settings, CallSetupFailTimer,, "S7=<#>"
+HKR, Settings, Pulse,, "P"
+HKR, Settings, Tone,, "T"
+HKR, Settings, InactivityTimeOut,,"S30=<#>"
+
+HKR, Responses, "0<cr>",                       1, 00, 00, 00,00,00,00, 00,00,00,00 ; OK - Command executed
+HKR, Responses, "1<cr>",                       1, 02, 00, 00,00,00,00, 00,00,00,00 ; CONNECT - Connection
+HKR, Responses, "2<cr>",                       1, 08, 00, 00,00,00,00, 00,00,00,00 ; RING - Ring signal indicated
+HKR, Responses, "3<cr>",                       1, 04, 00, 00,00,00,00, 00,00,00,00 ; NO CARRIER 
+HKR, Responses, "4<cr>",                       1, 03, 00, 00,00,00,00, 00,00,00,00 ; ERROR - Invalid command
+HKR, Responses, "5<cr>",                       1, 02, 00, B0,04,00,00, 00,00,00,00 ; CONNECT 1200
+HKR, Responses, "6<cr>",                       1, 05, 00, 00,00,00,00, 00,00,00,00 ; NO DIALTONE - No dial tone detected
+HKR, Responses, "7<cr>",                       1, 06, 00, 00,00,00,00, 00,00,00,00 ; BUSY - Engaged (busy) signal
+HKR, Responses, "8<cr>",                       1, 07, 00, 00,00,00,00, 00,00,00,00 ; NO ANSWER
+HKR, Responses, "<cr><lf>OK<cr><lf>",          1, 00, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>RING<cr><lf>",        1, 08, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>ERROR<cr><lf>",       1, 03, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>NO DIALTONE<cr><lf>",  1, 05, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>NO DIAL TONE<cr><lf>",1, 05, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>BUSY<cr><lf>",        1, 06, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>NO CARRIER<cr><lf>",  1, 04, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>NO ANSWER<cr><lf>",   1, 07, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>FAX<cr><lf>",         1, 03, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>DATA<cr><lf>",        1, 03, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>VOICE<cr><lf>",       1, 03, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>DELAYED<cr><lf>",     1, 03, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>BLACKLISTED<cr><lf>", 1, 03, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>+FCERROR<cr><lf>",    1, 03, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT<cr><lf>",            1, 02, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 9600<cr><lf>",       1, 02, 08, 80,25,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 14400<cr><lf>",      1, 02, 08, 40,38,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 28800<cr><lf>",      1, 02, 08, 80,70,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 57600<cr><lf>",      1, 02, 08, 00,E1,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 8000<cr><lf>",       1, 02, 08, 40,1F,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 16000<cr><lf>",      1, 02, 08, 80,3E,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 32000<cr><lf>",      1, 02, 08, 00,7D,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 64000<cr><lf>",      1, 02, 08, 00,FA,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 115200<cr><lf>",     1, 02, 00, 00,c2,01,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 128000<cr><lf>",     1, 02, 08, 00,F4,01,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 256000<cr><lf>",     1, 02, 08, 00,E8,03,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 316800<cr><lf>",     1, 02, 08, 80,D5,04,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 384000<cr><lf>",     1, 02, 08, 00,DC,05,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 512000<cr><lf>",     1, 02, 08, 00,D0,07,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 1024000<cr><lf>",    1, 02, 08, 00,A0,0F,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 2048000<cr><lf>",    1, 02, 08, 00,40,1F,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 2400000<cr><lf>",    1, 02, 08, 00,9F,24,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 3100000<cr><lf>",    1, 02, 08, 60,4D,2F,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 3600000<cr><lf>",    1, 02, 08, 80,EE,36,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 7200000<cr><lf>",    1, 02, 08, 00,DD,6D,00, 00,00,00,00

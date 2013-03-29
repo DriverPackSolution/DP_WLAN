@@ -1,0 +1,190 @@
+
+[Version]
+Signature="$Chicago$"
+Compatible=1
+Class=Net
+ClassGUID={4D36E972-E325-11CE-BFC1-08002BE10318}
+Provider=%VENDOR%
+LayoutFile=layout.inf
+
+[Manufacturer]
+%VENDOR%=ELSA
+
+[ELSA]
+%*ELSAal2.DeviceDesc% = ELSAal2.ndi, PCMCIA\ELSA-AirLancer_MC-2-61E2
+%*ELSAal2fr.DeviceDesc% = ELSAal2fr.ndi, PCMCIA\ELSA-AirLancer_MC-2_FR-2432
+
+[ELSAal2.ndi.NT]
+Characteristics=0x84
+BusType=8
+AddReg=ELSAal25.ndi.reg,ELSAal2.params.reg,ELSAal2.params.eu.reg
+CopyFiles=ELSAal2.ndis5.CopyFiles
+
+[ELSAal2.ndi.NT.Services]
+AddService=ELSAal2, 2, ELSAal2.Service, ELSAal2.AddEventLog
+
+[ELSAal2fr.ndi.NT]
+Characteristics=0x84
+BusType=8
+AddReg=ELSAal25.ndi.reg,ELSAal2.params.reg,ELSAal2.params.fr.reg
+CopyFiles=ELSAal2.ndis5.CopyFiles
+
+[ELSAal2fr.ndi.NT.Services]
+AddService=ELSAal2, 2, ELSAal2.Service, ELSAal2.AddEventLog
+
+[ELSAal25.ndi.reg]
+HKR, Ndi, Service, 0, "ELSAal2"
+HKR, Ndi\Interfaces, LowerRange, 0, "ethernet"
+HKR, Ndi\Interfaces, UpperRange, 0, "ndis5"
+
+[ELSAal2.Service]
+DisplayName=%Service.DispName%
+ServiceType=1
+StartType=3
+ErrorControl=1
+ServiceBinary=%12%\elsaal2.sys
+LoadOrderGroup=NDIS
+
+[ELSAal2.AddEventLog]
+AddReg = ELSAal2.AddEventLog.reg
+
+[ELSAal2.AddEventLog.reg]
+HKR, , EventMessageFile, 0x00020000,"%%SystemRoot%%\System32\netevent.dll"
+HKR, , TypesSupported, 0x00010001, 7
+
+[ELSAal2.ndi]
+AddReg = ELSAal2.ndi.reg, ELSAal2.params.reg, ELSAal2.params.eu.reg, ELSAal2.params.9x.reg
+CopyFiles = ELSAal2.inf.CopyFiles, ELSAal2.ndis3.CopyFiles
+Restart
+
+[ELSAal2fr.ndi]
+AddReg = ELSAal2fr.ndi.reg, ELSAal2.params.reg, ELSAal2.params.fr.reg, ELSAal2.params.9x.reg
+CopyFiles = ELSAal2.inf.CopyFiles, ELSAal2.ndis3.CopyFiles
+Restart
+
+[ELSAal2.ndi.reg]
+HKR,Ndi,DeviceID,,"PCMCIA\ELSA-AirLancer_MC-2-61E2"
+HKR,Ndi,CardType,,"PCMCIA"
+HKR,,DevLoader,,*ndis
+HKR,,DeviceVxDs,,ELSAal2.SYS
+; HKR,,EnumPropPages,,"netdi.dll,EnumPropPages"
+HKR,NDIS,MajorNdisVersion,1,03
+HKR,NDIS,MinorNdisVersion,1,0A
+HKR,NDIS,LogDriverName,,"ELSAal2"
+HKR,NDIS,MajorDriverVersion,1,1
+HKR,NDIS,MinorDriverVersion,1,2
+HKR,Ndi\Interfaces,DefUpper,,"ndis3"
+HKR,Ndi\Interfaces,DefLower,,"ethernet"
+HKR,Ndi\Interfaces,UpperRange,,"ndis3"
+HKR,Ndi\Interfaces,LowerRange,,"ethernet"
+HKR,Ndi\Install,ndis3,,"ELSAal2.ndis3"
+
+[ELSAal2fr.ndi.reg]
+HKR,Ndi,DeviceID,,"PCMCIA\ELSA-AirLancer_MC-2_FR-2432"
+HKR,Ndi,CardType,,"PCMCIA"
+HKR,,DevLoader,,*ndis
+HKR,,DeviceVxDs,,ELSAal2.SYS
+; HKR,,EnumPropPages,,"netdi.dll,EnumPropPages"
+HKR,NDIS,MajorNdisVersion,1,03
+HKR,NDIS,MinorNdisVersion,1,0A
+HKR,NDIS,LogDriverName,,"ELSAal2"
+HKR,NDIS,MajorDriverVersion,1,1
+HKR,NDIS,MinorDriverVersion,1,2
+HKR,Ndi\Interfaces,DefUpper,,"ndis3"
+HKR,Ndi\Interfaces,DefLower,,"ethernet"
+HKR,Ndi\Interfaces,UpperRange,,"ndis3"
+HKR,Ndi\Interfaces,LowerRange,,"ethernet"
+HKR,Ndi\Install,ndis3,,"ELSAal2.ndis3"
+
+[ELSAal2.params.reg]
+HKR,,InterruptNumber,1,04,00,00,00
+HKR,,IOBaseAddress,1,02,00,00,00
+HKR,Ndi\params\NetworkTypeWLU,ParamDesc,,"Operating Mode"
+HKR,Ndi\params\NetworkTypeWLU,Type,,enum
+HKR,Ndi\params\NetworkTypeWLU,Default,,0
+HKR,Ndi\params\NetworkTypeWLU\enum,0,,"Infrastructure"
+HKR,Ndi\params\NetworkTypeWLU\enum,1,,"Ad hoc"
+HKR,Ndi\params\NetworkTypeWLU,flag,1,28,00,00,00
+HKR,Ndi\params\NetworkName,ParamDesc,,"WLAN Domain"
+HKR,Ndi\params\NetworkName,Type,,edit
+HKR,Ndi\params\NetworkName,LimitText,,32
+HKR,Ndi\params\NetworkName,Default,,"ELSA"
+HKR,Ndi\params\NetworkName,Flag,1,28,00,00,00
+HKR,Ndi\params\RTSThreshold,ParamDesc,,"Packet Size"
+HKR,Ndi\params\RTSThreshold,flag,1,28,00,00,00
+HKR,Ndi\params\RTSThreshold,type,,int
+HKR,Ndi\params\RTSThreshold,default,,1550
+HKR,Ndi\params\RTSThreshold,min,,50
+HKR,Ndi\params\RTSThreshold,max,,1600
+HKR,Ndi\params\RTSThreshold,step,,50
+HKR,Ndi\params\LLCType,ParamDesc,,"LLC Type"
+HKR,Ndi\params\LLCType,Type,,enum
+HKR,Ndi\params\LLCType,Default,,2
+;HKR,Ndi\params\LLCType\enum,0,,"Auto"
+HKR,Ndi\params\LLCType\enum,1,,"WaveLAN compatible"
+HKR,Ndi\params\LLCType\enum,2,,"IEEE 802.11"
+HKR,Ndi\params\LLCType,flag,1,28,00,00,00
+
+[ELSAal2.params.eu.reg]
+HKR,Ndi\params\DefaultChannel,ParamDesc,,"Channel Number"
+HKR,Ndi\params\DefaultChannel,type,,enum
+HKR,Ndi\params\DefaultChannel,Default,,11
+HKR,Ndi\params\DefaultChannel\enum,1,,"Channel 01"
+HKR,Ndi\params\DefaultChannel\enum,2,,"Channel 02"
+HKR,Ndi\params\DefaultChannel\enum,3,,"Channel 03"
+HKR,Ndi\params\DefaultChannel\enum,4,,"Channel 04"
+HKR,Ndi\params\DefaultChannel\enum,5,,"Channel 05"
+HKR,Ndi\params\DefaultChannel\enum,6,,"Channel 06"
+HKR,Ndi\params\DefaultChannel\enum,7,,"Channel 07"
+HKR,Ndi\params\DefaultChannel\enum,8,,"Channel 08"
+HKR,Ndi\params\DefaultChannel\enum,9,,"Channel 09"
+HKR,Ndi\params\DefaultChannel\enum,10,,"Channel 10"
+HKR,Ndi\params\DefaultChannel\enum,11,,"Channel 11"
+HKR,Ndi\params\DefaultChannel\enum,12,,"Channel 12"
+HKR,Ndi\params\DefaultChannel\enum,13,,"Channel 13"
+HKR,Ndi\params\DefaultChannel,flag,1,28,00,00,00
+
+[ELSAal2.params.fr.reg]
+HKR,Ndi\params\DefaultChannel,ParamDesc,,"Channel Number"
+HKR,Ndi\params\DefaultChannel,type,,enum
+HKR,Ndi\params\DefaultChannel,Default,,11
+HKR,Ndi\params\DefaultChannel\enum,10,,"Channel 10"
+HKR,Ndi\params\DefaultChannel\enum,11,,"Channel 11"
+HKR,Ndi\params\DefaultChannel\enum,12,,"Channel 12"
+HKR,Ndi\params\DefaultChannel\enum,13,,"Channel 13"
+HKR,Ndi\params\DefaultChannel,flag,1,28,00,00,00
+
+[ELSAal2.params.9x.reg]
+HKR,Ndi\params\InterruptNumber,resc,1,04,00,00,00
+HKR,Ndi\params\InterruptNumber,ParamDesc,,"INTERRUPT"
+HKR,Ndi\params\InterruptNumber,flag,1,60,00,00,00
+HKR,Ndi\params\IoBaseAddress,resc,1,02,00,00,00
+HKR,Ndi\params\IoBaseAddress,ParamDesc,,"IOBASE"
+HKR,Ndi\params\IoBaseAddress,flag,1,10,00,00,00
+
+[ELSAal2.inf.CopyFiles]
+elsaal2.inf
+
+[ELSAal2.ndis3.CopyFiles]
+elsaal2.sys
+
+[ELSAal2.ndis5.CopyFiles]
+elsaal2.sys
+
+[DestinationDirs]
+DefaultDestDir = 11
+ELSAal2.inf.CopyFiles = 17
+ELSAal2.ndis3.CopyFiles = 11
+ELSAal2.ndis5.CopyFiles = 12
+
+[SourceDisksFiles]
+elsaal2.sys = 1
+elsaal2.inf = 1
+
+[SourceDisksNames]
+1 = "ELSA AirLancer Driver CD", "", 0
+
+[Strings]
+VENDOR="ELSA"
+*ELSAal2.DeviceDesc = "ELSA AirLancer MC-2"
+*ELSAal2fr.DeviceDesc = "ELSA AirLancer MC-2 FR"

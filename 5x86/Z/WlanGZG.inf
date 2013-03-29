@@ -1,0 +1,306 @@
+;***********************************************************************
+; WlanGZG.INF
+;
+;   This installation script supports Windows 2000, XP for the
+;   Wireless LAN Adapters.
+;
+;   Copyright (c) 2008 ZyXEL, Inc.
+;   All Rights Reserved.
+;
+;***********************************************************************
+
+[Version]
+DriverVer		= 07/01/2008, 1.7.3.25
+Signature		= "$Chicago$"
+Compatible		= 1
+Class			= Net
+ClassGUID		= {4d36e972-e325-11ce-bfc1-08002be10318}
+MillenniumPreferred	= .ME
+Provider		= %DRV_PROVIDER_STR%
+CatalogFile.NT		= WlanGZG.cat
+
+
+[Manufacturer]
+%MANUFACTURER_STR%	= DeviceList, NTx86.5.1, NTAMD64.5.1
+
+;[ControlFlags]
+;Exclude all PNP adapters from user selection
+;ExcludeFromSelect   = *
+
+
+[DeviceList]
+;DisplayName              Section           Hardware ID
+;-----------              -------           --------------------------
+%WLAN_XG762_DESC_STR%         	= WLAN_USB1,     	USB\Vid_0586&Pid_340F
+%WLAN_ZY202_DESC_STR%         	= WLAN_USB2,     	USB\Vid_0586&Pid_3410
+
+[DeviceList.NTx86.5.1]
+%WLAN_XG762_DESC_STR%       	= WLAN_USB1.XP,    	USB\Vid_0586&Pid_340F
+%WLAN_ZY202_DESC_STR%       	= WLAN_USB2.XP,    	USB\Vid_0586&Pid_3410
+
+[DeviceList.NTAMD64.5.1]
+%WLAN_XG762_DESC_STR%       	= WLAN_USB1.NTAMD64, 	USB\Vid_0586&Pid_340F
+%WLAN_ZY202_DESC_STR%       	= WLAN_USB2.NTAMD64, 	USB\Vid_0586&Pid_3410
+
+;*********************************************************************
+;   Microsoft Windows 2000 section
+;*********************************************************************
+[WLAN_USB1.NT]
+Characteristics = 0x84
+BusType         = 15
+AddReg		= WLAN_USB1_2K, WLAN_USB_2K.reg, WLAN_USB_Common.reg
+CopyFiles       = WLAN_USB_DRIVER_COPY_2K
+
+[WLAN_USB1_2K]
+HKR,,                 VendorDesc,         0, %WLAN_XG762_DESC_STR%
+
+[WLAN_USB1.NT.Services]
+AddService = "ZG760_2K", 2, WLAN_USB_2K.Service, WLAN_USB.EventLog
+
+;----------------------------------------------------------------------
+[WLAN_USB2.NT]
+Characteristics = 0x84
+BusType         = 15
+AddReg		= WLAN_USB2_2K, WLAN_USB_2K.reg, WLAN_USB_Common.reg
+CopyFiles       = WLAN_USB_DRIVER_COPY_2K
+
+[WLAN_USB2_2K]
+HKR,,                 VendorDesc,         0, %WLAN_ZY202_DESC_STR%
+
+[WLAN_USB2.NT.Services]
+AddService = "ZG760_2K", 2, WLAN_USB_2K.Service, WLAN_USB.EventLog
+
+
+;======================================================================
+
+[WLAN_USB_2K.reg]
+; Interfaces Info
+HKR,NDI\Interfaces,   UpperRange,         0, "ndis5"
+HKR,NDI\Interfaces,   LowerRange,         0, "ethernet"
+HKR,NDI,              Service,            0, "ZG760_2K"
+
+
+[WLAN_USB_2K.Service]
+DisplayName     = %WLAN_USB_SERVICE_STR%
+ServiceType     = 1                             ; %SERVICE_KERNEL_DRIVER%
+StartType       = 3                             ; %SERVICE_DEMAND_START%
+ErrorControl    = 1                             ; %SERVICE_ERROR_NORMAL%
+ServiceBinary   = %12%\WlanGZ2K.sys		; 
+LoadOrderGroup  = NDIS
+
+;*********************************************************************
+;   Microsoft Windows XP section
+;*********************************************************************
+[WLAN_USB1.XP.NT]
+Characteristics = 0x84
+BusType         = 15
+AddReg		= WLAN_USB1_XP, WLAN_USB_XP.reg, WLAN_USB_Common.reg
+CopyFiles       = WLAN_USB_DRIVER_COPY_XP
+
+[WLAN_USB1_XP]
+HKR,,                 VendorDesc,         0, %WLAN_XG762_DESC_STR%
+
+[WLAN_USB1.XP.NT.Services]
+AddService = "ZG760_XP", 2, WLAN_USB_XP.Service, WLAN_USB.EventLog
+
+;---------------------------------------------------------------------
+[WLAN_USB2.XP.NT]
+Characteristics = 0x84
+BusType         = 15
+AddReg		= WLAN_USB2_XP, WLAN_USB_XP.reg, WLAN_USB_Common.reg
+CopyFiles       = WLAN_USB_DRIVER_COPY_XP
+
+[WLAN_USB2_XP]
+HKR,,                 VendorDesc,         0, %WLAN_ZY202_DESC_STR%
+
+[WLAN_USB2.XP.NT.Services]
+AddService = "ZG760_XP", 2, WLAN_USB_XP.Service, WLAN_USB.EventLog
+
+
+;######################################################################
+;   Microsoft Windows XP AMD64 section
+;######################################################################
+[WLAN_USB1.NTAMD64]
+Characteristics = 0x84
+BusType         = 15
+AddReg		= WLAN_USB1_64,WLAN_USB_64.reg, WLAN_USB_Common.reg
+CopyFiles       = WLAN_USB_DRIVER_COPY_XP64
+
+[WLAN_USB1_64]
+HKR,,                 VendorDesc,         0, %WLAN_XG762_DESC_STR%
+
+[WLAN_USB1.NTAMD64.Services]
+AddService = "ZG760_64", 2, WLAN_USB_NTAMD64.Service, WLAN_USB.EventLog
+
+;------------------------------------------------------------------
+[WLAN_USB2.NTAMD64]
+Characteristics = 0x84
+BusType         = 15
+AddReg		= WLAN_USB2_64,WLAN_USB_64.reg, WLAN_USB_Common.reg
+CopyFiles       = WLAN_USB_DRIVER_COPY_XP64
+
+[WLAN_USB2_64]
+HKR,,                 VendorDesc,         0, %WLAN_ZY202_DESC_STR%
+
+[WLAN_USB2.NTAMD64.Services]
+AddService = "ZG760_64", 2, WLAN_USB_NTAMD64.Service, WLAN_USB.EventLog
+
+
+[WLAN_USB_64.reg]
+; Interfaces Info
+HKR,NDI\Interfaces,   UpperRange,         0, "ndis5"
+HKR,NDI\Interfaces,   LowerRange,         0, "ethernet"
+HKR,NDI,              Service,            0, "ZG760_64"
+
+
+;=========================winxp common=======================================
+[WLAN_USB_XP.reg]
+; Interfaces Info
+HKR,NDI\Interfaces,   UpperRange,         0, "ndis5"
+HKR,NDI\Interfaces,   LowerRange,         0, "ethernet"
+HKR,NDI,              Service,            0, "ZG760_XP"
+
+
+
+[WLAN_USB_XP.Service]
+DisplayName     = %WLAN_USB_SERVICE_STR%
+ServiceType     = 1                             ; %SERVICE_KERNEL_DRIVER%
+StartType       = 3                             ; %SERVICE_DEMAND_START%
+ErrorControl    = 1                             ; %SERVICE_ERROR_NORMAL%
+ServiceBinary   = %12%\WlanGZXP.sys		; 
+LoadOrderGroup  = NDIS
+
+[WLAN_USB_NTAMD64.Service]
+DisplayName     = %WLAN_USB_SERVICE_STR%
+ServiceType     = 1                             ; %SERVICE_KERNEL_DRIVER%
+StartType       = 3                             ; %SERVICE_DEMAND_START%
+ErrorControl    = 1                             ; %SERVICE_ERROR_NORMAL%
+ServiceBinary   = %12%\WlanGZ64.SYS		; 
+LoadOrderGroup  = NDIS
+
+;*********************************************************************
+;   Microsoft Windows ME/2000/XP Common Section
+;*********************************************************************
+[WLAN_USB.EventLog]
+Addreg = WLAN_USB.AddEventLog.reg
+
+[WLAN_USB.AddEventLog.reg]
+HKR,,                               EventMessageFile,  0x00020000, "%%SystemRoot%%\System32\netevent.dll"
+HKR,,                               TypesSupported,    0x00010001, 7
+
+[WLAN_USB_Common.reg]
+HKR,                   			,WLANIOC	,0 ,"XG-760"
+
+
+
+HKR,,                           PHY_A_6M_Setpoint_Value,	0x10001, 0x28
+HKR,,                           PHY_A_6M_CR128_Value,	0x10001, 0x17
+HKR,,                           PHY_A_1dBm_Value,	0x10001, 0x08
+
+HKR,,                           EnableAntennaDiversity, 0, "0"
+HKR,,                           DefaultAntenna, 0, "0"
+HKR,,                           DefaultWirelessMode, 0, "0"
+
+HKR,,                           		IBSS Wireless Mode,   0, "0"
+HKR,NDI\params\IBSS Wireless Mode,    		ParamDesc,      0, "IBSS Wireless Mode"
+HKR,NDI\params\IBSS Wireless Mode,       	type,           0, "enum"
+HKR,NDI\params\IBSS Wireless Mode,           	flag,           1, 30,00,00,00
+HKR,Ndi\params\IBSS Wireless Mode,           	default,        0, "0"
+HKR,NDI\params\IBSS Wireless Mode\enum,      	0,              0, "IBSS B Mode"
+HKR,NDI\params\IBSS Wireless Mode\enum,      	1,              0, "IBSS G Mode"
+
+HKR,,                           	IBSS Protection Mode,0, "0"
+HKR,NDI\params\IBSS Protection Mode,    	ParamDesc,      0, "IBSS Protection Mode"
+HKR,NDI\params\IBSS Protection Mode,       	type,           0, "enum"
+HKR,NDI\params\IBSS Protection Mode,         flag,           1, 30,00,00,00
+HKR,Ndi\params\IBSS Protection Mode,         default,        0, "0"
+HKR,NDI\params\IBSS Protection Mode\enum,    0,              0, "Disable"
+
+HKR,,                           	PreambleMode,   0, "0"
+HKR,NDI\params\PreambleMode,    	ParamDesc,      0, "%PREAMBLE%"
+HKR,NDI\params\PreambleMode,       	type,           0, "enum"
+HKR,NDI\params\PreambleMode,           	flag,           1, 30,00,00,00
+HKR,Ndi\params\PreambleMode,           	default,        0, "3"
+HKR,NDI\params\PreambleMode\enum,      	1,              0, "Long"
+HKR,NDI\params\PreambleMode\enum,      	2,              0, "Short"
+HKR,NDI\params\PreambleMode\enum,      	3,              0, "Auto"
+
+HKR,,                           SaveDefaultConnection, 0, "1"
+HKR,,                           RFSwitch, 0, "0"
+; FastRoaming: 1000(1sec) <= value <= 4000(4 sec)
+HKR,,                           FastRoaming, 0, "4000" 
+HKR,,                           EnableFastRoaming, 0, "0" 
+HKR,,                           FwRadio, 0, "0" 
+HKR,,                           SurpriseRemoveOK, 0, "1"
+HKR,,                           Enable_Survey_Issue, 0, "1"
+
+
+HKR,,                           	PSPXLinkMode,   0, "0"
+HKR,NDI\params\PSPXLinkMode,    	ParamDesc,      0, "PSPXLinkMode"
+HKR,NDI\params\PSPXLinkMode,       	type,           0, "enum"
+HKR,NDI\params\PSPXLinkMode,           	flag,           1, 30,00,00,00
+HKR,Ndi\params\PSPXLinkMode,           	default,        0, "0"
+HKR,NDI\params\PSPXLinkMode\enum,      	0,              0, "Disable"
+HKR,NDI\params\PSPXLinkMode\enum,      	1,              0, "Enable"
+
+HKR,,                           	QosTagPolicy,   0, "0"
+HKR,NDI\params\QosTagPolicy,    	ParamDesc,      0, "QosTagPolicy"
+HKR,NDI\params\QosTagPolicy,       	type,           0, "enum"
+HKR,NDI\params\QosTagPolicy,           	flag,           1, 30,00,00,00
+HKR,Ndi\params\QosTagPolicy,           	default,        0, "0"
+HKR,NDI\params\QosTagPolicy\enum,      	0,              0, "Auto"
+HKR,NDI\params\QosTagPolicy\enum,      	1,              0, "802.1Q Tag"
+HKR,NDI\params\QosTagPolicy\enum,      	2,              0, "DSCP Tag"
+
+HKR,,                           	WMMQosSupport,  0, "1"
+HKR,NDI\params\WMMQosSupport,    	ParamDesc,      0, "WMMQosSupport"
+HKR,NDI\params\WMMQosSupport,       	type,           0, "enum"
+HKR,NDI\params\WMMQosSupport,           flag,           1, 30,00,00,00
+HKR,Ndi\params\WMMQosSupport,           default,        0, "1"
+HKR,NDI\params\WMMQosSupport\enum,      0,              0, "Disable"
+HKR,NDI\params\WMMQosSupport\enum,      1,              0, "Enable"
+
+;*********************************************************************
+;   Destination Directories
+;*********************************************************************
+[DestinationDirs]
+WLAN_USB_DRIVER_COPY_2K		= 12			; system32\drivers subdirectory on Win NT/2000
+WLAN_USB_DRIVER_COPY_XP		= 12			; system32\drivers subdirectory on Win XP
+WLAN_USB_DRIVER_COPY_XP64	= 12			; system32\drivers subdirectory on Win 64
+
+
+[PreCopySection]
+HKR,,NoSetupUI,,1
+
+[WLAN_USB_DRIVER_COPY_2K]
+WlanGZ2K.sys
+
+[WLAN_USB_DRIVER_COPY_XP]
+WlanGZXP.sys
+
+[WLAN_USB_DRIVER_COPY_XP64]
+WlanGZ64.sys
+
+[SourceDisksNames]
+;Source Disk ID         = Disk Name
+;--------------           ---------
+ 1                      = %INSTALL_DISK_STR%,,,
+
+[SourceDisksFiles]      
+;File Name              = Source Disk ID
+;---------                --------------
+WlanGZ2K.sys 	        = 1
+WlanGZXP.sys 		= 1
+WlanGZ64.sys            = 1
+;###############################################################################
+[Strings]
+DRV_PROVIDER_STR	= "ZyXEL Communications Corp."
+MANUFACTURER_STR	= "ZyXEL Communications Corp."
+
+INSTALL_DISK_STR	= "ZyXEL Wireless USB Adapter Utility"
+
+WLAN_ZY202_DESC_STR	= "ZyXEL G-202 Wireless USB Adapter"
+WLAN_XG762_DESC_STR	= "ZyXEL G-220 v2 Wireless USB Adapter"
+WLAN_USB_SERVICE_STR 	= "ZyXEL 802.11g XG762 1211 Driver"
+
+PREAMBLE 		= "PreambleMode"

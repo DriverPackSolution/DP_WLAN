@@ -1,0 +1,151 @@
+;-------------------------------------------------------------------------------
+; Novatel Wireless Merlin UMTS Modem
+; Installation file (.inf).
+; (c) Copyright 2004 Novatel Wireless Inc.
+;-------------------------------------------------------------------------------
+;
+;when          who   what, where, why
+;-----------   ---   -----------------------------------------------------------
+;11 Nov 2004   HT    Changed child HW ID to generic
+;22 Sep 2004   SK    Updated for U630
+;13 Jul 2004   HT    384Kbps Update 
+;22 Mar 2004   SK    Added UMTS NDIS
+;17 Dec 2003   HT    Moved Secondary Port to other inf file and made it a Serial Port.
+;		     Renamed catalogue file
+;15 Oct 2003   SN    Changed the PowerDelay to 15 seconds.
+;15 Apr 2003   BPV   Added power delay to the primary port (temporary fix) and
+;                    removed typical modem settings and responses from secondary
+;                    port. Also swapped port installation order so primary port
+;                    is installed first to receive lower port number.
+;05 Mar 2003   BPV   Update INIT string. &F1 removed.
+;14 Feb 2003   BPV   Swapped primary and secondary ports. Also removed some
+;                    Hangup registry settings not required.
+;14 Jan 2003   BPV   Update CIS
+;14 Jan 2003   BPV   Initial release.
+;-------------------------------------------------------------------------------
+
+;-------------------------------------------------------------------------------
+; INF Version Section
+;-------------------------------------------------------------------------------
+[Version]
+Signature      = "$CHICAGO$"
+Class          = %nwClass%
+ClassGuid      = {4D36E96D-E325-11CE-BFC1-08002BE10318}
+Provider       = %nwProvider%
+CatalogFile.NT = %nwCatalogFile%.cat
+DriverVer      = 11/22/2004,1.6.1.0
+
+
+;-------------------------------------------------------------------------------
+; INF ControlFlags Section
+;-------------------------------------------------------------------------------
+[ControlFlags]
+ExcludeFromSelect = MF\NOVATEL_WIRELESS-MERLIN_UMTS_MODEM-DEV0
+
+;-------------------------------------------------------------------------------
+; INF Manufactuerer Section
+;-------------------------------------------------------------------------------
+[Manufacturer]
+%nwProvider% = nwModelSectionList
+
+
+;-------------------------------------------------------------------------------
+; INF Models Section
+;-------------------------------------------------------------------------------
+[nwModelSectionList]
+%nwDevice0% = nwDevice0,MF\NOVATEL_WIRELESS-MERLIN_UMTS_MODEM-DEV0
+
+;-------------------------------------------------------------------------------
+; INF DDInstall Section
+;-------------------------------------------------------------------------------
+[nwDevice0.NT]
+AddReg = nwDevice0.AddReg, nwDevice0.NT.AddReg
+
+
+;-------------------------------------------------------------------------------
+; INF DDInstall.HW Section
+;-------------------------------------------------------------------------------
+[nwDevice0.NT.HW]
+AddReg = nwDevice0.NT.HW.AddReg
+
+
+;-------------------------------------------------------------------------------
+; INF Strings Section
+;-------------------------------------------------------------------------------
+[Strings]
+nwClass        = "Modem"
+nwProvider     = "Novatel Wireless Inc"
+nwCatalogFile  = "NwtUMTS"
+nwDevice0      = "Novatel Wireless UMTS Modem Primary Port"
+
+
+;-------------------------------------------------------------------------------
+; INF Novatel defines Section
+;-------------------------------------------------------------------------------
+[nwDevice0.AddReg]
+HKR, Init,      1,, "AT<cr>"
+HKR, Init,      2,, "ATE0V1&D2&C1S0=0<cr>"
+HKR, Answer,    1,, "ATA<cr>"
+HKR, Hangup,    1,, "ATH<cr>"
+HKR, Monitor,   1,, "ATS0=0<cr>"
+HKR, Monitor,   2,, "None"
+HKR,,Reset,,    "ATZ<cr>"
+
+HKR, Settings,  FlowControl_Off,,  "+IFC=0,0"
+HKR, Settings,  FlowControl_Hard,, "+IFC=2,2"
+HKR, Settings,  FlowControl_Soft,, "+IFC=1,1"
+HKR, Settings,  Prefix,, "AT"
+HKR, Settings,  Terminator,, "<cr>"
+HKR, Settings,  DialPrefix,, "DT"
+HKR, Settings,  DialSuffix,, ""
+
+HKR, Responses, "0<cr>",  1, 00, 00, 00,00,00,00, 00,00,00,00 ; OK - Command executed
+HKR, Responses, "1<cr>",  1, 02, 00, 00,00,00,00, 00,00,00,00 ; CONNECT - Connection
+HKR, Responses, "2<cr>",  1, 08, 00, 00,00,00,00, 00,00,00,00 ; RING - Ring signal indicated
+HKR, Responses, "3<cr>",  1, 04, 00, 00,00,00,00, 00,00,00,00 ; NO CARRIER 
+HKR, Responses, "4<cr>",  1, 03, 00, 00,00,00,00, 00,00,00,00 ; ERROR - Invalid command
+HKR, Responses, "6<cr>",  1, 05, 00, 00,00,00,00, 00,00,00,00 ; NO DIALTONE - No dial tone detected
+HKR, Responses, "7<cr>",  1, 06, 00, 00,00,00,00, 00,00,00,00 ; BUSY - Engaged (busy) signal
+HKR, Responses, "8<cr>",  1, 07, 00, 00,00,00,00, 00,00,00,00 ; NO ANSWER
+HKR, Responses, "9<cr>",  1, 00, 00, 00,00,00,00, 00,00,00,00 ; OK
+
+HKR, Responses, "<cr><lf>OK<cr><lf>",              1, 00, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>RING<cr><lf>",            1, 08, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>ERROR<cr><lf>",           1, 03, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>NO DIALTONE<cr><lf>",     1, 05, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>NO DIAL TONE<cr><lf>",    1, 05, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>BUSY<cr><lf>",            1, 06, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>NO CARRIER<cr><lf>",      1, 04, 00, 00,00,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>NO ANSWER<cr><lf>",       1, 07, 00, 00,00,00,00, 00,00,00,00
+
+HKR, Responses, "<cr><lf>CONNECT<cr><lf>",         1, 02, 00, 00,DC,05,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 2400<cr><lf>",    1, 02, 00, 60,09,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 4800<cr><lf>",    1, 02, 00, C0,12,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 7200<cr><lf>",    1, 02, 00, 20,1C,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 9600<cr><lf>",    1, 02, 00, 80,25,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 14400<cr><lf>",   1, 02, 00, 40,38,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 19200<cr><lf>",   1, 02, 00, 00,4B,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 28800<cr><lf>",   1, 02, 00, 80,70,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 38400<cr><lf>",   1, 02, 00, 00,96,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 57600<cr><lf>",   1, 02, 00, 00,E1,00,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 115200<cr><lf>",  1, 02, 00, 00,C2,01,00, 00,00,00,00
+HKR, Responses, "<cr><lf>CONNECT 115,200<cr><lf>", 1, 02, 00, 00,C2,01,00, 00,00,00,00
+
+
+[nwDevice0.NT.AddReg]
+HKR,,DevLoader,,*VCOMM
+HKR,,ConfigDialog,,modemui.dll
+HKR,,PortSubClass,1,02
+HKR,,EnumPropPages32,,"modemui.dll,ModemPropPagesProvider"
+HKR,,Properties, 1, 00,00,00,00, 00,00,00,00, 00,00,00,00, 00,00,00,00, 00,00,00,00, 10,00,00,00, 00,C2,01,00, 00,C2,01,00
+HKR,,Contention,,*vcd
+HKR,,DeviceType,1,03
+
+
+[nwDevice0.NT.HW.AddReg]
+HKR,,FriendlyDriver,,Unimodem.vxd
+HKR,,DevLoader,,*VCOMM
+HKR,,ConfigDialog,,modemui.dll
+HKR,,EnumPropPages,,"modemui.dll,EnumPropPages"
+HKR,,PortSubClass,1,02
+HKR,,EnablePowerManagement,0x00010001,1

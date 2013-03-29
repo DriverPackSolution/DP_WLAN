@@ -1,0 +1,382 @@
+; 
+;  Purpose:   Netcard setup information file for Windows 7
+;
+;  Copyright: VIA Technologies, Inc.
+;
+
+[Version]
+CatalogFile = vw7ux64v.cat
+Signature   = "$WINDOWS NT$"
+Class       = Net
+ClassGUID   = {4d36e972-e325-11ce-bfc1-08002be10318}
+Provider    = %Prov%
+Compatible  = 1
+DriverVer   = 03/19/2010, 1.1.0.2
+
+[Manufacturer]
+%Manuf%     = MANUF, NTAMD64
+
+[ControlFlags]
+ExcludeFromSelect = USB\VID_160A&PID_3184
+
+[MANUF.NTAMD64]
+%VT3184.DeviceDesc% = VT3184v2.ndi, USB\VID_160A&PID_3184
+
+;-------------------------------------------------------------------------------
+; ndi for 3184v2
+;-------------------------------------------------------------------------------
+[VT3184v2.ndi.NTAMD64]
+Include=netvwifibus.inf
+Needs=VWiFiBus.CopyFiles
+Characteristics = 0x84
+BusType         = 15
+DelReg          = WETU.delreg, WETU.SW.delreg
+AddReg          = VT3184v2.reg, WETU.reg, WETU.SW.NT
+CopyFiles       = WETU.CopyFiles.NTAMD64, WETU.SW.CopyFiles.NTAMD64
+
+*IfType            = 71 ; IF_TYPE_IEEE80211
+*MediaType         = 16	; NdisMediumNative802_11
+*PhysicalMediaType = 9  ; NdisPhysicalMediumNative802_11
+
+[VT3184v2.ndi.NTAMD64.Services]
+Include=netvwifibus.inf
+Needs=VWiFiBus.Services
+AddService      = "VNWUND6V", 2, WETU.Service, WETU.EventLog
+
+[VT3184v2.ndi.NTAMD64.HW]
+Include=netvwifibus.inf
+Needs=VWiFiBus.PnPFilterRegistration
+
+;-------------------------------------------------------------------------------
+; VT3184v2 specific
+;
+[VT3184v2.reg]
+HKR, Ndi, DeviceID, 0, "USB\VID_160A&PID_3184"
+
+;-------------------------------------------------------------------------------
+; common driver parameters
+;
+[WETU.reg]
+
+HKR, Ndi\Interfaces, LowerRange, 0, "wlan,ethernet,vwifi"
+HKR, Ndi\Interfaces, UpperRange, 0, "ndis5"
+HKR, Ndi,            Service,    0, "VNWUND6V"
+
+; Persist RF state
+HKR, ,                                  RadioOff,               0, "0"
+
+HKR, ,                                  *ReceiveBuffers,        0, "128"
+HKR, Ndi\params\*ReceiveBuffers,        ParamDesc,              0, %RXBuffer%
+HKR, Ndi\params\*ReceiveBuffers,        default,                0, "128"
+HKR, Ndi\params\*ReceiveBuffers,        type,                   0, "int"
+HKR, Ndi\params\*ReceiveBuffers,        Min,                    0, "64"
+HKR, Ndi\params\*ReceiveBuffers,        Max,                    0, "256"
+HKR, Ndi\params\*ReceiveBuffers,        Step,                   0, "1"
+HKR, Ndi\params\*ReceiveBuffers,        Base,                   0, "10"
+
+HKR, ,                                  *TransmitBuffers,       0, "128"
+HKR, Ndi\params\*TransmitBuffers,       ParamDesc,              0, %TXBuffer%
+HKR, Ndi\params\*TransmitBuffers,       default,                0, "128"
+HKR, Ndi\params\*TransmitBuffers,       type,                   0, "int"
+HKR, Ndi\params\*TransmitBuffers,       Min,                    0, "64"
+HKR, Ndi\params\*TransmitBuffers,       Max,                    0, "256"
+HKR, Ndi\params\*TransmitBuffers,       Step,                   0, "1"
+HKR, Ndi\params\*TransmitBuffers,       Base,                   0, "10"
+
+; Connection Rate
+HKR, ,                                  ConnectionRate,         0, "12"
+HKR, Ndi\params\ConnectionRate,         ParamDesc,              0, %ConnectionRate%
+HKR, Ndi\params\ConnectionRate,         default,                0, "12"
+HKR, Ndi\params\ConnectionRate,         type,                   0, "enum"
+HKR, Ndi\params\ConnectionRate\enum,    0,                      0, %1M%
+HKR, Ndi\params\ConnectionRate\enum,    1,                      0, %2M%
+HKR, Ndi\params\ConnectionRate\enum,    2,                      0, %5M%
+HKR, Ndi\params\ConnectionRate\enum,    3,                      0, %11M%
+HKR, Ndi\params\ConnectionRate\enum,    4,                      0, %6M%
+HKR, Ndi\params\ConnectionRate\enum,    5,                      0, %9M%
+HKR, Ndi\params\ConnectionRate\enum,    6,                      0, %12M%
+HKR, Ndi\params\ConnectionRate\enum,    7,                      0, %18M%
+HKR, Ndi\params\ConnectionRate\enum,    8,                      0, %24M%
+HKR, Ndi\params\ConnectionRate\enum,    9,                      0, %36M%
+HKR, Ndi\params\ConnectionRate\enum,    10,                     0, %48M%
+HKR, Ndi\params\ConnectionRate\enum,    11,                     0, %54M%
+HKR, Ndi\params\ConnectionRate\enum,    12,                     0, %autoR%
+
+; Channel
+HKR, ,                                  Channel,                0, "6"
+HKR, Ndi\params\Channel,                ParamDesc,              0, %Channel%
+HKR, Ndi\params\Channel,                default,                0, "6"
+HKR, Ndi\params\Channel,                type,                   0, "int"
+HKR, Ndi\params\Channel,                min,                    0, "1"
+HKR, Ndi\params\Channel,                max,                    0, "56"
+HKR, Ndi\params\Channel,                step,                   0, "1"
+HKR, Ndi\params\*TransmitBuffers,       Base,                   0, "10"
+
+; Preamble Type
+HKR, ,                                  PreambleType,           0, "1"
+HKR, Ndi\params\PreambleType,           ParamDesc,              0, %PreambleType%
+HKR, Ndi\params\PreambleType,           default,                0, "1"
+HKR, Ndi\params\PreambleType,           type,                   0, "enum"
+HKR, Ndi\params\PreambleType\enum,      0,                      0, %Long%
+HKR, Ndi\params\PreambleType\enum,      1,                      0, %Short%
+
+; RTS Threshold
+HKR, ,                                  RTSThreshold,           0, "2347"
+HKR, Ndi\params\RTSThreshold,           ParamDesc,              0, %RTSThreshold%
+HKR, Ndi\params\RTSThreshold,           default,                0, "2347"
+HKR, Ndi\params\RTSThreshold,           type,                   0, "int"
+HKR, Ndi\params\RTSThreshold,           Min,                    0, "256"
+HKR, Ndi\params\RTSThreshold,           Max,                    0, "2347"
+HKR, Ndi\params\RTSThreshold,           Step,                   0, "1"
+HKR, Ndi\params\RTSThreshold,           Base,                   0, "10"
+
+; Frag Threshold
+HKR, ,                                  FragThreshold,          0, "2346"
+HKR, Ndi\params\FragThreshold,          ParamDesc,              0, %FragThreshold%
+HKR, Ndi\params\FragThreshold,          default,                0, "2346"
+HKR, Ndi\params\FragThreshold,          type,                   0, "int"
+HKR, Ndi\params\FragThreshold,          Min,                    0, "256"
+HKR, Ndi\params\FragThreshold,          Max,                    0, "2346"
+HKR, Ndi\params\FragThreshold,          Step,                   0, "1"
+HKR, Ndi\params\FragThreshold,          Base,                   0, "10"
+
+; Operation Mode
+HKR, ,                                  OperationMode,          0, "0"
+HKR, Ndi\params\OperationMode,          ParamDesc,              0, %OperationMode%
+HKR, Ndi\params\OperationMode,          default,                0, "0"
+HKR, Ndi\params\OperationMode,          type,                   0, "enum"
+HKR, Ndi\params\OperationMode\enum,     0,                      0, "Infrastructure"
+HKR, Ndi\params\OperationMode\enum,     1,                      0, "Ad-Hoc"
+
+; Beacon Interval
+HKR, ,                                  BeaconInterval,         0, "100"
+HKR, Ndi\params\BeaconInterval,         ParamDesc,              0, %BeaconInterval%
+HKR, Ndi\params\BeaconInterval,         default,                0, "100"
+HKR, Ndi\params\BeaconInterval,         type,                   0, "int"
+HKR, Ndi\params\BeaconInterval,         Min,                    0, "1"
+HKR, Ndi\params\BeaconInterval,         Max,                    0, "1000"
+HKR, Ndi\params\BeaconInterval,         Step,                   0, "1"
+HKR, Ndi\params\BeaconInterval,         Base,                   0, "10"
+
+; Radio Control
+HKR, ,                                  RadioControl,           0, "0"
+HKR, Ndi\params\RadioControl,           ParamDesc,              0, %RadioControl%
+HKR, Ndi\params\RadioControl,           default,                0, "0"
+HKR, Ndi\params\RadioControl,           type,                   0, "enum"
+HKR, Ndi\params\RadioControl\enum,      0,                      0, "On"
+HKR, Ndi\params\RadioControl\enum,      1,                      0, "Off"
+
+; Antenna Diversity
+HKR, ,                                  AntennaDiversity,       0, "1"
+HKR, Ndi\params\AntennaDiversity,       ParamDesc,              0, %AntennaDiversity%
+HKR, Ndi\params\AntennaDiversity,       default,                0, "1"
+HKR, Ndi\params\AntennaDiversity,       type,                   0, "enum"
+HKR, Ndi\params\AntennaDiversity\enum,  0,                      0, "Disable"
+HKR, Ndi\params\AntennaDiversity\enum,  1,                      0, "Enable"
+
+; User defined Network Address
+HKR, ,                                  NetworkAddress,         0, ""
+HKR, Ndi\params\NetworkAddress,         ParamDesc,              0, %NetAddress%
+HKR, Ndi\params\NetworkAddress,         Default,                0, ""
+HKR, Ndi\params\NetworkAddress,         type,                   0, "edit"
+HKR, NDI\params\NetworkAddress,         LimitText,              0, "12"
+HKR, NDI\params\NetworkAddress,         UpperCase,              0, "1"
+HKR, NDI\params\NetworkAddress,         optional,               0, "1"
+HKR, NDI\params\NetworkAddress,         Base,                   0, "16"
+
+; DesiredSSID
+HKR, ,                                  DesiredSSID,            0, ""
+HKR, NDI\params\DesiredSSID,            ParamDesc,              0, %DesiredSSID%
+HKR, NDI\params\DesiredSSID,            default,                0, ""
+HKR, NDI\params\DesiredSSID,            type,                   0, "edit"
+HKR, NDI\params\DesiredSSID,            LimitText,              0, "32"
+HKR, NDI\params\DesiredSSID,            optional,               0, "1"
+
+; IBSS Default Mode
+HKR, ,                                  IBSSMode,               0, "0"
+HKR, Ndi\params\IBSSMode,               ParamDesc,              0, %IBSSMode%
+HKR, Ndi\params\IBSSMode,               default,                0, "0"
+HKR, Ndi\params\IBSSMode,               type,                   0, "enum"
+HKR, Ndi\params\IBSSMode\enum,          0,                      0, "802.11G"
+HKR, Ndi\params\IBSSMode\enum,          1,                      0, "802.11B"
+
+; SelectiveSuspend
+HKR, ,                                  SelectiveSuspend,       0, "0"
+HKR, Ndi\params\SelectiveSuspend,       ParamDesc,              0, %SelectiveSuspend%
+HKR, Ndi\params\SelectiveSuspend,       default,                0, "0"
+HKR, Ndi\params\SelectiveSuspend,       type,                   0, "enum"
+HKR, Ndi\params\SelectiveSuspend\enum,  0,                      0, "Disable"
+HKR, Ndi\params\SelectiveSuspend\enum,  1,                      0, "Enable"
+
+; Roaming
+HKR, ,                                 Roaming,        0, "1"
+HKR, Ndi\params\Roaming,               ParamDesc,      0, %Roaming%
+HKR, Ndi\params\Roaming,               default,        0, "1"
+HKR, Ndi\params\Roaming,               type,           0, "enum"
+HKR, Ndi\params\Roaming\enum,          0,              0, "Disable"
+HKR, Ndi\params\Roaming\enum,          1,              0, "Enable"
+
+; Roaming Signal Strength
+HKR, ,                                              RoamingSignalStrength,   0, "-100"
+HKR, Ndi\params\RoamingsignalStrength,              ParamDesc,               0, %RoamingsignalStrength%
+HKR, Ndi\params\RoamingsignalStrength,              default,                 0, "-100"
+HKR, Ndi\params\RoamingsignalStrength,              type,                    0, "int"
+HKR, Ndi\params\RoamingsignalStrength,              Min,                     0, "-150"
+HKR, Ndi\params\RoamingsignalStrength,              Max,                     0, "-1"
+HKR, Ndi\params\RoamingsignalStrength,              Step,                    0, "1"
+HKR, Ndi\params\RoamingsignalStrength,              Base,                    0, "10"
+HKR, Ndi\params\RoamingsignalStrength,              flag,                    1, "30","00","00","00"
+
+; Roaming Interval
+HKR, ,                                        RoamingInterval,   0, "5"
+HKR, Ndi\params\RoamingInterval,              ParamDesc,         0, %RoamingInterval%
+HKR, Ndi\params\RoamingInterval,              default,           0, "5"
+HKR, Ndi\params\RoamingInterval,              type,              0, "int"
+HKR, Ndi\params\RoamingInterval,              Min,               0, "2"
+HKR, Ndi\params\RoamingInterval,              Max,               0, "255"
+HKR, Ndi\params\RoamingInterval,              Step,              0, "1"
+HKR, Ndi\params\RoamingInterval,              Base,              0, "10"
+HKR, Ndi\params\RoamingInterval,              flag,              1, "30","00","00","00"
+
+; Roaming Channels
+HKR, ,                                          RoamingChannels,    0, ""
+HKR, NDI\params\RoamingChannels,                ParamDesc,          0, %RoamingChannels%
+HKR, NDI\params\RoamingChannels,                default,            0, ""
+HKR, NDI\params\RoamingChannels,                type,               0, "edit"
+HKR, NDI\params\RoamingChannels,                LimitText,          0, "32"
+HKR, NDI\params\RoamingChannels,                optional,           0, "1"
+
+; Country Region B/G Band
+HKR, ,                                      CountryRegion11BGBand,       0, "0"
+HKR, Ndi\params\CountryRegion11BGBand,                   ParamDesc,      0, %CountryRegion11BGBand%
+HKR, Ndi\params\CountryRegion11BGBand,                   default,        0, "0"
+HKR, Ndi\params\CountryRegion11BGBand,                   type,           0, "enum"
+HKR, Ndi\params\CountryRegion11BGBand\enum,              0,              0, "%FCC%"
+HKR, Ndi\params\CountryRegion11BGBand\enum,              1,              0, "%TELEC%"
+HKR, Ndi\params\CountryRegion11BGBand\enum,              2,              0, "%ETSI%"
+
+;-------------------------------------------------------------------------------
+; 64-bit uninstaller
+[WETU.SW.NT]
+HKLM, Software\Microsoft\Windows\CurrentVersion\Uninstall\VN_VUIns_WETU_VIA, DisplayName, 0, %VT3184.DeviceDesc%
+HKLM, Software\Microsoft\Windows\CurrentVersion\Uninstall\VN_VUIns_WETU_VIA, UninstallString, 0, "Rundll32.exe vuins64.dll,vuins64Ex $WETU $VIA"
+HKLM, Software\VN_VUIns\WETU\VIA\DeviceIdList, 3184, 0, "0"
+
+;-------------------------------------------------------------------------------
+; Installation for NT
+;
+[WETU.CopyFiles.NTAMD64]
+VW7UX64V.SYS,,,2
+
+[WETU.SW.CopyFiles.NTAMD64]
+vuins64.dll,,,2
+difxapi.dll,,,2
+
+[WETU.Service]
+DisplayName     = %WETU.Service.DispName%
+ServiceType     = 1 ;%SERVICE_KERNEL_DRIVER%
+StartType       = 3 ;%SERVICE_DEMAND_START%
+ErrorControl    = 1 ;%SERVICE_ERROR_NORMAL%
+ServiceBinary   = %12%\VW7UX64V.SYS
+LoadOrderGroup  = NDIS
+
+[WETU.EventLog]
+AddReg = WETU.AddEventLog.reg
+
+[WETU.AddEventLog.reg]
+HKR, , EventMessageFile, 0x00020000, "%%SystemRoot%%\System32\netevent.dll"
+HKR, , TypesSupported,   0x00010001, 7
+
+;-------------------------------------------------------------------------------
+; DestinationDirs
+;
+[DestinationDirs]
+DefaultDestDir            = 11
+WETU.CopyFiles.NTAMD64    = 12
+WETU.SW.CopyFiles.NTAMD64 = 11
+
+[SourceDisksNames]
+1 = %DiskName%,,
+
+[SourceDisksFiles]
+VW7UX64V.sys = 1,,
+vuins64.dll  = 1,,
+difxapi.dll  = 1,,
+
+;-------------------------------------------------------------------------------
+; Uninstall/DelFiles/DelReg
+;
+[WETU.delreg]
+HKR,Ndi\Params
+
+[WETU.SW.delreg]
+HKLM, Software\Microsoft\Windows\CurrentVersion\Uninstall\VN_VUIns_WETU_VIA
+HKLM, Software\VN_VUIns\WETU\VIA
+
+;-------------------------------------------------------------------------------
+; Localizable Strings
+;
+[Strings]
+Prov                = "VIA"
+DiskName            = "VIA USB Wireless LAN source disk"
+ConnectionRate      = "Connection Rate"
+Channel             = "IBSS Channel"
+autoR                = "Auto-Rate"
+1M                   = " 1Mbps"
+2M                   = " 2Mbps"
+5M                   = " 5.5Mbps"
+11M                  = "11Mbps"
+6M                   = " 6Mbps"
+9M                   = " 9Mbps"
+12M                  = "12Mbps"
+18M                  = "18Mbps"
+24M                  = "24Mbps"
+36M                  = "36Mbps"
+48M                  = "48Mbps"
+54M                  = "54Mbps"
+PreambleType        = "Preamble Type"
+Long                = "Long"
+Short               = "Short"
+Disabled            = "Disabled"
+Enabled             = "Enabled"
+TXBuffer            = "Transmit Buffers"
+RXBuffer            = "Receive Buffers"
+NetAddress          = "Network Address"
+HwDefault           = "Hardware Default"
+OperationMode       = "Operation Mode"
+DesiredSSID         = "Desired SSID"
+802_11_Mode         = "802.11 Mode"
+BeaconInterval      = "IBSS Beacon Interval"
+RTSThreshold        = "RTS Threshold"
+FragThreshold       = "Fragment Threshold"
+RadioControl        = "RadioControl"
+AntennaDiversity    = "Antenna Diversity"
+IBSSMode            = "IBSS Mode"
+SelectiveSuspend    = "Selective Suspend"
+Roaming             = "Roaming"
+RoamingsignalStrength       = "Roaming Signal Strength"
+RoamingInterval     = "Roaming Interval"
+RoamingChannels     = "Roaming Channels"
+
+Manuf                 = "VIA Technologies, Inc."
+VT3184.DeviceDesc     = "VIA Technologies USB Wireless LAN Adapter"
+WETU.Service.DispName = "VIA Technologies USB Wireless LAN Adapter Driver"
+
+CountryRegion11ABand = "802.11ARegion"
+CountryRegion11BGBand= "802.11Zonetype"
+FCC                  = "FCC"
+TELEC                = "TELEC"
+ETSI                 = "ETSI"
+CH0                  = "# 0 Ch(36 - 64,149 - 165)"
+CH1                  = "# 1 Ch(36 - 140)"
+CH2                  = "# 2 Ch(36 - 64)"
+CH3                  = "# 3 Ch(52 - 64,149 - 161)"
+CH4                  = "# 4 Ch(149 - 165)"
+CH5                  = "# 5 Ch(149 - 161)"
+CH6                  = "# 6 Ch(36 - 48)"
+CH7                  = "# 7 Ch(36 - 165)"
+CH8                  = "# 8 Ch(52 - 64)"
+CH9                  = "# 9 Ch(36 - 116,132 - 165)"
+CH10                 = "#10 Ch(36 - 48,149 - 165)"
+CH11                 = "#11 Ch(36 - 120,149 - 161)"
+CH12                 = "#12 Ch(36 - 140)"

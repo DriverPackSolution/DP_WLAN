@@ -1,0 +1,91 @@
+; Windows Serial Port Setup File
+; Copyright (c) 2010 Qualcomm Incorporated
+; Manufacturer: Qualcomm Incorporated
+;
+
+[Version]
+signature  = "$WINDOWS NT$"
+Class      = Ports
+Provider   = %QUALCOMM%
+ClassGuid  = {4D36E978-E325-11CE-BFC1-08002BE10318}
+DriverVer=05/11/2010,2.0.7.3
+Catalogfile= qcusbserhp2k.cat
+
+[ControlFlags]
+ExcludeFromSelect = *
+
+[Manufacturer]
+%MFG% =  QcomSerialPort, NTamd64
+
+[SourceDisksNames]
+  1000 = %QcomSrcDisk%,"",,
+
+[SourceDisksFiles]
+  qcusbserhp2k.sys = 1000
+
+[QcomSerialPort]
+%QcomDevice241D0%  = QportInstall00, USB\VID_03F0&PID_241D
+%QcomDevice251D1%  = QportInstall01, USB\VID_03F0&PID_251D&MI_01
+%QcomDevice251D3%  = QportInstall03, USB\VID_03F0&PID_251D&MI_03
+
+[QcomSerialPort.NTamd64]
+%QcomDevice241D0%  = QportInstall00, USB\VID_03F0&PID_241D
+%QcomDevice251D1%  = QportInstall01, USB\VID_03F0&PID_251D&MI_01
+%QcomDevice251D3%  = QportInstall03, USB\VID_03F0&PID_251D&MI_03
+
+[QportInstall00]
+CopyFiles = QCUsbDriverFiles
+AddReg    = All00, QCAddReg, DevFunction2
+
+[QportInstall01]
+CopyFiles = QCUsbDriverFiles
+AddReg    = All00, QCAddReg
+
+[QportInstall03]
+CopyFiles = QCUsbDriverFiles
+AddReg    = All00, QCAddReg, DevFunction1
+
+[QCUsbDriverFiles]
+qcusbserhp2k.sys
+
+[DestinationDirs]
+DefaultDestDir = 12
+
+[QportInstall00.Services]
+AddService=qcusbserhp2k,  0x00000002, QC_USBSerialService
+
+[QportInstall01.Services]
+AddService=qcusbserhp2k,  0x00000002, QC_USBSerialService
+
+[QportInstall03.Services]
+AddService=qcusbserhp2k,  0x00000002, QC_USBSerialService
+
+[QC_USBSerialService]
+DisplayName   = %QCUSBSER%
+ServiceType   = 1
+StartType     = 3
+ErrorControl  = 1
+ServiceBinary = %12%\qcusbserhp2k.sys
+
+[All00]
+HKR,,NTMPDriver,,qcusbserhp2k.sys
+
+[DevFunction1]
+HKR,,QCDeviceFunction,0x00010001,1
+
+[DevFunction2]
+HKR,,QCDeviceFunction,0x00010001,2
+
+[QCAddReg]
+HKR,,PortSubClass,1,01
+HKR,,EnumPropPages32,,"MsPorts.dll,SerialPortPropPageProvider"
+
+[Strings]
+QCUSBSER = "Gobi 2000 USB Device for Legacy Serial Communication(03F0-251D)"
+QcomSrcDisk = "Qualcomm USB Driver Disk"
+MFG = "Qualcomm Incorporated"
+QUALCOMM   = "Qualcomm Incorporated"
+QcomDevice241D0 = "HP un2420 HS-USB QDLoader"
+QcomDevice251D1 = "HP un2420 Mobile Broadband Module Diagnostics"
+QcomDevice251D3 = "HP un2420 Mobile Broadband Module NMEA"
+

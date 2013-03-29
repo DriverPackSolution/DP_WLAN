@@ -1,0 +1,220 @@
+;-------------------------------------------------------------------------------
+;
+; Intel Baxter Peak USB Device
+;
+; Copyright (c) 2007 Intel Corporation All Rights Reserved.
+;
+; Module Name:
+;
+;    BPUSB.INF
+;
+; Abstract:
+;    Installation inf for Baxter Peak USB Device
+;
+;-------------------------------------------------------------------------------
+
+[Version]
+Signature   = "$WINDOWS NT$"
+Class       = WiMAX
+ClassGUID   = {027A838E-7356-4a2f-A5BF-25A2A2C33FCC}
+Provider    = %INTL%
+DriverVer=07/30/2009,5.1.29.5
+CatalogFile = bpusb.cat
+
+[Manufacturer]
+%MfgName%   = Intel,NTx86
+
+[Intel.NTx86]
+%bpusb.EPPDeviceDesc%       = bpusb, USB\VID_8086&PID_1403          
+%bpusb.EPPDeviceDesc%       = bpusb, USB\VID_8086&PID_1405          
+%bpusb.EPVDeviceDesc%       = bpusb, USB\VID_8086&PID_1406          
+%bpusb.EPVDeviceDesc%       = bpusb, USB\VID_8086&PID_0180          
+%bpusb.EPPDeviceDesc%       = bpusb, USB\VID_8086&PID_0181          
+%bpusb.EPVDeviceDesc%       = bpusb, USB\VID_8086&PID_0182          
+
+;-------------------------------------------------------------------------------
+; Intel Baxter Peak Wimax USB Device
+;-------------------------------------------------------------------------------
+[bpusb.NT]
+CopyFiles   = bpusb.CopyFiles
+
+[bpusb.CopyFiles]
+bpusb.sys,,,2
+
+;-------------------------------------------------------------------------------
+; Driver and Service Section
+;-------------------------------------------------------------------------------
+[bpusb.NT.Services]
+Addservice = bpusb, %SPSVCINST_ASSOCSERVICE%, bpusb.AddService, bpusb.EventLog
+
+[bpusb.AddService]
+DisplayName    = %bpusb.SvcDesc%
+ServiceType    = 1                  ; SERVICE_KERNEL_DRIVER
+StartType      = 3                  ; SERVICE_DEMAND_START
+ErrorControl   = 1                  ; SERVICE_ERROR_NORMAL
+ServiceBinary  = %10%\System32\Drivers\bpusb.sys
+AddReg         = bpusb.AddReg
+LoadOrderGroup = Base
+
+[bpusb.AddReg]
+HKR, Parameters\Wdf, VerboseOn,       0x00010001, 1
+HKR, Parameters\Wdf, VerifierOn,      0x00010001, 1
+HKR, Parameters\Wdf, DbgBreakOnError, 0x00010001, 1
+HKR, Parameters,     SubSytems,       0x00010001, 0xFFFFFFFF
+HKR, Parameters,     Severity,        0x00010001, 0x4
+HKR, Parameters,     BufferTrace,     0x00010001, 0x1
+
+[bpusb.EventLog]
+AddReg = bpusb.EventLog.AddReg
+
+[bpusb.EventLog.AddReg]
+HKR,,EventMessageFile,0x00020000,"%10%\System32\Drivers\bpusb.sys"
+HKR,,TypesSupported,0x00010001,7 
+
+
+;-------------------------------------------------------------------------------
+; Class Co-Installer section 
+;-------------------------------------------------------------------------------
+
+[ClassInstall32]
+Addreg      = BPClassInstaller.AddReg
+CopyFiles   = BPClassInstaller.CopyFiles
+
+[BPClassInstaller.AddReg]
+HKR,    ,   ,               0,  %ClassName%
+HKR,    ,   Icon,           ,   100
+HKR,    ,   Installer32,    ,   "BPClsCoInst.dll,BPClassInstaller"
+
+[BPClassInstaller.CopyFiles]
+BPClsCoInst.dll,    ,   ,   2
+
+;-------------------------------------------------------------------------------
+; WDF Coinstaller installation
+;-------------------------------------------------------------------------------
+
+[bpusb.NT.CoInstallers]
+AddReg      = CoInstaller.AddReg
+CopyFiles   = CoInstaller.CopyFiles
+
+[CoInstaller.CopyFiles]
+wdfcoinstaller01007.dll
+BPCoInstaller.dll
+
+[CoInstaller.AddReg]
+HKR,,CoInstallers32,0x00010000, "wdfcoinstaller01007.dll,WdfCoInstaller", "BPCoInstaller.dll,BPCoInstaller"
+
+[bpusb.NT.Wdf]
+KmdfService = bpusb, bpusb.WdfSect
+
+[bpusb.WdfSect]
+KmdfLibraryVersion = 1.7
+
+;-------------------------------------------------------------------------------
+; DestinationDirs
+;-------------------------------------------------------------------------------
+[SourceDisksNames]
+1 = %DiskId1%,,,
+
+[SourceDisksFiles]
+bpusb.sys               = 1
+BPCoInstaller.dll       = 1
+BPClsCoInst.dll         = 1
+wdfcoinstaller01007.dll = 1
+
+[DestinationDirs]
+DefaultDestDir              = 12
+BPClassInstaller.CopyFiles  = 11
+CoInstaller.CopyFiles       = 11
+
+;-------------------------------------------------------------------------------
+; Localizable Strings
+;-------------------------------------------------------------------------------
+[Strings]
+INTL                      = "Intel Corporation"
+MfgName                   = "Intel Corporation"
+ClassName                 = "Intel(R) WiMAX adapters"
+bpusb.EPVDeviceDesc       = "Intel(R) WiMAX Link 5150 Function Driver"                          
+bpusb.EPPDeviceDesc       = "Intel(R) WiMAX Link 5350 Function Driver"                          
+bpusb.SvcDesc             = "Intel(R) WiMAX Link 5050 Series Function Driver"
+DiskId1                   = "Intel(R) WiMAX Link 5050 Series Installation Disk"
+SPSVCINST_ASSOCSERVICE    = 0x00000002
+
+[Strings.0804] ; Chinese (Simplified)
+INTL                      = "”¢Ãÿ∂˚π´Àæ"
+MfgName                   = "”¢Ãÿ∂˚π´Àæ"
+ClassName                 = "”¢Ãÿ∂˚(R) WiMAX   ≈‰∆˜"
+bpusb.EPVDeviceDesc       = "Intel(R) WiMAX Link 5150 π¶ƒ‹«˝∂Ø≥Ã–Ú"                             
+bpusb.EPPDeviceDesc       = "Intel(R) WiMAX Link 5350 π¶ƒ‹«˝∂Ø≥Ã–Ú"                             
+bpusb.SvcDesc             = "Intel(R) WiMAX Link 5050 œµ¡–π¶ƒ‹«˝∂Ø≥Ã–Ú"
+DiskId1                   = "Intel(R) WiMAX Link 5050 œµ¡–∞≤◊∞≈Ã"
+SPSVCINST_ASSOCSERVICE    = 0x00000002
+
+[Strings.0C0A] ; Spanish (Spain)
+INTL                      = "Intel Corporation"
+MfgName                   = "Intel Corporation"
+ClassName                 = "Adaptadores Intel(R) WiMAX"
+bpusb.EPVDeviceDesc       = "Controlador de funciÛn de Intel(R) WiMAX Link 5150"                
+bpusb.EPPDeviceDesc       = "Controlador de funciÛn de Intel(R) WiMAX Link 5350"                
+bpusb.SvcDesc             = "Controlador de funciÛn de Intel(R) WiMAX Link serie 5050"
+DiskId1                   = "Disco de instalaciÛn de Intel(R) WiMAX Link serie 5050"
+SPSVCINST_ASSOCSERVICE    = 0x00000002
+
+[Strings.040C] ; French (France)
+INTL                      = "Intel Corporation"
+MfgName                   = "Intel Corporation"
+ClassName                 = "Cartes rÈseau Intel(R) WiMAX"
+bpusb.EPVDeviceDesc       = "Pilote de fonction Intel(R) WiMAX Link 5150"                       
+bpusb.EPPDeviceDesc       = "Pilote de fonction Intel(R) WiMAX Link 5350"                       
+bpusb.SvcDesc             = "Pilote de fonction des sÈries IntelÆ WiMAX Link 5050"
+DiskId1                   = "Disque d'installation du pilote de la fonction IntelÆ WiMAX Link 5050"
+SPSVCINST_ASSOCSERVICE    = 0x00000002
+
+[Strings.0411] ; Japanese (Japan)
+INTL                      = "Intel Corporation"
+MfgName                   = "Intel Corporation"
+ClassName                 = "ÉCÉìÉeÉã(R) WiMAX ÉAÉ_ÉvÉ^"
+bpusb.EPVDeviceDesc       = "ÉCÉìÉeÉã(R) WiMAX Link 5150 ã@î\ÉhÉâÉCÉo"                          
+bpusb.EPPDeviceDesc       = "ÉCÉìÉeÉã(R) WiMAX Link 5350 ã@î\ÉhÉâÉCÉo"                          
+bpusb.SvcDesc             = "ÉCÉìÉeÉã(R) WiMAX Link 5050 ÉVÉäÅ[ÉY ã@î\ÉhÉâÉCÉoÅ["
+DiskId1                   = "ÉCÉìÉeÉã(R) WiMAX Link 5050 ÉVÉäÅ[ÉY ÉCÉìÉXÉgÅ[Éã ÉfÉBÉXÉN"
+SPSVCINST_ASSOCSERVICE    = 0x00000002
+
+[Strings.0412] ; Korean (Korea)
+INTL                      = "Intel Corporation"
+MfgName                   = "Intel Corporation"
+ClassName                 = "¿Œ≈⁄(R) WiMAX æÓ¥≈Õ"
+bpusb.EPVDeviceDesc       = "¿Œ≈⁄(R) WiMAX ∏µ≈© 5150 ±‚¥… µÂ∂Û¿Ãπˆ"                             
+bpusb.EPPDeviceDesc       = "¿Œ≈⁄(R) WiMAX ∏µ≈© 5350 ±‚¥… µÂ∂Û¿Ãπˆ"                             
+bpusb.SvcDesc             = "¿Œ≈⁄(R) WiMAX ∏µ≈© 5050 Ω√∏Æ¡Ó ±‚¥… µÂ∂Û¿Ãπˆ"
+DiskId1                   = "¿Œ≈⁄(R) WiMAX ∏µ≈© 5050 Ω√∏Æ¡Ó º≥ƒ° µΩ∫≈©"
+SPSVCINST_ASSOCSERVICE    = 0x00000002
+
+[Strings.0419] ; Russian (Russia)
+INTL                      = " ÓÔÓ‡ˆËˇ Intel"
+MfgName                   = " ÓÔÓ‡ˆËˇ Intel"
+ClassName                 = "¿‰‡ÔÚÂ˚ Intel(R) WiMAX"
+bpusb.EPVDeviceDesc       = "‘ÛÌÍˆËÓÌ‡Î¸Ì˚È ‰‡È‚Â Intel(R) WiMAX Link 5150"                   
+bpusb.EPPDeviceDesc       = "‘ÛÌÍˆËÓÌ‡Î¸Ì˚È ‰‡È‚Â Intel(R) WiMAX Link 5350"                   
+bpusb.SvcDesc             = "‘ÛÌÍˆËÓÌ‡Î¸Ì˚È ‰‡È‚Â ‡‰‡ÔÚÂ‡ Intel WiMAX Link ÒÂËË 5050"
+DiskId1                   = "”ÒÚ‡ÌÓ‚Ó˜Ì˚È ‰ËÒÍ ‡‰‡ÔÚÂ‡ Intel(R) WiMAX Link ÒÂËË 5050"
+SPSVCINST_ASSOCSERVICE    = 0x00000002
+
+[Strings.0404] ; Chinese (Traditional)
+INTL                      = "Intel Corporation"
+MfgName                   = "Intel Corporation"
+ClassName                 = "Intel(R) WiMAX §∂≠±•d"
+bpusb.EPVDeviceDesc       = "Intel(R) WiMAX Link 5150 •\Ø‡≈X∞ µ{¶°"                             
+bpusb.EPPDeviceDesc       = "Intel(R) WiMAX Link 5350 •\Ø‡≈X∞ µ{¶°"                             
+bpusb.SvcDesc             = "Intel(R) WiMAX Link 5050 ®t¶C•\Ø‡≈X∞ µ{¶°"
+DiskId1                   = "Intel(R) WiMAX Link 5050 ®t¶C¶w∏À∫œ∫–"
+SPSVCINST_ASSOCSERVICE    = 0x00000002
+
+[Strings.0C04] ; Chinese (Hong Kong)
+INTL                      = "Intel Corporation"
+MfgName                   = "Intel Corporation"
+ClassName                 = "Intel(R) WiMAX §∂≠±•d"
+bpusb.EPVDeviceDesc       = "Intel(R) WiMAX Link 5150 •\Ø‡≈X∞ µ{¶°"                             
+bpusb.EPPDeviceDesc       = "Intel(R) WiMAX Link 5350 •\Ø‡≈X∞ µ{¶°"                             
+bpusb.SvcDesc             = "Intel(R) WiMAX Link 5050 ®t¶C•\Ø‡≈X∞ µ{¶°"
+DiskId1                   = "Intel(R) WiMAX Link 5050 ®t¶C¶w∏À∫œ∫–"
+SPSVCINST_ASSOCSERVICE    = 0x00000002

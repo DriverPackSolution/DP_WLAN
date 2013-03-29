@@ -1,0 +1,599 @@
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; PRISM2 PCCard & PCI Adapter installer file for Win9x,Me,2000&XP         ;
+;                                                                         ;
+; Copyright (c) 1998-2000, All Rights Reserved.                           ;
+;                                                                         ;
+; PRISMNIC.INF								  ;	
+;									  ;
+; Version V1.7.37a                                                        ;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+[Version]
+ DriverVer = 10/20/2001, 1.7.37a
+ Signature           = "$Chicago$"
+ Compatible          = 1
+ Class               = Net
+ ClassGUID           = {4d36e972-e325-11ce-bfc1-08002be10318}
+ Provider            = %VER_VENDOR_STR%
+;CatalogFile         = PRISMNIC.cat
+ MillenniumPreferred = .ME
+
+[ControlFlags]
+;Exclude all PNP adapters from user selection
+ ExcludeFromSelect   = PCMCIA\OEM-PRISM2_IEEE_802.11_PC-Card-A89D
+ ExcludeFromSelect   = PCMCIA\OEM-PRISM25_IEEE_802.11_PC-Card-2295
+ ExcludeFromSelect   = PCMCIA\OEM-PRISM25_IEEE_802.11_PC-Card-6208
+ ExcludeFromSelect   = PCMCIA\OEM-PRISM2_IEEE_802.11_PC-Card-947F
+ ExcludeFromSelect   = PCI\VEN_16AB&DEV_1101&SUBSYS_110116AB
+ ExcludeFromSelect   = PCI\VEN_1260&DEV_3873&SUBSYS_16AB9001
+ ExcludeFromSelect   = USB\VID_0D8E&PID_7A01
+
+[Manufacturer]
+ %VER_VENDOR_NAME_STR% = DeviceList
+
+[DeviceList]
+ %PRISM_PCMCIA2_STR% = PRISM_PCMCIA2, PCMCIA\OEM-PRISM2_IEEE_802.11_PC-Card-A89D
+ %PRISM_PCMCIA3_STR% = PRISM_PCMCIA3, PCMCIA\OEM-PRISM25_IEEE_802.11_PC-Card-2295
+ %PRISM_PCMCIA4_STR% = PRISM_PCMCIA4, PCMCIA\OEM-PRISM25_IEEE_802.11_PC-Card-6208
+ %PRISM_PCMCIA5_STR% = PRISM_PCMCIA5, PCMCIA\OEM-PRISM2_IEEE_802.11_PC-Card-947F
+ %PRISM_PCI1_STR%    = PRISM_PCI1,    PCI\VEN_16AB&DEV_1101&SUBSYS_110116AB
+ %PRISM_PCI2_STR%    = PRISM_PCI2,    PCI\VEN_1260&DEV_3873&SUBSYS_16AB9001
+ %PRISM_USB1_STR%    = PRISM_USB1,    USB\VID_0D8E&PID_7A01
+
+;==========================================
+[PRISM_PCMCIA2]         ; Win9x
+ AddReg         = PRISM_PCMCIA2.reg, COMMON_PCMCIA.reg, COMMON_NDIS.reg, COMMON.reg
+ CopyFiles      = PRISM_DRIVER.copy, PRISM_APPLET.copy, PRISM_NDI.copy
+
+[PRISM_PCMCIA2.ME]      ; WinMe
+ AddReg         = PRISM_PCMCIA2.reg, COMMON_PCMCIA.reg, COMMON_NDIS.reg.ME, COMMON.reg
+ CopyFiles      = PRISM_DRIVER.copy.ME, PRISM_APPLET.copy.ME, PRISM_NDI.copy.ME
+
+[PRISM_PCMCIA2.ME.ME]   ; WinMe - Same as .ME (Needed for Update Driver)
+ AddReg         = PRISM_PCMCIA2.reg, COMMON_PCMCIA.reg, COMMON_NDIS.reg.ME, COMMON.reg
+ CopyFiles      = PRISM_DRIVER.copy.ME, PRISM_APPLET.copy.ME, PRISM_NDI.copy.ME
+
+[PRISM_PCMCIA2.NT]      ; Win2k
+ AddReg         = PRISM_PCMCIA2.reg, COMMON_PCMCIA.reg, COMMON_NDIS.reg.NT, COMMON.reg
+ CopyFiles      = PRISM_DRIVER.copy.NT, PRISM_APPLET.copy.NT
+ BusType        = 8     ; PCMCIA
+ Characteristics= 0x84  ; NCF_PHYSICAL | NCF_HAS_UI
+
+[PRISM_PCMCIA2.NT.Services]
+ AddService     = "PRISM", 2, PRISM_DRIVER.Service, PRISM_DRIVER.EventLog
+
+[PRISM_PCMCIA2.NT.CoInstallers]
+ CopyFiles      = PRISM_COINSTALL.copy.NT
+ AddReg         = PRISM_COINSTALL.reg.NT
+
+[PRISM_PCMCIA2.reg]
+ HKR,Ndi        ,DeviceID,0,"PCMCIA\OEM-PRISM2_IEEE_802.11_PC-Card-A89D"
+
+;==========================================
+[PRISM_PCMCIA3]         ; Win9x
+ AddReg         = PRISM_PCMCIA3.reg, COMMON_PCMCIA.reg, COMMON_NDIS.reg, COMMON.reg
+ CopyFiles      = PRISM_DRIVER.copy, PRISM_APPLET.copy, PRISM_NDI.copy
+
+[PRISM_PCMCIA3.ME]      ; WinMe
+ AddReg         = PRISM_PCMCIA3.reg, COMMON_PCMCIA.reg, COMMON_NDIS.reg.ME, COMMON.reg
+ CopyFiles      = PRISM_DRIVER.copy.ME, PRISM_APPLET.copy.ME, PRISM_NDI.copy.ME
+
+[PRISM_PCMCIA3.ME.ME]   ; WinMe - Same as .ME (Needed for Update Driver)
+ AddReg         = PRISM_PCMCIA3.reg, COMMON_PCMCIA.reg, COMMON_NDIS.reg.ME, COMMON.reg
+ CopyFiles      = PRISM_DRIVER.copy.ME, PRISM_APPLET.copy.ME, PRISM_NDI.copy.ME
+
+[PRISM_PCMCIA3.NT]      ; Win2k
+ AddReg         = PRISM_PCMCIA3.reg, COMMON_PCMCIA.reg, COMMON_NDIS.reg.NT, COMMON.reg
+ CopyFiles      = PRISM_DRIVER.copy.NT, PRISM_APPLET.copy.NT
+ BusType        = 8     ; PCMCIA
+ Characteristics= 0x84  ; NCF_PHYSICAL | NCF_HAS_UI
+
+[PRISM_PCMCIA3.NT.Services]
+ AddService     = "PRISM", 2, PRISM_DRIVER.Service, PRISM_DRIVER.EventLog
+
+[PRISM_PCMCIA3.NT.CoInstallers]
+ CopyFiles      = PRISM_COINSTALL.copy.NT
+ AddReg         = PRISM_COINSTALL.reg.NT
+
+[PRISM_PCMCIA3.reg]
+ HKR,Ndi        ,DeviceID,0,"PCMCIA\OEM-PRISM25_IEEE_802.11_PC-Card-2295"
+
+;==========================================
+[PRISM_PCMCIA4]         ; Win9x
+ AddReg         = PRISM_PCMCIA4.reg, COMMON_PCMCIA.reg, COMMON_NDIS.reg, COMMON.reg
+ CopyFiles      = PRISM_DRIVER.copy, PRISM_APPLET.copy, PRISM_NDI.copy
+
+[PRISM_PCMCIA4.ME]      ; WinME
+ AddReg         = PRISM_PCMCIA4.reg, COMMON_PCMCIA.reg, COMMON_NDIS.reg.ME, COMMON.reg
+ CopyFiles      = PRISM_DRIVER.copy.ME, PRISM_APPLET.copy.ME, PRISM_NDI.copy.ME
+
+[PRISM_PCMCIA4.ME.ME]   ; WinME - Same as .ME (Needed for Update Driver)
+ AddReg         = PRISM_PCMCIA4.reg, COMMON_PCMCIA.reg, COMMON_NDIS.reg.ME, COMMON.reg
+ CopyFiles      = PRISM_DRIVER.copy.ME, PRISM_APPLET.copy.ME, PRISM_NDI.copy.ME
+
+[PRISM_PCMCIA4.NT]      ; Win2k
+ AddReg         = PRISM_PCMCIA4.reg, COMMON_PCMCIA.reg, COMMON_NDIS.reg.NT, COMMON.reg
+ CopyFiles      = PRISM_DRIVER.copy.NT, PRISM_APPLET.copy.NT
+ BusType        = 8     ; PCMCIA
+ Characteristics= 0x84  ; NCF_PHYSICAL | NCF_HAS_UI
+
+[PRISM_PCMCIA4.NT.Services]
+ AddService     = "PRISM", 2, PRISM_DRIVER.Service, PRISM_DRIVER.EventLog
+
+[PRISM_PCMCIA4.NT.CoInstallers]
+ CopyFiles      = PRISM_COINSTALL.copy.NT
+ AddReg         = PRISM_COINSTALL.reg.NT
+
+[PRISM_PCMCIA4.reg]
+ HKR,Ndi        ,DeviceID,0,"PCMCIA\OEM-PRISM25_IEEE_802.11_PC-Card-6208"
+
+;==========================================
+[PRISM_PCMCIA5]         ; Win9x
+ AddReg         = PRISM_PCMCIA5.reg, COMMON_PCMCIA.reg, COMMON_NDIS.reg, COMMON.reg
+ CopyFiles      = PRISM_DRIVER.copy, PRISM_APPLET.copy, PRISM_NDI.copy
+
+[PRISM_PCMCIA5.ME]      ; WinME
+ AddReg         = PRISM_PCMCIA5.reg, COMMON_PCMCIA.reg, COMMON_NDIS.reg.ME, COMMON.reg
+ CopyFiles      = PRISM_DRIVER.copy.ME, PRISM_APPLET.copy.ME, PRISM_NDI.copy.ME
+
+[PRISM_PCMCIA5.ME.ME]   ; WinME - Same as .ME (Needed for Update Driver)
+ AddReg         = PRISM_PCMCIA5.reg, COMMON_PCMCIA.reg, COMMON_NDIS.reg.ME, COMMON.reg
+ CopyFiles      = PRISM_DRIVER.copy.ME, PRISM_APPLET.copy.ME, PRISM_NDI.copy.ME
+
+[PRISM_PCMCIA5.NT]      ; Win2k
+ AddReg         = PRISM_PCMCIA5.reg, COMMON_PCMCIA.reg, COMMON_NDIS.reg.NT, COMMON.reg
+ CopyFiles      = PRISM_DRIVER.copy.NT, PRISM_APPLET.copy.NT
+ BusType        = 8     ; PCMCIA
+ Characteristics= 0x84  ; NCF_PHYSICAL | NCF_HAS_UI
+
+[PRISM_PCMCIA5.NT.Services]
+ AddService     = "PRISM", 2, PRISM_DRIVER.Service, PRISM_DRIVER.EventLog
+
+[PRISM_PCMCIA5.NT.CoInstallers]
+ CopyFiles      = PRISM_COINSTALL.copy.NT
+ AddReg         = PRISM_COINSTALL.reg.NT
+
+[PRISM_PCMCIA5.reg]
+ HKR,Ndi        ,DeviceID,0,"PCMCIA\OEM-PRISM2_IEEE_802.11_PC-Card-947F"
+
+;==========================================
+[PRISM_PCI1]            ; Win9x
+ AddReg         = PRISM_PCI1.reg, COMMON_PCI.reg, COMMON_NDIS.reg, COMMON.reg
+ CopyFiles      = PRISM_DRIVER.copy, PRISM_APPLET.copy, PRISM_NDI.copy
+
+[PRISM_PCI1.ME]         ; WinMe
+ AddReg         = PRISM_PCI1.reg, COMMON_PCI.reg, COMMON_NDIS.reg.ME, COMMON.reg
+ CopyFiles      = PRISM_DRIVER.copy.ME, PRISM_APPLET.copy.ME, PRISM_NDI.copy.ME
+
+[PRISM_PCI1.ME.ME]      ; WinMe - Same as .ME (Needed for Update Driver)
+ AddReg         = PRISM_PCI1.reg, COMMON_PCI.reg, COMMON_NDIS.reg.ME, COMMON.reg
+ CopyFiles      = PRISM_DRIVER.copy.ME, PRISM_APPLET.copy.ME, PRISM_NDI.copy.ME
+
+[PRISM_PCI1.NT]         ; Win2k
+ AddReg         = PRISM_PCI1.reg, COMMON_PCI.reg, COMMON_NDIS.reg.NT, COMMON.reg
+ CopyFiles      = PRISM_DRIVER.copy.NT, PRISM_APPLET.copy.NT
+ BusType        = 5     ; PCI
+ Characteristics= 0x84  ; NCF_PHYSICAL | NCF_HAS_UI
+
+[PRISM_PCI1.NT.Services]
+ AddService     = "PRISM", 2, PRISM_DRIVER.Service, PRISM_DRIVER.EventLog
+
+[PRISM_PCI1.NT.CoInstallers]
+ CopyFiles      = PRISM_COINSTALL.copy.NT
+ AddReg         = PRISM_COINSTALL.reg.NT
+
+[PRISM_PCI1.reg]
+ HKR,Ndi        ,DeviceID,0,"PCI\VEN_16AB&DEV_1101"
+
+;==========================================
+[PRISM_PCI2]            ; Win9x
+ AddReg         = PRISM_PCI2.reg, COMMON_PCI.reg, COMMON_NDIS.reg, COMMON.reg
+ CopyFiles      = PRISM_DRIVER.copy, PRISM_APPLET.copy, PRISM_NDI.copy
+
+[PRISM_PCI2.ME]         ; WinMe
+ AddReg         = PRISM_PCI2.reg, COMMON_PCI.reg, COMMON_NDIS.reg.ME, COMMON.reg
+ CopyFiles      = PRISM_DRIVER.copy.ME, PRISM_APPLET.copy.ME, PRISM_NDI.copy.ME
+
+[PRISM_PCI2.ME.ME]      ; WinMe - Same as .ME (Needed for Update Driver)
+ AddReg         = PRISM_PCI2.reg, COMMON_PCI.reg, COMMON_NDIS.reg.ME, COMMON.reg
+ CopyFiles      = PRISM_DRIVER.copy.ME, PRISM_APPLET.copy.ME, PRISM_NDI.copy.ME
+
+[PRISM_PCI2.NT]         ; Win2k
+ AddReg         = PRISM_PCI2.reg, COMMON_PCI.reg, COMMON_NDIS.reg.NT, COMMON.reg
+ CopyFiles      = PRISM_DRIVER.copy.NT, PRISM_APPLET.copy.NT
+ BusType        = 5     ; PCI
+ Characteristics= 0x84  ; NCF_PHYSICAL | NCF_HAS_UI
+
+[PRISM_PCI2.NT.Services]
+ AddService     = "PRISM", 2, PRISM_DRIVER.Service, PRISM_DRIVER.EventLog
+
+[PRISM_PCI2.NT.CoInstallers]
+ CopyFiles      = PRISM_COINSTALL.copy.NT
+ AddReg         = PRISM_COINSTALL.reg.NT
+
+[PRISM_PCI2.reg]
+ HKR,Ndi        ,DeviceID,0,"PCI\VEN_1260&DEV_3873&SUBSYS_16AB9001"
+
+;==========================================
+[PRISM_USB1]            ; Win9x
+ AddReg         = PRISM_USB1.reg, COMMON_USB.reg, COMMON_NDIS.reg, COMMON.reg
+ CopyFiles      = PRISM_DRIVER.copy, PRISM_APPLET.copy, PRISM_NDI.copy
+
+[PRISM_USB1.ME]         ; WinMe
+ AddReg         = PRISM_USB1.reg, COMMON_USB.reg, COMMON_NDIS.reg.ME, COMMON.reg
+ CopyFiles      = PRISM_DRIVER.copy.ME, PRISM_APPLET.copy.ME, PRISM_NDI.copy.ME
+
+[PRISM_USB1.ME.ME]      ; WinMe - Same as .ME (Needed for Update Driver)
+ AddReg         = PRISM_USB1.reg, COMMON_USB.reg, COMMON_NDIS.reg.ME, COMMON.reg
+ CopyFiles      = PRISM_DRIVER.copy.ME, PRISM_APPLET.copy.ME, PRISM_NDI.copy.ME
+
+[PRISM_USB1.NT]         ; Win2k
+ AddReg         = PRISM_USB1.reg, COMMON_USB.reg, COMMON_NDIS.reg.NT, COMMON.reg
+ CopyFiles      = PRISM_DRIVER.copy.NT, PRISM_APPLET.copy.NT
+ BusType        = 0     ; USB
+ Characteristics= 0x84  ; NCF_PHYSICAL | NCF_HAS_UI
+
+[PRISM_USB1.NT.Services]
+ AddService     = "PRISM_USB", 2, PRISM_USB_DRIVER.Service, PRISM_DRIVER.EventLog
+
+[PRISM_USB1.NT.CoInstallers]
+ CopyFiles      = PRISM_COINSTALL.copy.NT
+ AddReg         = PRISM_COINSTALL.reg.NT
+
+[PRISM_USB1.reg]
+ HKR,Ndi        ,DeviceID,0,"USB\VID_0D8E&PID_7A01"
+
+;###############################################################################
+
+[PRISM_COINSTALL.reg.NT]
+ HKR,           ,CoInstallers32         ,0x00010000     ,"PRISMCFG.cpl,NdiProc"
+
+[PRISM_DRIVER.Service]
+ DisplayName    = %PRISM_SERVICE_DISPLAY%
+ ServiceType    = 1    ; SERVICE_KERNEL_DRIVER
+ StartType      = 3    ; SERVICE_DEMAND_START
+ ErrorControl   = 1    ; NORMAL
+ ServiceBinary  = %12%\PRISMNDS.sys
+ LoadOrderGroup = NDIS
+
+[PRISM_USB_DRIVER.Service]
+ DisplayName    = %PRISM_USB_SERVICE_DISPLAY%
+ ServiceType    = 1    ; SERVICE_KERNEL_DRIVER
+ StartType      = 3    ; SERVICE_DEMAND_START
+ ErrorControl   = 1    ; NORMAL
+ ServiceBinary  = %12%\PRISMUSB.sys
+ LoadOrderGroup = NDIS
+
+[PRISM_DRIVER.EventLog]
+ AddReg         = PRISM_DRIVER.EventLog.reg
+
+[PRISM_DRIVER.EventLog.reg]
+ HKR,           ,EventMessageFile       ,0x00020000     ,"%%SystemRoot%%\System32\netevent.dll"
+ HKR,           ,TypesSupported         ,0x00010001     ,7
+
+;###############################################################################
+[COMMON_PCMCIA.reg]
+;RegKey,SubKey          ,Name                   ,Type   ,Value
+;-------------          -----                   -----   ------
+ HKR,NDI                ,Service                ,0      ,"PRISM"
+ HKR,NDI                ,CardType               ,0      ,"PCMCIA"
+ HKR,                   ,BusType                ,0      ,"8"
+ HKR,                   ,DeviceVxDs             ,0      ,"PRISMNDS.sys"
+ HKR,                   ,EnableIRQSharing       ,1      ,01,00,00,00
+ HKR,                   ,IOBaseAddress          ,1      ,02,00,00,00
+ HKR,                   ,InterruptNumber        ,1      ,04,00,00,00
+
+[COMMON_PCI.reg]
+ HKR,NDI                ,Service                ,0      ,"PRISM"
+ HKR,NDI                ,CardType               ,0      ,"PCI"
+ HKR,                   ,BusType                ,0      ,"5"
+ HKR,                   ,DeviceVxDs             ,0      ,"PRISMNDS.sys"
+ HKR,                   ,EnableIRQSharing       ,1      ,01,00,00,00
+ HKR,                   ,IOBaseAddress          ,1      ,02,00,00,00
+ HKR,                   ,InterruptNumber        ,1      ,04,00,00,00
+
+[COMMON_USB.reg]
+ HKR,NDI                ,Service                ,0      ,"PRISM_USB"
+ HKR,NDI                ,CardType               ,0      ,"USB"
+ HKR,                   ,BusType                ,0      ,"0"
+ HKR,                   ,DeviceVxDs             ,0      ,"PRISMUSB.sys"
+
+[COMMON_NDIS.reg]
+ HKR,                   ,RunningWin9X           ,0      ,"1"
+ HKR,                   ,DevLoader              ,0      ,"*ndis"
+ HKR,                   ,EnumPropPages          ,0      ,"netdi.dll,EnumPropPages"
+ HKR,NDI                ,NdiInstaller           ,0      ,"PRISMCFG.dll,NdiProc"
+ HKR,NDI\Interfaces     ,UpperRange             ,0      ,"ndis3"
+ HKR,NDI\Interfaces     ,LowerRange             ,0      ,"ethernet"
+ HKR,NDI\Interfaces     ,DefUpper               ,0      ,"ndis3"
+ HKR,NDI\Interfaces     ,DefLower               ,0      ,"ethernet"
+ HKR,NDIS               ,LogDriverName          ,0      ,"PRISM"
+ HKR,NDIS               ,MajorNdisVersion       ,1      ,03
+ HKR,NDIS               ,MinorNdisVersion       ,1      ,0a
+
+[COMMON_NDIS.reg.ME]
+ HKR,                   ,RunningWin9X           ,0      ,"1"
+ HKR,                   ,DevLoader              ,0      ,"*ndis"
+ HKR,                   ,EnumPropPages          ,0      ,"netdi.dll,EnumPropPages"
+ HKR,NDI                ,NdiInstaller           ,0      ,"PRISMCFG.dll,NdiProc"
+ HKR,NDI\Interfaces     ,UpperRange             ,0      ,"ndis3"
+ HKR,NDI\Interfaces     ,LowerRange             ,0      ,"ethernet"
+ HKR,NDI\Interfaces     ,DefUpper               ,0      ,"ndis3"
+ HKR,NDI\Interfaces     ,DefLower               ,0      ,"ethernet"
+ HKR,NDIS               ,LogDriverName          ,0      ,"PRISM"
+ HKR,NDIS               ,MajorNdisVersion       ,1      ,03
+ HKR,NDIS               ,MinorNdisVersion       ,1      ,0a
+
+[COMMON_NDIS.reg.NT]
+ HKR,                   ,EnumPropPages32        ,0      ,"PRISMCFG.cpl,NetPropPageProvider"
+ HKR,NDI\Interfaces     ,UpperRange             ,0      ,"ndis5"
+ HKR,NDI\Interfaces     ,LowerRange             ,0      ,"ethernet"
+
+[COMMON.reg]
+ HKR,                   ,PRISMIOC               ,0      ,"1"
+ HKR,                   ,SilentInstall          ,0      ,"1"
+ HKR,                   ,PRISMIOC               ,0      ,"1"
+ HKR,                   ,SilentInstall          ,0      ,"1"
+;Uncomment the line above to install without user interface prompts
+
+;
+; SSID
+; 
+ HKR,,SSID,,%SSID_DEF_STR%
+ HKR,defaults,SSID,,%SSID_DEF_STR%
+;HKR,NDI\params\SSID,ParamDesc,,"SSID"
+;HKR,NDI\params\SSID,type,,edit
+;HKR,NDI\params\SSID,limitText,,32
+;HKR,NDI\params\SSID,default,,%SSID_DEF_STR%
+;HKR,NDI\params\SSID,flag,1,30,00,00,00
+
+;
+; Network Type
+;
+ HKR,,NetworkType,,%NETWORK_TYPE_DEF_STR%
+ HKR,defaults,NetworkType,,%NETWORK_TYPE_DEF_STR%
+;HKR,NDI\params\NetworkType,ParamDesc,,"Network Type"
+;HKR,NDI\params\NetworkType,type,,enum
+;HKR,NDI\params\NetworkType,default,,%NETWORK_TYPE_DEF_STR%
+;HKR,NDI\params\NetworkType,flag,1,30,00,00,00
+;HKR,NDI\params\NetworkType\enum,0,,"802.11b Ad Hoc"
+;HKR,NDI\params\NetworkType\enum,1,,"Infrastructure"
+;
+;	Wep Required
+;
+ HKR,,WepReq,0,%WEP_REQUIRED_DEF_STR%
+ HKR,defaults,WepReq,0,%WEP_REQUIRED_DEF_STR%
+ HKR,NDI\params\WepReq,,0,0
+ HKR,NDI\params\WepReq,ParamDesc,0,"Use Wep"
+ HKR,NDI\params\WepReq,flag,1,30,00,00,00
+ HKR,NDI\params\WepReq,type,0,enum
+ HKR,Ndi\params\WepReq,default,0,0
+ HKR,NDI\params\WepReq\enum,0,0,"Disabled"
+ HKR,NDI\params\WepReq\enum,2,,"40 bit"
+ HKR,NDI\params\WepReq\enum,6,,"128 bit"
+ HKR,NDI\params\WepReq,optional,0,0
+
+ HKR,,ListenInterval,0,3
+ HKR,defaults,ListenInterval,0,3
+; HKR,NDI\params\ListenInterval,,0,3
+; HKR,Ndi\params\ListenInterval,default,0,3
+; HKR,NDI\params\ListenInterval,ParamDesc,,%LISTENINTERVAL_STR%
+; HKR,NDI\params\ListenInterval,type,,int
+; HKR,NDI\params\ListenInterval,flag,1,30,00,00,00
+; HKR,NDI\params\ListenInterval,min,0,0
+; HKR,NDI\params\ListenInterval,max,0,77
+; HKR,NDI\params\ListenInterval,step,0,1
+; HKR,NDI\params\ListenInterval,optional,0,1
+
+ HKR,,RTSThresh,0,2432
+ HKR,defaults,RTSThresh,0,2432
+ HKR,NDI\params\RTSThresh,,0,2432
+ HKR,Ndi\params\RTSThresh,default,0,2432
+ HKR,NDI\params\RTSThresh,ParamDesc,0,%RTSTHRESH_STR%
+ HKR,NDI\params\RTSThresh,type,0,int
+ HKR,NDI\params\RTSThresh,flag,1,20,00,00,00
+ HKR,NDI\params\RTSThresh,min,0,0
+ HKR,NDI\params\RTSThresh,max,0,2432
+ HKR,NDI\params\RTSThresh,step,0,64
+ HKR,NDI\params\RTSThresh,optional,0,1
+
+ HKR,,FragThresh,0,2432
+ HKR,defaults,FragThresh,0,2432
+ HKR,NDI\params\FragThresh,,0,2432
+ HKR,Ndi\params\FragThresh,default,0,2432
+ HKR,NDI\params\FragThresh,ParamDesc,0,%FRAGTHRESH_STR%
+ HKR,NDI\params\FragThresh,type,0,int
+ HKR,NDI\params\FragThresh,flag,1,20,00,00,00
+ HKR,NDI\params\FragThresh,min,0,256
+ HKR,NDI\params\FragThresh,max,0,2432
+ HKR,NDI\params\FragThresh,step,0,128
+ HKR,NDI\params\FragThresh,optional,0,1
+
+ HKR,,PreambleMode,0,1
+ HKR,defaults,PreambleMode,0,1
+ HKR,NDI\params\PreambleMode,,0,1
+ HKR,Ndi\params\PreambleMode,default,0,1
+ HKR,NDI\params\PreambleMode,ParamDesc,,%SHORT_PREAM_STR%
+ HKR,NDI\params\PreambleMode,type,,enum
+ HKR,NDI\params\PreambleMode,flag,1,30,00,00,00
+ HKR,NDI\params\PreambleMode\enum,1,,"Long Tx Preamble"
+ HKR,NDI\params\PreambleMode\enum,2,,"Short Tx Preamble"
+ HKR,NDI\params\PreambleMode\enum,3,,"Auto"
+ HKR,NDI\params\PreambleMode,optional,0,1
+
+ HKR,,AuthentAlg,0,%AUTHENT_TYPE_DEF_STR%
+ HKR,defaults,AuthentAlg,0,%AUTHENT_TYPE_DEF_STR%
+ HKR,NDI\params\AuthentAlg,,0,%AUTHENT_TYPE_DEF_STR%
+ HKR,NDI\params\AuthentAlg,default,0,%AUTHENT_TYPE_DEF_STR%
+ HKR,NDI\params\AuthentAlg,ParamDesc,,%AUTHENT_TYPE_STR%
+ HKR,NDI\params\AuthentAlg,type,,enum
+ HKR,NDI\params\AuthentAlg,flag,1,30,00,00,00
+ HKR,NDI\params\AuthentAlg\enum,1,,"WECA Compliant (always use Open)"
+ HKR,NDI\params\AuthentAlg\enum,2,,"Must use Shared with WEP"
+ HKR,NDI\params\AuthentAlg\enum,65535,,"Automatic based on WEP setting"
+ HKR,NDI\params\AuthentAlg,optional,0,1
+
+;HKR,,AdhocDemoMode,0,0
+;HKR,defaults,AdhocDemoMode,0,0
+;HKR,NDI\params\AdhocDemoMode,,0,0
+;HKR,Ndi\params\AdhocDemoMode,default,0,0
+;HKR,NDI\params\AdhocDemoMode,ParamDesc,,%ADHOC_DEMO_STR%
+;HKR,NDI\params\AdhocDemoMode,type,,enum
+;HKR,NDI\params\AdhocDemoMode,flag,1,30,00,00,00
+;HKR,NDI\params\AdhocDemoMode\enum,0,,"Disable"
+;HKR,NDI\params\AdhocDemoMode\enum,1,,"Enable"
+;HKR,NDI\params\AdhocDemoMode,optional,0,1
+
+ HKR,,PowerSave,0,0
+ HKR,defaults,PowerSave,0,0
+ HKR,NDI\params\PowerSave,,0,0
+ HKR,Ndi\params\PowerSave,default,0,0
+ HKR,NDI\params\PowerSave,ParamDesc,,%POWER_SAVE_STR%
+ HKR,NDI\params\PowerSave,type,,enum
+ HKR,NDI\params\PowerSave,flag,1,30,00,00,00
+ HKR,NDI\params\PowerSave\enum,0,,"Disable"
+ HKR,NDI\params\PowerSave\enum,1,,"Enable"
+;HKR,NDI\params\PowerSave\enum,2,,"Auto Enable"
+ HKR,NDI\params\PowerSave,optional,0,1
+
+;
+;	Wep Encrypt in Driver
+;
+HKR,,EncryptInDriver,0,1
+HKR,defaults,EncryptInDriver,0,1
+
+;
+;	Wep Decrypt in Driver
+;
+HKR,,DecryptInDriver,0,1
+HKR,defaults,DecryptInDriver,0,1
+
+;
+;	Basic Rates
+;
+HKR,,BasicRates,0,15
+HKR,defaults,BasicRates,0,15
+
+;###############################################################################
+[DestinationDirs]
+;CopyFiles Section      = Destination Directory ID -- see layout.inf
+;-----------------        ------------------------
+ DefaultDestDir         = 11 ; Win9x=%windir%\system Win2k=%windir%\system32
+ PRISM_DRIVER.copy      = 11 ; Win9x=%windir%\system
+ PRISM_DRIVER.copy.ME   = 11 ; Win9x=%windir%\system
+ PRISM_DRIVER.copy.NT   = 12 ; Win2k=%windir%\system32\drivers
+
+[PRISM_NDI.copy]
+ PRISMR16.dll           ; Win9x NDI
+ PRISMCFG.dll           ; Win9x NDI
+
+[PRISM_NDI.copy.ME]
+ PRISMR16.dll           ; Win9x NDI
+ PRISMCFG.dll           ; Win9x NDI
+
+[PRISM_COINSTALL.copy.NT]
+ PRISMRES.dll
+ PRISMIOC.dll
+ PRISMCFG.cpl           ; Win2k CoInstaller
+
+[PRISM_DRIVER.copy]
+ PRISMNDS.sys
+ PRISMUSB.sys
+ PRISMIOC.vxd           ; Win9x Ioctl interface
+
+[PRISM_DRIVER.copy.ME]
+ PRISMNDS.sys
+ PRISMUSB.sys
+ PRISMIOC.vxd           ; Win9x Ioctl interface
+
+[PRISM_DRIVER.copy.NT]
+ PRISMNDS.sys
+ PRISMUSB.sys
+
+[PRISM_APPLET.copy]
+ PRISMRES.dll
+ PRISMIOC.dll
+ PRISMCFG.cpl
+; FIXME - Add context sensitive help
+;PRISMCFG.hlp           ; Help file
+;PRISMCSH.dll           ; Context Sensitive Helper
+
+[PRISM_APPLET.copy.ME]
+ PRISMRES.dll
+ PRISMIOC.dll
+ PRISMCFG.cpl
+
+[PRISM_APPLET.copy.NT]
+;PRISMRES.dll           ; Copied by coinstaller
+;PRISMIOC.dll           ; Copied by coinstaller
+;PRISMCFG.cpl           ; Copied by coinstaller
+;PRISMCFG.hlp           ; Copied by coinstaller
+;PRISMCSH.dll           ; Copied by coinstaller
+;PRISMSTA.exe
+
+[SourceDisksNames]
+;Source Disk ID         = Disk Name
+;--------------           ---------
+ 1                      = %INSTALL_DISK_STR%,,,
+
+[SourceDisksFiles]      ; Win9x
+;File Name              = Source Disk ID
+;---------                --------------
+ ;PRISMR16.dll           = 1,ndis5
+ ;PRISMCFG.dll           = 1,ndis5
+ ;PRISMIOC.vxd           = 1,ndis5
+ ;PRISMRES.dll           = 1,ndis5
+ ;PRISMIOC.dll           = 1,ndis5
+ ;PRISMCFG.cpl           = 1,ndis4
+ ;PRISMNDS.sys           = 1,ndis5
+ ;PRISMUSB.sys           = 1,ndis5
+
+[SourceDisksFiles.ME]   ; WinMe
+ ;PRISMR16.dll           = 1,ndis5
+ ;PRISMCFG.dll           = 1,ndis5
+ ;PRISMIOC.vxd           = 1,ndis5
+ ;PRISMRES.dll           = 1,ndis5
+ ;PRISMIOC.dll           = 1,ndis5
+ ;PRISMCFG.cpl           = 1,ndis4
+ ;PRISMNDS.sys           = 1,ndis5
+ ;PRISMUSB.sys           = 1,ndis5
+
+[SourceDisksFiles.X86]  ; Win2k/Xp
+ PRISMRES.dll           = 1
+ PRISMIOC.dll           = 1
+ PRISMCFG.cpl           = 1
+ PRISMNDS.sys           = 1
+ PRISMUSB.sys           = 1
+
+;###############################################################################
+[Strings]
+;String ID              = String Text
+;---------                -----------
+ VER_VENDOR_STR         = "PRISM"
+ VER_VENDOR_NAME_STR    = "PRISM Corporation"
+
+ PRISM_PCMCIA2_STR      = "PRISM2 IEEE 802.11 PC CARD Adapter"
+ PRISM_PCMCIA3_STR      = "PRISM2.5 3V IEEE 802.11 PC CARD Adapter"
+ PRISM_PCMCIA4_STR      = "PRISM2.5 5V IEEE 802.11 PC CARD Adapter"
+ PRISM_PCMCIA5_STR      = "PRISM2 3V IEEE 802.11 PC CARD Adapter"
+ PRISM_PCI1_STR         = "PRISM2 IEEE 802.11 PCI Adapter"
+ PRISM_PCI2_STR         = "PRISM25 IEEE 802.11 Mini PCI Adapter"
+ PRISM_USB1_STR         = "PRISM25 IEEE 802.11 Mini USB Adapter"
+
+ PRISM_SERVICE_DISPLAY  = "Wireless LAN Driver"
+ PRISM_USB_SERVICE_DISPLAY  = "Prism Mini USB Wireless LAN Driver"
+ INSTALL_DISK_STR       = "PRISM IEEE 802.11 PCMCIA/PCI/USB Driver Disk"
+
+ ADHOC_DEMO_STR         = "Adhoc Demo Mode"
+ SHORT_PREAM_STR        = "Preamble Mode"
+ RTSTHRESH_STR          = "RTS Threshold"
+ FRAGTHRESH_STR         = "Fragmentation Threshold"
+ AUTHENT_TYPE_STR       = "Authentication Algorithm"
+ LISTENINTERVAL_STR     = "Listen Interval"
+ POWER_SAVE_STR         = "Power Save"
+
+ SSID_DEF_STR		= "Wireless"
+ NETWORK_TYPE_DEF_STR	= "1"
+ WEP_REQUIRED_DEF_STR	= "0"
+ AUTHENT_TYPE_DEF_STR	= "1"
+

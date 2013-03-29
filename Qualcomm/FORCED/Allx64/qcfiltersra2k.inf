@@ -1,0 +1,92 @@
+; INF file for installing an upper filter device driver for 
+; Qualcomm USB composite device
+; Copyright (c) 2010 Qualcomm Inc.  All rights reserved.
+
+[Version]
+Signature   = "$WINDOWS NT$"
+Class       = USB
+Provider    = %QUALCOMM%
+ClassGUID   = {36FC9E60-C465-11CF-8056-444553540000}
+DriverVer   = 05/19/2009,1.0.0.0
+CatalogFile = qcfiltersra2k.cat
+
+[Manufacturer]
+%MFG% = QualcommFilter2k, NTamd64
+
+[ControlFlags]
+ExcludeFromSelect = *
+
+[SourceDisksNames]
+1000 = %QcomSrcDisk%,"",,
+
+[SourceDisksFiles]
+qcfiltersra2k.sys  = 1000
+
+[QualcommFilter2k]
+%qcfiltersra2k.DeviceDesc1% = qcfiltersra2k,USB\VID_1199&PID_9001
+%qcfiltersra2k.DeviceDesc2% = qcfiltersra2k,USB\VID_1199&PID_9002
+%qcfiltersra2k.DeviceDesc3% = qcfiltersra2k,USB\VID_1199&PID_9003
+%qcfiltersra2k.DeviceDesc4% = qcfiltersra2k,USB\VID_1199&PID_9004
+%qcfiltersra2k.DeviceDesc5% = qcfiltersra2k,USB\VID_1199&PID_9005
+%qcfiltersra2k.DeviceDesc6% = qcfiltersra2k,USB\VID_1199&PID_9006
+%qcfiltersra2k.DeviceDesc7% = qcfiltersra2k,USB\VID_1199&PID_9007
+%qcfiltersra2k.DeviceDesc8% = qcfiltersra2k,USB\VID_1199&PID_9008
+%qcfiltersra2k.DeviceDesc9% = qcfiltersra2k,USB\VID_1199&PID_9009
+%qcfiltersra2k.DeviceDescA% = qcfiltersra2k,USB\VID_1199&PID_900A
+
+[QualcommFilter2k.NTamd64]
+%qcfiltersra2k.DeviceDesc1% = qcfiltersra2k,USB\VID_1199&PID_9001
+%qcfiltersra2k.DeviceDesc2% = qcfiltersra2k,USB\VID_1199&PID_9002
+%qcfiltersra2k.DeviceDesc3% = qcfiltersra2k,USB\VID_1199&PID_9003
+%qcfiltersra2k.DeviceDesc4% = qcfiltersra2k,USB\VID_1199&PID_9004
+%qcfiltersra2k.DeviceDesc5% = qcfiltersra2k,USB\VID_1199&PID_9005
+%qcfiltersra2k.DeviceDesc6% = qcfiltersra2k,USB\VID_1199&PID_9006
+%qcfiltersra2k.DeviceDesc7% = qcfiltersra2k,USB\VID_1199&PID_9007
+%qcfiltersra2k.DeviceDesc8% = qcfiltersra2k,USB\VID_1199&PID_9008
+%qcfiltersra2k.DeviceDesc9% = qcfiltersra2k,USB\VID_1199&PID_9009
+%qcfiltersra2k.DeviceDescA% = qcfiltersra2k,USB\VID_1199&PID_900A
+
+[qcfiltersra2k]  
+Include   = USB.inf
+Needs     = Composite.Dev.NT
+CopyFiles = qcfiltersra2k.Copy
+
+[qcfiltersra2k.Copy]
+qcfiltersra2k.sys
+
+[DestinationDirs]
+qcfiltersra2k.Copy = 12
+
+[qcfiltersra2k.HW]
+AddReg = UpperFilterAddReg
+
+[UpperFilterAddReg]
+HKR,,"UpperFilters",0x00010000,"qcfiltersra2k"
+
+[qcfiltersra2k.Services]
+Include    = USB.inf
+Needs      = Composite.Dev.NT.Services
+AddService = qcfiltersra2k,, filter_Service_Inst 
+
+[filter_Service_Inst]
+DisplayName    = %filter2k.SvcDesc%                            
+ServiceType    = 1                  ; SERVICE_KERNEL_DRIVER
+StartType      = 3                  ; SERVICE_DEMAND_START
+ErrorControl   = 1                  ; SERVICE_ERROR_NORMAL
+ServiceBinary  = %12%\qcfiltersra2k.sys                            
+
+[Strings]
+MFG                       = "Sierra Wireless Inc"
+QUALCOMM                  = "Qualcomm Incorporated"
+QcomSrcDisk               = "Qualcomm USB Driver Disk"
+QCFiltersra2k.DeviceDesc1 = "Sierra Wireless Gobi 2000 USB Composite Device 9001"
+QCFiltersra2k.DeviceDesc2 = "Sierra Wireless Gobi 2000 USB Composite Device 9002"
+QCFiltersra2k.DeviceDesc3 = "Sierra Wireless Gobi 2000 USB Composite Device 9003"
+QCFiltersra2k.DeviceDesc4 = "Sierra Wireless Gobi 2000 USB Composite Device 9004"
+QCFiltersra2k.DeviceDesc5 = "Sierra Wireless Gobi 2000 USB Composite Device 9005"
+QCFiltersra2k.DeviceDesc6 = "Sierra Wireless Gobi 2000 USB Composite Device 9006"
+QCFiltersra2k.DeviceDesc7 = "Sierra Wireless Gobi 2000 USB Composite Device 9007"
+QCFiltersra2k.DeviceDesc8 = "Sierra Wireless Gobi 2000 USB Composite Device 9008"
+QCFiltersra2k.DeviceDesc9 = "Sierra Wireless Gobi 2000 USB Composite Device 9009"
+QCFiltersra2k.DeviceDescA = "Sierra Wireless Gobi 2000 USB Composite Device 900A"
+filter2k.SvcDesc          = "Gobi 2000 USB Composite Device Filter Driver(1199-9001)"

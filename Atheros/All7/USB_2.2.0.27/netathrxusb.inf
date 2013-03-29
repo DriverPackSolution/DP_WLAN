@@ -1,0 +1,1070 @@
+; /****************************************************************************
+; * Copyright 2006 Atheros Communications Inc., all rights reserved.          *
+; * INF file for Atheros reference designs                                    *
+; ****************************************************************************/
+
+[version]
+Signature   = "$Windows NT$"
+Class       = Net
+ClassGUID   = {4d36e972-e325-11ce-bfc1-08002be10318}
+Provider    = %ATHEROS%
+LoutFiles   = layout.inf
+CatalogFile = athrxusbext.cat
+DriverVer   = 07/29/2008,2.2.0.27
+
+
+[Manufacturer]
+%ATHEROS%     = Atheros, NTamd64
+
+
+[ControlFlags]
+ExcludeFromSelect = *
+
+
+[Atheros.NTamd64]
+; DisplayName               Section                 DeviceID
+; -----------               -------                 --------
+%ATHR.DeviceDesc.1215%  = ATHR_DEV_1215.ndi,    USB\VID_0ACE&PID_1215
+%ATHR.DeviceDesc.A215%  = ATHR_DEV_A215.ndi,    USB\VID_0ACE&PID_A215
+;; ZD1211B+AL2230S
+%ATHR.DeviceDesc.4505%  = ATHR_DEV_4505.ndi,    USB\VID_083A&PID_4505
+%ATHR.DeviceDesc.1236%  = ATHR_DEV_1236.ndi,    USB\VID_0471&PID_1236
+%ATHR.DeviceDesc.1237%  = ATHR_DEV_1237.ndi,    USB\VID_0471&PID_1237
+%ATHR.DeviceDesc.E501%  = ATHR_DEV_E501.ndi,    USB\VID_083A&PID_E501
+%ATHR.DeviceDesc.A312%  = ATHR_DEV_A312.ndi,    USB\VID_0803&PID_A312
+%ATHR.DeviceDesc.0121%  = ATHR_DEV_0121.ndi,    USB\VID_0BAF&PID_0121
+%ATHR.DeviceDesc.705C%  = ATHR_DEV_705C.ndi,    USB\VID_050D&PID_705C
+%ATHR.DeviceDesc.4050%  = ATHR_DEV_4050.ndi,    USB\VID_050D&PID_4050
+%ATHR.DeviceDesc.001A%  = ATHR_DEV_001A.ndi,    USB\VID_0CDE&PID_001A
+%ATHR.DeviceDesc.340F%  = ATHR_DEV_340F.ndi,    USB\VID_0586&PID_340F
+%ATHR.DeviceDesc.3410%  = ATHR_DEV_3410.ndi,    USB\VID_0586&PID_3410
+%ATHR.DeviceDesc.9071%  = ATHR_DEV_9071.ndi,    USB\VID_6189&PID_9071
+%ATHR.DeviceDesc.0062%  = ATHR_DEV_0062.ndi,    USB\VID_079B&PID_0062
+%ATHR.DeviceDesc.00DA%  = ATHR_DEV_00DA.ndi,    USB\VID_0411&PID_00DA
+%ATHR.DeviceDesc.0726%  = ATHR_DEV_0726.ndi,    USB\VID_1690&PID_0726
+%ATHR.DeviceDesc.300C%  = ATHR_DEV_300C.ndi,    USB\VID_157E&PID_300C
+%ATHR.DeviceDesc.300D%  = ATHR_DEV_300D.ndi,    USB\VID_157E&PID_300D
+%ATHR.DeviceDesc.340A%  = ATHR_DEV_340A.ndi,    USB\VID_0586&PID_340A
+%ATHR.DeviceDesc.0938%  = ATHR_DEV_0938.ndi,    USB\VID_04BB&PID_0938
+%ATHR.DeviceDesc.1667%  = ATHR_DEV_1667.ndi,    USB\VID_129B&PID_1667
+%ATHR.DeviceDesc.1666%  = ATHR_DEV_1666.ndi,    USB\VID_129B&PID_1666
+%ATHR.DeviceDesc.5301%  = ATHR_DEV_5301.ndi,    USB\VID_5300&PID_5301
+%ATHR.DeviceDesc.5302%  = ATHR_DEV_5302.ndi,    USB\VID_5300&PID_5302
+%ATHR.DeviceDesc.5303%  = ATHR_DEV_5303.ndi,    USB\VID_2019&PID_5303
+%ATHR.DeviceDesc.171B%  = ATHR_DEV_171B.ndi,    USB\VID_0B05&PID_171B
+%ATHR.DeviceDesc.171C%  = ATHR_DEV_171C.ndi,    USB\VID_0B05&PID_171C
+%ATHR.DeviceDesc.C215%  = ATHR_DEV_C215.ndi,    USB\VID_0ACE&PID_C215
+%ATHR.DeviceDesc.D215%  = ATHR_DEV_D215.ndi,    USB\VID_0ACE&PID_D215
+%ATHR.DeviceDesc.6001%  = ATHR_DEV_6001.ndi,    USB\VID_07B8&PID_6001
+;; ZD1211B+AL7230
+%ATHR.DeviceDesc.3412%  = ATHR_DEV_3412.ndi,    USB\VID_0586&PID_3412
+%ATHR.DeviceDesc.0020%  = ATHR_DEV_0020.ndi,    USB\VID_0CDE&PID_0020
+%ATHR.DeviceDesc.3208%  = ATHR_DEV_3208.ndi,    USB\VID_157E&PID_3208
+%ATHR.DeviceDesc.3413%  = ATHR_DEV_3413.ndi,    USB\VID_0586&PID_3413
+%ATHR.DeviceDesc.0937%  = ATHR_DEV_0937.ndi,    USB\VID_04BB&PID_0937
+%ATHR.DeviceDesc.5304%  = ATHR_DEV_5304.ndi,    USB\VID_2019&PID_5304
+;; ZD1211 B/G
+%ATHR.DeviceDesc.1211%  = ATHR_DEV_1211.ndi,    USB\VID_0ACE&PID_1211
+%ATHR.DeviceDesc.004A%  = ATHR_DEV_004A.ndi,    USB\VID_079B&PID_004A
+%ATHR.DeviceDesc.0009%  = ATHR_DEV_0009.ndi,    USB\VID_0CDE&PID_0009
+%ATHR.DeviceDesc.300B%  = ATHR_DEV_300B.ndi,    USB\VID_157E&PID_300B
+%ATHR.DeviceDesc.3407%  = ATHR_DEV_3407.ndi,    USB\VID_0586&PID_3407
+%ATHR.DeviceDesc.0257%  = ATHR_DEV_0257.ndi,    USB\VID_054C&PID_0257
+;; ZD1211 A/B/G
+%ATHR.DeviceDesc.A211%  = ATHR_DEV_A211.ndi,    USB\VID_0ACE&PID_A211
+%ATHR.DeviceDesc.300A%  = ATHR_DEV_300A.ndi,    USB\VID_157E&PID_300A
+%ATHR.DeviceDesc.3207%  = ATHR_DEV_3207.ndi,    USB\VID_157E&PID_3207
+%ATHR.DeviceDesc.3409%  = ATHR_DEV_3409.ndi,    USB\VID_0586&PID_3409
+;; AR5523
+%ATHR.DeviceDesc.5523%  = ATHR_DEV_5523.ndi,    USB\VID_0CF3&PID_0002
+%ATHR.DeviceDesc.5523%  = ATHR_DEV_5523.ndi,    USB\VID_168C&PID_0002
+%ATHR.DeviceDesc.UB51%  = ATHR_DEV_UB51.ndi,    USB\VID_0CF3&PID_0004
+%ATHR.DeviceDesc.UB52%  = ATHR_DEV_UB52.ndi,    USB\VID_0CF3&PID_0006
+%ATHR.DeviceDesc.4001%  = ATHR_DEV_4001.ndi,    USB\VID_3242&PID_4001
+;; SMC
+%ATHR.DeviceDesc.SMC%  = ATHR_DEV_1215.ndi,    USB\VID_083A&PID_4505
+;; Arcadyan
+%ATHR.DeviceDesc.Arcadyan%  = ATHR_DEV_1215.ndi,    USB\VID_083A&PID_E501
+;; SiteCom
+%ATHR.DeviceDesc.SiteCom%  = ATHR_DEV_1215.ndi,    USB\VID_0DF6&PID_0036
+
+;; ZyXEL
+%ATHR.DeviceDesc.ZyXEL1%  = ATHR_DEV_1215.ndi,    USB\VID_0586&PID_3401
+%ATHR.DeviceDesc.ZyXEL2%  = ATHR_DEV_1215.ndi,    USB\VID_0586&PID_340F
+%ATHR.DeviceDesc.ZyXEL3%  = ATHR_DEV_1215.ndi,    USB\VID_0586&PID_3410
+%ATHR.DeviceDesc.ZyXEL4%  = ATHR_DEV_1215.ndi,    USB\VID_0586&PID_3413
+%ATHR.DeviceDesc.ZyXEL5%  = ATHR_DEV_1215.ndi,    USB\VID_0586&PID_3412
+%ATHR.DeviceDesc.ZyXEL6%  = ATHR_DEV_1215.ndi,    USB\VID_0586&PID_3409
+
+[ATHR_DEV_1215.ndi.NTamd64]
+Characteristics = 0x84
+BusType         = 15
+AddReg          = atheros.reg
+DelReg          = atheros.DelReg
+CopyFiles       = atheros.CopyFiles
+*IfType         = 71		; IF_TYPE_IEEE80211
+*MediaType      = 16		; NdisMediumNative802_11
+*PhysicalMediaType = 9		; NdisPhysicalMediumNative802_11
+
+[ATHR_DEV_1215.ndi.NTamd64.Services]
+AddService = athrusb, 2, atheros.Service, atheros.EventLog
+
+[ATHR_DEV_A215.ndi.NTamd64]
+Characteristics = 0x84
+BusType         = 15
+AddReg          = atheros.reg
+DelReg          = atheros.DelReg
+CopyFiles       = atheros.CopyFiles
+*IfType         = 71		; IF_TYPE_IEEE80211
+*MediaType      = 16		; NdisMediumNative802_11
+*PhysicalMediaType = 9		; NdisPhysicalMediumNative802_11
+
+[ATHR_DEV_A215.ndi.NTamd64.Services]
+AddService = athrusb, 2, atheros.Service, atheros.EventLog
+
+[ATHR_DEV_4505.ndi.NTamd64]
+Characteristics = 0x84
+BusType         = 15
+AddReg          = atheros.reg
+DelReg          = atheros.DelReg
+CopyFiles       = atheros.CopyFiles
+*IfType         = 71		; IF_TYPE_IEEE80211
+*MediaType      = 16		; NdisMediumNative802_11
+*PhysicalMediaType = 9		; NdisPhysicalMediumNative802_11
+
+[ATHR_DEV_4505.ndi.NTamd64.Services]
+AddService = athrusb, 2, atheros.Service, atheros.EventLog
+
+[ATHR_DEV_1236.ndi.NTamd64]
+Characteristics = 0x84
+BusType         = 15
+AddReg          = atheros.reg
+DelReg          = atheros.DelReg
+CopyFiles       = atheros.CopyFiles
+*IfType         = 71		; IF_TYPE_IEEE80211
+*MediaType      = 16		; NdisMediumNative802_11
+*PhysicalMediaType = 9		; NdisPhysicalMediumNative802_11
+
+[ATHR_DEV_1236.ndi.NTamd64.Services]
+AddService = athrusb, 2, atheros.Service, atheros.EventLog
+
+[ATHR_DEV_1237.ndi.NTamd64]
+Characteristics = 0x84
+BusType         = 15
+AddReg          = atheros.reg
+DelReg          = atheros.DelReg
+CopyFiles       = atheros.CopyFiles
+*IfType         = 71		; IF_TYPE_IEEE80211
+*MediaType      = 16		; NdisMediumNative802_11
+*PhysicalMediaType = 9		; NdisPhysicalMediumNative802_11
+
+[ATHR_DEV_1237.ndi.NTamd64.Services]
+AddService = athrusb, 2, atheros.Service, atheros.EventLog
+
+[ATHR_DEV_E501.ndi.NTamd64]
+Characteristics = 0x84
+BusType         = 15
+AddReg          = atheros.reg
+DelReg          = atheros.DelReg
+CopyFiles       = atheros.CopyFiles
+*IfType         = 71		; IF_TYPE_IEEE80211
+*MediaType      = 16		; NdisMediumNative802_11
+*PhysicalMediaType = 9		; NdisPhysicalMediumNative802_11
+
+[ATHR_DEV_E501.ndi.NTamd64.Services]
+AddService = athrusb, 2, atheros.Service, atheros.EventLog
+
+[ATHR_DEV_A312.ndi.NTamd64]
+Characteristics = 0x84
+BusType         = 15
+AddReg          = atheros.reg
+DelReg          = atheros.DelReg
+CopyFiles       = atheros.CopyFiles
+*IfType         = 71		; IF_TYPE_IEEE80211
+*MediaType      = 16		; NdisMediumNative802_11
+*PhysicalMediaType = 9		; NdisPhysicalMediumNative802_11
+
+[ATHR_DEV_A312.ndi.NTamd64.Services]
+AddService = athrusb, 2, atheros.Service, atheros.EventLog
+
+[ATHR_DEV_0121.ndi.NTamd64]
+Characteristics = 0x84
+BusType         = 15
+AddReg          = atheros.reg
+DelReg          = atheros.DelReg
+CopyFiles       = atheros.CopyFiles
+*IfType         = 71		; IF_TYPE_IEEE80211
+*MediaType      = 16		; NdisMediumNative802_11
+*PhysicalMediaType = 9		; NdisPhysicalMediumNative802_11
+
+[ATHR_DEV_0121.ndi.NTamd64.Services]
+AddService = athrusb, 2, atheros.Service, atheros.EventLog
+
+[ATHR_DEV_705C.ndi.NTamd64]
+Characteristics = 0x84
+BusType         = 15
+AddReg          = atheros.reg
+DelReg          = atheros.DelReg
+CopyFiles       = atheros.CopyFiles
+*IfType         = 71		; IF_TYPE_IEEE80211
+*MediaType      = 16		; NdisMediumNative802_11
+*PhysicalMediaType = 9		; NdisPhysicalMediumNative802_11
+
+[ATHR_DEV_705C.ndi.NTamd64.Services]
+AddService = athrusb, 2, atheros.Service, atheros.EventLog
+
+[ATHR_DEV_4050.ndi.NTamd64]
+Characteristics = 0x84
+BusType         = 15
+AddReg          = atheros.reg
+DelReg          = atheros.DelReg
+CopyFiles       = atheros.CopyFiles
+*IfType         = 71		; IF_TYPE_IEEE80211
+*MediaType      = 16		; NdisMediumNative802_11
+*PhysicalMediaType = 9		; NdisPhysicalMediumNative802_11
+
+[ATHR_DEV_4050.ndi.NTamd64.Services]
+AddService = athrusb, 2, atheros.Service, atheros.EventLog
+
+[ATHR_DEV_001A.ndi.NTamd64]
+Characteristics = 0x84
+BusType         = 15
+AddReg          = atheros.reg
+DelReg          = atheros.DelReg
+CopyFiles       = atheros.CopyFiles
+*IfType         = 71		; IF_TYPE_IEEE80211
+*MediaType      = 16		; NdisMediumNative802_11
+*PhysicalMediaType = 9		; NdisPhysicalMediumNative802_11
+
+[ATHR_DEV_001A.ndi.NTamd64.Services]
+AddService = athrusb, 2, atheros.Service, atheros.EventLog
+
+[ATHR_DEV_340F.ndi.NTamd64]
+Characteristics = 0x84
+BusType         = 15
+AddReg          = atheros.reg
+DelReg          = atheros.DelReg
+CopyFiles       = atheros.CopyFiles
+*IfType         = 71		; IF_TYPE_IEEE80211
+*MediaType      = 16		; NdisMediumNative802_11
+*PhysicalMediaType = 9		; NdisPhysicalMediumNative802_11
+
+[ATHR_DEV_340F.ndi.NTamd64.Services]
+AddService = athrusb, 2, atheros.Service, atheros.EventLog
+
+[ATHR_DEV_3410.ndi.NTamd64]
+Characteristics = 0x84
+BusType         = 15
+AddReg          = atheros.reg
+DelReg          = atheros.DelReg
+CopyFiles       = atheros.CopyFiles
+*IfType         = 71		; IF_TYPE_IEEE80211
+*MediaType      = 16		; NdisMediumNative802_11
+*PhysicalMediaType = 9		; NdisPhysicalMediumNative802_11
+
+[ATHR_DEV_3410.ndi.NTamd64.Services]
+AddService = athrusb, 2, atheros.Service, atheros.EventLog
+
+[ATHR_DEV_9071.ndi.NTamd64]
+Characteristics = 0x84
+BusType         = 15
+AddReg          = atheros.reg
+DelReg          = atheros.DelReg
+CopyFiles       = atheros.CopyFiles
+*IfType         = 71		; IF_TYPE_IEEE80211
+*MediaType      = 16		; NdisMediumNative802_11
+*PhysicalMediaType = 9		; NdisPhysicalMediumNative802_11
+
+[ATHR_DEV_9071.ndi.NTamd64.Services]
+AddService = athrusb, 2, atheros.Service, atheros.EventLog
+
+[ATHR_DEV_0062.ndi.NTamd64]
+Characteristics = 0x84
+BusType         = 15
+AddReg          = atheros.reg
+DelReg          = atheros.DelReg
+CopyFiles       = atheros.CopyFiles
+*IfType         = 71		; IF_TYPE_IEEE80211
+*MediaType      = 16		; NdisMediumNative802_11
+*PhysicalMediaType = 9		; NdisPhysicalMediumNative802_11
+
+[ATHR_DEV_0062.ndi.NTamd64.Services]
+AddService = athrusb, 2, atheros.Service, atheros.EventLog
+
+[ATHR_DEV_00DA.ndi.NTamd64]
+Characteristics = 0x84
+BusType         = 15
+AddReg          = atheros.reg
+DelReg          = atheros.DelReg
+CopyFiles       = atheros.CopyFiles
+*IfType         = 71		; IF_TYPE_IEEE80211
+*MediaType      = 16		; NdisMediumNative802_11
+*PhysicalMediaType = 9		; NdisPhysicalMediumNative802_11
+
+[ATHR_DEV_00DA.ndi.NTamd64.Services]
+AddService = athrusb, 2, atheros.Service, atheros.EventLog
+
+[ATHR_DEV_0726.ndi.NTamd64]
+Characteristics = 0x84
+BusType         = 15
+AddReg          = atheros.reg
+DelReg          = atheros.DelReg
+CopyFiles       = atheros.CopyFiles
+*IfType         = 71		; IF_TYPE_IEEE80211
+*MediaType      = 16		; NdisMediumNative802_11
+*PhysicalMediaType = 9		; NdisPhysicalMediumNative802_11
+
+[ATHR_DEV_0726.ndi.NTamd64.Services]
+AddService = athrusb, 2, atheros.Service, atheros.EventLog
+
+[ATHR_DEV_300C.ndi.NTamd64]
+Characteristics = 0x84
+BusType         = 15
+AddReg          = atheros.reg
+DelReg          = atheros.DelReg
+CopyFiles       = atheros.CopyFiles
+*IfType         = 71		; IF_TYPE_IEEE80211
+*MediaType      = 16		; NdisMediumNative802_11
+*PhysicalMediaType = 9		; NdisPhysicalMediumNative802_11
+
+[ATHR_DEV_300C.ndi.NTamd64.Services]
+AddService = athrusb, 2, atheros.Service, atheros.EventLog
+
+[ATHR_DEV_300D.ndi.NTamd64]
+Characteristics = 0x84
+BusType         = 15
+AddReg          = atheros.reg
+DelReg          = atheros.DelReg
+CopyFiles       = atheros.CopyFiles
+*IfType         = 71		; IF_TYPE_IEEE80211
+*MediaType      = 16		; NdisMediumNative802_11
+*PhysicalMediaType = 9		; NdisPhysicalMediumNative802_11
+
+[ATHR_DEV_300D.ndi.NTamd64.Services]
+AddService = athrusb, 2, atheros.Service, atheros.EventLog
+
+[ATHR_DEV_340A.ndi.NTamd64]
+Characteristics = 0x84
+BusType         = 15
+AddReg          = atheros.reg
+DelReg          = atheros.DelReg
+CopyFiles       = atheros.CopyFiles
+*IfType         = 71		; IF_TYPE_IEEE80211
+*MediaType      = 16		; NdisMediumNative802_11
+*PhysicalMediaType = 9		; NdisPhysicalMediumNative802_11
+
+[ATHR_DEV_340A.ndi.NTamd64.Services]
+AddService = athrusb, 2, atheros.Service, atheros.EventLog
+
+[ATHR_DEV_0938.ndi.NTamd64]
+Characteristics = 0x84
+BusType         = 15
+AddReg          = atheros.reg
+DelReg          = atheros.DelReg
+CopyFiles       = atheros.CopyFiles
+*IfType         = 71		; IF_TYPE_IEEE80211
+*MediaType      = 16		; NdisMediumNative802_11
+*PhysicalMediaType = 9		; NdisPhysicalMediumNative802_11
+
+[ATHR_DEV_0938.ndi.NTamd64.Services]
+AddService = athrusb, 2, atheros.Service, atheros.EventLog
+
+[ATHR_DEV_1667.ndi.NTamd64]
+Characteristics = 0x84
+BusType         = 15
+AddReg          = atheros.reg
+DelReg          = atheros.DelReg
+CopyFiles       = atheros.CopyFiles
+*IfType         = 71		; IF_TYPE_IEEE80211
+*MediaType      = 16		; NdisMediumNative802_11
+*PhysicalMediaType = 9		; NdisPhysicalMediumNative802_11
+
+[ATHR_DEV_1667.ndi.NTamd64.Services]
+AddService = athrusb, 2, atheros.Service, atheros.EventLog
+
+[ATHR_DEV_1666.ndi.NTamd64]
+Characteristics = 0x84
+BusType         = 15
+AddReg          = atheros.reg
+DelReg          = atheros.DelReg
+CopyFiles       = atheros.CopyFiles
+*IfType         = 71		; IF_TYPE_IEEE80211
+*MediaType      = 16		; NdisMediumNative802_11
+*PhysicalMediaType = 9		; NdisPhysicalMediumNative802_11
+
+[ATHR_DEV_1666.ndi.NTamd64.Services]
+AddService = athrusb, 2, atheros.Service, atheros.EventLog
+
+[ATHR_DEV_5301.ndi.NTamd64]
+Characteristics = 0x84
+BusType         = 15
+AddReg          = atheros.reg
+DelReg          = atheros.DelReg
+CopyFiles       = atheros.CopyFiles
+*IfType         = 71		; IF_TYPE_IEEE80211
+*MediaType      = 16		; NdisMediumNative802_11
+*PhysicalMediaType = 9		; NdisPhysicalMediumNative802_11
+
+[ATHR_DEV_5301.ndi.NTamd64.Services]
+AddService = athrusb, 2, atheros.Service, atheros.EventLog
+
+[ATHR_DEV_5302.ndi.NTamd64]
+Characteristics = 0x84
+BusType         = 15
+AddReg          = atheros.reg
+DelReg          = atheros.DelReg
+CopyFiles       = atheros.CopyFiles
+*IfType         = 71		; IF_TYPE_IEEE80211
+*MediaType      = 16		; NdisMediumNative802_11
+*PhysicalMediaType = 9		; NdisPhysicalMediumNative802_11
+
+[ATHR_DEV_5302.ndi.NTamd64.Services]
+AddService = athrusb, 2, atheros.Service, atheros.EventLog
+
+[ATHR_DEV_5303.ndi.NTamd64]
+Characteristics = 0x84
+BusType         = 15
+AddReg          = atheros.reg
+DelReg          = atheros.DelReg
+CopyFiles       = atheros.CopyFiles
+*IfType         = 71		; IF_TYPE_IEEE80211
+*MediaType      = 16		; NdisMediumNative802_11
+*PhysicalMediaType = 9		; NdisPhysicalMediumNative802_11
+
+[ATHR_DEV_5303.ndi.NTamd64.Services]
+AddService = athrusb, 2, atheros.Service, atheros.EventLog
+
+[ATHR_DEV_171B.ndi.NTamd64]
+Characteristics = 0x84
+BusType         = 15
+AddReg          = atheros.reg, DefaultAntenna_1.reg
+DelReg          = atheros.DelReg
+CopyFiles       = atheros.CopyFiles
+*IfType         = 71		; IF_TYPE_IEEE80211
+*MediaType      = 16		; NdisMediumNative802_11
+*PhysicalMediaType = 9		; NdisPhysicalMediumNative802_11
+
+[ATHR_DEV_171B.ndi.NTamd64.Services]
+AddService = athrusb, 2, atheros.Service, atheros.EventLog
+
+[ATHR_DEV_171C.ndi.NTamd64]
+Characteristics = 0x84
+BusType         = 15
+AddReg          = atheros.reg, DefaultAntenna_1.reg
+DelReg          = atheros.DelReg
+CopyFiles       = atheros.CopyFiles
+*IfType         = 71		; IF_TYPE_IEEE80211
+*MediaType      = 16		; NdisMediumNative802_11
+*PhysicalMediaType = 9		; NdisPhysicalMediumNative802_11
+
+[ATHR_DEV_171C.ndi.NTamd64.Services]
+AddService = athrusb, 2, atheros.Service, atheros.EventLog
+
+[ATHR_DEV_C215.ndi.NTamd64]
+Characteristics = 0x84
+BusType         = 15
+AddReg          = atheros.reg
+DelReg          = atheros.DelReg
+CopyFiles       = atheros.CopyFiles
+*IfType         = 71		; IF_TYPE_IEEE80211
+*MediaType      = 16		; NdisMediumNative802_11
+*PhysicalMediaType = 9		; NdisPhysicalMediumNative802_11
+
+[ATHR_DEV_C215.ndi.NTamd64.Services]
+AddService = athrusb, 2, atheros.Service, atheros.EventLog
+
+[ATHR_DEV_D215.ndi.NTamd64]
+Characteristics = 0x84
+BusType         = 15
+AddReg          = atheros.reg
+DelReg          = atheros.DelReg
+CopyFiles       = atheros.CopyFiles
+*IfType         = 71		; IF_TYPE_IEEE80211
+*MediaType      = 16		; NdisMediumNative802_11
+*PhysicalMediaType = 9		; NdisPhysicalMediumNative802_11
+
+[ATHR_DEV_D215.ndi.NTamd64.Services]
+AddService = athrusb, 2, atheros.Service, atheros.EventLog
+
+[ATHR_DEV_6001.ndi.NTamd64]
+Characteristics = 0x84
+BusType         = 15
+AddReg          = atheros.reg
+DelReg          = atheros.DelReg
+CopyFiles       = atheros.CopyFiles
+*IfType         = 71		; IF_TYPE_IEEE80211
+*MediaType      = 16		; NdisMediumNative802_11
+*PhysicalMediaType = 9		; NdisPhysicalMediumNative802_11
+
+[ATHR_DEV_6001.ndi.NTamd64.Services]
+AddService = athrusb, 2, atheros.Service, atheros.EventLog
+
+[ATHR_DEV_3412.ndi.NTamd64]
+Characteristics = 0x84
+BusType         = 15
+AddReg          = atheros.reg
+DelReg          = atheros.DelReg
+CopyFiles       = atheros.CopyFiles
+*IfType         = 71		; IF_TYPE_IEEE80211
+*MediaType      = 16		; NdisMediumNative802_11
+*PhysicalMediaType = 9		; NdisPhysicalMediumNative802_11
+
+[ATHR_DEV_3412.ndi.NTamd64.Services]
+AddService = athrusb, 2, atheros.Service, atheros.EventLog
+
+[ATHR_DEV_0020.ndi.NTamd64]
+Characteristics = 0x84
+BusType         = 15
+AddReg          = atheros.reg
+DelReg          = atheros.DelReg
+CopyFiles       = atheros.CopyFiles
+*IfType         = 71		; IF_TYPE_IEEE80211
+*MediaType      = 16		; NdisMediumNative802_11
+*PhysicalMediaType = 9		; NdisPhysicalMediumNative802_11
+
+[ATHR_DEV_0020.ndi.NTamd64.Services]
+AddService = athrusb, 2, atheros.Service, atheros.EventLog
+
+[ATHR_DEV_3208.ndi.NTamd64]
+Characteristics = 0x84
+BusType         = 15
+AddReg          = atheros.reg
+DelReg          = atheros.DelReg
+CopyFiles       = atheros.CopyFiles
+*IfType         = 71		; IF_TYPE_IEEE80211
+*MediaType      = 16		; NdisMediumNative802_11
+*PhysicalMediaType = 9		; NdisPhysicalMediumNative802_11
+
+[ATHR_DEV_3208.ndi.NTamd64.Services]
+AddService = athrusb, 2, atheros.Service, atheros.EventLog
+
+[ATHR_DEV_3413.ndi.NTamd64]
+Characteristics = 0x84
+BusType         = 15
+AddReg          = atheros.reg
+DelReg          = atheros.DelReg
+CopyFiles       = atheros.CopyFiles
+*IfType         = 71		; IF_TYPE_IEEE80211
+*MediaType      = 16		; NdisMediumNative802_11
+*PhysicalMediaType = 9		; NdisPhysicalMediumNative802_11
+
+[ATHR_DEV_3413.ndi.NTamd64.Services]
+AddService = athrusb, 2, atheros.Service, atheros.EventLog
+
+[ATHR_DEV_0937.ndi.NTamd64]
+Characteristics = 0x84
+BusType         = 15
+AddReg          = atheros.reg
+DelReg          = atheros.DelReg
+CopyFiles       = atheros.CopyFiles
+*IfType         = 71		; IF_TYPE_IEEE80211
+*MediaType      = 16		; NdisMediumNative802_11
+*PhysicalMediaType = 9		; NdisPhysicalMediumNative802_11
+
+[ATHR_DEV_0937.ndi.NTamd64.Services]
+AddService = athrusb, 2, atheros.Service, atheros.EventLog
+
+[ATHR_DEV_5304.ndi.NTamd64]
+Characteristics = 0x84
+BusType         = 15
+AddReg          = atheros.reg
+DelReg          = atheros.DelReg
+CopyFiles       = atheros.CopyFiles
+*IfType         = 71		; IF_TYPE_IEEE80211
+*MediaType      = 16		; NdisMediumNative802_11
+*PhysicalMediaType = 9		; NdisPhysicalMediumNative802_11
+
+[ATHR_DEV_5304.ndi.NTamd64.Services]
+AddService = athrusb, 2, atheros.Service, atheros.EventLog
+
+[ATHR_DEV_1211.ndi.NTamd64]
+Characteristics = 0x84
+BusType         = 15
+AddReg          = atheros.reg
+DelReg          = atheros.DelReg
+CopyFiles       = atheros.CopyFiles
+*IfType         = 71		; IF_TYPE_IEEE80211
+*MediaType      = 16		; NdisMediumNative802_11
+*PhysicalMediaType = 9		; NdisPhysicalMediumNative802_11
+
+[ATHR_DEV_1211.ndi.NTamd64.Services]
+AddService = athrusb, 2, atheros.Service, atheros.EventLog
+
+[ATHR_DEV_004A.ndi.NTamd64]
+Characteristics = 0x84
+BusType         = 15
+AddReg          = atheros.reg
+DelReg          = atheros.DelReg
+CopyFiles       = atheros.CopyFiles
+*IfType         = 71		; IF_TYPE_IEEE80211
+*MediaType      = 16		; NdisMediumNative802_11
+*PhysicalMediaType = 9		; NdisPhysicalMediumNative802_11
+
+[ATHR_DEV_004A.ndi.NTamd64.Services]
+AddService = athrusb, 2, atheros.Service, atheros.EventLog
+
+[ATHR_DEV_0009.ndi.NTamd64]
+Characteristics = 0x84
+BusType         = 15
+AddReg          = atheros.reg
+DelReg          = atheros.DelReg
+CopyFiles       = atheros.CopyFiles
+*IfType         = 71		; IF_TYPE_IEEE80211
+*MediaType      = 16		; NdisMediumNative802_11
+*PhysicalMediaType = 9		; NdisPhysicalMediumNative802_11
+
+[ATHR_DEV_0009.ndi.NTamd64.Services]
+AddService = athrusb, 2, atheros.Service, atheros.EventLog
+
+[ATHR_DEV_300B.ndi.NTamd64]
+Characteristics = 0x84
+BusType         = 15
+AddReg          = atheros.reg
+DelReg          = atheros.DelReg
+CopyFiles       = atheros.CopyFiles
+*IfType         = 71		; IF_TYPE_IEEE80211
+*MediaType      = 16		; NdisMediumNative802_11
+*PhysicalMediaType = 9		; NdisPhysicalMediumNative802_11
+
+[ATHR_DEV_300B.ndi.NTamd64.Services]
+AddService = athrusb, 2, atheros.Service, atheros.EventLog
+
+[ATHR_DEV_3407.ndi.NTamd64]
+Characteristics = 0x84
+BusType         = 15
+AddReg          = atheros.reg
+DelReg          = atheros.DelReg
+CopyFiles       = atheros.CopyFiles
+*IfType         = 71		; IF_TYPE_IEEE80211
+*MediaType      = 16		; NdisMediumNative802_11
+*PhysicalMediaType = 9		; NdisPhysicalMediumNative802_11
+
+[ATHR_DEV_3407.ndi.NTamd64.Services]
+AddService = athrusb, 2, atheros.Service, atheros.EventLog
+
+[ATHR_DEV_0257.ndi.NTamd64]
+Characteristics = 0x84
+BusType         = 15
+AddReg          = atheros.reg
+DelReg          = atheros.DelReg
+CopyFiles       = atheros.CopyFiles
+*IfType         = 71		; IF_TYPE_IEEE80211
+*MediaType      = 16		; NdisMediumNative802_11
+*PhysicalMediaType = 9		; NdisPhysicalMediumNative802_11
+
+[ATHR_DEV_0257.ndi.NTamd64.Services]
+AddService = athrusb, 2, atheros.Service, atheros.EventLog
+
+[ATHR_DEV_A211.ndi.NTamd64]
+Characteristics = 0x84
+BusType         = 15
+AddReg          = atheros.reg
+DelReg          = atheros.DelReg
+CopyFiles       = atheros.CopyFiles
+*IfType         = 71		; IF_TYPE_IEEE80211
+*MediaType      = 16		; NdisMediumNative802_11
+*PhysicalMediaType = 9		; NdisPhysicalMediumNative802_11
+
+[ATHR_DEV_A211.ndi.NTamd64.Services]
+AddService = athrusb, 2, atheros.Service, atheros.EventLog
+
+[ATHR_DEV_300A.ndi.NTamd64]
+Characteristics = 0x84
+BusType         = 15
+AddReg          = atheros.reg
+DelReg          = atheros.DelReg
+CopyFiles       = atheros.CopyFiles
+*IfType         = 71		; IF_TYPE_IEEE80211
+*MediaType      = 16		; NdisMediumNative802_11
+*PhysicalMediaType = 9		; NdisPhysicalMediumNative802_11
+
+[ATHR_DEV_300A.ndi.NTamd64.Services]
+AddService = athrusb, 2, atheros.Service, atheros.EventLog
+
+[ATHR_DEV_3207.ndi.NTamd64]
+Characteristics = 0x84
+BusType         = 15
+AddReg          = atheros.reg
+DelReg          = atheros.DelReg
+CopyFiles       = atheros.CopyFiles
+*IfType         = 71		; IF_TYPE_IEEE80211
+*MediaType      = 16		; NdisMediumNative802_11
+*PhysicalMediaType = 9		; NdisPhysicalMediumNative802_11
+
+[ATHR_DEV_3207.ndi.NTamd64.Services]
+AddService = athrusb, 2, atheros.Service, atheros.EventLog
+
+[ATHR_DEV_3409.ndi.NTamd64]
+Characteristics = 0x84
+BusType         = 15
+AddReg          = atheros.reg
+DelReg          = atheros.DelReg
+CopyFiles       = atheros.CopyFiles
+*IfType         = 71		; IF_TYPE_IEEE80211
+*MediaType      = 16		; NdisMediumNative802_11
+*PhysicalMediaType = 9		; NdisPhysicalMediumNative802_11
+
+[ATHR_DEV_3409.ndi.NTamd64.Services]
+AddService = athrusb, 2, atheros.Service, atheros.EventLog
+
+[ATHR_DEV_5523.ndi.NTamd64]
+Characteristics = 0x84
+BusType         = 15
+AddReg          = atheros.reg
+DelReg          = atheros.DelReg
+CopyFiles       = atheros.CopyFiles
+*IfType         = 71		; IF_TYPE_IEEE80211
+*MediaType      = 16		; NdisMediumNative802_11
+*PhysicalMediaType = 9		; NdisPhysicalMediumNative802_11
+
+[ATHR_DEV_5523.ndi.NTamd64.Services]
+AddService = athrusb, 2, atheros.Service, atheros.EventLog
+
+[ATHR_DEV_UB51.ndi.NTamd64]
+Characteristics = 0x84
+BusType         = 15
+AddReg          = atheros.reg
+DelReg          = atheros.DelReg
+CopyFiles       = atheros.CopyFiles
+*IfType         = 71		; IF_TYPE_IEEE80211
+*MediaType      = 16		; NdisMediumNative802_11
+*PhysicalMediaType = 9		; NdisPhysicalMediumNative802_11
+
+[ATHR_DEV_UB51.ndi.NTamd64.Services]
+AddService = athrusb, 2, atheros.Service, atheros.EventLog
+
+[ATHR_DEV_UB52.ndi.NTamd64]
+Characteristics = 0x84
+BusType         = 15
+AddReg          = atheros.reg
+DelReg          = atheros.DelReg
+CopyFiles       = atheros.CopyFiles
+*IfType         = 71		; IF_TYPE_IEEE80211
+*MediaType      = 16		; NdisMediumNative802_11
+*PhysicalMediaType = 9		; NdisPhysicalMediumNative802_11
+
+[ATHR_DEV_UB52.ndi.NTamd64.Services]
+AddService = athrusb, 2, atheros.Service, atheros.EventLog
+
+[ATHR_DEV_4001.ndi.NTamd64]
+Characteristics = 0x84
+BusType         = 15
+AddReg          = atheros.reg, hwchipid1.reg
+DelReg          = atheros.DelReg
+CopyFiles       = atheros.CopyFiles
+*IfType         = 71		; IF_TYPE_IEEE80211
+*MediaType      = 16		; NdisMediumNative802_11
+*PhysicalMediaType = 9		; NdisPhysicalMediumNative802_11
+
+[ATHR_DEV_4001.ndi.NTamd64.Services]
+AddService = athrusb, 2, atheros.Service, atheros.EventLog
+
+[atheros.reg]
+HKR, Ndi,                           Service,    0, "athrusb"
+
+HKR, Ndi\Interfaces,                UpperRange, 0, "ndis5"
+HKR, Ndi\Interfaces,                LowerRange, 0, "wlan,ethernet"
+
+HKR, Ndi\params\*ReceiveBuffers,    ParamDesc,  0, "%ReceiveBuffers%"
+HKR, Ndi\params\*ReceiveBuffers,    default,    0, "64"
+HKR, Ndi\params\*ReceiveBuffers,    min,        0, "1"
+HKR, Ndi\params\*ReceiveBuffers,    max,        0, "00000128"
+HKR, Ndi\params\*ReceiveBuffers,    step,       0, "1"
+HKR, Ndi\params\*ReceiveBuffers,    Base,       0, "10"
+HKR, Ndi\params\*ReceiveBuffers,    type,       0, "int"
+
+HKR, Ndi\params\*TransmitBuffers,   ParamDesc,  0, "%TransmitBuffers%"
+HKR, Ndi\params\*TransmitBuffers,   default,    0, "64"
+HKR, Ndi\params\*TransmitBuffers,   min,        0, "1"
+HKR, Ndi\params\*TransmitBuffers,   max,        0, "00000064"
+HKR, Ndi\params\*TransmitBuffers,   step,       0, "1"
+HKR, Ndi\params\*TransmitBuffers,   Base,       0, "10"
+HKR, Ndi\params\*TransmitBuffers,   type,       0, "int"
+
+HKR, Ndi\params\NetworkAddress,     ParamDesc,  0,  %NetworkAddress%
+HKR, Ndi\params\NetworkAddress,     default,    0,  ""
+HKR, Ndi\params\NetworkAddress,     LimitText,  0,  "12"
+HKR, Ndi\params\NetworkAddress,     UpperCase,  0,  "1"
+HKR, Ndi\params\NetworkAddress,     optional,   0,  "1"
+HKR, Ndi\params\NetworkAddress,     type,       0,  "edit"
+
+HKR, Ndi\params\shortPreamble,      ParamDesc,  0,  %shortPreamble%
+HKR, Ndi\params\shortPreamble,      Base,       0,  "10"
+HKR, Ndi\params\shortPreamble,      default,    0,  "1"
+HKR, Ndi\params\shortPreamble,      type,       0,  "enum"
+HKR, Ndi\params\shortPreamble\enum, "1",        0,  %shortPreambleEnable%
+HKR, Ndi\params\shortPreamble\enum, "0",        0,  %shortPreambleDisable%
+
+HKR, Ndi\params\scanTimeValid,      ParamDesc,  0,  %scanTimeValid%
+HKR, Ndi\params\scanTimeValid,      default,    0,  "60"
+HKR, Ndi\params\scanTimeValid,      min,        0,  "20"
+HKR, Ndi\params\scanTimeValid,      max,        0,  "120"
+HKR, Ndi\params\scanTimeValid,      step,       0,  "5"
+HKR, Ndi\params\scanTimeValid,      base,       0,  "10"
+HKR, Ndi\params\scanTimeValid,      type,       0,  "int"
+
+[atheros.DelReg]
+HKR,,NetBand
+HKR,,ssid
+HKR,,ssid2
+HKR,,ssid3
+HKR,,prefBssid1
+HKR,,prefBssid2
+HKR,,prefBssid3
+HKR,,prefBssid4
+HKR,Ndi\Params\tpc
+HKR,,tpc
+HKR,Ndi\Params\authTypeUseOnly
+HKR,,authTypeUseOnly
+HKR,,AdHocBand
+HKR,,AwakeTimePerf
+HKR,,beaconInterval
+HKR,,bkScanEnable
+HKR,,bssType
+HKR,,ccode
+HKR,,clist
+HKR,,defaultKey
+HKR,,EncryptionAlg
+HKR,,FragThreshold
+HKR,,HwTxRetries
+HKR,,privacyInvoked
+HKR,,QoS
+HKR,,rateCtrlEnable
+HKR,,RTSThreshold
+HKR,,scanType
+HKR,,SwTxRetryScale
+HKR,,SmeEnable
+HKR,,aifs
+HKR,,cwmin
+HKR,Ndi\params,MapRegisters,0x2000
+HKR,,MapRegisters
+HKR,Ndi\params,radioEnable,0x2000
+HKR,Ndi\params,sleepMode,0x2000
+HKR,,sleepMode
+HKR,,radioSwitch
+HKR,,antDiversityEnable
+HKR,,antMonitorDur1
+HKR,,antMonitorDur2
+HKR,,antNiceSigThr
+HKR,,defaultAntenna
+HKR,,chipId
+
+;;Customized Section
+
+[bandselect.reg]
+HKR, Ndi\params\NetBand,                ParamDesc,                      0,        %WirelessMode%
+HKR, Ndi\params\NetBand,                Base,                           0,        "10"
+HKR, Ndi\params\NetBand,                default,                        0,        "15"
+HKR, Ndi\params\NetBand,                type,                           0,        "enum"
+HKR, Ndi\params\NetBand\enum,           "15",                           0,        "Auto"
+HKR, Ndi\params\NetBand\enum,           "3",                            0,        "5Ghz Only"
+HKR, Ndi\params\NetBand\enum,           "12",                           0,        "2.4Ghz Only"
+
+[roamthreshA.reg]
+HKR, Ndi\params\roamRssiA,              ParamDesc,                      0,        %roamRssiA%
+HKR, Ndi\params\roamRssiA,              default,                        0,        "15"
+HKR, Ndi\params\roamRssiA,              min,                            0,        "1"
+HKR, Ndi\params\roamRssiA,              max,                            0,        "95"
+HKR, Ndi\params\roamRssiA,              step,                           0,        "1"
+HKR, Ndi\params\roamRssiA,              base,                           0,        "10"
+HKR, Ndi\params\roamRssiA,              type,                           0,        "int"
+
+[ignore11d.reg]
+HKR,NDI\params\ignore11dBeacon,         ParamDesc,,                               "11d Mode Switch"
+HKR,NDI\params\ignore11dBeacon,         type,,                                    "enum"
+HKR,NDI\params\ignore11dBeacon,         Default,,                                 "1"
+HKR,NDI\params\ignore11dBeacon\enum,    0,,                                       "Enable"
+HKR,NDI\params\ignore11dBeacon\enum,    1,,                                       "Disable"
+
+[radioswitch.reg]
+HKR, Ndi\params\radioEnable,            ParamDesc,                      0,        %radioEnable%
+HKR, Ndi\params\radioEnable,            Base,                           0,        "10"
+HKR, Ndi\params\radioEnable,            default,                        0,        "1"
+HKR, Ndi\params\radioEnable,            type,                           0,        "enum"
+HKR, Ndi\params\radioEnable\enum,       "1",                            0,        %radioEnableOn%
+HKR, Ndi\params\radioEnable\enum,       "0",                            0,        %radioEnableOff%
+
+[adhocchannelselect.reg]
+HKR, Ndi\params\defaultIbssChannel,     ParamDesc,                      0,        %adhocchannel%
+HKR, Ndi\params\defaultIbssChannel,     default,                        0,        "1"
+HKR, Ndi\params\defaultIbssChannel,     min,                            0,        "1"
+HKR, Ndi\params\defaultIbssChannel,     max,                            0,        "11"
+HKR, Ndi\params\defaultIbssChannel,     step,                           0,        "1"
+HKR, Ndi\params\defaultIbssChannel,     base,                           0,        "10"
+HKR, Ndi\params\defaultIbssChannel,     type,                           0,        "int"
+
+[customer0.reg]
+HKR, ,                                  ssid,                           0x00002,  "randomssidtoshutoffautoconnectib"
+HKR, ,                                  scanTimePreSleep,               0x00002,  "60" 
+HKR, ,                                  capLinkSp,                      0x00002,  "1" 
+HKR, Ndi\params\scanTimeValid,          ParamDesc,                      0,        %scanTime%
+HKR, Ndi\params\scanTimeValid,          default,                        0,        "60"
+HKR, Ndi\params\scanTimeValid,          min,                            0,        "20"
+HKR, Ndi\params\scanTimeValid,          max,                            0,        "120"
+HKR, Ndi\params\scanTimeValid,          step,                           0,        "5"
+HKR, Ndi\params\scanTimeValid,          base,                           0,        "10"
+HKR, Ndi\params\scanTimeValid,          type,                           0,        "int"
+
+[customer0LED.reg]
+HKR, ,                                  gpioPinFunc1,                   0x00002,  "0"
+
+[customer0LED1.reg]
+HKR, ,                                  gpioPinFunc1,                   0x00002,  "1"
+HKR, ,                                  overrideACstatus,               0x00002,  "1"
+HKR, ,                                  pcieClockReq,                   0x00002,  "1"
+
+[customer1ani.reg]
+HKR, Ndi\params\rssiThrHigh,            ParamDesc,                      0,        %rssiThrHigh%
+HKR, Ndi\params\rssiThrHigh,            Base,                           0,        "10"
+HKR, Ndi\params\rssiThrHigh,            default,                        0,        "40"
+HKR, Ndi\params\rssiThrHigh,            type,                           0,        "enum"
+HKR, Ndi\params\rssiThrHigh\enum,       "40",                           0,        %rssiThrHighNormal%
+HKR, Ndi\params\rssiThrHigh\enum,       "32",                           0,        %rssiThrHighMin%
+
+[hwradioswitch.reg]
+HKR, ,                                  radioSwitch,                    0,        "1"
+
+[hwantennadiversity.reg]
+HKR, ,                                  antDiversityEnable,             0,        "1"
+HKR, ,                                  antMonitorDur1,                 0,        "100"
+HKR, ,                                  antMonitorDur2,                 0,        "1"
+HKR, ,                                  antNiceSigThr,                  0,        "48"
+HKR, ,                                  defaultAntenna,                 0,        "0"
+
+[DefaultAntenna_1.reg]
+HKR, ,                                  defaultAntenna,                 0,        "1"
+
+[hwchipid1.reg]
+HKR, ,                                  chipId,                         0,        "1"
+
+[hwchipid2.reg]
+HKR, ,                                  chipId,                         0,        "2"
+
+[hwchipid3.reg]
+HKR, ,                                  chipId,                         0,        "3"
+
+[atheros.Service]
+DisplayName     = %ATHR.Service.DispName%
+ServiceType     = 1 		;SERVICE_KERNEL_DRIVER
+StartType       = 3 		;SERVICE_DEMAND_START
+ErrorControl    = 1 		;SERVICE_ERROR_NORMAL
+ServiceBinary   = %12%\athrxusb.sys
+LoadOrderGroup  = NDIS
+
+
+[atheros.EventLog]
+AddReg = atheros.AddEventLog.reg
+
+[atheros.AddEventLog.reg]
+HKR, , EventMessageFile, 0x00020000, "%%SystemRoot%%\System32\netevent.dll"
+HKR, , TypesSupported,   0x00010001, 7
+
+
+[atheros.CopyFiles]
+athrxusb.sys,,,2
+
+[SourceDisksNames]
+1 = %DiskDescription%,athrxusb.sys,,
+
+[SourceDisksFiles]
+athrxusb.sys = 1,,
+
+[DestinationDirs]
+atheros.CopyFiles          = 12
+DefaultDestDirs            = 11
+
+[Strings]
+Msft                         = "Microsoft"
+Atheros                      = "Atheros Communications Inc."
+ATHR.Service.DispName        = "Atheros Wireless LAN USB device driver"
+DiskDescription              = "Atheros Sample Driver Disk 1"
+TransmitBuffers              = "Transmit Buffers"
+ReceiveBuffers               = "Receive Buffers"
+NetworkAddress               = "Network Address"
+scanTimeValid                = "Scan Valid Interval"
+shortPreamble                = "802.11b Preamble"
+shortPreambleEnable          = "Long and Short"
+shortPreambleDisable         = "Long only"
+rssiThrHigh                  = "RSSI Threshold"
+rssiThrHighNormal            = "Normal"
+rssiThrHighMin               = "Min"
+radioEnable                  = "Radio On/Off"
+radioEnableOn                = "On"
+radioEnableOff               = "Off"
+scanTime                     = "Roam Time (sec)"
+roamRssiA                    = "Roam Time Threshold (db)"
+WirelessMode                 = "Wireless Mode Selection"
+adhocchannel                 = "Adhoc channel Selection"
+ATHR.DeviceDesc.1215         = "Atheros AR5007UG Wireless Network Adapter"
+ATHR.DeviceDesc.A215         = "Atheros AR5007UX Wireless Network Adapter"
+;; ZD1211B+AL2230S
+ATHR.DeviceDesc.4505         = "SMCWUSB-G 802.11g Wireless USB 2.0 Adapter"
+ATHR.DeviceDesc.1236         = "Philips SNU5600 Wireless USB Adapter 11b/g"
+ATHR.DeviceDesc.1237         = "TalkTalk SNU5630NS/05 Wireless USB Adapter"
+ATHR.DeviceDesc.E501         = "802.11g Wireless USB Adapter"
+ATHR.DeviceDesc.A312         = "Zoom Wireless-G USB"
+ATHR.DeviceDesc.0121         = "USRobotics Wireless USB Adapter"
+ATHR.DeviceDesc.705C         = "Belkin Wireless G USB Network Adapter"
+ATHR.DeviceDesc.4050         = "Verizon Wireless G USB Network Adapter"
+ATHR.DeviceDesc.001A         = "Wi-Fi Wireless LAN USB Adapter"
+ATHR.DeviceDesc.340F         = "Wi-Fi Wireless LAN USB Adapter"
+ATHR.DeviceDesc.3410         = "Wi-Fi Wireless LAN USB Adapter"
+ATHR.DeviceDesc.9071         = "Wi-Fi Wireless LAN USB Adapter"
+ATHR.DeviceDesc.0062         = "Wi-Fi Wireless LAN USB Adapter"
+ATHR.DeviceDesc.00DA         = "Wi-Fi Wireless LAN USB Adapter"
+ATHR.DeviceDesc.0726         = "Wi-Fi Wireless LAN USB Adapter"
+ATHR.DeviceDesc.300C         = "TRENDnet TEW-429UF 802.11g Wireless USB 2.0 Adapter"
+ATHR.DeviceDesc.300D         = "TRENDnet TEW-429UB 802.11g Wireless USB 2.0 Adapter"
+ATHR.DeviceDesc.340A         = "ZyXEL M-202 802.11g Wireless USB Adapter"
+ATHR.DeviceDesc.0938         = "I-O DATA WN-G54/USL Wireless LAN Adapter"
+ATHR.DeviceDesc.1667         = "Generic IEEE802.11g Wireless LAN"
+ATHR.DeviceDesc.1666         = "Generic IEEE802.11g Wireless LAN"
+ATHR.DeviceDesc.5301         = "PCI GW-US54Pro"
+ATHR.DeviceDesc.5302         = "PCI GW-US54GZL"
+ATHR.DeviceDesc.5303         = "PCI GW-US54GXS"
+ATHR.DeviceDesc.171B         = "ASUS USB Wireless Network Adapter"
+ATHR.DeviceDesc.171C         = "802.11b/g USB Wireless Network Adapter"
+ATHR.DeviceDesc.C215         = "(Wireless Adapter)IEEE 802.11 b+g USB Adapter"
+ATHR.DeviceDesc.D215         = "(Wireless Adapter)IEEE 802.11 b+g USB Adapter"
+ATHR.DeviceDesc.6001         = "XPC 802.11b/g Wireless Kit Driver"
+;; ZD1211B+AL7230
+ATHR.DeviceDesc.3412         = "Wi-Fi Wireless LAN USB Adapter"
+ATHR.DeviceDesc.0020         = "Wi-Fi Wireless LAN USB Adapter"
+ATHR.DeviceDesc.3208         = "TRENDnet TEW-509UB 802.11ag Wireless USB 2.0 Adapter"
+ATHR.DeviceDesc.3413         = "ZyXEL AG-225H v2 802.11a/g Wi-Fi Finder & USB Adapter"
+ATHR.DeviceDesc.0937         = "I-O DATA WN-WAG/USL Wireless LAN Adapter"
+ATHR.DeviceDesc.5304         = "GW-US54AGXS"
+;; ZD1211 B/G
+ATHR.DeviceDesc.1211         = "ZyDAS ZD1211 802.11 b+g Wireless LAN"
+ATHR.DeviceDesc.004A         = "Wi-Fi Wireless LAN USB Adapter"
+ATHR.DeviceDesc.0009         = "Wi-Fi Wireless LAN USB Adapter"
+ATHR.DeviceDesc.300B         = "TRENDnet TEW-429UB 802.11g Wireless USB 2.0 Adapter"
+ATHR.DeviceDesc.3407         = "ZyXEL G-200v2 802.11b/g Wireless USB Adapter"
+ATHR.DeviceDesc.0257         = "Wi-Fi Wireless LAN USB Adapter"
+;; ZD1211 A/B/G
+ATHR.DeviceDesc.A211         = "ZyDAS ZD1211 802.11 a+b+g Wireless LAN"
+ATHR.DeviceDesc.300A         = "TRENDnet TEW-429UB 802.11g Wireless USB 2.0 Adapter"
+ATHR.DeviceDesc.3207         = "TRENDnet TEW-509UB 802.11ag Wireless USB 2.0 Adapter"
+ATHR.DeviceDesc.3409         = "ZyXEL AG-225H 802.11a/b/g Wi-Fi Finder & USB Adapter"
+;; AR5523
+ATHR.DeviceDesc.5523         = "Atheros USB 2.0 Wireless Network Adapter"
+ATHR.DeviceDesc.UB51         = "Atheros AR5005UG USB 2.0 Wireless Network Adapter"
+ATHR.DeviceDesc.UB52         = "Atheros AR5005UX USB 2.0 Wireless Network Adapter"
+ATHR.DeviceDesc.4001         = "Allied Telesyn AT-WCU201g Wireless USB Adapter"
+;; SMC
+ATHR.DeviceDesc.SMC  = "SMCWUSB-G 802.11g Wireless USB 2.0 Adapter"
+;; Arcadyan
+ATHR.DeviceDesc.Arcadyan  = "802.11g Wireless USB Adapter"
+;; SiteCom
+ATHR.DeviceDesc.SiteCom  = "Wireless Network USB Adapter 54g WL-603"
+;; ASUS
+ATHR.DeviceDesc.ASUS1  = "ASUS USB Wireless Network Adapter"
+ATHR.DeviceDesc.ASUS2  = "802.11b/g USB Wireless Network Adapter"
+;; ZyXEL
+ATHR.DeviceDesc.ZyXEL1  = "ZyXEL G-220 Wireless USB Adapter"
+ATHR.DeviceDesc.ZyXEL2  = "ZyXEL G-220 v2 Wireless USB Adapter"
+ATHR.DeviceDesc.ZyXEL3  = "ZyXEL G-202 Wireless USB Adapter"
+ATHR.DeviceDesc.ZyXEL4  = "ZyXEL AG-225H v2 802.11a/g Wi-Fi Finder & USB Adapter"
+ATHR.DeviceDesc.ZyXEL5  = "ZyXEL AG-220 Wireless USB Adapter"
+ATHR.DeviceDesc.ZyXEL6  = "ZyXEL AG-225H 802.11a/g Wi-Fi Finder & USB Adapter"
+

@@ -1,0 +1,321 @@
+;***********************************************************************
+; O4I01.INF
+;
+;   This installation script supports Windows 98, Me, 2000 and XP for the
+;   THOMSON 54Mbps 2.4GHz Wireless Adapter.
+;
+;   Copyright (c) 2004 THOMSON.
+;   All Rights Reserved.
+;   
+;***********************************************************************
+
+[Version]
+ DriverVer = 06/23/2004, 3.0.11.1
+ Signature           = "$Chicago$"
+ Compatible          = 1
+ Class               = Net
+ ClassGUID           = {4d36e972-e325-11ce-bfc1-08002be10318}
+ Provider            = %VER_VENDOR_STR%
+  CatalogFile         = O4I01A.cat
+ ;MillenniumPreferred = .ME
+
+[ControlFlags]
+;Exclude all PNP adapters from user selection
+ ExcludeFromSelect   = *
+
+[Manufacturer]
+ %VER_VENDOR_NAME_STR% = DeviceList,NTx86.5.1
+
+[DeviceList.NTx86.5.1]
+ %DCB1_DESC_STR%     = NIC_DCB1_XP,        PCI\VEN_1FCA&DEV_0110&SUBSYS_01100000
+
+[DeviceList]
+ %DCB1_DESC_STR%     = NIC_DCB1,        PCI\VEN_1FCA&DEV_0110&SUBSYS_01100000
+
+;==========================================
+[NIC_DCB1]       ; Win9x
+ DelReg         = COMMON_AMAC_DEL.reg
+ AddReg         = NIC_DCB1.reg, NIC_DCB1.reg1, COMMON_ICB.reg, COMMON_NDIS.reg, COMMON.reg, COMMON_PSMODE.reg, COMMON_AMAC.reg
+ CopyFiles      = NIC_DRIVER.copy, NIC_CCU.copy
+
+[NIC_DCB1.NT]    ; Win2k
+ DelReg         = COMMON_AMAC_DEL.reg
+ AddReg         = NIC_DCB1.reg, COMMON_ICB.reg, COMMON_NDIS.reg.NT, COMMON.reg, COMMON_PS_MODE_XP.reg, COMMON_AMAC.reg
+ CopyFiles      = NIC_DRIVER.copy.NT, NIC_CCU.copy
+ BusType        = 5     ; PCI
+ Characteristics= 0x84  ; NCF_PHYSICAL | NCF_HAS_UI
+ 
+[NIC_DCB1.NT.Services]
+ AddService     = "O4I01A", 2, NIC_DRIVER_DCB1.Service, NIC_DRIVER.EventLog
+
+[NIC_DCB1.NT.CoInstallers]
+ CopyFiles      = NIC_COINSTALL.copy.NT
+ AddReg         = NIC_COINSTALL.reg.NT
+
+[NIC_DCB1_XP]    ; Winxp
+ DelReg         = COMMON_AMAC_DEL.reg
+ AddReg         = NIC_DCB1.reg, COMMON_ICB.reg, COMMON_NDIS.reg.NT, COMMON.reg, COMMON_PS_MODE_XP.reg, COMMON_AMAC.reg
+ CopyFiles      = NIC_DRIVER.copy.XP, NIC_CCU.copy
+ BusType        = 5     ; PCI
+ Characteristics= 0x84  ; NCF_PHYSICAL | NCF_HAS_UI
+ 
+[NIC_DCB1_XP.Services]
+ AddService     = "O4I01A", 2, NIC_DRIVER_DCB1.Service, NIC_DRIVER.EventLog
+
+[NIC_DCB1_XP.CoInstallers]
+ CopyFiles      = NIC_COINSTALL.copy.NT
+ AddReg         = NIC_COINSTALL.reg.NT 
+
+[NIC_DCB1.reg1]
+; HKLM,SOFTWARE\Microsoft\Windows\CurrentVersion\RunOnce, "O4I01A",, "%11%\O4I01DCS.exe"
+
+[NIC_DCB1.reg]
+ HKR,Ndi,DeviceID,0,"PCI\VEN_1FCA&DEV_0110&SUBSYS_01100000"
+; 0x3890 = 14480
+ HKR,,PlatformID,0,14480
+ HKR,,VendorDesc,0,%DCB1_DESC_STR%
+ HKR,,11dMode,0,0
+ HKR,,CountryName,0,"US "
+ HKR,,EnableRadio,0,1
+ 
+
+;###############################################################################
+[NIC_COINSTALL.reg.NT]
+; HKR,           ,CoInstallers32         ,0x00010000     ,"O4I01DCS.dll,CoDCSUup"
+
+[NIC_DRIVER_DCB1.Service]
+ DisplayName    = %NIC_SERVICE_DISPLAY_DCB%
+ ServiceType    = 1    ; SERVICE_KERNEL_DRIVER
+ StartType      = 3    ; SERVICE_DEMAND_START
+ ErrorControl   = 1    ; NORMAL
+ ServiceBinary  = %12%\O4I01A.sys
+ LoadOrderGroup = NDIS
+ 
+[NIC_DRIVER.EventLog]
+ AddReg         = NIC_DRIVER.EventLog.reg
+
+[NIC_DRIVER.EventLog.reg]
+ HKR,           ,EventMessageFile       ,0x00020000     ,"%%SystemRoot%%\System32\netevent.dll"
+ HKR,           ,TypesSupported         ,0x00010001     ,7
+
+;###############################################################################
+;RegKey,SubKey          ,Name                   ,Type   ,Value
+;-------------          -----                   -----   ------
+[COMMON_ICB.reg]
+ HKR,NDI                ,Service                ,0      ,"O4I01A"
+ HKR,                   ,BusType                ,0      ,"5"
+ HKR,                   ,DeviceVxDs             ,0      ,"O4I01A.sys"
+ HKR,                   ,CardBusBridgeLatencyTimer  ,0  ,"0"
+ HKR,                   ,CardBusBridgeCacheLineSize ,0  ,"0"
+; HKR,                   ,EnableIRQSharing       ,1      ,01,00,00,00
+; HKR,                   ,IOBaseAddress          ,1      ,02,00,00,00
+; HKR,                   ,InterruptNumber        ,1      ,04,00,00,00
+
+[COMMON_NDIS.reg]
+ HKR,                   ,RunningWin9X           ,0      ,"1"
+ HKR,                   ,DevLoader              ,0      ,"*ndis"
+ HKR,                   ,EnumPropPages          ,0      ,"netdi.dll,EnumPropPages"
+ HKR,NDI\Interfaces     ,UpperRange             ,0      ,"ndis3"
+ HKR,NDI\Interfaces     ,LowerRange             ,0      ,"ethernet"
+ HKR,NDI\Interfaces     ,DefUpper               ,0      ,"ndis3"
+ HKR,NDI\Interfaces     ,DefLower               ,0      ,"ethernet"
+ HKR,NDIS               ,LogDriverName          ,0      ,"O4I01A"
+ HKR,NDIS               ,MajorNdisVersion       ,1      ,04
+ HKR,NDIS               ,MinorNdisVersion       ,1      ,00
+
+[COMMON_NDIS.reg.NT]
+ HKR,NDI\Interfaces     ,UpperRange             ,0      ,"ndis5"
+ HKR,NDI\Interfaces     ,LowerRange             ,0      ,"ethernet"
+
+[COMMON.reg]
+ HKR,			,SSID			,0	,"speedtouch"
+ HKR,                   ,PRISMIOC               ,0      ,"1"
+ HKR,                   ,SilentInstall          ,0      ,"1"
+ HKR,			,NitroMode		,0	,"0"
+;Uncomment the line above to install without user interface prompts
+
+ HKR,Ndi\params\RTSThresh,default,0,"2347"
+ HKR,NDI\params\RTSThresh,ParamDesc,0,%RTSTHRESH_STR%
+ HKR,NDI\params\RTSThresh,type,0,"int"
+ HKR,NDI\params\RTSThresh,flag,1,"20","00","00","00"
+ HKR,NDI\params\RTSThresh,min,0,"0"
+ HKR,NDI\params\RTSThresh,max,0,"2347"
+ HKR,NDI\params\RTSThresh,step,0,"1"
+
+ HKR,Ndi\params\FragThresh,default,0,"2346"
+ HKR,NDI\params\FragThresh,ParamDesc,0,%FRAGTHRESH_STR%
+ HKR,NDI\params\FragThresh,type,0,"int"
+ HKR,NDI\params\FragThresh,flag,1,"20","00","00","00"
+ HKR,NDI\params\FragThresh,min,0,"256"
+ HKR,NDI\params\FragThresh,max,0,"2346"
+ HKR,NDI\params\FragThresh,step,0,"2"
+
+[COMMON_AMAC_DEL.reg]
+ HKR,defaults,DataRates
+ HKR,NDI\params\DataRates
+ HKR,NDI\params\DataRate
+ HKR,DSChannel
+ HKR,defaults,DSChannel
+ HKR,NDI\params\DSChannel
+
+[COMMON_AMAC.reg]
+ HKR,NDI\params\ShortRetryLimit,default,0,"7"
+ HKR,NDI\params\ShortRetryLimit,ParamDesc,,%SHORT_RETRY_STR%
+ HKR,NDI\params\ShortRetryLimit,type,,"int"
+ HKR,NDI\params\ShortRetryLimit,min,0,"1"
+ HKR,NDI\params\ShortRetryLimit,max,0,"255"
+ HKR,NDI\params\ShortRetryLimit,step,0,"1"
+
+ HKR,NDI\params\LongRetryLimit,default,0,"4"
+ HKR,NDI\params\LongRetryLimit,ParamDesc,,%LONG_RETRY_STR%
+ HKR,NDI\params\LongRetryLimit,type,0,"int"
+ HKR,NDI\params\LongRetryLimit,min,0,"1"
+ HKR,NDI\params\LongRetryLimit,max,0,"255"
+ HKR,NDI\params\LongRetryLimit,step,0,"1"
+
+ HKR,NDI\params\ConfigProfile,default,0,"1"
+ HKR,NDI\params\ConfigProfile,ParamDesc,,%CONFIG_PROFILE%
+ HKR,NDI\params\ConfigProfile,type,,"enum"
+ HKR,NDI\params\ConfigProfile,flag,1,30,00,00,00
+ HKR,NDI\params\ConfigProfile\enum,0,,%CONFIG_PROF_B_ONLY%
+ HKR,NDI\params\ConfigProfile\enum,1,,%CONFIG_PROF_MIXED%
+ HKR,NDI\params\ConfigProfile\enum,2,,%CONFIG_PROF_MIXED_LONG%
+ HKR,NDI\params\ConfigProfile\enum,3,,%CONFIG_PROF_G_ONLY%
+ HKR,NDI\params\ConfigProfile\enum,4,,%CONFIG_PROF_TEST%
+ HKR,NDI\params\ConfigProfile\enum,5,,%CONFIG_PROF_B_WIFI%
+ HKR,NDI\params\ConfigProfile\enum,6,,%CONFIG_PROF_MIXED_SHORT%
+ HKR,NDI\params\ConfigProfile\enum,256,,%CONFIG_PROF_WIFI_SPEC%
+  
+ HKR,NDI\params\PpePdlpEnable,default,0,0
+ HKR,NDI\params\PpePdlpEnable,ParamDesc,,%PPE_PDLP%
+ HKR,NDI\params\PpePdlpEnable,type,,enum
+ HKR,NDI\params\PpePdlpEnable,flag,1,30,00,00,00
+ HKR,NDI\params\PpePdlpEnable\enum,0,,%OFF_STR%
+ HKR,NDI\params\PpePdlpEnable\enum,1,,%ON_STR%
+
+ HKR,NDI\params\PpeCompressEnable,default,0,0
+ HKR,NDI\params\PpeCompressEnable,ParamDesc,,%PPE_COMPRESS%
+ HKR,NDI\params\PpeCompressEnable,type,,enum
+ HKR,NDI\params\PpeCompressEnable,flag,1,30,00,00,00
+ HKR,NDI\params\PpeCompressEnable\enum,0,,%OFF_STR%
+ HKR,NDI\params\PpeCompressEnable\enum,1,,%ON_STR%
+
+ HKR,NDI\params\PpeConcatEnable,default,0,0
+ HKR,NDI\params\PpeConcatEnable,ParamDesc,,%PPE_CONCAT%
+ HKR,NDI\params\PpeConcatEnable,type,,enum
+ HKR,NDI\params\PpeConcatEnable,flag,1,30,00,00,00
+ HKR,NDI\params\PpeConcatEnable\enum,0,,%OFF_STR%
+ HKR,NDI\params\PpeConcatEnable\enum,1,,%ON_STR%
+
+ HKR,NDI\params\PpePiggyBackEnable,default,0,0
+ HKR,NDI\params\PpePiggyBackEnable,ParamDesc,,%PPE_PIGGYBACK%
+ HKR,NDI\params\PpePiggyBackEnable,type,,enum
+ HKR,NDI\params\PpePiggyBackEnable,flag,1,30,00,00,00
+ HKR,NDI\params\PpePiggyBackEnable\enum,0,,%OFF_STR%
+ HKR,NDI\params\PpePiggyBackEnable\enum,1,,%ON_STR%
+
+
+[COMMON_PSMODE.reg]
+ HKR,Ndi\params\PSMode,default,0,"1"
+ HKR,NDI\params\PSMode,ParamDesc,,%POWER_SAVE_STR%
+ HKR,NDI\params\PSMode,type,,"enum"
+ HKR,NDI\params\PSMode,flag,1,"30","00","00","00"
+ HKR,NDI\params\PSMode\enum,1,,%POWER_SAVE_OFF_STR%
+ HKR,NDI\params\PSMode\enum,2,,%POWER_SAVE_DYN_STR%
+ HKR,NDI\params\PSMode\enum,3,,%POWER_SAVE_MAX_STR%
+ 
+[COMMON_PS_MODE_XP.reg]
+ HKR,Ndi\params\PSMode,default,0,"1"
+ HKR,NDI\params\PSMode,ParamDesc,,%POWER_SAVE_STR%
+ HKR,NDI\params\PSMode,type,,"enum"
+ HKR,NDI\params\PSMode,flag,1,"30","00","00","00"
+ HKR,NDI\params\PSMode\enum,1,,%POWER_SAVE_OFF_STR%
+ HKR,NDI\params\PSMode\enum,2,,%POWER_SAVE_DYN_STR%
+ HKR,NDI\params\PSMode\enum,3,,%POWER_SAVE_MAX_STR%
+;###############################################################################
+[DestinationDirs]
+;CopyFiles Section      = Destination Directory ID -- see layout.inf
+;-----------------        ------------------------
+ DefaultDestDir         = 11 ; Win9x=%windir%\system Win2k=%windir%\system32
+ NIC_DRIVER.copy      = 11 ; Win9x=%windir%\system
+ NIC_DRIVER.copy.NT   = 12 ; Win2k=%windir%\system32\drivers
+ NIC_DRIVER.copy.XP   = 12 ; Winxp=%windir%\system32\drivers
+ NIC_CCU.copy		= 11 ; Win9x=%windir%\system
+
+[NIC_CCU.copy]
+;O4I01DCS.exe
+
+[NIC_DRIVER.copy]
+O4I01A.sys
+
+[NIC_DRIVER.copy.NT]
+O4I01A.sys
+
+[NIC_DRIVER.copy.XP]
+O4I01A.sys,O4I01A51.sys
+
+[NIC_COINSTALL.copy.NT]
+;O4I01DCS.dll
+
+[SourceDisksNames]
+;Source Disk ID         = Disk Name
+;--------------           ---------
+ 1                      = %INSTALL_DISK_STR%,,,
+
+[SourceDisksFiles]      ; Win9x
+;File Name              = Source Disk ID
+;---------                --------------
+ O4I01A.sys           = 1
+; O4I01DCS.exe		= 1
+
+[SourceDisksFiles.X86]  ; Win2k/Xp
+ O4I01A.sys           = 1
+ O4I01A51.sys           = 1
+; O4I01DCS.dll		= 1
+; O4I01DCS.exe		= 1
+
+;###############################################################################
+[Strings]
+;String ID              = String Text
+;---------                -----------
+ VER_VENDOR_STR         = "THOMSON"
+ VER_VENDOR_NAME_STR    = "THOMSON"
+
+ NIC_SERVICE_DISPLAY_DCB = "ST110 54Mbps 2.4GHz Wireless Adapter Driver"
+ INSTALL_DISK_STR       = "ST110 54Mbps 2.4GHz Wireless Adapter Install Disk"
+
+ ON_STR                  = "On"
+ OFF_STR                 = "Off"
+ RTSTHRESH_STR           = "RTS Threshold"
+ FRAGTHRESH_STR          = "Fragmentation Threshold"
+ AUTHENT_TYPE_STR        = "Authentication Algorithm"
+ POWER_SAVE_STR          = "Power Save Mode"
+ POWER_SAVE_OFF_STR      = "Disabled"
+ POWER_SAVE_DYN_STR      = "Dynamic"
+ POWER_SAVE_MAX_STR      = "Maximum"
+ LOAD_FIRMWARE_STR       = "Firmware Download"
+ SHORT_RETRY_STR         = "Short Retry Limit"
+ LONG_RETRY_STR          = "Long Retry Limit"
+ ANTENNA_TX_STR          = "Antenna Tx"    
+ ANTENNA_RX_STR          = "Antenna Rx"    
+ ANTENNA_DIVERSITY_STR   = "Antenna Diversity" 
+ CHANNEL_STR             = "Channel"
+ DATARATES_STR           = "Data Rate"
+ DATARATES_AUTO          = "Fully Automatic"
+ ALSR_STR                = "Auto Long Slot Reassociation"
+ CONFIG_PROFILE          = "Configuration Profile"
+ CONFIG_PROF_B_ONLY      = "B only"
+ CONFIG_PROF_MIXED       = "Mixed"
+ CONFIG_PROF_MIXED_LONG  = "Mixed Long"
+ CONFIG_PROF_G_ONLY      = "G only"
+ CONFIG_PROF_TEST        = "Test"
+ CONFIG_PROF_B_WIFI      = "B WIFI"
+ CONFIG_PROF_MIXED_SHORT = "Mixed Short"
+ CONFIG_PROF_WIFI_SPEC   = "WiFi Spec"
+ PPE_PDLP                = "Direct Link"
+ PPE_COMPRESS            = "Compression"
+ PPE_CONCAT              = "Concatenation"
+ PPE_PIGGYBACK           = "PiggyBack"
+ DCB1_DESC_STR           = "SpeedTouch 110g Wireless PC Card"
+
+

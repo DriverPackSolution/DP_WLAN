@@ -1,0 +1,248 @@
+;===========================================================================
+; 
+; Windows XP NDIS driver INF for D-Link AirPlus XtremeG Wireless Adapter
+; Copyright (C) 2003 D-Link, Inc.
+;
+;=========================================================================== 
+ 
+ 
+[Version] 
+Signature = "$Windows NT$" 
+Compatible  = 1
+Class=Net
+ClassGUID={4D36E972-E325-11CE-BFC1-08002BE10318} 
+Provider=%MRVL% 
+CatalogFile=mrv8knet.cat
+DriverVer=1/09/2004,2.3.0.1
+
+;===========================================================================
+; Source Media Information Sections
+;===========================================================================
+[SourceDisksNames]
+1 = "Marvell installation disk 1",,,
+
+[SourceDisksFiles]
+; On Marvell installation disk 1 
+mrv8k51.sys =1 
+
+[DestinationDirs]
+W8100PCI.XP.CopyFiles  = 12 
+DefaultDestDirs        = 11
+
+[Manufacturer] 
+%MRVL%=DLINK
+
+[DLINK]
+%W8100PCIXPCB.DeviceDesc1% = W8100PCIXP.ndi, PCI\VEN_11AB&DEV_1FA6&SUBSYS_1FA411AB
+%W8100PCIXPCB.DeviceDesc1% = W8100PCIXP.ndi, PCI\VEN_11AB&DEV_1FA6&SUBSYS_3B081186
+%W8100PCIXPCB.DeviceDesc2% = W8100PCIXP.ndi, PCI\VEN_11AB&DEV_1FA6&SUBSYS_3B091186
+
+
+;===========================================================================
+; ControlFlags section
+;===========================================================================
+; pnp cards should be excluded from select
+[ControlFlags]
+ExcludeFromSelect = PCI\VEN_11AB&DEV_1FA6&SUBSYS_1FA411AB
+ExcludeFromSelect = PCI\VEN_11AB&DEV_1FA6&SUBSYS_3B081186
+ExcludeFromSelect = PCI\VEN_11AB&DEV_1FA6&SUBSYS_3B091186
+
+;***************************************************************************
+;**         
+;**          Win XP DDInstall section
+;**          
+;***************************************************************************
+;***************************************************************************
+[W8100PCIXP.ndi]
+; "Characteristics" is (NCF_PHYSICAL | NCF_HAS_UI)
+Characteristics = 0x84 
+; "BusType" is PCI or CardBus
+BusType         = 5 
+AddReg          = W8100PCI.reg, W8100PCIXP.reg, W8100PCI.zerocfg
+CopyFiles       = W8100PCI.XP.CopyFiles
+
+
+;===========================================================================
+; W8100 PCI WinXP registers
+;===========================================================================
+[W8100PCIXP.reg]
+HKR, Ndi,            Service,    0, "W8100PCI"
+HKR, Ndi\Interfaces, UpperRange, 0, "ndis5"
+HKR, Ndi\Interfaces, LowerRange, 0, "ethernet"
+
+
+[W8100PCI.XP.CopyFiles]
+mrv8k51.sys,,,2 
+
+[W8100PCIXP.ndi.Services]
+AddService = W8100PCI, 2, W8100PCIXP.Service, CommonXP.EventLog
+
+[W8100PCIXP.Service]
+DisplayName    = %W8100PCIXP.Service.DispName%
+ServiceType    = 1 ;%SERVICE_KERNEL_DRIVER%
+StartType      = 3 ;%SERVICE_DEMAND_START%
+ErrorControl   = 1 ;%SERVICE_ERROR_NORMAL%
+ServiceBinary  = %12%\mrv8k51.sys
+LoadOrderGroup = NDIS
+
+[CommonXP.EventLog]
+AddReg = CommonXP.AddEventLog.reg
+
+[CommonXP.AddEventLog.reg]
+HKR, , EventMessageFile, 0x00020000, "%%SystemRoot%%\System32\netevent.dll"
+HKR, , TypesSupported,   0x00010001, 7
+
+
+
+;===========================================================================
+; W8100 PCI common, MIB can be defined here
+;===========================================================================
+[W8100PCI.reg]
+
+HKR, Ndi\xparams\DesiredSSID,ParamDesc,,"%SSID%"
+HKR, Ndi\xparams\DesiredSSID,default,,"default"
+HKR, Ndi\xparams\DesiredSSID,type,,"edit" 
+HKR, Ndi\xparams\DesiredSSID,LimitText,,"32"
+HKR, Ndi\xparams\DesiredSSID,UpperCase,,"0" 
+HKR, Ndi\xparams\DesiredSSID,Optional,,"1" 
+
+HKR, Ndi\xparams\AuthMode,ParamDesc,,"%AuthMode%"
+HKR, Ndi\xparams\AuthMode,default,,"0"
+HKR, Ndi\xparams\AuthMode,type,,enum
+HKR, Ndi\xparams\AuthMode\enum,"0",,"Open"
+HKR, Ndi\xparams\AuthMode\enum,"1",,"Shared"
+
+HKR, Ndi\xparams\NetworkMode,ParamDesc,,"%NetworkMode%"
+HKR, Ndi\xparams\NetworkMode,default,,"1"
+HKR, Ndi\xparams\NetworkMode,type,,enum
+HKR, Ndi\xparams\NetworkMode\enum,"0",,"Ad Hoc"
+HKR, Ndi\xparams\NetworkMode\enum,"1",,"Infrastructure"
+
+;HKR, Ndi\xparams\Wireless,ParamDesc,,"%WirelessM%"
+;HKR, Ndi\xparams\Wireless,default,,"0"
+;HKR, Ndi\xparams\Wireless,type,,enum
+;HKR, Ndi\xparams\Wireless\enum,"0",,"Auto"
+;HKR, Ndi\xparams\Wireless\enum,"1",,"B rates only"
+ 
+HKR, Ndi\xparams\FragThsd,  ParamDesc,0 , "%FragThsds%"
+HKR, Ndi\xparams\FragThsd,  default, 0 , "2346"
+HKR, Ndi\xparams\FragThsd,  min, 0 , "256"
+HKR, Ndi\xparams\FragThsd,  max, 0 , "2346"
+HKR, Ndi\xparams\FragThsd,  step, 0 , "1"
+HKR, Ndi\xparams\FragThsd,  Base, 0 , "10"
+HKR, Ndi\xparams\FragThsd,  type, 0 ,"dword"
+
+HKR, Ndi\xparams\Channel,  ParamDesc,0 , "%Channel%"
+HKR, Ndi\xparams\Channel,  default, 0 , "6"
+HKR, Ndi\xparams\Channel,  min, 0 , "0"
+HKR, Ndi\xparams\Channel,  max, 0 , "14"
+HKR, Ndi\xparams\Channel,  step, 0 , "1"
+HKR, Ndi\xparams\Channel,  Base, 0 , "16"
+HKR, Ndi\xparams\Channel,  type, 0 ,"dword"
+
+HKR, Ndi\xparams\TxAntenna,  ParamDesc,0 , "%TxAntennaStr%"
+HKR, Ndi\xparams\TxAntenna,  default, 0 , "2"
+HKR, Ndi\xparams\TxAntenna,  min, 0 , "1"
+HKR, Ndi\xparams\TxAntenna,  max, 0 , "ffff"
+HKR, Ndi\xparams\TxAntenna,  step, 0 , "1"
+HKR, Ndi\xparams\TxAntenna,  Base, 0 , "16"
+HKR, Ndi\xparams\TxAntenna,  type, 0 ,"dword"
+
+HKR, Ndi\xparams\RxAntenna,  ParamDesc,0 , "%RxAntennaStr%"
+HKR, Ndi\xparams\RxAntenna,  default, 0 , "ffff"
+HKR, Ndi\xparams\RxAntenna,  min, 0 , "1"
+HKR, Ndi\xparams\RxAntenna,  max, 0 , "ffff"
+HKR, Ndi\xparams\RxAntenna,  step, 0 , "1"
+HKR, Ndi\xparams\RxAntenna,  Base, 0 , "16"
+HKR, Ndi\xparams\RxAntenna,  type, 0 ,"dword"
+
+HKR, Ndi\xparams\RTSThsd,  ParamDesc, 0, "%RTSThsds%"
+HKR, Ndi\xparams\RTSThsd,  default, 0, "2346"
+HKR, Ndi\xparams\RTSThsd,  min, 0, "0"
+HKR, Ndi\xparams\RTSThsd,  max, 0, "2346"
+HKR, Ndi\xparams\RTSThsd,  step, 0, "1"
+HKR, Ndi\xparams\RTSThsd,  Base, 0, "10"
+HKR, Ndi\xparams\RTSThsd,  type, 0, "dword"
+
+;HKR, Ndi\xparams\PowerMode,ParamDesc,,"%PowerMode%"
+;HKR, Ndi\xparams\PowerMode,default,,"0"
+;HKR, Ndi\xparams\PowerMode,type,,enum
+;HKR, Ndi\xparams\PowerMode\enum,"0",,"CAM-Constantly Awake Mode"
+;HKR, Ndi\xparams\PowerMode\enum,"1",,"MaxPSP-Max Power Savings"
+;HKR, Ndi\xparams\PowerMode\enum,"2",,"FastPSP-Fast Power Savings"
+
+HKR, Ndi\xparams\DataRate,ParamDesc,,"%DataRate%"
+HKR, Ndi\xparams\DataRate,default,,"FF"
+HKR, Ndi\xparams\DataRate,type,,enum
+HKR, Ndi\xparams\DataRate\enum,"FF",,"Auto"
+HKR, Ndi\xparams\DataRate\enum,"2",,"1 Mbps"
+HKR, Ndi\xparams\DataRate\enum,"4",,"2 Mbps"
+HKR, Ndi\xparams\DataRate\enum,"b",,"5.5 Mbps"
+HKR, Ndi\xparams\DataRate\enum,"16",,"11 Mbps"
+;HKR, Ndi\xparams\DataRate\enum,"2C",,"22 Mbps" 
+HKR, Ndi\xparams\DataRate\enum,"C",,"6 Mbps" 
+HKR, Ndi\xparams\DataRate\enum,"12",,"9 Mbps" 
+HKR, Ndi\xparams\DataRate\enum,"18",,"12 Mbps" 
+HKR, Ndi\xparams\DataRate\enum,"24",,"18 Mbps" 
+HKR, Ndi\xparams\DataRate\enum,"30",,"24 Mbps" 
+HKR, Ndi\xparams\DataRate\enum,"48",,"36 Mbps" 
+HKR, Ndi\xparams\DataRate\enum,"60",,"48 Mbps" 
+HKR, Ndi\xparams\DataRate\enum,"6C",,"54 Mbps"
+
+HKR, Ndi\xparams\WepStatus,ParamDesc,,"%WepStatus%"
+HKR, Ndi\xparams\WepStatus,default,,"1"
+HKR, Ndi\xparams\WepStatus,type,,enum
+HKR, Ndi\xparams\WepStatus\enum,"0",,"Enabled"
+HKR, Ndi\xparams\WepStatus\enum,"1",,"Disabled"
+
+
+HKR, Ndi\xparams\Preamble,ParamDesc,,"%PreambleStr%"
+HKR, Ndi\xparams\Preamble,default,,"3"
+HKR, Ndi\xparams\Preamble,type,,enum 
+HKR, Ndi\xparams\Preamble\enum,"1",,"Auto"
+HKR, Ndi\xparams\Preamble\enum,"2",,"Short Preamble" 
+HKR, Ndi\xparams\Preamble\enum,"3",,"Long Preamble"
+
+HKR,, TxWepKey, 2, "" 
+HKR,, WepKey1, 2, "" 
+HKR,, WepKey2, 2, "" 
+HKR,, WepKey3, 2, "" 
+HKR,, WepKey4, 2, "" 
+
+
+;Special for Driver on WinXP OS.
+;[W8100PCI.zerocfg]
+ 
+;===========================================================================
+; Strings section
+;===========================================================================
+[Strings]
+MRVL = "D-Link"
+
+TxAntennaStr = "Tx Antenna Select"
+RxAntennaStr = "Rx Antenna Select" 
+Channel = "Channel"
+FragThsds = "Fragamentation Threshold"
+DataRate = "Data Rate"
+RTSThsds = "RTS Threshold"
+AuthMode = "Authentication Mode"
+;WirelessM = "Wireless Mode"
+NetworkMode = "Operation Mode"
+WepStatus = "WEP Status"
+SSID = "SSID"
+PreambleStr = "Preamble Select"
+;PowerMode = "Power Save Mode"
+
+W8100PCIXPCB.DeviceDesc1     = "D-Link AirPlus G DWL-G630 Wireless Cardbus Adapter"
+W8100PCIXPCB.DeviceDesc2     = "D-Link AirPlus G DWL-G510 Wireless PCI Card"
+W8100PCIXP.Service.DispName  = "D-Link AirPlus G Wireless Driver"
+
+
+
+
+
+
+
+
+ 
+

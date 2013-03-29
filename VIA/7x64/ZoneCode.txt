@@ -1,0 +1,38 @@
+**
+**
+**  VIA Networking VT6656 USB-Wireless LAN Adapter
+**
+**  Country code settings by registery
+**
+**
+**
+
+Introduction:
+=============
+
+  This document shows you how to setup Country(Zone) code in Windows operating system
+
+Installation:
+=============
+
+  Before starting with the installation process, make sure that the adapter
+  is properly installed and configured.
+
+    1. Run window command "regedit". 
+    
+    2. Locate the regitery path: "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\" and find 
+       the adapter registery by search "VIA Networking Technologies USB Wireless LAN Adapter".
+       
+    3. Add a string "ZoneCode" with value in adapter located registery.
+    
+       ex. Adapter registery may like followings:
+
+           "DriverDesc" REG_SZ    "VIA Networking Technologies USB Wireless LAN Adapter" 
+           "ZoneCode"   REG_SZ    "0"  // FCC
+       
+    4. Restart the driver.  
+    
+  Note:
+    1. Once set the "ZoneCode" registery, the zone code field of EEPROM content will be
+       updated to registery value.
+    2. Zone code value refer the eeprom layout guide.

@@ -1,0 +1,114 @@
+; bxoisx.inf 
+;
+; Broadcom NetXtreme II Offload iSCSI (ois) for x86
+;
+; Copyright (c) 2005 - 200X Broadcom Corporation
+;                All rights reserved.
+
+
+[Version]
+Signature="$Windows NT$"
+Provider=%brcm%
+ClassGUID={4D36E97B-E325-11CE-BFC1-08002BE10318}
+Class=SCSIAdapter
+CatalogFile = bxois.cat
+DriverVer=12/12/2007, 4.0.6.0
+
+
+[ControlFlags]
+ExcludeFromSelect = *
+
+
+[DestinationDirs]
+DefaultDestDir = 12
+
+
+[Manufacturer]
+%brcm%=broadcom, NTx86, NTamd64, NTia64 
+
+
+[broadcom]
+
+
+[broadcom.NTamd64]
+
+
+[broadcom.NTia64]
+
+
+[broadcom.NTx86]
+%BXOIS.Device0%=iSCSIOffloadDevice.NTx86, B06BDRV\L4SC&PCI_164A14E4
+%BXOIS.Device0%=iSCSIOffloadDevice.NTx86, B06BDRV\L4SC&PCI_16AA14E4
+%BXOIS.Device0%=iSCSIOffloadDevice.NTx86, B06BDRV\L4SC&PCI_164C14E4
+%BXOIS.Device0%=iSCSIOffloadDevice.NTx86, B06BDRV\L4SC&PCI_16AC14E4
+
+
+[iSCSIOffloadDevice.NTx86]
+CopyFiles=iSCSIOffloadDevice.NTx86.Copy
+AddReg=iSCSIOffloadDevice.Parameters
+
+
+[iSCSIOffloadDevice.NTx86.HW]
+DelReg=iSCSIOffloadDevice.HW.DelReg
+
+
+[iSCSIOffloadDevice.NTx86.Copy]
+; crashdump requires the .sys file name to match the servicename on server2003
+bxois.sys
+
+
+[iSCSIOffloadDevice.HW.DelReg]
+HKR,, "LowerFilters", 0x00018002, "ftsk"
+
+
+[iSCSIOffloadDevice.Services.iscsi.AddReg]
+HKR, "Parameters", "BusType", 0x00010001, 0x00000009
+HKR, "Parameters\Device", "DriverParameter", 0x00000000, ""
+HKR, "Parameters\Device", "EventCoalescingFactor", 0x00010001, 32
+HKLM, "SYSTEM\CurrentControlSet\Services\Disk", "TimeOutValue", 0x00010001,0x0000003C
+
+
+[iSCSIOffloadDevice.Parameters]
+HKR, "Parameters", "DisableDelayedAck", 0x00010001, 0x00000000
+HKR, "Parameters", "NOPOutInterval", 0x00010001, 0x00000005
+HKR, "Parameters", "ConnectionTimeout", 0x00010001, 0x0000000F
+HKR, "Parameters", "PortDownTimeout", 0x00010001, 0x0000003c
+
+
+[iSCSIOffloadDevice.NTx86.Services]
+AddService = BXOIS, 0x0000002, iSCSIOffloadDevice.NTx86.Services.iscsi, iscsi_Eventlog.NTx86
+DelService = ftsk
+
+
+[iscsi_Eventlog.NTx86]
+AddReg = iscsi_Eventlog_Addreg.NTx86
+
+
+[iscsi_Eventlog_Addreg.NTx86]
+HKR, , EventMessageFile, 0x00020000, "%%SystemRoot%%\System32\iscsilog.dll;%%SystemRoot%%\System32\iologmsg.dll;%%SystemRoot%%\System32\drivers\bxois.sys"
+HKR, , TypesSupported  , 0x00010001, 7
+
+
+[iSCSIOffloadDevice.NTx86.Services.iscsi]
+DisplayName	= %BXOIS.SVCDESC%
+ServiceType	= 1	; kernel
+StartType	= 0	; boot
+ErrorControl	= 1	; normal
+ServiceBinary	= %12%\bxois.sys
+LoadOrderGroup	= SCSI Miniport
+AddReg          = iSCSIOffloadDevice.Services.iscsi.AddReg
+
+
+[SourceDisksNames]
+1 = %DiskName%,,,""
+
+
+[SourceDisksFiles.x86]
+bxois.sys = 1,,
+
+
+[Strings]
+brcm = "Broadcom Corporation"
+BXOIS.Device0 = "Broadcom NetXtreme II C-NIC iSCSI Adapter"
+BXOIS.SVCDESC = "Broadcom NetXtreme II Offload iSCSI Driver"
+DiskName = "Broadcom NetXtreme II iSCSI Driver Disk"

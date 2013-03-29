@@ -1,0 +1,339 @@
+;===========================================================================
+; 
+; Module Name:
+;	WUSB300N
+; 
+; Description:(Vista x86)
+;	Linksys Wireless-N USB Network Adapter WUSB300N
+; 
+; Copyright (C) 2006, Cisco Systems, Inc. All rights reserved.
+;
+;=========================================================================== 
+
+ 
+[Version] 
+Signature = "$Windows NT$" 
+Compatible  = 1
+Class=Net
+ClassGUID={4D36E972-E325-11CE-BFC1-08002BE10318} 
+Provider=%MRVL% 
+;CatalogFile=MRVW24B.cat
+DriverVer=12/08/2006, 1.0.0.1
+
+;===========================================================================
+; Source Media Information Sections
+;===========================================================================
+[SourceDisksNames]
+1 = "Linksys installation disk 1",,,
+
+[SourceDisksFiles]
+; On Marvell installation disk 1 
+MRVW24B.sys = 1
+
+[DestinationDirs]
+W8360USB.x32.CopyFiles  = 12 
+
+DefaultDestDirs    = 11
+
+[Manufacturer] 
+%MRVL%=Marvell,NTx86
+
+[Marvell.NTx86]
+%MRVL8360USB.DeviceDesc% = W8360USBx32.ndi,USB\VID_13b1&PID_0029
+;===========================================================================
+; ControlFlags section
+;===========================================================================
+[ControlFlags]
+ExcludeFromSelect = *
+
+
+;***************************************************************************
+;**         
+;**          Windows DDInstall section
+;**          
+;***************************************************************************
+;***************************************************************************
+[W8360USBx32.ndi]
+; "Characteristics" is (NCF_PHYSICAL | NCF_HAS_UI)
+Characteristics = 0x84 
+; "BusType" is PCI ,CardBus or USB
+BusType         = 15 ;Is USB
+AddReg          = W8360USB.reg, W8360USBx32.reg
+CopyFiles       = W8360USB.x32.CopyFiles
+*IfType 	= 71 ; If_TYPE_IEEE80211
+*MediaType      = 16    ; NdisMediumNative802_11
+*PhysicalMediaType = 9  ; NdisPhysicalMediumNative802_11
+
+[W8360USBx32.ndi.Services]
+AddService = MRV6X32U, 2, W8360USBx32.Service, CommonXP.EventLog
+
+;===========================================================================
+; W8335a PCI WinXP registers
+;===========================================================================
+[W8360USBx32.reg]
+HKR, Ndi,            Service,    0, "MRV6X32U"
+HKR, Ndi\Interfaces, UpperRange, 0, "ndis5"
+HKR, Ndi\Interfaces, LowerRange, 0, "ethernet,wlan"
+
+
+[W8360USB.x32.CopyFiles]
+MRVW24B.sys,,,2 
+
+[W8360USBx32.Service]
+DisplayName    = %W8360USBx32.Service.DispName%
+ServiceType    = 1 ;%SERVICE_KERNEL_DRIVER%
+StartType      = 3 ;%SERVICE_DEMAND_START%
+ErrorControl   = 1 ;%SERVICE_ERROR_NORMAL%
+ServiceBinary  = %12%\MRVW24B.sys
+LoadOrderGroup = NDIS
+
+
+[CommonXP.EventLog]
+AddReg = CommonXP.AddEventLog.reg
+
+[CommonXP.AddEventLog.reg]
+HKR, , EventMessageFile, 0x00020000, "%%SystemRoot%%\System32\netevent.dll"
+HKR, , TypesSupported,   0x00010001, 7
+
+
+;===========================================================================
+; W8335a PCI common, MIB can be defined here
+;===========================================================================
+[W8360USB.reg]
+HKR, Ndi\params\AdhocGMode,ParamDesc,,"%AdhocMode%"
+HKR, Ndi\params\AdhocGMode,default,,"1"
+HKR, Ndi\params\AdhocGMode,type,,enum
+HKR, Ndi\params\AdhocGMode\enum,"0",,"%AdhocGMode%"
+HKR, Ndi\params\AdhocGMode\enum,"1",,"%AdhocBMode%" 
+
+HKR, Ndi\params\TxPowerLvl,ParamDesc,,"%TxPowerLvlStr%"
+HKR, Ndi\params\TxPowerLvl,default,,"4"
+HKR, Ndi\params\TxPowerLvl,type,,enum
+HKR, Ndi\params\TxPowerLvl\enum,"1",,"%LowPower%"
+HKR, Ndi\params\TxPowerLvl\enum,"2",,"%MediumPower%" 
+HKR, Ndi\params\TxPowerLvl\enum,"3",,"%HighPower%"
+HKR, Ndi\params\TxPowerLvl\enum,"4",,"%Auto%" 
+
+
+HKR, Ndi\xparams\DesiredSSID,ParamDesc,,"%SSID%"
+HKR, Ndi\xparams\DesiredSSID,default,,""
+HKR, Ndi\xparams\DesiredSSID,type,,"edit" 
+HKR, Ndi\xparams\DesiredSSID,LimitText,,"32"
+HKR, Ndi\xparams\DesiredSSID,UpperCase,,"0" 
+HKR, Ndi\xparams\DesiredSSID,Optional,,"1" 
+
+HKR, Ndi\xparams\AuthMode,ParamDesc,,"%AuthMode%"
+HKR, Ndi\xparams\AuthMode,default,,"0"
+HKR, Ndi\xparams\AuthMode,type,,enum
+HKR, Ndi\xparams\AuthMode\enum,"0",,"%Open%"
+HKR, Ndi\xparams\AuthMode\enum,"1",,"%Shared%"
+
+HKR, Ndi\xparams\NetworkMode,ParamDesc,,"%NetworkMode%"
+HKR, Ndi\xparams\NetworkMode,default,,"1"
+HKR, Ndi\xparams\NetworkMode,type,,enum
+HKR, Ndi\xparams\NetworkMode\enum,"0",,"%AdHoc%"
+HKR, Ndi\xparams\NetworkMode\enum,"1",,"%Infrastructure%"
+
+;HKR, Ndi\xparams\Wireless,ParamDesc,,"%WirelessM%"
+;HKR, Ndi\xparams\Wireless,default,,"0"
+;HKR, Ndi\xparams\Wireless,type,,enum
+;HKR, Ndi\xparams\Wireless\enum,"0",,"Auto"
+;HKR, Ndi\xparams\Wireless\enum,"1",,"B rates only"
+ 
+HKR, Ndi\params\FragThsd,  ParamDesc,0 , "%FragThsds%"
+HKR, Ndi\params\FragThsd,  default, 0 , "2346"
+HKR, Ndi\params\FragThsd,  min, 0 , "256"
+HKR, Ndi\params\FragThsd,  max, 0 , "2346"
+HKR, Ndi\params\FragThsd,  step, 0 , "1"
+HKR, Ndi\params\FragThsd,  Base, 0 , "10"
+HKR, Ndi\params\FragThsd,  type, 0 ,"dword"
+
+HKR, Ndi\xparams\Channel,  ParamDesc,0 , "%Channel%"
+HKR, Ndi\xparams\Channel,  default, 0 , "36"
+HKR, Ndi\xparams\Channel,  min, 0 , "1"
+HKR, Ndi\xparams\Channel,  max, 0 , "165"
+HKR, Ndi\xparams\Channel,  step, 0 , "1"
+HKR, Ndi\xparams\Channel,  Base, 0 , "10"
+HKR, Ndi\xparams\Channel,  type, 0 ,"dword"
+
+HKR, Ndi\xparams\TxAntenna,  ParamDesc,0 , "%TxAntennaStr%"
+HKR, Ndi\xparams\TxAntenna,  default, 0 , "2"
+HKR, Ndi\xparams\TxAntenna,  min, 0 , "1"
+HKR, Ndi\xparams\TxAntenna,  max, 0 , "ffff"
+HKR, Ndi\xparams\TxAntenna,  step, 0 , "1"
+HKR, Ndi\xparams\TxAntenna,  Base, 0 , "16"
+HKR, Ndi\xparams\TxAntenna,  type, 0 ,"dword"
+
+HKR, Ndi\xparams\RxAntenna,  ParamDesc,0 , "%RxAntennaStr%"
+HKR, Ndi\xparams\RxAntenna,  default, 0 , "ffff"
+HKR, Ndi\xparams\RxAntenna,  min, 0 , "1"
+HKR, Ndi\xparams\RxAntenna,  max, 0 , "ffff"
+HKR, Ndi\xparams\RxAntenna,  step, 0 , "1"
+HKR, Ndi\xparams\RxAntenna,  Base, 0 , "16"
+HKR, Ndi\xparams\RxAntenna,  type, 0 ,"dword"
+
+HKR, Ndi\params\RTSThsd,  ParamDesc, 0, "%RTSThsds%"
+HKR, Ndi\params\RTSThsd,  default, 0, "2347"
+HKR, Ndi\params\RTSThsd,  min, 0, "0"
+HKR, Ndi\params\RTSThsd,  max, 0, "2347"
+HKR, Ndi\params\RTSThsd,  step, 0, "1"
+HKR, Ndi\params\RTSThsd,  Base, 0, "10"
+HKR, Ndi\params\RTSThsd,  type, 0, "dword"
+
+;HKR, Ndi\params\PowerMode,ParamDesc,,"%PowerMode%"
+;HKR, Ndi\params\PowerMode,default,,"0"
+;HKR, Ndi\params\PowerMode,type,,enum
+;HKR, Ndi\params\PowerMode\enum,"0",,"CAM-Constantly Awake Mode"
+;HKR, Ndi\params\PowerMode\enum,"1",,"MaxPSP-Max Power Savings"
+;HKR, Ndi\params\PowerMode\enum,"2",,"FastPSP-Fast Power Savings"
+
+HKR, Ndi\xparams\DataRate,ParamDesc,,"%DataRate%"
+HKR, Ndi\xparams\DataRate,default,,"FF"
+HKR, Ndi\xparams\DataRate,type,,enum
+HKR, Ndi\xparams\DataRate\enum,"FF",,"%Auto%"
+HKR, Ndi\xparams\DataRate\enum,"2",,"%Rate1%"
+HKR, Ndi\xparams\DataRate\enum,"4",,"%Rate2%"
+HKR, Ndi\xparams\DataRate\enum,"b",,"%Rate5%"
+HKR, Ndi\xparams\DataRate\enum,"16",,"%Rate11%"
+;HKR, Ndi\xparams\DataRate\enum,"2C",,"%Rate22%" 
+HKR, Ndi\xparams\DataRate\enum,"C",,"%Rate6%" 
+HKR, Ndi\xparams\DataRate\enum,"12",,"%Rate9%" 
+HKR, Ndi\xparams\DataRate\enum,"18",,"%Rate12%" 
+HKR, Ndi\xparams\DataRate\enum,"24",,"%Rate18%" 
+HKR, Ndi\xparams\DataRate\enum,"30",,"%Rate24%" 
+HKR, Ndi\xparams\DataRate\enum,"48",,"%Rate36%" 
+HKR, Ndi\xparams\DataRate\enum,"60",,"%Rate48%" 
+HKR, Ndi\xparams\DataRate\enum,"6C",,"%Rate54%"
+
+HKR, Ndi\xparams\WepStatus,ParamDesc,,"%WepStatus%"
+HKR, Ndi\xparams\WepStatus,default,,"1"
+HKR, Ndi\xparams\WepStatus,type,,enum
+HKR, Ndi\xparams\WepStatus\enum,"0",,"%Enabled%"
+HKR, Ndi\xparams\WepStatus\enum,"1",,"%Disabled%"
+
+HKR, Ndi\params\Preamble,ParamDesc,,"%PreambleStr%"
+HKR, Ndi\params\Preamble,default,,"3"
+HKR, Ndi\params\Preamble,type,,enum 
+HKR, Ndi\params\Preamble\enum,"1",,"%Auto%"
+HKR, Ndi\params\Preamble\enum,"2",,"%ShortPreamble%" 
+HKR, Ndi\params\Preamble\enum,"3",,"%LongPreamble%"
+
+HKR, Ndi\params\DefaultAdhocMediaMode,ParamDesc,,"%DefaultAdhocMediaModeStr%"
+HKR, Ndi\params\DefaultAdhocMediaMode,default,,"0"
+HKR, Ndi\params\DefaultAdhocMediaMode,type,,enum 
+HKR, Ndi\params\DefaultAdhocMediaMode\enum,"0",,"%Band11b%"
+HKR, Ndi\params\DefaultAdhocMediaMode\enum,"1",,"%Band11g%" 
+;HKR, Ndi\params\DefaultAdhocMediaMode\enum,"2",,"%Band11a%"
+;HKR, Ndi\params\Channel,  ParamDesc,0 , "%Channel%"
+;HKR, Ndi\params\Channel,  default, 0 , "10"
+;HKR, Ndi\params\Channel,  min, 0 , "1"
+;HKR, Ndi\params\Channel,  max, 0 , "11"
+;HKR, Ndi\params\Channel,  step, 0 , "1"
+;HKR, Ndi\params\Channel,  Base, 0 , "10"
+;HKR, Ndi\params\Channel,  type, 0 ,"dword"
+
+;
+; LED Control
+;
+HKR,, LED0PowerOn, 2,"fe0001"
+HKR,, LED1PowerOn, 2,"fe0101"
+HKR,, LED0PowerOff, 2,"fe0000"
+HKR,, LED1PowerOff, 2,"fe0100"
+HKR,, LED0Scan, 2,"ff0002"
+HKR,, LED1Scan, 2,"40102"
+HKR,, LED0Associated, 2,"ff0005"
+HKR,, LED1Associated, 2,"fe0105"
+HKR,, LED0Joined, 2,"ff0006"
+HKR,, LED1Joined, 2,"ff0106"
+HKR,, LED0Started, 2,"ff0007"
+HKR,, LED1Started, 2,"ff0107"
+HKR,, LED0Tx, 2,"ff0008"
+HKR,, LED1Tx, 2,"30108"
+HKR,, LED0Rx, 2,"ff0009"
+HKR,, LED1Rx, 2,"30109"
+HKR,, LED0TxHigh, 2,"ff000c"
+HKR,, LED1TxHigh, 2,"2010c"
+HKR,, LED0RxHigh, 2,"ff000d"
+HKR,, LED1RxHigh, 2,"2010d"
+
+HKR,, TxWepKey, 2, "" 
+HKR,, WepKey1, 2, "" 
+HKR,, WepKey2, 2, "" 
+HKR,, WepKey3, 2, "" 
+HKR,, WepKey4, 2, "" 
+HKR,, IntlRoaming, 2, "0"
+
+ 
+;===========================================================================
+; Strings section
+;===========================================================================
+[Strings]
+MRVL = "Linksys, A Division of Cisco Systems, Inc."
+
+;; Station Parameters
+TxPowerLvlStr = "Tx Power Level"
+TxAntennaStr = "Tx Antenna Select"
+RxAntennaStr = "Rx Antenna Select" 
+Channel = "Channel"
+FragThsds = "Fragamentation Threshold"
+DataRate = "Data Rate"
+RTSThsds = "RTS Threshold"
+AuthMode = "Authentication Mode"
+;WirelessM = "Wireless Mode"
+NetworkMode = "Operation Mode"
+WepStatus = "WEP Status"
+SSID = "SSID"
+PreambleStr = "Preamble Select"
+PowerMode = "Power Save Mode"
+AdhocMode = "Adhoc Mode"
+AdhocGMode = "Adhoc G Mode"
+AdhocBMode = "Adhoc B Mode only"
+LowPower = "Low Power"
+MediumPower = "Medium Power"
+HighPower = "High Power"
+Auto = "Auto"
+Open = "Open"
+Shared = "Shared"
+Adhoc = "Ad hoc"
+Infrastructure = "Infrastructure"
+ShortPreamble = "Short Preamble"
+LongPreamble = "Long Preamble"
+Band11b = "11b"
+Band11g = "11g"
+Band11a = "11a"
+Enabled ="Enabled"
+Disabled = "Disabled"
+Rate1 = "1 Mbps"
+Rate2 = "2 Mbps"
+Rate5 = "5.5 Mbps"
+Rate11 = "11 Mbps"
+Rate6 = "6 Mbps" 
+Rate9 = "9 Mbps" 
+Rate12 = "12 Mbps" 
+Rate18 = "18 Mbps" 
+Rate24 = "24 Mbps" 
+Rate36 = "36 Mbps" 
+Rate48 ="48 Mbps" 
+Rate54 = "54 Mbps"
+
+
+DefaultAdhocMediaModeStr = "Default Adhoc Media Mode"
+
+MRVL8360USB.DeviceDesc       = "Linksys Wireless-N USB Network Adapter WUSB300N"
+
+W8360USBx32.Service.DispName = "Linksys Wireless-N USB Network Adapter WUSB300N for Vista x86 (USB8x)"
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+

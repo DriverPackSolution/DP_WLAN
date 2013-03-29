@@ -1,0 +1,305 @@
+;-------------------------------------------------------------------------------
+; Novatel Wireless Merlin UMTS Modem  --  Parent
+; Installation file (.inf).
+; (c) Copyright 2004 Novatel Wireless Inc.
+;-------------------------------------------------------------------------------
+;
+;when          who   what, where, why
+;-----------   ---   -----------------------------------------------------------
+;11 Nov 2004   HT    Changed child HW ID to generic
+; 3 Nov	2004   SK    32 bit address mapping
+;22 Sep 2004   SK    Updated for U630
+;13 Jul 2004   HT    384Kbps Update
+;22 Mar 2004   SK    Added UMTS NDIS
+;17 Dec 2003   HT    Changed Catalogue file name
+;15 Apr 2003   BPV   Added power delay to the primary port (temporary fix) and
+;                    removed typical modem settings and responses from secondary
+;                    port. Also swapped port installation order so primary port
+;                    is installed first to receive lower port number.
+;14 Feb 2003   BPV   Swapped primary and secondary ports. Also removed some
+;                    Hangup registry settings not required.
+;14 Jan 2003   BPV   Update CIS
+;14 Jan 2003   BPV   Initial release.
+;-------------------------------------------------------------------------------
+
+;-------------------------------------------------------------------------------
+; INF Version Section
+;-------------------------------------------------------------------------------
+[Version]
+Signature      = "$CHICAGO$"
+Class          = %nwClass%
+ClassGuid      = {4D36E971-E325-11CE-BFC1-08002BE10318}
+Provider       = %nwProvider%
+CatalogFile.NT = %nwCatalogFile%.cat
+LayoutFile     = layout.inf
+DriverVer      = 11/22/2004,1.6.1.0
+
+
+;-------------------------------------------------------------------------------
+; INF ControlFlags Section
+;-------------------------------------------------------------------------------
+[ControlFlags]
+ExcludeFromSelect = PCMCIA\NOVATEL_WIRELESS-MERLIN_UMTS_MODEM-D022
+ExcludeFromSelect = *PNPC200
+ExcludeFromSelect = PCMCIA\NOVATEL_WIRELESS-MERLIN_UMTS_MODEM-29E4
+
+
+;-------------------------------------------------------------------------------
+; INF Manufactuerer Section
+;-------------------------------------------------------------------------------
+[Manufacturer]
+%nwProvider% = nwModelSectionList
+
+
+;-------------------------------------------------------------------------------
+; INF Models Section
+;-------------------------------------------------------------------------------
+[nwModelSectionList]
+%nwDevice0% = nwDevice,PCMCIA\NOVATEL_WIRELESS-MERLIN_UMTS_MODEM-D022
+%nwDevice0% = nwDevice,PCMCIA\NOVATEL_WIRELESS-MERLIN_UMTS_MODEM-29E4
+
+
+;-------------------------------------------------------------------------------
+; INF DDInstall Section
+;-------------------------------------------------------------------------------
+[nwDevice.NT]
+AddReg  = nwDevice.NT.AddReg
+Include = mf.inf
+Needs   = MFINSTALL.mf
+
+
+;-------------------------------------------------------------------------------
+; INF DDInstall.Services Section
+;-------------------------------------------------------------------------------
+[nwDevice.NT.Services]
+Include = mf.inf
+Needs   = MFINSTALL.mf.Services
+
+
+;-------------------------------------------------------------------------------
+; INF DDInstall.HW Section
+;-------------------------------------------------------------------------------
+[nwDevice.NT.HW]
+AddReg = nwDevice.NT.HW.AddReg
+
+
+;-------------------------------------------------------------------------------
+; INF DDInstall.LogConfigOverride Section
+;-------------------------------------------------------------------------------
+[nwDevice.NT.LogConfigOverride]
+LogConfig = nwDevice.NT.LogConfigOverride0
+LogConfig = nwDevice.NT.LogConfigOverride1
+LogConfig = nwDevice.NT.LogConfigOverride2
+LogConfig = nwDevice.NT.LogConfigOverride3
+LogConfig = nwDevice.NT.LogConfigOverride4
+LogConfig = nwDevice.NT.LogConfigOverride5
+LogConfig = nwDevice.NT.LogConfigOverride6
+LogConfig = nwDevice.NT.LogConfigOverride7
+LogConfig = nwDevice.NT.LogConfigOverride8
+LogConfig = nwDevice.NT.LogConfigOverride9
+LogConfig = nwDevice.NT.LogConfigOverride10
+LogConfig = nwDevice.NT.LogConfigOverride11
+LogConfig = nwDevice.NT.LogConfigOverride12
+LogConfig = nwDevice.NT.LogConfigOverride13
+LogConfig = nwDevice.NT.LogConfigOverride14
+LogConfig = nwDevice.NT.LogConfigOverride15
+
+
+;-------------------------------------------------------------------------------
+; INF Strings Section
+;-------------------------------------------------------------------------------
+[Strings]
+nwClass        = "MultiFunction"
+nwProvider     = "Novatel Wireless Inc"
+nwCatalogFile  = "NwtUMTS"
+nwDevice0      = "Novatel Wireless UMTS Modem Parent"
+
+
+;-------------------------------------------------------------------------------
+; INF Novatel defines Section
+;-------------------------------------------------------------------------------
+[nwDevice.NT.AddReg]
+
+
+[nwDevice.NT.HW.AddReg]
+HKR, Child0001, HardwareID,,MF\NOVATEL_WIRELESS-MERLIN_UMTS_MODEM-DEV0
+HKR, Child0001, ResourceMap,1,00,02,05
+HKR, Child0000, HardwareID,,MF\NOVATEL_WIRELESS-MERLIN_UMTS_MODEM-DEV1
+HKR, Child0000, ResourceMap,1,01,02,06
+HKR, Child0002, HardwareID,,MF\NOVATEL_WIRELESS-MERLIN_UMTS_NDIS-D022
+
+[nwDevice.NT.LogConfigOverride0]
+ConfigPriority = NORMAL
+IOConfig       = 3F8-3FF
+IOConfig       = 2F8-2FF
+IRQConfig      = 3,4,5,7,9,10,11,12,15
+MemConfig      = 1000@0-FFFFFFFF%FFFFF000
+MemConfig      = 1000@0-FFFFFFFF%FFFFF000
+MfCardConfig   = 400:07:0
+MfCardConfig   = 420:07:1
+PCCardConfig   = 07(W)
+
+[nwDevice.NT.LogConfigOverride1]
+ConfigPriority = NORMAL
+IOConfig       = 3F8-3FF
+IOConfig       = 3E8-3EF
+IRQConfig      = 3,4,5,7,9,10,11,12,15
+MemConfig      = 1000@0-FFFFFFFF%FFFFF000
+MemConfig      = 1000@0-FFFFFFFF%FFFFF000
+MfCardConfig   = 400:07:0
+MfCardConfig   = 420:07:1
+PCCardConfig   = 07(W)
+
+[nwDevice.NT.LogConfigOverride2]
+ConfigPriority = NORMAL
+IOConfig       = 3F8-3FF
+IOConfig       = 2E8-2EF
+IRQConfig      = 3,4,5,7,9,10,11,12,15
+MemConfig      = 1000@0-FFFFFFFF%FFFFF000
+MemConfig      = 1000@0-FFFFFFFF%FFFFF000
+MfCardConfig   = 400:07:0
+MfCardConfig   = 420:07:1
+PCCardConfig   = 07(W)
+
+[nwDevice.NT.LogConfigOverride3]
+ConfigPriority = NORMAL
+IOConfig       = 2F8-2FF
+IOConfig       = 3E8-3EF
+IRQConfig      = 3,4,5,7,9,10,11,12,15
+MemConfig      = 1000@0-FFFFFFFF%FFFFF000
+MemConfig      = 1000@0-FFFFFFFF%FFFFF000
+MfCardConfig   = 400:07:0
+MfCardConfig   = 420:07:1
+PCCardConfig   = 07(W)
+
+[nwDevice.NT.LogConfigOverride4]
+ConfigPriority = NORMAL
+IOConfig       = 2F8-2FF
+IOConfig       = 2E8-2EF
+IRQConfig      = 3,4,5,7,9,10,11,12,15
+MemConfig      = 1000@0-FFFFFFFF%FFFFF000
+MemConfig      = 1000@0-FFFFFFFF%FFFFF000
+MfCardConfig   = 400:07:0
+MfCardConfig   = 420:07:1
+PCCardConfig   = 07(W)
+
+[nwDevice.NT.LogConfigOverride5]
+ConfigPriority = NORMAL
+IOConfig       = 3E8-3EF
+IOConfig       = 2E8-2EF
+IRQConfig      = 3,4,5,7,9,10,11,12,15
+MemConfig      = 1000@0-FFFFFFFF%FFFFF000
+MemConfig      = 1000@0-FFFFFFFF%FFFFF000
+MfCardConfig   = 400:07:0
+MfCardConfig   = 420:07:1
+PCCardConfig   = 07(W)
+
+[nwDevice.NT.LogConfigOverride6]
+ConfigPriority = NORMAL
+IOConfig       = 2E8-2EF
+IOConfig       = 8@100-0FFF%FFF8(0FFF::)
+IRQConfig      = 3,4,5,7,9,10,11,12,15
+MemConfig      = 1000@0-FFFFFFFF%FFFFF000
+MemConfig      = 1000@0-FFFFFFFF%FFFFF000
+MfCardConfig   = 400:07:0
+MfCardConfig   = 420:07:1
+PCCardConfig   = 07(W)
+
+[nwDevice.NT.LogConfigOverride7]
+ConfigPriority = NORMAL
+IOConfig       = 8@100-FFFF%FFF8(FFFF::)
+IOConfig       = 8@100-FFFF%FFF8(FFFF::)
+IRQConfig      = 3,4,5,7,9,10,11,12,15
+MemConfig      = 1000@0-FFFFFFFF%FFFFF000
+MemConfig      = 1000@0-FFFFFFFF%FFFFF000
+MfCardConfig   = 400:07:0
+MfCardConfig   = 420:07:1
+PCCardConfig   = 07(W)
+
+[nwDevice.NT.LogConfigOverride8]
+ConfigPriority = NORMAL
+IOConfig       = 3F8-3FF
+IOConfig       = 2F8-2FF
+IRQConfig      = 3,4,5,7,9,10,11,12,15
+MemConfig      = 1000@0-FFFFFFFF%FFFFF000(D)
+MemConfig      = 1000@0-FFFFFFFF%FFFFF000(D)
+MfCardConfig   = 400:07:0
+MfCardConfig   = 420:07:1
+PCCardConfig   = 07(W)
+
+[nwDevice.NT.LogConfigOverride9]
+ConfigPriority = NORMAL
+IOConfig       = 3F8-3FF
+IOConfig       = 3E8-3EF
+IRQConfig      = 3,4,5,7,9,10,11,12,15
+MemConfig      = 1000@0-FFFFFFFF%FFFFF000(D)
+MemConfig      = 1000@0-FFFFFFFF%FFFFF000(D)
+MfCardConfig   = 400:07:0
+MfCardConfig   = 420:07:1
+PCCardConfig   = 07(W)
+
+[nwDevice.NT.LogConfigOverride10]
+ConfigPriority = NORMAL
+IOConfig       = 3F8-3FF
+IOConfig       = 2E8-2EF
+IRQConfig      = 3,4,5,7,9,10,11,12,15
+MemConfig      = 1000@0-FFFFFFFF%FFFFF000(D)
+MemConfig      = 1000@0-FFFFFFFF%FFFFF000(D)
+MfCardConfig   = 400:07:0
+MfCardConfig   = 420:07:1
+PCCardConfig   = 07(W)
+
+[nwDevice.NT.LogConfigOverride11]
+ConfigPriority = NORMAL
+IOConfig       = 2F8-2FF
+IOConfig       = 3E8-3EF
+IRQConfig      = 3,4,5,7,9,10,11,12,15
+MemConfig      = 1000@0-FFFFFFFF%FFFFF000(D)
+MemConfig      = 1000@0-FFFFFFFF%FFFFF000(D)
+MfCardConfig   = 400:07:0
+MfCardConfig   = 420:07:1
+PCCardConfig   = 07(W)
+
+[nwDevice.NT.LogConfigOverride12]
+ConfigPriority = NORMAL
+IOConfig       = 2F8-2FF
+IOConfig       = 2E8-2EF
+IRQConfig      = 3,4,5,7,9,10,11,12,15
+MemConfig      = 1000@0-FFFFFFFF%FFFFF000(D)
+MemConfig      = 1000@0-FFFFFFFF%FFFFF000(D)
+MfCardConfig   = 400:07:0
+MfCardConfig   = 420:07:1
+PCCardConfig   = 07(W)
+
+[nwDevice.NT.LogConfigOverride13]
+ConfigPriority = NORMAL
+IOConfig       = 3E8-3EF
+IOConfig       = 2E8-2EF
+IRQConfig      = 3,4,5,7,9,10,11,12,15
+MemConfig      = 1000@0-FFFFFFFF%FFFFF000(D)
+MemConfig      = 1000@0-FFFFFFFF%FFFFF000(D)
+MfCardConfig   = 400:07:0
+MfCardConfig   = 420:07:1
+PCCardConfig   = 07(W)
+
+[nwDevice.NT.LogConfigOverride14]
+ConfigPriority = NORMAL
+IOConfig       = 2E8-2EF
+IOConfig       = 8@100-0FFF%FFF8(0FFF::)
+IRQConfig      = 3,4,5,7,9,10,11,12,15
+MemConfig      = 1000@0-FFFFFFFF%FFFFF000(D)
+MemConfig      = 1000@0-FFFFFFFF%FFFFF000(D)
+MfCardConfig   = 400:07:0
+MfCardConfig   = 420:07:1
+PCCardConfig   = 07(W)
+
+[nwDevice.NT.LogConfigOverride15]
+ConfigPriority = NORMAL
+IOConfig       = 8@100-FFFF%FFF8(FFFF::)
+IOConfig       = 8@100-FFFF%FFF8(FFFF::)
+IRQConfig      = 3,4,5,7,9,10,11,12,15
+MemConfig      = 1000@0-FFFFFFFF%FFFFF000(D)
+MemConfig      = 1000@0-FFFFFFFF%FFFFF000(D)
+MfCardConfig   = 400:07:0
+MfCardConfig   = 420:07:1
+PCCardConfig   = 07(W)

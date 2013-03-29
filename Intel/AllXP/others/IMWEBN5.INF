@@ -1,0 +1,455 @@
+;***********************************************************************
+;
+; NETIMWEB.INF
+;
+;   This installation script supports Windows 95,98,Me,2000 & XP for the
+;   Intel(R) PRO/Wireless 2011b LAN 3A Mini PCI Adapter.
+;
+;   Copyright (c) 2001 Intel Corporation
+;   All Rights Reserved.
+;   
+;
+;***********************************************************************
+
+[Version]
+ DriverVer = 01/07/2002, 1.13.1.0 
+ Signature           = "$Chicago$"
+ Compatible          = 1
+ Class               = Net
+ ClassGUID           = {4d36e972-e325-11ce-bfc1-08002be10318}
+ Provider            = %VER_VENDOR_STR%
+ CatalogFile         = NETIMWEB.cat
+ MillenniumPreferred = .ME
+
+
+[Manufacturer]
+ %VER_VENDOR_NAME_STR% = DeviceList,NTx86.5.1
+ %VER_VENDOR_NAME_STR% = DeviceList
+
+[DeviceList.NTx86.5.1]
+%IMWEB_PCI1_STR%        = IMWEB_PCI1.NT.5.1,PCI\VEN_1260&DEV_3873&SUBSYS_25108086	
+%IMWEB_PCI1_STR%        = IMWEB_PCI1.NT.5.1,PCI\VEN_1260&DEV_3873&SUBSYS_25138086	
+%IMWEB_PCI1_STR%        = IMWEB_PCI1.NT.5.1,PCI\VEN_1260&DEV_3873&SUBSYS_25148086	
+%IMWEB_PCI1_STR%        = IMWEB_PCI1.NT.5.1,PCI\VEN_1260&DEV_3873&SUBSYS_25158086	
+%IMWEB_PCI1_STR%        = IMWEB_PCI1.NT.5.1,PCI\VEN_1260&DEV_3873&SUBSYS_25168086	
+%IMWEB_PCI1_STR%        = IMWEB_PCI1.NT.5.1,PCI\VEN_1260&DEV_3873&SUBSYS_25178086	
+%IMWEB_PCI1_STR%        = IMWEB_PCI1.NT.5.1,PCI\VEN_1260&DEV_3873&SUBSYS_25133274	
+%IMWEB_PCI2_STR%        = IMWEB_PCI2.NT.5.1,PCI\VEN_1260&DEV_3873&SUBSYS_25118086	
+
+[DeviceList]
+%IMWEB_PCI1_STR%   = IMWEB_PCI1,PCI\VEN_1260&DEV_3873&SUBSYS_25108086	
+%IMWEB_PCI1_STR%   = IMWEB_PCI1,PCI\VEN_1260&DEV_3873&SUBSYS_25138086	
+%IMWEB_PCI1_STR%   = IMWEB_PCI1,PCI\VEN_1260&DEV_3873&SUBSYS_25148086		
+%IMWEB_PCI1_STR%   = IMWEB_PCI1,PCI\VEN_1260&DEV_3873&SUBSYS_25158086	
+%IMWEB_PCI1_STR%   = IMWEB_PCI1,PCI\VEN_1260&DEV_3873&SUBSYS_25168086	
+%IMWEB_PCI1_STR%   = IMWEB_PCI1,PCI\VEN_1260&DEV_3873&SUBSYS_25178086	
+%IMWEB_PCI1_STR%   = IMWEB_PCI1,PCI\VEN_1260&DEV_3873&SUBSYS_25133274	
+%IMWEB_PCI2_STR%   = IMWEB_PCI2,PCI\VEN_1260&DEV_3873&SUBSYS_25118086	
+
+[ControlFlags]
+;Exclude all PNP adapters from user selection
+ExcludeFromSelect   = PCI\VEN_1260&DEV_3873&SUBSYS_25108086	
+ExcludeFromSelect   = PCI\VEN_1260&DEV_3873&SUBSYS_25118086	
+ExcludeFromSelect   = PCI\VEN_1260&DEV_3873&SUBSYS_25138086	
+ExcludeFromSelect   = PCI\VEN_1260&DEV_3873&SUBSYS_25148086	
+ExcludeFromSelect   = PCI\VEN_1260&DEV_3873&SUBSYS_25158086	
+ExcludeFromSelect   = PCI\VEN_1260&DEV_3873&SUBSYS_25168086	
+ExcludeFromSelect   = PCI\VEN_1260&DEV_3873&SUBSYS_25178086	
+ExcludeFromSelect   = PCI\VEN_1260&DEV_3873&SUBSYS_25133274	
+	
+;=========================================IMWEB_PCI1==========================================================================
+[IMWEB_PCI1]            ; Win9x
+ AddReg         = IMWEB_PCI1.reg, COMMON_PCI.reg, COMMON_NDIS.reg, COMMON.reg
+ CopyFiles      = IMWEB_DRIVER.copy, IMWEB_APPLET.copy, IMWEB_NDI.copy
+
+[IMWEB_PCI1.ME]         ; WinMe
+ AddReg         = IMWEB_PCI1.reg, COMMON_PCI.reg, COMMON_NDIS.reg.ME, COMMON.reg
+ CopyFiles      = IMWEB_DRIVER.copy.ME, IMWEB_APPLET.copy.ME, IMWEB_NDI.copy.ME
+ BusType        = 5     ; PCI
+ Characteristics= 0x84  ; NCF_PHYSICAL | NCF_HAS_UI
+
+[IMWEB_PCI1.ME.ME]      ; WinMe - Same as .ME (Needed for Update Driver)
+ AddReg         = IMWEB_PCI1.reg, COMMON_PCI.reg, COMMON_NDIS.reg.ME, COMMON.reg
+ CopyFiles      = IMWEB_DRIVER.copy.ME, IMWEB_APPLET.copy.ME, IMWEB_NDI.copy.ME
+ BusType        = 5     ; PCI
+ Characteristics= 0x84  ; NCF_PHYSICAL | NCF_HAS_UI
+
+[IMWEB_PCI1.NT]         ; Win2k
+ AddReg         = IMWEB_PCI1.reg, COMMON_PCI.reg, COMMON_NDIS.reg.NT, COMMON.reg
+ CopyFiles      = IMWEB_DRIVER.copy.NT, IMWEB_APPLET.copy.NT
+ BusType        = 5     ; PCI
+ Characteristics= 0x84  ; NCF_PHYSICAL | NCF_HAS_UI
+
+[IMWEB_PCI1.NT.5.1]         ; WinXP
+ AddReg         = IMWEB_PCI1.reg, COMMON_PCI.reg.NT.5.1, COMMON_NDIS.reg.NT, COMMON.reg
+ CopyFiles      = IMWEB_DRIVER.copy.NT.5.1, IMWEB_APPLET.copy.NT
+ BusType        = 5     ; PCI
+ Characteristics= 0x84  ; NCF_PHYSICAL | NCF_HAS_UI
+
+[IMWEB_PCI1.ME.Services]
+ AddService     = "IMWEB", 2, IMWEB_DRIVER.Service, IMWEB_DRIVER.EventLog
+
+[IMWEB_PCI1.ME.CoInstallers]
+ CopyFiles      = IMWEB_COINSTALL.copy.NT
+ AddReg         = IMWEB_COINSTALL.reg.NT
+
+[IMWEB_PCI1.NT.Services]
+ AddService     = "IMWEB", 2, IMWEB_DRIVER.Service, IMWEB_DRIVER.EventLog
+
+[IMWEB_PCI1.NT.CoInstallers]
+ CopyFiles      = IMWEB_COINSTALL.copy.NT
+ AddReg         = IMWEB_COINSTALL.reg.NT
+
+[IMWEB_PCI1.NT.5.1.Services]
+ AddService     = "IMWEB", 2, IMWEB_DRIVER.NT.5.1.Service, IMWEB_DRIVER.EventLog
+
+[IMWEB_PCI1.NT.5.1.CoInstallers]
+ CopyFiles      = IMWEB_COINSTALL.copy.NT
+ AddReg         = IMWEB_COINSTALL.reg.NT
+
+[IMWEB_PCI1.reg]
+ HKR,Ndi        ,DeviceID,0,"PCI\VEN_1260&DEV_3873&SUBSYS_25108086"
+
+
+;============================================IMWEB_PCI2====================================================================
+[IMWEB_PCI2]            ; Win9x
+ AddReg         = IMWEB_PCI2.reg, COMMON_PCI.reg, COMMON_NDIS.reg, COMMON.reg
+ CopyFiles      = IMWEB_DRIVER.copy, IMWEB_APPLET.copy, IMWEB_NDI.copy
+
+[IMWEB_PCI2.ME]         ; WinMe
+ AddReg         = IMWEB_PCI2.reg, COMMON_PCI.reg, COMMON_NDIS.reg.ME, COMMON.reg
+ CopyFiles      = IMWEB_DRIVER.copy.ME, IMWEB_APPLET.copy.ME, IMWEB_NDI.copy.ME
+ BusType        = 5     ; PCI
+ Characteristics= 0x84  ; NCF_PHYSICAL | NCF_HAS_UI
+
+[IMWEB_PCI2.ME.ME]      ; WinMe - Same as .ME (Needed for Update Driver)
+ AddReg         = IMWEB_PCI2.reg, COMMON_PCI.reg, COMMON_NDIS.reg.ME, COMMON.reg
+ CopyFiles      = IMWEB_DRIVER.copy.ME, IMWEB_APPLET.copy.ME, IMWEB_NDI.copy.ME
+ BusType        = 5     ; PCI
+ Characteristics= 0x84  ; NCF_PHYSICAL | NCF_HAS_UI
+
+[IMWEB_PCI2.NT]         ; Win2k
+ AddReg         = IMWEB_PCI2.reg, COMMON_PCI.reg, COMMON_NDIS.reg.NT, COMMON.reg
+ CopyFiles      = IMWEB_DRIVER.copy.NT, IMWEB_APPLET.copy.NT
+ BusType        = 5     ; PCI
+ Characteristics= 0x84  ; NCF_PHYSICAL | NCF_HAS_UI
+
+[IMWEB_PCI2.NT.5.1]         ; WinXP
+ AddReg         = IMWEB_PCI2.reg, COMMON_PCI.reg.NT.5.1, COMMON_NDIS.reg.NT, COMMON.reg
+ CopyFiles      = IMWEB_DRIVER.copy.NT.5.1, IMWEB_APPLET.copy.NT
+ BusType        = 5     ; PCI
+ Characteristics= 0x84  ; NCF_PHYSICAL | NCF_HAS_UI
+
+[IMWEB_PCI2.ME.Services]
+ AddService     = "IMWEB", 2, IMWEB_DRIVER.Service, IMWEB_DRIVER.EventLog
+
+[IMWEB_PCI2.NT.Services]
+ AddService     = "IMWEB", 2, IMWEB_DRIVER.Service, IMWEB_DRIVER.EventLog
+
+[IMWEB_PCI2.NT.5.1.Services]
+ AddService     = "IMWEB", 2, IMWEB_DRIVER.NT.5.1.Service, IMWEB_DRIVER.EventLog
+
+[IMWEB_PCI2.ME.CoInstallers]
+ CopyFiles      = IMWEB_COINSTALL.copy.NT
+ AddReg         = IMWEB_COINSTALL.reg.NT
+
+[IMWEB_PCI2.NT.CoInstallers]
+ CopyFiles      = IMWEB_COINSTALL.copy.NT
+ AddReg         = IMWEB_COINSTALL.reg.NT
+
+[IMWEB_PCI2.NT.5.1.CoInstallers]
+ CopyFiles      = IMWEB_COINSTALL.copy.NT
+ AddReg         = IMWEB_COINSTALL.reg.NT
+
+[IMWEB_PCI2.reg]
+ HKR,Ndi        ,DeviceID,0,"PCI\VEN_1260&DEV_3873&SUBSYS_25118086"
+
+;=================================================================================================================
+
+[IMWEB_COINSTALL.reg.NT]
+ HKR,           ,CoInstallers32         ,0x00010000     ,"IMWEBCFG.cpl,NdiProc"
+
+[IMWEB_DRIVER.Service]
+ DisplayName    = %IMWEB_SERVICE_DISPLAY%
+ ServiceType    = 1    ; SERVICE_KERNEL_DRIVER
+ StartType      = 3    ; SERVICE_DEMAND_START
+ ErrorControl   = 1    ; NORMAL
+ ServiceBinary  = %12%\IMWEBN5.sys
+ LoadOrderGroup = NDIS
+
+[IMWEB_DRIVER.NT.5.1.Service]
+ DisplayName    = %IMWEB_SERVICE_DISPLAY%
+ ServiceType    = 1    ; SERVICE_KERNEL_DRIVER
+ StartType      = 3    ; SERVICE_DEMAND_START
+ ErrorControl   = 1    ; NORMAL
+ ServiceBinary  = %12%\IMWEBN5.sys
+ LoadOrderGroup = NDIS
+
+[IMWEB_DRIVER.EventLog]
+ AddReg         = IMWEB_DRIVER.EventLog.reg
+
+[IMWEB_DRIVER.EventLog.reg]
+ HKR,           ,EventMessageFile       ,0x00020000     ,"%%SystemRoot%%\System32\netevent.dll"
+ HKR,           ,TypesSupported         ,0x00010001     ,7
+
+[IMWEB_DRIVER.ME.EventLog]
+ AddReg         = IMWEB_DRIVER.ME.EventLog.reg
+
+[IMWEB_DRIVER.ME.EventLog.reg]
+ HKR,           ,EventMessageFile       ,0x00020000     ,"%%SystemRoot%%\System32\netevent.dll"
+ HKR,           ,TypesSupported         ,0x00010001     ,7
+
+;###############################################################################
+
+[COMMON_PCI.reg]
+ HKR,NDI                ,Service                ,0      ,"IMWEB"
+ HKR,NDI                ,CardType               ,0      ,"PCI"
+ HKR,                   ,BusType                ,0      ,"5"
+ HKR,                   ,DeviceVxDs             ,0      ,"IMWEBN5.sys"
+ HKR,                   ,EnableIRQSharing       ,1      ,01,00,00,00
+ HKR,                   ,IOBaseAddress          ,1      ,02,00,00,00
+ HKR,                   ,InterruptNumber        ,1      ,04,00,00,00
+
+[COMMON_PCI.reg.NT.5.1]
+ HKR,NDI                ,Service                ,0      ,"IMWEB"
+ HKR,NDI                ,CardType               ,0      ,"PCI"
+ HKR,                   ,BusType                ,0      ,"5"
+ HKR,                   ,DeviceVxDs             ,0      ,"IMWEBN5.sys"
+ HKR,                   ,EnableIRQSharing       ,1      ,01,00,00,00
+ HKR,                   ,IOBaseAddress          ,1      ,02,00,00,00
+ HKR,                   ,InterruptNumber        ,1      ,04,00,00,00
+
+[COMMON_NDIS.reg]
+ HKR,                   ,RunningWin9X           ,0      ,"1"
+ HKR,                   ,DevLoader              ,0      ,"*ndis"
+ HKR,                   ,EnumPropPages          ,0      ,"netdi.dll,EnumPropPages"
+ HKR,NDI                ,NdiInstaller           ,0      ,"IMWEBCFG.dll,NdiProc"
+ HKR,NDI\Interfaces     ,UpperRange             ,0      ,"ndis3"
+ HKR,NDI\Interfaces     ,LowerRange             ,0      ,"ethernet"
+ HKR,NDI\Interfaces     ,DefUpper               ,0      ,"ndis3"
+ HKR,NDI\Interfaces     ,DefLower               ,0      ,"ethernet"
+ HKR,NDIS               ,LogDriverName          ,0      ,"IMWEB"
+ HKR,NDIS               ,MajorNdisVersion       ,1      ,03
+ HKR,NDIS               ,MinorNdisVersion       ,1      ,0a
+
+[COMMON_NDIS.reg.ME]
+ HKR,                   ,RunningWin9X           ,0      ,"1"
+ HKR,                   ,DevLoader              ,0      ,"*ndis"
+ HKR,                   ,EnumPropPages          ,0      ,"netdi.dll,EnumPropPages"
+ HKR,NDI                ,NdiInstaller           ,0      ,"IMWEBCFG.dll,NdiProc"
+ HKR,NDI\Interfaces     ,UpperRange             ,0      ,"ndis3"
+ HKR,NDI\Interfaces     ,LowerRange             ,0      ,"ethernet"
+ HKR,NDI\Interfaces     ,DefUpper               ,0      ,"ndis3"
+ HKR,NDI\Interfaces     ,DefLower               ,0      ,"ethernet"
+ HKR,NDIS               ,LogDriverName          ,0      ,"IMWEB"
+ HKR,NDIS               ,MajorNdisVersion       ,1      ,03
+ HKR,NDIS               ,MinorNdisVersion       ,1      ,0a
+
+[COMMON_NDIS.reg.NT]
+ HKR,                   ,EnumPropPages32        ,0      ,"IMWEBCFG.cpl,NetPropPageProvider"
+ HKR,NDI\Interfaces     ,UpperRange             ,0      ,"ndis5"
+ HKR,NDI\Interfaces     ,LowerRange             ,0      ,"ethernet"
+
+[COMMON.reg]
+
+;
+;       Wep Encrypt in Driver
+;
+;HKR,,EncryptInDriver,0,1
+;HKR,defaults,EncryptInDriver,0,1
+
+;
+;       Wep Decrypt in Driver
+;
+;HKR,,DecryptInDriver,0,1
+;HKR,defaults,DecryptInDriver,0,1
+
+ HKR,                   ,ListenInterval         ,0      ,"3"
+ HKR,                   ,RTSThresh              ,0      ,"2432"
+ HKR,                   ,FragThresh             ,0      ,"2432"
+ HKR,                   ,PreambleMode           ,0      ,"2"
+ HKR,                   ,AuthentAlg             ,0      ,"65535"
+ HKR,                   ,IMWEBIOC               ,0      ,"1"
+;HKR,                   ,SilentInstall          ,0      ,"1"
+;Uncomment the line above to install without user interface prompts
+
+ HKR,defaults,ListenInterval,0,3
+ HKR,Ndi\params\ListenInterval,default,0,3
+ HKR,NDI\params\ListenInterval,ParamDesc,,%LISTENINTERVAL_STR%
+ HKR,NDI\params\ListenInterval,type,,int
+ HKR,NDI\params\ListenInterval,flag,1,30,00,00,00
+ HKR,NDI\params\ListenInterval,min,0,0
+ HKR,NDI\params\ListenInterval,max,0,77
+ HKR,NDI\params\ListenInterval,step,0,1
+ HKR,NDI\params\ListenInterval,optional,0,1
+
+ HKR,defaults,RTSThresh,0,2432
+ HKR,Ndi\params\RTSThresh,default,0,2432
+ HKR,NDI\params\RTSThresh,ParamDesc,0,%RTSTHRESH_STR%
+ HKR,NDI\params\RTSThresh,type,0,int
+ HKR,NDI\params\RTSThresh,flag,1,20,00,00,00
+ HKR,NDI\params\RTSThresh,min,0,0
+ HKR,NDI\params\RTSThresh,max,0,2432
+ HKR,NDI\params\RTSThresh,step,0,64
+ HKR,NDI\params\RTSThresh,optional,0,1
+
+ HKR,defaults,FragThresh,0,2432
+ HKR,Ndi\params\FragThresh,default,0,2432
+ HKR,NDI\params\FragThresh,ParamDesc,0,%FRAGTHRESH_STR%
+ HKR,NDI\params\FragThresh,type,0,int
+ HKR,NDI\params\FragThresh,flag,1,20,00,00,00
+ HKR,NDI\params\FragThresh,min,0,256
+ HKR,NDI\params\FragThresh,max,0,2432
+ HKR,NDI\params\FragThresh,step,0,128
+ HKR,NDI\params\FragThresh,optional,0,1
+
+ HKR,defaults,PreambleMode,0,2
+ HKR,Ndi\params\PreambleMode,default,0,2
+ HKR,NDI\params\PreambleMode,ParamDesc,,%SHORT_PREAM_STR%
+ HKR,NDI\params\PreambleMode,type,,enum
+ HKR,NDI\params\PreambleMode,flag,1,30,00,00,00
+ HKR,NDI\params\PreambleMode\enum,2,,"Short Tx Preamble"
+ HKR,NDI\params\PreambleMode\enum,0,,"Long Tx Preamble"
+ ;HKR,NDI\params\PreambleMode\enum,3,,"Auto" ;firmware does not support
+ HKR,NDI\params\PreambleMode,optional,0,1
+
+ HKR,defaults,AuthentAlg,0,65535
+ HKR,NDI\params\AuthentAlg,default,0,65535
+ HKR,NDI\params\AuthentAlg,ParamDesc,,%AUTHENT_TYPE_STR%
+ HKR,NDI\params\AuthentAlg,type,,enum
+ HKR,NDI\params\AuthentAlg,flag,1,30,00,00,00
+ HKR,NDI\params\AuthentAlg\enum,0,,"WECA Compliant (always use Open)"
+ HKR,NDI\params\AuthentAlg\enum,1,,"Must use Shared with WEP"
+ HKR,NDI\params\AuthentAlg\enum,65535,,"Automatic based on WEP setting"
+ HKR,NDI\params\AuthentAlg,optional,0,1
+
+; HKR,defaults,AdhocDemoMode,0,0
+; HKR,NDI\params\AdhocDemoMode,,0,0
+; HKR,Ndi\params\AdhocDemoMode,default,0,0
+; HKR,NDI\params\AdhocDemoMode,ParamDesc,,%ADHOC_DEMO_STR%
+; HKR,NDI\params\AdhocDemoMode,type,,enum
+; HKR,NDI\params\AdhocDemoMode,flag,1,30,00,00,00
+; HKR,NDI\params\AdhocDemoMode\enum,0,,"Disable"
+; HKR,NDI\params\AdhocDemoMode\enum,1,,"Enable"
+; HKR,NDI\params\AdhocDemoMode,optional,0,1
+
+;###############################################################################
+[DestinationDirs]
+;CopyFiles Section      = Destination Directory ID -- see layout.inf
+;-----------------        ------------------------
+ DefaultDestDir                 = 11 ; Win9x=%windir%\system Win2k=%windir%\system32
+ IMWEB_DRIVER.copy              = 11 ; Win9x=%windir%\system
+ IMWEB_DRIVER.copy.ME           = 11 ; Win9x=%windir%\system
+ IMWEB_DRIVER.copy.NT           = 12 ; Win2k=%windir%\system32\drivers
+ IMWEB_DRIVER.copy.NT.5.1       = 12 ; WinXP=%windir%\system32\drivers
+
+[IMWEB_NDI.copy]
+ IMWEBR16.dll           ; Win9x NDI
+ IMWEBCFG.dll           ; Win9x NDI
+
+[IMWEB_NDI.copy.ME]
+ IMWEBR16.dll           ; Win9x NDI
+ IMWEBCFG.dll           ; Win9x NDI
+
+[IMWEB_COINSTALL.copy.ME]
+ IMWEBRES.dll
+ IMWEBIOC.dll
+ IMWEBCFG.cpl           ; Win2k CoInstaller
+
+[IMWEB_COINSTALL.copy.NT]
+ IMWEBRES.dll
+ IMWEBIOC.dll
+ IMWEBCFG.cpl           ; Win2k CoInstaller
+
+[IMWEB_DRIVER.copy]
+ IMWEBN5.sys
+ IMWEBIOC.vxd           ; Win9x Ioctl interface
+
+[IMWEB_DRIVER.copy.ME]
+ IMWEBN5.sys
+ IMWEBIOC.vxd           ; Win9x Ioctl interface
+
+[IMWEB_DRIVER.copy.NT]
+ IMWEBN5.sys
+
+[IMWEB_DRIVER.copy.NT.5.1]
+ IMWEBN5.sys
+
+[IMWEB_APPLET.copy]
+ IMWEBRES.dll
+ IMWEBIOC.dll
+ IMWEBCFG.cpl
+ IMWEBSTA.exe
+
+[IMWEB_APPLET.copy.ME]
+ IMWEBRES.dll
+ IMWEBIOC.dll
+ IMWEBCFG.cpl
+ IMWEBSTA.exe
+
+[IMWEB_APPLET.copy.NT]
+;IMWEBRES.dll           ; Copied by coinstaller
+;IMWEBIOC.dll           ; Copied by coinstaller
+;IMWEBCFG.cpl           ; Copied by coinstaller
+;IMWEBCFG.hlp           ; Copied by coinstaller
+;IMWEBCSH.dll           ; Copied by coinstaller
+ IMWEBSTA.exe
+
+[SourceDisksNames]
+1 = %INSTALL_DISK_STR%,,,
+
+
+[SourceDisksFiles]      ; Win9x
+;File Name              = Source Disk ID
+;---------                --------------
+;IMWEBR16.dll           = 1,win9x
+;IMWEBCFG.dll           = 1,win9x
+;IMWEBIOC.vxd           = 1,win9x
+IMWEBIOC.dll           = 1
+;IMWEBCFG.cpl           = 1,winnt
+;IMWEBN4.sys            = 1,winnt ; Install NDIS4 driver on OSR2
+IMWEBSTA.exe           = 1
+IMWEBRES.dll           = 1
+IMWEBN5.sys            = 1
+
+[SourceDisksFiles.ME]   ; WinMe
+;IMWEBR16.dll           = 1,win9x
+;IMWEBCFG.dll           = 1,win9x
+;IMWEBIOC.vxd           = 1,win9x
+IMWEBIOC.dll           = 1
+;IMWEBCFG.cpl           = 1,winnt
+IMWEBN5.sys            = 1
+IMWEBSTA.exe           = 1
+
+[SourceDisksFiles.X86]  ; Win2k
+IMWEBRES.dll           = 1
+IMWEBIOC.dll           = 1
+IMWEBCFG.cpl           = 1
+IMWEBN5.sys            = 1
+IMWEBSTA.exe           = 1
+
+[SourceDisksFiles.NT.5.1]  ; WinXP
+IMWEBRES.dll           = 1
+IMWEBIOC.dll           = 1
+IMWEBCFG.cpl           = 1
+IMWEBN5.sys            = 1
+IMWEBSTA.exe           = 1
+
+
+;###############################################################################
+[Strings]
+;String ID              = String Text
+;---------                -----------
+ VER_VENDOR_STR         = "Intel"
+ VER_VENDOR_NAME_STR    = "Intel Corporation"
+ IMWEB_PCI1_STR         = "Intel(R) PRO/Wireless 2011b LAN 3A Mini PCI Adapter"
+ IMWEB_PCI2_STR         = "Intel(R) PRO/Wireless 2011b LAN 3B Mini PCI Adapter"
+ IMWEB_SERVICE_DISPLAY  = "Intel(R) PRO/Wireless 2011b LAN Mini PCI LAN Driver"
+ INSTALL_DISK_STR       = "Intel(R) PRO/Wireless 2011b LAN Mini PCI Install Disk"
+ ADHOC_DEMO_STR         = "Adhoc Demo Mode"
+ SHORT_PREAM_STR        = "Preamble Mode"
+ RTSTHRESH_STR          = "RTS Threshold"
+ FRAGTHRESH_STR         = "Fragmentation Threshold"
+ AUTHENT_TYPE_STR       = "Authentication Algorithm"
+ LISTENINTERVAL_STR     = "Listen Interval"
+

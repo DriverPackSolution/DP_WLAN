@@ -1,0 +1,92 @@
+;-------------------------------------------------------------------------
+; NETBWC2K.INF
+;
+; Copyright (c) 2003, MELCO INC.
+;-------------------------------------------------------------------------
+[version]
+Signature   = "$Windows NT$"
+Class       = NetTrans
+ClassGUID   = {4d36e975-e325-11ce-bfc1-08002be10318}
+Provider    = %MELCO%
+DriverVer   = 07/16/2003,1.4.20.5
+CatalogFile = bwcdrv.cat
+
+[Manufacturer]
+%MELCO%=MELCO
+
+[MELCO]
+%BWCDRV_Desc%=Install,MEL_BWCDRV2K
+
+;-------------------------------------------------------------------------
+; Installation Section
+;-------------------------------------------------------------------------
+[Install]
+AddReg=Inst_Ndi
+Characteristics=0 ; Has no characterstic
+; if CD
+CopyFiles=CpyFiles_Sys
+
+;-------------------------------------------------------------------------
+; Ndi installation support
+;-------------------------------------------------------------------------
+[Inst_Ndi]
+HKR,Ndi,Service,,"bwcdrv"
+HKR,Ndi,HelpText,,%BWCDRV_HelpText%
+HKR, Ndi\Interfaces, UpperRange,, noupper
+HKR,"Ndi\Interfaces","LowerRange",,"ndis5,ndis4"
+
+;-------------------------------------------------------------------------
+; Service installation support
+;-------------------------------------------------------------------------
+[Install.Services]
+AddService=bwcdrv,,BWCDRV_Service_Inst
+
+[BWCDRV_Service_Inst]
+DisplayName     = %BWCDRV_Desc%
+ServiceType     = 1 ;SERVICE_KERNEL_DRIVER
+StartType       = 2 ;SERVICE_AUTO_START
+ErrorControl    = 1 ;SERVICE_ERROR_NORMAL
+ServiceBinary   = %12%\bwcdrv.sys
+LoadOrderGroup  = "PNP_TDI"
+AddReg          = AddReg_BWCDRV_Service_Inst
+Description     = %BWCDRV_Desc%
+
+[AddReg_BWCDRV_Service_Inst]
+HKLM,"System\CurrentControlSet\Services\bwcdrv","TextModeFlags",%REG_DWORD%,0x0001
+
+;-------------------------------------------------------------------------
+; Support for removal of static registry settings
+;-------------------------------------------------------------------------
+[Install.Remove]
+DelReg=Del_Static_Reg
+
+[Install.Remove.Services]
+DelService=bwcdrv
+
+[Del_Static_Reg]
+HKLM,"System\CurrentControlSet\Services\bwcdrv","TextModeFlags"
+
+;-------------------------------------------------------------------------
+; Declare Destination Directories for file copy/deletion
+;-------------------------------------------------------------------------
+[DestinationDirs]
+CpyFiles_Sys    = 12    ; DIRID_DRIVERS
+
+[SourceDisksNames]
+1=%BWCDRV_DiskName%,,
+
+[SourceDisksFiles]
+BWCDRV.SYS=1
+
+;-------------------------------------------------------------------------
+; Files to Copy/Delete - Referenced by Install and Remove sections above
+;-------------------------------------------------------------------------
+[CpyFiles_Sys]
+bwcdrv.sys,,,2
+
+[Strings]
+MELCO = "MELCO INC."
+BWCDRV_Desc = "BUFFALO Wireless Configuration"
+BWCDRV_HelpText = "BUFFALO Wireless Configuration initializes wireless LAN adapter."
+BWCDRV_DiskName = "AirNavigator CD"
+REG_DWORD = 0x10001

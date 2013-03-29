@@ -1,0 +1,90 @@
+;-------------------------------------------------------------------------
+; mdc8021x.inf -- WPA Security Client for Windows 2000 and XP, Version 2.3.1.6
+; Copyright (c) 1997-2003, Meetinghouse Data Communications
+;-------------------------------------------------------------------------
+[version]
+Signature   = "$Windows NT$"
+Class       = NetTrans
+ClassGUID   = {4d36e975-e325-11ce-bfc1-08002be10318}
+Provider    = %MDC%
+DriverVer   = 03/12/2003,2.3.1.6
+
+[Manufacturer]
+%MDC% = MDC
+
+[MDC]
+%MDC8021X_Desc% = Install,MDC8021X
+
+;-------------------------------------------------------------------------
+; Installation Section
+;-------------------------------------------------------------------------
+[Install]
+AddReg = AddReg_Ndi
+AddReg = AddReg_EventLog
+Characteristics = 0 ; Has no characterstic
+
+;-------------------------------------------------------------------------
+; Ndi installation
+;-------------------------------------------------------------------------
+[AddReg_Ndi]
+HKR,Ndi,Service,,"MDC8021X"
+HKR,Ndi,HelpText,,%MDC8021X_HelpText%
+HKR,Ndi\Interfaces,UpperRange,,noupper
+HKR,Ndi\Interfaces,LowerRange,,"ndis4,ndis5"
+
+;-------------------------------------------------------------------------
+; Event Log installation
+;-------------------------------------------------------------------------
+[AddReg_EventLog]
+HKLM,"SYSTEM\CurrentControlSet\Services\Eventlog\Application\MDC8021X",EventMessageFile,0x00020000,"%%SystemRoot%%\system32\AegisE5.dll"
+HKLM,"SYSTEM\CurrentControlSet\Services\Eventlog\Application\MDC8021X",TypesSupported,0x00010001,7
+
+;-------------------------------------------------------------------------
+; Service installation
+;-------------------------------------------------------------------------
+[Install.Services]
+AddService=MDC8021X,,AddService_MDC8021X
+
+[AddService_MDC8021X]
+DisplayName    = %MDC8021X_Desc%
+ServiceType    = 1     ;SERVICE_KERNEL_DRIVER
+StartType      = 2     ;SERVICE_AUTO_START
+ErrorControl   = 1     ;SERVICE_ERROR_NORMAL
+ServiceBinary  = %12%\mdc8021x.sys
+LoadOrderGroup = "PNP_TDI"
+Description    = %MDC8021X_Desc%
+
+;-------------------------------------------------------------------------
+; Uninstallation Section
+;-------------------------------------------------------------------------
+[Install.Remove]
+DelReg = DelReg_EventLog
+
+;-------------------------------------------------------------------------
+; Uninstall Event Log
+;-------------------------------------------------------------------------
+[DelReg_EventLog]
+HKLM,"SYSTEM\CurrentControlSet\Services\Eventlog\Application\MDC8021X"
+
+;-------------------------------------------------------------------------
+; Uninstall services
+;-------------------------------------------------------------------------
+[Install.Remove.Services]
+DelService = SVC8021X
+DelService = MDC8021X
+
+;-------------------------------------------------------------------------
+; Declare Destination Directories for file copy/deletion
+;-------------------------------------------------------------------------
+[DestinationDirs]
+
+[SourceDisksNames]
+;NOTE: USE ONLY DISK NUMBERS 45-54:
+45="WPA Security Client Setup"
+
+[SourceDisksFiles]
+
+[Strings]
+MDC = "Meetinghouse Data Communications"
+MDC8021X_Desc = "AEGIS Protocol (IEEE 802.1x) v2.3.1.6"
+MDC8021X_HelpText = "This protocol provides secure port-based network access."

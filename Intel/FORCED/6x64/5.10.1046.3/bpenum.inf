@@ -1,0 +1,218 @@
+;-------------------------------------------------------------------------------
+;
+; Intel Baxter Peak Bus Enumerator
+;
+; Copyright (c) 2007 Intel Corporation All Rights Reserved.
+;
+; Module Name:
+;
+;    BPENUM.INF
+;
+; Abstract:
+;    INF file for installing Baxter Peak bus enumerator driver
+;
+;-------------------------------------------------------------------------------
+
+[Version]
+Signature       = "$WINDOWS NT$"
+Class           = WiMAX
+ClassGUID       = {027A838E-7356-4a2f-A5BF-25A2A2C33FCC}
+Provider        = %INTL%
+DriverVer=12/22/2009,5.10.1046.3
+CatalogFile     = bpenum.cat
+
+[Manufacturer]
+%MfgName%       = Intel, NTAMD64
+
+[Intel.NTAMD64]
+%bpenum.DeviceDesc%   = bpenum, wimax\bpenum
+
+;-------------------------------------------------------------------------------
+; Intel Baxter Peak Wimax Bus Enumerator
+;-------------------------------------------------------------------------------
+[bpenum.NT]
+CopyFiles   = bpenum.CopyFiles
+AddReg      = bpenum.NT.AddReg
+
+[bpenum.CopyFiles]
+bpenum.sys,,,2
+besor.sbcf,,,2
+
+;-------------------------------------------------------------------------------
+; Driver and Service Section
+;-------------------------------------------------------------------------------
+[bpenum.NT.AddReg]                            
+HKR,,DeviceCharacteristics,0x10001,0x0100         ; Use same security checks on relative opens
+HKR,,Security,,"D:P(A;;GA;;;BA)(A;;GA;;;SY)"      ; Allow generic-all access to Built-in administrators and Local system 
+
+[bpenum.NT.Services]
+AddService      = bpenum,%SPSVCINST_ASSOCSERVICE%, bpenum.Service
+
+[bpenum.Service]
+;DisplayName    = %bpenum.SVCDESC%
+ServiceType    = 1               ; SERVICE_KERNEL_DRIVER
+StartType      = 3               ; SERVICE_DEMAND_START 
+ErrorControl   = 1               ; SERVICE_ERROR_NORMAL
+ServiceBinary  = %12%\bpenum.sys
+AddReg         = bpenum.AddReg
+LoadOrderGroup = Extended Base
+
+[bpenum.AddReg]
+HKR, Parameters,     SubSytems,       0x00010001, 0xFFFFFFFF
+HKR, Parameters,     Severity,        0x00010001, 0x4
+HKR, Parameters,     BufferTrace,     0x00010001, 0x1
+HKR, Parameters,     Diagnostic,      0x00010001, 0x185
+
+
+;-------------------------------------------------------------------------------
+; Class Co-Installer section 
+;-------------------------------------------------------------------------------
+[ClassInstall32]
+Addreg      = BPClassInstaller.AddReg     
+CopyFiles   = BPClassInstaller.CopyFiles
+
+[BPClassInstaller.AddReg]
+HKR,    ,   ,               0,  %ClassName%
+HKR,    ,   Icon,           ,   100
+HKR,    ,   Installer32,    ,   "BPClsCoInst.dll,BPClassInstaller"
+
+[BPClassInstaller.CopyFiles]
+BPClsCoInst.dll,    ,   ,   2
+
+;-------------------------------------------------------------------------------
+; WDF Coinstaller installation
+;-------------------------------------------------------------------------------
+[bpenum.NT.CoInstallers]
+AddReg      = CoInstaller.AddReg
+CopyFiles   = CoInstaller.CopyFiles
+
+[CoInstaller.CopyFiles]
+wdfcoinstaller01007.dll
+
+[CoInstaller.AddReg]
+HKR,,CoInstallers32,0x00010000, "wdfcoinstaller01007.dll,WdfCoInstaller"
+
+[bpenum.NT.Wdf]
+KmdfService = bpenum, bpenum.wdfsect
+
+[bpenum.wdfsect]
+KmdfLibraryVersion = 1.7
+
+;-------------------------------------------------------------------------------
+; DestinationDirs
+;-------------------------------------------------------------------------------
+[DestinationDirs]
+DefaultDestDir              = 12
+BPClassInstaller.CopyFiles  = 11
+CoInstaller.CopyFiles       = 11
+
+[SourceDisksNames]
+1 = %DiskId1%,,,""
+
+[SourceDisksFiles]
+bpenum.sys              = 1,,
+wdfcoinstaller01007.dll = 1,,
+BPClsCoInst.dll         = 1,,
+besor.sbcf              = 1,,
+
+;-------------------------------------------------------------------------------
+; Localizable Strings
+;-------------------------------------------------------------------------------
+[Strings]
+SPSVCINST_ASSOCSERVICE  = 0x00000002
+INTL                    = "Intel Corporation"
+MfgName                 = "Intel Corporation"
+ClassName               = "Intel(R) Centrino(R) WiMAX adapters"
+DiskId1                 = "Intel(R) Centrino(R) WiMAX Enumerator Installation Disk"
+bpenum.DeviceDesc       = "Intel(R) Centrino(R) WiMAX Enumerator"
+bpenum.SVCDESC          = "Intel(R) Centrino(R) WiMAX Enumerator"
+
+[Strings.0804] ; Chinese (Simplified)
+SPSVCINST_ASSOCSERVICE  = 0x00000002
+INTL                    = "Intel Corporation"
+MfgName                 = "Intel Corporation"
+ClassName               = "”¢Ãÿ∂˚(R) Centrino(R) WiMAX   ≈‰∆˜"
+DiskId1                 = "Intel(R) Centrino(R) WiMAX º∆ ˝∆˜∞≤◊∞≈Ã"
+bpenum.DeviceDesc       = "Intel(R) Centrino(R) WiMAX º∆ ˝"
+bpenum.SVCDESC          = "Intel(R) Centrino(R) WiMAX º∆ ˝"
+
+[Strings.0404] ; Chinese (Traditional)
+SPSVCINST_ASSOCSERVICE  = 0x00000002
+INTL                    = "Intel Corporation"
+MfgName                 = "Intel Corporation"
+ClassName               = "Intel(R) Centrino(R) WiMAX §∂≠±•d"
+DiskId1                 = "Intel(R) WiMAX Link ≠pº∆æπ¶w∏À∫œ∫–"
+bpenum.DeviceDesc       = "Intel(R) Centrino(R) WiMAX ≠pº∆æπ"
+bpenum.SVCDESC          = "Intel(R) Centrino(R) WiMAX ≠pº∆æπ"
+
+[Strings.0C0A] ; Spanish (Spain)
+SPSVCINST_ASSOCSERVICE  = 0x00000002
+INTL                    = "Intel Corporation"
+MfgName                 = "Intel Corporation"
+ClassName               = "Adaptadores Intel(R) Centrino(R) WiMAX"
+DiskId1                 = "Disco de instalaciÛn del enumerador de Intel(R) Centrino(R) WiMAX"
+bpenum.DeviceDesc       = "Enumerador Intel(R) Centrino(R) WiMAX"
+bpenum.SVCDESC          = "Enumerador Intel(R) Centrino(R) WiMAX"
+
+[Strings.040C] ; French (France)
+SPSVCINST_ASSOCSERVICE  = 0x00000002
+INTL                    = "Intel Corporation"
+MfgName                 = "Intel Corporation"
+ClassName               = "Cartes rÈseau Intel(R) Centrino(R) WiMAX"
+DiskId1                 = "Disque d'installation de l'ÈnumÈrateur Intel(R) Centrino(R) WiMAX"
+bpenum.DeviceDesc       = "…numÈrateur Intel(R) Centrino(R) WiMAX"
+bpenum.SVCDESC          = "…numÈrateur Intel(R) Centrino(R) WiMAX"
+
+[Strings.0410] ; Italian (Italy)
+SPSVCINST_ASSOCSERVICE  = 0x00000002
+INTL                    = "Intel Corporation"
+MfgName                 = "Intel Corporation"
+ClassName               = "Schede di rete Intel(R) Centrino(R) WiMAX"
+DiskId1                 = "Disco di installazione dell'enumeratore per Intel(R) Centrino(R) WiMAX"
+bpenum.DeviceDesc       = "Enumeratore per Intel(R) Centrino(R) WiMAX "
+bpenum.SVCDESC          = "Enumeratore per Intel(R) Centrino(R) WiMAX "
+
+[Strings.0411] ; Japanese (Japan)
+SPSVCINST_ASSOCSERVICE  = 0x00000002
+INTL                    = "Intel Corporation"
+MfgName                 = "Intel Corporation"
+ClassName               = "Intel(R) Centrino(R) WiMAX ÉAÉ_ÉvÉ^"
+DiskId1                 = "Intel(R) Centrino(R) WiMAX Enumerator ÉCÉìÉXÉgÅ[Éã ÉfÉBÉXÉN"
+bpenum.DeviceDesc       = "Intel(R) Centrino(R) WiMAX Enumerator"
+bpenum.SVCDESC          = "Intel(R) Centrino(R) WiMAX Enumerator"
+
+[Strings.0412] ; Korean (Korea)
+SPSVCINST_ASSOCSERVICE  = 0x00000002
+INTL                    = "Intel Corporation"
+MfgName                 = "Intel Corporation"
+ClassName               = "Intel(R) Centrino(R) WiMAX æÓ¥≈Õ"
+DiskId1                 = "Intel(R) Centrino(R) WiMAX ø≠∞≈¿⁄ º≥ƒ° µΩ∫≈©"
+bpenum.DeviceDesc       = "Intel(R) Centrino(R) WiMAX ø≠∞≈¿⁄"
+bpenum.SVCDESC          = "Intel(R) Centrino(R) WiMAX ø≠∞≈¿⁄"
+
+[Strings.0413] ; Dutch (Netherlands)
+SPSVCINST_ASSOCSERVICE  = 0x00000002
+INTL                    = "Intel Corporation"
+MfgName                 = "Intel Corporation"
+ClassName               = "Intel(R) Centrino(R) WiMAX-adapters"
+DiskId1                 = "Installatieschijf van Intel(R) Centrino(R) WiMAX Enumerator"
+bpenum.DeviceDesc       = "Intel(R) Centrino(R) WiMAX Enumerator"
+bpenum.SVCDESC          = "Intel(R) Centrino(R) WiMAX Enumerator"
+
+[Strings.0419] ; Russian (Russia)
+SPSVCINST_ASSOCSERVICE  = 0x00000002
+INTL                    = "Intel Corporation"
+MfgName                 = "Intel Corporation"
+ClassName               = "¿‰‡ÔÚÂ˚ Intel(R) Centrino(R) WiMAX"
+DiskId1                 = "”ÒÚ‡ÌÓ‚Ó˜Ì˚È ‰ËÒÍ Intel(R) Centrino(R) WiMAX Enumerator"
+bpenum.DeviceDesc       = "Intel(R) Centrino(R) WiMAX Enumerator"
+bpenum.SVCDESC          = "Intel(R) Centrino(R) WiMAX Enumerator"
+
+[Strings.0C04] ; Chinese (Hong Kong)
+SPSVCINST_ASSOCSERVICE  = 0x00000002
+INTL                    = "Intel Corporation"
+MfgName                 = "Intel Corporation"
+ClassName               = "Intel(R) Centrino(R) WiMAX §∂≠±•d"
+DiskId1                 = "Intel(R) WiMAX Link ≠pº∆æπ¶w∏À∫œ∫–"
+bpenum.DeviceDesc       = "Intel(R) Centrino(R) WiMAX ≠pº∆æπ"
+bpenum.SVCDESC          = "Intel(R) Centrino(R) WiMAX ≠pº∆æπ"

@@ -1,0 +1,68 @@
+; INF file for installing an upper filter device driver for 
+; Qualcomm USB composite device
+; Copyright (c) 2010 Qualcomm Inc.  All rights reserved.
+
+[Version]
+Signature   = "$WINDOWS NT$"
+Class       = USB
+Provider    = %QUALCOMM%
+ClassGUID   = {36FC9E60-C465-11CF-8056-444553540000}
+DriverVer   = 10/05/2009,1.0.0.0
+CatalogFile = qcfilterlno2k.cat
+
+[Manufacturer]
+%MFG% = QualcommFilter2k, NTamd64
+
+[ControlFlags]
+ExcludeFromSelect = *
+
+[SourceDisksNames]
+1000 = %QcomSrcDisk%,"",,
+
+[SourceDisksFiles]
+qcfilterlno2k.sys  = 1000
+
+[QualcommFilter2k]
+%qcfilterlno2k.DeviceDesc9205% = qcfilterlno2k,USB\VID_05C6&PID_9205
+%qcfilterlno2k.DeviceDesc9285% = qcfilterlno2k,USB\VID_05C6&PID_9285
+
+[QualcommFilter2k.NTamd64]
+%qcfilterlno2k.DeviceDesc9205% = qcfilterlno2k,USB\VID_05C6&PID_9205
+%qcfilterlno2k.DeviceDesc9285% = qcfilterlno2k,USB\VID_05C6&PID_9285
+
+[qcfilterlno2k]  
+Include    = USB.inf
+Needs      = Composite.Dev.NT
+CopyFiles  = qcfilterlno2k.Copy
+
+[qcfilterlno2k.Copy]
+qcfilterlno2k.sys
+
+[DestinationDirs]
+qcfilterlno2k.Copy = 12
+
+[qcfilterlno2k.HW]
+AddReg = UpperFilterAddReg
+
+[UpperFilterAddReg]
+HKR,,"UpperFilters",0x00010000,"qcfilterlno2k"
+
+[qcfilterlno2k.Services]
+Include    = USB.inf
+Needs      = Composite.Dev.NT.Services
+AddService = qcfilterlno2k,, filter_Service_Inst 
+
+[filter_Service_Inst]
+DisplayName    = %filter2k.SvcDesc%                            
+ServiceType    = 1                  ; SERVICE_KERNEL_DRIVER
+StartType      = 3                  ; SERVICE_DEMAND_START
+ErrorControl   = 1                  ; SERVICE_ERROR_NORMAL
+ServiceBinary  = %12%\qcfilterlno2k.sys                            
+
+[Strings]
+MFG                          = "Qualcomm Incorporated"
+QUALCOMM                     = "Qualcomm Incorporated"
+QcomSrcDisk                  = "Qualcomm USB Driver Disk"
+QCFilterlno2k.DeviceDesc9205 = "Qualcomm Gobi 2000 USB Composite Device 9205"
+QCFilterlno2k.DeviceDesc9285 = "Qualcomm Gobi 2000 USB Composite Device 9285"
+filter2k.SvcDesc             = "Gobi 2000 USB Composite Device Filter Driver(05C6-9205)"

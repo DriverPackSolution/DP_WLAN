@@ -1,0 +1,325 @@
+;***********************************************************************
+;
+; MN510.INF
+;
+;   This installation script supports Windows XP only for the
+;   Microsoft Broadband Networking Wireless Networking Adapters.
+;
+;   Copyright(c) 2003 Microsoft(R) Corporation
+;   All Rights Reserved.
+;
+;***********************************************************************
+
+[Version]
+ DriverVer = 05/20/2003, 3.0.4.205
+ Signature           = "$Windows NT$"
+ Compatible          = 1
+ Class               = Net
+ ClassGUID           = {4d36e972-e325-11ce-bfc1-08002be10318}
+ Provider            = %VER_VENDOR_STR%
+ CatalogFile         = MN510.cat
+
+[ControlFlags]
+;Exclude all PNP adapters from user selection
+ ExcludeFromSelect   = USB\VID_045E&PID_006E
+
+[Manufacturer]
+ %VER_VENDOR_NAME_STR% = DeviceList,NTx86.5.1
+
+[DeviceList.NTx86.5.1]
+ %PRISM_USB1_STR%    = PRISM_USB_XP1,    USB\VID_045E&PID_006E
+
+;==========================================
+[PRISM_USB_XP1]         ; WinXP
+ AddReg         = PRISM_USB_XP1.reg, COMMON_USB_XP1.reg, COMMON.reg, COMMON_NDIS.reg.XP
+ CopyFiles      = PRISM_DRIVER.copy.XP
+ BusType        = 15     ; USB
+ Characteristics= 0x84  ; NCF_PHYSICAL | NCF_HAS_UI
+
+[PRISM_USB_XP1.Services]
+ AddService     = "MSW_USB", 2, PRISM_USB_DRIVER_XP1.Service, PRISM_DRIVER.EventLog
+
+[PRISM_USB_XP1.reg]
+ HKR,Ndi        ,DeviceID,0,"USB\VID_045E&PID_006E"
+ HKR,,PlatformId,0,"0"
+ HKR,,VendorDesc,0,%PRISM_USB1_STR%
+ HKR,,LoadFirmware,0,1
+
+;###############################################################################
+
+[PRISM_USB_DRIVER_XP1.Service]
+ DisplayName    = %PRISM_USB_SERVICE_DISPLAY%
+ ServiceType    = 1    ; SERVICE_KERNEL_DRIVER
+ StartType      = 3    ; SERVICE_DEMAND_START
+ ErrorControl   = 1    ; NORMAL
+ ServiceBinary  = %12%\MN510-51.sys
+ LoadOrderGroup = NDIS
+
+[PRISM_DRIVER.EventLog]
+ AddReg         = PRISM_DRIVER.EventLog.reg
+
+[PRISM_DRIVER.EventLog.reg]
+ HKR,           ,EventMessageFile       ,0x00020000     ,"%%SystemRoot%%\System32\netevent.dll"
+ HKR,           ,TypesSupported         ,0x00010001     ,7
+
+;###############################################################################
+[COMMON_USB_XP1.reg]
+ HKR,NDI                ,Service                ,0      ,"MSW_USB"
+ HKR,NDI                ,CardType               ,0      ,"USB"
+ HKR,                   ,BusType                ,0      ,"0"
+ HKR,                   ,DeviceVxDs             ,0      ,"MN510-51.sys"
+
+[COMMON_NDIS.reg.XP]
+ HKR,NDI\Interfaces     ,UpperRange             ,0      ,"ndis5"
+ HKR,NDI\Interfaces     ,LowerRange             ,0      ,"ethernet"
+
+ HKR,defaults,PSMode,0,1
+ HKR,Ndi\params\PSMode,default,0,1
+ HKR,NDI\params\PSMode,ParamDesc,,%POWER_SAVE_STR%
+ HKR,NDI\params\PSMode,type,,enum
+ HKR,NDI\params\PSMode,flag,1,30,00,00,00
+ HKR,NDI\params\PSMode\enum,1,,"Disable"
+ HKR,NDI\params\PSMode\enum,2,,"Always Enable"
+ HKR,NDI\params\PSMode\enum,3,,"Auto Enable"
+
+[COMMON.reg]
+ HKR,                   ,MSWIOC                 ,0      ,"1"
+ HKR,                   ,SilentInstall          ,0      ,"1"
+ HKR,                   ,APDensity              ,0      ,"1"
+ HKR,                   ,ListenInterval         ,0      ,"3"
+ HKR,                   ,Encapsulation          ,0      ,"1"
+;HKR,                   ,WepReq                 ,0      ,"0"
+ HKR,                   ,Esarhpssap             ,0      ,""
+
+; Listen Interval
+ HKR,defaults,ListenInterval,0,3
+ HKR,NDI\params\ListenInterval,,0,3
+ HKR,Ndi\params\ListenInterval,default,0,3
+ HKR,NDI\params\ListenInterval,ParamDesc,,%LISTENINTERVAL_STR%
+ HKR,NDI\params\ListenInterval,type,,int
+ HKR,NDI\params\ListenInterval,flag,1,30,00,00,00
+ HKR,NDI\params\ListenInterval,min,0,0
+ HKR,NDI\params\ListenInterval,max,0,77
+ HKR,NDI\params\ListenInterval,step,0,1
+ HKR,NDI\params\ListenInterval,optional,0,1
+
+; RTS Threshold
+ HKR,defaults,RTSThresh,0,2432
+ HKR,Ndi\params\RTSThresh,default,0,2432
+ HKR,NDI\params\RTSThresh,ParamDesc,0,%RTSTHRESH_STR%
+ HKR,NDI\params\RTSThresh,type,0,int
+ HKR,NDI\params\RTSThresh,flag,1,20,00,00,00
+ HKR,NDI\params\RTSThresh,min,0,0
+ HKR,NDI\params\RTSThresh,max,0,2432
+ HKR,NDI\params\RTSThresh,step,0,64
+
+; Fragment Threshold
+ HKR,defaults,FragThresh,0,2432
+ HKR,Ndi\params\FragThresh,default,0,2432
+ HKR,NDI\params\FragThresh,ParamDesc,0,%FRAGTHRESH_STR%
+ HKR,NDI\params\FragThresh,type,0,int
+ HKR,NDI\params\FragThresh,flag,1,20,00,00,00
+ HKR,NDI\params\FragThresh,min,0,256
+ HKR,NDI\params\FragThresh,max,0,2432
+ HKR,NDI\params\FragThresh,step,0,128
+
+; Preamble Mode
+ HKR,defaults,PreambleMode,0,1
+ HKR,Ndi\params\PreambleMode,default,0,1
+ HKR,NDI\params\PreambleMode,ParamDesc,,%SHORT_PREAM_STR%
+ HKR,NDI\params\PreambleMode,type,,enum
+ HKR,NDI\params\PreambleMode,flag,1,30,00,00,00
+ HKR,NDI\params\PreambleMode\enum,1,,"Long Tx Preamble"
+ HKR,NDI\params\PreambleMode\enum,2,,"Short Tx Preamble"
+ HKR,NDI\params\PreambleMode\enum,3,,"Auto Tx Preamble"
+
+; Channel
+ HKR,defaults,DSChannel,0,6
+ HKR,NDI\params\DSChannel,default,0,6
+ HKR,NDI\params\DSChannel,ParamDesc,0,%DSCHANNEL_STR%
+ HKR,NDI\params\DSChannel,type,0,"enum"
+ HKR,NDI\params\DSChannel\enum,1,0,"1"
+ HKR,NDI\params\DSChannel\enum,2,0,"2"
+ HKR,NDI\params\DSChannel\enum,3,0,"3"
+ HKR,NDI\params\DSChannel\enum,4,0,"4"
+ HKR,NDI\params\DSChannel\enum,5,0,"5"
+ HKR,NDI\params\DSChannel\enum,6,0,"6"
+ HKR,NDI\params\DSChannel\enum,7,0,"7"
+ HKR,NDI\params\DSChannel\enum,8,0,"8"
+ HKR,NDI\params\DSChannel\enum,9,0,"9"
+ HKR,NDI\params\DSChannel\enum,10,0,"10"
+ HKR,NDI\params\DSChannel\enum,11,0,"11"
+
+; Network Type
+ HKR,defaults,NetworkType,0,1
+ HKR,NDI\params\NetworkType,default,0,1
+ HKR,NDI\params\NetworkType,ParamDesc,0,%NETWORKTYPE_STR%
+ HKR,NDI\params\NetworkType,type,0,"enum"
+ HKR,NDI\params\NetworkType\enum,0,0,%NETWORKTYPE_P0_STR%
+ HKR,NDI\params\NetworkType\enum,1,0,%NETWORKTYPE_P1_STR%
+
+; SSID
+ HKR,defaults,SSID,0,%DEFAULT_SSID_STR%
+ HKR,NDI\params\SSID,default,0,%DEFAULT_SSID_STR%
+ HKR,NDI\params\SSID,ParamDesc,0,%SSID_STR%
+ HKR,NDI\params\SSID,type,0,"edit"
+ HKR,NDI\params\SSID,limitText,0,"32"
+ HKR,NDI\params\SSID,flag,1,"30","00","00","00"
+
+; Transmit Rate
+ HKR,defaults,TxRate,0,15
+ HKR,NDI\params\TxRate,default,0,15
+ HKR,NDI\params\TxRate,ParamDesc,0,%TXRATE_STR%
+ HKR,NDI\params\TxRate,type,0,"enum"
+ HKR,NDI\params\TxRate\enum,3,0,%TXRATE_P3_STR%
+ HKR,NDI\params\TxRate\enum,4,0,%TXRATE_P4_STR%
+ HKR,NDI\params\TxRate\enum,8,0,%TXRATE_P8_STR%
+ HKR,NDI\params\TxRate\enum,15,0,%TXRATE_P15_STR%
+
+; DecryptInDriver
+ HKR,defaults,DecryptInDriver,0,1
+ HKR, ,DecryptInDriver,    0, "1"   ;1:Enable 0:Disable
+
+; EncryptInDriver
+ HKR,defaults,EncryptInDriver,0,1
+ HKR, ,EncryptInDriver,    0, "1"   ;1:Enable 0:Disable
+
+; WEPFactor for WEPIVReuse
+ HKR,defaults,WEPFactor,0,0
+ HKR, ,WEPFactor,    0, "0"   ;Range:0~3
+
+; WPA
+ HKR,defaults,AuthentAlg,,%AUTHENT_TYPE_DEF_STR%
+ HKR,NDI\params\AuthentAlg,ParamDesc,,%AUTHENT_TYPE_STR%
+ HKR,NDI\params\AuthentAlg,type,,enum
+ HKR,NDI\params\AuthentAlg,default,,%AUTHENT_TYPE_DEF_STR%
+ HKR,NDI\params\AuthentAlg,flag,1,30,00,00,00
+ HKR,NDI\params\AuthentAlg\enum,1,,"WECA Compliant (always use Open)"
+ HKR,NDI\params\AuthentAlg\enum,2,,"Must use Shared with WEP"
+ HKR,NDI\params\AuthentAlg\enum,65535,,"Automatic based on WEP setting"
+
+; Enable Radio
+ HKR,defaults,EnableRadio,0,1
+ HKR,NDI\params\EnableRadio,,0,1
+ HKR,NDI\params\EnableRadio,default,0,1
+ HKR,NDI\params\EnableRadio,ParamDesc,0,%ENABLERADIO_STR%
+ HKR,NDI\params\EnableRadio,type,0,"enum"
+ HKR,NDI\params\EnableRadio\enum,0,0,%ENABLERADIO_P0_STR%
+ HKR,NDI\params\EnableRadio\enum,1,0,%ENABLERADIO_P1_STR%
+
+; AdhocDemoMode
+ HKR,defaults,AdhocDemoMode,0,0
+ HKR,NDI\params\AdhocDemoMode,,0,0
+ HKR,Ndi\params\AdhocDemoMode,default,0,0
+ HKR,NDI\params\AdhocDemoMode,ParamDesc,,%ADHOC_DEMO_STR%
+ HKR,NDI\params\AdhocDemoMode,type,,enum
+ HKR,NDI\params\AdhocDemoMode,flag,1,30,00,00,00
+ HKR,NDI\params\AdhocDemoMode\enum,0,,"Disable"
+ HKR,NDI\params\AdhocDemoMode\enum,1,,"Enable"
+ HKR,NDI\params\AdhocDemoMode,optional,0,1
+
+; Load Firmware
+ HKR,defaults,LoadFirmware,0,1
+ HKR,NDI\params\LoadFirmware,,0,1
+ HKR,Ndi\params\LoadFirmware,default,0,1
+ HKR,NDI\params\LoadFirmware,ParamDesc,,%LOAD_FIRMWARE_STR%
+ HKR,NDI\params\LoadFirmware,type,,enum
+ HKR,NDI\params\LoadFirmware,flag,1,30,00,00,00
+ HKR,NDI\params\LoadFirmware\enum,0,,"Disable"
+ HKR,NDI\params\LoadFirmware\enum,1,,"Enable"
+ HKR,NDI\params\LoadFirmware,optional,0,1
+
+; Passive Scan Dwell Time
+ HKR,defaults,PDwellTime,0,120
+ HKR,NDI\params\PDwellTime,,0,120
+ HKR,Ndi\params\PDwellTime,default,0,120
+ HKR,NDI\params\PDwellTime,ParamDesc,0,%PDWELL_STR%
+ HKR,NDI\params\PDwellTime,type,0,int
+ HKR,NDI\params\PDwellTime,flag,1,20,00,00,00
+ HKR,NDI\params\PDwellTime,min,0,0
+ HKR,NDI\params\PDwellTime,max,0,1000
+ HKR,NDI\params\PDwellTime,step,0,10
+ HKR,NDI\params\PDwellTime,optional,0,1
+
+; 802.11D Control
+ HKR,defaults,11dMode,0,0
+ HKR,NDI\params\11dMode,,0,0
+ HKR,Ndi\params\11dMode,default,0,0
+ HKR,NDI\params\11dMode,ParamDesc,,%MDC_CONTROL_STR%
+ HKR,NDI\params\11dMode,type,,enum
+ HKR,NDI\params\11dMode,flag,1,30,00,00,00
+ HKR,NDI\params\11dMode\enum,0,,"None"
+ HKR,NDI\params\11dMode\enum,1,,"Strict"
+ HKR,NDI\params\11dMode\enum,2,,"Flexible"
+ HKR,NDI\params\11dMode,optional,0,1
+
+; IBSSInDriver
+ HKR,defaults,IBSSInDriver,0,0
+ HKR, ,IBSSInDriver,    0, "0"     ;1:Enable 0:Disable
+
+; BeaconPeriod
+ HKR,defaults,BeaconPeriod,0,100
+ HKR, ,BeaconPeriod,    0, "100"   ;Range:100~1000
+
+; BasicRates
+ HKR,defaults,BasicRates,0,15
+ HKR, ,BasicRates,    0, "15"     ;bit0:1Mbps, bit1:2Mbps, bit2:5.5Mbps bit3:11Mbps
+
+
+;###############################################################################
+[DestinationDirs]
+;CopyFiles Section      = Destination Directory ID -- see layout.inf
+;-----------------        ------------------------
+ DefaultDestDir         = 11 ; Win9x=%windir%\system Win2k=%windir%\system32 WinXP=%windir%\system32
+ PRISM_DRIVER.copy.XP   = 12 ; WinXP=%windir%\system32\drivers
+
+[PRISM_DRIVER.copy.XP]
+ MN510-51.sys,MN510-51.sys,,
+
+[SourceDisksNames]
+;Source Disk ID         = Disk Name
+;--------------           ---------
+ 1                      = %INSTALL_DISK_STR%,,,
+
+[SourceDisksFiles]
+;File Name              = Source Disk ID
+;---------                --------------
+ MN510-51.sys         = 1
+
+;###############################################################################
+[Strings]
+;String ID              = String Text
+;---------                -----------
+ VER_VENDOR_STR         = "Microsoft(R)"
+ VER_VENDOR_NAME_STR    = "Microsoft(R) Corporation"
+
+ PRISM_USB1_STR         = "Microsoft Broadband Networking Wireless USB Adapter"
+
+ PRISM_USB_SERVICE_DISPLAY  = "Microsoft Broadband Networking Wireless USB Driver"
+ INSTALL_DISK_STR       = "Microsoft Broadband Networking Install Disk"
+
+ SHORT_PREAM_STR        = "Preamble Mode"
+ RTSTHRESH_STR          = "RTS Threshold"
+ FRAGTHRESH_STR         = "Fragmentation Threshold"
+ POWER_SAVE_STR         = "Power Save Mode"
+ DSCHANNEL_STR          = "Channel"
+ NETWORKTYPE_STR        = "Network Type"
+ NETWORKTYPE_P0_STR     = "Peer to Peer"
+ NETWORKTYPE_P1_STR     = "Access Point"
+ SSID_STR               = "SSID"
+ DEFAULT_SSID_STR       = "MSHOME"
+ TXRATE_STR             = "Transmit Rate"
+ TXRATE_P3_STR          = "Auto 1 or 2 Mb"
+ TXRATE_P4_STR          = "5.5 Mb"
+ TXRATE_P8_STR          = "11 Mb"
+ TXRATE_P15_STR         = "Fully Automatic"
+ ENABLERADIO_STR        = "Enable Radio"
+ ENABLERADIO_P0_STR     = "Radio Off"
+ ENABLERADIO_P1_STR     = "Radio On"
+ AUTHENT_TYPE_DEF_STR   = "65535"
+ AUTHENT_TYPE_STR       = "Authentication Algorithm"
+ LISTENINTERVAL_STR     = "Listen Interval"
+ ADHOC_DEMO_STR         = "Adhoc Demo Mode"
+ LOAD_FIRMWARE_STR      = "Firmware Download"
+ PDWELL_STR             = "Passive Scan Dwell Time"
+ MDC_CONTROL_STR        = "802.11D Control"

@@ -1,0 +1,229 @@
+;-------------------------------------------------------------------------------
+; ar6knwf.INF
+;
+; Copyright 2012 Qualcomm Atheros Communications, Inc. AR6K NWF WLAN driver
+;
+
+[version]
+CatalogFile = "ar6knwf.cat"
+Signature   = "$Windows NT$"
+Class       = Net
+ClassGUID   = {4d36e972-e325-11ce-bfc1-08002be10318}
+Provider    = %Atheros%
+DriverVer   = 12/27/2012,3.7.0.185
+
+[Manufacturer]
+%Atheros% = Atheros,NTx86
+
+; For Vista and later
+[Atheros.NTx86]
+; DisplayName               Section                 DeviceID
+; -----------               -------                 --------
+%ar6k4nwf.DeviceDesc.0001%   = ar6k4nwf.ndi, SD\vid_0271&pid_0400
+%ar6k4nwf.DeviceDesc.0002%   = ar6k4nwf.ndi, SD\vid_0271&pid_0401 ;HPQ CUS216
+
+;-------------------------------------------------------------------------------
+; Atheros AR6004 WLAN Adapter
+;
+[ar6k4nwf.ndi.NTx86]
+Include            = netvwifibus.inf
+Needs              = VWiFiBus.CopyFiles
+*IfType            = 71     ; IF_TYPE_IEEE80211 
+*MediaType         = 16     ; NdisMediumNative802_11
+*PhysicalMediaType = 9      ; NdisPhysicalMediumNative802_11
+Characteristics    = 0x84   ; NCF_PHYSICAL | NCF_HAS_UI
+BusType            = 1      ; ISABus
+AddReg             = ar6knwf.reg, custom.reg, general.reg, sdio.reg, ht40.reg, btcoex.reg, sdbus.reg
+CopyFiles          = ar6k4nwf.CopyFiles
+
+[ar6k4nwf.ndi.NTx86.Services]
+Include         = netvwifibus.inf
+Needs           = VWiFiBus.CopyFiles
+AddService      = ar6knwf, 2, ar6k4nwf.Service, ar6k4nwf.EventLog
+
+[ar6k4nwf.ndi.NTx86.HW]
+Include = netvwifibus.inf
+Needs   = VWiFiBus.PnPFilterRegistration
+AddReg  = vwifi.reg
+
+[ar6knwf.reg]
+HKR, Ndi,                               Service,                    0, "ar6knwf"
+HKR, Ndi\Interfaces,                    UpperRange,                 0, "ndis5"
+HKR, Ndi\Interfaces,                    LowerRange,                 0, "wlan,ethernet,vwifi"
+
+[vwifi.reg]
+HKR,,"UpperFilters",0x00010000,"vwifibus"
+
+[custom.reg]
+HKR, Ndi\params\fgScanEnable,           ParamDesc,                  0, "%fgScanEnable%"
+HKR, Ndi\params\fgScanEnable,           Base,                       0, "10"
+HKR, Ndi\params\fgScanEnable,           default,                    0, "1"
+HKR, Ndi\params\fgScanEnable,           type,                       0, "enum"
+HKR, Ndi\params\fgScanEnable\enum,      "1",                        0, %Enable%
+HKR, Ndi\params\fgScanEnable\enum,      "0",                        0, %Disable%
+
+HKR, Ndi\params\bkScanEnable,           ParamDesc,                  0, "%bkScanEnable%"
+HKR, Ndi\params\bkScanEnable,           Base,                       0, "10"
+HKR, Ndi\params\bkScanEnable,           default,                    0, "1"
+HKR, Ndi\params\bkScanEnable,           type,                       0, "enum"
+HKR, Ndi\params\bkScanEnable\enum,      "1",                        0, %Enable%
+HKR, Ndi\params\bkScanEnable\enum,      "0",                        0, %Disable%
+
+HKR, Ndi\params\NetworkAddress,         ParamDesc,                  0, "%NetworkAddress%"
+HKR, Ndi\params\NetworkAddress,         default,                    0, ""
+HKR, Ndi\params\NetworkAddress,         LimitText,                  0, "12"
+HKR, Ndi\params\NetworkAddress,         UpperCase,                  0, "1"
+HKR, Ndi\params\NetworkAddress,         optional,                   0, "1"
+HKR, Ndi\params\NetworkAddress,         type,                       0, "edit"
+
+HKR, Ndi\params\powerSaveMode,          ParamDesc,                  0, "%powerSaveMode%"
+HKR, Ndi\params\powerSaveMode,          Base,                       0, "10"
+HKR, Ndi\params\powerSaveMode,          default,                    0, "0"
+HKR, Ndi\params\powerSaveMode,          type,                       0, "enum"
+HKR, Ndi\params\powerSaveMode\enum,     "0",                        0, %DEFAULT%
+HKR, Ndi\params\powerSaveMode\enum,     "1",                        0, %MAX_PERF%
+HKR, Ndi\params\powerSaveMode\enum,     "2",                        0, %POWER_SAVE%
+
+HKR, Ndi\params\rfkillEnable,           ParamDesc,                  0, "%rfkillEnable%"
+HKR, Ndi\params\rfkillEnable,           Base,                       0, "10"
+HKR, Ndi\params\rfkillEnable,           default,                    0, "0"
+HKR, Ndi\params\rfkillEnable,           type,                       0, "enum"
+HKR, Ndi\params\rfkillEnable\enum,      "0",                        0, %Disable%
+HKR, Ndi\params\rfkillEnable\enum,      "1",                        0, %Enable%
+
+HKR, Ndi\params\sdioclock,              ParamDesc,                  0, "%SD_CLK%"
+HKR, Ndi\params\sdioclock,              Base,                       0, "10"
+HKR, Ndi\params\sdioclock,    	        default,                    0, "50000"
+HKR, Ndi\params\sdioclock,              type,                       0, "enum"
+HKR, Ndi\params\sdioclock\enum,         "50000",                    0, %50MHZ%
+HKR, Ndi\params\sdioclock\enum,         "25000",                    0, %25MHZ%
+
+HKR, Ndi\params\sdiowidth,              ParamDesc,                  0, "%SD_WIDTH%"
+HKR, Ndi\params\sdiowidth,              Base,                       0, "10"
+HKR, Ndi\params\sdiowidth,              default,                    0, "4"
+HKR, Ndi\params\sdiowidth,              type,                       0, "enum"
+HKR, Ndi\params\sdiowidth\enum,         "4",                        0, %4BIT_WIDTH%
+HKR, Ndi\params\sdiowidth\enum,         "1",                        0, %1BIT_WIDTH%
+
+HKR, Ndi\params\regScanMode,            ParamDesc,                  0, "%802_11D%"
+HKR, Ndi\params\regScanMode,            Base,                       0, "10"
+HKR, Ndi\params\regScanMode,            default,                    0, "2"
+HKR, Ndi\params\regScanMode,            type,                       0, "enum"
+HKR, Ndi\params\regScanMode\enum,       "2",                        0, %Enable%
+HKR, Ndi\params\regScanMode\enum,       "1",                        0, %Disable%
+
+;Packet Coalescing (standardized keyword)
+HKR, ,                                         	   *PacketCoalescing,        0, "1"
+HKR, Ndi\params\*PacketCoalescing,                 ParamDesc,                0, %D0PCDesc%
+HKR, Ndi\params\*PacketCoalescing,                 default,                  0, "1"
+HKR, Ndi\params\*PacketCoalescing,                 type,                     0, "enum"
+HKR, Ndi\params\*PacketCoalescing\enum,            "0",                      0, "Disabled"
+HKR, Ndi\params\*PacketCoalescing\enum,            "1",                      0, "Enabled"
+
+; Wake on pattern match (standardized keyword)
+HKR, ,                                          *WakeOnPattern,           0, "1"
+HKR, Ndi\params\*WakeOnPattern,                 ParamDesc,                0, %WOPDesc%
+HKR, Ndi\params\*WakeOnPattern,                 default,                  0, "1"
+HKR, Ndi\params\*WakeOnPattern,                 type,                     0, "enum"
+HKR, Ndi\params\*WakeOnPattern\enum,            "0",                      0, "Disabled"
+HKR, Ndi\params\*WakeOnPattern\enum,            "1",                      0, "Enabled"
+
+; Wake on Magic Packet (standardized keyword)
+HKR, ,                                          *WakeOnMagicPacket,       0, "1"
+HKR, Ndi\params\*WakeOnMagicPacket,             ParamDesc,                0, %WOMDesc%
+HKR, Ndi\params\*WakeOnMagicPacket,             default,                  0, "1"
+HKR, Ndi\params\*WakeOnMagicPacket,             type,                     0, "enum"
+HKR, Ndi\params\*WakeOnMagicPacket\enum,        "0",                      0, "Disabled"
+HKR, Ndi\params\*WakeOnMagicPacket\enum,        "1",                      0, "Enabled"
+
+[general.reg]
+HKR, , bIsEmbeddedFW,        0x00010001,  0
+HKR, , largerTxbufEnable,    0x00010001,  1
+HKR, , actDwellTime,         0x00010001,  0
+
+[ht40.reg]
+HKR, , htCap_MaxAMPDU_EXP,   0x00010001,  1
+
+[btcoex.reg]
+HKR, , BtCoexEnable,         0x00010001,  1
+HKR, , BtCoexAntConfig,      0x00010001,  5
+HKR, , BtDeviceType,         0x00010001,  3
+HKR, , IsDualAntenna,        0x00010001,  0
+HKR, , IsAthrBT,             0x00010001,  0
+
+[sdio.reg]
+HKR, , sdioclock,            0x00010001,  50000
+HKR, , sdiowidth,            0x00010001,  4
+
+[sdbus.reg]
+HKLM,SYSTEM\CurrentControlSet\Services\sdbus\Parameters, EnablePollCmdResponse, 0x00010001,  0
+HKLM,SYSTEM\CurrentControlSet\Services\sdbus\Parameters, CommandTimeout, 0x00010001,  5000
+HKLM,SYSTEM\CurrentControlSet\Services\sdbus\Parameters, TransferTimeout, 0x00010001,  5000
+
+[DestinationDirs]
+ar6k4nwf.CopyFiles = 12
+
+[ar6k4nwf.CopyFiles]
+ar6knwf.sys,,,2
+ar6004v1_1fw.bin,,,2
+athwlan_ext.bin,,,2
+fakeBoardData.bin,,,2
+
+[ar6k4nwf.Service]
+DisplayName     = %ar6k4nwf.Service.DispName%
+ServiceType     = 1 ;%SERVICE_KERNEL_DRIVER%
+StartType       = 3 ;%SERVICE_DEMAND_START%
+ErrorControl    = 1 ;%SERVICE_ERROR_NORMAL%
+ServiceBinary   = %12%\ar6knwf.sys
+LoadOrderGroup  = NDIS
+
+[ar6k4nwf.EventLog]
+AddReg = ar6knwf.AddEventLog.Reg
+
+[ar6knwf.AddEventLog.Reg]
+HKR, , EventMessageFile, 0x00020000, "%%SystemRoot%%\System32\netevent.dll"
+HKR, , TypesSupported,   0x00010001, 7
+
+[SourceDisksNames]
+1 = %DiskId1%,,,""
+
+[SourceDisksFiles]
+ar6knwf.sys                 = 1,,
+ar6004v1_1fw.bin            = 1,,
+fakeBoardData.bin           = 1,,
+athwlan_ext.bin             = 1,,
+;-----------------------------------------------------------------------------
+; Localizable Strings
+;
+[Strings]
+Atheros                    = "Qualcomm Atheros"
+ClassName                  = "AR6KNWF"
+Enable                     = "Enable"
+Disable                    = "Disable"  
+fgScanEnable               = "Foreground Scan"
+bkScanEnable               = "Background Scan"
+powerSaveMode              = "Power Save"
+NetworkAddress             = "Network Address"
+phyMode                    = "phyMode"
+RADIO_B                    = "RADIO B"
+RADIO_BG                   = "RADIO_BG"
+DEFAULT                    = "DEFAULT"  
+SD_WIDTH                   = "SD Bus Width" 
+1BIT_WIDTH                 = "1" 
+4BIT_WIDTH                 = "4"
+SD_CLK                     = "SD Clock"
+25MHZ                      = "25Mhz"
+50MHZ                      = "50Mhz"
+MAX_PERF                   = "Maximum Performance"
+POWER_SAVE                 = "Power Save Mode"
+rfkillEnable               = "RFKill"
+DualModeEnable             = "DualModeEnable"
+D0PCDesc                   = "D0 Packet Coalescing"
+WOPDesc                    = "Wake On Pattern Match"
+WOMDesc                    = "Wake On Magic Packet"
+802_11D                    = "802.11d"
+ar6k4nwf.Service.DispName  = "Qualcomm Atheros AR6004 WLAN Adapter Service"
+DiskId1                    = "Qualcomm Atheros AR6004 WLAN Adapter Device Installation Disk #1"
+ar6k4nwf.DeviceDesc.0001   = "Qualcomm Atheros AR6004 WLAN Adapter"
+ar6k4nwf.DeviceDesc.0002   = "Qualcomm Atheros AR6004 802.11a/b/g/n WiFi Adapter"
+

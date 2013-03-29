@@ -1,0 +1,139 @@
+; swg3knm00.inf
+; Copyright (c) 2010 Qualcomm Incorporated
+; Manufacturer: Qualcomm Incorporated
+
+[Version]
+Signature   = "$Windows NT$"
+Class       = Ports
+ClassGuid   = {4D36E978-E325-11CE-BFC1-08002BE10318}
+Provider    = %SWI%
+CatalogFile = swg3kloc00.cat
+DriverVer   = 08/18/2011,11.8.1080.2
+
+; =================== Manufacturer/Models sections =======================
+
+[Manufacturer]
+%SWI% = QCOM, NTx86.6.1, NTamd64.6.1
+
+[QCOM]
+%Gobi3kLocation.SWIDevice90113% = Gobi3kLocation_Install, USB\VID_1199&PID_9011&MI_03
+%Gobi3kLocation.SWIDevice68A22% = Gobi3kLocation_Install, USB\VID_1199&PID_68A2&MI_02
+%Gobi3kLocation.SWIDevice68A53% = Gobi3kLocation_Install, USB\VID_1199&PID_68A5&MI_03
+%Gobi3kLocation.SWIDevice68A93% = Gobi3kLocation_Install, USB\VID_1199&PID_68A9&MI_03
+
+[QCOM.NTx86.6.1]
+%Gobi3kLocation.SWIDevice90113% = Gobi3kLocation_Install, USB\VID_1199&PID_9011&MI_03
+%Gobi3kLocation.SWIDevice68A22% = Gobi3kLocation_Install, USB\VID_1199&PID_68A2&MI_02
+%Gobi3kLocation.SWIDevice68A53% = Gobi3kLocation_Install, USB\VID_1199&PID_68A5&MI_03
+%Gobi3kLocation.SWIDevice68A93% = Gobi3kLocation_Install, USB\VID_1199&PID_68A9&MI_03
+
+[QCOM.NTamd64.6.1]
+%Gobi3kLocation.SWIDevice90113% = Gobi3kLocation_Install, USB\VID_1199&PID_9011&MI_03
+%Gobi3kLocation.SWIDevice68A22% = Gobi3kLocation_Install, USB\VID_1199&PID_68A2&MI_02
+%Gobi3kLocation.SWIDevice68A53% = Gobi3kLocation_Install, USB\VID_1199&PID_68A5&MI_03
+%Gobi3kLocation.SWIDevice68A93% = Gobi3kLocation_Install, USB\VID_1199&PID_68A9&MI_03
+
+; =================== Location Sensor Device ==================================
+
+[Gobi3kLocation_Install]
+CopyFiles       = UMDriverCopy
+AddReg          = All00, QCAddReg, DevFunction1  
+FeatureScore    = 0x20  
+CopyFiles       = gobiUsbDriverFiles
+
+[Gobi3kLocation_Install.hw]
+AddReg          = UpperFilterAddReg
+
+[UpperFilterAddReg]
+HKR,,"UpperFilters",0x00010000,"WUDFRd"
+
+[Gobi3kLocation_Install.Services]
+AddService      = swg3knmea00,  0x00000002, QC_USBSerialService
+AddService      = WUDFRd,,WUDFRD_ServiceInstall
+
+[Gobi3kLocation_Install.CoInstallers]
+AddReg          = WUDF_CoInstallers_AddReg
+CopyFiles       = WUDF_CoInstallers_CopyFiles
+
+[Gobi3kLocation_Install.Wdf]
+UmdfService                = Gobi3kLocation,UMDFGobi3kLocation_Install
+UmdfServiceOrder           = Gobi3kLocation
+UmdfImpersonationLevel     = Impersonation
+UmdfKernelModeClientPolicy = AllowKernelModeClients
+
+[QC_USBSerialService]
+DisplayName   = %QCUSBSER%
+ServiceType   = 1
+StartType     = 3
+ErrorControl  = 1
+ServiceBinary = %12%\swg3knmea00.sys
+
+[All00]
+HKR,,NTMPDriver,,swg3knmea00.sys
+
+[DevFunction1]
+HKR,,QCDeviceFunction,0x00010001,1
+
+[QCAddReg]
+HKR,,PortSubClass,1,01
+HKR,,EnumPropPages32,,"MsPorts.dll,SerialPortPropPageProvider"
+
+; =================== UMDF Service Install section ===================
+
+[UMDFGobi3kLocation_Install]
+UmdfLibraryVersion      = 1.9.0
+ServiceBinary           = %12%\UMDF\swg3kloc00.dll
+DriverCLSID             = {3D675F8A-8657-4918-8EF7-16C14859ECE6}
+
+[WUDFRD_ServiceInstall]
+DisplayName     = %WudfRdDisplayName%
+ServiceType     = 1
+StartType       = 3
+ErrorControl    = 1
+ServiceBinary   = %12%\WUDFRd.sys
+LoadOrderGroup  = Base
+
+[SourceDisksNames]
+1 = %MediaDescription%,,,\sys\x86
+2 = %MediaDescription%,,,\sys\amd64
+
+[SourceDisksFiles.x86]
+swg3kloc00.dll      = 1
+LocationHelper.dll      = 1
+swg3knmea00.sys      = 1
+
+[SourceDisksFiles.amd64]
+swg3kloc00.dll      = 2
+LocationHelper.dll      = 2
+swg3knmea00.sys      = 2
+
+[WUDF_CoInstallers_CopyFiles]
+
+[WUDF_CoInstallers_AddReg]
+HKR,,CoInstallers32,0x00010000,"WudfCoinstaller.dll"
+
+[DestinationDirs]
+UMDriverCopy                 = 12,UMDF
+WUDF_CoInstallers_CopyFiles  = 11
+gobiUsbDriverFiles           = 12
+
+[UMDriverCopy]
+swg3kloc00.dll
+LocationHelper.dll
+
+[gobiUsbDriverFiles]
+swg3knmea00.sys
+
+; =================== Generic ==================================
+[Strings]
+QCOM                            = "Qualcomm Incorporated"
+MediaDescription                = "Sierra Wireless Gobi 3000 Location Sensor Driver Installation Media"
+ClassName                       = "Sierra Wireless Gobi 3000 Location Sensor Driver"
+WudfRdDisplayName               = "Windows Driver Foundation - User-mode Driver Framework Reflector"
+QCUSBSER                        = "Sierra Wireless QMI NMEA Serial Communication"
+SWI                             = "Sierra Wireless Inc."
+Gobi3kLocation.SWIDevice90113   = "Sierra Wireless NMEA Port"
+Gobi3kLocation.SWIDevice68A22   = "Sierra Wireless NMEA Port"
+Gobi3kLocation.SWIDevice68A53   = "Sierra Wireless NMEA Port"
+Gobi3kLocation.SWIDevice68A93   = "Sierra Wireless NMEA Port"
+

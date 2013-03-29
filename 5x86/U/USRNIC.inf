@@ -1,0 +1,331 @@
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; U.S.Robotics MiniUSB installer file for Win9x,Me,2000&XP                ;
+;                                                                         ;
+; Copyright (c) 2002, All Rights Reserved.                                ;
+;                                                                         ;
+; USRNIC.INF								  ;	
+;									  ;
+; Version USR01_1.7.37.1                                                  ;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+[Version]
+ DriverVer = 04/24/2002, 1.7.37.1
+ Signature           = "$Chicago$"
+ Compatible          = 1
+ Class               = Net
+ ClassGUID           = {4d36e972-e325-11ce-bfc1-08002be10318}
+ Provider            = %VER_VENDOR_STR%
+ MillenniumPreferred = .ME
+
+[ControlFlags]
+;Exclude all PNP adapters from user selection
+ExcludeFromSelect   = USB\VID_0BAF&PID_00EB
+
+[Manufacturer]
+ %VER_VENDOR_NAME_STR% = DeviceList
+
+[DeviceList]
+ %USR_USB_STR%    = USR_USB,    USB\VID_0BAF&PID_00EB
+
+;==========================================
+[USR_USB]            ; Win9x
+ AddReg         = USR_USB.reg, COMMON_USB.reg, COMMON_NDIS.reg, COMMON.reg
+ CopyFiles      = USR_DRIVER.copy, USR_APPLET.copy, USR_NDI.copy
+
+[USR_USB.ME]         ; WinMe
+ AddReg         = USR_USB.reg, COMMON_USB.reg, COMMON_NDIS.reg.ME, COMMON.reg
+ CopyFiles      = USR_DRIVER.copy.ME, USR_APPLET.copy.ME, USR_NDI.copy.ME
+
+[USR_USB.ME.ME]      ; WinMe - Same as .ME (Needed for Update Driver)
+ AddReg         = USR_USB.reg, COMMON_USB.reg, COMMON_NDIS.reg.ME, COMMON.reg
+ CopyFiles      = USR_DRIVER.copy.ME, USR_APPLET.copy.ME, USR_NDI.copy.ME
+
+[USR_USB.NT]         ; Win2k
+ AddReg         = USR_USB.reg, COMMON_USB.reg, COMMON_NDIS.reg.NT, COMMON.reg
+ CopyFiles      = USR_DRIVER.copy.NT, USR_APPLET.copy.NT
+ BusType        = 0     ; USB
+ Characteristics= 0x84  ; NCF_PHYSICAL | NCF_HAS_UI
+
+[USR_USB.NT.Services]
+ AddService     = "USR_USB", 2, USR_USB_DRIVER.Service, USR_DRIVER.EventLog
+
+[USR_USB.NT.CoInstallers]
+ CopyFiles      = USR_COINSTALL.copy.NT
+ AddReg         = USR_COINSTALL.reg.NT
+
+[USR_USB.reg]
+ HKR,Ndi        ,DeviceID,0,"USB\VID_0BAF&PID_00EB"
+
+;###############################################################################
+
+[USR_COINSTALL.reg.NT]
+ HKR,           ,CoInstallers32         ,0x00010000     ,"USRCFG.cpl,NdiProc"
+
+[USR_USB_DRIVER.Service]
+ DisplayName    = %USR_USB_SERVICE_DISPLAY%
+ ServiceType    = 1    ; SERVICE_KERNEL_DRIVER
+ StartType      = 3    ; SERVICE_DEMAND_START
+ ErrorControl   = 1    ; NORMAL
+ ServiceBinary  = %12%\USRUSB.sys
+ LoadOrderGroup = NDIS
+
+[USR_DRIVER.EventLog]
+ AddReg         = USR_DRIVER.EventLog.reg
+
+[USR_DRIVER.EventLog.reg]
+ HKR,           ,EventMessageFile       ,0x00020000     ,"%%SystemRoot%%\System32\netevent.dll"
+ HKR,           ,TypesSupported         ,0x00010001     ,7
+
+;###############################################################################
+
+[COMMON_USB.reg]
+ HKR,NDI                ,Service                ,0      ,"USR_USB"
+ HKR,NDI                ,CardType               ,0      ,"USB"
+ HKR,                   ,BusType                ,0      ,"0"
+ HKR,                   ,DeviceVxDs             ,0      ,"USRUSB.sys"
+
+[COMMON_NDIS.reg]
+ HKR,                   ,RunningWin9X           ,0      ,"1"
+ HKR,                   ,DevLoader              ,0      ,"*ndis"
+ HKR,                   ,EnumPropPages          ,0      ,"netdi.dll,EnumPropPages"
+ HKR,NDI                ,NdiInstaller           ,0      ,"USRCFG.dll,NdiProc"
+ HKR,NDI\Interfaces     ,UpperRange             ,0      ,"ndis3"
+ HKR,NDI\Interfaces     ,LowerRange             ,0      ,"ethernet"
+ HKR,NDI\Interfaces     ,DefUpper               ,0      ,"ndis3"
+ HKR,NDI\Interfaces     ,DefLower               ,0      ,"ethernet"
+ HKR,NDIS               ,LogDriverName          ,0      ,"USR"
+ HKR,NDIS               ,MajorNdisVersion       ,1      ,03
+ HKR,NDIS               ,MinorNdisVersion       ,1      ,0a
+
+[COMMON_NDIS.reg.ME]
+ HKR,                   ,RunningWin9X           ,0      ,"1"
+ HKR,                   ,DevLoader              ,0      ,"*ndis"
+ HKR,                   ,EnumPropPages          ,0      ,"netdi.dll,EnumPropPages"
+ HKR,NDI                ,NdiInstaller           ,0      ,"USRCFG.dll,NdiProc"
+ HKR,NDI\Interfaces     ,UpperRange             ,0      ,"ndis3"
+ HKR,NDI\Interfaces     ,LowerRange             ,0      ,"ethernet"
+ HKR,NDI\Interfaces     ,DefUpper               ,0      ,"ndis3"
+ HKR,NDI\Interfaces     ,DefLower               ,0      ,"ethernet"
+ HKR,NDIS               ,LogDriverName          ,0      ,"USR"
+ HKR,NDIS               ,MajorNdisVersion       ,1      ,03
+ HKR,NDIS               ,MinorNdisVersion       ,1      ,0a
+
+[COMMON_NDIS.reg.NT]
+ HKR,                   ,EnumPropPages32        ,0      ,"USRCFG.cpl,NetPropPageProvider"
+ HKR,NDI\Interfaces     ,UpperRange             ,0      ,"ndis5"
+ HKR,NDI\Interfaces     ,LowerRange             ,0      ,"ethernet"
+
+[COMMON.reg]
+ HKR,                   ,USRIOC                 ,0      ,"1"
+ HKR,                   ,SilentInstall          ,0      ,"1"
+ HKR,                   ,USRIOC                 ,0      ,"1"
+ HKR,                   ,SilentInstall          ,0      ,"1"
+;Uncomment the line above to install without user interface prompts
+
+;
+; SSID
+; 
+ HKR,,SSID,,%SSID_DEF_STR%
+ HKR,defaults,SSID,,%SSID_DEF_STR%
+
+;
+; Network Type
+;
+ HKR,,NetworkType,,%NETWORK_TYPE_DEF_STR%
+ HKR,defaults,NetworkType,,%NETWORK_TYPE_DEF_STR%
+
+;
+;	Wep Required
+;
+ HKR,,WepReq,0,%WEP_REQUIRED_DEF_STR%
+ HKR,defaults,WepReq,0,%WEP_REQUIRED_DEF_STR%
+
+ HKR,,ListenInterval,0,3
+ HKR,defaults,ListenInterval,0,3
+
+ HKR,,RTSThresh,0,2432
+ HKR,defaults,RTSThresh,0,2432
+ HKR,NDI\params\RTSThresh,,0,2432
+ HKR,Ndi\params\RTSThresh,default,0,2432
+ HKR,NDI\params\RTSThresh,ParamDesc,0,%RTSTHRESH_STR%
+ HKR,NDI\params\RTSThresh,type,0,int
+ HKR,NDI\params\RTSThresh,flag,1,20,00,00,00
+ HKR,NDI\params\RTSThresh,min,0,0
+ HKR,NDI\params\RTSThresh,max,0,2432
+ HKR,NDI\params\RTSThresh,step,0,64
+ HKR,NDI\params\RTSThresh,optional,0,1
+
+ HKR,,FragThresh,0,2432
+ HKR,defaults,FragThresh,0,2432
+ HKR,NDI\params\FragThresh,,0,2432
+ HKR,Ndi\params\FragThresh,default,0,2432
+ HKR,NDI\params\FragThresh,ParamDesc,0,%FRAGTHRESH_STR%
+ HKR,NDI\params\FragThresh,type,0,int
+ HKR,NDI\params\FragThresh,flag,1,20,00,00,00
+ HKR,NDI\params\FragThresh,min,0,256
+ HKR,NDI\params\FragThresh,max,0,2432
+ HKR,NDI\params\FragThresh,step,0,128
+ HKR,NDI\params\FragThresh,optional,0,1
+
+ HKR,,PreambleMode,0,3
+ HKR,defaults,PreambleMode,0,3
+ HKR,NDI\params\PreambleMode,,0,3
+ HKR,Ndi\params\PreambleMode,default,0,3
+ HKR,NDI\params\PreambleMode,ParamDesc,,%SHORT_PREAM_STR%
+ HKR,NDI\params\PreambleMode,type,,enum
+ HKR,NDI\params\PreambleMode,flag,1,30,00,00,00
+ HKR,NDI\params\PreambleMode\enum,1,,"Long Preamble Mode"
+ HKR,NDI\params\PreambleMode\enum,2,,"Short Preamble Mode"
+ HKR,NDI\params\PreambleMode\enum,3,,"Auto Detect Mode"
+ HKR,NDI\params\PreambleMode,optional,0,1
+
+ HKR,,AuthentAlg,0,%AUTHENT_TYPE_DEF_STR%
+ HKR,defaults,AuthentAlg,0,%AUTHENT_TYPE_DEF_STR%
+ HKR,NDI\params\AuthentAlg,,0,%AUTHENT_TYPE_DEF_STR%
+ HKR,NDI\params\AuthentAlg,default,0,%AUTHENT_TYPE_DEF_STR%
+ HKR,NDI\params\AuthentAlg,ParamDesc,,%AUTHENT_TYPE_STR%
+ HKR,NDI\params\AuthentAlg,type,,enum
+ HKR,NDI\params\AuthentAlg,flag,1,30,00,00,00
+ HKR,NDI\params\AuthentAlg\enum,1,,"Open System"
+ HKR,NDI\params\AuthentAlg\enum,2,,"Shared Key"
+ HKR,NDI\params\AuthentAlg,optional,0,1
+
+ HKR,,PowerSave,0,0
+ HKR,defaults,PowerSave,0,0
+ HKR,NDI\params\PowerSave,,0,0
+ HKR,Ndi\params\PowerSave,default,0,0
+ HKR,NDI\params\PowerSave,ParamDesc,,%POWER_SAVE_STR%
+ HKR,NDI\params\PowerSave,type,,enum
+ HKR,NDI\params\PowerSave,flag,1,30,00,00,00
+ HKR,NDI\params\PowerSave\enum,0,,"Disable"
+ HKR,NDI\params\PowerSave\enum,1,,"Enable"
+;HKR,NDI\params\PowerSave\enum,2,,"Auto Enable"
+ HKR,NDI\params\PowerSave,optional,0,1
+
+;
+;	Wep Encrypt in Driver
+;
+HKR,,EncryptInDriver,0,1
+HKR,defaults,EncryptInDriver,0,1
+
+;
+;	Wep Decrypt in Driver
+;
+HKR,,DecryptInDriver,0,1
+HKR,defaults,DecryptInDriver,0,1
+
+;
+;	Basic Rates
+;
+HKR,,BasicRates,0,15
+HKR,defaults,BasicRates,0,15
+
+;
+;	Channel
+;
+HKR,,DSChannel,0,11
+HKR,defaults,DSChannel,0,11
+;
+
+;###############################################################################
+[DestinationDirs]
+;CopyFiles Section      = Destination Directory ID -- see layout.inf
+;-----------------        ------------------------
+ DefaultDestDir         = 11 ; Win9x=%windir%\system Win2k=%windir%\system32
+ USR_DRIVER.copy      = 11 ; Win9x=%windir%\system
+ USR_DRIVER.copy.ME   = 11 ; Win9x=%windir%\system
+ USR_DRIVER.copy.NT   = 12 ; Win2k=%windir%\system32\drivers
+
+[USR_NDI.copy]
+; USRR16.dll           ; Win9x NDI
+; USRCFG.dll           ; Win9x NDI
+
+[USR_NDI.copy.ME]
+; USRR16.dll           ; Win9x NDI
+; USRCFG.dll           ; Win9x NDI
+
+[USR_COINSTALL.copy.NT]
+; USRRES.dll
+; USRIOC.dll
+; USRCFG.cpl           ; Win2k CoInstaller
+
+[USR_DRIVER.copy]
+; USRUSB.sys
+; USRIOC.vxd           ; Win9x Ioctl interface
+
+[USR_DRIVER.copy.ME]
+; USRUSB.sys
+; USRIOC.vxd           ; Win9x Ioctl interface
+
+[USR_DRIVER.copy.NT]
+; USRUSB.sys
+
+[USR_APPLET.copy]
+; USRRES.dll
+; USRIOC.dll
+; USRCFG.cpl
+
+[USR_APPLET.copy.ME]
+; USRRES.dll
+; USRIOC.dll
+; USRCFG.cpl
+
+[USR_APPLET.copy.NT]
+;USRSTA.exe
+
+[SourceDisksNames]
+;Source Disk ID         = Disk Name
+;--------------           ---------
+ 1                      = %INSTALL_DISK_STR%,,,
+
+[SourceDisksFiles]      ; Win9x
+;File Name              = Source Disk ID
+;---------                --------------
+; USRR16.dll           = 1,ndis5
+; USRCFG.dll           = 1,ndis5
+; USRIOC.vxd           = 1,ndis5
+; USRRES.dll           = 1,ndis5
+; USRIOC.dll           = 1,ndis5
+; USRCFG.cpl           = 1,ndis4
+; USRUSB.sys           = 1,ndis5
+
+[SourceDisksFiles.ME]   ; WinMe
+; USRR16.dll           = 1,ndis5
+; USRCFG.dll           = 1,ndis5
+; USRIOC.vxd           = 1,ndis5
+; USRRES.dll           = 1,ndis5
+; USRIOC.dll           = 1,ndis5
+; USRCFG.cpl           = 1,ndis4
+; USRUSB.sys           = 1,ndis5
+
+[SourceDisksFiles.X86]  ; Win2k/Xp
+; USRRES.dll           = 1,ndis5
+; USRIOC.dll           = 1,ndis5
+; USRCFG.cpl           = 1,ndis5
+; USRUSB.sys           = 1,ndis51
+
+;###############################################################################
+[Strings]
+;String ID              = String Text
+;---------                -----------
+ VER_VENDOR_STR         = "USR"
+ VER_VENDOR_NAME_STR    = "U.S.Robotics Corporation"
+
+ USR_USB_STR            = "U.S.Robotics IEEE802.11 USB Adapter"
+
+ USR_SERVICE_DISPLAY    = "U.S.Robotics Wireless LAN Driver"
+ USR_USB_SERVICE_DISPLAY  = "U.S.Robotics Wireless LAN Driver"
+ INSTALL_DISK_STR       = "U.S.Robotics Wireless LAN Driver"
+
+ SHORT_PREAM_STR        = "Preamble Mode"
+ RTSTHRESH_STR          = "RTS Threshold"
+ FRAGTHRESH_STR         = "Fragmentation Threshold"
+ AUTHENT_TYPE_STR       = "Authentication Algorithm"
+ LISTENINTERVAL_STR     = "Listen Interval"
+ POWER_SAVE_STR         = "Power Save"
+
+ SSID_DEF_STR		= "ANY"
+ NETWORK_TYPE_DEF_STR	= "1"
+ WEP_REQUIRED_DEF_STR	= "0"
+ AUTHENT_TYPE_DEF_STR	= "2"
+

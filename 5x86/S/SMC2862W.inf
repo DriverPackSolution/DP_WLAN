@@ -1,0 +1,343 @@
+;***********************************************************************
+; SMC2862W.inf
+;
+;   This installation script supports Windows 98, Me, 2000 and XP for  
+;   SMC2862W-G. Copyright 2004 SMC Network ,Inc.All rights reserved.
+;
+;***********************************************************************
+
+[Version]
+ DriverVer = 12/01/2004, 3.3.13.1
+ Signature           = "$Chicago$"
+ Compatible          = 1
+ Class               = Net
+ ClassGUID           = {4d36e972-e325-11ce-bfc1-08002be10318}
+ Provider            = %VER_VENDOR_STR%
+	CatalogFile         = SMC2862W.cat
+; MillenniumPreferred = .ME
+
+[ControlFlags]
+;Exclude all PNP adapters from user selection
+ ExcludeFromSelect   = *
+
+[Manufacturer]
+ %VER_VENDOR_NAME_STR% = DeviceList,NTx86.5.1
+
+[DeviceList]
+ %A021_DESC_STR%     = PRISM_A021,        USB\VID_0707&PID_EE13
+
+[DeviceList.NTx86.5.1]
+ %A021_DESC_STR%     = PRISM_A021_XP,        USB\VID_0707&PID_EE13
+
+;==========================================
+[PRISM_A021]       ; Win9x
+ AddReg         = PRISM_A021.reg, PRISM_DCB1.reg1, COMMON_A02.reg, COMMON_NDIS.reg, COMMON.reg
+ CopyFiles      = PRISM_DRIVER.copy, PRISM_CCU.copy
+
+;[PRISM_A021.ME]    ; WinMe
+; AddReg         = PRISM_A021.reg, COMMON_A02.reg, COMMON_NDIS.reg.ME, COMMON.reg
+; CopyFiles      = PRISM_DRIVER.copy.ME, PRISM_CCU.copy
+
+;[PRISM_A021.ME.ME] ; WinMe - Same as .ME (Needed for Update Driver)
+; AddReg         = PRISM_A021.reg, COMMON_A02.reg, COMMON_NDIS.reg.ME, COMMON.reg
+; CopyFiles      = PRISM_DRIVER.copy.ME, PRISM_CCU.copy
+
+[PRISM_A021.NT]    ; Win2k
+ AddReg         = PRISM_A021.reg, COMMON_A02.reg, COMMON_NDIS.reg.NT, COMMON.reg
+ CopyFiles      = PRISM_DRIVER.copy.NT, PRISM_CCU.copy
+ BusType        = 15
+ Characteristics= 0x84
+
+[PRISM_A021.NT.Services]
+ AddService= "SMC2862W", 2, PRISM_DRIVER_A02.Service, PRISM_DRIVER.EventLog
+
+[PRISM_A021.NT.CoInstallers]
+ CopyFiles      = PRISM_COINSTALL.copy.NT
+ AddReg         = PRISM_COINSTALL.reg.NT
+
+[PRISM_A021_XP]    ; Winxp
+ AddReg         = PRISM_A021.reg, COMMON_A02.reg, COMMON_NDIS.reg.NT, COMMON.reg
+ CopyFiles      = PRISM_DRIVER.copy.XP, PRISM_CCU.copy
+ BusType        = 15
+ Characteristics= 0x84
+
+[PRISM_A021_XP.Services]
+ AddService= "SMC2862W", 2, PRISM_DRIVER_A02.Service, PRISM_DRIVER.EventLog
+
+[PRISM_A021_XP.CoInstallers]
+ CopyFiles      = PRISM_COINSTALL.copy.NT
+ AddReg         = PRISM_COINSTALL.reg.NT 
+
+[PRISM_DCB1.reg1]
+; HKLM,SOFTWARE\Microsoft\Windows\CurrentVersion\RunOnce, "SMC2862W",, "%11%\DSCU2862.exe"
+
+[PRISM_A021.reg]
+ HKR,Ndi,DeviceID,0,"USB\VID_0707&PID_EE13"
+; 0x3890 = 14480
+ HKR,,PlatformID,0,14480
+ HKR,,UsbVariant,0,14471
+ HKR,,VendorDesc,0,%A021_DESC_STR%
+;HKR,,CountryCode,0,"US "
+ HKR,,CountryName,0,"US "
+ HKR,,11dMode,0,0
+ HKR,,EnableRadio,0,1
+ HKR,,CCUEnable,0,1
+
+;if have ccu ,CountryCode add (HKR,,CountryCode,0,"DE ")
+;11dMode all add (HKR,,11dMode,0,0)
+;if have ccu EnableRadio set 0 ,have no ccu set 1
+;if have ccu CCUEnable set 0 ,have no ccu set 1
+
+ 
+;###############################################################################
+[PRISM_COINSTALL.reg.NT]
+; HKR,           ,CoInstallers32         ,0x00010000     ,"DSCU2862.dll,CoDCSUup"
+
+[PRISM_DRIVER_A02.Service]
+ DisplayName    = %A02_SERVICE_STR%
+ ServiceType    = 1    ; SERVICE_KERNEL_DRIVER
+ StartType      = 3    ; SERVICE_DEMAND_START
+ ErrorControl   = 1    ; NORMAL
+ ServiceBinary  = %12%\2862WICB.sys
+ LoadOrderGroup = NDIS
+
+[PRISM_DRIVER.EventLog]
+ AddReg         = PRISM_DRIVER.EventLog.reg
+
+[PRISM_DRIVER.EventLog.reg]
+ HKR,           ,EventMessageFile       ,0x00020000     ,"%%SystemRoot%%\System32\netevent.dll"
+ HKR,           ,TypesSupported         ,0x00010001     ,7
+
+;###############################################################################
+[COMMON_A02.reg]
+ HKR,NDI                ,Service                ,0      ,"SMC2862W"
+ HKR,NDI                ,CardType               ,0      ,"USB"
+ HKR,                   ,BusType                ,0      ,"0"
+ HKR,                   ,DeviceVxDs             ,0      ,"2862WICB.sys"
+
+[COMMON_NDIS.reg]
+; Win9X
+ HKR,                   ,RunningWin9X           ,0      ,"1"
+ HKR,                   ,DevLoader              ,0      ,"*ndis"
+ HKR,                   ,EnumPropPages          ,0      ,"netdi.dll,EnumPropPages"
+ HKR,NDI\Interfaces     ,UpperRange             ,0      ,"ndis3"
+ HKR,NDI\Interfaces     ,LowerRange             ,0      ,"ethernet"
+ HKR,NDI\Interfaces     ,DefUpper               ,0      ,"ndis3"
+ HKR,NDI\Interfaces     ,DefLower               ,0      ,"ethernet"
+ HKR,NDIS               ,LogDriverName          ,0      ,"2862WICB"
+ HKR,NDIS               ,MajorNdisVersion       ,1      ,04
+ HKR,NDIS               ,MinorNdisVersion       ,1      ,00
+
+[COMMON_NDIS.reg.ME]
+ HKR,                   ,RunningWin9X           ,0      ,"1"
+ HKR,                   ,DevLoader              ,0      ,"*ndis"
+ HKR,                   ,EnumPropPages          ,0      ,"netdi.dll,EnumPropPages"
+ HKR,NDI\Interfaces     ,UpperRange             ,0      ,"ndis5"
+ HKR,NDI\Interfaces     ,LowerRange             ,0      ,"ethernet"
+ HKR,NDI\Interfaces     ,DefUpper               ,0      ,"ndis5"
+ HKR,NDI\Interfaces     ,DefLower               ,0      ,"ethernet"
+ HKR,NDIS               ,LogDriverName          ,0      ,"2862WICB"
+ HKR,NDIS               ,MajorNdisVersion       ,1      ,04
+ HKR,NDIS               ,MinorNdisVersion       ,1      ,00
+
+[COMMON_NDIS.reg.NT]
+ HKR,NDI\Interfaces     ,UpperRange             ,0      ,"ndis5"
+ HKR,NDI\Interfaces     ,LowerRange             ,0      ,"ethernet"
+
+[COMMON.reg]
+ HKR,                   ,SSID                   ,0      ,"ANY"
+ HKR,                   ,PRISMIOC               ,0      ,"1"
+ HKR,                   ,SilentInstall          ,0      ,"1"
+ HKR,			,NitroMode		,0	,"1"
+ HKR,			,NitroTime		,0	,"650"
+;Uncomment the line above to install without user interface prompts
+
+
+ HKR,Ndi\params\RTSThresh,default,0,"2347"
+ HKR,NDI\params\RTSThresh,ParamDesc,0,%RTSTHRESH_STR%
+ HKR,NDI\params\RTSThresh,type,0,"int"
+ HKR,NDI\params\RTSThresh,flag,1,"20","00","00","00"
+ HKR,NDI\params\RTSThresh,min,0,"256"
+ HKR,NDI\params\RTSThresh,max,0,"2347"
+ HKR,NDI\params\RTSThresh,step,0,"1"
+;; HKR,NDI\params\RTSThresh,optional,0,"1"
+
+ HKR,Ndi\params\FragThresh,default,0,"2346"
+ HKR,NDI\params\FragThresh,ParamDesc,0,%FRAGTHRESH_STR%
+ HKR,NDI\params\FragThresh,type,0,"int"
+ HKR,NDI\params\FragThresh,flag,1,"20","00","00","00"
+ HKR,NDI\params\FragThresh,min,0,"256"
+ HKR,NDI\params\FragThresh,max,0,"2346"
+ HKR,NDI\params\FragThresh,step,0,"2"
+ ;;HKR,NDI\params\FragThresh,optional,0,"1"
+
+
+ HKR,NDI\params\ShortRetryLimit,default,0,"7"
+ HKR,NDI\params\ShortRetryLimit,ParamDesc,,%SHORT_RETRY_STR%
+ HKR,NDI\params\ShortRetryLimit,type,,"int"
+ HKR,NDI\params\ShortRetryLimit,min,0,"1"
+ HKR,NDI\params\ShortRetryLimit,max,0,"255"
+ HKR,NDI\params\ShortRetryLimit,step,0,"1"
+;; HKR,NDI\params\ShortRetryLimit,optional,0,"1"
+
+
+ HKR,NDI\params\LongRetryLimit,default,0,"4"
+ HKR,NDI\params\LongRetryLimit,ParamDesc,,%LONG_RETRY_STR%
+ HKR,NDI\params\LongRetryLimit,type,0,"int"
+ HKR,NDI\params\LongRetryLimit,min,0,"1"
+ HKR,NDI\params\LongRetryLimit,max,0,"255"
+ HKR,NDI\params\LongRetryLimit,step,0,"1"
+ ;;HKR,NDI\params\LongRetryLimit,optional,0,"1"
+
+
+ HKR,NDI\params\ConfigProfile,default,0,"1"
+ HKR,NDI\params\ConfigProfile,ParamDesc,,%CONFIG_PROFILE%
+ HKR,NDI\params\ConfigProfile,type,,"enum"
+ HKR,NDI\params\ConfigProfile,flag,1,"20","00","00","00"
+ HKR,NDI\params\ConfigProfile\enum,0,,%CONFIG_PROF_B_ONLY%
+ HKR,NDI\params\ConfigProfile\enum,1,,%CONFIG_PROF_MIXED%
+ HKR,NDI\params\ConfigProfile\enum,2,,%CONFIG_PROF_MIXED_LONG%
+ HKR,NDI\params\ConfigProfile\enum,3,,%CONFIG_PROF_G_ONLY%
+ HKR,NDI\params\ConfigProfile\enum,4,,%CONFIG_PROF_TEST%
+ HKR,NDI\params\ConfigProfile\enum,5,,%CONFIG_PROF_B_WIFI%
+ HKR,NDI\params\ConfigProfile\enum,6,,%CONFIG_PROF_MIXED_SHORT%
+ HKR,NDI\params\ConfigProfile\enum,256,,%CONFIG_PROF_WIFI_SPEC%
+ ;;HKR,NDI\params\ConfigProfile,optional,0,"1"
+
+ ;HKR,NDI\params\NitroMode,default,0,"0"
+ ;HKR,NDI\params\NitroMode,ParamDesc,,%NITRO_MODE%
+ ;HKR,NDI\params\NitroMode,type,,"enum"
+ ;HKR,NDI\params\NitroMode,flag,1,"20","00","00","00"
+ ;HKR,NDI\params\NitroMode\enum,0,,%OFF_STR%
+ ;HKR,NDI\params\NitroMode\enum,1,,%ON_STR%
+ ;;HKR,NDI\params\NitroMode,optional,0,"1"
+
+ 
+ HKR,Ndi\params\PSMode,default,0,"1"
+ HKR,NDI\params\PSMode,ParamDesc,,%POWER_SAVE_STR%
+ HKR,NDI\params\PSMode,type,,"enum"
+ HKR,NDI\params\PSMode,flag,1,"20","00","00","00"
+ HKR,NDI\params\PSMode\enum,1,,%POWER_SAVE_OFF_STR%
+ HKR,NDI\params\PSMode\enum,2,,%POWER_SAVE_DYN_STR%
+ HKR,NDI\params\PSMode\enum,3,,%POWER_SAVE_MAX_STR%
+ ;;HKR,NDI\params\PSMode,optional,0,"1"
+
+
+ ;;HKR,NDI\params\PpePdlpEnable,default,0,"1"
+ ;;HKR,NDI\params\PpePdlpEnable,ParamDesc,,%PPE_PDLP%
+ ;;HKR,NDI\params\PpePdlpEnable,type,,"enum"
+ ;;HKR,NDI\params\PpePdlpEnable,flag,1,"20","00","00","00"
+ ;;HKR,NDI\params\PpePdlpEnable\enum,0,,%OFF_STR%
+ ;;HKR,NDI\params\PpePdlpEnable\enum,1,,%ON_STR%
+ ;;HKR,NDI\params\PpePdlpEnable,optional,0,"1"
+
+ ;;HKR,NDI\params\PpeCompressEnable,default,0,"1"
+ ;;HKR,NDI\params\PpeCompressEnable,ParamDesc,,%PPE_COMPRESS%
+ ;;HKR,NDI\params\PpeCompressEnable,type,,"enum"
+ ;;HKR,NDI\params\PpeCompressEnable,flag,1,"20","00","00","00"
+ ;;HKR,NDI\params\PpeCompressEnable\enum,0,,%OFF_STR%
+ ;;HKR,NDI\params\PpeCompressEnable\enum,1,,%ON_STR%
+ ;;HKR,NDI\params\PpeCompressEnable,optional,0,"1"
+
+ ;;HKR,NDI\params\PpeConcatEnable,default,0,"1"
+ ;;HKR,NDI\params\PpeConcatEnable,ParamDesc,,%PPE_CONCAT%
+ ;;HKR,NDI\params\PpeConcatEnable,type,,"enum"
+ ;;HKR,NDI\params\PpeConcatEnable,flag,1,"20","00","00","00"
+ ;;HKR,NDI\params\PpeConcatEnable\enum,0,,%OFF_STR%
+ ;;HKR,NDI\params\PpeConcatEnable\enum,1,,%ON_STR%
+ ;;HKR,NDI\params\PpeConcatEnable,optional,0,"1"
+
+ ;;HKR,NDI\params\PpePiggyBackEnable,default,0,"1"
+ ;;HKR,NDI\params\PpePiggyBackEnable,ParamDesc,,%PPE_PIGGYBACK%
+ ;;HKR,NDI\params\PpePiggyBackEnable,type,,"enum"
+ ;;HKR,NDI\params\PpePiggyBackEnable,flag,1,"20","00","00","00"
+ ;;HKR,NDI\params\PpePiggyBackEnable\enum,0,,%OFF_STR%
+ ;;HKR,NDI\params\PpePiggyBackEnable\enum,1,,%ON_STR%
+ ;;HKR,NDI\params\PpePiggyBackEnable,optional,0,"1"
+
+
+;###############################################################################
+[DestinationDirs]
+;CopyFiles Section      = Destination Directory ID -- see layout.inf
+;-----------------        ------------------------
+ DefaultDestDir         = 11 ; Win9x=%windir%\system Win2k=%windir%\system32
+ PRISM_DRIVER.copy      = 11 ; Win9x=%windir%\system
+ PRISM_DRIVER.copy.ME   = 11 ; Win9x=%windir%\system
+ PRISM_DRIVER.copy.NT   = 12 ; Win2k=%windir%\system32\drivers
+ PRISM_DRIVER.copy.XP   = 12 ; Win2k=%windir%\system32\drivers
+ PRISM_CCU.copy		= 11 ; Win9x=%windir%\system
+
+[PRISM_CCU.copy]
+; DSCU2862.exe
+
+[PRISM_DRIVER.copy]
+ 2862WICB.sys
+
+[PRISM_DRIVER.copy.ME]
+ 2862WICB.sys
+
+[PRISM_DRIVER.copy.NT]
+ 2862WICB.sys
+
+[PRISM_DRIVER.copy.XP]
+ 2862WICB.sys,2862WC51.sys,,
+
+[PRISM_COINSTALL.copy.NT]
+; DSCU2862.dll
+
+[SourceDisksNames]
+;Source Disk ID         = Disk Name
+;--------------           ---------
+ 1                      = %INSTALL_DISK_STR%,,,
+
+[SourceDisksFiles]      ; Win9x
+;File Name              = Source Disk ID
+;---------                --------------
+ 2862WICB.sys           = 1
+; DSCU2862.exe		= 1
+
+[SourceDisksFiles.ME]   ; WinMe
+ 2862WICB.sys           = 1
+
+[SourceDisksFiles.X86]  ; Win2k/Xp
+ 2862WICB.sys           = 1
+ 2862WC51.sys		= 1
+; DSCU2862.dll		= 1
+; DSCU2862.exe		= 1
+
+;###############################################################################
+[Strings]
+;String ID               = String Text
+;---------                 -----------
+ VER_VENDOR_STR          = "SMC"
+ VER_VENDOR_NAME_STR     = "SMC Networks, Inc."
+ INSTALL_DISK_STR        = "SMC2862W-G EZ Connect g 802.11g Wireless USB 2.0 Adapter Driver Install Disk"
+ A021_DESC_STR           = "SMC2862W-G EZ Connect g 802.11g Wireless USB 2.0 Adapter"
+ A02_SERVICE_STR         = "SMC2862W-G EZ Connect g 802.11g Wireless USB 2.0 Adapter Driver"
+ ON_STR                  = "On"
+ OFF_STR                 = "Off"
+ RTSTHRESH_STR           = "RTS Threshold"
+ FRAGTHRESH_STR          = "Fragmentation Threshold"
+ AUTHENT_TYPE_STR        = "Authentication Algorithm"
+ POWER_SAVE_STR          = "Power Save Mode"
+ POWER_SAVE_OFF_STR      = "Disabled"
+ POWER_SAVE_DYN_STR      = "Dynamic"
+ POWER_SAVE_MAX_STR      = "Maximum"
+ SHORT_RETRY_STR         = "Short Retry Limit"
+ LONG_RETRY_STR          = "Long Retry Limit"
+ CONFIG_PROFILE          = "Configuration Profile"
+ CONFIG_PROF_B_ONLY      = "B only"
+ CONFIG_PROF_MIXED       = "Mixed"
+ CONFIG_PROF_MIXED_LONG  = "Mixed Long"
+ CONFIG_PROF_G_ONLY      = "G only"
+ CONFIG_PROF_TEST        = "Test"
+ CONFIG_PROF_B_WIFI      = "B WiFi"
+ CONFIG_PROF_MIXED_SHORT = "Mixed Short"
+ CONFIG_PROF_WIFI_SPEC   = "WiFi Spec" 
+; NITRO_MODE              = "Nitro Mode"
+ PPE_PDLP                = "Direct Link"
+ PPE_COMPRESS            = "Compression"
+ PPE_CONCAT              = "Concatenation"
+ PPE_PIGGYBACK           = "PiggyBack"
+
+

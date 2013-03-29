@@ -1,0 +1,406 @@
+;-----------------------------------------------------------------------
+; Envara Inc. WiND502 USB 2.0 Wireless Network Adapter
+; Reference driver
+; Supported OS: Win2000, XP, Win2003
+; Copyright (c) 2003, Envara Inc.
+;-----------------------------------------------------------------------
+
+[Version]
+Signature		= "$Windows NT$"
+Class			= Net
+ClassGUID		= {4d36e972-e325-11ce-bfc1-08002be10318}
+Provider		= %Mfg%
+DriverVer		= 03/02/2004, 1.4.46.18 ;DATE FORMAT MM/DD/YYYY
+;*** before HCT test or submission uncomment next line AND add a dummy "envar01w.cat" file ***
+;CatalogFile.NTx86 = envar01w.cat
+
+[Manufacturer]
+%Mfg%			= Models
+
+[ControlFlags]
+; For automatic install, hide all known working IDs:
+; ExcludeFromSelect = *
+
+[Models]
+; DisplayName                     Section          Hw-id, compatible-id [,...]
+; -----------                     -------          ---------------------------
+%wind502u.DeviceDesc%	= wind502u.ndi, USB\VID_132A&PID_1502
+
+;-------------------------------------------------------------
+; Win2000, XP, Win2003:
+[wind502u.ndi.NT]
+AddReg				= wind502u.nt5.reg, wind502u.Parameters.reg
+CopyFiles			= wind502u.nt5.CopyFiles
+BusType				= 15 ;PnpBus. (If HCT complains, refer to Errata 355)
+Characteristics		= 0x84		; NCF_HAS_UI + NCF_PHYSICAL
+
+;-------------------------------------------------------------
+; NT5
+[wind502u.ndi.NT.Services]
+AddService			= wind502u, 2, wind502u.Service, wind502u.EventLog
+
+;-------------------------------------------------------------
+; NT5
+[wind502u.nt5.reg]
+HKR, Ndi,				Service,	0, "wind502u"
+HKR, Ndi\Interfaces,	UpperRange,	0, "ndis5"
+HKR, Ndi\Interfaces,	LowerRange,	0, "ethernet"
+
+;-----------------------------------------------------------
+
+[wind502u.nt5.CopyFiles]
+;-- dest name, src name ,,flags --
+wind502u.sys
+
+;-----------------------------------------------------------
+; Destination Dir
+[DestinationDirs]
+DefaultDestDir			= 11 ; system dir
+wind502u.nt5.CopyFiles	= 12 ; NT: system32\drivers
+
+;-----------------------------------------------------------
+; Sources
+[SourceDisksNames]
+99=%wind502u_Disk%,"",0
+
+[SourceDisksFiles]
+wind502u.sys = 99
+
+
+;------------------------------------------------------------
+; NT Service entry, log, etc.
+[wind502u.Service]
+DisplayName     = %wind502u.Service.DispName%
+ServiceType     = 1 ;%SERVICE_KERNEL_DRIVER%
+StartType       = 3 ;%SERVICE_DEMAND_START%
+ErrorControl    = 1 ;%SERVICE_ERROR_NORMAL%
+ServiceBinary   = %12%\wind502u.sys
+LoadOrderGroup  = NDIS
+AddReg          = wind502.serv_data
+
+[wind502.serv_data]
+HKR, "Parameters\0",,4,    ;delete existing
+HKR, "Parameters",,16,     ;ensure key exists
+
+[wind502u.EventLog]
+AddReg = wind502u.AddEventLog.reg
+
+[wind502u.AddEventLog.reg]
+HKR, , EventMessageFile, 0x00020000, "%%SystemRoot%%\System32\netevent.dll"
+HKR, , TypesSupported,   0x00010001, 7
+
+;-------------------------------------------------------------------------------
+; Custom Parameters in the Registry ("Advanced" menu).
+; NOTE: All proprietary (non-MS) parameter names begin with dot.
+[wind502u.Parameters.reg]
+;- HKR,,.address,,"2e:58:59:69:63:62"
+HKR,,.ssid,,"NULL_SSID"
+HKR,,.useEeprom,,"1"
+HKR,,.probeDelay,,"5000"
+HKR,,.hostNetworkInterfaceType,,"3"
+HKR,,.encapsulationType,,"1"
+HKR,,.authenticationMode,,"2"
+HKR,,.listenInterval,,"1"
+HKR,,.serviceRoutineMaintanenceInterval,,"10"
+HKR,,.selectedRxAntenna,,"2"
+HKR,,.selectedTxAntenna,,"0"
+HKR,,.ledPolicy,,"2"
+HKR,,.acceptNonErp,,"0"
+HKR,,.physicalMediumMask,,"6"
+HKR,,.enableScanWhileWorkInBss,,"1"
+HKR,,.enableScanWhileWorkInIbss,,"1"
+HKR,,.enableLastSsidUsage,,"1"
+HKR,,.enableResetUponFwRequest,,"0"
+HKR,,.enableSendKeepAliveNullFrames,,"1"
+HKR,,.powerSaveMode,,"1"
+HKR,,.isRecieveDtim,,"1"
+HKR,,.AwaitPsPollResponseTimeout,,"10"
+HKR,,.AwaitBeaconTimeout,,"15"
+HKR,,.AwaitMulticastTimeout,,"0"
+HKR,,.ReturnToNetworkBeaconInterval,,"6"
+HKR,,.HostToDeviceSduNumberReturnToNetworkThreshold,,"4"
+HKR,,.HostToDeviceSduNumberGoOffNetworkThreshold,,"3"
+HKR,,.GoOffNetworkLowThresholdCheckPeriod,,"15"
+HKR,,.TerminationConditionEvaluationInterval,,"5"
+HKR,,.fragmantationThreshold,,"2347"
+HKR,,.shortRetryLimit,,"8"
+HKR,,.longRetryLimit,,"8"
+HKR,,.cwMax,,"256"
+HKR,,.cwPersistenceFactor,,"0"
+HKR,,.aifs,,"1"
+HKR,,.shortPreamble,,"1"
+HKR,,.shortTimeSlot,,"1"
+HKR,,.preBeaconWarningOffest,,"2"
+HKR,,.protectionAllowed,,"1"
+HKR,,.timeSlotType,,"1"
+HKR,,.preambleType,,"1"
+HKR,,.txPowerForOFDM,,"0"
+HKR,,.txPowerForCCK,,"0"
+HKR,,.txPowerDelta,,"0"
+HKR,,.txPowerOverrideDefaults,,"0"
+HKR,,.xoCrystal,,"0"
+HKR,,.rssiSampaleNumber,,"10"
+HKR,,.dtimPeriod,,"1"
+HKR,,.isRecieveDtim,,"0"
+HKR,,.beaconTimeToLive,,"1"
+HKR,,.txRetransmissionDelta,,"0"
+HKR,,.phyRateAdaptationEnabled,,"1"
+HKR,,.rtsRetransmissionCountEnabled,,"0"
+HKR,,.DefaultMaxPhyRate,,"108"
+HKR,,.LowerRatioThreshold,,"25"
+HKR,,.UpperRatioThreshold,,"40"
+HKR,,.MeasurementWindow,,"50"
+HKR,,.RealRateDelayInMs,,"20000"
+HKR,,.WiND_Dot11A_Support_1_Mbit,,"0"
+HKR,,.WiND_Dot11A_Support_2_Mbit,,"0"
+HKR,,.WiND_Dot11A_Support_5_5_Mbit,,"0"
+HKR,,.WiND_Dot11A_Support_6_Mbit,,"0"
+HKR,,.WiND_Dot11A_Support_9_Mbit,,"0"
+HKR,,.WiND_Dot11A_Support_11_Mbit,,"0"
+HKR,,.WiND_Dot11A_Support_12_Mbit,,"1"
+HKR,,.WiND_Dot11A_Support_18_Mbit,,"1"
+HKR,,.WiND_Dot11A_Support_24_Mbit,,"1"
+HKR,,.WiND_Dot11A_Support_36_Mbit,,"1"
+HKR,,.WiND_Dot11A_Support_48_Mbit,,"1"
+HKR,,.WiND_Dot11A_Support_54_Mbit,,"1"
+HKR,,.WiND_Dot11B_Support_1_Mbit,,"1"
+HKR,,.WiND_Dot11B_Support_2_Mbit,,"1"
+HKR,,.WiND_Dot11B_Support_5_5_Mbit,,"1"
+HKR,,.WiND_Dot11B_Support_6_Mbit,,"0"
+HKR,,.WiND_Dot11B_Support_9_Mbit,,"0"
+HKR,,.WiND_Dot11B_Support_11_Mbit,,"1"
+HKR,,.WiND_Dot11B_Support_12_Mbit,,"0"
+HKR,,.WiND_Dot11B_Support_18_Mbit,,"0"
+HKR,,.WiND_Dot11B_Support_24_Mbit,,"0"
+HKR,,.WiND_Dot11B_Support_36_Mbit,,"0"
+HKR,,.WiND_Dot11B_Support_48_Mbit,,"0"
+HKR,,.WiND_Dot11B_Support_54_Mbit,,"0"
+HKR,,.WiND_Dot11G_Support_1_Mbit,,"1"
+HKR,,.WiND_Dot11G_Support_2_Mbit,,"1"
+HKR,,.WiND_Dot11G_Support_5_5_Mbit,,"0"
+HKR,,.WiND_Dot11G_Support_6_Mbit,,"1"
+HKR,,.WiND_Dot11G_Support_9_Mbit,,"0"
+HKR,,.WiND_Dot11G_Support_11_Mbit,,"0"
+HKR,,.WiND_Dot11G_Support_12_Mbit,,"1"
+HKR,,.WiND_Dot11G_Support_18_Mbit,,"1"
+HKR,,.WiND_Dot11G_Support_24_Mbit,,"1"
+HKR,,.WiND_Dot11G_Support_36_Mbit,,"1"
+HKR,,.WiND_Dot11G_Support_48_Mbit,,"1"
+HKR,,.WiND_Dot11G_Support_54_Mbit,,"1"
+HKR,,.scanGeneralActiveScanningMaxTimePerChannel,,"50"
+HKR,,.scanGeneralPassiveScanningMaxTimePerChannel,,"150"
+HKR,,.scanGeneralProbeRequestPeriod,,"12"
+HKR,,.scanWhileWorkActiveScanningMaxTimePerChannel,,"40"
+HKR,,.scanWhileWorkPassiveScanningMaxTimePerChannel,,"150"
+HKR,,.scanWhileWorkMinTimeBetweenScan,,"3500"
+HKR,,.countryCode,,"16"
+HKR,,.PipeHostToDeviceControlSize,,"400"
+HKR,,.PipeDeviceToHostControlSize,,"400"
+HKR,,.PipeDeviceToHostSduSize,,"400"
+HKR,,.PipeHostToDeviceSduSize0,,"400"
+HKR,,.PipeHostToDeviceSduSize1,,"400"
+HKR,,.PipeHostToDeviceSduSize2,,"400"
+HKR,,.maxOsNetworkResources,,"564"
+HKR,,.maxOsMemoryResources,,"564"
+HKR,,.maxWindFrames,,"96"
+HKR,,.maxWindFramesAllocatedForRx,,"48"
+HKR,,.maxStations,,"30"
+HKR,,.stationHashSize,,"30"
+HKR,,.maxFsmEvents,,"60"
+HKR,,.maxAccessPoints,,"30"
+HKR,,.maxIbssBeaconGenerators,,"30"
+HKR,,.maxTimers,,"30"
+HKR,,.maxTxFramesToHandle,,"14"
+HKR,,.maxNumberOfIoCtlEvents,,"2"
+HKR,,.authenticationTimeout,,"3000"
+HKR,,.associationTimeout,,"3000"
+HKR,,.linkIsUpWatchdogTimeout,,"2500"
+HKR,,.disconnectIndicationWatchdogTimeout,,"7500"
+HKR,,.deadStation,,"10000"
+HKR,,.maxConsecutiveFailedFrames,,"3"
+HKR,,.bssApConnectionKeepAliveTimeout,,"15000"
+HKR,,.connectToLastSsidTimeout,,"3000"
+HKR,,.fwWatchdogTimeout,,"1500000"
+HKR,,.D2HMaxIdlePeriodInMs,,"5000"
+HKR,,.D2HAwaitPingReplyTimeoutInMs,,"5000"
+HKR,,.H2DMaxIdlePeriodInMs,,"5000"
+HKR,,.H2DAwaitPingReplyTimeoutInMs,,"5000"
+HKR,,.triggerPeriodic,,"1"
+HKR,,.triggerPeriodInInternalTicks,,"1000"
+HKR,,.internalTickPeriodInMicros,,"20"
+HKR,,.decayPeriod,,"5"
+HKR,,.resetOnPanic,,"1"
+HKR,,.useWatchDogTimer,,"1"
+HKR,,.watchDogTimerValueInMicros,,"1500000"
+HKR,,.statisticsPeriod,,"0"
+HKR,,.driverWep,,"1"
+HKR,,.currentKey,,"0"
+HKR,,.algo0,,"1"
+HKR,,.PlayPlainEthernet,,"0"
+HKR,,.Timeout,,"10"
+HKR,,.useConstantPhyRate,,"0"
+HKR,,.constantPhyRate,,"108"
+HKR,,.forceGShortTimeSlot,,"1"
+HKR,,.forcePhysicalMediumMask,,"1"
+HKR,,.outputFirmwareMessages,,"0"
+HKR,,.displayFsm,,"0"
+HKR,,.displayRx,,"0"
+HKR,,.displayTx,,"0"
+HKR,,.BufferSizeKb,,"0"
+HKR,,.MinLogLevel,,"0"
+HKR,,.MinTraceLevel,,"0"
+;- HKR,,.InitBreak,,"0"
+HKR,,.CheckForHangPeriod,,"4"
+HKR,,.PsDebugParameter1,,"0"
+HKR,,.PsDebugParameter2,,"0"
+HKR,,.PsDebugParameter3,,"0"
+HKR,,.PsDebugParameter4,,"0"
+
+;######################################################
+; User editable parameters (Advanced property page)
+;######################################################
+
+; ##################
+; # NetworkAddress #
+; ################## 
+HKR, Ndi\params\NetworkAddress,     ParamDesc,  0, %ParamDesc.NetworkAddress%
+HKR, Ndi\params\NetworkAddress,     Type,       0, "edit"
+HKR, Ndi\params\NetworkAddress,     Default,    0, ""
+HKR, Ndi\params\NetworkAddress,     LimitText,  0, "18"
+HKR, Ndi\params\NetworkAddress,     UpperCase,  0, "1"
+HKR, Ndi\params\NetworkAddress,     Optional,   0, "1"
+
+; ################
+; # countryCode   #
+; ################  
+HKR,Ndi\Params\.countryCode,      ParamDesc,0 , %ParamDesc.countryCode%
+HKR,Ndi\Params\.countryCode,      Type,       0, "enum"
+HKR,Ndi\Params\.countryCode,      Default,    0, "1"
+HKR,NDI\params\.countryCode,      Optional,   0, "0"
+HKR,Ndi\Params\.countryCode\enum, 1 ,, "Factory Defaults"
+HKR,Ndi\Params\.countryCode\enum, 16 ,, "USA (FCC)"
+HKR,Ndi\Params\.countryCode\enum, 32 ,, "Canada (IC)"
+HKR,Ndi\Params\.countryCode\enum, 48 ,, "Europe (ETSI)"
+HKR,Ndi\Params\.countryCode\enum, 49 ,, "Spain"
+HKR,Ndi\Params\.countryCode\enum, 50 ,, "France"
+HKR,Ndi\Params\.countryCode\enum, 64 ,, "Japan"
+
+; ################
+; # DebugHalt    #
+; ################  
+; HKR,Ndi\Params\.DebugHalt,           ParamDesc,  0, %ParamDesc.DebugHalt%
+; HKR,Ndi\Params\.DebugHalt,           Type,       0, "int"
+; HKR,Ndi\Params\.DebugHalt,           Default,    0, "3" ;3=one time, 1=sticky
+; HKR,Ndi\Params\.DebugHalt,           Min,        0, "0"
+; HKR,Ndi\Params\.DebugHalt,           Max,        0, "3"
+; HKR,Ndi\Params\.DebugHalt,           Step,       0, "1" 
+; HKR,Ndi\Params\.DebugHalt,           Base,       0, "16"
+; HKR,NDI\params\.DebugHalt,           Optional,   0, "1"
+
+
+; ###########
+; # CfgFile #
+; ########### 
+HKR,,.CfgFile,  0, "wind502u.ini"
+HKR,Ndi\Params\.CfgFile,             ParamDesc,  0, %ParamDesc.CfgFile%
+HKR,Ndi\Params\.CfgFile,             Type,       0, "edit"
+HKR,Ndi\Params\.CfgFile,             Default,    0, "wind502u.ini"
+HKR,NDI\params\.CfgFile,             LimitText,  0, "80"
+HKR,NDI\params\.CfgFile,             Optional,   0, "1"
+
+
+; ################
+; # rtsThreshold #
+; ################  
+; # frames larger than this use CTS/RTS mechanism
+HKR,Ndi\Params\.rtsThreshold,           ParamDesc,  0, %ParamDesc.rtsThreshold%
+HKR,Ndi\Params\.rtsThreshold,           Type,       0, "int"
+HKR,Ndi\Params\.rtsThreshold,           Default,    0, "2347"
+HKR,Ndi\Params\.rtsThreshold,           Min,        0, "256"
+HKR,Ndi\Params\.rtsThreshold,           Max,        0, "2347"
+HKR,Ndi\Params\.rtsThreshold,           Step,       0, "1"
+HKR,Ndi\Params\.rtsThreshold,           Base,       0, "10"
+HKR,NDI\params\.rtsThreshold,           Optional,   0, "0"
+
+; ################
+; # phyMode      #
+; ################  
+; # Default PhyMod for IBSS Originator ( For WiFi Must be 802.11b )
+HKR,Ndi\Params\.phyMode,           ParamDesc,  0, %ParamDesc.phyMode%
+HKR,Ndi\Params\.phyMode,           Type,       0, "enum"
+HKR,Ndi\Params\.phyMode,           Default,    0, "1"
+HKR,NDI\params\.phyMode,           Optional,   0, "0"
+;HKR,Ndi\Params\.phyMode\enum,      0,, "802.11a"
+HKR,Ndi\Params\.phyMode\enum,      1,, "802.11b"
+HKR,Ndi\Params\.phyMode\enum,      2,, "802.11g"
+
+; ################
+; # channel      #
+; ################  
+; # Default channel for IBSS Originator
+HKR,Ndi\Params\.channel,           ParamDesc,  0, %ParamDesc.channel%
+HKR,Ndi\Params\.channel,           Type,       0, "int"
+HKR,Ndi\Params\.channel,           Default,    0, "6"
+HKR,Ndi\Params\.channel,           Min,        0, "1"
+HKR,Ndi\Params\.channel,           Max,        0, "11"
+HKR,Ndi\Params\.channel,           Step,       0, "1"
+HKR,Ndi\Params\.channel,           Base,       0, "10"
+HKR,NDI\params\.channel,           Optional,   0, "0"
+
+; ################
+; # beaconPeriod #
+; ################  
+; # Default beaconPeriod for IBSS Originator
+HKR,Ndi\Params\.beaconPeriod,           ParamDesc,  0, %ParamDesc.beaconPeriod%
+HKR,Ndi\Params\.beaconPeriod,           Type,       0, "int"
+HKR,Ndi\Params\.beaconPeriod,           Default,    0, "100"
+HKR,Ndi\Params\.beaconPeriod,           Min,        0, "20"
+HKR,Ndi\Params\.beaconPeriod,           Max,        0, "1000"
+HKR,Ndi\Params\.beaconPeriod,           Step,       0, "1"
+HKR,Ndi\Params\.beaconPeriod,           Base,       0, "10"
+HKR,NDI\params\.beaconPeriod,           Optional,   0, "0"
+
+; ################
+; # scanPolicy   #
+; ################  
+; # 1= SCAN_POLICY_ACTIVE ; 2= SCAN_POLICY_PASSIVE
+HKR,Ndi\Params\.scanGeneralPolicy,      ParamDesc,  0, %ParamDesc.scanPolicy%
+HKR,Ndi\Params\.scanGeneralPolicy,      Type,       0, "enum"
+HKR,Ndi\Params\.scanGeneralPolicy,      Default,    0, "1"
+HKR,NDI\params\.scanGeneralPolicy,      Optional,   0, "0"
+HKR,Ndi\Params\.scanGeneralPolicy\enum, 1,, "Active"
+HKR,Ndi\Params\.scanGeneralPolicy\enum, 2,, "Passive"
+
+; ##################
+; # *instance tag* #
+; ##################
+; Any text, to help locating this instance in the registry. Not used by driver.
+;HKR,,.TAG,  0, ""
+HKR,Ndi\Params\.TAG,             ParamDesc,  0, %ParamDesc.TAG%
+HKR,Ndi\Params\.TAG,             Type,       0, "edit"
+;- HKR,Ndi\Params\.TAG,             Default,    0, "mydevice"
+HKR,NDI\params\.TAG,             LimitText,  0, "80"
+HKR,NDI\params\.TAG,             Optional,   0, "1"
+
+;##################################################################
+; Localizable Strings 
+; OEM: do not translate. Instead, use [Strings.charset] sections.
+;##################################################################
+[Strings]
+Mfg				= "Envara Inc."
+wind502u.DeviceDesc		= "WiND502 USB 2.0 Wireless Network Adapter"
+wind502u.Service.DispName	= "WiND502 USB 2.0 Wireless Network Adapter"
+wind502u_Disk			= "Envara WiND502 USB 2.0 Driver Installation Files"
+
+;===Parameters===
+; Keep param. descriptions < 32 chars to fit in the dialog.
+ParamDesc.rtsThreshold		= "Station RtsThreshold"
+ParamDesc.phyMode		= "IBSS Originator Phy-Mode"
+ParamDesc.channel		= "IBSS Originator Channel"
+ParamDesc.beaconPeriod		= "IBSS Originator BeaconPeriod"
+ParamDesc.scanPolicy		= "Station ScanPolicy"
+ParamDesc.CfgFile		= "Config file"
+ParamDesc.NetworkAddress	= "Network Address"
+ParamDesc.TAG  		        = "Tag"
+ParamDesc.countryCode      = "Country Code"
+;=== end===

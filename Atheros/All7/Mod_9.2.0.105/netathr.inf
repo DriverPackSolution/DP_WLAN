@@ -1,0 +1,867 @@
+;; Modded by Pieter @ www.laptopvideo2go.com v1.31
+
+; /****************************************************************************
+; * Copyright 2006 Atheros Communications Inc., all rights reserved.          *
+; * INF file for Atheros reference designs                                    *
+; ****************************************************************************/
+
+[version]
+Signature   = "$Windows NT$"
+Class       = Net
+ClassGUID   = {4d36e972-e325-11ce-bfc1-08002be10318}
+Provider    = %ATHEROS%
+LoutFiles   = layout.inf
+CatalogFile = athrext.cat
+DriverVer   = 11/05/2010,9.2.0.105
+
+[Manufacturer]
+%ATHEROS%     = Atheros, NTX86.6.1, NTX86.6.0
+
+
+[ControlFlags]
+ExcludeFromSelect = *
+;
+; OS 6.1 Manufacturer section
+;
+[Atheros.NTX86.6.1]
+; DisplayName               Section                 DeviceID
+; -----------               -------                 --------
+%ATHER.DeviceDesc.0013%  = ATHER_DEV_OS61_0013.ndi,    PCI\VEN_168C&DEV_0013
+%ATHER.DeviceDesc.0013%  = ATHER_DEV_OS61_0013.ndi,    PCI\VEN_168C&DEV_0014
+%ATHER.DeviceDesc.0013%  = ATHER_DEV_OS61_0013.ndi,    PCI\VEN_168C&DEV_0015
+%ATHER.DeviceDesc.0013%  = ATHER_DEV_OS61_0013.ndi,    PCI\VEN_168C&DEV_0016
+%ATHER.DeviceDesc.0013%  = ATHER_DEV_OS61_0013.ndi,    PCI\VEN_168C&DEV_0017
+%ATHER.DeviceDesc.0013%  = ATHER_DEV_OS61_0013.ndi,    PCI\VEN_168C&DEV_0018
+%ATHER.DeviceDesc.0013%  = ATHER_DEV_OS61_0013.ndi,    PCI\VEN_168C&DEV_0019
+%ATHER.DeviceDesc.001A%  = ATHER_DEV_OS61_0013.ndi,    PCI\VEN_168C&DEV_001A
+%ATHER.DeviceDesc.001B%  = ATHER_DEV_OS61_0013.ndi,    PCI\VEN_168C&DEV_001B
+%ATHER.DeviceDesc.001B%  = ATHER_DEV_OS61_0013.ndi,    PCI\VEN_168C&DEV_001C
+%ATHER.DeviceDesc.001B%  = ATHER_DEV_OS61_0013.ndi,    PCI\VEN_168C&DEV_FF19
+%ATHER.DeviceDesc.001D%  = ATHER_DEV_OS61_0013.ndi,    PCI\VEN_168C&DEV_001D
+%ATHER.DeviceDesc.0023%  = ATHER_DEV_OS61_0023.ndi,    PCI\VEN_168C&DEV_0023
+%ATHER.DeviceDesc.0023%  = ATHER_DEV_OS61_0023.ndi,    PCI\VEN_168C&DEV_0024
+%ATHER.DeviceDesc.0023%  = ATHER_DEV_OS61_0023.ndi,    PCI\VEN_168C&DEV_FF1C
+%ATHER.DeviceDesc.0023%  = ATHER_DEV_OS61_0023.ndi,    PCI\VEN_168C&DEV_FF1D
+%ATHER.DeviceDesc.0029%  = ATHER_DEV_OS61_0023.ndi,    PCI\VEN_168C&DEV_0029
+%ATHER.DeviceDesc.002A%  = ATHER_DEV_OS61_0023.ndi,    PCI\VEN_168C&DEV_002A
+%ATHER.DeviceDesc.002B%  = ATHER_DEV_OS61_0023.ndi,    PCI\VEN_168C&DEV_002B
+%ATHER.DeviceDesc.002C%  = ATHER_DEV_OS61_0023.ndi,    PCI\VEN_168C&DEV_002C
+%ATHER.DeviceDesc.002D%  = ATHER_DEV_OS61_0023.ndi,    PCI\VEN_168C&DEV_002D
+%ATHER.DeviceDesc.002E%  = ATHER_DEV_OS61_0023.ndi,    PCI\VEN_168C&DEV_002E
+%ATHER.DeviceDesc.0030%  = ATHER_DEV_OS61_0023.ndi,    PCI\VEN_168C&DEV_0030
+%ATHER.DeviceDesc.0032%  = ATHER_DEV_OS61_0032.ndi,    PCI\VEN_168C&DEV_0032
+
+[Atheros.NTX86.6.0]
+; DisplayName               Section                 DeviceID
+; -----------               -------                 --------
+%ATHER.DeviceDesc.0013%  = ATHER_DEV_0013.ndi,    PCI\VEN_168C&DEV_0013
+%ATHER.DeviceDesc.0013%  = ATHER_DEV_0013.ndi,    PCI\VEN_168C&DEV_0014
+%ATHER.DeviceDesc.0013%  = ATHER_DEV_0013.ndi,    PCI\VEN_168C&DEV_0015
+%ATHER.DeviceDesc.0013%  = ATHER_DEV_0013.ndi,    PCI\VEN_168C&DEV_0016
+%ATHER.DeviceDesc.0013%  = ATHER_DEV_0013.ndi,    PCI\VEN_168C&DEV_0017
+%ATHER.DeviceDesc.0013%  = ATHER_DEV_0013.ndi,    PCI\VEN_168C&DEV_0018
+%ATHER.DeviceDesc.0013%  = ATHER_DEV_0013.ndi,    PCI\VEN_168C&DEV_0019
+%ATHER.DeviceDesc.001A%  = ATHER_DEV_0013.ndi,    PCI\VEN_168C&DEV_001A
+%ATHER.DeviceDesc.001B%  = ATHER_DEV_0013.ndi,    PCI\VEN_168C&DEV_001B
+%ATHER.DeviceDesc.001B%  = ATHER_DEV_0013.ndi,    PCI\VEN_168C&DEV_001C
+%ATHER.DeviceDesc.001B%  = ATHER_DEV_0013.ndi,    PCI\VEN_168C&DEV_FF19
+%ATHER.DeviceDesc.001D%  = ATHER_DEV_0013.ndi,    PCI\VEN_168C&DEV_001D
+%ATHER.DeviceDesc.0023%  = ATHER_DEV_0023.ndi,    PCI\VEN_168C&DEV_0023
+%ATHER.DeviceDesc.0023%  = ATHER_DEV_0023.ndi,    PCI\VEN_168C&DEV_0024
+%ATHER.DeviceDesc.0023%  = ATHER_DEV_0023.ndi,    PCI\VEN_168C&DEV_FF1C
+%ATHER.DeviceDesc.0023%  = ATHER_DEV_0023.ndi,    PCI\VEN_168C&DEV_FF1D
+%ATHER.DeviceDesc.0029%  = ATHER_DEV_0023.ndi,    PCI\VEN_168C&DEV_0029
+%ATHER.DeviceDesc.002A%  = ATHER_DEV_0023.ndi,    PCI\VEN_168C&DEV_002A
+%ATHER.DeviceDesc.002B%  = ATHER_DEV_0023.ndi,    PCI\VEN_168C&DEV_002B
+%ATHER.DeviceDesc.002C%  = ATHER_DEV_0023.ndi,    PCI\VEN_168C&DEV_002C
+%ATHER.DeviceDesc.002D%  = ATHER_DEV_0023.ndi,    PCI\VEN_168C&DEV_002D
+%ATHER.DeviceDesc.002E%  = ATHER_DEV_0023.ndi,    PCI\VEN_168C&DEV_002E
+%ATHER.DeviceDesc.0030%  = ATHER_DEV_0023.ndi,    PCI\VEN_168C&DEV_0030
+%ATHER.DeviceDesc.0032%  = ATHER_DEV_0032.ndi,    PCI\VEN_168C&DEV_0032
+
+; OS 6.1 Manufacturer section
+
+[ATHER_DEV_OS61_0013.ndi.NTX86]
+Characteristics = 0x84
+BusType         = 5
+AddReg          = atheros_os61.reg,11n.reg
+DelReg          = atheros.DelReg
+CopyFiles       = atheros.CopyFiles
+*IfType         = 71		; IF_TYPE_IEEE80211
+*MediaType      = 16		; NdisMediumNative802_11
+*PhysicalMediaType = 9		; NdisPhysicalMediumNative802_11
+Include         = netvwifibus.inf
+Needs           = VWiFiBus.CopyFiles
+
+[ATHER_DEV_OS61_0013.ndi.NTX86.Services]
+AddService = athr, 2, atheros.Service, atheros.EventLog
+Include    = netvwifibus.inf
+Needs      = VWiFiBus.Services
+
+[ATHER_DEV_OS61_0013.ndi.NTX86.HW]
+Include = netvwifibus.inf
+Needs   = VWiFiBus.PnPFilterRegistration
+
+[ATHER_DEV_OS61_0023.ndi.NTX86]
+Characteristics = 0x84
+BusType         = 5
+AddReg          = atheros_os61.reg,11n.reg, 20-40mhz
+DelReg          = atheros.DelReg
+CopyFiles       = atheros.CopyFiles
+*IfType         = 71		; IF_TYPE_IEEE80211
+*MediaType      = 16		; NdisMediumNative802_11
+*PhysicalMediaType = 9		; NdisPhysicalMediumNative802_11
+Include         = netvwifibus.inf
+Needs           = VWiFiBus.CopyFiles
+
+[ATHER_DEV_OS61_0023.ndi.NTX86.Services]
+AddService = athr, 2, atheros.Service, atheros.EventLog
+Include    = netvwifibus.inf
+Needs      = VWiFiBus.Services
+
+[ATHER_DEV_OS61_0023.ndi.NTX86.HW]
+AddReg  = MSI.reg
+Include = netvwifibus.inf
+Needs   = VWiFiBus.PnPFilterRegistration
+
+[ATHER_DEV_OS61_0032.ndi.NTX86]
+Characteristics = 0x84
+BusType         = 5
+AddReg          = atheros_os61.reg,11n.reg, 20-40mhz, 9485BTcoex.reg
+DelReg          = atheros.DelReg
+CopyFiles       = atheros.CopyFiles
+*IfType         = 71		; IF_TYPE_IEEE80211
+*MediaType      = 16		; NdisMediumNative802_11
+*PhysicalMediaType = 9		; NdisPhysicalMediumNative802_11
+Include         = netvwifibus.inf
+Needs           = VWiFiBus.CopyFiles
+
+[ATHER_DEV_OS61_0032.ndi.NTX86.Services]
+AddService = athr, 2, atheros.Service, atheros.EventLog
+Include    = netvwifibus.inf
+Needs      = VWiFiBus.Services
+
+[ATHER_DEV_OS61_0032.ndi.NTX86.HW]
+AddReg  = MSI.reg
+Include = netvwifibus.inf
+Needs   = VWiFiBus.PnPFilterRegistration
+
+; OS 6.0 Manufacturer section
+
+[ATHER_DEV_0013.ndi.NTX86]
+Characteristics = 0x84
+BusType         = 5
+AddReg          = atheros_os60.reg,11n.reg
+DelReg          = atheros.DelReg
+CopyFiles       = atheros.CopyFiles
+*IfType         = 71		; IF_TYPE_IEEE80211
+*MediaType      = 16		; NdisMediumNative802_11
+*PhysicalMediaType = 9		; NdisPhysicalMediumNative802_11
+
+[ATHER_DEV_0013.ndi.NTX86.Services]
+AddService = athr, 2, atheros.Service, atheros.EventLog
+
+[ATHER_DEV_0023.ndi.NTX86]
+Characteristics = 0x84
+BusType         = 5
+AddReg          = atheros_os60.reg,11n.reg, 20-40mhz
+DelReg          = atheros.DelReg
+CopyFiles       = atheros.CopyFiles
+*IfType         = 71		; IF_TYPE_IEEE80211
+*MediaType      = 16		; NdisMediumNative802_11
+*PhysicalMediaType = 9		; NdisPhysicalMediumNative802_11
+
+[ATHER_DEV_0023.ndi.NTX86.Services]
+AddService = athr, 2, atheros.Service, atheros.EventLog
+
+[ATHER_DEV_0032.ndi.NTX86]
+Characteristics = 0x84
+BusType         = 5
+AddReg          = atheros_os60.reg,11n.reg, 20-40mhz, 9485BTcoex.reg
+DelReg          = atheros.DelReg
+CopyFiles       = atheros.CopyFiles
+*IfType         = 71		; IF_TYPE_IEEE80211
+*MediaType      = 16		; NdisMediumNative802_11
+*PhysicalMediaType = 9		; NdisPhysicalMediumNative802_11
+
+[ATHER_DEV_0032.ndi.NTX86.Services]
+AddService = athr, 2, atheros.Service, atheros.EventLog
+
+[atheros_os61.reg]
+HKR, Ndi,                           Service,    0, "athr"
+HKR, Ndi\Interfaces,                UpperRange, 0, "ndis5"
+HKR, Ndi\Interfaces,                LowerRange, 0, "wlan,ethernet,vwifi"
+
+HKR, Ndi\IHVExtensions, ExtensibilityDLL, 0, %%SystemRoot%%\system32\athihvs.dll
+HKR, Ndi\IHVExtensions, UIExtensibilityCLSID, 0, "{4A31B2F3-8714-4236-8B6F-5BA745A04AB7}"
+HKR, Ndi\IHVExtensions, GroupName,              0,  "Atheros IHV Service"
+HKR, Ndi\IHVExtensions, AdapterOUI, 0x00010001, 0x00037f
+
+[atheros_os60.reg]
+HKR, Ndi,                           Service,    0, "athr"
+HKR, Ndi\Interfaces,                UpperRange, 0, "ndis5"
+HKR, Ndi\Interfaces,                LowerRange, 0, "wlan,ethernet"
+
+HKR, Ndi\IHVExtensions, ExtensibilityDLL, 0, %%SystemRoot%%\system32\athihvs.dll
+HKR, Ndi\IHVExtensions, UIExtensibilityCLSID, 0, "{4A31B2F3-8714-4236-8B6F-5BA745A04AB7}"
+HKR, Ndi\IHVExtensions, GroupName,              0,  "Atheros IHV Service"
+HKR, Ndi\IHVExtensions, AdapterOUI, 0x00010001, 0x00037f
+
+[atheros.DelReg]
+HKR,,NetBand
+HKR,,ssid
+HKR,,ssid2
+HKR,,ssid3
+HKR,,prefBssid1
+HKR,,prefBssid2
+HKR,,prefBssid3
+HKR,,prefBssid4
+HKR,Ndi\Params\tpc
+HKR,,tpc
+HKR,Ndi\Params\authTypeUseOnly
+HKR,,authTypeUseOnly
+HKR,,AdHocBand
+HKR,,AwakeTimePerf
+HKR,,beaconInterval
+HKR,,bkScanEnable
+HKR,,bssType
+HKR,,ccode
+HKR,,clist
+HKR,,defaultKey
+HKR,,EncryptionAlg
+HKR,,FragThreshold
+HKR,,HwTxRetries
+HKR,,privacyInvoked
+HKR,,QoS
+HKR,,rateCtrlEnable
+HKR,,RTSThreshold
+HKR,,scanType
+HKR,,SwTxRetryScale
+HKR,,SmeEnable
+HKR,,aifs
+HKR,,cwmin
+HKR,,halPcieClockReq
+HKR,Ndi\params,MapRegisters,0x2000
+HKR,,MapRegisters
+HKR,Ndi\params,radioEnable,0x2000
+HKR,Ndi\params,sleepMode,0x2000
+HKR,,sleepMode
+HKR,,gpioFunc0ActHi
+HKR,,gpioFunc1ActHi
+HKR,,gpioLedCustom
+HKR,,gpioPinFunc0
+HKR,,gpioPinFunc1
+HKR,,transmitRateMax
+HKR, Ndi\params\*TransmitBuffers
+HKR,,*TransmitBuffers
+HKR,,rxChainMask
+HKR,,txChainMaskLegacy
+HKR,,rxChainMaskLegacy
+HKR,,rxChainDetect
+HKR,,rxChainDetectRef
+HKR,,rxChainDetectThreshA
+HKR,,rxChainDetectThreshG
+HKR,,rxChainDetectDeltaA
+HKR,,rxChainDetectDeltaG
+HKR, Ndi\params\smpsDynamic
+HKR,,d3forcel1disable.reg
+HKR,,d3forcel1disablekite.reg
+HKR,,d3forcel1disablekite1.reg
+HKR,,wmeEnabled
+HKR,,halPcieWaen
+HKR,,halPcieDetach
+HKR,,ampEnable
+HKR,Ndi\IHVExtensions
+HKR,,roamPolicy
+HKR,,btCoexAntDivEnable
+
+;;Customized Section
+
+[11n.reg]
+HKR, Ndi\params\MapRegisters,           ParamDesc,                      0,  %MapRegisters%
+HKR, Ndi\params\MapRegisters,           default,                        0,  "256"
+HKR, Ndi\params\MapRegisters,           min,                            0,  "32"
+HKR, Ndi\params\MapRegisters,           max,                            0,  "512"
+HKR, Ndi\params\MapRegisters,           step,                           0,  "8"
+HKR, Ndi\params\MapRegisters,           base,                           0,  "10"
+HKR, Ndi\params\MapRegisters,           type,                           0,  "int"
+
+HKR, Ndi\params\NetworkAddress,         ParamDesc,                      0,  %NetworkAddress%
+HKR, Ndi\params\NetworkAddress,         default,                        0,  ""
+HKR, Ndi\params\NetworkAddress,         LimitText,                      0,  "14"
+HKR, Ndi\params\NetworkAddress,         UpperCase,                      0,  "1"
+HKR, Ndi\params\NetworkAddress,         optional,                       0,  "1"
+HKR, Ndi\params\NetworkAddress,         type,                           0,  "edit"
+
+HKR, Ndi\params\sleepMode,              ParamDesc,                      0,  %sleepMode%
+HKR, Ndi\params\sleepMode,              Base,                           0,  "10"
+HKR, Ndi\params\sleepMode,              default,                        0,  "2"
+HKR, Ndi\params\sleepMode,              type,                           0,  "enum"
+HKR, Ndi\params\sleepMode\enum,         "0",                            0,  %sleepModeOff%
+HKR, Ndi\params\sleepMode\enum,         "2",                            0,  %sleepModeNormal%
+HKR, Ndi\params\sleepMode\enum,         "1",                            0,  %sleepModeMax%
+
+HKR, Ndi\params\shortPreamble,          ParamDesc,                      0,  %shortPreamble%
+HKR, Ndi\params\shortPreamble,          Base,                           0,  "10"
+HKR, Ndi\params\shortPreamble,          default,                        0,  "1"
+HKR, Ndi\params\shortPreamble,          type,                           0,  "enum"
+HKR, Ndi\params\shortPreamble\enum,     "1",                            0,  %shortPreambleEnable%
+HKR, Ndi\params\shortPreamble\enum,     "0",                            0,  %shortPreambleDisable%
+
+HKR, Ndi\params\radioEnable,            ParamDesc,                      0,  %radioEnable%
+HKR, Ndi\params\radioEnable,            Base,                           0,  "10"
+HKR, Ndi\params\radioEnable,            default,                        0,  "1"
+HKR, Ndi\params\radioEnable,            type,                           0,  "enum"
+HKR, Ndi\params\radioEnable\enum,       "1",                            0,  %radioEnableOn%
+HKR, Ndi\params\radioEnable\enum,       "0",                            0,  %radioEnableOff%
+
+HKR, Ndi\params\scanTimeValid,          ParamDesc,                      0,  %scanTimeValid%
+HKR, Ndi\params\scanTimeValid,          default,                        0,  "60"
+HKR, Ndi\params\scanTimeValid,          min,                            0,  "20"
+HKR, Ndi\params\scanTimeValid,          max,                            0,  "120"
+HKR, Ndi\params\scanTimeValid,          step,                           0,  "5"
+HKR, Ndi\params\scanTimeValid,          base,                           0,  "10"
+HKR, Ndi\params\scanTimeValid,          type,                           0,  "int"
+
+HKR, Ndi\params\ccx5FeatureEnable,      ParamDesc,                      0,  %ccx5FeatureEnable%
+HKR, Ndi\params\ccx5FeatureEnable,      Base,                           0,  "10"
+HKR, Ndi\params\ccx5FeatureEnable,      default,                        0,  "0"
+HKR, Ndi\params\ccx5FeatureEnable,      type,                           0,  "enum"
+HKR, Ndi\params\ccx5FeatureEnable\enum, "1",                            0,  %ccx5FeatureEnableMfpEnable%
+HKR, Ndi\params\ccx5FeatureEnable\enum, "0",                            0,  %ccx5FeatureEnableMfpDisable%
+
+HKR, CustomParams\Configurations,       MajorVersion,                   0x10003,  2
+HKR, CustomParams\Configurations,       MinorVersion,                   0x10003,  0
+
+HKR, CustomParams\Configurations,       SelectedConfigurationIndex,     0x10003,  0
+HKR, CustomParams\Configurations,       SelectedConfigurationName,      0x00002,  "Default"
+
+HKR, ,                                  halPciePowerSaveEnable,         0x00002,  "1"
+HKR, ,                                  forceWake,                 	0x00002,  "1"
+
+HKR,,                                   linkLEDFunc,                    0,        "35"
+HKR, ,                                  swapDefaultLED,                 0x00002,  "1"
+;-----------------------------------------------------------------------------
+;;Customized Section
+
+HKR, Ndi\params\GreenTx,                ParamDesc,                      0,        %GreenTx%
+HKR, Ndi\params\GreenTx,                Base,                           0,        "10"
+HKR, Ndi\params\GreenTx,                default,                        0,        "0"
+HKR, Ndi\params\GreenTx,                type,                           0,        "enum"
+HKR, Ndi\params\GreenTx\enum,           "0",                            0,        %GreenTxEnableOff%
+HKR, Ndi\params\GreenTx\enum,           "1",                            0,        %GreenTxEnableOn%
+
+HKR, ,                                  ampEnable,                      0x00002,  "1"
+HKR, Ndi\params\ampEnable,              ParamDesc,                      0,        %bt30%
+HKR, Ndi\params\ampEnable,              default,                        0,        "1"
+HKR, Ndi\params\ampEnable,              type,                           0,        "enum"
+HKR, Ndi\params\ampEnable\enum,         "1",                            0,        %bt30enable%
+HKR, Ndi\params\ampEnable\enum,         "0",                            0,        %bt30disable%
+
+HKR, NDI\params\htAdhocEnable,ParamDesc,,	%AdHoc11n%
+HKR, NDI\params\htAdhocEnable,type,,		"enum"
+HKR, NDI\params\htAdhocEnable,Default,,	        "0"
+HKR, NDI\params\htAdhocEnable\enum,0,,	        %Disable%
+HKR, NDI\params\htAdhocEnable\enum,1,,	        %Enable%
+
+HKR, Ndi\params\smpsDynamic,            ParamDesc,                      0,  %smpsDynamic%
+HKR, Ndi\params\smpsDynamic,            Base,                           0,  "10"
+HKR, Ndi\params\smpsDynamic,            default,                        0,  "0"
+HKR, Ndi\params\smpsDynamic,            type,                           0,  "enum"
+HKR, Ndi\params\smpsDynamic\enum,       "1",                            0,  %Enable%
+HKR, Ndi\params\smpsDynamic\enum,       "0",                            0,  %Disable%
+
+HKR, Ndi\params\defaultIbssChannel,     ParamDesc,                      0,        %adhocchannel%
+HKR, Ndi\params\defaultIbssChannel,     default,                        0,        "10"
+HKR, Ndi\params\defaultIbssChannel,     min,                            0,        "1"
+HKR, Ndi\params\defaultIbssChannel,     max,                            0,        "14"
+HKR, Ndi\params\defaultIbssChannel,     step,                           0,        "1"
+HKR, Ndi\params\defaultIbssChannel,     base,                           0,        "10"
+HKR, Ndi\params\defaultIbssChannel,     type,                           0,        "int"
+
+HKR, NDI\params\ignore11dBeacon,ParamDesc,,	%Mode11d%
+HKR, NDI\params\ignore11dBeacon,type,,		"enum"
+HKR, NDI\params\ignore11dBeacon,Default,,	"1"
+HKR, NDI\params\ignore11dBeacon\enum,0,,		%Mode11dEnable%
+HKR, NDI\params\ignore11dBeacon\enum,1,,		%Mode11dDisable%
+
+HKR, Ndi\params\tpc,                    ParamDesc,                      0,  %tpc%
+HKR, Ndi\params\tpc,                    Base,                           0,  "10"
+HKR, Ndi\params\tpc,                    default,                        0,  "0"
+HKR, Ndi\params\tpc,                    type,                           0,  "enum"
+HKR, Ndi\params\tpc\enum,               "0",                            0,  %tpc100%
+HKR, Ndi\params\tpc\enum,               "1",                            0,  %tpc50%
+HKR, Ndi\params\tpc\enum,               "2",                            0,  %tpc25%
+HKR, Ndi\params\tpc\enum,               "3",                            0,  %tpc12%
+HKR, Ndi\params\tpc\enum,               "4",                            0,  %tpcLowest%
+
+HKR, Ndi\params\shortPreamble,          ParamDesc,                      0,  %shortPreamble%
+HKR, Ndi\params\shortPreamble,          Base,                           0,  "10"
+HKR, Ndi\params\shortPreamble,          default,                        0,  "1"
+HKR, Ndi\params\shortPreamble,          type,                           0,  "enum"
+HKR, Ndi\params\shortPreamble\enum,     "1",                            0,  %shortPreambleEnable%
+HKR, Ndi\params\shortPreamble\enum,     "0",                            0,  %shortPreambleDisable%
+
+;Following Entry made to Enable/Disable rate Auto Rate control.
+HKR, NDI\params\rateCtrlEnable,ParamDesc,,	%RateCtrl%
+HKR, NDI\params\rateCtrlEnable,type,,		"enum"
+HKR, NDI\params\rateCtrlEnable,Default,,		"1"
+HKR, NDI\params\rateCtrlEnable\enum,0,,		%RateCtrlDisable%
+HKR, NDI\params\rateCtrlEnable\enum,1,,		%RateCtrlEnable%
+
+;Following Entry made to 11d mode switch 
+HKR, NDI\params\ignore11dBeacon,ParamDesc,,	%Mode11d%
+HKR, NDI\params\ignore11dBeacon,type,,		"enum"
+HKR, NDI\params\ignore11dBeacon,Default,,	"1"
+HKR, NDI\params\ignore11dBeacon\enum,0,,		%Mode11dEnable%
+HKR, NDI\params\ignore11dBeacon\enum,1,,		%Mode11dDisable%
+
+HKR, Ndi\params\rssiThrHigh,            ParamDesc,                      0,        %rssiThrHigh%
+HKR, Ndi\params\rssiThrHigh,            Base,                           0,        "10"
+HKR, Ndi\params\rssiThrHigh,            default,                        0,        "40"
+HKR, Ndi\params\rssiThrHigh,            type,                           0,        "enum"
+HKR, Ndi\params\rssiThrHigh\enum,       "40",                           0,        %rssiThrHighNormal%
+HKR, Ndi\params\rssiThrHigh\enum,       "32",                           0,        %rssiThrHighMin%
+
+HKR, Ndi\params\roamPolicy,             ParamDesc,                      0,        %roamPolicy%
+HKR, Ndi\params\roamPolicy,             Base,                           0,        "10"
+HKR, Ndi\params\roamPolicy,             default,                        0,        "3"
+HKR, Ndi\params\roamPolicy,             type,                           0,        "enum"
+HKR, Ndi\params\roamPolicy\enum,        "1",                            0,        %roamPolicyVeryLow%
+HKR, Ndi\params\roamPolicy\enum,        "2",                            0,        %roamPolicyLow%
+HKR, Ndi\params\roamPolicy\enum,        "3",                            0,        %roamPolicyNormal%
+HKR, Ndi\params\roamPolicy\enum,        "4",                            0,        %roamPolicyHigh%
+HKR, Ndi\params\roamPolicy\enum,        "5",                            0,        %roamPolicyVeryHigh%
+
+HKR, CustomParams\Configurations,       NicType,                        0x10003,  1
+
+HKR, Ndi\params\bkScanEnable,           ParamDesc,                      0,        %bkScanEnable%
+HKR, Ndi\params\bkScanEnable,           Base,                           0,        "10"
+HKR, Ndi\params\bkScanEnable,           default,                        0,        "1"
+HKR, Ndi\params\bkScanEnable,           type,                           0,        "enum"
+HKR, Ndi\params\bkScanEnable\enum,      "1",                            0,        %bkScanEnableOn%
+HKR, Ndi\params\bkScanEnable\enum,      "0",                            0,        %bkScanEnableOff%
+
+HKR, Ndi\params\roamRssiA,              ParamDesc,                      0,        %roamRssi11A%
+HKR, Ndi\params\roamRssiA,              default,                        0,        "15"
+HKR, Ndi\params\roamRssiA,              min,                            0,        "1"
+HKR, Ndi\params\roamRssiA,              max,                            0,        "95"
+HKR, Ndi\params\roamRssiA,              step,                           0,        "1"
+HKR, Ndi\params\roamRssiA,              base,                           0,        "10"
+HKR, Ndi\params\roamRssiA,              type,                           0,        "int"
+
+HKR, Ndi\params\roamRssiBOnly,          ParamDesc,                      0,        %roamRssi11BOnly%
+HKR, Ndi\params\roamRssiBOnly,          default,                        0,        "8"
+HKR, Ndi\params\roamRssiBOnly,          min,                            0,        "0"
+HKR, Ndi\params\roamRssiBOnly,          max,                            0,        "95"
+HKR, Ndi\params\roamRssiBOnly,          step,                           0,        "1"
+HKR, Ndi\params\roamRssiBOnly,          base,                           0,        "10"
+HKR, Ndi\params\roamRssiBOnly,          type,                           0,        "int"
+
+HKR, Ndi\params\roamRssiB,              ParamDesc,                      0,        %roamRssi11B%
+HKR, Ndi\params\roamRssiB,              default,                        0,        "24"
+HKR, Ndi\params\roamRssiB,              min,                            0,        "0"
+HKR, Ndi\params\roamRssiB,              max,                            0,        "95"
+HKR, Ndi\params\roamRssiB,              step,                           0,        "1"
+HKR, Ndi\params\roamRssiB,              base,                           0,        "10"
+HKR, Ndi\params\roamRssiB,              type,                           0,        "int"
+
+HKR, Ndi\params\roamRateA,              ParamDesc,                      0,        %roamRateA%
+HKR, Ndi\params\roamRateA,              Base,                           0,        "10"
+HKR, Ndi\params\roamRateA,              default,                        0,        "24000"
+HKR, Ndi\params\roamRateA,              type,                           0,        "enum"
+HKR, Ndi\params\roamRateA\enum,         "6000",                         0,        %roamRateA6M%
+HKR, Ndi\params\roamRateA\enum,         "9000",                         0,        %roamRateA9M%
+HKR, Ndi\params\roamRateA\enum,         "12000",                        0,        %roamRateA12M%
+HKR, Ndi\params\roamRateA\enum,         "18000",                        0,        %roamRateA18M%
+HKR, Ndi\params\roamRateA\enum,         "24000",                        0,        %roamRateA24M%
+HKR, Ndi\params\roamRateA\enum,         "36000",                        0,        %roamRateA36M%
+HKR, Ndi\params\roamRateA\enum,         "48000",                        0,        %roamRateA48M%
+HKR, Ndi\params\roamRateA\enum,         "54000",                        0,        %roamRateA54M%
+
+HKR, Ndi\params\roamRateBOnly,          ParamDesc,                      0,        %roamRateBOnly%
+HKR, Ndi\params\roamRateBOnly,          Base,                           0,        "10"
+HKR, Ndi\params\roamRateBOnly,          default,                        0,        "5000"
+HKR, Ndi\params\roamRateBOnly,          type,                           0,        "enum"
+HKR, Ndi\params\roamRateBOnly\enum,     "1000",                         0,        %roamRateBOnly1M%
+HKR, Ndi\params\roamRateBOnly\enum,     "2000",                         0,        %roamRateBOnly2M%
+HKR, Ndi\params\roamRateBOnly\enum,     "5000",                         0,        %roamRateBOnly5M%
+HKR, Ndi\params\roamRateBOnly\enum,     "11000",                        0,        %roamRateBOnly11M%
+
+HKR, Ndi\params\roamRateB,              ParamDesc,                      0,        %roamRateB%
+HKR, Ndi\params\roamRateB,              Base,                           0,        "10"
+HKR, Ndi\params\roamRateB,              default,                        0,        "9000"
+HKR, Ndi\params\roamRateB,              type,                           0,        "enum"
+HKR, Ndi\params\roamRateB\enum,         "1000",                         0,        %roamRateB1M%
+HKR, Ndi\params\roamRateB\enum,         "2000",                         0,        %roamRateB2M%
+HKR, Ndi\params\roamRateB\enum,         "5000",                         0,        %roamRateB5M%
+HKR, Ndi\params\roamRateB\enum,         "6000",                         0,        %roamRateB6M%
+HKR, Ndi\params\roamRateB\enum,         "9000",                         0,        %roamRateB9M%
+HKR, Ndi\params\roamRateB\enum,         "11000",                        0,        %roamRateB11M%
+
+HKR, Ndi\params\pcieAspm,               ParamDesc,                      0,        %pcieAspm%
+HKR, Ndi\params\pcieAspm,               Base,                           0,        "10"
+HKR, Ndi\params\pcieAspm,               default,                        0,        "0"
+HKR, Ndi\params\pcieAspm,               type,                           0,        "enum"
+HKR, Ndi\params\pcieAspm\enum,          "0",                            0,        %pcieAspmOff%
+HKR, Ndi\params\pcieAspm\enum,          "1",                            0,        %pcieAspmL0sOn%
+HKR, Ndi\params\pcieAspm\enum,          "2",                            0,        %pcieAspmL1On%
+HKR, Ndi\params\pcieAspm\enum,          "3",                            0,        %pcieAspmL0sandL1On%
+
+HKR, Ndi\params\antennaSwitch,          ParamDesc,                      0,        %antennaSwitch%
+HKR, Ndi\params\antennaSwitch,          Base,                           0,        "10"
+HKR, Ndi\params\antennaSwitch,          default,                        0,        "0"
+HKR, Ndi\params\antennaSwitch,          type,                           0,        "enum"
+HKR, Ndi\params\antennaSwitch\enum,     "1",                            0,        %antennaSwitchA%
+HKR, Ndi\params\antennaSwitch\enum,     "2",                            0,        %antennaSwitchB%
+HKR, Ndi\params\antennaSwitch\enum,     "0",                            0,        %antennaSwitchAuto%
+
+HKR, ,                                  rxChainSelect,                 	0x00002,  "7"
+HKR, ,                                  txChainSelectLegacy,            0x00002,  "7"
+HKR, ,                                  rxChainSelectLegacy,           	0x00002,  "7"
+HKR, ,                                  forceBias,           	        0x00002,  "2"
+HKR, ,                                  rxChainDetect,                  0x00002,  "1"
+HKR, ,                                  rxChainDetectRef,               0x00002,  "0"
+HKR, ,                                  rxChainDetectThreshA,           0x00002,  "0"
+HKR, ,                                  rxChainDetectThreshG,           0x00002,  "0"
+HKR, ,                                  rxChainDetectDeltaA,            0x00002,  "20"
+HKR, ,                                  rxChainDetectDeltaG,            0x00002,  "20"
+
+HKR, Ndi\params\uapsdEnabledBE,            ParamDesc,                      0,  %uapsdEnabledBE%
+HKR, Ndi\params\uapsdEnabledBE,            Base,                           0,  "10"
+HKR, Ndi\params\uapsdEnabledBE,            default,                        0,  "0"
+HKR, Ndi\params\uapsdEnabledBE,            type,                           0,  "enum"
+HKR, Ndi\params\uapsdEnabledBE\enum,       "1",                            0,  %uapsdEnabledBEOn%
+HKR, Ndi\params\uapsdEnabledBE\enum,       "0",                            0,  %uapsdEnabledBEOff%
+
+HKR, Ndi\params\uapsdEnabledBK,            ParamDesc,                      0,  %uapsdEnabledBK%
+HKR, Ndi\params\uapsdEnabledBK,            Base,                           0,  "10"
+HKR, Ndi\params\uapsdEnabledBK,            default,                        0,  "0"
+HKR, Ndi\params\uapsdEnabledBK,            type,                           0,  "enum"
+HKR, Ndi\params\uapsdEnabledBK\enum,       "1",                            0,  %uapsdEnabledBKOn%
+HKR, Ndi\params\uapsdEnabledBK\enum,       "0",                            0,  %uapsdEnabledBKOff%
+
+HKR, Ndi\params\uapsdEnabledVI,            ParamDesc,                      0,  %uapsdEnabledVI%
+HKR, Ndi\params\uapsdEnabledVI,            Base,                           0,  "10"
+HKR, Ndi\params\uapsdEnabledVI,            default,                        0,  "0"
+HKR, Ndi\params\uapsdEnabledVI,            type,                           0,  "enum"
+HKR, Ndi\params\uapsdEnabledVI\enum,       "1",                            0,  %uapsdEnabledVIOn%
+HKR, Ndi\params\uapsdEnabledVI\enum,       "0",                            0,  %uapsdEnabledVIOff%
+
+HKR, Ndi\params\uapsdEnabledVO,            ParamDesc,                      0,  %uapsdEnabledVO%
+HKR, Ndi\params\uapsdEnabledVO,            Base,                           0,  "10"
+HKR, Ndi\params\uapsdEnabledVO,            default,                        0,  "0"
+HKR, Ndi\params\uapsdEnabledVO,            type,                           0,  "enum"
+HKR, Ndi\params\uapsdEnabledVO\enum,       "1",                            0,  %uapsdEnabledVOOn%
+HKR, Ndi\params\uapsdEnabledVO\enum,       "0",                            0,  %uapsdEnabledVOOff%
+
+HKR, Ndi\params\psPollEnable,            ParamDesc,                      0,  %psPoll%
+HKR, Ndi\params\psPollEnable,            Base,                           0,  "10"
+HKR, Ndi\params\psPollEnable,            default,                        0,  "0"
+HKR, Ndi\params\psPollEnable,            type,                           0,  "enum"
+HKR, Ndi\params\psPollEnable\enum,       "1",                            0,  %psPollEnable%
+HKR, Ndi\params\psPollEnable\enum,       "0",                            0,  %psPollDisable%
+
+HKR, Ndi\params\*ReceiveBuffers,        ParamDesc,                      0,        "%ReceiveBuffers%"
+HKR, Ndi\params\*ReceiveBuffers,        default,                        0,        "256"
+HKR, Ndi\params\*ReceiveBuffers,        min,                            0,        "1"
+HKR, Ndi\params\*ReceiveBuffers,        max,                            0,        "00000256"
+HKR, Ndi\params\*ReceiveBuffers,        step,                           0,        "1"
+HKR, Ndi\params\*ReceiveBuffers,        Base,                           0,        "10"
+HKR, Ndi\params\*ReceiveBuffers,        type,                           0,        "int"
+
+HKR, Ndi\params\*TransmitBuffers,       ParamDesc,                      0,        "%TransmitBuffers%"
+HKR, Ndi\params\*TransmitBuffers,       default,                        0,        "512"
+HKR, Ndi\params\*TransmitBuffers,       min,                            0,        "1"
+HKR, Ndi\params\*TransmitBuffers,       max,                            0,        "00000512"
+HKR, Ndi\params\*TransmitBuffers,       step,                           0,        "1"
+HKR, Ndi\params\*TransmitBuffers,       Base,                           0,        "10"
+HKR, Ndi\params\*TransmitBuffers,       type,                           0,        "int"
+
+[20-40mhz]
+HKR, Ndi\params\wModeSelect,            ParamDesc,                      0,        %wModeSelect%
+HKR, Ndi\params\wModeSelect,            Base,                           0,        "10"
+HKR, Ndi\params\wModeSelect,            default,                        0,        "130573"
+HKR, Ndi\params\wModeSelect,            type,                           0,        "enum"
+
+HKR, Ndi\params\wModeSelect\enum,       "4",                            0,        %wModeLegacy11bonly%
+HKR, Ndi\params\wModeSelect\enum,       "3",                            0,        %wModeLegacy11a%
+HKR, Ndi\params\wModeSelect\enum,       "28",                           0,        %wModeLegacy11bg%
+HKR, Ndi\params\wModeSelect\enum,       "31",                           0,        %wModeLegacy11abg%
+
+HKR, Ndi\params\wModeSelect\enum,       "2052",                         0,        %wModeSelect11bonly%
+HKR, Ndi\params\wModeSelect\enum,       "4099",                         0,        %wModeSelect11na%
+HKR, Ndi\params\wModeSelect\enum,       "2076",                         0,        %wModeSelect11nbg%
+HKR, Ndi\params\wModeSelect\enum,       "6175",                         0,        %wModeSelect11abgn%
+
+HKR, Ndi\params\wModeSelect\enum,       "26628",                        0,        %wModeSelect11bonly40%
+HKR, Ndi\params\wModeSelect\enum,       "103937",                       0,        %wModeSelect11na40%
+HKR, Ndi\params\wModeSelect\enum,       "26636",                        0,        %wModeSelect11nbg40%
+HKR, Ndi\params\wModeSelect\enum,       "130573",                       0,        %wModeSelect11abgn40%
+
+[9485BTcoex.reg]
+HKR, ,                                  wlanActiveGpioSelect,                   0x00002,  "5"
+HKR, ,                                  btActiveGpioSelect,                     0x00002,  "4"
+HKR, ,                                  btPriorityGpioSelect,                   0x00002,  "8"
+HKR, ,                                  btCoexEnable,                           0x00002,  "4"
+HKR, ,                                  btCoexAgent,                            0x00002,  "1"
+HKR, ,                                  btCoexDisablePTA,                       0x00002,  "2621441"
+HKR, ,                                  btWlanIsolation,                        0x00002,  "25"
+HKR, ,                                  btCoexAntDivEnable,                     0x00002,  "0"
+
+[MSI.reg]
+;HKR, "Interrupt Management", 0x00000010
+;HKR, "Interrupt Management\MessageSignaledInterruptProperties", 0x00000010
+;HKR, "Interrupt Management\MessageSignaledInterruptProperties", MSISupported, 0x00010001, 1
+;HKR, "Interrupt Management\MessageSignaledInterruptProperties", MessageNumberLimit, 0x00010001, 4
+
+;;End of Customized Section
+
+[atheros.Service]
+DisplayName     = %ATHR.Service.DispName%
+ServiceType     = 1         ;SERVICE_KERNEL_DRIVER
+StartType       = 3         ;SERVICE_DEMAND_START
+ErrorControl    = 1         ;SERVICE_ERROR_NORMAL
+ServiceBinary   = %12%\athr.sys
+LoadOrderGroup  = NDIS
+
+[atheros.EventLog]
+AddReg = atheros.AddEventLog.reg
+
+[atheros.AddEventLog.reg]
+HKR, , EventMessageFile, 0x00020000, "%%SystemRoot%%\System32\netevent.dll"
+HKR, , TypesSupported,   0x00010001, 7
+
+
+[atheros.CopyFiles]
+athr.sys,,,2
+
+[SourceDisksNames]
+1 = %DiskDescription%,athr.sys,,
+
+[SourceDisksFiles]
+athr.sys = 1,,
+
+[DestinationDirs]
+atheros.CopyFiles            = 12
+DefaultDestDirs              = 11
+
+[Strings]
+;Non-Localizable strings
+11DModeSwitch		     = "11d Mode Switch"
+2GOnly	                     = "2Ghz Only"
+5GOnly	                     = "5Ghz Only"
+802_11d                      = "802.11d"
+radioEnable                 = "Radio On/Off"
+radioEnableOff              = "Off"
+radioEnableOn               = "On"
+ATHR.Service.DispName        = "Atheros Extensible Wireless LAN device driver"
+AdHoc11n                     = "AdHoc 11n"
+AdhocBand_DEF_STR_A          = "1"                       ; (A)
+AdhocBand_DEF_STR_AB         = "1"                       ; (A)
+AdhocBand_DEF_STR_AG         = "0"                       ; (B)
+AdhocBand_DEF_STR_G          = "0"                       ; (B)
+Atheros                      = "Atheros Communications Inc."
+Atheros                      = "Atheros"
+Auto			     = "Auto"
+Disable                      = "Disable"
+DiskDescription              = "Atheros Sample Driver Disk 1"
+Enable			     = "Enable"
+Gigabyte                     = "Gigabyte Technology Corp."
+MSFT                         = "Microsoft"
+MapRegisters                 = "Map Registers"
+Maximum                      = "Maximum"
+Mode11d                      = "11d Mode Switch"
+Mode11dDisable               = "Disable"
+Mode11dEnable                = "Enable"
+NetBand_DEF_STR_A            = "3"                       ; (A/T) 
+NetBand_DEF_STR_AB           = "7"                       ; (A/T/B)   
+NetBand_DEF_STR_AG           = "15"                      ; (A/T/B/G)
+NetBand_DEF_STR_G            = "12"                      ; (B/G)     
+NetworkAddress               = "Network Address"
+Normal                       = "Normal"
+Off			     = "Off"
+PowerSaveMode		     = "Power Save Mode"
+RateCtrl                     = "Auto Transmit Rate"
+RateCtrlDisable              = "Disable"
+RateCtrlEnable               = "Enable"
+ReceiveBuffers               = "Receive Buffers"
+TransmitBuffers              = "Transmit Buffers"
+TxRate11a                    = "11a Transmit Rates"
+TxRate11a12M                 = "12 Mbps"
+TxRate11a18M                 = "18 Mbps"
+TxRate11a24M                 = "24 Mbps"
+TxRate11a36M                 = "36 Mbps"
+TxRate11a48M                 = "48 Mbps"
+TxRate11a54M                 = "54 Mbps"
+TxRate11a6M                  = "6 Mbps"
+TxRate11a9M                  = "9 Mbps"
+TxRate11b                    = "11b Transmit Rates"
+TxRate11b11M                 = "11 Mbps"
+TxRate11b1M                  = "1 Mbps"
+TxRate11b2M                  = "2 Mbps"
+TxRate11b5M                  = "5.5 Mbps"
+TxRate11g                    = "11g Transmit Rates"
+TxRate11g11M                 = "11 Mbps"
+TxRate11g12M                 = "12 Mbps"
+TxRate11g18M                 = "18 Mbps"
+TxRate11g1M                  = "1 Mbps"
+TxRate11g24M                 = "24 Mbps"
+TxRate11g2M                  = "2 Mbps"
+TxRate11g36M                 = "36 Mbps"
+TxRate11g48M                 = "48 Mbps"
+TxRate11g54M                 = "54 Mbps"
+TxRate11g5M                  = "5.5 Mbps"
+TxRate11g6M                  = "6 Mbps"
+TxRate11g9M                  = "9 Mbps"
+WirelessMode                 = "Wireless Mode Selection"
+WirelessMode11bgOnly         = "802.11b/g"
+WirelessMode2GHzOnly         = "2.4 GHz Only"
+WirelessMode5GHzOnly         = "5 GHz Only"
+WirelessModeAuto             = "Auto"
+adhocchannel                 = "Adhoc Channel Select"
+adhocchannel                 = "Adhoc channel Selection"
+antennaSwitch                = "AntennaSwitch"
+antennaSwitchA               = "Antenna A"
+antennaSwitchAuto            = "Auto"
+antennaSwitchB               = "Antenna B"
+authAuto                     = "Auto"
+authOpen                     = "Open"
+authShared                   = "Shared"
+authTypeUseOnly              = "802.11 Authentication Type"
+bkScanEnable                 = "BackgroundScan On/Off"
+bkScanEnableOff              = "Off"
+bkScanEnableOn               = "On"
+ccx5FeatureEnable            = "MFP"
+ccx5FeatureEnableMfpDisable  = "Disable"
+ccx5FeatureEnableMfpEnable   = "Enable"
+pcieAspm                     = "pcieAspm"
+pcieAspmL0sOn                = "L0s On,  L1 Off"
+pcieAspmL0sandL1On           = "L0s On,  L1 On"
+pcieAspmL1On                 = "L0s Off, L1 On"
+pcieAspmOff                  = "L0s Off, L1 Off"
+psPoll                       = "Power Save Legacy Algorithm"
+psPollDisable                = "PS non Poll"
+psPollEnable                 = "PS Poll"
+radioEnable                  = "Radio On/Off"
+radioEnableOff               = "Off"
+radioEnableOn                = "On"
+roamPolicy                   = "Roaming Policy"
+roamPolicyHigh               = "High"
+roamPolicyLow                = "Low"
+roamPolicyNormal             = "Normal"
+roamPolicyVeryHigh           = "Very High"
+roamPolicyVeryLow            = "Very Low"
+roamRateA                    = "roamRateA"
+roamRateA12M                 = "12Mbps"
+roamRateA18M                 = "18Mbps"
+roamRateA24M                 = "24Mbps"
+roamRateA36M                 = "36Mbps"
+roamRateA48M                 = "48Mbps"
+roamRateA54M                 = "54Mbps"
+roamRateA6M                  = " 6Mbps"
+roamRateA9M                  = " 9Mbps"
+roamRateB                    = "roamRateB"
+roamRateB11M                 = "11Mbps"
+roamRateB1M                  = " 1Mbps"
+roamRateB2M                  = " 2Mbps"
+roamRateB5M                  = " 5Mbps"
+roamRateB6M                  = " 6Mbps"
+roamRateB9M                  = " 9Mbps"
+roamRateBOnly                = "roamRateBOnly"
+roamRateBOnly11M             = "11Mbps"
+roamRateBOnly1M              = " 1Mbps"
+roamRateBOnly2M              = " 2Mbps"
+roamRateBOnly5M              = " 5Mbps"
+roamRssi11A                  = "roamRssiA"
+roamRssi11B                  = "roamRssiB"
+roamRssi11BOnly              = "roamRssiBOnly"
+roamRssiA                    = "Roam Time Threshold (db)"
+rssiThrHigh                  = "RSSI Threshold"
+rssiThrHighMin               = "Min"
+rssiThrHighNormal            = "Normal"
+scanTime                     = "Roam Time (sec)"
+scanTimeValid                = "Scan Valid Interval"
+scanTimeValidcust            = "Roam Time (sec)"
+scanTimeValidcust10          = "10"
+scanTimeValidcust120         = "120"
+scanTimeValidcust20          = "20"
+scanTimeValidcust30          = "30"
+scanTimeValidcust45          = "45"
+scanTimeValidcust5           = "5"
+scanTimeValidcust60          = "60"
+shortPreamble                = "802.11b Preamble"
+shortPreambleDisable         = "Long only"
+shortPreambleEnable          = "Long and Short"
+shortPreamble_DEFAULT        = "1"
+sleepMode                    = "Power Save Mode"
+sleepModeMax                 = "Maximum"
+sleepModeNormal              = "Normal"
+sleepModeOff                 = "Off"
+sleepMode_DEFAULT            = "2"  
+smpsDynamic                  = "Dynamic MIMO Power Save"
+tpc                          = "Transmit Power"
+tpc100                       = "100%"
+tpc12                        = "12.5%"
+tpc25                        = "25%"
+tpc50                        = "50%"
+tpcLowest                    = "Lowest"
+uapsdEnabledBE               = "Power Save Policy (Best Effort)"
+uapsdEnabledBEOff            = "Legacy Power Save"
+uapsdEnabledBEOn             = "WMM Power Save (UAPSD)"
+uapsdEnabledBK               = "Power Save Policy (Background)"
+uapsdEnabledBKOff            = "Legacy Power Save"
+uapsdEnabledBKOn             = "WMM Power Save (UAPSD)"
+uapsdEnabledVI               = "Power Save Policy (Voice)"
+uapsdEnabledVIOff            = "Legacy Power Save"
+uapsdEnabledVIOn             = "WMM Power Save (UAPSD)"
+uapsdEnabledVO               = "Power Save Policy (Video)"
+uapsdEnabledVOOff            = "Legacy Power Save"
+uapsdEnabledVOOn             = "WMM Power Save (UAPSD)"
+wModeLegacy11a               = "11a only"
+wModeLegacy11a               = "legacy 11a only"
+wModeLegacy11abg             = "11abg"
+wModeLegacy11abg             = "legacy 11abg"
+wModeLegacy11bg              = "11g and 11b"
+wModeLegacy11bg              = "legacy 11g and 11b"
+wModeLegacy11bonly           = "11b only"
+wModeLegacy11bonly           = "legacy 11b only"
+wModeSelect                  = "Wireless Mode"
+wModeSelect11abgn            = "11abgn"
+wModeSelect11abgn20          = "11abgn (20Mhz)"
+wModeSelect11abgn40          = "11abgn (40Mhz)"
+wModeSelect11bonly           = "11b only"
+wModeSelect11bonly20         = "11b only (20Mhz)"
+wModeSelect11bonly40         = "11b only (40Mhz)"
+wModeSelect11na              = "11n(5GHz) and a"
+wModeSelect11na              = "11na"
+wModeSelect11na20            = "11na (20Mhz)"
+wModeSelect11na40            = "11na (40Mhz)"
+wModeSelect11nbg             = "11n(2.4GHz) and g and b"
+wModeSelect11nbg             = "11ngb"
+wModeSelect11nbg20           = "11nbg (20Mhz"
+wModeSelect11nbg40           = "11nbg (40Mhz)"
+bt30                         = "802.11 Bluetooth High Speed"
+bt30enable                   = "Enable"
+bt30disable                  = "Disable"
+GreenTx                      = "Green Tx"
+GreenTxEnableOn              = "On"
+GreenTxEnableOff             = "Off"
+
+Atheros_Disk                 = "Atheros Driver Disk 1"
+ATHER.Service.DispName       = "Atheros Wireless Network Adapter Service"
+ATHER.DeviceDesc.0013        = "Atheros AR5001X+/AR5002G/AR5002X/AR5004G/AR5005GS Wireless Network Adapter"
+ATHER.DeviceDesc.001A        = "Atheros AR5005G Wireless Network Adapter"
+ATHER.DeviceDesc.001B        = "Atheros AR5006X/AR5006XS/AR5006GS/AR5006G Wireless Network Adapter"
+ATHER.DeviceDesc.001C        = "Atheros AR5006EXS/AR5006EX/AR5006EGS/AR5006EG/AR5007EG Wireless Network Adapter"
+ATHER.DeviceDesc.001D        = "Atheros AR5007G Wireless Network Adapter"
+ATHER.DeviceDesc.0023        = "Atheros AR5008 Wireless Network Adapter"
+ATHER.DeviceDesc.0024        = "Atheros AR5008X Wireless Network Adapter"
+ATHER.DeviceDesc.0029        = "Atheros AR922X Wireless Network Adapter"
+ATHER.DeviceDesc.002A        = "Atheros AR9280/AR9281/AR9283/AR5009/AR5B91/AR5BH92/AR5B93 Wireless Network Adapter"
+ATHER.DeviceDesc.002B        = "Atheros AR9285 Wireless Network Adapter"
+ATHER.DeviceDesc.002C        = "Atheros AR2427 Wireless Network Adapter"
+ATHER.DeviceDesc.002D        = "Atheros AR9227 Wireless Network Adapter"
+ATHER.DeviceDesc.002E        = "Atheros AR9287 Wireless Network Adapter"
+ATHER.DeviceDesc.0030        = "Atheros AR938x Wireless Network Adapter"
+ATHER.DeviceDesc.0032        = "Atheros AR9485 Wireless Network Adapter"

@@ -1,0 +1,1000 @@
+;******************************************************************************
+; w70n501.INF
+;
+; Intel PRO/Wireless 7100 LAN Adapters
+; Installation Script for Windows 2000 and Windows XP
+;
+; Copyright (c) 2004 Intel, Inc. All Rights Reserved
+;
+;------------------------------------------------------------------------------
+
+
+;******************************************************************************
+; Version Section
+;------------------------------------------------------------------------------
+[version]
+Signature   = "$Windows NT$"
+Class       = net
+ClassGUID   = {4d36e972-e325-11ce-bfc1-08002be10318}
+Provider    = %PROVIDER_NAME%
+DriverVer   = 08/02/2006,1.2.5.37
+CatalogFile = w70n501.CAT
+
+;******************************************************************************
+; Manufacturer
+;------------------------------------------------------------------------------
+[Manufacturer]
+%COMPANY_NAME%    = Device,NT.5.1
+
+[ControlFlags]
+ExcludeFromSelect = \
+                  PCI\VEN_8086&DEV_1043&SUBSYS_25228086, \
+                  PCI\VEN_8086&DEV_1043&SUBSYS_25238086, \
+                  PCI\VEN_8086&DEV_1043&SUBSYS_25278086, \
+                  PCI\VEN_8086&DEV_1043&SUBSYS_25288086, \
+                  PCI\VEN_8086&DEV_1043&SUBSYS_25298086, \
+                  PCI\VEN_8086&DEV_1043&SUBSYS_252B8086, \
+                  PCI\VEN_8086&DEV_1043&SUBSYS_252C8086, \
+                  PCI\VEN_8086&DEV_1043&SUBSYS_252D8086, \
+                  PCI\VEN_8086&DEV_1043&SUBSYS_25518086, \
+                  PCI\VEN_8086&DEV_1043&SUBSYS_25538086, \
+                  PCI\VEN_8086&DEV_1043&SUBSYS_25548086, \
+                  PCI\VEN_8086&DEV_1043&SUBSYS_25558086, \
+                  PCI\VEN_8086&DEV_1043&SUBSYS_25618086, \
+                  PCI\VEN_8086&DEV_1043&SUBSYS_25658086, \
+                  PCI\VEN_8086&DEV_1043&SUBSYS_25668086, \
+                  PCI\VEN_8086&DEV_1043&SUBSYS_25678086, \
+                  PCI\VEN_8086&DEV_1043&SUBSYS_25708086, \
+                  PCI\VEN_8086&DEV_1043&SUBSYS_25818086, \
+                  PCI\VEN_8086&DEV_1043&SUBSYS_25858086, \
+                  PCI\VEN_8086&DEV_1043&SUBSYS_25868086, \
+                  PCI\VEN_8086&DEV_1043&SUBSYS_25878086, \
+                  PCI\VEN_8086&DEV_1043&SUBSYS_25918086, \
+                  PCI\VEN_8086&DEV_1043&SUBSYS_25938086, \
+                  PCI\VEN_8086&DEV_1043&SUBSYS_25968086, \
+                  PCI\VEN_8086&DEV_1043&SUBSYS_25988086, \
+                  PCI\VEN_8086&DEV_1043&SUBSYS_25A08086
+
+;******************************************************************************
+; Device
+;------------------------------------------------------------------------------
+[Device]
+; Windows 2000
+%NIC_MPCI3%   = Install_MPCI3_W2K, PCI\VEN_8086&DEV_1043&SUBSYS_25278086 ; Intel 2100 mPCI 3B - MoW
+%NIC_MPCI3%   = Install_MPCI3_W2K, PCI\VEN_8086&DEV_1043&SUBSYS_25228086 ; Intel 2100 mPCI 3B - RoW
+%NIC_MPCI4%   = Install_MPCI4_W2K, PCI\VEN_8086&DEV_1043&SUBSYS_25238086 ; Intel 2100 mPCI 3A - RoW
+%NIC_MPCI3%   = Install_MPCI3_W2K, PCI\VEN_8086&DEV_1043&SUBSYS_25288086 ; Intel 2100 mPCI 3B - RoW2
+%NIC_MPCI3%   = Install_MPCI3_W2K, PCI\VEN_8086&DEV_1043&SUBSYS_25298086 ; Intel 2100 mPCI 3B - France
+%NIC_MPCI4%   = Install_MPCI4_W2K, PCI\VEN_8086&DEV_1043&SUBSYS_252B8086 ; Intel 2100 mPCI 3A - MoW
+%NIC_MPCI4%   = Install_MPCI4_W2K, PCI\VEN_8086&DEV_1043&SUBSYS_252C8086 ; Intel 2100 mPCI 3A - RoW2
+%NIC_MPCI4%   = Install_MPCI4_W2K, PCI\VEN_8086&DEV_1043&SUBSYS_252D8086 ; Intel 2100 mPCI 3A - France
+
+%NIC_MPCI3%   = Install_IBMMPCI3ext_W2K, PCI\VEN_8086&DEV_1043&SUBSYS_25518086 ; IBM 2100 mPCI 3B - RoW
+%NIC_MPCI3%   = Install_IBMMPCI3_W2K,    PCI\VEN_8086&DEV_1043&SUBSYS_25538086 ; IBM 2100 mPCI 3B - MoW
+%NIC_MPCI3%   = Install_IBMMPCI3_W2K,    PCI\VEN_8086&DEV_1043&SUBSYS_25548086 ; IBM 2100 mPCI 3B - RoW2
+%NIC_MPCI3%   = Install_IBMMPCI3_W2K,    PCI\VEN_8086&DEV_1043&SUBSYS_25558086 ; IBM 2100 mPCI 3B - France
+
+%NIC_MPCI4%   = Install_DELLMPCI4_W2K, PCI\VEN_8086&DEV_1043&SUBSYS_25618086 ; Dell 2100 mPCI 3A - RoW
+%NIC_MPCI4%   = Install_DELLMPCI4_W2K, PCI\VEN_8086&DEV_1043&SUBSYS_25658086 ; Dell 2100 mPCI 3A - MoW
+%NIC_MPCI4%   = Install_DELLMPCI4_W2K, PCI\VEN_8086&DEV_1043&SUBSYS_25668086 ; Dell 2100 mPCI 3A - RoW2
+%NIC_MPCI4%   = Install_DELLMPCI4_W2K, PCI\VEN_8086&DEV_1043&SUBSYS_25678086 ; Dell 2100 mPCI 3A - France
+
+%NIC_MPCI3%   = Install_GTWYMPCI3_W2K, PCI\VEN_8086&DEV_1043&SUBSYS_25708086 ; Gateway 2100 mPCI 3B
+
+%NIC_MPCI3%   = Install_TOSHIBAMPCI3_W2K, PCI\VEN_8086&DEV_1043&SUBSYS_25818086 ; Toshiba 2100 mPCI 3B - MoW
+%NIC_MPCI3%   = Install_TOSHIBAMPCI3_W2K, PCI\VEN_8086&DEV_1043&SUBSYS_25858086 ; Toshiba 2100 mPCI 3B - RoW
+%NIC_MPCI3%   = Install_TOSHIBAMPCI3_W2K, PCI\VEN_8086&DEV_1043&SUBSYS_25868086 ; Toshiba 2100 mPCI 3B - RoW2
+%NIC_MPCI3%   = Install_TOSHIBAMPCI3_W2K, PCI\VEN_8086&DEV_1043&SUBSYS_25878086 ; Toshiba 2100 mPCI 3B - France
+
+%NIC_MPCI3%   = Install_SONYMPCI3_W2K, PCI\VEN_8086&DEV_1043&SUBSYS_25918086 ; Sony 2100 mPCI 3B - RoW
+%NIC_MPCI3%   = Install_SONYMPCI3_W2K, PCI\VEN_8086&DEV_1043&SUBSYS_25938086 ; Sony 2100 mPCI 3B - RoW2
+%NIC_MPCI3%   = Install_SONYMPCI3_W2K, PCI\VEN_8086&DEV_1043&SUBSYS_25968086 ; Sony 2100 mPCI 3B - MoW
+%NIC_MPCI3%   = Install_SONYMPCI3_W2K, PCI\VEN_8086&DEV_1043&SUBSYS_25988086 ; Sony 2100 mPCI 3B - France
+
+%NIC_MPCI3%   = Install_HPQMPCI3_W2K, PCI\VEN_8086&DEV_1043&SUBSYS_25A08086 ; HPQ 2100 mPCI 3B
+
+
+[Device.NT.5.1]
+; Windows XP
+%NIC_MPCI3%   = Install_MPCI3_XP, PCI\VEN_8086&DEV_1043&SUBSYS_25278086 ; Intel 2100 mPCI 3B - MoW
+%NIC_MPCI3%   = Install_MPCI3_XP, PCI\VEN_8086&DEV_1043&SUBSYS_25228086 ; Intel 2100 mPCI 3B - RoW
+%NIC_MPCI4%   = Install_MPCI4_XP, PCI\VEN_8086&DEV_1043&SUBSYS_25238086 ; Intel 2100 mPCI 3A - RoW
+%NIC_MPCI3%   = Install_MPCI3_XP, PCI\VEN_8086&DEV_1043&SUBSYS_25288086 ; Intel 2100 mPCI 3B - RoW2
+%NIC_MPCI3%   = Install_MPCI3_XP, PCI\VEN_8086&DEV_1043&SUBSYS_25298086 ; Intel 2100 mPCI 3B - France
+%NIC_MPCI4%   = Install_MPCI4_XP, PCI\VEN_8086&DEV_1043&SUBSYS_252B8086 ; Intel 2100 mPCI 3A - MoW
+%NIC_MPCI4%   = Install_MPCI4_XP, PCI\VEN_8086&DEV_1043&SUBSYS_252C8086 ; Intel 2100 mPCI 3A - RoW2
+%NIC_MPCI4%   = Install_MPCI4_XP, PCI\VEN_8086&DEV_1043&SUBSYS_252D8086 ; Intel 2100 mPCI 3A - France
+
+%NIC_MPCI3%   = Install_IBMMPCI3ext_XP, PCI\VEN_8086&DEV_1043&SUBSYS_25518086 ; IBM 2100 mPCI 3B - RoW
+%NIC_MPCI3%   = Install_IBMMPCI3_XP,    PCI\VEN_8086&DEV_1043&SUBSYS_25538086 ; IBM 2100 mPCI 3B - MoW
+%NIC_MPCI3%   = Install_IBMMPCI3_XP,    PCI\VEN_8086&DEV_1043&SUBSYS_25548086 ; IBM 2100 mPCI 3B - RoW2
+%NIC_MPCI3%   = Install_IBMMPCI3_XP,    PCI\VEN_8086&DEV_1043&SUBSYS_25558086 ; IBM 2100 mPCI 3B - France
+
+%NIC_MPCI4%   = Install_DELLMPCI4_XP, PCI\VEN_8086&DEV_1043&SUBSYS_25618086 ; Dell 2100 mPCI 3A - RoW
+%NIC_MPCI4%   = Install_DELLMPCI4_XP, PCI\VEN_8086&DEV_1043&SUBSYS_25658086 ; Dell 2100 mPCI 3A - MoW
+%NIC_MPCI4%   = Install_DELLMPCI4_XP, PCI\VEN_8086&DEV_1043&SUBSYS_25668086 ; Dell 2100 mPCI 3A - RoW2
+%NIC_MPCI4%   = Install_DELLMPCI4_XP, PCI\VEN_8086&DEV_1043&SUBSYS_25678086 ; Dell 2100 mPCI 3A - France
+
+%NIC_MPCI3%   = Install_GTWYMPCI3_XP, PCI\VEN_8086&DEV_1043&SUBSYS_25708086 ; Gateway 2100 mPCI 3B
+
+%NIC_MPCI3%   = Install_TOSHIBAMPCI3_XP, PCI\VEN_8086&DEV_1043&SUBSYS_25818086 ; Toshiba 2100 mPCI 3B - MoW
+%NIC_MPCI3%   = Install_TOSHIBAMPCI3_XP, PCI\VEN_8086&DEV_1043&SUBSYS_25858086 ; Toshiba 2100 mPCI 3B - RoW
+%NIC_MPCI3%   = Install_TOSHIBAMPCI3_XP, PCI\VEN_8086&DEV_1043&SUBSYS_25868086 ; Toshiba 2100 mPCI 3B - RoW2
+%NIC_MPCI3%   = Install_TOSHIBAMPCI3_XP, PCI\VEN_8086&DEV_1043&SUBSYS_25878086 ; Toshiba 2100 mPCI 3B - France
+
+%NIC_MPCI3%   = Install_SONYMPCI3_XP, PCI\VEN_8086&DEV_1043&SUBSYS_25918086 ; Sony 2100 mPCI 3B - RoW
+%NIC_MPCI3%   = Install_SONYMPCI3_XP, PCI\VEN_8086&DEV_1043&SUBSYS_25938086 ; Sony 2100 mPCI 3B - RoW2
+%NIC_MPCI3%   = Install_SONYMPCI3_XP, PCI\VEN_8086&DEV_1043&SUBSYS_25968086 ; Sony 2100 mPCI 3B - MoW
+%NIC_MPCI3%   = Install_SONYMPCI3_XP, PCI\VEN_8086&DEV_1043&SUBSYS_25988086 ; Sony 2100 mPCI 3B - France
+
+%NIC_MPCI3%   = Install_HPQMPCI3_XP, PCI\VEN_8086&DEV_1043&SUBSYS_25A08086 ; HPQ 2100 mPCI 3B
+
+
+
+
+;******************************************************************************
+; Install Windows 2000
+;------------------------------------------------------------------------------
+
+;-------------------------------------------------------------------------------
+; 2100 3B mini PCI adapter 802.11b
+;
+[Install_MPCI3_W2K]
+AddReg          = reg_MPCI3id, reg_NDIS_W2K, reg_NIC_11b, reg_common_NIC, reg_common_NIC_W2K, reg_11b_NIC
+Characteristics = 0x84	; NCF_HAS_UI, NCF_PHYSICAL
+BusType         = 5	; PCI bus
+CopyFiles       = Intel_copyfiles_w2kDriver, Intel_copyfiles_DriverDll
+
+[Install_MPCI3_W2K.CoInstallers]
+AddReg          = reg_CoInstaller_11b
+CopyFiles       = Intel_copyfiles_11b_coinstaller
+
+[Install_MPCI3_W2K.Services]
+AddService = w70n5, 2, NIC_Service_W2K, common_EventLog
+
+;-------------------------------------------------------------------------------
+; 2100 3B mini PCI adapter 802.11b for Gateway
+;
+[Install_GTWYMPCI3_W2K]
+AddReg          = reg_MPCI3id, reg_NDIS_W2K, reg_NIC_11b, reg_common_NIC, reg_common_NIC_W2K, reg_11b_NIC
+Characteristics = 0x84	; NCF_HAS_UI, NCF_PHYSICAL
+BusType         = 5	; PCI bus
+CopyFiles       = Intel_copyfiles_w2kDriver, Intel_copyfiles_DriverDll
+
+[Install_GTWYMPCI3_W2K.CoInstallers]
+AddReg          = reg_CoInstaller_11b
+CopyFiles       = Intel_copyfiles_11b_coinstaller
+
+[Install_GTWYMPCI3_W2K.Services]
+AddService = w70n5, 2, NIC_Service_W2K, common_EventLog
+
+;-------------------------------------------------------------------------------
+; 2100 3B mini PCI adapter 802.11b for HPQ
+;
+[Install_HPQMPCI3_W2K]
+AddReg          = reg_MPCI3id, reg_NDIS_W2K, reg_NIC_11b, reg_common_NIC, reg_common_NIC_W2K, reg_11b_NIC
+Characteristics = 0x84	; NCF_HAS_UI, NCF_PHYSICAL
+BusType         = 5	; PCI bus
+CopyFiles       = Intel_copyfiles_w2kDriver, Intel_copyfiles_DriverDll
+
+[Install_HPQMPCI3_W2K.CoInstallers]
+AddReg          = reg_CoInstaller_11b
+CopyFiles       = Intel_copyfiles_11b_coinstaller
+
+[Install_HPQMPCI3_W2K.Services]
+AddService = w70n5, 2, NIC_Service_W2K, common_EventLog
+
+;-------------------------------------------------------------------------------
+; 2100 3B mini PCI adapter 802.11b for Sony
+;
+[Install_SONYMPCI3_W2K]
+AddReg          = reg_SONYMPCI3id, reg_NDIS_W2K, reg_NIC_11b, reg_common_NIC, reg_common_NIC_W2K, reg_11b_NIC
+Characteristics = 0x84	; NCF_HAS_UI, NCF_PHYSICAL
+BusType         = 5	; PCI bus
+CopyFiles       = Intel_copyfiles_w2kDriver, Intel_copyfiles_DriverDll
+
+[Install_SONYMPCI3_W2K.CoInstallers]
+AddReg          = reg_CoInstaller_11b
+CopyFiles       = Intel_copyfiles_11b_coinstaller
+
+[Install_SONYMPCI3_W2K.Services]
+AddService = w70n5, 2, NIC_Service_W2K, common_EventLog
+
+;-------------------------------------------------------------------------------
+; 2100 3B mini PCI adapter 802.11b for Toshiba
+;
+[Install_TOSHIBAMPCI3_W2K]
+AddReg          = reg_TOSHIBAMPCI3id, reg_NDIS_W2K, reg_NIC_11b, reg_common_NIC, reg_common_NIC_W2K, reg_11b_NIC
+Characteristics = 0x84	; NCF_HAS_UI, NCF_PHYSICAL
+BusType         = 5	; PCI bus
+CopyFiles       = Intel_copyfiles_w2kDriver, Intel_copyfiles_DriverDll
+
+[Install_TOSHIBAMPCI3_W2K.CoInstallers]
+AddReg          = reg_CoInstaller_11b
+CopyFiles       = Intel_copyfiles_11b_coinstaller
+
+[Install_TOSHIBAMPCI3_W2K.Services]
+AddService = w70n5, 2, NIC_Service_W2K, common_EventLog
+
+;-------------------------------------------------------------------------------
+; 2100 3B mini PCI adapter 802.11b for IBM
+;
+[Install_IBMMPCI3_W2K]
+AddReg          = reg_NDIS_W2K, reg_IBMMPCI3id, reg_NIC_11b, reg_common_NIC, reg_common_NIC_W2K, reg_11b_NIC
+Characteristics = 0x84	; NCF_HAS_UI, NCF_PHYSICAL
+BusType         = 5	; PCI bus
+CopyFiles       = Intel_copyfiles_w2kDriver, Intel_copyfiles_DriverDll
+
+[Install_IBMMPCI3_W2K.CoInstallers]
+AddReg          = reg_CoInstaller_11b
+CopyFiles       = Intel_copyfiles_11b_coinstaller
+
+[Install_IBMMPCI3_W2K.Services]
+AddService = w70n5, 2, NIC_Service_W2K, common_EventLog
+
+;-------------------------------------------------------------------------------
+; 2100 3B mini PCI adapter 802.11b for IBM - With Ext Channel Feature
+;
+[Install_IBMMPCI3ext_W2K]
+AddReg          = reg_NDIS_W2K, reg_IBMMPCI3id_ext, reg_NIC_11b, reg_common_NIC, reg_common_NIC_W2K, reg_11b_NIC
+Characteristics = 0x84	; NCF_HAS_UI, NCF_PHYSICAL
+BusType         = 5	; PCI bus
+CopyFiles       = Intel_copyfiles_w2kDriver, Intel_copyfiles_DriverDll
+
+[Install_IBMMPCI3ext_W2K.CoInstallers]
+AddReg          = reg_CoInstaller_11b
+CopyFiles       = Intel_copyfiles_11b_coinstaller
+
+[Install_IBMMPCI3ext_W2K.Services]
+AddService = w70n5, 2, NIC_Service_W2K, common_EventLog
+
+;-------------------------------------------------------------------------------
+; 2100 3A mini PCI adapter 802.11b
+;
+[Install_MPCI4_W2K]
+AddReg          = reg_MPCI4id, reg_NDIS_W2K, reg_NIC_11b, reg_common_NIC, reg_common_NIC_W2K, reg_11b_NIC
+Characteristics = 0x84	; NCF_HAS_UI, NCF_PHYSICAL
+BusType         = 5	; PCI bus
+CopyFiles       = Intel_copyfiles_w2kDriver, Intel_copyfiles_DriverDll
+
+[Install_MPCI4_W2K.CoInstallers]
+AddReg          = reg_CoInstaller_11b
+CopyFiles       = Intel_copyfiles_11b_coinstaller
+
+[Install_MPCI4_W2K.Services]
+AddService = w70n5, 2, NIC_Service_W2K, common_EventLog
+
+;-------------------------------------------------------------------------------
+; 2100 3A mini PCI adapter 802.11b for DELL
+;
+[Install_DELLMPCI4_W2K]
+AddReg          = reg_DELLMPCI4id, reg_NDIS_W2K, reg_NIC_11b, reg_common_NIC, reg_common_NIC_W2K, reg_11b_NIC
+Characteristics = 0x84	; NCF_HAS_UI, NCF_PHYSICAL
+BusType         = 5	; PCI bus
+CopyFiles       = Intel_copyfiles_w2kDriver, Intel_copyfiles_DriverDll
+
+[Install_DELLMPCI4_W2K.CoInstallers]
+AddReg          = reg_CoInstaller_11b
+CopyFiles       = Intel_copyfiles_11b_coinstaller
+
+[Install_DELLMPCI4_W2K.Services]
+AddService = w70n5, 2, NIC_Service_W2K, common_EventLog
+
+
+
+
+;******************************************************************************
+; Install Windows XP
+;------------------------------------------------------------------------------
+
+
+;-------------------------------------------------------------------------------
+; 2100 3B mini PCI adapter 802.11b
+;
+[Install_MPCI3_XP]
+AddReg          = reg_MPCI3id, reg_NDIS_XP, reg_NIC_11b, reg_common_NIC, reg_11b_NIC
+Characteristics = 0x84	; NCF_HAS_UI, NCF_PHYSICAL
+BusType         = 5	; PCI bus
+CopyFiles       = Intel_copyfiles_xpDriver, Intel_copyfiles_DriverDll
+
+[Install_MPCI3_XP.CoInstallers]
+AddReg          = reg_CoInstaller_11b
+CopyFiles       = Intel_copyfiles_11b_coinstaller
+
+[Install_MPCI3_XP.Services]
+AddService = w70n51, 2, NIC_Service_XP, common_EventLog
+
+;-------------------------------------------------------------------------------
+; 2100 3B mini PCI adapter 802.11b for Gateway
+;
+[Install_GTWYMPCI3_XP]
+AddReg          = reg_MPCI3id, reg_NDIS_XP, reg_NIC_11b, reg_common_NIC, reg_11b_NIC
+Characteristics = 0x84	; NCF_HAS_UI, NCF_PHYSICAL
+BusType         = 5	; PCI bus
+CopyFiles       = Intel_copyfiles_xpDriver, Intel_copyfiles_DriverDll
+
+[Install_GTWYMPCI3_XP.CoInstallers]
+AddReg          = reg_CoInstaller_11b
+CopyFiles       = Intel_copyfiles_11b_coinstaller
+
+[Install_GTWYMPCI3_XP.Services]
+AddService = w70n51, 2, NIC_Service_XP, common_EventLog
+
+;-------------------------------------------------------------------------------
+; 2100 3B mini PCI adapter 802.11b for HPQ
+;
+[Install_HPQMPCI3_XP]
+AddReg          = reg_MPCI3id, reg_NDIS_XP, reg_NIC_11b, reg_common_NIC, reg_11b_NIC
+Characteristics = 0x84	; NCF_HAS_UI, NCF_PHYSICAL
+BusType         = 5	; PCI bus
+CopyFiles       = Intel_copyfiles_xpDriver, Intel_copyfiles_DriverDll
+
+[Install_HPQMPCI3_XP.CoInstallers]
+AddReg          = reg_CoInstaller_11b
+CopyFiles       = Intel_copyfiles_11b_coinstaller
+
+[Install_HPQMPCI3_XP.Services]
+AddService = w70n51, 2, NIC_Service_XP, common_EventLog
+
+;-------------------------------------------------------------------------------
+; 2100 3B mini PCI adapter 802.11b for Sony
+;
+[Install_SONYMPCI3_XP]
+AddReg          = reg_SONYMPCI3id, reg_NDIS_XP, reg_NIC_11b, reg_common_NIC, reg_11b_NIC
+Characteristics = 0x84	; NCF_HAS_UI, NCF_PHYSICAL
+BusType         = 5	; PCI bus
+CopyFiles       = Intel_copyfiles_xpDriver, Intel_copyfiles_DriverDll
+
+[Install_SONYMPCI3_XP.CoInstallers]
+AddReg          = reg_CoInstaller_11b
+CopyFiles       = Intel_copyfiles_11b_coinstaller
+
+[Install_SONYMPCI3_XP.Services]
+AddService = w70n51, 2, NIC_Service_XP, common_EventLog
+
+;-------------------------------------------------------------------------------
+; 2100 3B mini PCI adapter 802.11b for Toshiba
+;
+[Install_TOSHIBAMPCI3_XP]
+AddReg          = reg_TOSHIBAMPCI3id, reg_NDIS_XP, reg_NIC_11b, reg_common_NIC, reg_11b_NIC
+Characteristics = 0x84	; NCF_HAS_UI, NCF_PHYSICAL
+BusType         = 5	; PCI bus
+CopyFiles       = Intel_copyfiles_xpDriver, Intel_copyfiles_DriverDll
+
+[Install_TOSHIBAMPCI3_XP.CoInstallers]
+AddReg          = reg_CoInstaller_11b
+CopyFiles       = Intel_copyfiles_11b_coinstaller
+
+[Install_TOSHIBAMPCI3_XP.Services]
+AddService = w70n51, 2, NIC_Service_XP, common_EventLog
+
+;-------------------------------------------------------------------------------
+; 2100 3B mini PCI adapter 802.11b for IBM
+;
+[Install_IBMMPCI3_XP]
+AddReg          = reg_NDIS_XP, reg_IBMMPCI3id, reg_NIC_11b, reg_common_NIC, reg_11b_NIC
+Characteristics = 0x84	; NCF_HAS_UI, NCF_PHYSICAL
+BusType         = 5	; PCI bus
+CopyFiles       = Intel_copyfiles_xpDriver, Intel_copyfiles_DriverDll
+
+[Install_IBMMPCI3_XP.CoInstallers]
+AddReg          = reg_CoInstaller_11b
+CopyFiles       = Intel_copyfiles_11b_coinstaller
+
+[Install_IBMMPCI3_XP.Services]
+AddService = w70n51, 2, NIC_Service_XP, common_EventLog
+
+;-------------------------------------------------------------------------------
+; 2100 3B mini PCI adapter 802.11b for IBM - With Ext Channel Feature
+;
+[Install_IBMMPCI3ext_XP]
+AddReg          = reg_NDIS_XP, reg_IBMMPCI3id_ext, reg_NIC_11b, reg_common_NIC, reg_11b_NIC
+Characteristics = 0x84	; NCF_HAS_UI, NCF_PHYSICAL
+BusType         = 5	; PCI bus
+CopyFiles       = Intel_copyfiles_xpDriver, Intel_copyfiles_DriverDll
+
+[Install_IBMMPCI3ext_XP.CoInstallers]
+AddReg          = reg_CoInstaller_11b
+CopyFiles       = Intel_copyfiles_11b_coinstaller
+
+[Install_IBMMPCI3ext_XP.Services]
+AddService = w70n51, 2, NIC_Service_XP, common_EventLog
+
+;-------------------------------------------------------------------------------
+; 2100 3A mini PCI adapter 802.11b
+;
+[Install_MPCI4_XP]
+AddReg          = reg_MPCI4id, reg_NDIS_XP, reg_NIC_11b, reg_common_NIC, reg_11b_NIC
+Characteristics = 0x84	; NCF_HAS_UI, NCF_PHYSICAL
+BusType         = 5	; PCI bus
+CopyFiles       = Intel_copyfiles_xpDriver, Intel_copyfiles_DriverDll
+
+[Install_MPCI4_XP.CoInstallers]
+AddReg          = reg_CoInstaller_11b
+CopyFiles       = Intel_copyfiles_11b_coinstaller
+
+[Install_MPCI4_XP.Services]
+AddService = w70n51, 2, NIC_Service_XP, common_EventLog
+
+;-------------------------------------------------------------------------------
+; 2100 3A mini PCI adapter 802.11b for DELL
+;
+[Install_DELLMPCI4_XP]
+AddReg          = reg_DELLMPCI4id, reg_NDIS_XP, reg_NIC_11b, reg_common_NIC, reg_11b_NIC
+Characteristics = 0x84	; NCF_HAS_UI, NCF_PHYSICAL
+BusType         = 5	; PCI bus
+CopyFiles       = Intel_copyfiles_xpDriver, Intel_copyfiles_DriverDll
+
+[Install_DELLMPCI4_XP.CoInstallers]
+AddReg          = reg_CoInstaller_11b
+CopyFiles       = Intel_copyfiles_11b_coinstaller
+
+[Install_DELLMPCI4_XP.Services]
+AddService = w70n51, 2, NIC_Service_XP, common_EventLog
+
+
+;-----------------------------------------------------------------------------
+; common registry entries for all adapters
+;
+[reg_common_NIC]
+HKR,,Adhoc_TxPower,0x00000002,16
+HKR,,BSSMode,0x00000002,1
+HKR,,BTCoexistence,,1
+HKR,,ChannelB,0x00010003,11
+HKR,,ChannelBDefault,0x10001,11
+HKR,,ChannelMaskB,0x00010003,0
+HKR,,Diversity,0x00000002,0
+HKR,,EncryptionKey1,0x00000002,""
+HKR,,EncryptionKey2,0x00000002,""
+HKR,,EncryptionKey3,0x00000002,""
+HKR,,EncryptionKey4,0x00000002,""
+HKR,,EncryptionKeyId,0x00010003,1
+HKR,,ESS_ID,0x00000002,"101"
+HKR,,Ess_TxPower,,0
+HKR,,ExtendBSSChanEnableB,0x00010003,0
+HKR,,ExtendBSSChanMaskB,0x00010001,0x00003800
+HKR,,FragmentationThreshold,0x00010003,0
+HKR,,LongPreamble,,0
+HKR,,MBIT_1,,1
+HKR,,MBIT_2,,1
+HKR,,MBIT_5_5,,1
+HKR,,MBIT_11,,1
+HKR,,MUAuthenticationMode,0x00010003,1
+HKR,,MUEncryptionAlgorithm,0x00010003,1
+HKR,,PortType,0x00010003,1
+HKR,,PowerIndex,0x00010003,6
+HKR,,Provider,0,%Intel_Provider%
+HKR,,RadioEnable,0x00010003,1
+HKR,,TxPower,,40
+HKR,,WEPKeyFormat,0x00010003,1
+
+[reg_common_NIC_W2K]
+HKR,,ConfigurationName,0x00000002,"PR0W1RELE55"
+
+
+;-----------------------------------------------------------------------------
+; 11b only NIC registry entries
+;
+[reg_11b_NIC]
+HKR,,BandMode,0x00000002,4	;802.11b only
+HKR,,ChannelA,0x00010003,0
+HKR,,ChannelADefault,0x10001,0
+HKR,,ChannelMaskA,0x00010003,0
+HKR,,CLSGUID,0,%INTEL_GUID_11B%
+HKR,,ExtendBSSChanEnableA,0x00010003,0
+HKR,,ExtendBSSChanMaskA,0x00010001,0
+HKR,,IBSSBandMode,0x00000002,4
+HKR,,MBIT_6,,0
+HKR,,MBIT_9,,0
+HKR,,MBIT_12,,0
+HKR,,MBIT_18,,0
+HKR,,MBIT_24,,0
+HKR,,MBIT_36,,0
+HKR,,MBIT_48,,0
+HKR,,MBIT_54,,0
+
+
+
+[reg_MPCI3id]  ;
+HKR,,AdapterModel,0,%NIC_MPCI3_AdapterModel%
+;HKR,,BusType,0x00010001,0x00000005
+HKR,,CardType,0x00010001,2
+HKR,,DriverDesc,0,%NIC_DriverDesc%
+HKR,,FeatureSet,0x00010001, 0x00100001
+
+[reg_SONYMPCI3id]  ;
+HKR,,AdapterModel,0,%NIC_MPCI3_AdapterModel%
+;HKR,,BusType,0x00010001,0x00000005
+HKR,,CardType,0x00010001,2
+HKR,,DriverDesc,0,%NIC_DriverDesc%
+HKR,,ESS_ID,0x00000002,"Sony 802.11 Default SSID"
+HKR,,FeatureSet,0x00010001, 0x00100001
+
+[reg_IBMMPCI3id]  ;
+HKR,,AdapterModel,0,%NIC_MPCI3_AdapterModel%
+;HKR,,BusType,0x00010001,0x00000005
+HKR,,CardType,0x00010001,2
+HKR,,DriverDesc,0,%NIC_DriverDesc%
+HKR,,OemNicType,0x00000001,3
+HKR,,ESS_ID,0x00000002,"WXYZ"
+HKR,,FeatureSet,0x00010001, 0x00100001
+
+[reg_IBMMPCI3id_ext]  ;
+HKR,,AdapterModel,0,%NIC_MPCI3_AdapterModel%
+;HKR,,BusType,0x00010001,0x00000005
+HKR,,CardType,0x00010001,2
+HKR,,DriverDesc,0,%NIC_DriverDesc%
+HKR,,OemNicType,0x00000001,3
+HKR,,ESS_ID,0x00000002,"WXYZ"
+HKR,,FeatureSet,0x00010001, 0x00000001
+
+[reg_TOSHIBAMPCI3id]  ;
+HKR,,AdapterModel,0,%NIC_MPCI3_AdapterModel%
+;HKR,,BusType,0x00010001,0x00000005
+HKR,,CardType,0x00010001,2
+HKR,,ChannelB,0x00010003,10
+HKR,,ChannelBDefault,0x10001,10
+HKR,,DriverDesc,0,%NIC_DriverDesc%
+HKR,,FeatureSet,0x00010001, 0x00100001
+
+[reg_MPCI4id]  ;
+HKR,,AdapterModel,0,%NIC_MPCI4_AdapterModel%
+;HKR,,BusType,0x00010001,0x00000005
+HKR,,CardType,0x00010001,2
+HKR,,DriverDesc,0,%NIC_DriverDesc%
+HKR,,FeatureSet,0x00010001, 0x00100001
+
+[reg_DELLMPCI4id]  ;
+HKR,,AdapterModel,0,%NIC_MPCI4_AdapterModel%
+;HKR,,BusType,0x00010001,0x00000005
+HKR,,CardType,0x00010001,2
+HKR,,DriverDesc,0,%NIC_DriverDesc%
+HKR,,FeatureSet,0x00010001, 0x00100001
+HKR,,OemNicType,0x00000001,1
+
+
+[reg_NIC_11b]
+HKR,,EnumPropPages32,            0, "W20NCPA.dll,AddWirelessPPToNCPA"
+HKR,,NetType,0, "WLAN"
+
+[reg_NDIS_W2K]
+HKR, Ndi\Interfaces,  UpperRange,   0, "ndis5,wifipro"
+HKR, Ndi\Interfaces,  LowerRange,   0, "ethernet"
+HKR, Ndi,             Service,      0, "w70n5"
+
+[reg_NDIS_XP]
+HKR, Ndi\Interfaces,  UpperRange,   0, "ndis5,wifipro"
+HKR, Ndi\Interfaces,  LowerRange,   0, "ethernet"
+HKR, Ndi,             Service,      0, "w70n51"
+
+
+[reg_CoInstaller_11b]
+HKR,,CoInstallers32,0x00010000,"W20NCPA.dll,ClassCoInstallerEntryPoint"
+
+
+[NIC_Service_W2K]
+DisplayName     = %NIC_Service_DispName_W2K%
+ServiceType     = 1 ;%SERVICE_KERNEL_DRIVER%
+StartType       = 3 ;%SERVICE_DEMAND_START%
+ErrorControl    = 1 ;%SERVICE_ERROR_NORMAL%
+ServiceBinary   = %12%\w70n5.sys
+LoadOrderGroup  = NDIS
+
+[NIC_Service_XP]
+DisplayName     = %NIC_Service_DispName_XP%
+ServiceType     = 1 ;%SERVICE_KERNEL_DRIVER%
+StartType       = 3 ;%SERVICE_DEMAND_START%
+ErrorControl    = 1 ;%SERVICE_ERROR_NORMAL%
+ServiceBinary   = %12%\w70n51.sys
+LoadOrderGroup  = NDIS
+
+[common_EventLog]
+AddReg = common_AddEventLog_reg
+
+[common_AddEventLog_reg]
+HKR, , EventMessageFile, 0x00020000, "%%SystemRoot%%\System32\netevent.dll,%%SystemRoot%%\System32\w70n5msg.dll"
+HKR, , TypesSupported,     0x00010001,   7
+
+
+;-----------------------------------------------------------------------------
+; DestinationDirs
+;
+[Intel_copyfiles_w2kDriver]
+w70n5.sys,,,2
+
+[Intel_copyfiles_xpDriver]
+w70n51.sys,,,2
+
+[Intel_copyfiles_DriverDll]
+w70n5msg.dll,,,2
+
+[Intel_copyfiles_11b_coinstaller]
+W20NCPA.dll,,,2
+W20MLRes.dll,,,2
+
+
+[SourceDisksNames]
+1=%SOURCEDISK1%,,
+
+[SourceDisksFiles]
+w70n5.sys      = 1,,
+w70n51.sys     = 1,,
+w70n5msg.dll   = 1,,
+W20NCPA.dll    = 1,,
+W20MLRES.dll   = 1,,
+
+[DestinationDirs]
+DefaultDestDir               =11  ; Windows\System32
+Intel_copyfiles_w2kDriver    =12  ; Windows\System32\Drivers
+Intel_copyfiles_xpDriver    =12  ; Windows\System32\Drivers
+Intel_copyfiles_DriverDll    =11  ; Windows\System32
+;Intel_copyfiles_coinstaller  =11  ; Windows\System32
+Intel_copyfiles_11b_coinstaller =11  ; Windows\System32
+
+;-------------------------------------------
+; Localizable Strings
+;
+[Strings]
+;---------------------------------------------------------------------------------------------------
+;; Do NOT translate
+;---------------------------------------------------------------------------------------------------
+PROVIDER_NAME           = "Intel"
+COMPANY_NAME            = "Intel(R) Corporation"
+
+NIC_MPCI3               = "Intel(R) PRO/Wireless LAN 2100 3B Mini PCI Adapter"
+NIC_MPCI4               = "Intel(R) PRO/Wireless LAN 2100 3A Mini PCI Adapter"
+NIC_MPCI3_AdapterModel  = "PRO/Wireless LAN 2100 3B Mini PCI Adapter"
+NIC_MPCI4_AdapterModel  = "PRO/Wireless LAN 2100 3A Mini PCI Adapter"
+
+NIC_DriverDesc          = "Intel(R) PRO/Wireless 7100 LAN Card Driver"
+INTEL_GUID              = "{E2565835-F8E7-4B49-9F60-17DF19894336}"
+INTEL_GUID_11B          = "{2BC8F0A7-DC4E-4889-8375-C2151F70C331}"
+Intel_Provider          = "Intel"
+
+;---------------------------------------------------------------------------------------------------
+;; Translation from this point ON.
+;---------------------------------------------------------------------------------------------------
+NIC_Service_DispName_W2K = "Intel(R) PRO/Wireless 7100 Adapter Driver for Windows 2000"
+NIC_Service_DispName_XP  = "Intel(R) PRO/Wireless 7100 Adapter Driver for Windows XP"
+SOURCEDISK1             = "Intel(R) PRO/Wireless 7100 Install Disk"
+
+;-------------------------------------------------------------------------------
+;-------------------------------------------------------------------------------
+;-------------------------------------------------------------------------------
+
+
+[Strings.0804] ; Chinese (People's Republic of China)
+;---------------------------------------------------------------------------------------------------
+;; Do NOT translate
+;---------------------------------------------------------------------------------------------------
+PROVIDER_NAME           ="Intel"
+COMPANY_NAME            ="Intel(R) Corporation"
+
+NIC_MPCI3               ="Intel(R) PRO/Wireless LAN 2100 3B Mini PCI Adapter"
+NIC_MPCI4               ="Intel(R) PRO/Wireless LAN 2100 3A Mini PCI Adapter"
+NIC_MPCI3_AdapterModel  ="PRO/Wireless LAN 2100 3B Mini PCI Adapter"
+NIC_MPCI4_AdapterModel  ="PRO/Wireless LAN 2100 3A Mini PCI Adapter"
+
+NIC_DriverDesc          ="Intel(R) PRO/Wireless 7100 LAN Card Driver"
+INTEL_GUID              ="{E2565835-F8E7-4B49-9F60-17DF19894336}"
+INTEL_GUID_11B          ="{2BC8F0A7-DC4E-4889-8375-C2151F70C331}"
+Intel_Provider          ="Intel"
+
+;---------------------------------------------------------------------------------------------------
+;; Translation from this point ON.
+;---------------------------------------------------------------------------------------------------
+NIC_Service_DispName_W2K ="”√”⁄ Windows 2000 µƒ Intel(R) PRO/Wireless 7100   ≈‰∆˜«˝∂Ø≥Ã–Ú "
+NIC_Service_DispName_XP  ="”√”⁄ Windows XP µƒ Intel(R) PRO/Wireless 7100   ≈‰∆˜«˝∂Ø≥Ã–Ú"
+SOURCEDISK1             ="Intel(R) PRO/Wireless 7100 ∞≤◊∞¥≈≈Ã"
+
+[Strings.0404] ; Chinese (Taiwan)
+;---------------------------------------------------------------------------------------------------
+;; Do NOT translate
+;---------------------------------------------------------------------------------------------------
+PROVIDER_NAME           ="Intel"
+COMPANY_NAME            ="Intel(R) Corporation"
+
+NIC_MPCI3               ="Intel(R) PRO/Wireless LAN 2100 3B Mini PCI Adapter"
+NIC_MPCI4               ="Intel(R) PRO/Wireless LAN 2100 3A Mini PCI Adapter"
+NIC_MPCI3_AdapterModel  ="PRO/Wireless LAN 2100 3B Mini PCI Adapter"
+NIC_MPCI4_AdapterModel  ="PRO/Wireless LAN 2100 3A Mini PCI Adapter"
+
+NIC_DriverDesc          ="Intel(R) PRO/Wireless 7100 LAN Card Driver"
+INTEL_GUID              ="{E2565835-F8E7-4B49-9F60-17DF19894336}"
+INTEL_GUID_11B          ="{2BC8F0A7-DC4E-4889-8375-C2151F70C331}"
+Intel_Provider          ="Intel"
+
+;---------------------------------------------------------------------------------------------------
+;; Translation from this point ON.
+;---------------------------------------------------------------------------------------------------
+NIC_Service_DispName_W2K ="Windows 2000 æA•Œ™∫ Intel(R) PRO/Wireless 7100 Adapter ≈X∞ µ{¶°"
+NIC_Service_DispName_XP  ="Windows XPæA•Œ™∫ Intel(R) PRO/Wireless 7100 Adapter ≈X∞ µ{¶°"
+SOURCEDISK1             ="Intel(R) PRO/Wireless 7100 ¶w∏À∫œ§˘"
+
+[Strings.0406] ; Danish (Denmark)
+;---------------------------------------------------------------------------------------------------
+;; Do NOT translate
+;---------------------------------------------------------------------------------------------------
+PROVIDER_NAME           ="Intel"
+COMPANY_NAME            ="Intel(R) Corporation"
+
+NIC_MPCI3               ="Intel(R) PRO/Wireless LAN 2100 3B Mini PCI Adapter"
+NIC_MPCI4               ="Intel(R) PRO/Wireless LAN 2100 3A Mini PCI Adapter"
+NIC_MPCI3_AdapterModel  ="PRO/Wireless LAN 2100 3B Mini PCI Adapter"
+NIC_MPCI4_AdapterModel  ="PRO/Wireless LAN 2100 3A Mini PCI Adapter"
+
+NIC_DriverDesc          ="Intel(R) PRO/Wireless 7100 LAN Card Driver"
+INTEL_GUID              ="{E2565835-F8E7-4B49-9F60-17DF19894336}"
+INTEL_GUID_11B          ="{2BC8F0A7-DC4E-4889-8375-C2151F70C331}"
+Intel_Provider          ="Intel"
+
+;---------------------------------------------------------------------------------------------------
+;; Translation from this point ON.
+;---------------------------------------------------------------------------------------------------
+NIC_Service_DispName_W2K ="Intel(R) PRO/Wireless 7100 Adapter - Driver for Windows 2000"
+NIC_Service_DispName_XP  ="Intel(R) PRO/Wireless 7100 Adapter - Driver for Windows XP"
+SOURCEDISK1             ="Intel(R) PRO/Wireless 7100-installationsdiskette"
+
+[Strings.0407] ; German (Germany)
+;---------------------------------------------------------------------------------------------------
+;; Do NOT translate
+;---------------------------------------------------------------------------------------------------
+PROVIDER_NAME           ="Intel"
+COMPANY_NAME            ="Intel(R) Corporation"
+
+NIC_MPCI3               ="Intel(R) PRO/Wireless LAN 2100 3B Mini PCI Adapter"
+NIC_MPCI4               ="Intel(R) PRO/Wireless LAN 2100 3A Mini PCI Adapter"
+NIC_MPCI3_AdapterModel  ="PRO/Wireless LAN 2100 3B Mini PCI Adapter"
+NIC_MPCI4_AdapterModel  ="PRO/Wireless LAN 2100 3A Mini PCI Adapter"
+
+NIC_DriverDesc          ="Intel(R) PRO/Wireless 7100 LAN Card Driver"
+INTEL_GUID              ="{E2565835-F8E7-4B49-9F60-17DF19894336}"
+INTEL_GUID_11B          ="{2BC8F0A7-DC4E-4889-8375-C2151F70C331}"
+Intel_Provider          ="Intel"
+
+;---------------------------------------------------------------------------------------------------
+;; Translation from this point ON.
+;---------------------------------------------------------------------------------------------------
+NIC_Service_DispName_W2K ="Intel(R) PRO/Wireless 7100 Adaptertreiber f¸r Windows 2000"
+NIC_Service_DispName_XP  ="Intel(R) PRO/Wireless 7100 Adaptertreiber f¸r Windows XP"
+SOURCEDISK1             ="Intel(R) PRO/Wireless 7100 Installationsdiskette"
+
+[Strings.0C0A] ; Spanish (Spain)
+;---------------------------------------------------------------------------------------------------
+;; Do NOT translate
+;---------------------------------------------------------------------------------------------------
+PROVIDER_NAME           ="Intel"
+COMPANY_NAME            ="Intel(R) Corporation"
+
+NIC_MPCI3               ="Intel(R) PRO/Wireless LAN 2100 3B Mini PCI Adapter"
+NIC_MPCI4               ="Intel(R) PRO/Wireless LAN 2100 3A Mini PCI Adapter"
+NIC_MPCI3_AdapterModel  ="PRO/Wireless LAN 2100 3B Mini PCI Adapter"
+NIC_MPCI4_AdapterModel  ="PRO/Wireless LAN 2100 3A Mini PCI Adapter"
+
+NIC_DriverDesc          ="Intel(R) PRO/Wireless 7100 LAN Card Driver"
+INTEL_GUID              ="{E2565835-F8E7-4B49-9F60-17DF19894336}"
+INTEL_GUID_11B          ="{2BC8F0A7-DC4E-4889-8375-C2151F70C331}"
+Intel_Provider          ="Intel"
+
+;---------------------------------------------------------------------------------------------------
+;; Translation from this point ON.
+;---------------------------------------------------------------------------------------------------
+NIC_Service_DispName_W2K ="Controlador de adaptador Intel(R) PRO/Wireless 7100 para Windows 2000"
+NIC_Service_DispName_XP  ="Controlador de adaptador Intel(R) PRO/Wireless 7100 para Windows XP"
+SOURCEDISK1             ="Disco de instalaciÛn de Intel(R) PRO/Wireless 7100"
+
+[Strings.040B] ; Finnish (Finland)
+;---------------------------------------------------------------------------------------------------
+;; Do NOT translate
+;---------------------------------------------------------------------------------------------------
+PROVIDER_NAME           ="Intel"
+COMPANY_NAME            ="Intel(R) Corporation"
+
+NIC_MPCI3               ="Intel(R) PRO/Wireless LAN 2100 3B Mini PCI Adapter"
+NIC_MPCI4               ="Intel(R) PRO/Wireless LAN 2100 3A Mini PCI Adapter"
+NIC_MPCI3_AdapterModel  ="PRO/Wireless LAN 2100 3B Mini PCI Adapter"
+NIC_MPCI4_AdapterModel  ="PRO/Wireless LAN 2100 3A Mini PCI Adapter"
+
+NIC_DriverDesc          ="Intel(R) PRO/Wireless 7100 LAN Card Driver"
+INTEL_GUID              ="{E2565835-F8E7-4B49-9F60-17DF19894336}"
+INTEL_GUID_11B          ="{2BC8F0A7-DC4E-4889-8375-C2151F70C331}"
+Intel_Provider          ="Intel"
+
+;---------------------------------------------------------------------------------------------------
+;; Translation from this point ON.
+;---------------------------------------------------------------------------------------------------
+NIC_Service_DispName_W2K ="Intel(R) PRO/Wireless 7100 Adapter -ohjain Windows 2000 -k‰yttˆj‰rjestelm‰‰n"
+NIC_Service_DispName_XP  ="Intel(R) PRO/Wireless 7100 Adapter -ohjain Windows XP -k‰yttˆj‰rjestelm‰‰n"
+SOURCEDISK1             ="Intel(R) PRO/Wireless 7100 -asennuslevy"
+
+[Strings.040C] ; French (France)
+;---------------------------------------------------------------------------------------------------
+;; Do NOT translate
+;---------------------------------------------------------------------------------------------------
+PROVIDER_NAME           ="Intel"
+COMPANY_NAME            ="Intel(R) Corporation"
+
+NIC_MPCI3               ="Intel(R) PRO/Wireless LAN 2100 3B Mini PCI Adapter"
+NIC_MPCI4               ="Intel(R) PRO/Wireless LAN 2100 3A Mini PCI Adapter"
+NIC_MPCI3_AdapterModel  ="PRO/Wireless LAN 2100 3B Mini PCI Adapter"
+NIC_MPCI4_AdapterModel  ="PRO/Wireless LAN 2100 3A Mini PCI Adapter"
+
+NIC_DriverDesc          ="Intel(R) PRO/Wireless 7100 LAN Card Driver"
+INTEL_GUID              ="{E2565835-F8E7-4B49-9F60-17DF19894336}"
+INTEL_GUID_11B          ="{2BC8F0A7-DC4E-4889-8375-C2151F70C331}"
+Intel_Provider          ="Intel"
+
+;---------------------------------------------------------------------------------------------------
+;; Translation from this point ON.
+;---------------------------------------------------------------------------------------------------
+NIC_Service_DispName_W2K ="Pilote des cartes rÈseau Intel(R) PRO/Wireless 7100 pour Windows 2000"
+NIC_Service_DispName_XP  ="Pilote des cartes rÈseau Intel(R) PRO/Wireless 7100 pour Windows XP"
+SOURCEDISK1             ="Disque d'installation Intel(R) PRO/Wireless 7100"
+
+[Strings.0410] ; Italian (Italy)
+;---------------------------------------------------------------------------------------------------
+;; Do NOT translate
+;---------------------------------------------------------------------------------------------------
+PROVIDER_NAME           ="Intel"
+COMPANY_NAME            ="Intel(R) Corporation"
+
+NIC_MPCI3               ="Intel(R) PRO/Wireless LAN 2100 3B Mini PCI Adapter"
+NIC_MPCI4               ="Intel(R) PRO/Wireless LAN 2100 3A Mini PCI Adapter"
+NIC_MPCI3_AdapterModel  ="PRO/Wireless LAN 2100 3B Mini PCI Adapter"
+NIC_MPCI4_AdapterModel  ="PRO/Wireless LAN 2100 3A Mini PCI Adapter"
+
+NIC_DriverDesc          ="Intel(R) PRO/Wireless 7100 LAN Card Driver"
+INTEL_GUID              ="{E2565835-F8E7-4B49-9F60-17DF19894336}"
+INTEL_GUID_11B          ="{2BC8F0A7-DC4E-4889-8375-C2151F70C331}"
+Intel_Provider          ="Intel"
+
+;---------------------------------------------------------------------------------------------------
+;; Translation from this point ON.
+;---------------------------------------------------------------------------------------------------
+NIC_Service_DispName_W2K ="Driver Intel(R) PRO/Wireless 7100 Adapter per Windows 2000"
+NIC_Service_DispName_XP  ="Driver Intel(R) PRO/Wireless 7100 Adapter per Windows XP"
+SOURCEDISK1             ="Disco di installazione di Intel(R) PRO/Wireless 7100"
+
+[Strings.0411] ; Japanese (Japan)
+;---------------------------------------------------------------------------------------------------
+;; Do NOT translate
+;---------------------------------------------------------------------------------------------------
+PROVIDER_NAME           ="Intel"
+COMPANY_NAME            ="Intel(R) Corporation"
+
+NIC_MPCI3               ="Intel(R) PRO/Wireless LAN 2100 3B Mini PCI Adapter"
+NIC_MPCI4               ="Intel(R) PRO/Wireless LAN 2100 3A Mini PCI Adapter"
+NIC_MPCI3_AdapterModel  ="PRO/Wireless LAN 2100 3B Mini PCI Adapter"
+NIC_MPCI4_AdapterModel  ="PRO/Wireless LAN 2100 3A Mini PCI Adapter"
+
+NIC_DriverDesc          ="Intel(R) PRO/Wireless 7100 LAN Card Driver"
+INTEL_GUID              ="{E2565835-F8E7-4B49-9F60-17DF19894336}"
+INTEL_GUID_11B          ="{2BC8F0A7-DC4E-4889-8375-C2151F70C331}"
+Intel_Provider          ="Intel"
+
+;---------------------------------------------------------------------------------------------------
+;; Translation from this point ON.
+;---------------------------------------------------------------------------------------------------
+NIC_Service_DispName_W2K ="Windows 2000 ópÉCÉìÉeÉã(R) PRO/Wireless 7100 ÉAÉ_ÉvÉ^ ÉhÉâÉCÉo"
+NIC_Service_DispName_XP  ="Windows XP ópÉCÉìÉeÉã(R) PRO/Wireless 7100 ÉAÉ_ÉvÉ^ ÉhÉâÉCÉo"
+SOURCEDISK1             ="ÉCÉìÉeÉã(R) PRO/Wireless 7100 ÉCÉìÉXÉgÅ[Éã ÉfÉBÉXÉN"
+
+[Strings.0412] ; Korean (Korea)
+;---------------------------------------------------------------------------------------------------
+;; Do NOT translate
+;---------------------------------------------------------------------------------------------------
+PROVIDER_NAME           ="Intel"
+COMPANY_NAME            ="Intel(R) Corporation"
+
+NIC_MPCI3               ="Intel(R) PRO/Wireless LAN 2100 3B Mini PCI Adapter"
+NIC_MPCI4               ="Intel(R) PRO/Wireless LAN 2100 3A Mini PCI Adapter"
+NIC_MPCI3_AdapterModel  ="PRO/Wireless LAN 2100 3B Mini PCI Adapter"
+NIC_MPCI4_AdapterModel  ="PRO/Wireless LAN 2100 3A Mini PCI Adapter"
+
+NIC_DriverDesc          ="Intel(R) PRO/Wireless 7100 LAN Card Driver"
+INTEL_GUID              ="{E2565835-F8E7-4B49-9F60-17DF19894336}"
+INTEL_GUID_11B          ="{2BC8F0A7-DC4E-4889-8375-C2151F70C331}"
+Intel_Provider          ="Intel"
+
+;---------------------------------------------------------------------------------------------------
+;; Translation from this point ON.
+;---------------------------------------------------------------------------------------------------
+NIC_Service_DispName_W2K ="Intel(R) PRO/π´º± 7100 æÓ¥≈Õ µÂ∂Û¿Ãπˆ(Windows 2000øÎ)"
+NIC_Service_DispName_XP  ="Intel(R) PRO/π´º± 7100 æÓ¥≈Õ µÂ∂Û¿Ãπˆ(Windows XPøÎ)"
+SOURCEDISK1             ="Intel(R) PRO/π´º± 7100 º≥ƒ° µΩ∫≈©"
+
+[Strings.0413] ; Dutch (Netherlands)
+;---------------------------------------------------------------------------------------------------
+;; Do NOT translate
+;---------------------------------------------------------------------------------------------------
+PROVIDER_NAME           ="Intel"
+COMPANY_NAME            ="Intel(R) Corporation"
+
+NIC_MPCI3               ="Intel(R) PRO/Wireless LAN 2100 3B Mini PCI Adapter"
+NIC_MPCI4               ="Intel(R) PRO/Wireless LAN 2100 3A Mini PCI Adapter"
+NIC_MPCI3_AdapterModel  ="PRO/Wireless LAN 2100 3B Mini PCI Adapter"
+NIC_MPCI4_AdapterModel  ="PRO/Wireless LAN 2100 3A Mini PCI Adapter"
+
+NIC_DriverDesc          ="Intel(R) PRO/Wireless 7100 LAN Card Driver"
+INTEL_GUID              ="{E2565835-F8E7-4B49-9F60-17DF19894336}"
+INTEL_GUID_11B          ="{2BC8F0A7-DC4E-4889-8375-C2151F70C331}"
+Intel_Provider          ="Intel"
+
+;---------------------------------------------------------------------------------------------------
+;; Translation from this point ON.
+;---------------------------------------------------------------------------------------------------
+NIC_Service_DispName_W2K ="Stuurprogramma Intel(R) PRO/Wireless 7100-adapter voor Windows 2000"
+NIC_Service_DispName_XP  ="Stuurprogramma Intel(R) PRO/Wireless 7100-adapter voor Windows XP"
+SOURCEDISK1             ="Installatieschijf Intel(R) PRO/Wireless 7100"
+
+[Strings.0414] ; Norwegian (BokmÂl) (Norway)
+;---------------------------------------------------------------------------------------------------
+;; Do NOT translate
+;---------------------------------------------------------------------------------------------------
+PROVIDER_NAME           ="Intel"
+COMPANY_NAME            ="Intel(R) Corporation"
+
+NIC_MPCI3               ="Intel(R) PRO/Wireless LAN 2100 3B Mini PCI Adapter"
+NIC_MPCI4               ="Intel(R) PRO/Wireless LAN 2100 3A Mini PCI Adapter"
+NIC_MPCI3_AdapterModel  ="PRO/Wireless LAN 2100 3B Mini PCI Adapter"
+NIC_MPCI4_AdapterModel  ="PRO/Wireless LAN 2100 3A Mini PCI Adapter"
+
+NIC_DriverDesc          ="Intel(R) PRO/Wireless 7100 LAN Card Driver"
+INTEL_GUID              ="{E2565835-F8E7-4B49-9F60-17DF19894336}"
+INTEL_GUID_11B          ="{2BC8F0A7-DC4E-4889-8375-C2151F70C331}"
+Intel_Provider          ="Intel"
+
+;---------------------------------------------------------------------------------------------------
+;; Translation from this point ON.
+;---------------------------------------------------------------------------------------------------
+NIC_Service_DispName_W2K ="Intel(R) PRO/Wireless 7100-adapter, driver for Windows 2000"
+NIC_Service_DispName_XP  ="Intel(R) PRO/Wireless 7100-adapter, driver for Windows XP"
+SOURCEDISK1             ="Intel(R) PRO/Wireless 7100-installasjonsdisk"
+
+[Strings.0416] ; Portuguese (Brazil)
+;---------------------------------------------------------------------------------------------------
+;; Do NOT translate
+;---------------------------------------------------------------------------------------------------
+PROVIDER_NAME           ="Intel"
+COMPANY_NAME            ="Intel(R) Corporation"
+
+NIC_MPCI3               ="Intel(R) PRO/Wireless LAN 2100 3B Mini PCI Adapter"
+NIC_MPCI4               ="Intel(R) PRO/Wireless LAN 2100 3A Mini PCI Adapter"
+NIC_MPCI3_AdapterModel  ="PRO/Wireless LAN 2100 3B Mini PCI Adapter"
+NIC_MPCI4_AdapterModel  ="PRO/Wireless LAN 2100 3A Mini PCI Adapter"
+
+NIC_DriverDesc          ="Intel(R) PRO/Wireless 7100 LAN Card Driver"
+INTEL_GUID              ="{E2565835-F8E7-4B49-9F60-17DF19894336}"
+INTEL_GUID_11B          ="{2BC8F0A7-DC4E-4889-8375-C2151F70C331}"
+Intel_Provider          ="Intel"
+
+;---------------------------------------------------------------------------------------------------
+;; Translation from this point ON.
+;---------------------------------------------------------------------------------------------------
+NIC_Service_DispName_W2K ="Driver do Adaptador Intel(R) PRO/Wireless 7100 para Windows 2000"
+NIC_Service_DispName_XP  ="Driver do Adaptador Intel(R) PRO/Wireless 7100 para Windows XP"
+SOURCEDISK1             ="Disco de instalaÁ„o do Intel(R) PRO/Wireless 7100"
+
+[Strings.041D] ; Swedish (Sweden)
+;---------------------------------------------------------------------------------------------------
+;; Do NOT translate
+;---------------------------------------------------------------------------------------------------
+PROVIDER_NAME           ="Intel"
+COMPANY_NAME            ="Intel(R) Corporation"
+
+NIC_MPCI3               ="Intel(R) PRO/Wireless LAN 2100 3B Mini PCI Adapter"
+NIC_MPCI4               ="Intel(R) PRO/Wireless LAN 2100 3A Mini PCI Adapter"
+NIC_MPCI3_AdapterModel  ="PRO/Wireless LAN 2100 3B Mini PCI Adapter"
+NIC_MPCI4_AdapterModel  ="PRO/Wireless LAN 2100 3A Mini PCI Adapter"
+
+NIC_DriverDesc          ="Intel(R) PRO/Wireless 7100 LAN Card Driver"
+INTEL_GUID              ="{E2565835-F8E7-4B49-9F60-17DF19894336}"
+INTEL_GUID_11B          ="{2BC8F0A7-DC4E-4889-8375-C2151F70C331}"
+Intel_Provider          ="Intel"
+
+;---------------------------------------------------------------------------------------------------
+;; Translation from this point ON.
+;---------------------------------------------------------------------------------------------------
+NIC_Service_DispName_W2K ="Intel(R) PRO/drivrutin fˆr det trÂdlˆsa kortet 7100 fˆr Windows 2000"
+NIC_Service_DispName_XP  ="Intel(R) PRO/drivrutin fˆr det trÂdlˆsa kortet 7100 fˆr Windows XP"
+SOURCEDISK1             ="Installationsdisk fˆr Intel(R) PRO/trÂdlˆs 7100"

@@ -1,0 +1,541 @@
+;****************************************************************************************
+;
+;Module Name:
+;	WUSB100/WUSB600/WUSB100v2/WUSB600v2
+; Description:
+;	Linksys WUSB100/WUSB600/WUSB600v2/WUSB100v2 RangePlus Wireless USB Adapter
+;
+;   Copyright (C) 2009, Cisco Systems, Inc. All rights reserved.
+;   All Rights Reserved.
+;   
+;
+;****************************************************************************************
+
+[Version]
+Signature       = "$Chicago$"
+Class           = Net
+ClassGUID       = {4d36e972-e325-11ce-bfc1-08002be10318}
+Provider        = %linksys%
+Compatible      = 1
+DriverVer       = 08/26/2009, 1.04.06.0000
+CatalogFile     = rt2870.cat            ;for WHQL certified
+
+[ControlFlags]
+;***********linksys 802.11 n board  ***********
+;ExcludeFromSelect = USB\VID_148F&PID_2870
+
+[Manufacturer]
+%linksys%	= linksys
+
+[linksys]
+; DisplayName               Section                 DeviceID
+; -----------               -------                 --------
+%linksys.DeviceDesc%        = linksys.ndi,          USB\VID_1737&PID_0070
+%linksys_AG.DeviceDesc%     = linksys_AG.ndi,       USB\VID_1737&PID_0071
+%linksys_v2.DeviceDesc%     = linksys.ndi,          USB\VID_1737&PID_0078
+%linksys_AG_v2.DeviceDesc%  = linksys.ndi,          USB\VID_1737&PID_0079
+
+;*******************************************************************************************
+; NT specific entries
+;*******************************************************************************************
+[linksys.ndi.NT]
+AddReg                  = Common.reg, RTUSB.ndi.NT.reg, DefaultBand.reg, AdhocN.reg,RemoveFlag.reg
+Characteristics         = 0x84                      ; NCF_REMOVABLE | NCF_HAS_UI | NCF_PHYSICAL
+BusType                 = 15                        ;USB
+CopyFiles               = NT.CopyFiles
+
+
+; NT services sections
+[linksys.ndi.NT.Services]
+AddService              = rt2870, 2, Generic.Service, common.EventLog
+
+[linksys.ndi.NT.CoInstallers]
+CopyFiles = CoInstaller.CopyFiles
+AddReg = CoInstaller_AddReg
+
+
+[linksys_AG.ndi.NT]
+AddReg                  = Common.reg, RTUSB.ndi.NT.reg, DefaultBand.reg, AdhocN.reg, RemoveFlag.reg
+Characteristics         = 0x84                      ; NCF_REMOVABLE | NCF_HAS_UI | NCF_PHYSICAL
+BusType                 = 15                        ;USB
+CopyFiles               = NT.CopyFiles
+
+; NT services sections
+[linksys_AG.ndi.NT.Services]
+AddService              = rt2870, 2, Generic.Service, common.EventLog
+
+[linksys_AG.ndi.NT.CoInstallers]
+CopyFiles = CoInstaller.CopyFiles
+AddReg = CoInstaller_AddReg
+
+;*******************************************************************************************
+; common regs for NT
+;*******************************************************************************************
+
+[Common.reg]
+;*******************************************************************************************
+; System Level Property
+
+;
+; Current Profile
+;
+HKR, ,                    CurProfile,      0,""
+HKR, Default,             CurProfile,      0,""
+
+;
+; Radio On/Off
+;
+HKR, ,                            Radio,           0, "0"
+HKR, NDI\params\Radio,            ParamDesc,       0, %RadioOnOff%
+HKR, NDI\params\Radio,            type,            0, "enum"
+HKR, NDI\params\Radio,            default,         0, "0"
+HKR, NDI\params\Radio\enum,       1,               0, %Disable%
+HKR, NDI\params\Radio\enum,       0,               0, %Enable%
+
+;
+; Auto Reconnect Mode
+;
+HKR, ,                                  AutoReconnect,      0, "1"
+
+;
+; Show Hidden SSID in Site Survey Page
+;
+HKR, ,                                  ShowHiddenSSID,     0, "1"   ; 0=disable(default), 1=enable
+
+;*******************************************************************************************
+; Advance Page
+
+;
+; OpMode
+;
+HKR, ,                            OpMode,          0, "0"
+
+;
+; WirelessMode
+;
+HKR, ,                            WirelessMode,    0, "5"
+
+;
+; Enable patch for pass wifi 11n draft
+;
+HKR, ,                            TGnWifiTest,         0, "0"
+
+;
+; Use Short Slot Time
+;
+HKR, ,                            ShortSlot,       0, "1"
+
+;
+; Use Turbo rate
+;
+HKR, ,                            TurboRate,       0, "0"
+
+;
+; Use Ofdm rate in adhoc mode
+;
+HKR, ,                            AdhocOfdm,       0, "1"
+
+;
+; Disable 5GHz adhoc mode
+;
+HKR, ,                            Adhoc5GDisable,       0, "0"
+
+;
+; Enable TX Burst
+;
+HKR, ,                            TXBurst,              0, "1"
+
+;
+; Use BG Protection
+;
+HKR, ,                            BGProtection,    0, "0"
+
+;
+; FrameAggregation
+;
+HKR, ,                            FrameAggregation,0, "1"
+
+;
+; IEEE80211H
+;
+HKR, ,                            IEEE80211H,      0, "1"
+HKR, NDI\params\IEEE80211H,       ParamDesc,       0, %IEEE802_11h%
+HKR, NDI\params\IEEE80211H,       type,            0, "enum"
+HKR, NDI\params\IEEE80211H,       default,         0, "1"
+HKR, NDI\params\IEEE80211H\enum,  0,               0, %Disable%
+HKR, NDI\params\IEEE80211H\enum,  1,               0, %Enable%
+
+;
+; CarrierDetect
+;
+HKR, ,                               CarrierDetect,   0, "0"
+
+;
+; AutoChannelSelect
+;
+HKR, ,                            AutoChannelSelect,      0, "0"
+
+;
+; WMMCapable
+;
+HKR, ,                            WMMCapable,      0, "1"
+
+;
+; APSDCapable
+;
+HKR, ,                            APSDCapable,     0, "0"
+
+;
+; APSDAC_BE
+;
+HKR, ,                            APSDAC_BE,       0, "0"
+
+;
+; APSDAC_BK
+;
+HKR, ,                            APSDAC_BK,       0, "0"
+
+;
+; APSDAC_VI
+;
+HKR, ,                            APSDAC_VI,       0, "0"
+
+;
+; APSDAC_VO
+;
+HKR, ,                            APSDAC_VO,       0, "0"
+
+;
+; MaxSPLength
+;
+HKR, ,                            MaxSPLength,     0, "0"
+HKR, Default,                     MaxSPLength,     0, "0"
+
+;
+; DLSCapable
+;
+HKR, ,                            DLSCapable,      0, "0"
+
+;
+; RDG
+;
+HKR, ,                            RDG,      0, "1"
+
+;
+; Power Saving Control
+;
+HKR, ,                            PSControl,       0x00010001, 0x00000000
+
+;
+; ProhibitTKIPonHT
+;
+HKR, ,                            ProhibitTKIPonHT,      0, "1"
+
+;
+; Link Speed Status
+;
+HKR, ,                            LinkSpeedStatus, 0, "0"
+
+;
+; SmartScan
+;
+HKR, ,                            SmartScan,       0, "0"
+HKR, NDI\params\SmartScan,              ParamDesc, 0, %SmartScan%
+HKR, NDI\params\SmartScan,              type,      0, "enum"
+HKR, NDI\params\SmartScan,              default,   0, "0"
+HKR, NDI\params\SmartScan\enum,         0,         0, %Disable%
+HKR, NDI\params\SmartScan\enum,         1,         0, %Enable%
+
+;
+; AllowBW40InBGBand
+;
+HKR, ,                            AllowBW40InBGBand,      0, "1"
+
+;
+; PSP XLink mode
+;
+HKR, ,                            PSPXlink,        0, "0"
+HKR, NDI\params\PSPXlink,         ParamDesc,       0, %PSPXlink%
+HKR, NDI\params\PSPXlink,         type,            0, "enum"
+HKR, NDI\params\PSPXlink,         default,         0, "0"
+HKR, NDI\params\PSPXlink\enum,    0,               0, %Disable%
+HKR, NDI\params\PSPXlink\enum,    1,               0, %Enable%
+
+;
+; CCX2 control
+;
+HKR, ,                            CCX2Control,     0x00010001, 0x00fa4600
+
+;
+; Block ACK settings
+;
+HKR, ,                            BACapability,      0x10001, "0x0b034020"
+HKR, Default,                     BACapability,      0x10001, "0x0b034020"
+
+
+;
+; Transmit Rate setting
+;
+HKR, ,                            TransmitSetting,      0x10001, "0x2ba15"
+HKR, Default,                     TransmitSetting,      0x10001, "0x2ba15"
+
+;
+; Rssi Delta
+;
+HKR, ,                            RssiDelta,      0, "6"
+
+;
+; Vendor Description
+;
+HKR, ,                            VendorDesc,      0, %VENDOR_DESC_DEF_STR%
+HKR, Default,                     VendorDesc,      0, %VENDOR_DESC_DEF_STR%
+
+;
+; WPS Device Name
+;
+HKR, ,                            WPSDevName,      0, %WPS_DEVNAME_DEF_STR%
+HKR, Default,                     WPSDevName,      0, %WPS_DEVNAME_DEF_STR%
+
+;*******************************************************************************************
+; Profile
+
+;
+; SSID
+;
+;HKR, ,                            SSID,            0, %SSID_DEF_STR%
+;HKR, Default,                     SSID,            0, %SSID_DEF_STR%
+;HKR, NDI\params\SSID,             ParamDesc,       0, "SSID"
+;HKR, NDI\params\SSID,             type,            0, "edit"
+;HKR, NDI\params\SSID,             limitText,       0, "32"
+;HKR, NDI\params\SSID,             default,         0, %SSID_DEF_STR%
+
+;
+; Network Type
+;
+HKR, ,                            NetworkType,     0, %NETWORK_TYPE_DEF_STR%
+HKR, Default,                     NetworkType,     0, %NETWORK_TYPE_DEF_STR%
+
+;
+; Channel
+;
+HKR, ,                            Channel,         0, %CHANNEL%
+HKR, Default,                     Channel,         0, %CHANNEL%
+
+
+;*******************************************************************************************
+; System Configuration Page
+
+;
+; Local Administration MAC Network Address
+;
+HKR, ,                            NetworkAddress,  0, ""
+HKR, Default,                     NetworkAddress,  0, ""
+HKR, NDI\params\NetworkAddress,   ParamDesc,       0, %LocalNetworkAddress%
+HKR, NDI\params\NetworkAddress,   type,            0, "edit"
+HKR, NDI\params\NetworkAddress,   limitText,       0, "12"
+HKR, NDI\params\NetworkAddress,   default,         0, ""
+HKR, NDI\params\Networkaddress,    optional,   0,  "1"
+
+;
+; Power Saving Mode
+;
+HKR, ,                            PSMode,          0, "0"
+HKR, Default,                     PSMode,          0, "0"
+HKR, NDI\params\PSMode,           ParamDesc,       0, %PSMode%
+HKR, NDI\params\PSMode,           type,            0, "enum"
+HKR, NDI\params\PSMode,           default,         0, "0"
+HKR, NDI\params\PSMode\enum,      0,               0, %CAM%
+HKR, NDI\params\PSMode\enum,      1,               0, %MAXPSP%
+
+;
+; CAM when AC Power
+;
+HKR, ,                            ACPowerCam,      0, "0"
+HKR, Default,                     ACPowerCam,      0, "0"
+
+;
+; Preamble Type
+;
+HKR, ,                            PreambleType,    0, "0"
+HKR, Default,                     PreambleType,    0, "0"
+
+;
+; RTS Threshold
+;
+HKR, ,                            RTSThresh,       0, "2347"
+HKR, Default,                     RTSThresh,       0, "2347"
+
+;
+; Fragment Threshold
+;
+HKR, ,                            FragThresh,      0, "2346"
+HKR, Default,                     FragThresh,      0, "2346"
+
+;*******************************************************************************************
+; Authentication & Security Page
+
+;
+; Authentication Type
+;
+HKR, ,                AuthenType,      0, "0" ; Open System
+HKR, Default,         AuthenType,      0, "0"
+
+;
+; Encryption
+;
+HKR, ,                Encryption,      0, "1" ; Disable
+HKR, Default,         Encryption,      0, "1"
+
+;
+; WEP Keys Length
+;
+HKR, ,                WEPKeyLen,       0, "0"
+HKR, Default,         WEPKeyLen,       0, "0"
+
+;
+; WEP Key to use
+;
+HKR, ,                WEPKeyUse,       0,"1"
+HKR, Default,         WEPKeyUse,       0,"1"
+
+;
+; WEP Key1
+;
+HKR, ,                WEPKey1,         0,""
+HKR, Default,         WEPKey1,         0,""
+
+;
+; WEP Key2
+;
+HKR, ,                WEPKey2,         0,""
+HKR, Default,         WEPKey2,         0,""
+
+;
+; WEP Key3
+;
+HKR, ,                WEPKey3,         0,""
+HKR, Default,         WEPKey3,         0,""
+
+;
+; WEP Key4
+;
+HKR, ,                WEPKey4,         0,""
+HKR, Default,         WEPKey4,         0,""
+
+;
+; Reposit Bssid List
+;
+HKR, ,                BssidRepositTime,       0, "90"
+
+[RemoveFlag.reg]
+HKR, ,                SafelyRemoveOff,    0, "1"
+
+[AdhocN.reg]
+;
+; AdhocNMode
+;
+HKR, ,                            AdhocNMode,      0, "0"
+HKR, NDI\params\AdhocNMode,       ParamDesc,       0, %AdhocNMode%
+HKR, NDI\params\AdhocNMode,       type,            0, "enum"
+HKR, NDI\params\AdhocNMode,       default,         0, "0"
+HKR, NDI\params\AdhocNMode\enum,  0,               0, %Disable%
+HKR, NDI\params\AdhocNMode\enum,  1,               0, %Enable%
+
+; Disable Channel 14 for JP
+[InitChn14Disabled.reg]
+HKR, ,                    InitChn14Disabled,      0,"1"
+
+
+[DefaultBand.reg]
+;
+; 2.4G Band
+;
+HKR, ,                                 CountryRegion,      0, "0"
+;
+; 5G Band
+;
+HKR, ,                                 CountryRegionABand, 0, "0"
+
+[CoInstaller_AddReg]
+;;HKR,,CoInstallers32,0x00010000, "RaCoInst.dll,ClassCoInstaller"
+
+;*******************************************************************************************
+; DestinationDirs
+;*******************************************************************************************
+
+[DestinationDirs]
+NT.CopyFiles            = 12    ; system32\drivers subdirectory on NT
+CoInstaller.CopyFiles   = 11
+
+[NT.CopyFiles]
+rt2870.sys                   ; NT Installation
+
+[CoInstaller.CopyFiles]
+RaCoInst.dll
+RaCoInst.dat
+
+[SourceDisksNames]
+1                       = %INSTALL_DISK_STR%,,,
+
+[SourceDisksFiles] 
+rt2870.sys              = 1
+RaCoInst.dll            = 1
+RaCoInst.dat            = 1
+
+;*******************************************************************************************
+; NT specific
+;*******************************************************************************************
+[RTUSB.ndi.NT.reg]
+HKR, Ndi,                   Service,            0, "rt2870"
+HKR, Ndi\Interfaces,        UpperRange,         0, "ndis5"
+HKR, Ndi\Interfaces,        LowerRange,         0, "ethernet"
+
+[Generic.Service]
+DisplayName                 = %Generic.Service.DispName%
+ServiceType                 = 1                             ;%SERVICE_KERNEL_DRIVER%
+StartType                   = 3                             ;%SERVICE_AUTO_START%
+ErrorControl                = 1                             ;%SERVICE_ERROR_NORMAL%
+ServiceBinary               = %12%\rt2870.sys
+LoadOrderGroup              = NDIS
+
+[common.EventLog]
+AddReg=common.AddEventLog.reg
+
+[common.AddEventLog.reg]
+HKR, , EventMessageFile, 0x00020000, "%%SystemRoot%%\System32\netevent.dll,%%SystemRoot%%\System32\drivers\rt2870.sys"
+HKR, , TypesSupported,   0x00010001, 7
+
+;*******************************************************************************************
+; Strings
+;*******************************************************************************************
+[strings]
+linksys			    = "Linksys, A division of Cisco Systems, Inc."
+
+linksys.DeviceDesc	    = "Linksys WUSB100 RangePlus Wireless USB Adapter"
+linksys_AG.DeviceDesc	    = "Linksys WUSB600N Dual-Band Wireless-N USB Network Adapter"
+linksys_v2.DeviceDesc       = "Linksys RangePlus Wireless USB Network Adapter"
+linksys_AG_v2.DeviceDesc    = "Linksys WUSB600N Wireless-N USB Adapter with Dual-Band ver. 2"
+INSTALL_DISK_STR            = "Wireless 11n USB Installation Disk"
+
+Generic.Service.DispName    = "Linksys 802.11n USB Wireless LAN Card Driver"
+
+;
+; Don't put spaces around=sign otherwise installer will not be able to
+; find these lines.
+; SSID_DEF_STR                = ""
+VENDOR_DESC_DEF_STR         = "IEEE 802.11n Wireless Card."
+NETWORK_TYPE_DEF_STR        = "1"
+CHANNEL                     = "1"
+WPS_DEVNAME_DEF_STR         = "Linksys Client"
+
+RadioOnOff                  = "Radio On/Off"
+Disable                     = "Disable"
+Enable                      = "Enable"
+IEEE802_11h                 = "IEEE802.11h"
+SmartScan                   = "Multimedia/Gaming Environment"
+PSPXlink                    = "PSP Xlink Mode"
+LocalNetworkAddress         = "Local Administration MAC Network Address"
+PSMode                      = "Power Saving Mode"
+CAM                         = "CAM (Constantly Awake Mode)"
+MAXPSP                      = "Max_PSP (Max Power Savings)"
+AdhocNMode                  = "Adhoc support 802.11n"

@@ -1,0 +1,185 @@
+;-------------------------------------------------------------------------------
+; Novatel Wireless Merlin USB Serial Port  
+; Module Name -- NWDelSer.inf
+; Copyright (c) 2004-2005 Novatel Wireless Inc.
+;-------------------------------------------------------------------------------
+;
+;when          who   what, where, why
+;-----------   ---   -----------------------------------------------------------
+;19 Aug 2004   SK    Added Resident mode
+;24 Aug 2004   SK    Removed upperfilters
+;30 Aug 2004   SK    Removed resident mode
+;24 Feb 2005   SK    Fixed HT issue
+;01 Apr 2005   SK    Driver Fix + Device list
+;28 Sep 2005   SK    Updated driver 
+;19 Oct 2005   SK    Added PowerMgt and updated driver
+; 7 Dec 2005   SK    Version no update
+; 8 Mar 2006   SK    Fixed Standby BSOD
+;-------------------------------------------------------------------------------
+
+;-------------------------------------------------------------------------------
+; INF Version Section
+;-------------------------------------------------------------------------------
+[Version]
+signature  = "$WINDOWS NT$"
+Class      = Ports
+Provider   = %NW%
+ClassGuid  = {4D36E978-E325-11CE-BFC1-08002BE10318}
+DriverVer  = 02/28/2007,3.0.0.4
+CatalogFile.NT = NWDelMdm.cat
+CatalogFile.NTAMD64 = nwDelx64.cat
+
+;-------------------------------------------------------------------------------
+; INF Manufactuerer Section
+;-------------------------------------------------------------------------------
+[Manufacturer]
+%NW% = Models,NTamd64
+
+;-------------------------------------------------------------------------------
+; INF ControlFlags Section
+;-------------------------------------------------------------------------------
+[ControlFlags]
+ExcludeFromSelect = *
+
+;-------------------------------------------------------------------------------
+; INF Models Section
+;-------------------------------------------------------------------------------
+
+[Models]
+%NW007_2% = Port,  USB\VID_413C&PID_8133&MI_02
+%NW008_2% = Port,  USB\VID_413C&PID_8134&MI_02
+%NW009_2% = Port,  USB\VID_413C&PID_8135&MI_02
+%NW010_2% = Port,  USB\VID_413C&PID_8136&MI_02
+%NW011_2% = Port,  USB\VID_413C&PID_8137&MI_02
+%NW012_2% = Port,  USB\VID_413C&PID_8138&MI_02
+
+%NW007_3% = Port,  USB\VID_413C&PID_8133&MI_03
+%NW008_3% = Port,  USB\VID_413C&PID_8134&MI_03
+%NW009_3% = Port,  USB\VID_413C&PID_8135&MI_03
+%NW010_3% = Port,  USB\VID_413C&PID_8136&MI_03
+%NW011_3% = Port,  USB\VID_413C&PID_8137&MI_03
+%NW012_3% = Port,  USB\VID_413C&PID_8138&MI_03
+
+%NW010_4% = Port,  USB\VID_413C&PID_8136&MI_04
+%NW011_4% = Port,  USB\VID_413C&PID_8137&MI_04
+%NW012_4% = Port,  USB\VID_413C&PID_8138&MI_04
+
+[Models.NTamd64]
+%NW007_2% = Port,  USB\VID_413C&PID_8133&MI_02
+%NW008_2% = Port,  USB\VID_413C&PID_8134&MI_02
+%NW009_2% = Port,  USB\VID_413C&PID_8135&MI_02
+%NW010_2% = Port,  USB\VID_413C&PID_8136&MI_02
+%NW011_2% = Port,  USB\VID_413C&PID_8137&MI_02
+%NW012_2% = Port,  USB\VID_413C&PID_8138&MI_02
+
+%NW007_3% = Port,  USB\VID_413C&PID_8133&MI_03
+%NW008_3% = Port,  USB\VID_413C&PID_8134&MI_03
+%NW009_3% = Port,  USB\VID_413C&PID_8135&MI_03
+%NW010_3% = Port,  USB\VID_413C&PID_8136&MI_03
+%NW011_3% = Port,  USB\VID_413C&PID_8137&MI_03
+%NW012_3% = Port,  USB\VID_413C&PID_8138&MI_03
+
+%NW010_4% = Port,  USB\VID_413C&PID_8136&MI_04
+%NW011_4% = Port,  USB\VID_413C&PID_8137&MI_04
+%NW012_4% = Port,  USB\VID_413C&PID_8138&MI_04
+
+;-------------------------------------------------------------------------------
+; INF SourceDisksNames Section
+;-------------------------------------------------------------------------------
+[SourceDisksNames]
+1000 = %NWSrcDisk%,"",,
+
+;-------------------------------------------------------------------------------
+; INF SourceDisksFiles Section
+;-------------------------------------------------------------------------------
+[SourceDisksFiles]
+nwdelmdm.sys = 1000
+
+[SourceDisksFiles.amd64]
+nwdelx64.sys = 1000
+
+
+[NWUsbDriverFiles]
+nwdelser2.sys,nwdelmdm.sys,,0x20
+
+[NWUsbDriverFilesamd64]
+nwdelser2.sys,nwdelx64.sys,,0x20
+
+;-------------------------------------------------------------------------------
+; INF DestinationDirs Section
+;-------------------------------------------------------------------------------
+[DestinationDirs]
+DefaultDestDir = 12
+
+;-------------------------------------------------------------------------------
+; INF DDInstall Section
+;-------------------------------------------------------------------------------
+[Port.NT]
+CopyFiles = NWUsbDriverFiles
+AddReg    = All, AddReg.NT, Debug
+
+[Port.NTamd64]
+CopyFiles = NWUsbDriverFilesamd64
+AddReg    = All, AddReg.NT, Debug
+
+;-------------------------------------------------------------------------------
+; INF DDInstall.Services Section
+;-------------------------------------------------------------------------------
+[Port.NT.Services]
+AddService = NWDellPort2,  0x00000002, NWPort_Service_Inst
+
+[Port.NTamd64.Services]
+AddService = NWDellPort2,  0x00000002, NWPort_Service_Inst
+
+
+[NWPort_Service_Inst]
+DisplayName   = %NWPortSvcName%
+ServiceType   = 1
+StartType     = 3
+ErrorControl  = 1
+ServiceBinary = %12%\nwdelser2.sys
+AddReg	      = PowerMgt
+
+;-------------------------------------------------------------------------------
+; INF DDInstall Addreg Sections
+;-------------------------------------------------------------------------------
+[All]
+HKR,,NTMPDriver,,nwdelser2.sys
+
+[AddReg.NT]
+HKR,,PortSubClass,1,01
+HKR,,EnumPropPages32,,"MsPorts.dll,SerialPortPropPageProvider"
+
+[Debug]
+HKR,,QCDriverConfig,0x00010001,0x00000000
+HKR,,QCDriverLoggingDirectory,0,"\??\C:\"
+HKR,,QCDriverDebugMask,0x00010001,0x00000000
+
+[PowerMgt]
+HKR,,QCDriverPowerManagementEnabled,0x00010001,0x00000001
+HKR,,QCDriverWaitWakeEnabled,0x00010001,0x00000001
+
+;-------------------------------------------------------------------------------
+; INF Strings Section
+;-------------------------------------------------------------------------------
+[Strings]
+NW               = "Novatel Wireless Inc"
+NWSrcDisk        = "Novatel Wireless USB Driver Disk"
+NWPortSvcName    = "Dell Wireless Mobile Broadband Status2 Port Driver"
+NW007_2          = "Dell Wireless 5720 VZW Mobile Broadband (EVDO Rev-A) Minicard Diagnostics Port"
+NW008_2          = "Dell Wireless 5720 Sprint Mobile Broadband (EVDO Rev-A) Minicard Diagnostics Port"
+NW009_2          = "Dell Wireless 5720 TELUS Mobile Broadband (EVDO Rev-A) Minicard Diagnostics Port"
+NW010_2          = "Dell Wireless 5520 Cingular Mobile Broadband (3G HSDPA) Minicard Diagnostics Port"
+NW011_2          = "Dell Wireless 5520 Voda L Mobile Broadband (3G HSDPA) Minicard Diagnostics Port"
+NW012_2          = "Dell Wireless 5520 Voda I Mobile Broadband (3G HSDPA) Minicard Diagnostics Port"
+
+NW007_3          = "Dell Wireless 5720 VZW Mobile Broadband (EVDO Rev-A) Minicard GPS Port"
+NW008_3          = "Dell Wireless 5720 Sprint Mobile Broadband (EVDO Rev-A) Minicard GPS Port"
+NW009_3          = "Dell Wireless 5720 TELUS Mobile Broadband (EVDO Rev-A) Minicard GPS Port"
+NW010_3          = "Dell Wireless 5520 Cingular Mobile Broadband (3G HSDPA) Minicard EAP-SIM Port"
+NW011_3          = "Dell Wireless 5520 Voda L Mobile Broadband (3G HSDPA) Minicard EAP-SIM Port"
+NW012_3          = "Dell Wireless 5520 Voda I Mobile Broadband (3G HSDPA) Minicard EAP-SIM Port"
+
+NW010_4          = "Dell Wireless 5520 Cingular Mobile Broadband (3G HSDPA) Minicard GPS Port"
+NW011_4          = "Dell Wireless 5520 Voda L Mobile Broadband (3G HSDPA) Minicard GPS Port"
+NW012_4          = "Dell Wireless 5520 Voda I Mobile Broadband (3G HSDPA) Minicard GPS Port"

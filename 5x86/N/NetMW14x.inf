@@ -1,0 +1,998 @@
+;===========================================================================
+; 
+; Windows XP (32/64bit), 2000 NDIS driver INF
+;
+;=========================================================================== 
+ 
+ 
+[Version] 
+Signature = "$Windows NT$" 
+Compatible  = 1
+Class=Net
+ClassGUID={4D36E972-E325-11CE-BFC1-08002BE10318} 
+Provider=%MRVL% 
+CatalogFile=netmw14x.cat
+DriverVer=10/04/2006, 2.1.4.3
+
+;===========================================================================
+; Source Media Information Sections
+;===========================================================================
+[SourceDisksNames]
+1 = %DriverDisk%,,,
+
+[SourceDisksFiles]
+; On installation disk 1 
+;NETMW146.sys = 1
+NETMW145.sys = 1
+NETMW143.sys = 1
+
+[DestinationDirs]
+W8385PCI.XP.CopyFiles = 12 
+W8385PCI.2K.CopyFiles = 12 
+W8385PCI.x64.CopyFiles = 12 
+DefaultDestDir = 11
+
+[Manufacturer] 
+%MRVL%=Netgear,NTamd64,NT.5.1
+
+[Netgear]
+%W8382PCI.DeviceDesc%  = W8385PCI.ndi.NT, PCI\VEN_11AB&DEV_2A02&SUBSYS_7E001385
+%W8382PCI.DeviceDesc%  = W8385PCI.ndi.NT, PCI\VEN_11AB&DEV_2A02&SUBSYS_000011AB
+
+[Netgear.NT.5.1]
+%W8382PCI.DeviceDesc%  = W8385PCIXP.ndi, PCI\VEN_11AB&DEV_2A02&SUBSYS_7E001385
+%W8382PCI.DeviceDesc%  = W8385PCIXP.ndi, PCI\VEN_11AB&DEV_2A02&SUBSYS_000011AB
+
+[Netgear.NTamd64]
+%W8382PCI.DeviceDesc%  = W8385PCIx64.ndi, PCI\VEN_11AB&DEV_2A02&SUBSYS_7E001385
+%W8382PCI.DeviceDesc%  = W8385PCIx64.ndi, PCI\VEN_11AB&DEV_2A02&SUBSYS_000011AB
+
+;===========================================================================
+; ControlFlags section
+;===========================================================================
+[ControlFlags]
+ExcludeFromSelect = *
+
+;***************************************************************************
+;**         
+;**          Win XP x64 DDInstall section
+;**          
+;***************************************************************************
+;***************************************************************************
+[W8385PCIx64.ndi]
+; "Characteristics" is (NCF_PHYSICAL | NCF_HAS_UI)
+Characteristics = 0x84 
+; "BusType" is PCI or CardBus
+BusType         = 5 
+AddReg          = W8385PCI.reg, W8385PCIx64.reg, W8385PCIx64.zerocfg
+CopyFiles       = W8385PCI.x64.CopyFiles
+
+[W8385PCIx64.ndi.Services]
+AddService = NETMW146, 2, W8385PCIx64.Service, Commonx64.EventLog
+
+;===========================================================================
+; PCI WinXP x64 registers
+;===========================================================================
+[W8385PCIx64.reg]
+HKR, Ndi,            Service,    0, "NETMW146"
+HKR, Ndi\Interfaces, UpperRange, 0, "ndis5"
+HKR, Ndi\Interfaces, LowerRange, 0, "ethernet"
+
+
+[W8385PCI.x64.CopyFiles]
+;NETMW146.sys,,,2 
+
+[W8385PCIx64.Service]
+DisplayName    = %W8385PCIx64.Service.DispName%
+ServiceType    = 1 ;%SERVICE_KERNEL_DRIVER%
+StartType      = 3 ;%SERVICE_DEMAND_START%
+ErrorControl   = 1 ;%SERVICE_ERROR_NORMAL%
+ServiceBinary  = %12%\NETMW146.sys
+LoadOrderGroup = NDIS
+
+[W8385PCIx64.zerocfg]
+
+
+[Commonx64.EventLog]
+AddReg = Commonx64.AddEventLog.reg
+
+[Commonx64.AddEventLog.reg]
+HKR, , EventMessageFile, 0x00020000, "%%SystemRoot%%\System32\netevent.dll"
+HKR, , TypesSupported,   0x00010001, 7
+
+
+;***************************************************************************
+;**         
+;**          Win XP DDInstall section
+;**          
+;***************************************************************************
+;***************************************************************************
+[W8385PCIXP.ndi]
+; "Characteristics" is (NCF_PHYSICAL | NCF_HAS_UI)
+Characteristics = 0x84 
+; "BusType" is PCI or CardBus
+BusType         = 5 
+AddReg          = W8385PCI.reg, W8385PCIXP.reg, W8385PCIXP.zerocfg
+CopyFiles       = W8385PCI.XP.CopyFiles
+
+[W8385PCIXP.ndi.Services]
+AddService = NETMW145, 2, W8385PCIXP.Service, CommonXP.EventLog
+
+;===========================================================================
+; PCI WinXP registers
+;===========================================================================
+[W8385PCIXP.reg]
+HKR, Ndi,            Service,    0, "NETMW145"
+HKR, Ndi\Interfaces, UpperRange, 0, "ndis5"
+HKR, Ndi\Interfaces, LowerRange, 0, "ethernet"
+
+
+[W8385PCI.XP.CopyFiles]
+NETMW145.sys,,,2 
+
+[W8385PCIXP.Service]
+DisplayName    = %W8385PCIXP.Service.DispName%
+ServiceType    = 1 ;%SERVICE_KERNEL_DRIVER%
+StartType      = 3 ;%SERVICE_DEMAND_START%
+ErrorControl   = 1 ;%SERVICE_ERROR_NORMAL%
+ServiceBinary  = %12%\NETMW145.sys
+LoadOrderGroup = NDIS
+
+[W8385PCIXP.zerocfg]
+
+ 
+[CommonXP.EventLog]
+AddReg = CommonXP.AddEventLog.reg
+
+[CommonXP.AddEventLog.reg]
+HKR, , EventMessageFile, 0x00020000, "%%SystemRoot%%\System32\netevent.dll"
+HKR, , TypesSupported,   0x00010001, 7
+
+
+;***************************************************************************
+;***************************************************************************
+;**         
+;**          Win 2K DDInstall section
+;**          
+;***************************************************************************
+;***************************************************************************
+
+[W8385PCI.ndi.NT]
+; "Characteristics" is (NCF_PHYSICAL | NCF_HAS_UI)
+Characteristics = 0x84 
+; "BusType" is PCI or CardBus
+BusType         = 5 
+AddReg          = W8385PCI.reg, W8385PCI2K.reg, W8385PCI.devID.reg
+CopyFiles       = W8385PCI.2K.CopyFiles 
+
+;DeviceID = "PCI\VEN_11AB&DEV_2A02"
+
+[W8385PCI.ndi.NT.Services]
+AddService = NETMW143, 2, W8385PCI2K.Service, Common.EventLog
+
+;===========================================================================
+; PCI Win2K registers
+;===========================================================================
+[W8385PCI2K.reg]
+HKR, Ndi,            Service,    0, "NETMW143"
+HKR, Ndi\Interfaces, UpperRange, 0, "ndis5"
+HKR, Ndi\Interfaces, LowerRange, 0, "ethernet"
+
+[W8385PCI.2K.CopyFiles]
+NETMW143.sys,,,2 
+
+
+[W8385PCI2K.Service]
+DisplayName    = %W8385PCI2K.Service.DispName%
+ServiceType    = 1 ;%SERVICE_KERNEL_DRIVER%
+StartType      = 3 ;%SERVICE_DEMAND_START%
+ErrorControl   = 1 ;%SERVICE_ERROR_NORMAL%
+ServiceBinary  = %12%\NETMW143.sys
+LoadOrderGroup = NDIS
+
+[Common.EventLog]
+AddReg = Common.AddEventLog.reg
+
+[Common.AddEventLog.reg]
+HKR, , EventMessageFile, 0x00020000, "%%SystemRoot%%\System32\netevent.dll"
+HKR, , TypesSupported,   0x00010001, 7
+
+[W8385PCI.devID.reg]
+HKR, Ndi, DeviceID, 0, "PCI\VEN_11AB&DEV_2A02"
+
+
+[W8385PCI.reg]
+HKR,, OpMode, 			0x00002, 0	;//STA Mode
+
+;
+; LED Control
+;
+; Mode 1 (Default)
+;    Link LED
+HKR,, LED0PowerOn,		0x00002, "0100ff00"
+HKR,, LED0PowerOff,		0x00002, "0100fe00"
+HKR,, LED0Scan,			0x00002, "01000100"
+HKR,, LED0Associated,	        0x00002, "01000200"
+HKR,, LED0Joined,		0x00002, "0100ff00"
+HKR,, LED0Started,		0x00002, "01000100"
+HKR,, LED0Rx,			0x00002, "01000300"
+HKR,, LED0RxHigh,		0x00002, "01000300"
+HKR,, LED0RxMiddle,		0x00002, "01000300"
+HKR,, LED0Tx,			0x00002, "01000300"
+HKR,, LED0TxHigh,		0x00002, "01000300"
+HKR,, LED0TxMiddle,		0x00002, "01000300"
+
+;//LED 1
+HKR,, LED1PowerOn,		0x00002, "0101fe00"
+HKR,, LED1PowerOff,		0x00002, "0101fe00"
+HKR,, LED1Scan,			0x00002, "01010100"
+HKR,, LED1Associated,	                0x00002, "0101ff00"
+HKR,, LED1Joined,		0x00002, "0101ff00"
+HKR,, LED1Started,		0x00002, "01010100"
+HKR,, LED1Rx,			0x00002, "01010300"
+HKR,, LED1RxHigh,		0x00002, "01010300"
+HKR,, LED1RxMiddle,		0x00002, "01010300"
+HKR,, LED1Tx,			0x00002, "01010300"
+HKR,, LED1TxHigh,		0x00002, "01010300"
+HKR,, LED1TxMiddle,		0x00002, "01010300"
+	
+HKR,, LEDOffAfterRadioOff,	0x00002, "1" 
+
+
+HKR, Ndi\params\AdhocGMode,ParamDesc,,"%AdhocGMode%"
+HKR, Ndi\params\AdhocGMode,default,,"1"
+HKR, Ndi\params\AdhocGMode,type,,enum
+HKR, Ndi\params\AdhocGMode\enum,"0",,"%AdhocGMode_GMode%"
+HKR, Ndi\params\AdhocGMode\enum,"1",,"%AdhocGMode_BMode%" 
+
+HKR, Ndi\xparams\DesiredSSID,ParamDesc,,"%SSID%"
+HKR, Ndi\xparams\DesiredSSID,default,,""
+HKR, Ndi\xparams\DesiredSSID,type,,"edit" 
+HKR, Ndi\xparams\DesiredSSID,LimitText,,"32"
+HKR, Ndi\xparams\DesiredSSID,UpperCase,,"0" 
+HKR, Ndi\xparams\DesiredSSID,Optional,,"1" 
+
+HKR, Ndi\xparams\AuthMode,ParamDesc,,"%AuthMode%"
+HKR, Ndi\xparams\AuthMode,default,,"0"
+HKR, Ndi\xparams\AuthMode,type,,enum
+HKR, Ndi\xparams\AuthMode\enum,"0",,"%AuthMode_Open%"
+HKR, Ndi\xparams\AuthMode\enum,"1",,"%AuthMode_Shared%"
+
+HKR, Ndi\xparams\NetworkMode,ParamDesc,,"%NetworkMode%"
+HKR, Ndi\xparams\NetworkMode,default,,"1"
+HKR, Ndi\xparams\NetworkMode,type,,enum
+HKR, Ndi\xparams\NetworkMode\enum,"0",,"%NetworkMode_AdHoc%"
+HKR, Ndi\xparams\NetworkMode\enum,"1",,"%NetworkMode_Infra%"
+
+HKR, Ndi\params\FragThsd,  ParamDesc,0 , "%FragThsds%"
+HKR, Ndi\params\FragThsd,  default, 0 , "2346"
+HKR, Ndi\params\FragThsd,  min, 0 , "256"
+HKR, Ndi\params\FragThsd,  max, 0 , "2346"
+HKR, Ndi\params\FragThsd,  step, 0 , "1"
+HKR, Ndi\params\FragThsd,  Base, 0 , "10"
+HKR, Ndi\params\FragThsd,  type, 0 ,"dword"
+
+HKR, Ndi\params\AmpduDensity,  ParamDesc,0 , "%AmpduDensity%"
+HKR, Ndi\params\AmpduDensity,  default, 0 , "0"
+
+HKR, Ndi\xparams\Channel,  ParamDesc,0 , "%Channel%"
+HKR, Ndi\xparams\Channel,  default, 0 , "36"
+HKR, Ndi\xparams\Channel,  min, 0 , "1"
+HKR, Ndi\xparams\Channel,  max, 0 , "165"
+HKR, Ndi\xparams\Channel,  step, 0 , "1"
+HKR, Ndi\xparams\Channel,  Base, 0 , "10"
+HKR, Ndi\xparams\Channel,  type, 0 ,"dword"
+
+HKR, Ndi\xparams\TxAntenna,  ParamDesc,0 , "%TxAntennaStr%"
+HKR, Ndi\xparams\TxAntenna,  default, 0 , "2"
+HKR, Ndi\xparams\TxAntenna,  min, 0 , "1"
+HKR, Ndi\xparams\TxAntenna,  max, 0 , "ffff"
+HKR, Ndi\xparams\TxAntenna,  step, 0 , "1"
+HKR, Ndi\xparams\TxAntenna,  Base, 0 , "16"
+HKR, Ndi\xparams\TxAntenna,  type, 0 ,"dword"
+
+HKR, Ndi\xparams\RxAntenna,  ParamDesc,0 , "%RxAntennaStr%"
+HKR, Ndi\xparams\RxAntenna,  default, 0 , "ffff"
+HKR, Ndi\xparams\RxAntenna,  min, 0 , "1"
+HKR, Ndi\xparams\RxAntenna,  max, 0 , "ffff"
+HKR, Ndi\xparams\RxAntenna,  step, 0 , "1"
+HKR, Ndi\xparams\RxAntenna,  Base, 0 , "16"
+HKR, Ndi\xparams\RxAntenna,  type, 0 ,"dword"
+
+HKR, Ndi\params\RTSThsd,  ParamDesc, 0, "%RTSThsds%"
+HKR, Ndi\params\RTSThsd,  default, 0, "2346"
+HKR, Ndi\params\RTSThsd,  min, 0, "0"
+HKR, Ndi\params\RTSThsd,  max, 0, "2346"
+HKR, Ndi\params\RTSThsd,  step, 0, "1"
+HKR, Ndi\params\RTSThsd,  Base, 0, "10"
+HKR, Ndi\params\RTSThsd,  type, 0, "dword"
+
+HKR, Ndi\params\PowerMode,ParamDesc,,"%PowerMode%"
+HKR, Ndi\params\PowerMode,default,,"0"
+HKR, Ndi\params\PowerMode,type,,enum
+HKR, Ndi\params\PowerMode\enum,"0",,"%PowerMode_CAM%"
+HKR, Ndi\params\PowerMode\enum,"1",,"%PowerMode_Max%"
+HKR, Ndi\params\PowerMode\enum,"2",,"%PowerMode_Fast%"
+
+HKR, Ndi\xparams\DataRate,ParamDesc,,"%DataRate%"
+HKR, Ndi\xparams\DataRate,default,,"FF"
+HKR, Ndi\xparams\DataRate,type,,enum
+HKR, Ndi\xparams\DataRate\enum,"FF",,"%DataRate_Auto%"
+HKR, Ndi\xparams\DataRate\enum,"2",,"%DataRate_1Mbps%"
+HKR, Ndi\xparams\DataRate\enum,"4",,"%DataRate_2Mbps%"
+HKR, Ndi\xparams\DataRate\enum,"b",,"%DataRate_5_5Mbps%"
+HKR, Ndi\xparams\DataRate\enum,"16",,"%DataRate_11Mbps%"
+HKR, Ndi\xparams\DataRate\enum,"C",,"%DataRate_6Mbps%" 
+HKR, Ndi\xparams\DataRate\enum,"12",,"%DataRate_9Mbps%" 
+HKR, Ndi\xparams\DataRate\enum,"18",,"%DataRate_12Mbps%" 
+HKR, Ndi\xparams\DataRate\enum,"24",,"%DataRate_18Mbps%" 
+HKR, Ndi\xparams\DataRate\enum,"30",,"%DataRate_24Mbps%" 
+HKR, Ndi\xparams\DataRate\enum,"48",,"%DataRate_36Mbps%" 
+HKR, Ndi\xparams\DataRate\enum,"60",,"%DataRate_48Mbps%" 
+HKR, Ndi\xparams\DataRate\enum,"6C",,"%DataRate_54Mbps%"
+
+HKR, Ndi\xparams\WepStatus,ParamDesc,,"%WepStatus%"
+HKR, Ndi\xparams\WepStatus,default,,"1"
+HKR, Ndi\xparams\WepStatus,type,,enum
+HKR, Ndi\xparams\WepStatus\enum,"0",,"%Enabled%"
+HKR, Ndi\xparams\WepStatus\enum,"1",,"%Disabled%"
+
+HKR, Ndi\params\Preamble,ParamDesc,,"%PreambleStr%"
+HKR, Ndi\params\Preamble,default,,"3"
+HKR, Ndi\params\Preamble,type,,enum 
+HKR, Ndi\params\Preamble\enum,"1",,"%PreambleStr_Auto%"
+HKR, Ndi\params\Preamble\enum,"2",,"%PreambleStr_Short%" 
+HKR, Ndi\params\Preamble\enum,"3",,"%PreambleStr_Long%"
+
+HKR, Ndi\params\DefaultAdhocMediaMode,ParamDesc,,"%DefaultAdhocMediaModeStr%"
+HKR, Ndi\params\DefaultAdhocMediaMode,default,,"0"
+HKR, Ndi\params\DefaultAdhocMediaMode,type,,enum 
+HKR, Ndi\params\DefaultAdhocMediaMode\enum,"0",,"%DefaultAdhocMediaModeStr_11b%"
+HKR, Ndi\params\DefaultAdhocMediaMode\enum,"1",,"%DefaultAdhocMediaModeStr_11g%" 
+HKR, Ndi\params\DefaultAdhocMediaMode\enum,"2",,"%DefaultAdhocMediaModeStr_11a%"
+;HKR,, DefaultAdhocMediaMode, 2, "2" 
+
+HKR,, TxWepKey, 2, "" 
+HKR,, WepKey1, 2, "" 
+HKR,, WepKey2, 2, "" 
+HKR,, WepKey3, 2, "" 
+HKR,, WepKey4, 2, "" 
+
+HKR,, RadioOn,2, "1"
+
+HKR,, DriverRel, 2, "12/23/2005"
+
+HKR, Ndi\params\BlockAckMode,ParamDesc,,"%AMPDUSettings%"
+HKR, Ndi\params\BlockAckMode,default,,"2"
+HKR, Ndi\params\BlockAckMode,type,,enum 
+HKR, Ndi\params\BlockAckMode\enum,"0",,"%Disabled%"
+HKR, Ndi\params\BlockAckMode\enum,"2",,"%Partial%" 
+HKR, Ndi\params\BlockAckMode\enum,"3",,"%Full%"
+
+HKR, Ndi\params\SwEncrEnabled,ParamDesc,,"%SwEncrEnabled%"
+HKR, Ndi\params\SwEncrEnabled,default,,"1"
+HKR, Ndi\params\SwEncrEnabled,type,,enum 
+HKR, Ndi\params\SwEncrEnabled\enum,"0",,"%Disabled%"
+HKR, Ndi\params\SwEncrEnabled\enum,"1",,"%Enabled%" 
+
+HKR, Ndi\params\EWCTurboMode,ParamDesc,,"%EWCTurboMode%"
+HKR, Ndi\params\EWCTurboMode,default,,"1"
+HKR, Ndi\params\EWCTurboMode,type,,enum 
+HKR, Ndi\params\EWCTurboMode\enum,"0",,"%Disabled%"
+HKR, Ndi\params\EWCTurboMode\enum,"1",,"%Enabled%" 
+
+HKR, Ndi\params\AMSDUEnabled,ParamDesc,,"%AMSDUEnabled%"
+HKR, Ndi\params\AMSDUEnabled,default,,"2"
+HKR, Ndi\params\AMSDUEnabled,type,,enum 
+HKR, Ndi\params\AMSDUEnabled\enum,"0",,"%Disabled%"
+HKR, Ndi\params\AMSDUEnabled\enum,"1",,"%AMSDUEnabled_3839Bytes%" 
+HKR, Ndi\params\AMSDUEnabled\enum,"2",,"%AMSDUEnabled_Max%" 
+
+HKR, Ndi\params\HTModeEnabled
+HKR, Ndi\params\HTModeEnabled, ParamDesc,,"%HTModeEnabled%"
+HKR, Ndi\params\HTModeEnabled, default,,"1"
+HKR, Ndi\params\HTModeEnabled, type,,enum
+HKR, Ndi\params\HTModeEnabled\enum,"0",,"%Disabled%" 
+HKR, Ndi\params\HTModeEnabled\enum,"1",,"%Enabled%"
+
+HKR, Ndi\params\ChannelWidth, ParamDesc,,"%ChannelWidth%"
+HKR, Ndi\params\ChannelWidth, default,,"-1"
+HKR, Ndi\params\ChannelWidth, type,,enum
+HKR, Ndi\params\ChannelWidth\enum,"0",,"%20MHz%" 
+HKR, Ndi\params\ChannelWidth\enum,"1",,"%40MHz%"
+HKR, Ndi\params\ChannelWidth\enum,"-1",,"%Auto%"
+
+HKR, Ndi\params\ExtChannelOffset, ParamDesc,,"%ExtChannelOffset%"
+HKR, Ndi\params\ExtChannelOffset, default,,"-1"
+HKR, Ndi\params\ExtChannelOffset, type,,enum
+HKR, Ndi\params\ExtChannelOffset\enum,"0",,"%Below%" 
+HKR, Ndi\params\ExtChannelOffset\enum,"1",,"%Above%"
+HKR, Ndi\params\ExtChannelOffset\enum,"2",,"%None%"
+HKR, Ndi\params\ExtChannelOffset\enum,"-1",,"%Auto%"
+
+HKR, Ndi\params\GuardInterval, ParamDesc,,"%GuardInterval%"
+HKR, Ndi\params\GuardInterval, default,,"-1"
+HKR, Ndi\params\GuardInterval, type,,enum
+HKR, Ndi\params\GuardInterval\enum,"0",,"%LongGI%" 
+HKR, Ndi\params\GuardInterval\enum,"1",,"%ShortGI%"
+HKR, Ndi\params\GuardInterval\enum,"-1",,"%Auto%"
+
+HKR, Ndi\params\RegistryMimoCfg, ParamDesc,,"%Antenna%"
+HKR, Ndi\params\RegistryMimoCfg, default,,"-1"
+HKR, Ndi\params\RegistryMimoCfg, type,,enum
+HKR, Ndi\params\RegistryMimoCfg\enum,"0",,"%2by3%" 
+HKR, Ndi\params\RegistryMimoCfg\enum,"1",,"%Antenna_A%"
+HKR, Ndi\params\RegistryMimoCfg\enum,"2",,"%Antenna_B%"
+HKR, Ndi\params\RegistryMimoCfg\enum,"3",,"%2by2%"
+HKR, Ndi\params\RegistryMimoCfg\enum,"-1",,"%Auto%"
+
+HKR, Ndi\params\RateAdaptMode, ParamDesc,,"%RateAdaptMode%"
+HKR, Ndi\params\RateAdaptMode, default,,"0"
+HKR, Ndi\params\RateAdaptMode, type,,enum
+HKR, Ndi\params\RateAdaptMode\enum,"0",,"%In%" 
+HKR, Ndi\params\RateAdaptMode\enum,"1",,"%Out%"
+
+HKR, Ndi\params\CSMode, ParamDesc,,"%RangeMaximization%"
+HKR, Ndi\params\CSMode, default,,"0"
+HKR, Ndi\params\CSMode, type,,enum
+HKR, Ndi\params\CSMode\enum,"0",,"%Conservative%" 
+HKR, Ndi\params\CSMode\enum,"1",,"%Aggressive%"
+HKR, Ndi\params\CSMode\enum,"2",,"%Auto%"
+
+HKR, Ndi\params\NumTxBuffer,  ParamDesc, 0, "%NumTxBuffer%"
+HKR, Ndi\params\NumTxBuffer,  default, 0, "30"
+HKR, Ndi\params\NumTxBuffer,  min, 0, "16"
+HKR, Ndi\params\NumTxBuffer,  max, 0, "256"
+HKR, Ndi\params\NumTxBuffer,  step, 0, "1"
+HKR, Ndi\params\NumTxBuffer,  Base, 0, "10"
+HKR, Ndi\params\NumTxBuffer,  type, 0, "dword"
+
+HKR, Ndi\params\RegionCode, ParamDesc,,"%RegionCode%"
+HKR, Ndi\params\RegionCode, default,,"-1"
+HKR, Ndi\params\RegionCode, type,,enum
+HKR, Ndi\params\RegionCode\enum,"16",,"%us%" 
+HKR, Ndi\params\RegionCode\enum,"32",,"%ca%" 
+HKR, Ndi\params\RegionCode\enum,"48",,"%eu%" 
+HKR, Ndi\params\RegionCode\enum,"49",,"%es%" 
+HKR, Ndi\params\RegionCode\enum,"50",,"%fr%" 
+HKR, Ndi\params\RegionCode\enum,"64",,"%jp%" 
+HKR, Ndi\params\RegionCode\enum,"128",,"%tw%" 
+HKR, Ndi\params\RegionCode\enum,"129",,"%au%" 
+HKR, Ndi\params\RegionCode\enum,"-1",,"%Default%"
+
+HKR, Ndi\params\IntlRoaming,ParamDesc,,"%IntlRoaming%"
+HKR, Ndi\params\IntlRoaming,default,,"0"
+HKR, Ndi\params\IntlRoaming,type,,enum 
+HKR, Ndi\params\IntlRoaming\enum,"0",,"%Off%"
+HKR, Ndi\params\IntlRoaming\enum,"1",,"%On%" 
+
+HKR, Ndi\params\DFS,ParamDesc,,"%DFS%"
+HKR, Ndi\params\DFS,default,,"0"
+HKR, Ndi\params\DFS,type,,enum 
+HKR, Ndi\params\DFS\enum,"0",,"%Off%"
+HKR, Ndi\params\DFS\enum,"1",,"%On%" 
+
+
+;===========================================================================
+; English Strings section
+;===========================================================================
+[Strings]
+MRVL = "NETGEAR"
+Enabled = "Enabled"
+Disabled = "Disabled"
+Off = "Off"
+On = "On"
+TxAntennaStr = "Tx Antenna Select"
+RxAntennaStr = "Rx Antenna Select" 
+Channel = "Channel"
+FragThsds = "Fragmentation Threshold"
+DataRate = "Data Rate"
+DataRate_Auto = "Auto"
+DataRate_1Mbps = "1 Mbps"
+DataRate_2Mbps = "2 Mbps"
+DataRate_5_5Mbps = "5.5 Mbps"
+DataRate_11Mbps = "11 Mbps"
+DataRate_6Mbps = "6 Mbps"
+DataRate_9Mbps = "9 Mbps"
+DataRate_12Mbps = "12 Mbps"
+DataRate_18Mbps = "18 Mbps"
+DataRate_24Mbps = "24 Mbps"
+DataRate_36Mbps = "36 Mbps"
+DataRate_48Mbps = "48 Mbps"
+DataRate_54Mbps = "54 Mbps"
+RTSThsds = "RTS Threshold"
+AuthMode = "Authentication Mode"
+AuthMode_Open = "Open"
+AuthMode_Shared = "Shared"
+NetworkMode = "Operation Mode"
+NetworkMode_AdHoc = "Ad-Hoc"
+NetworkMode_Infra = "Infrastructure"
+WepStatus = "WEP Status"
+SSID = "SSID"
+PreambleStr = "Preamble Select"
+PreambleStr_Auto = "Auto"
+PreambleStr_Short = "Short Preamble"
+PreambleStr_Long = "Long Preamble"
+PowerMode = "Power Save Mode"
+PowerMode_CAM = "CAM-Constantly Awake Mode"
+PowerMode_Max = "MaxPSP-Max Power Savings"
+PowerMode_Fast = "FastPSP-Fast Power Savings"
+AdhocGMode = "Ad-Hoc Mode"
+AdhocGMode_GMode = "Ad-Hoc G Mode"
+AdhocGMode_BMode = "Ad-Hoc B Mode only"
+DefaultAdhocMediaModeStr = "Default Ad-Hoc Media Mode"
+DefaultAdhocMediaModeStr_11b = "11b"
+DefaultAdhocMediaModeStr_11g = "11g"
+DefaultAdhocMediaModeStr_11a = "11a"
+AMSDUEnabled = "MSDU Aggregation"
+AMSDUEnabled_3839Bytes = "Enabled (3839 Bytes)" 
+AMSDUEnabled_Max = "Enabled (Device Max)" 
+EWCTurboMode = "802.11n Turbo Mode"
+AMPDUSettings= "Packet Aggregation (A-MPDU)"
+HTModeEnabled = "802.11n Network"
+ChannelWidth = "Channel Width"
+20MHz  = "20 MHz"
+40MHz = "40 MHz"
+Auto = "Auto"
+ExtChannelOffset = "Extension Channel"
+Below = "Lower"
+Above = "Upper"
+None = "None"
+GuardInterval = "Guard Interval"
+LongGI = "Standard"
+ShortGI = "Short"
+Antenna = "Antenna"
+2by3 = "2by3"
+Antenna_A = "Antenna A"
+Antenna_B = "Antenna B"
+2by2 = "2by2"
+RateAdaptMode= "Rate adapt mode"
+In = "Indoor"
+Out = "Outdoor"
+RangeMaximization = "Range maximization"
+Conservative = "Conservative"
+Aggressive = "Aggressive"
+NumTxBuffer = "Number of TX Buffers"
+RegionCode = "Region code"
+us = "USA(FCC)"
+ca = "Canada(IC)"
+eu = "Europe(ETSI)"
+es = "Spain"
+fr = "France"
+jp = "Japan(MKK)"
+tw = "Taiwan(DGT)"
+au = "Australia/Korea"
+Default = "Default"
+IntlRoaming = "Worldwide Regulatory Domain"
+DFS = "802.11h DFS"
+Full = "Full"
+Partial = "Partial"
+
+DriverDisk = "DriverDisk"
+
+W8382PCI.DeviceDesc          = "NETGEAR WN311T Wireless PCI Adapter"
+W8385PCI.DeviceDesc          = "NETGEAR WN311T Wireless PCI Adapter"
+W8385PCIx64.Service.DispName = "NETGEAR WN311T"
+W8385PCIXP.Service.DispName  = "NETGEAR WN311T"
+W8385PCI2K.Service.DispName  = "NETGEAR WN311T" 
+W8385PCIE.DeviceDesc         = "NETGEAR WN311T Wireless PCI Adapter"
+
+
+;===========================================================================
+; German Strings section
+;===========================================================================
+[Strings.0407]
+MRVL = "NETGEAR"
+Enabled = "Aktiviert"
+Disabled = "Deaktiviert"
+Off = "Aus"
+On = "Ein"
+TxAntennaStr = "Auswahl Sendeantenne"
+RxAntennaStr = "Auswahl Empfangsantenne" 
+Channel = "Kanal"
+FragThsds = "Fragmentierungsschwellwert"
+DataRate = "Datenrate"
+DataRate_Auto = "Auto"
+DataRate_1Mbps = "1 Mbps"
+DataRate_2Mbps = "2 Mbps"
+DataRate_5_5Mbps = "5.5 Mbps"
+DataRate_11Mbps = "11 Mbps"
+DataRate_6Mbps = "6 Mbps"
+DataRate_9Mbps = "9 Mbps"
+DataRate_12Mbps = "12 Mbps"
+DataRate_18Mbps = "18 Mbps"
+DataRate_24Mbps = "24 Mbps"
+DataRate_36Mbps = "36 Mbps"
+DataRate_48Mbps = "48 Mbps"
+DataRate_54Mbps = "54 Mbps"
+RTSThsds = "RTS-Schwellwert"
+AuthMode = "Authentifizierungsmodus"
+AuthMode_Open = "Offen"
+AuthMode_Shared = "Gemeinsam genutzt"
+NetworkMode = "Betriebsmodus"
+NetworkMode_AdHoc = "Ad-Hoc"
+NetworkMode_Infra = "Infrastruktur"
+WepStatus = "WEP-Status"
+SSID = "SSID"
+PreambleStr = "Praambel-Auswahl"
+PreambleStr_Auto = "Auto"
+PreambleStr_Short = "Kurze Praambel"
+PreambleStr_Long = "Lange Praambel"
+PowerMode = "Energiesparmodus"
+PowerMode_CAM = "Konstante Bereitschaft"
+PowerMode_Max = "Max. Energieeinsparung"
+PowerMode_Fast = "Energieeinsp./schnell"
+AdhocGMode = "Ad-Hoc-Modus"
+AdhocGMode_GMode = "Ad-Hoc-G-Modus"
+AdhocGMode_BMode = "Nur Ad-Hoc-B-Modus"
+DefaultAdhocMediaModeStr = "Standard-Ad-Hoc-Medienmodus"
+DefaultAdhocMediaModeStr_11b = "11b"
+DefaultAdhocMediaModeStr_11g = "11g"
+DefaultAdhocMediaModeStr_11a = "11a"
+AMSDUEnabled = "MSDU-Aggregation"
+AMSDUEnabled_3839Bytes = "Aktiviert (3839 Byte)" 
+AMSDUEnabled_Max = "Aktiviert (Gerate-Max.)" 
+EWCTurboMode = "802.11n Turbo-Modus"
+AMPDUSettings= "Paket-Aggregation (A-MPDU)"
+HTModeEnabled = "802.11n Netzwerk"
+ChannelWidth = "Kanalbreite"
+20MHz  = "20 MHz"
+40MHz = "40 MHz"
+Auto = "Auto"
+ExtChannelOffset = "Erweiterungskanal"
+Below = "Unterer"
+Above = "Oberer"
+None = "Kein"
+GuardInterval = "Schutzintervall"
+LongGI = "Standard"
+ShortGI = "Kurz"
+Antenna = "Antenne"
+2by3 = "2mal3"
+Antenna_A = "Antenne A"
+Antenna_B = "Antenne B"
+2by2 = "2mal2"
+RateAdaptMode= "Modus zur Datenratenanpassung"
+In = "Innen"
+Out = "Ausen"
+RangeMaximization = "Bereichsmaximierung"
+Conservative = "Konservativ"
+Aggressive = "Aggressiv"
+NumTxBuffer = "Anzahl Sendepuffer"
+RegionCode = "Regionscode"
+us = "USA(FCC)"
+ca = "Kanada(IC)"
+eu = "Europa(ETSI)"
+es = "Spanien"
+fr = "Frankreich"
+jp = "Japan(MKK)"
+tw = "Taiwan(DGT)"
+au = "Australien/Korea"
+Default = "Standard"
+IntlRoaming = "Landerbereich (weltweit)"
+DFS = "802.11h DFS"
+Full = "Vollstandig"
+Partial = "Teilweise"
+
+DriverDisk = "DriverDisk"
+
+W8382PCI.DeviceDesc          = "NETGEAR WN311T Wireless PCI Adapter"
+W8385PCI.DeviceDesc          = "NETGEAR WN311T Wireless PCI Adapter"
+W8385PCIx64.Service.DispName = "NETGEAR WN311T"
+W8385PCIXP.Service.DispName  = "NETGEAR WN311T"
+W8385PCI2K.Service.DispName  = "NETGEAR WN311T" 
+W8385PCIE.DeviceDesc         = "NETGEAR WN311T Wireless PCI Adapter"
+
+
+;===========================================================================
+; French Strings section
+;===========================================================================
+[Strings.040C]
+MRVL = "NETGEAR"
+Enabled = "Active"
+Disabled = "Desactive"
+Off = "Inactif"
+On = "Actif"
+TxAntennaStr = "Select. l'antenne transm."
+RxAntennaStr = "Select. l'antenne recept." 
+Channel = "Canal"
+FragThsds = "Seuil de fragmentation"
+DataRate = "Debit des donnees"
+DataRate_Auto = "Auto"
+DataRate_1Mbps = "1 Mbps"
+DataRate_2Mbps = "2 Mbps"
+DataRate_5_5Mbps = "5.5 Mbps"
+DataRate_11Mbps = "11 Mbps"
+DataRate_6Mbps = "6 Mbps"
+DataRate_9Mbps = "9 Mbps"
+DataRate_12Mbps = "12 Mbps"
+DataRate_18Mbps = "18 Mbps"
+DataRate_24Mbps = "24 Mbps"
+DataRate_36Mbps = "36 Mbps"
+DataRate_48Mbps = "48 Mbps"
+DataRate_54Mbps = "54 Mbps"
+RTSThsds = "Seuil RTS"
+AuthMode = "Mode d'authentification"
+AuthMode_Open = "Ouvert"
+AuthMode_Shared = "Partage"
+NetworkMode = "Mode"
+NetworkMode_AdHoc = "Ad-hoc"
+NetworkMode_Infra = "Infrastructure"
+WepStatus = "Etat WEP"
+SSID = "SSID"
+PreambleStr = "Selectionner un preambule"
+PreambleStr_Auto = "Auto"
+PreambleStr_Short = "Preambule court"
+PreambleStr_Long = "Preambule long"
+PowerMode = "Mode eco. d'energie"
+PowerMode_CAM = "Eveil permanent"
+PowerMode_Max = "Economie energie max."
+PowerMode_Fast = "Economie energie/rapide"
+AdhocGMode = "Mode ad-hoc"
+AdhocGMode_GMode = "Mode ad-hoc G"
+AdhocGMode_BMode = "Mode ad-hoc B seul"
+DefaultAdhocMediaModeStr = "Mode  ad-hoc media par defaut"
+DefaultAdhocMediaModeStr_11b = "11b"
+DefaultAdhocMediaModeStr_11g = "11g"
+DefaultAdhocMediaModeStr_11a = "11a"
+AMSDUEnabled = "Agregation de MSDU"
+AMSDUEnabled_3839Bytes = "Active (3839 octets)" 
+AMSDUEnabled_Max = "Active (maxi. periph.)" 
+EWCTurboMode = "Mode turbo 802.11n"
+AMPDUSettings= "Agregation de paquets (A-MPDU)"
+HTModeEnabled = "Reseau 802.11n"
+ChannelWidth = "Largeur de canal"
+20MHz  = "20 MHz"
+40MHz = "40 MHz"
+Auto = "Auto"
+ExtChannelOffset = "Canal suppl."
+Below = "Inferieur"
+Above = "Superieur"
+None = "Aucun"
+GuardInterval = "Intervalle de garde"
+LongGI = "Par defaut"
+ShortGI = "Court"
+Antenna = "Antenne"
+2by3 = "2 et 3"
+Antenna_A = "Antenne A"
+Antenna_B = "Antenne B"
+2by2 = "2 et 2"
+RateAdaptMode= "Mode d'adapt. du debit"
+In = "Interieur"
+Out = "Exterieur"
+RangeMaximization = "Maximisation de la plage"
+Conservative = "Conservateur"
+Aggressive = "Agressif"
+NumTxBuffer = "Nombre de tampons de transm."
+RegionCode = "Code regional"
+us = "Etats-Unis(FCC)"
+ca = "Canada(IC)"
+eu = "Europe(ETSI)"
+es = "Espagne"
+fr = "France"
+jp = "Japon(MKK)"
+tw = "Taiwan(DGT)"
+au = "Australie/Coree"
+Default = "Par defaut"
+IntlRoaming = "Domaine de reglement. mondiale"
+DFS = "802.11h DFS"
+Full = "Complete"
+Partial = "Partielle"
+
+DriverDisk = "DriverDisk"
+
+W8382PCI.DeviceDesc          = "NETGEAR WN311T Wireless PCI Adapter"
+W8385PCI.DeviceDesc          = "NETGEAR WN311T Wireless PCI Adapter"
+W8385PCIx64.Service.DispName = "NETGEAR WN311T"
+W8385PCIXP.Service.DispName  = "NETGEAR WN311T"
+W8385PCI2K.Service.DispName  = "NETGEAR WN311T" 
+W8385PCIE.DeviceDesc         = "NETGEAR WN311T Wireless PCI Adapter"
+
+
+;===========================================================================
+; Italian Strings section
+;===========================================================================
+[Strings.0410]
+MRVL = "NETGEAR"
+Enabled = "Abilitato"
+Disabled = "Disabilitato"
+Off = "Disattivato"
+On = "Attivato"
+TxAntennaStr = "Selezione antenna Tx"
+RxAntennaStr = "Selezione antenna Rx" 
+Channel = "Canale"
+FragThsds = "Soglia di frammentazione"
+DataRate = "Velocita di trasmissione dati"
+DataRate_Auto = "Auto"
+DataRate_1Mbps = "1 Mbps"
+DataRate_2Mbps = "2 Mbps"
+DataRate_5_5Mbps = "5.5 Mbps"
+DataRate_11Mbps = "11 Mbps"
+DataRate_6Mbps = "6 Mbps"
+DataRate_9Mbps = "9 Mbps"
+DataRate_12Mbps = "12 Mbps"
+DataRate_18Mbps = "18 Mbps"
+DataRate_24Mbps = "24 Mbps"
+DataRate_36Mbps = "36 Mbps"
+DataRate_48Mbps = "48 Mbps"
+DataRate_54Mbps = "54 Mbps"
+RTSThsds = "Soglia RTS"
+AuthMode = "Modalita di autenticazione"
+AuthMode_Open = "Aperta"
+AuthMode_Shared = "Condivisa"
+NetworkMode = "Modalita operativa"
+NetworkMode_AdHoc = "Ad-Hoc"
+NetworkMode_Infra = "Infrastruttura"
+WepStatus = "Stato WEP"
+SSID = "SSID"
+PreambleStr = "Selezione preambolo"
+PreambleStr_Auto = "Automatico"
+PreambleStr_Short = "Preambolo breve"
+PreambleStr_Long = "Preambolo lungo"
+PowerMode = "Modalita di risparmio energetico"
+PowerMode_CAM = "Attivita costante"
+PowerMode_Max = "Max. risparmio energetico"
+PowerMode_Fast = "Risparmio energ./rapido"
+AdhocGMode = "Modalita Ad-Hoc"
+AdhocGMode_GMode = "Modalita Ad-Hoc G"
+AdhocGMode_BMode = "Solo modalita Ad-Hoc B"
+DefaultAdhocMediaModeStr = "Modalita predefinita Ad-Hoc Media"
+DefaultAdhocMediaModeStr_11b = "11b"
+DefaultAdhocMediaModeStr_11g = "11g"
+DefaultAdhocMediaModeStr_11a = "11a"
+AMSDUEnabled = "Aggregazione MSDU"
+AMSDUEnabled_3839Bytes = "Abilitato (3839 Bytes)" 
+AMSDUEnabled_Max = "Abilitato (disp. max.)" 
+EWCTurboMode = "Modalita turbo 802.11n"
+AMPDUSettings= "Aggregazione pacchetti (A-MPDU)"
+HTModeEnabled = "Rete 802.11n"
+ChannelWidth = "Ampiezza canale"
+20MHz  = "20 MHz"
+40MHz = "40 MHz"
+Auto = "Auto"
+ExtChannelOffset = "Estensione canale"
+Below = "Inferiore"
+Above = "Superiore"
+None = "Nessuna"
+GuardInterval = "Intervallo di guardia"
+LongGI = "Standard"
+ShortGI = "Breve"
+Antenna = "Antenna"
+2by3 = "2per3"
+Antenna_A = "Antenna A"
+Antenna_B = "Antenna B"
+2by2 = "2per2"
+RateAdaptMode= "Modalita adattamento velocita"
+In = "Interni"
+Out = "Esterni"
+RangeMaximization = "Range maximization"
+Conservative = "Conservatrice"
+Aggressive = "Aggressiva"
+NumTxBuffer = "Numero di buffer di trasmissione"
+RegionCode = "Codice regione"
+us = "USA(FCC)"
+ca = "Canada(IC)"
+eu = "Europa(ETSI)"
+es = "Spagna"
+fr = "Francia"
+jp = "Giappone(MKK)"
+tw = "Taiwan(DGT)"
+au = "Australia/Corea"
+Default = "Predefinito"
+IntlRoaming = "Dominio regolatore mondiale"
+DFS = "802.11h DFS"
+Full = "Completo"
+Partial = "Parziale"
+
+DriverDisk = "DriverDisk"
+
+W8382PCI.DeviceDesc          = "NETGEAR WN311T Wireless PCI Adapter"
+W8385PCI.DeviceDesc          = "NETGEAR WN311T Wireless PCI Adapter"
+W8385PCIx64.Service.DispName = "NETGEAR WN311T"
+W8385PCIXP.Service.DispName  = "NETGEAR WN311T"
+W8385PCI2K.Service.DispName  = "NETGEAR WN311T" 
+W8385PCIE.DeviceDesc         = "NETGEAR WN311T Wireless PCI Adapter"
+
+
+;===========================================================================
+; Spanish Strings section
+;===========================================================================
+[Strings.040A]
+MRVL = "NETGEAR"
+Enabled = "Habilitado"
+Disabled = "Deshabilitado"
+Off = "Apagado"
+On = "Encendido"
+TxAntennaStr = "Seleccion de antena Tx"
+RxAntennaStr = "Seleccion de antena Rx" 
+Channel = "Canal"
+FragThsds = "Umbral de fragmentacion"
+DataRate = "Velocidad de datos"
+DataRate_Auto = "Automatico"
+DataRate_1Mbps = "1 Mbps"
+DataRate_2Mbps = "2 Mbps"
+DataRate_5_5Mbps = "5.5 Mbps"
+DataRate_11Mbps = "11 Mbps"
+DataRate_6Mbps = "6 Mbps"
+DataRate_9Mbps = "9 Mbps"
+DataRate_12Mbps = "12 Mbps"
+DataRate_18Mbps = "18 Mbps"
+DataRate_24Mbps = "24 Mbps"
+DataRate_36Mbps = "36 Mbps"
+DataRate_48Mbps = "48 Mbps"
+DataRate_54Mbps = "54 Mbps"
+RTSThsds = "Umbral de RTS"
+AuthMode = "Modo Autentificacion"
+AuthMode_Open = "Abierto"
+AuthMode_Shared = "Compartido"
+NetworkMode = "Modo de operacion"
+NetworkMode_AdHoc = "Ad-hoc"
+NetworkMode_Infra = "Infraestructuras"
+WepStatus = "Estado WEP"
+SSID = "SSID"
+PreambleStr = "Seleccion de preambulo"
+PreambleStr_Auto = "Automatico"
+PreambleStr_Short = "Preambulo corto"
+PreambleStr_Long = "Preambulo largo"
+PowerMode = "Modo de ahorro de energia"
+PowerMode_CAM = "Activado Constantemente"
+PowerMode_Max = "Ahorro energia max."
+PowerMode_Fast = "Ahorro energia/rapido"
+AdhocGMode = "Modo Ad-hoc"
+AdhocGMode_GMode = "Solo Modo G Ad-hoc"
+AdhocGMode_BMode = "Solo Modo B Ad-hoc"
+DefaultAdhocMediaModeStr = "Modo Medios ad-hoc predetermin."
+DefaultAdhocMediaModeStr_11b = "11b"
+DefaultAdhocMediaModeStr_11g = "11g"
+DefaultAdhocMediaModeStr_11a = "11a"
+AMSDUEnabled = "Agregacion MSDU"
+AMSDUEnabled_3839Bytes = "Habilitado (3839 Bytes)" 
+AMSDUEnabled_Max = "Habilitado (max. dispos.)" 
+EWCTurboMode = "Modo Turbo 802.11n"
+AMPDUSettings= "Agregacion de paquetes (A-MPDU)"
+HTModeEnabled = "Red 802.11n"
+ChannelWidth = "Ancho de canal"
+20MHz  = "20 MHz"
+40MHz = "40 MHz"
+Auto = "Automatico"
+ExtChannelOffset = "Canal de extension"
+Below = "Inferior"
+Above = "Superior"
+None = "Ninguno"
+GuardInterval = "Intervalo guarda"
+LongGI = "Estandar"
+ShortGI = "Corto"
+Antenna = "Antena"
+2by3 = "2/3"
+Antenna_A = "Antena A"
+Antenna_B = "Antena B"
+2by2 = "2/2"
+RateAdaptMode= "Modo ajuste de velocidad"
+In = "Interior"
+Out = "Exterior"
+RangeMaximization = "Range maximization"
+Conservative = "Conservador"
+Aggressive = "Agresivo"
+NumTxBuffer = "Numero de buferes de transmision"
+RegionCode = "Codigo de region"
+us = "EE. UU.(FCC)"
+ca = "Canada(IC)"
+eu = "Europa(ETSI)"
+es = "Espana"
+fr = "Francia"
+jp = "Japon(MKK)"
+tw = "Taiwan(DGT)"
+au = "Australia/Corea"
+Default = "Predeterminado"
+IntlRoaming = "Dominio regulatorio mundial"
+DFS = "802.11h DFS"
+Full = "Completo"
+Partial = "Parcial"
+
+DriverDisk = "DriverDisk"
+
+W8382PCI.DeviceDesc          = "NETGEAR WN311T Wireless PCI Adapter"
+W8385PCI.DeviceDesc          = "NETGEAR WN311T Wireless PCI Adapter"
+W8385PCIx64.Service.DispName = "NETGEAR WN311T"
+W8385PCIXP.Service.DispName  = "NETGEAR WN311T"
+W8385PCI2K.Service.DispName  = "NETGEAR WN311T" 
+W8385PCIE.DeviceDesc         = "NETGEAR WN311T Wireless PCI Adapter"

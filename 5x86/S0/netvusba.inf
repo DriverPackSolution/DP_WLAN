@@ -1,0 +1,139 @@
+;*******************************************************
+;  AT76C503A based USB 11M Network Adapter 
+; INF file for the NDIS driver
+;
+; Supported OS: Windows XP
+; SMC Version : V1.50
+;*******************************************************
+
+
+
+
+[Version]
+Signature  = "$Windows NT$"
+Class      = Net
+ClassGUID  = {4d36e972-e325-11ce-bfc1-08002be10318}
+Provider   = %SMC%
+;CatalogFile = netvusba.cat
+DriverVer  = 01/02/2002,1.2.2.66
+
+[Manufacturer]
+%SMC%   = SMC
+
+[ControlFlags]
+ExcludeFromSelect = *
+
+
+[SMC]
+%USBFVNETA.DeviceDesc% = USBFVNETA.Ndi,USB\VID_0D5C&PID_A001
+
+;*******************************************************************************
+; Win XP main sections
+;*******************************************************************************
+
+
+[USBFVNETA.Ndi.NT]
+Characteristics = 0x84  ; NCF_HAS_UI | NCF_PHYSICAL
+BusType         = 15    ; USB
+AddReg          = USBFVNETA.NT.Reg, USBFVNETA.Params
+CopyFiles       = CopyFile.NT.Sys
+DriverVer  = 01/02/2002,1.2.2.66
+
+[USBFVNETA.Ndi.NT.Services]
+AddService = USBFVNETA, 2, USBFVNETA.Service, Common.EventLog
+
+;*******************************************************************************
+; Driver parameters
+;*******************************************************************************
+
+[USBFVNETA.Params]
+HKR, Ndi\params\Rate,               ParamDesc,          0, "Rate (Mbps)"
+HKR, Ndi\params\Rate,               default,            0, "3"
+HKR, Ndi\params\Rate,               type,               0, "enum"
+HKR, Ndi\params\Rate\enum,          0,                  0, "1"
+HKR, Ndi\params\Rate\enum,          1,                  0, "2"
+HKR, Ndi\params\Rate\enum,          2,                  0, "5.5"
+HKR, Ndi\params\Rate\enum,          3,                  0, "11"
+HKR, Ndi\params\Rate\enum,          4,                  0, "Auto"
+HKR, ,                              Rate,               0, "3"
+
+HKR, Ndi\params\RTS_Threshold,      ParamDesc,          0, "RTS Threshold"
+HKR, Ndi\params\RTS_Threshold,      default,            0, "2347"
+HKR, Ndi\params\RTS_Threshold,      type,               0, "int"
+HKR, Ndi\params\RTS_Threshold,      min,                0, "0"
+HKR, Ndi\params\RTS_Threshold,      max,                0, "2347"
+HKR, Ndi\params\RTS_Threshold,      step,               0, "1"
+HKR, ,                              RTS_Threshold,      0, "2347"
+
+HKR, Ndi\params\Frag_Threshold,     ParamDesc,          0, "Fragmentation Threshold"
+HKR, Ndi\params\Frag_Threshold,     default,            0, "2346"
+HKR, Ndi\params\Frag_Threshold,     type,               0, "int"
+HKR, Ndi\params\Frag_Threshold,     min,                0, "256"
+HKR, Ndi\params\Frag_Threshold,     max,                0, "2346"
+HKR, Ndi\params\Frag_Threshold,     step,               0, "1"
+HKR, ,                              Frag_Threshold,     0, "2346"
+
+HKR, Ndi\params\PreambleType,       ParamDesc,          0, "Preamble Type"
+HKR, Ndi\params\PreambleType,       default,            0, "0"
+HKR, Ndi\params\PreambleType,       type,               0, "enum"
+HKR, Ndi\params\PreambleType\enum,  0,                  0, "Long"
+HKR, Ndi\params\PreambleType\enum,  1,                  0, "Short"
+HKR, Ndi\params\PreambleType\enum,  2,                  0, "Auto"
+HKR, ,                              PreambleType,       0, "2"
+
+
+;*******************************************************************************
+; Install section for Windows XP
+;*******************************************************************************
+
+[USBFVNETA.NT.Reg]
+; Interfaces
+HKR, Ndi\Interfaces, LowerRange, 0, "ethernet"
+HKR, Ndi\Interfaces, UpperRange, 0, "ndis5"
+HKR, Ndi,            Service,    0, "USBFVNETA"
+
+[USBFVNETA.Service]
+DisplayName    = %USBFVNETA.DisplayName%
+ServiceType    = 1
+StartType      = 3
+ErrorControl   = 1
+ServiceBinary  = %12%\vnetusba.sys
+LoadOrderGroup = NDIS
+
+
+[Common.EventLog]
+AddReg = Common.AddEventLog.Reg
+
+[Common.AddEventLog.Reg]
+HKR, , EventMessageFile, 0x00020000, %%SystemRoot%%\System32\netevent.dll, %%SystemRoot%%\System32\drivers\vnetusba.sys
+HKR, , TypesSupported  , 0x00010001, 7
+
+
+[CopyFile.NT.Sys]
+vnetusba.sys,,,2
+
+;*******************************************************************************
+; Destination directories
+;*******************************************************************************
+
+[DestinationDirs]
+DefaultDestDir   = 12 ; Drivers directory
+CopyFile.NT.Sys  = 12
+
+
+[SourceDisksNames]
+50=%DriverDisketteName%,,
+
+[SourceDisksFiles]
+vnetusba.sys=50,.,vnetusba.sys,10000
+
+;*******************************************************************************
+; Localizable strings
+;*******************************************************************************
+
+[Strings]
+SMC = "SMC"
+USBFVNETA.DeviceDesc    = "SMC2662W EZ Connect Wireless USB Adapter"
+USBFVNETA.DisplayName   = "SMC2662W EZ Connect Wireless USB Adapter"
+DriverDisketteName      = "SMC2662W EZ Connect Wireless USB Adapter"
+Help_Text = "USB device lets you set up easily and operate a Wireless LAN compliant with 802.11 Standard. It operates in the license free 2.4 GHz ISM band and achieves a peak data rate of 11 Mbps."

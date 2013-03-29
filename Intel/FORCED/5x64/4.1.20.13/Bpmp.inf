@@ -1,0 +1,278 @@
+;-------------------------------------------------------------------------------
+; BPMP.INF
+;
+; Intel Baxter Peak Virtual Miniport Adapter
+;
+; Copyright (c) 2007 Intel Corporation All Rights Reserved.
+;
+; Module Name:
+;
+;    BPMP.INF
+;
+; Abstract:
+;    INF file for installing Baxter Peak virtual miniport adapter driver
+;
+;-------------------------------------------------------------------------------
+
+[Version]
+Signature           = "$WINDOWS NT$"
+Class               = Net
+ClassGUID           = {4d36e972-e325-11ce-bfc1-08002be10318}
+Provider            = %INTL%
+DriverVer=11/20/2008,4.1.20.13
+CatalogFile         = BPMP.cat
+
+[ControlFlags]
+ExcludeFromSelect   = {12110A2A-BBCC-418b-B9F4-76099D720767}\bpmp
+
+[Manufacturer]
+%MfgName% = Intel,NTAMD64
+
+[Intel.NTAMD64]
+%bpmp.EPPDeviceDesc%    = bpmp.ndi, {12110A2A-BBCC-418b-B9F4-76099D720767}\BPMP_8086_1403
+%bpmp.EPPDeviceDesc%    = bpmp.ndi, {12110A2A-BBCC-418b-B9F4-76099D720767}\BPMP_8086_1405
+%bpmp.EPVDeviceDesc%    = bpmp.ndi, {12110A2A-BBCC-418b-B9F4-76099D720767}\BPMP_8086_1406
+%bpmp.EPVDeviceDesc%    = bpmp.ndi, {12110A2A-BBCC-418b-B9F4-76099D720767}\BPMP_8086_0180
+%bpmp.EPPDeviceDesc%    = bpmp.ndi, {12110A2A-BBCC-418b-B9F4-76099D720767}\BPMP_8086_0181
+%bpmp.EPVDeviceDesc%    = bpmp.ndi, {12110A2A-BBCC-418b-B9F4-76099D720767}\BPMP_8086_0182
+
+;-------------------------------------------------------------------------------
+; Intel Baxter Peak Wimax Adapter
+;-------------------------------------------------------------------------------
+[bpmp.ndi]
+*IfType             = 6                     ; IF_TYPE_ETHERNET_CSMACD 
+*MediaType          = 0                     ; NdisMedium802_3
+*PhysicalMediaType  = 12                    ; NdisPhysicalMediumWiMax
+Characteristics     = 0x81                  ; NCF_VIRTUAL, NCF_HAS_UI
+AddReg              = bpmp.Reg, ParamsTrace
+CopyFiles           = bpmp.CopyFiles
+
+[bpmp.ndi.Services]
+AddService          = bpmp, 2, bpmp.Service, bpmp.EventLog
+
+;-------------------------------------------------------------------------------
+; Intel Baxter Peak Wimax Adapter Common
+;-------------------------------------------------------------------------------
+[bpmp.Reg]
+HKR,    ,                           BusNumber,           0, "0" 
+HKR, Ndi,                           Service,             0, "bpmp"
+HKR, Ndi\Interfaces,                UpperRange,          0, "ndis5"
+HKR, Ndi\Interfaces,                LowerRange,          0, "ethernet"
+HKR, ,                              "WimaxIntelVer",     0, "1.0"
+
+[ParamsTrace]
+;
+;    Configure Trace capabilities of the Driver
+;
+HKR, Ndi\Params\Severity,           ParamDesc,  ,           %Severity%
+HKR, Ndi\Params\Severity,           Default,    ,           "4"
+HKR, Ndi\Params\Severity,           type,       ,           enum
+HKR, Ndi\Params\Severity\enum,      "0",        ,           %Severity_Disable%
+HKR, Ndi\Params\Severity\enum,      "1",        ,           %Severity_Fatal%
+HKR, Ndi\Params\Severity\enum,      "2",        ,           %Severity_Error%
+HKR, Ndi\Params\Severity\enum,      "3",        ,           %Severity_Warning%
+HKR, Ndi\Params\Severity\enum,      "4",        ,           %Severity_Info%
+HKR, Ndi\Params\Severity\enum,      "5",        ,           %Severity_Trace%
+HKR, Ndi\Params\Severity\enum,      "6",        ,           %Severity_Debug%
+HKR, Ndi\Params\Severity\enum,      "7",        ,           %Severity_Loud%
+
+HKR, Ndi\params\SubSystems,         ParamDesc,  0,          %SubSystems%
+HKR, Ndi\params\SubSystems,         type,       0,          "dword"
+HKR, Ndi\params\SubSystems,         base,       0,          "16"
+HKR, Ndi\params\SubSystems,         default,    0,          "7fffffff"
+HKR, Ndi\params\SubSystems,         min,        0,          "0"
+HKR, Ndi\params\SubSystems,         max,        0,          "7fffffff"
+HKR, Ndi\params\SubSystems,         step,       0,          "1"
+
+HKR, Ndi\Params\BufferTrace,        ParamDesc,  ,           %BufferTrace%
+HKR, Ndi\Params\BufferTrace,        Default,    ,           "1"
+HKR, Ndi\Params\BufferTrace,        type,       ,           enum
+HKR, Ndi\Params\BufferTrace\enum,   "0",        ,           %BufferTrace_Disable%
+HKR, Ndi\Params\BufferTrace\enum,   "1",        ,           %BufferTrace_Enable%
+
+HKR, Ndi\params\IPRenewTimer,       ParamDesc,  0,          %IPRenewTime%
+HKR, Ndi\params\IPRenewTimer,       type,       0,          "int"
+HKR, Ndi\params\IPRenewTimer,       default,    0,          "500"
+HKR, Ndi\params\IPRenewTimer,       min,        0,          "-10"
+HKR, Ndi\params\IPRenewTimer,       max,        0,          "10000"
+HKR, Ndi\params\IPRenewTimer,       step,       0,          "1"
+
+
+;-------------------------------------------------------------------------------
+; Driver and Service Section
+;-------------------------------------------------------------------------------
+[bpmp.Service]
+DisplayName     = %bpmp.Service.DispName%
+ServiceType     = 1 ;%SERVICE_KERNEL_DRIVER%
+StartType       = 3 ;%SERVICE_DEMAND_START%
+ErrorControl    = 1 ;%SERVICE_ERROR_NORMAL%
+ServiceBinary   = %12%\bpmp.sys
+LoadOrderGroup  = NDIS
+AddReg          = TextModeFlags.Reg
+
+[bpmp.EventLog]
+AddReg = bpmp.AddEventLog.Reg
+
+[bpmp.AddEventLog.Reg]
+HKR, , EventMessageFile, 0x00020000, "%%SystemRoot%%\System32\netevent.dll"
+HKR, , TypesSupported,   0x00010001, 7
+
+[TextModeFlags.Reg]
+HKR, , TextModeFlags,    0x00010001, 0x0001
+
+;-------------------------------------------------------------------------------
+; DestinationDirs
+;-------------------------------------------------------------------------------
+[DestinationDirs]
+bpmp.CopyFiles = 12
+
+[SourceDisksNames]
+1 = %DiskId1%,,,""
+
+[SourceDisksFiles]
+bpmp.sys  = 1,,
+
+[bpmp.CopyFiles]
+bpmp.sys,,,2
+
+;-------------------------------------------------------------------------------
+; Localizable Strings
+;-------------------------------------------------------------------------------
+[Strings]
+INTL                    = "Intel Corporation"
+MfgName                 = "Intel Corporation"                      
+bpmp.EPPDeviceDesc      = "Intel(R) WiMAX Link 5350"
+bpmp.EPVDeviceDesc      = "Intel(R) WiMAX Link 5150"
+bpmp.Service.DispName   = "Intel(R) WiMAX Link 5050 Series"
+DiskId1                 = "Intel(R) WiMAX Link 5050 Series Installation Disk"
+Severity                = "Set the trace capabilities of the driver"
+Severity_Disable        = "0 Disable"
+Severity_Fatal          = "1 Fatal"
+Severity_Error          = "2 Error"
+Severity_Warning        = "3 Warning"
+Severity_Info           = "4 Info"
+Severity_Trace          = "5 Trace"
+Severity_Debug          = "6 Debug"
+Severity_Loud           = "7 Loud"
+BufferTrace             = "Trace buffer"
+BufferTrace_Disable     = "Disable"
+BufferTrace_Enable      = "Enable"
+IPRenewTime             = "IP Renew Timer"
+SubSystems              = "Set the Sub-Systems to trace"
+REG_DWORD               = 0x00010001
+
+[Strings.0804] ; Chinese (Simplified)
+INTL                    ="”¢Ãÿ∂˚π´Àæ"
+MfgName                 ="”¢Ãÿ∂˚π´Àæ"                      
+bpmp.EPPDeviceDesc      ="Intel(R) WiMAX Link 5350"
+bpmp.EPVDeviceDesc      ="Intel(R) WiMAX Link 5150"
+bpmp.Service.DispName   ="Intel(R) WiMAX Link 5050 Series"
+DiskId1                 ="Intel(R) WiMAX Link 5050 œµ¡–∞≤◊∞≈Ã"
+Severity                ="…Ë∂®«˝∂Ø≥Ã–Úµƒ◊∑◊Ÿπ¶ƒ‹"
+Severity_Disable        ="0 Ω˚”√"
+Severity_Fatal          ="1 ÷¬√¸"
+Severity_Error          ="2 ¥ÌŒÛ"
+Severity_Warning        ="3 æØ∏Ê"
+Severity_Info           ="4 –≈œ¢"
+Severity_Trace          ="5 ◊∑◊Ÿ"
+Severity_Debug          ="6 µ˜ ‘"
+Severity_Loud           ="7 ¥Û…˘"
+BufferTrace             ="◊∑◊Ÿª∫≥Â"
+BufferTrace_Disable     ="Ω˚”√"
+BufferTrace_Enable      ="∆Ù”√"
+IPRenewTime             ="IP Renew Timer"
+SubSystems              ="…Ë∂®“™◊∑◊Ÿµƒ◊”œµÕ≥"
+REG_DWORD               =0x00010001
+
+[Strings.0C0A] ; Spanish (Spain)
+INTL                    ="Intel Corporation"
+MfgName                 ="Intel Corporation"                      
+bpmp.EPPDeviceDesc      ="Intel(R) WiMAX Link 5350"
+bpmp.EPVDeviceDesc      ="Intel(R) WiMAX Link 5150"
+bpmp.Service.DispName   ="Intel(R) WiMAX Link 5050 Series"
+DiskId1                 ="Disco de instalaciÛn de Intel(R) WiMAX Link serie 5050"
+Severity                ="Ajustar las capacidades de seguimiento del controlador"
+Severity_Disable        ="0 DesactivaciÛn"
+Severity_Fatal          ="1 Error grave"
+Severity_Error          ="2 Error"
+Severity_Warning        ="2 Advertencia"
+Severity_Info           ="4 InformaciÛn"
+Severity_Trace          ="5 Seguimiento"
+Severity_Debug          ="6 DepuraciÛn"
+Severity_Loud           ="7 Completo"
+BufferTrace             ="B˙fer de seguimiento"
+BufferTrace_Disable     ="Desactivar"
+BufferTrace_Enable      ="Activar"
+IPRenewTime             ="IP Renew Timer"
+SubSystems              ="Ajustar el subsistema del que debe hacerse el seguimiento"
+REG_DWORD               =0x00010001
+
+[Strings.040C] ; French (France)
+INTL                    ="Intel Corporation"
+MfgName                 ="Intel Corporation"                      
+bpmp.EPPDeviceDesc      ="Intel(R) WiMAX Link 5350"
+bpmp.EPVDeviceDesc      ="Intel(R) WiMAX Link 5150"
+bpmp.Service.DispName   ="Intel(R) WiMAX Link 5050 Series"
+DiskId1                 ="Disque d'installation du pilote de la fonction IntelÆ WiMAX Link 5050"
+Severity                ="DÈfinit les capacitÈs de suivi du pilote"
+Severity_Disable        ="0 DÈsactiver"
+Severity_Fatal          ="1 Fatal"
+Severity_Error          ="2 Erreur"
+Severity_Warning        ="3 Avertissement"
+Severity_Info           ="4 Info"
+Severity_Trace          ="5 Suivi"
+Severity_Debug          ="6 DÈboguer"
+Severity_Loud           ="7 Fort"
+BufferTrace             ="Suivi de mÈmoire cache"
+BufferTrace_Disable     ="DÈsactiver"
+BufferTrace_Enable      ="Activer"
+IPRenewTime             ="IP Renew Timer"
+SubSystems              ="DÈfinir les sous-systËmes ‡ suivre"
+REG_DWORD               =0x00010001
+
+[Strings.0411] ; Japanese (Japan)
+INTL                    ="Intel Corporation"
+MfgName                 ="Intel Corporation"                      
+bpmp.EPPDeviceDesc      ="Intel(R) WiMAX Link 5350"
+bpmp.EPVDeviceDesc      ="Intel(R) WiMAX Link 5150"
+bpmp.Service.DispName   ="Intel(R) WiMAX Link 5050 Series"
+DiskId1                 ="ÉCÉìÉeÉã(R) WiMAX Link 5050 ÉVÉäÅ[ÉY ÉCÉìÉXÉgÅ[Éã ÉfÉBÉXÉN"
+Severity                ="ÉhÉâÉCÉoÇÃÉgÉåÅ[ÉXã@î\Çê›íË"
+Severity_Disable        ="0 ñ≥å¯"
+Severity_Fatal          ="1 èdëÂ"
+Severity_Error          ="2 ÉGÉâÅ["
+Severity_Warning        ="3 åxçê"
+Severity_Info           ="4 èÓïÒ"
+Severity_Trace          ="5 ÉgÉåÅ[ÉX"
+Severity_Debug          ="6 ÉfÉoÉbÉO"
+Severity_Loud           ="7 ëÂ"
+BufferTrace             ="ÉgÉåÅ[ÉX ÉoÉbÉtÉ@"
+BufferTrace_Disable     ="ñ≥å¯"
+BufferTrace_Enable      ="óLå¯"
+IPRenewTime             ="IP Renew Timer"
+SubSystems              ="ÉTÉuÉVÉXÉeÉÄÇÉgÉåÅ[ÉXÇ…ê›íË"
+REG_DWORD               =0x00010001
+
+[Strings.0412] ; Korean (Korea)
+INTL                    ="Intel Corporation"
+MfgName                 ="Intel Corporation"                      
+bpmp.EPPDeviceDesc      ="Intel(R) WiMAX Link 5350"
+bpmp.EPVDeviceDesc      ="Intel(R) WiMAX Link 5150"
+bpmp.Service.DispName   ="Intel(R) WiMAX Link 5050 Series"
+DiskId1                 ="Intel(R) WiMAX ∏µ≈© 5050 Ω√∏Æ¡Ó º≥ƒ° µΩ∫≈©"
+Severity                ="µÂ∂Û¿Ãπˆ¿« √ﬂ¿˚ ±‚¥… º≥¡§"
+Severity_Disable        ="0 ∫Ò»∞º∫»≠"
+Severity_Fatal          ="1 ƒ°∏Ì¿˚"
+Severity_Error          ="2 ø¿∑˘"
+Severity_Warning        ="3 ∞Ê∞Ì"
+Severity_Info           ="4 ¡§∫∏"
+Severity_Trace          ="5 √ﬂ¿˚"
+Severity_Debug          ="6 µπˆ±◊"
+Severity_Loud           ="7 ∂ÛøÏµÂ"
+BufferTrace             ="√ﬂ¿˚ πˆ∆€"
+BufferTrace_Disable     ="∫Ò»∞º∫»≠"
+BufferTrace_Enable      ="»∞º∫»≠"
+IPRenewTime             ="IP Renew Timer"
+SubSystems              ="√ﬂ¿˚«“ «œ¿ß Ω√Ω∫≈€ º≥¡§"
+REG_DWORD               =0x00010001
+

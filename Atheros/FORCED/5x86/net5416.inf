@@ -1,0 +1,798 @@
+;/*++
+;
+;Copyright (c) 2001-2006 Atheros Communications, Incorporated All Rights Reserved
+;
+;Module Name:
+;
+;    net5416.inf
+;
+;Abstract:
+;    INF file for installing Atheros AR5008 Wireless Network Adapter
+;
+;    Installs ar5416.sys (NDIS 5/5.1 driver) on NT platforms (2000, XP and greater)
+;    Installs ar54169x.sys (NDIS 5 driver) on 9x platforms
+;
+;--*/
+
+[Version]
+Signature   = "$CHICAGO$"
+Class       = Net
+ClassGUID   = {4d36e972-e325-11ce-bfc1-08002be10318}
+Provider    = %ATHEROS%
+Compatible  = 1
+DriverVer   = 07/23/2007,6.0.3.107
+Catalogfile.nt = net5416.cat
+;Catalogfile = net5416.cat
+
+[Manufacturer]
+%ATHEROS%     = Atheros
+%Gigabyte%     = GIGABYTE
+
+[ControlFlags]
+ExcludeFromSelect = \  ;for win95 and legacy support
+PCI\VEN_168C&DEV_0013
+
+[Atheros]
+; DisplayName               Section                 DeviceID
+; -----------               -------                 --------
+; Generic
+;;%ATHER.DeviceDesc.0023%  = ATHER_DEV_0023.ndi,    PCI\VEN_168C&DEV_0023
+;;%ATHER.DeviceDesc.0023%  = ATHER_DEV_0023.ndi,    PCI\VEN_168C&DEV_0024
+;;%ATHER.DeviceDesc.0023%  = ATHER_DEV_0023.ndi,    PCI\VEN_168C&DEV_FF1C
+;;%ATHER.DeviceDesc.0023%  = ATHER_DEV_0023.ndi,    PCI\VEN_168C&DEV_FF1D
+; Others
+;;%ATHER.DeviceDesc.0032168c%  = ATHER_DEV_0032168c.ndi,    PCI\VEN_168C&DEV_0024&SUBSYS_0032168c
+;;%ATHER.DeviceDesc.0033168c%  = ATHER_DEV_0033168c.ndi,    PCI\VEN_168C&DEV_0024&SUBSYS_0033168c
+%ATHER.DeviceDesc.0033168c%  = ATHER_DEV_7125144F.ndi,    PCI\VEN_168C&DEV_0024&SUBSYS_03841014
+%ATHER.DeviceDesc.0023%  = ATHER_DEV_13C010CF.ndi,    PCI\VEN_168C&DEV_0024&SUBSYS_13C010CF
+%ATHER.DeviceDesc.0023%  = ATHER_DEV_7125144F.ndi,    PCI\VEN_168C&DEV_0024&SUBSYS_7125144F
+%ATHER.DeviceDesc.0023%  = ATHER_DEV_7125144F.ndi,    PCI\VEN_168C&DEV_0024&SUBSYS_04291468
+%ATHER.DeviceDesc.0023%  = ATHER_DEV_0023.ndi,    PCI\VEN_168C&DEV_0024&SUBSYS_04301468
+%ATHER.DeviceDesc.0023%  = ATHER_DEV_05021A32.ndi,    PCI\VEN_168C&DEV_0024&SUBSYS_05021A32
+
+;D-Link
+%ATHER.DeviceDesc.642%   = ATHER_DEV_642.ndi,     PCI\VEN_168C&DEV_0023&SUBSYS_3A6A1186
+%ATHER.DeviceDesc.645%   = ATHER_DEV_645.ndi,     PCI\VEN_168C&DEV_0023&SUBSYS_3A0907D1
+%ATHER.DeviceDesc.645%   = ATHER_DEV_645.ndi,     PCI\VEN_168C&DEV_0023&SUBSYS_3A761186
+%ATHER.DeviceDesc.542%   = ATHER_DEV_542.ndi,     PCI\VEN_168C&DEV_0023&SUBSYS_3A691186
+%ATHER.DeviceDesc.547%   = ATHER_DEV_547.ndi,     PCI\VEN_168C&DEV_0023&SUBSYS_3A6B1186
+%ATHER.DeviceDesc.652%   = ATHER_DEV_652.ndi,     PCI\VEN_168C&DEV_0023&SUBSYS_3A6E1186
+%ATHER.DeviceDesc.552%   = ATHER_DEV_552.ndi,     PCI\VEN_168C&DEV_0023&SUBSYS_3A6D1186
+%ATHER.DeviceDesc.643%   = ATHER_DEV_643.ndi,     PCI\VEN_168C&DEV_0024&SUBSYS_3A6F1186
+%ATHER.DeviceDesc.556%   = ATHER_DEV_556.ndi,     PCI\VEN_168C&DEV_0024&SUBSYS_3A701186
+
+
+[Gigabyte]
+%GIGA.DeviceDesc.E815%  = GIGA_DEV_E914.ndi,    PCI\VEN_168C&DEV_0024&SUBSYS_E8151458
+%GIGA.DeviceDesc.E914%  = GIGA_DEV_E914.ndi,    PCI\VEN_168C&DEV_0023&SUBSYS_E9141458
+%GIGA.DeviceDesc.E915%  = GIGA_DEV_E914.ndi,    PCI\VEN_168C&DEV_0024&SUBSYS_E9151458
+%GIGA.DeviceDesc.E916%  = GIGA_DEV_E916.ndi,    PCI\VEN_168C&DEV_0024&SUBSYS_E9161458
+
+; Atheros
+
+; Windows 9X specific entries
+
+;[ATHER_DEV_0023.ndi]
+;AddReg          = ATHER_DEV_0023.id.reg, 5211.reg, ATHER.win.reg, 5416.abgncb.reg
+;CopyFiles       = ATHER.win.CopyFiles, DEFAULTDESTDIRS
+;DelFiles        = ATHER.DelIniFiles
+;DelReg          = 5211.DelReg
+
+;[ATHER_DEV_0033168c.ndi]
+;AddReg          = ATHER_DEV_0023.id.reg, 5211.reg, ATHER.win.reg, 5416.abgnxb.reg, customer0.reg, 5416.antennacontrols.reg
+;CopyFiles       = ATHER.win.CopyFiles, DEFAULTDESTDIRS
+;DelFiles        = ATHER.DelIniFiles
+;DelReg          = 5211.DelReg
+
+;[ATHER_DEV_0032168c.ndi]
+;AddReg          = ATHER_DEV_0023.id.reg, 5211.reg, ATHER.win.reg, 5416.bgnxb.reg, customer0.reg, 5416.antennacontrols.reg
+;CopyFiles       = ATHER.win.CopyFiles, DEFAULTDESTDIRS
+;DelFiles        = ATHER.DelIniFiles
+;DelReg          = 5211.DelReg
+
+;[ATHER_DEV_13C010CF.ndi]
+;AddReg          = ATHER_DEV_0023.id.reg, 5211.reg, ATHER.win.reg, 5416.abgnxb.reg, 5416.antennacontrols.reg
+;CopyFiles       = ATHER.win.CopyFiles, DEFAULTDESTDIRS
+;DelFiles        = ATHER.DelIniFiles
+;DelReg          = 5211.DelReg
+
+;[ATHER_DEV_7125144F.ndi]
+;AddReg          = ATHER_DEV_0023.id.reg, 5211.reg, ATHER.win.reg, 5416.abgncb.reg, 5416.antennacontrols.reg
+;CopyFiles       = ATHER.win.CopyFiles, DEFAULTDESTDIRS
+;DelFiles        = ATHER.DelIniFiles
+;DelReg          = 5211.DelReg
+
+;[GIGA_DEV_E914.ndi]
+;AddReg          = GIGA_DEV_E914.id.reg, customer12Led0.reg, 5211.reg, ATHER.win.reg, 5416.abgncb.reg, customer12.reg, 5416.antennacontrols.reg
+;CopyFiles       = ATHER.win.CopyFiles, DEFAULTDESTDIRS
+;DelFiles        = ATHER.DelIniFiles
+;DelReg          = 5211.DelReg
+
+;[GIGA_DEV_E916.ndi]
+;AddReg          = GIGA_DEV_E914.id.reg, customer12Led1.reg, 5211.reg, ATHER.win.reg, 5416.abgncb.reg, customer12.reg, 5416.antennacontrols.reg
+;CopyFiles       = ATHER.win.CopyFiles, DEFAULTDESTDIRS
+;DelFiles        = ATHER.DelIniFiles
+;DelReg          = 5211.DelReg
+
+; Windows NT specific entries
+
+[ATHER_DEV_0023.ndi.NT]
+Characteristics = 0x84 ; NCF_PHYSICAL | NCF_HAS_UI
+BusType         = 5
+DelReg          = 5211.DelReg
+AddReg          = 5211.reg, ATHER.reg, 5211.reg, 5416.abgncb.reg, sys.TcpParams.reg
+CopyFiles       = ATHER.CopyFiles.nt, DEFAULTDESTDIRS
+DelFiles        = ATHER.DelIniFiles
+
+[ATHER_DEV_0023.ndi.NT.Services]
+AddService      = AR5416, 2, ATHER.Service, common.EventLog
+
+[ATHER_DEV_05021A32.ndi.NT]
+Characteristics = 0x84 ; NCF_PHYSICAL | NCF_HAS_UI
+BusType         = 5
+DelReg          = 5211.DelReg
+AddReg          = 5211.reg, ATHER.reg, 5211.reg, 5416.abgncb.reg, sys.TcpParams.reg, customer10.reg
+CopyFiles       = ATHER.CopyFiles.nt, DEFAULTDESTDIRS
+DelFiles        = ATHER.DelIniFiles
+
+[ATHER_DEV_05021A32.ndi.NT.Services]
+AddService      = AR5416, 2, ATHER.Service, common.EventLog
+
+[ATHER_DEV_0033168c.ndi.NT]
+Characteristics = 0x84 ; NCF_PHYSICAL | NCF_HAS_UI
+BusType         = 5
+DelReg          = 5211.DelReg
+AddReg          = 5211.reg, ATHER.reg, 5211.reg, 5416.abgnxb.reg, sys.TcpParams.reg, customer0.reg, 5416.antennacontrols.reg
+CopyFiles       = ATHER.CopyFiles.nt, DEFAULTDESTDIRS
+DelFiles        = ATHER.DelIniFiles
+
+[ATHER_DEV_0033168c.ndi.NT.Services]
+AddService      = AR5416, 2, ATHER.Service, common.EventLog
+
+[ATHER_DEV_0032168c.ndi.NT]
+Characteristics = 0x84 ; NCF_PHYSICAL | NCF_HAS_UI
+BusType         = 5
+DelReg          = 5211.DelReg
+AddReg          = 5211.reg, ATHER.reg, 5211.reg, 5416.bgnxb.reg, sys.TcpParams.reg, customer0.reg, 5416.antennacontrols.reg
+CopyFiles       = ATHER.CopyFiles.nt, DEFAULTDESTDIRS
+DelFiles        = ATHER.DelIniFiles
+
+[ATHER_DEV_0032168c.ndi.NT.Services]
+AddService      = AR5416, 2, ATHER.Service, common.EventLog
+
+[ATHER_DEV_13C010CF.ndi.NT]
+Characteristics = 0x84 ; NCF_PHYSICAL | NCF_HAS_UI
+BusType         = 5
+DelReg          = 5211.DelReg
+AddReg          = 5211.reg, ATHER.reg, 5211.reg, 5416.abgnxb.reg, sys.TcpParams.reg, 5416.antennacontrols.reg
+CopyFiles       = ATHER.CopyFiles.nt, DEFAULTDESTDIRS
+DelFiles        = ATHER.DelIniFiles
+
+[ATHER_DEV_13C010CF.ndi.NT.Services]
+AddService      = AR5416, 2, ATHER.Service, common.EventLog
+
+[ATHER_DEV_7125144F.ndi.NT]
+Characteristics = 0x84 ; NCF_PHYSICAL | NCF_HAS_UI
+BusType         = 5
+DelReg          = 5211.DelReg
+AddReg          = 5211.reg, ATHER.reg, 5211.reg, 5416.abgncb.reg, sys.TcpParams.reg, 5416.antennacontrols.reg
+CopyFiles       = ATHER.CopyFiles.nt, DEFAULTDESTDIRS
+DelFiles        = ATHER.DelIniFiles
+
+[ATHER_DEV_7125144F.ndi.NT.Services]
+AddService      = AR5416, 2, ATHER.Service, common.EventLog
+
+[GIGA_DEV_E914.ndi.NT]
+Characteristics = 0x84 ; NCF_PHYSICAL | NCF_HAS_UI
+BusType         = 5
+DelReg          = 5211.DelReg
+AddReg          = 5211.reg, ATHER.reg, customer12Led0.reg, 5211.reg, 5416.abgncb.reg, sys.TcpParams.reg, 5416.antennacontrols.reg, customer12.reg
+CopyFiles       = ATHER.CopyFiles.nt, DEFAULTDESTDIRS
+DelFiles        = ATHER.DelIniFiles
+
+[GIGA_DEV_E914.ndi.NT.Services]
+AddService      = AR5416, 2, ATHER.Service, common.EventLog
+
+[GIGA_DEV_E916.ndi.NT]
+Characteristics = 0x84 ; NCF_PHYSICAL | NCF_HAS_UI
+BusType         = 5
+DelReg          = 5211.DelReg
+AddReg          = 5211.reg, ATHER.reg, customer12Led1.reg, 5211.reg, 5416.abgncb.reg, sys.TcpParams.reg, 5416.antennacontrols.reg, customer12.reg
+CopyFiles       = ATHER.CopyFiles.nt, DEFAULTDESTDIRS
+DelFiles        = ATHER.DelIniFiles
+
+[GIGA_DEV_E916.ndi.NT.Services]
+AddService      = AR5416, 2, ATHER.Service, common.EventLog
+
+;D-Link ----------------------------------------------------------------------------
+[ATHER_DEV_642.ndi.NT]
+Characteristics = 0x84 ; NCF_PHYSICAL | NCF_HAS_UI
+BusType         = 5
+DelReg          = 5416.DelReg
+AddReg          = 5416.reg, ATHER.reg, 5416.reg, 5416.abgncb.reg, sys.TcpParams.reg, 5416.642.reg
+CopyFiles       = ATHER.CopyFiles.nt, DEFAULTDESTDIRS
+DelFiles        = ATHER.DelIniFiles
+
+[ATHER_DEV_645.ndi.NT]
+Characteristics = 0x84 ; NCF_PHYSICAL | NCF_HAS_UI
+BusType         = 5
+DelReg          = 5416.DelReg
+AddReg          = 5416.reg, ATHER.reg, 5416.reg, 5416.abgncb.reg, sys.TcpParams.reg, 5416.645.reg
+CopyFiles       = ATHER.CopyFiles.nt, DEFAULTDESTDIRS
+DelFiles        = ATHER.DelIniFiles
+
+[ATHER_DEV_542.ndi.NT]
+Characteristics = 0x84 ; NCF_PHYSICAL | NCF_HAS_UI
+BusType         = 5
+DelReg          = 5416.DelReg
+AddReg          = 5416.reg, ATHER.reg, 5416.reg, 5416.abgncb.reg, sys.TcpParams.reg, 5416.542.reg
+CopyFiles       = ATHER.CopyFiles.nt, DEFAULTDESTDIRS
+DelFiles        = ATHER.DelIniFiles
+
+[ATHER_DEV_547.ndi.NT]
+Characteristics = 0x84 ; NCF_PHYSICAL | NCF_HAS_UI
+BusType         = 5
+DelReg          = 5416.DelReg
+AddReg          = 5416.reg, ATHER.reg, 5416.reg, 5416.abgncb.reg, sys.TcpParams.reg, 5416.547.reg
+CopyFiles       = ATHER.CopyFiles.nt, DEFAULTDESTDIRS
+DelFiles        = ATHER.DelIniFiles
+
+[ATHER_DEV_652.ndi.NT]
+Characteristics = 0x84 ; NCF_PHYSICAL | NCF_HAS_UI
+BusType         = 5
+DelReg          = 5416.DelReg
+AddReg          = 5416.reg, ATHER.reg, 5416.reg, 5416.abgncb.reg, sys.TcpParams.reg, 5416.652.reg
+CopyFiles       = ATHER.CopyFiles.nt, DEFAULTDESTDIRS
+DelFiles        = ATHER.DelIniFiles
+
+[ATHER_DEV_552.ndi.NT]
+Characteristics = 0x84 ; NCF_PHYSICAL | NCF_HAS_UI
+BusType         = 5
+DelReg          = 5416.DelReg
+AddReg          = 5416.reg, ATHER.reg, 5416.reg, 5416.abgncb.reg, sys.TcpParams.reg, 5416.552.reg
+CopyFiles       = ATHER.CopyFiles.nt, DEFAULTDESTDIRS
+DelFiles        = ATHER.DelIniFiles
+
+[ATHER_DEV_643.ndi.NT]
+Characteristics = 0x84 ; NCF_PHYSICAL | NCF_HAS_UI
+BusType         = 5
+DelReg          = 5416.DelReg
+AddReg          = 5416.reg, ATHER.reg, 5416.reg, 5416.abgncb.reg, sys.TcpParams.reg, 5416.643.reg
+CopyFiles       = ATHER.CopyFiles.nt, DEFAULTDESTDIRS
+DelFiles        = ATHER.DelIniFiles
+
+[ATHER_DEV_556.ndi.NT]
+Characteristics = 0x84 ; NCF_PHYSICAL | NCF_HAS_UI
+BusType         = 5
+DelReg          = 5416.DelReg
+AddReg          = 5416.reg, ATHER.reg, 5416.reg, 5416.abgncb.reg, sys.TcpParams.reg, 5416.556.reg
+CopyFiles       = ATHER.CopyFiles.nt, DEFAULTDESTDIRS
+DelFiles        = ATHER.DelIniFiles
+
+[ATHER_DEV_642.ndi.NT.Services]
+AddService      = AR5416, 2, ATHER_642.Service, common.EventLog
+
+[ATHER_DEV_645.ndi.NT.Services]
+AddService      = AR5416, 2, ATHER_645.Service, common.EventLog
+
+[ATHER_DEV_542.ndi.NT.Services]
+AddService      = AR5416, 2, ATHER_542.Service, common.EventLog
+
+[ATHER_DEV_547.ndi.NT.Services]
+AddService      = AR5416, 2, ATHER_547.Service, common.EventLog
+
+[ATHER_DEV_652.ndi.NT.Services]
+AddService      = AR5416, 2, ATHER_652.Service, common.EventLog
+
+[ATHER_DEV_552.ndi.NT.Services]
+AddService      = AR5416, 2, ATHER_552.Service, common.EventLog
+
+[ATHER_DEV_643.ndi.NT.Services]
+AddService      = AR5416, 2, ATHER_643.Service, common.EventLog
+
+[ATHER_DEV_556.ndi.NT.Services]
+AddService      = AR5416, 2, ATHER_556.Service, common.EventLog
+
+;----------------------------------------------------------------------------
+
+;----------------------------------------------------------------------------
+; Win9x id registry sections
+; These are not needed by NT
+
+;[ATHER_DEV_0023.id.reg]
+;HKR, Ndi, DeviceID, 0, "PCI\VEN_168C&DEV_0023"
+
+;[GIGA_DEV_E914.id.reg]
+;HKR, Ndi, DeviceID, 0, "PCI\VEN_168C&DEV_0023&SUBSYS_E9141458"
+
+;
+; 5211 Enumerated Types
+;
+[5416.abgncb.reg]
+HKR, ,                                  NetBand,                        0x00002,  "61455"
+HKR, CustomParams\Configurations,       NicType,                        0x10003,  1
+HKR, ,                                  rmEnable,                       0x00002,  "1"
+HKR, ,                                  abolt,                          0x00002,  "0"
+HKR, ,                                  rateCtrlEnable,                 0x00002,  "1"
+HKR, ,                                  gpioLedCustom,                  0x00002,  "3"
+
+;;Customized Section
+
+[customer0.reg]
+;PCIe Related
+HKR, ,                                  pcieAspm,                 	0x00002,  "2"
+HKR, ,                                  pciePowerSaveEnable,            0x00002,  "1"
+HKR, ,                                  overrideACstatus,               0x00002,  "1"
+HKR, ,                                  forceWake,                 	0x00002,  "0"
+HKR, ,                                  antennaSwitchSwap,              0x00002,  "1"
+
+;LED Related
+HKR, ,                                  gpioPinFunc1,                  0x00002,  "1"
+
+;General Customer0
+HKR, ,                                  ssid,                           0x00002,  "randomssidtoshutoffautoconnectib"
+HKR,NDI\params\ignore11dBeacon,ParamDesc,,	"11d Mode Switch"
+HKR,NDI\params\ignore11dBeacon,type,,		"enum"
+HKR,NDI\params\ignore11dBeacon,Default,,	"1"
+HKR,NDI\params\ignore11dBeacon\enum,0,,		"Enable"
+HKR,NDI\params\ignore11dBeacon\enum,1,,		"Disable"
+
+HKR, Ndi\params\roamRssiA,              ParamDesc,                      0,  %roamRssiA%
+HKR, Ndi\params\roamRssiA,              default,                        0,  "15"
+HKR, Ndi\params\roamRssiA,              min,                            0,  "1"
+HKR, Ndi\params\roamRssiA,              max,                            0,  "95"
+HKR, Ndi\params\roamRssiA,           	step,                           0,  "1"
+HKR, Ndi\params\roamRssiA,           	base,                           0,  "10"
+HKR, Ndi\params\roamRssiA,           	type,                           0,  "int"
+
+HKR, Ndi\params\sleepMode,              ParamDesc,                      0,  %sleepMode%
+HKR, Ndi\params\sleepMode,              Base,                           0,  "10"
+HKR, Ndi\params\sleepMode,              default,                        0,  "1"
+HKR, Ndi\params\sleepMode,              type,                           0,  "enum"
+HKR, Ndi\params\sleepMode\enum,         "0",                            0,  %sleepModeOff%
+HKR, Ndi\params\sleepMode\enum,         "2",                            0,  %sleepModeNormal%
+HKR, Ndi\params\sleepMode\enum,         "1",                            0,  %sleepModeMax%
+
+HKR, Ndi\params\scanTimeValid,          ParamDesc,                      0,  %scanTime%
+HKR, Ndi\params\scanTimeValid,          default,                        0,  "60"
+HKR, Ndi\params\scanTimeValid,          min,                            0,  "20"
+HKR, Ndi\params\scanTimeValid,          max,                            0,  "120"
+HKR, Ndi\params\scanTimeValid,          step,                           0,  "5"
+HKR, Ndi\params\scanTimeValid,          base,                           0,  "10"
+HKR, Ndi\params\scanTimeValid,          type,                           0,  "int"
+
+[customer10.reg]
+HKR, ,                                  gpioPinFunc1,                  0x00002,  "1"
+
+[5416.bgnxb.reg]
+HKR, ,                                  NetBand,                        0x00002,  "40972"
+HKR, ,                                  wModeSelect,                    0x00002,  "40972"
+HKR, CustomParams\Configurations,       NicType,                        0x10003,  1
+HKR, ,                                  abolt,                          0x00002,  "0"
+HKR, ,                                  rateCtrlEnable,                 0x00002,  "1"
+HKR, ,                                  rmEnable,                       0x00002,  "1"
+
+[5416.abgnxb.reg]
+HKR, CustomParams\Configurations,       NicType,                        0x10003,  1
+HKR, ,                                  abolt,                          0x00002,  "0"
+HKR, ,                                  rateCtrlEnable,                 0x00002,  "1"
+HKR, ,                                  rmEnable,                       0x00002,  "1"
+HKR, Ndi\params\NetBand,                ParamDesc,                      0,  %WirelessMode%
+HKR, Ndi\params\NetBand,                Base,                           0,  "10"
+HKR, Ndi\params\NetBand,                default,                        0,  "61455"
+HKR, Ndi\params\NetBand,                type,                           0,  "enum"
+HKR, Ndi\params\NetBand\enum,           "61455",                        0,  "Auto"
+HKR, Ndi\params\NetBand\enum,           "20481",                        0,  "5Ghz Only"
+HKR, Ndi\params\NetBand\enum,           "40972",                        0,  "2.4Ghz Only"
+
+[5416.antennacontrols.reg] 
+HKR, ,                                  rxChainSelect,                 	0x00002,  "7"
+;HKR, ,                                 txChainSelectLegacy,            0x00002,  "5"
+HKR, ,                                  rxChainSelectLegacy,           	0x00002,  "7"
+HKR, ,                                  forceBias,           	        0x00002,  "2"
+HKR, ,                                  rxChainDetect,                  0x00002,  "1"
+HKR, ,                                  rxChainDetectRef,               0x00002,  "0"
+HKR, ,                                  rxChainDetectThreshA,           0x00002,  "0"
+HKR, ,                                  rxChainDetectThreshG,           0x00002,  "0"
+HKR, ,                                  rxChainDetectDeltaA,            0x00002,  "20"
+HKR, ,                                  rxChainDetectDeltaG,            0x00002,  "20"
+
+[customer12.reg]
+HKR, ,                                  txChainSelect,                 	0x00002,  "5"
+
+[customer12Led0.reg]
+HKR, ,                  		LinkLedFunc,       		0, "19"
+HKR, ,                  		ActivityLedFunc,       	        0, "21" 
+
+[customer12Led1.reg]
+HKR, ,                  		LinkLedFunc,       		0, "03"
+HKR, ,                  		ActivityLedFunc,       		0, "05"
+
+
+[5416.642.reg]
+HKR, ,                                  forceBias,                      0x00002,  "2"
+HKR, ,                                  gpioLEDCustom,                        0,  "1"
+HKR, ,                                  gpioPinFunc0,                         0,  "1"
+HKR, ,                                  gpioPinFunc1,                         0,  "2"
+HKR, ,                                  gpioFunc1ActHi,                       0,  "0"
+HKR, ,                                  enable2GHzHt40Cap,                    0,  "1"
+
+[5416.645.reg]
+HKR, ,                                  forceBias,                      0x00002,  "2"
+HKR, ,                                  gpioLEDCustom,                        0,  "1"
+HKR, ,                                  gpioPinFunc0,                         0,  "1"
+HKR, ,                                  gpioPinFunc1,                         0,  "2"
+HKR, ,                                  gpioFunc1ActHi,                       0,  "0"
+HKR, ,                                  enable2GHzHt40Cap,                    0,  "1"
+
+[5416.542.reg]
+HKR, ,                                  forceBias,                      0x00002,  "2"
+HKR, ,                                  BusConfig,                      0x00002,  "0"
+HKR, ,                                  gpioLEDCustom,                        0,  "1"
+HKR, ,                                  gpioPinFunc0,                         0,  "1"
+HKR, ,                                  gpioPinFunc1,                         0,  "2"
+HKR, ,                                  gpioFunc1ActHi,                       0,  "0"
+HKR, ,                                  enable2GHzHt40Cap,                    0,  "1"
+
+[5416.547.reg]
+HKR, ,                                  rxChainSelect,                  0x00002,  "7"
+HKR, ,                                  txChainSelect,                  0x00002,  "7"
+HKR, ,                                  forceBias,                      0x00002,  "2"
+HKR, ,                                  BusConfig,                      0x00002,  "0"
+HKR, ,                                  gpioLEDCustom,                        0,  "1"
+HKR, ,                                  gpioPinFunc0,                         0,  "1"
+HKR, ,                                  gpioPinFunc1,                         0,  "2"
+HKR, ,                                  gpioFunc1ActHi,                       0,  "0"
+HKR, ,                                  enable2GHzHt40Cap,                    0,  "1"
+
+[5416.652.reg]
+HKR, ,                                  forceBias,                      0x00002,  "2"
+HKR, ,                                  gpioLEDCustom,                        0,  "1"
+HKR, ,                                  gpioPinFunc0,                         0,  "1"
+HKR, ,                                  gpioPinFunc1,                         0,  "2"
+HKR, ,                                  gpioFunc1ActHi,                       0,  "0"
+HKR, ,                                  enable2GHzHt40Cap,                    0,  "1"
+
+[5416.552.reg]
+HKR, ,                                  rxChainSelect,                  0x00002,  "7"
+HKR, ,                                  txChainSelect,                  0x00002,  "7"
+HKR, ,                                  forceBias,                      0x00002,  "2"
+HKR, ,                                  BusConfig,                      0x00002,  "0"
+HKR, ,                                  gpioLEDCustom,                        0,  "1"
+HKR, ,                                  gpioPinFunc0,                         0,  "1"
+HKR, ,                                  gpioPinFunc1,                         0,  "2"
+HKR, ,                                  gpioFunc1ActHi,                       0,  "0"
+HKR, ,                                  enable2GHzHt40Cap,                    0,  "1"
+
+[5416.643.reg]
+HKR, ,                                  forceBias,                      0x00002,  "2"
+HKR, ,                                  gpioLEDCustom,                        0,  "1"
+HKR, ,                                  gpioPinFunc1,                         0,  "1"
+HKR, ,                                  enable2GHzHt40Cap,                    0,  "1"
+
+[5416.556.reg]
+HKR, ,                                  rxChainSelect,                  0x00002,  "7"
+HKR, ,                                  txChainSelect,                  0x00002,  "7"
+HKR, ,                                  forceBias,                      0x00002,  "2"
+HKR, ,                                  gpioLEDCustom,                        0,  "1"
+HKR, ,                                  gpioPinFunc1,                         0,  "1"
+HKR, ,                                  enable2GHzHt40Cap,                    0,  "1"
+
+
+;-----------------------------------------------------------------------------
+
+;
+; 5211 common
+;
+[5416.DelReg]
+HKR,,NetBand
+HKR,,ssid
+HKR,,ssid2
+HKR,,ssid3
+HKR,,prefBssid1
+HKR,,prefBssid2
+HKR,,prefBssid3
+HKR,,prefBssid4
+HKR,Ndi\Params\tpc
+HKR,,tpc
+HKR,Ndi\Params\authTypeUseOnly
+HKR,,authTypeUseOnly
+HKR,,AdHocBand
+HKR,,AwakeTimePerf
+HKR,,beaconInterval
+HKR,,bkScanEnable
+HKR,,bssType
+HKR,,ccode
+HKR,,clist
+HKR,,defaultKey
+HKR,,EncryptionAlg
+HKR,,FragThreshold
+HKR,,HwTxRetries
+HKR,,privacyInvoked
+HKR,,QoS
+HKR,,rateCtrlEnable
+HKR,,RTSThreshold
+HKR,,scanType
+HKR,,SwTxRetryScale
+HKR,,SmeEnable
+HKR,,aifs
+HKR,,cwmin
+HKR,,rmEnable
+
+;[oahu.reg]
+;HKR, ,                                  WmmEnabled,                     0x00002,  "0"
+
+[5416.reg]
+
+HKR, Ndi\params\MapRegisters,           ParamDesc,                      0,  %MapRegisters%
+HKR, Ndi\params\MapRegisters,           default,                        0,  "256"
+HKR, Ndi\params\MapRegisters,           min,                            0,  "32"
+HKR, Ndi\params\MapRegisters,           max,                            0,  "512"
+HKR, Ndi\params\MapRegisters,           step,                           0,  "8"
+HKR, Ndi\params\MapRegisters,           base,                           0,  "10"
+HKR, Ndi\params\MapRegisters,           type,                           0,  "int"
+
+HKR, Ndi\params\NetworkAddress,         ParamDesc,                      0,  %NetworkAddress%
+HKR, Ndi\params\NetworkAddress,         default,                        0,  ""
+HKR, Ndi\params\NetworkAddress,         LimitText,                      0,  "12"
+HKR, Ndi\params\NetworkAddress,         UpperCase,                      0,  "1"
+HKR, Ndi\params\NetworkAddress,         optional,                       0,  "1"
+HKR, Ndi\params\NetworkAddress,         type,                           0,  "edit"
+
+HKR, Ndi\params\sleepMode,              ParamDesc,                      0,  %sleepMode%
+HKR, Ndi\params\sleepMode,              Base,                           0,  "10"
+HKR, Ndi\params\sleepMode,              default,                        0,  "2"
+HKR, Ndi\params\sleepMode,              type,                           0,  "enum"
+HKR, Ndi\params\sleepMode\enum,         "0",                            0,  %sleepModeOff%
+HKR, Ndi\params\sleepMode\enum,         "2",                            0,  %sleepModeNormal%
+HKR, Ndi\params\sleepMode\enum,         "1",                            0,  %sleepModeMax%
+
+HKR, Ndi\params\shortPreamble,          ParamDesc,                      0,  %shortPreamble%
+HKR, Ndi\params\shortPreamble,          Base,                           0,  "10"
+HKR, Ndi\params\shortPreamble,          default,                        0,  "1"
+HKR, Ndi\params\shortPreamble,          type,                           0,  "enum"
+HKR, Ndi\params\shortPreamble\enum,     "1",                            0,  %shortPreambleEnable%
+HKR, Ndi\params\shortPreamble\enum,     "0",                            0,  %shortPreambleDisable%
+
+HKR, Ndi\params\radioEnable,            ParamDesc,                      0,  %radioEnable%
+HKR, Ndi\params\radioEnable,            Base,                           0,  "10"
+HKR, Ndi\params\radioEnable,            default,                        0,  "1"
+HKR, Ndi\params\radioEnable,            type,                           0,  "enum"
+HKR, Ndi\params\radioEnable\enum,       "1",                            0,  %radioEnableOn%
+HKR, Ndi\params\radioEnable\enum,       "0",                            0,  %radioEnableOff%
+
+HKR, Ndi\params\scanTimeValid,          ParamDesc,                      0,  %scanTimeValid%
+HKR, Ndi\params\scanTimeValid,          default,                        0,  "60"
+HKR, Ndi\params\scanTimeValid,          min,                            0,  "20"
+HKR, Ndi\params\scanTimeValid,          max,                            0,  "120"
+HKR, Ndi\params\scanTimeValid,          step,                           0,  "5"
+HKR, Ndi\params\scanTimeValid,          base,                           0,  "10"
+HKR, Ndi\params\scanTimeValid,          type,                           0,  "int"
+
+HKR, CustomParams\Configurations,       MajorVersion,                   0x10003,  2
+HKR, CustomParams\Configurations,       MinorVersion,                   0x10003,  0
+
+HKR, CustomParams\Configurations,       SelectedConfigurationIndex,     0x10003,  0
+HKR, CustomParams\Configurations,       SelectedConfigurationName,      0x00002,  "Default"
+
+; Allow non admin uses to switch profiles
+;[5211.reg.security]
+;"D:ARAI(A;;GA;;;BA)(A;;GA;;;SY)(A;CI;GA;;;IU)"
+
+;-----------------------------------------------------------------------------
+; ATHER NT specific
+;
+
+[ATHER.reg]
+HKR, Ndi,             Service,      0, "AR5416"
+HKR, Ndi\Interfaces,  UpperRange,   0, "ndis5"
+HKR, Ndi\Interfaces,  LowerRange,   0, "ethernet"
+
+[ATHER.Service]
+DisplayName     = %ATHER.Service.DispName%
+ServiceType     = 1 ;%SERVICE_KERNEL_DRIVER%
+StartType       = 3 ;%SERVICE_DEMAND_START%
+ErrorControl    = 1 ;%SERVICE_ERROR_NORMAL%
+ServiceBinary   = %12%\ar5416.sys
+LoadOrderGroup  = NDIS
+
+
+[ATHER_642.Service]
+DisplayName     = %642.Service.DispName%
+ServiceType     = 1 ;%SERVICE_KERNEL_DRIVER%
+StartType       = 3 ;%SERVICE_DEMAND_START%
+ErrorControl    = 1 ;%SERVICE_ERROR_NORMAL%
+ServiceBinary   = %12%\ar5416.sys
+LoadOrderGroup  = NDIS
+
+[ATHER_645.Service]
+DisplayName     = %645.Service.DispName%
+ServiceType     = 1 ;%SERVICE_KERNEL_DRIVER%
+StartType       = 3 ;%SERVICE_DEMAND_START%
+ErrorControl    = 1 ;%SERVICE_ERROR_NORMAL%
+ServiceBinary   = %12%\ar5416.sys
+LoadOrderGroup  = NDIS
+
+[ATHER_542.Service]
+DisplayName     = %542.Service.DispName%
+ServiceType     = 1 ;%SERVICE_KERNEL_DRIVER%
+StartType       = 3 ;%SERVICE_DEMAND_START%
+ErrorControl    = 1 ;%SERVICE_ERROR_NORMAL%
+ServiceBinary   = %12%\ar5416.sys
+LoadOrderGroup  = NDIS
+
+[ATHER_547.Service]
+DisplayName     = %547.Service.DispName%
+ServiceType     = 1 ;%SERVICE_KERNEL_DRIVER%
+StartType       = 3 ;%SERVICE_DEMAND_START%
+ErrorControl    = 1 ;%SERVICE_ERROR_NORMAL%
+ServiceBinary   = %12%\ar5416.sys
+LoadOrderGroup  = NDIS
+
+[ATHER_652.Service]
+DisplayName     = %652.Service.DispName%
+ServiceType     = 1 ;%SERVICE_KERNEL_DRIVER%
+StartType       = 3 ;%SERVICE_DEMAND_START%
+ErrorControl    = 1 ;%SERVICE_ERROR_NORMAL%
+ServiceBinary   = %12%\ar5416.sys
+LoadOrderGroup  = NDIS
+
+[ATHER_552.Service]
+DisplayName     = %552.Service.DispName%
+ServiceType     = 1 ;%SERVICE_KERNEL_DRIVER%
+StartType       = 3 ;%SERVICE_DEMAND_START%
+ErrorControl    = 1 ;%SERVICE_ERROR_NORMAL%
+ServiceBinary   = %12%\ar5416.sys
+LoadOrderGroup  = NDIS
+
+[ATHER_643.Service]
+DisplayName     = %643.Service.DispName%
+ServiceType     = 1 ;%SERVICE_KERNEL_DRIVER%
+StartType       = 3 ;%SERVICE_DEMAND_START%
+ErrorControl    = 1 ;%SERVICE_ERROR_NORMAL%
+ServiceBinary   = %12%\ar5416.sys
+LoadOrderGroup  = NDIS
+
+[ATHER_556.Service]
+DisplayName     = %556.Service.DispName%
+ServiceType     = 1 ;%SERVICE_KERNEL_DRIVER%
+StartType       = 3 ;%SERVICE_DEMAND_START%
+ErrorControl    = 1 ;%SERVICE_ERROR_NORMAL%
+ServiceBinary   = %12%\ar5416.sys
+LoadOrderGroup  = NDIS
+
+
+;-----------------------------------------------------------------------------
+; ATHER NT/XP common
+;
+[common.EventLog]
+AddReg = common.AddEventLog.reg
+
+[common.AddEventLog.reg]
+HKR, ,                  EventMessageFile,   0x00020000,   "%%SystemRoot%%\System32\netevent.dll"
+HKR, ,                  TypesSupported,     0x00010001,   7
+
+;----------------------------------------------------------------------------
+; ATHER Win9x specific
+;
+[ATHER.win.reg]
+HKR, ,                  DevLoader,          0,            "*ndis"
+HKR, ,                  DeviceVxDs,         0,            "ar54169x.sys"
+HKR, ,                  EnumPropPages,      0,            "netdi.dll,EnumPropPages"
+
+HKR, Ndi\Interfaces,    DefUpper,           0,            "ndis3"
+HKR, Ndi\Interfaces,    DefLower,           0,            "ethernet"
+HKR, Ndi\Interfaces,    UpperRange,         0,            "ndis3"
+HKR, Ndi\Interfaces,    LowerRange,         0,            "ethernet"
+
+
+HKR, NDIS,              LogDriverName,      0,            "AR54169X"
+HKR, NDIS,              MajorNdisVersion,   1,            03
+HKR, NDIS,              MinorNdisVersion,   1,            0A
+
+HKR, Ndi\Install,       ndis3,              0,            "ATHER.install"
+
+;----------------------------------------------------------------------------
+; System TCPIP parameter changes
+;
+[sys.TcpParams.reg]
+HKLM, SYSTEM\CurrentControlSet\Services\Tcpip\Parameters, Tcp1323Opts, 0x00010001, 0x00000003
+HKLM, SYSTEM\CurrentControlSet\Services\Tcpip\Parameters, TcpWindowSize, 0x00010001, 0x00040000
+
+;----------------------------------------------------------------------------
+; Win9x Files to Copy
+[ATHER.win.CopyFiles]
+ar54169x.sys,,,2
+
+;----------------------------------------------------------------------------
+; NT Files to Copy
+[ATHER.CopyFiles.nt]
+ar5416.sys,,,2
+
+[ATHER.DelIniFiles]
+Athnic.ini,,,1
+
+[SourceDisksNames]
+;
+; diskid = description[, [tagfile] [, <unused>, subdir]]
+;
+1 = %Atheros_Disk%,,,
+
+;----------------------------------------------------------------------------
+; Source Files
+[SourceDisksFiles]
+ar54169x.sys                 = 1,, ; on distribution disk 1
+ar5416.sys                   = 1,, ; on distribution disk 1
+
+
+[DestinationDirs]
+ATHER.CopyFiles.nt           = 12
+ATHER.win.CopyFiles          = 10,system32\drivers ; %SystemRoot%\system32\drivers
+ATHER.DelIniFiles            = 10,system32\drivers ; %SystemRoot%\system32\drivers
+DefaultDestDir               = 11
+
+[DEFAULTDESTDIRS]
+;
+
+
+[Strings]
+;;Atheros                      = "Atheros"
+Atheros                      = "D-Link"
+Gigabyte                     = "Gigabyte Technology Corp."			 
+MapRegisters                 = "Map Registers"
+NetworkAddress               = "Network Address"
+sleepMode                    = "Power Save Mode"
+scanTimeValid                = "Scan Valid Interval"
+scanTime                     = "Roam Time (sec)"
+roamRssiA                    = "Roam Time Threshold (db)"
+sleepModeOff                 = "Off"
+sleepModeNormal              = "Normal"
+sleepModeMax                 = "Maximum"
+shortPreamble                = "802.11b Preamble"
+shortPreambleEnable          = "Long and Short"
+shortPreambleDisable         = "Long only"
+radioEnable                  = "Radio On/Off"
+radioEnableOn                = "On"
+radioEnableOff               = "Off"
+WirelessMode         	     = "Wireless Mode Selection"
+tpc                          = "Transmit Power"
+tpcLowest                    = "Lowest"
+tpc12                        = "12.5%"
+tpc25                        = "25%"
+tpc50                        = "50%"
+tpc100                       = "100%"
+rssiThrHigh                  = "RSSI Threshold"
+rssiThrHighNormal            = "Normal"
+rssiThrHighMin               = "Min"
+scanTimeValidcust            = "Roam Time (sec)"
+
+
+;;Atheros_Disk                 = "Atheros Driver Disk 1"
+;;ATHER.Service.DispName       = "Atheros AR5008 Wireless Network Adapter Service"
+ATHER.DeviceDesc.0023        = "Atheros AR5008 Wireless Network Adapter"
+ATHER.DeviceDesc.0032168c    = "11b/g/n Wireless LAN Mini-PCI Express Adapter"
+ATHER.DeviceDesc.0033168c    = "11a/b/g/n Wireless LAN Mini-PCI Express Adapter"
+GIGA.DeviceDesc.E914	     = "Gigabyte GN-WI03N (mini) PCI WLAN Card"
+GIGA.DeviceDesc.E915	     = "Gigabyte GN-WP02N PCI Express WLAN Card"
+GIGA.DeviceDesc.E916	     = "Gigabyte GN-WI06N (mini) PCI Express WLAN Card"
+GIGA.DeviceDesc.E815	     = "Gigabyte GN-WM02N Express WLAN Card"
+
+Atheros_Disk                 = "D-Link Driver Disk 1"
+ATHER.Service.DispName       = "D-Link RangeBooster N Service"
+ATHER.DeviceDesc.0023        = "D-Link RangeBooster N"
+642.Service.DispName        = "D-Link DWA-642 RangeBooster N Notebook Adapter Service"
+ATHER.DeviceDesc.642        = "D-Link DWA-642 RangeBooster N Notebook Adapter"
+645.Service.DispName        = "D-Link DWA-645 RangeBooster N650 Notebook Adapter Service"
+ATHER.DeviceDesc.645        = "D-Link DWA-645 RangeBooster N650 Notebook Adapter"
+542.Service.DispName        = "D-Link DWA-542 RangeBooster N Desktop Adapter Service"
+ATHER.DeviceDesc.542        = "D-Link DWA-542 RangeBooster N Desktop Adapter"
+547.Service.DispName        = "D-Link DWA-547 RangeBooster N650 Desktop Adapter Service"
+ATHER.DeviceDesc.547        = "D-Link DWA-547 RangeBooster N650 Desktop Adapter"
+652.Service.DispName        = "D-Link DWA-652 XtremeN Notebook Adapter Service"
+ATHER.DeviceDesc.652        = "D-Link DWA-652 XtremeN Notebook Adapter"
+552.Service.DispName        = "D-Link DWA-552 XtremeN Desktop Adapter Service"
+ATHER.DeviceDesc.552        = "D-Link DWA-552 XtremeN Desktop Adapter"
+643.Service.DispName        = "D-Link DWA-643 Xtreme N ExpressCard Notebook Adapter Service"
+ATHER.DeviceDesc.643        = "D-Link DWA-643 Xtreme N ExpressCard Notebook Adapter"
+556.Service.DispName        = "D-Link DwA-556 Xtreme N PCIe Desktop Adapter Service"
+ATHER.DeviceDesc.556        = "D-Link DWA-556 Xtreme N PCIe Desktop Adapter"

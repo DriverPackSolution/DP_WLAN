@@ -1,0 +1,194 @@
+; WLMEL51B.INF
+;
+; BUFFALO WLI-USB-L11G-WR Wireless LAN Adapter
+;
+; Copyright (c) 2002 MELCO INC./ Copyright 2002, Agere Systems Inc
+
+[Version]
+Signature="$Windows NT$"
+Class=Net
+Provider=%Melco%
+DriverVer=11/14/2002, 7.64.8.346
+ClassGUID={4d36e972-e325-11ce-bfc1-08002be10318}
+Catalogfile=wlmel51b.cat
+
+;****************************************************************************
+; Manufacturer Section
+;****************************************************************************
+[Manufacturer]
+%MELCO%              = "MELCO INC."
+
+;****************************************************************************
+; ControlFlags Section
+;****************************************************************************
+[ControlFlags]
+ExcludeFromSelect = *
+
+;****************************************************************************
+; Install Section
+;****************************************************************************
+
+[MELCO INC.]
+%Wlmel01.DeviceDesc%=Wlmel01.Install, USB\Vid_0411&Pid_000B
+
+;****************************************************************************
+; Install section BUFFALO WLI-USB-L11G-WR Wireless LAN Adapter
+;****************************************************************************
+[Wlmel01.Install]
+AddReg          = Wlmel.Addreg.Cards, Wlmel.Addreg.Card01
+DelReg          = Wlmel.Delreg.Advanced
+CopyFiles       = Wlmel.CopyFiles, Wlmel.CopyFiles.Cfg
+Characteristics = 0x84
+BusType         = 15
+DriverVer=11/14/2002, 7.64.8.346
+
+[Wlmel01.Install.Services]
+AddService      = wlmel51b, 2, Wlmel.Service, Wlmel.EventLog
+
+[Wlmel01.Install.CoInstallers]
+CopyFiles       = Wlmel.CoInst.Files
+AddReg          = Wlmel.CoInst.Reg
+
+[Wlmel.Addreg.Card01]
+HKR,,VendorDescription,,"BUFFALO WLI-USB-L11G Wireless LAN Adapter"
+
+;****************************************************************************
+; Default NDI Section
+;****************************************************************************
+[Wlmel.Addreg.Cards]
+HKR,Ndi\Interfaces,UpperRange,0,"ndis5"
+HKR,Ndi\Interfaces,LowerRange,0,"ethernet"
+HKR,Ndi,Service,0,"wlmel51b"
+
+HKR,,DriverVariant,,"2"
+HKR,,DriverMajor,,"7"
+HKR,,DriverMinor,,"64"
+HKR,,DriverEnable,,"1"
+HKR,,Configured,,"1"
+HKR,,USBFlags,,"1"
+
+HKR,,NDT,,"1"
+;HKR,,DesiredSSID,,"Agere Systems"
+HKR,,DesiredSSID,,"ANY"
+
+; OwnChannel
+;
+HKR,Ndi\params\OwnChannel,          ParamDesc,  0, %CHANNEL%
+HKR,Ndi\params\OwnChannel,          Type,       0, "enum"
+;HKR,Ndi\params\OwnChannel,          Default,    0, "00"
+HKR,Ndi\params\OwnChannel,          Default,    0, "11"
+;HKR,Ndi\params\OwnChannel\enum,     0,          0, "Use default channel"
+HKR,Ndi\params\OwnChannel\enum,     1,          0, "01"
+HKR,Ndi\params\OwnChannel\enum,     2,          0, "02"
+HKR,Ndi\params\OwnChannel\enum,     3,          0, "03"
+HKR,Ndi\params\OwnChannel\enum,     4,          0, "04"
+HKR,Ndi\params\OwnChannel\enum,     5,          0, "05"
+HKR,Ndi\params\OwnChannel\enum,     6,          0, "06"
+HKR,Ndi\params\OwnChannel\enum,     7,          0, "07"
+HKR,Ndi\params\OwnChannel\enum,     8,          0, "08"
+HKR,Ndi\params\OwnChannel\enum,     9,          0, "09"
+HKR,Ndi\params\OwnChannel\enum,     10,         0, "10"
+HKR,Ndi\params\OwnChannel\enum,     11,         0, "11"
+HKR,Ndi\params\OwnChannel\enum,     12,         0, "12"
+HKR,Ndi\params\OwnChannel\enum,     13,         0, "13"
+;HKR,Ndi\params\OwnChannel\enum,     14,         0, "14"
+HKR,Ndi\params\OwnChannel\enum,     14,         0, "Use default channel"
+
+;
+; Power Management
+;
+HKR,Ndi\params\PowerMode,           ParamDesc,  0, %POWERMANAGEMENT%
+HKR,Ndi\params\PowerMode,           Type,       0, "enum"
+HKR,Ndi\params\PowerMode,           Default,    0, "0"
+HKR,Ndi\params\PowerMode\enum,      2,          0, %AUTO%
+HKR,Ndi\params\PowerMode\enum,      1,          0, %ON%
+HKR,Ndi\params\PowerMode\enum,      0,          0, %OFF%
+
+;****************************************************************************
+; CopyFiles Section
+;****************************************************************************
+[Wlmel.Copyfiles]
+wlmel51b.sys
+
+;****************************************************************************
+; CopyFiles.Cfg Section
+;****************************************************************************
+[Wlmel.Copyfiles.Cfg]
+wcmel51b.exe
+wamel51b.dll
+
+;****************************************************************************
+; CoInstaller Section
+;****************************************************************************
+[Wlmel.CoInst.Reg]
+HKR,,CoInstallers32,0x00010000,"wdmel51b.dll,WLDeviceCoInstaller"
+
+[Wlmel.CoInst.Files]
+wdmel51b.dll
+
+;****************************************************************************
+; Delete old values is the AdvanceTab of the Properties screen
+;****************************************************************************
+[Wlmel.Delreg.Advanced]
+HKR,Ndi\params
+
+;****************************************************************************
+; Service Section BUFFALO WLI-USB-L11 Driver
+;****************************************************************************
+[Wlmel.Service]
+DisplayName     = %Wlmel.Service.DispName%
+ServiceType     = 1 ;%SERVICE_KERNEL_DRIVER%
+StartType       = 3 ;%SERVICE_DEMAND_START%
+ErrorControl    = 1 ;%SERVICE_ERROR_NORMAL%
+ServiceBinary   = %12%\wlmel51b.sys
+LoadOrderGroup  = NDIS,NTKERN,NDIS
+
+[Wlmel.EventLog]
+AddReg = Wlmel.AddReg.EventLog
+
+[Wlmel.AddReg.EventLog]
+HKR, , EventMessageFile, 0x00020000,"%%SystemRoot%%\System32\netevent.dll;%%SystemRoot%%\System32\drivers\wlmel51b.sys"
+HKR, , TypesSupported,   0x00010001, 7
+
+;****************************************************************************
+; Destination Directories
+;****************************************************************************
+[DestinationDirs]
+DefaultDestDir          = 11
+Wlmel.CopyFiles         = 12
+Wlmel.Copyfiles.Cfg     = 11
+Wlmel.CoInst.Files      = 11
+
+;****************************************************************************
+; Source Disk Names
+;****************************************************************************
+[SourceDisksNames]
+1 = %DISKID%,,,
+
+;****************************************************************************
+; Source Disk Files
+;****************************************************************************
+[SourceDisksFiles]
+wlmel51b.sys=1
+wcmel51b.exe=1
+wamel51b.dll=1
+wdmel51b.dll=1
+
+;****************************************************************************
+; Localizable Strings
+;****************************************************************************
+[Strings]
+CHANNEL                     = "1. Channel"
+POWERMANAGEMENT             = "2. Card Power Management"
+OFF                         = "Off"
+ON                          = "On"
+AUTO                        = "Auto"
+DISKID="AirNavigator CD"
+
+MELCO                       = "MELCO INC."
+
+
+; MELCO
+Wlmel01.DeviceDesc="BUFFALO WLI-USB-L11G Wireless LAN Adapter"
+
+Wlmel.Service.DispName="BUFFALO WLI-USB-L11 Driver"

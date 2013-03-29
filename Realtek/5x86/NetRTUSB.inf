@@ -1,0 +1,411 @@
+;***********************************************************************
+; NetRTUSB.INF
+;
+;   This installation script supports Windows 98, Me, 2000 and XP for the
+;   RT2570 802.11g USB Adapters.
+;
+; Copyright (c) 2004 D-Link Corporation, Incorporated All Rights Reserved
+;***********************************************************************
+
+
+[Version]
+DriverVer=03/12/2005, 2.00.01.0000
+Signature="$Chicago$"
+Compatible=1
+Class=Net
+ClassGUID={4d36e972-e325-11ce-bfc1-08002be10318}
+Provider=%Provider%
+CatalogFile=NetRTUSB.CAT            ;for WHQL certified
+
+
+
+[ControlFlags]
+ExcludeFromSelect = VID_2001&PID_3C00
+
+
+[Manufacturer]
+%V_Provider%=Adapters
+
+
+[Adapters]
+; DisplayName               Section               DeviceID
+; -----------               -------               --------
+%NetRTUSB.DeviceDesc% =       NetRTUSB.ndi,           USB\VID_2001&PID_3C00
+
+
+;*******************************************************************************************
+; Windows 9X specific entries
+;*******************************************************************************************
+
+[NetRTUSB.ndi]
+AddReg=Common.reg, NetRTUSB.ndi.reg
+CopyFiles=win9x.CopyFiles
+
+
+;*******************************************************************************************
+; NT specific entries
+;*******************************************************************************************
+
+[NetRTUSB.ndi.NT]
+AddReg=Common.reg, NetRTUSB.ndi.NT.reg
+Characteristics=0x84              ; NCF_REMOVABLE | NCF_HAS_UI | NCF_PHYSICAL
+BusType=15;USB
+CopyFiles=NT.CopyFiles
+
+; NT services sections
+[NetRTUSB.ndi.NT.Services]
+AddService=rt2500usb, 2, NetRTUSB.Service, common.EventLog
+
+
+
+
+;*******************************************************************************************
+; common regs for NT and W9x
+;*******************************************************************************************
+
+
+[Common.reg]
+
+
+;*******************************************************************************************
+; System Level Property
+
+;
+; Current Profile
+;
+HKR, , 				  CurProfile,      0,""
+HKR, Default, 			  CurProfile,      0,""
+
+;
+; Radio On/Off
+;
+HKR, ,                            Radio,           0, "0"
+HKR, NDI\params\Radio,            ParamDesc,       0, "Radio On/Off"
+HKR, NDI\params\Radio,            type,            0, "enum"
+HKR, NDI\params\Radio,            default,         0, "0"
+HKR, NDI\params\Radio\enum,       1,               0, "Disable"
+HKR, NDI\params\Radio\enum,       0,               0, "Enable"
+
+;
+; Auto Reconnect Mode
+;
+HKR, ,                               AutoReconnect,   0, "1"
+HKR, NDI\params\AutoReconnect,       ParamDesc,       0, "Auto Reconnect Mode"
+HKR, NDI\params\AutoReconnect,       type,            0, "enum"
+HKR, NDI\params\AutoReconnect,       default,         0, "1"
+HKR, NDI\params\AutoReconnect\enum,  0,               0, "Disable"
+HKR, NDI\params\AutoReconnect\enum,  1,               0, "Enable"
+
+;
+; Show Hidden SSID in Site Survey Page
+;
+HKR, ,                                ShowHiddenSSID,  0, "1"	; 0=disable(default), 1=enable
+
+;
+; Select Config Utility
+;
+HKR, ,                            ConfigSelect,	   0, "0"      ;0=RaConfig, 1=ZeroConfig
+
+;
+; Country Region 
+;
+HKR, ,                            	CountryRegion,		0, "0"
+;HKR, NDI\params\CountryRegion,          ParamDesc,       	0, "Country Region"
+;HKR, NDI\params\CountryRegion,          type,            	0, "enum"
+;HKR, NDI\params\CountryRegion,          default,         	0, "0"
+;HKR, NDI\params\CountryRegion\enum,     0,               	0, "FCC (Channel 1 - 11)"
+;HKR, NDI\params\CountryRegion\enum,	1,               	0, "IC (Channel 1 - 11)"
+;HKR, NDI\params\CountryRegion\enum,     2,               	0, "ETSI (Channel 1 - 13)"
+;HKR, NDI\params\CountryRegion\enum,     3,               	0, "Spain (Channel 10 - 11)"
+;HKR, NDI\params\CountryRegion\enum,	4,               	0, "France (Channel 10 - 13)"
+;HKR, NDI\params\CountryRegion\enum,     5,               	0, "MKK (Channel 14)"
+;HKR, NDI\params\CountryRegion\enum,     6,               	0, "MKK1 (Channel 1 - 14)"
+;HKR, NDI\params\CountryRegion\enum,	7,               	0, "Israel (Channel 3 - 9)"
+
+;*******************************************************************************************
+; Advance Page
+
+;
+; WirelessMode
+;
+HKR, ,                            WirelessMode,    0, "0"
+
+;
+; Enable TX Burst
+;
+HKR, ,                            TXBurst,         0, "0"
+
+;
+; Use Short Slot Time
+;
+HKR, ,                            ShortSlot,       0, "0"
+
+;
+; Use Turbo rate
+;
+HKR, ,                            TurboRate,       0, "0"
+
+;
+; Use Ofdm rate in adhoc mode
+;
+HKR, ,                            AdhocOfdm,       0, "0"
+
+;
+; Use BG Protection
+;
+HKR, ,                            BGProtection,    0, "0"
+ 
+;
+; Vendor Description
+;
+HKR, ,                            VendorDesc,      0, %VENDOR_DESC_DEF_STR%
+HKR, Default,                     VendorDesc,      0, %VENDOR_DESC_DEF_STR%
+
+;*******************************************************************************************
+; Profile
+
+;
+; SSID
+;
+HKR, ,                            SSID,            0, %SSID_DEF_STR%
+HKR, Default,                     SSID,            0, %SSID_DEF_STR%
+HKR, NDI\params\SSID,             ParamDesc,       0, "SSID"
+HKR, NDI\params\SSID,             type,            0, "edit"
+HKR, NDI\params\SSID,             limitText,       0, "32"
+HKR, NDI\params\SSID,             default,         0, %SSID_DEF_STR%
+
+;
+; Network Type
+;
+HKR, ,                            NetworkType,     0, %NETWORK_TYPE_DEF_STR%
+HKR, Default,                     NetworkType,     0, %NETWORK_TYPE_DEF_STR%
+HKR, NDI\params\NetworkType,      ParamDesc,       0, "Network Type"
+HKR, NDI\params\NetworkType,      type,            0, "enum"
+HKR, NDI\params\NetworkType,      default,         0, %NETWORK_TYPE_DEF_STR%
+HKR, NDI\params\NetworkType\enum, 0,               0, "802.11 Ad Hoc"
+HKR, NDI\params\NetworkType\enum, 1,               0, "Infrastructure"
+
+;
+; Channel
+;
+HKR, ,                            Channel,         0, %CHANNEL%
+HKR, Default,                     Channel,         0, %CHANNEL%
+
+
+;*******************************************************************************************
+; System Configuration Page
+
+;
+; Local Administration MAC Network Address
+;
+HKR, ,                            NetworkAddress,  0, ""
+HKR, Default,                     NetworkAddress,  0, ""
+HKR, NDI\params\NetworkAddress,   ParamDesc,       0, "Local Administration MAC Network Address"
+HKR, NDI\params\NetworkAddress,   type,            0, "edit"
+HKR, NDI\params\NetworkAddress,   limitText,       0, "12"
+HKR, NDI\params\NetworkAddress,   default,         0, ""
+
+;
+; Power Saving Mode
+;
+HKR, ,                            PSMode,          0, "0"
+HKR, Default,                     PSMode,          0, "0"
+HKR, NDI\params\PSMode,           ParamDesc,       0, "Power Saving Mode"
+HKR, NDI\params\PSMode,           type,            0, "enum"
+HKR, NDI\params\PSMode,           default,         0, "0"
+HKR, NDI\params\PSMode\enum,      0,               0, "CAM (Constantly Awake Mode)"
+HKR, NDI\params\PSMode\enum,      1,               0, "Max_PSP (Max Power Savings)"
+HKR, NDI\params\PSMode\enum,      2,               0, "Fast_PSP (Power Save Mode)"
+
+;
+; CAM when AC Power
+;
+HKR, ,                            ACPowerCam,      0, "0"
+HKR, Default,                     ACPowerCam,      0, "0"
+HKR, NDI\params\ACPowerCam,       ParamDesc,       0, "CAM when AC Power"
+HKR, NDI\params\ACPowerCam,       type,            0, "enum"
+HKR, NDI\params\ACPowerCam,       default,         0, "0"
+HKR, NDI\params\ACPowerCam\enum,  0,               0, "Disable"
+HKR, NDI\params\ACPowerCam\enum,  1,               0, "Enable"
+
+;
+; Preamble Type
+;
+HKR, ,                            PreambleType,    0, "2"
+HKR, Default,                     PreambleType,    0, "2"
+
+;
+; RTS Threshold
+;
+HKR, ,                            RTSThresh,       0, "2347"
+HKR, Default,                     RTSThresh,       0, "2347"
+HKR, NDI\params\RTSThresh,        ParamDesc,       0, "RTS Threshold"
+HKR, NDI\params\RTSThresh,        type,            0, "int"
+HKR, Ndi\params\RTSThresh,        default,         0, "2347"
+HKR, NDI\params\RTSThresh,        min,             0, "0"
+HKR, NDI\params\RTSThresh,        max,             0, "2347"
+HKR, NDI\params\RTSThresh,        step,            0, "32"
+HKR, NDI\params\RTSThresh,        optional,        0, "0"
+
+;
+; Fragment Threshold
+;
+HKR, ,                            FragThresh,      0, "2346"
+HKR, Default,                     FragThresh,      0, "2346"
+HKR, NDI\params\FragThresh,       ParamDesc,       0, "Fragment Threshold"
+HKR, NDI\params\FragThresh,       type,            0, "int"
+HKR, Ndi\params\FragThresh,       default,         0, "2346"
+HKR, NDI\params\FragThresh,       min,             0, "256"
+HKR, NDI\params\FragThresh,       max,             0, "2346"
+HKR, NDI\params\FragThresh,       step,            0, "32"
+HKR, NDI\params\FragThresh,       optional,        0, "0"
+
+;*******************************************************************************************
+; Authentication & Security Page
+
+;
+; Authentication Type
+;
+HKR, ,				  AuthenType,      0, "0" ; Open System
+HKR, Default,			  AuthenType,      0, "0"
+
+;
+; Encryption
+;
+HKR, ,                            Encryption,      0, "1" ; Disable
+HKR, Default,                     Encryption,      0, "1"
+
+;
+; WEP Keys Length
+;
+HKR, ,                            WEPKeyLen,       0, "0"
+HKR, Default,                     WEPKeyLen,       0, "0"
+
+;
+; WEP Key to use
+;
+HKR, ,                            WEPKeyUse,       0,"1"
+HKR, Default,                     WEPKeyUse,       0,"1"
+
+;
+; WEP Key1
+;
+HKR, , 				  WEPKey1,         0,""
+HKR, Default, 			  WEPKey1,         0,""
+
+;
+; WEP Key2
+;
+HKR, , 				  WEPKey2,         0,""
+HKR, Default, 			  WEPKey2,         0,""
+
+;
+; WEP Key3
+;
+HKR, , 				  WEPKey3,         0,""
+HKR, Default, 			  WEPKey3,         0,""
+
+;
+; WEP Key4
+;
+HKR, , 				  WEPKey4,         0,""
+HKR, Default, 			  WEPKey4,         0,""
+
+
+[NetRTUSB.ndi.reg]
+HKR, ,                            NTMPDriver,      0, rt25u98.sys
+HKR, Ndi,                         DeviceID,        0, "USB\VID_2001&PID_3C00"
+HKR, ,                            BusType,         0, 15
+HKR, NDI,                         CardType,        0, "PNP"
+
+HKR, ,                            RunningWin9X,    0, "1"
+HKR, ,                            DevLoader,       0, *ndis
+HKR, ,                            DeviceVxDs,      0, rt25u98.sys
+HKR, ,                            EnumPropPages,   0, "netdi.dll,EnumPropPages"
+
+HKR, Ndi\Interfaces,              DefUpper,        0, "ndis3"
+HKR, Ndi\Interfaces,              DefLower,        0, "ethernet"
+HKR, Ndi\Interfaces,              UpperRange,      0, "ndis3"
+HKR, Ndi\Interfaces,              LowerRange,      0, "ethernet"
+
+;
+; NDIS Info
+;
+HKR, NDIS,                        LogDriverName,   0, "rt25u98"
+HKR, NDIS,                        MajorNdisVersion,1, 03
+HKR, NDIS,                        MinorNdisVersion,1, 0A
+
+
+;
+; Interfaces
+;
+;
+; Install sections
+;HKR,Ndi\Install,ndis3,,"rt25u98.install"
+
+;*******************************************************************************************
+; DestinationDirs
+;*******************************************************************************************
+
+[DestinationDirs]
+NT.CopyFiles=12    ; system32\drivers subdirectory on NT
+win9x.CopyFiles=11    ; system32 subdirectory on win9x
+
+[NT.CopyFiles]
+rt2500usb.sys ; NT Installation
+
+[win9x.CopyFiles]
+rt25u98.sys                    ; Win9x Installation
+
+[SourceDisksNames]
+1=%INSTALL_DISK_STR%,,,
+
+[SourceDisksFiles] 
+rt2500usb.sys=1
+rt25u98.sys=1
+
+
+;*******************************************************************************************
+; NT specific
+;*******************************************************************************************
+
+[NetRTUSB.ndi.NT.reg]
+HKR, Ndi,                         Service,         0, "rt2500usb"
+HKR, Ndi\Interfaces,              UpperRange,      0, "ndis5"
+HKR, Ndi\Interfaces,              LowerRange,      0, "ethernet"
+
+[NetRTUSB.Service]
+DisplayName=%NetRTUSB.Service.DispName%
+ServiceType=1                	;%SERVICE_KERNEL_DRIVER%
+StartType=3                	;%SERVICE_AUTO_START%
+ErrorControl=1                	;%SERVICE_ERROR_NORMAL%
+ServiceBinary=%12%\rt2500usb.sys
+LoadOrderGroup=NDIS
+
+[common.EventLog]
+AddReg=common.AddEventLog.reg
+
+[common.AddEventLog.reg]
+HKR, , EventMessageFile, 0x00020000,"%%SystemRoot%%\System32\netevent.dll,%%SystemRoot%%\System32\drivers\rt2500usb.sys"
+HKR, , TypesSupported,   0x00010001, 7
+
+
+;*******************************************************************************************
+; Strings
+;*******************************************************************************************
+
+[strings]
+Provider=			"D-Link"
+V_Provider=			"D-Link"
+
+NetRTUSB.DeviceDesc=		"D-Link AirPlus G DWL-G122 Wireless USB Adapter(rev.B)"
+NetRTUSB.Service.DispName=	"DWL-G122(rev.B) USB Wireless LAN Driver"
+INSTALL_DISK_STR=		"D-Link Wireless LAN Installation Disk"
+
+;
+; Don't put spaces around=sign otherwise installer will not be able to
+; find these lines.
+SSID_DEF_STR		= "default"
+VENDOR_DESC_DEF_STR	= ""
+NETWORK_TYPE_DEF_STR	= "1"
+CHANNEL			= "6"

@@ -1,0 +1,429 @@
+;***********************************************************************
+;
+; smc2835wnic.inf
+;
+;   This installation script supports Windows 98,Me,2000,XP for the
+;   SMC 2835 Wireless LAN Adapters.
+;
+;   Copyright (c) 2003 SMC Networks, Inc.
+;   All Rights Reserved.
+;
+;***********************************************************************
+
+[Version]
+ DriverVer = 06/16/2003, 1.0.17
+ Signature           = "$Chicago$"
+ Compatible          = 1
+ Class               = Net
+ ClassGUID           = {4d36e972-e325-11ce-bfc1-08002be10318}
+ Provider            = %VER_VENDOR_STR%
+ MillenniumPreferred = .ME
+
+[ControlFlags]
+;Exclude all PNP adapters from user selection
+ ExcludeFromSelect   = *
+
+[Manufacturer]
+ %VER_VENDOR_NAME_STR% = DeviceList
+
+[DeviceList]
+ %DCB_DESC_STR%     = PRISM_DCB1,        PCI\VEN_1260&DEV_3890&SUBSYS_283510B8
+ 
+;==========================================
+[PRISM_DCB1]       ; Win9x
+ DelReg         = COMMON_AMAC_DEL.reg
+ AddReg         = PRISM_DCB1.reg, COMMON_ICB.reg, COMMON_NDIS.reg, COMMON.reg, COMMON_PSMODE.reg, COMMON_AMAC.reg
+ CopyFiles      = PRISM_DRIVER.copy, PRISM_FWDCB.copy, PRISM_APPLET.copy, PRISM_NDI.copy, PRISM_DOM.copy
+
+[PRISM_DCB1.ME]    ; WinMe
+ DelReg         = COMMON_AMAC_DEL.reg
+ AddReg         = PRISM_DCB1.reg, COMMON_ICB.reg, COMMON_NDIS.reg.ME, COMMON.reg, COMMON_PSMODE.reg, COMMON_AMAC.reg
+ CopyFiles      = PRISM_DRIVER.copy.ME, PRISM_FWDCB.copy.ME, PRISM_APPLET.copy.ME, PRISM_DOM.copy, PRISM_NDI.copy.ME,
+
+[PRISM_DCB1.ME.ME] ; WinMe - Same as .ME (Needed for Update Driver)
+ DelReg         = COMMON_AMAC_DEL.reg
+ AddReg         = PRISM_DCB1.reg, COMMON_ICB.reg, COMMON_NDIS.reg.ME, COMMON.reg, COMMON_PS_MODE.reg, COMMON_AMAC.reg
+ CopyFiles      = PRISM_DRIVER.copy.ME, PRISM_FWDCB.copy.ME, PRISM_APPLET.copy.ME, PRISM_DOM.copy, PRISM_NDI.copy.ME
+
+[PRISM_DCB1.NT]    ; Win2k
+ DelReg         = COMMON_AMAC_DEL.reg
+ AddReg         = PRISM_DCB1.reg, COMMON_ICB.reg, COMMON_NDIS.reg.NT, COMMON.reg, COMMON_PS_MODE_XP.reg, COMMON_AMAC.reg
+ CopyFiles      = PRISM_DRIVER.copy.NT, PRISM_FWDCB.copy.NT, PRISM_APPLET.copy.NT, PRISM_DOM.copy
+ BusType        = 5     ; PCI
+ Characteristics= 0x84  ; NCF_PHYSICAL | NCF_HAS_UI
+ 
+[PRISM_DCB1.NT.Services]
+ AddService     = "PRISM_ICB", 2, PRISM_DRIVER_DCB.Service, PRISM_DRIVER.EventLog
+
+[PRISM_DCB1.NT.CoInstallers]
+ CopyFiles      = PRISM_COINSTALL.copy.NT
+ AddReg         = PRISM_COINSTALL.reg.NT
+
+[PRISM_DCB1.reg]
+ HKR,Ndi,DeviceID,0,"PCI\VEN_1260&DEV_3890&SUBSYS_283510B8"
+; 0x3890 = 14480
+ HKR,,PlatformID,0,14480
+ HKR,,VendorDesc,0,%DCB_DESC_STR%
+ HKR,,FWFileName,0,"smc2835w.arm"
+
+;###############################################################################
+
+[PRISM_COINSTALL.reg.NT]
+; HKR,           ,CoInstallers32         ,0x00010000     ,"Coexe.dll,CoTest"
+[PRISM_DRIVER_DCB.Service]
+ DisplayName    = %PRISM_SERVICE_DISPLAY_DCB%
+ ServiceType    = 1    ; SERVICE_KERNEL_DRIVER
+ StartType      = 3    ; SERVICE_DEMAND_START
+ ErrorControl   = 1    ; NORMAL
+ ServiceBinary  = %12%\smc2835w.sys
+ LoadOrderGroup = NDIS
+ 
+[PRISM_DRIVER.EventLog]
+ AddReg         = PRISM_DRIVER.EventLog.reg
+
+[PRISM_DRIVER.EventLog.reg]
+ HKR,           ,EventMessageFile       ,0x00020000     ,"%%SystemRoot%%\System32\netevent.dll"
+ HKR,           ,TypesSupported         ,0x00010001     ,7
+
+;###############################################################################
+[COMMON_ICB.reg]
+ HKR,NDI                ,Service                ,0      ,"smc2835_ICB"
+ ;HKR,NDI                ,CardType               ,0      ,"PCI"
+ HKR,                   ,BusType                ,0      ,"5"
+ HKR,                   ,DeviceVxDs             ,0      ,"smc2835w.sys"
+ HKR,                   ,EnableIRQSharing       ,1      ,01,00,00,00
+ HKR,                   ,IOBaseAddress          ,1      ,02,00,00,00
+ HKR,                   ,InterruptNumber        ,1      ,04,00,00,00
+[COMMON_NDIS.reg]
+ ;;HKR,                   ,RunningWin9X           ,0      ,"1"
+ HKR,                   ,DevLoader              ,0      ,"*ndis"
+ HKR,                   ,EnumPropPages          ,0      ,"netdi.dll,EnumPropPages"
+ HKR,NDI\Interfaces     ,UpperRange             ,0      ,"ndis3"
+ HKR,NDI\Interfaces     ,LowerRange             ,0      ,"ethernet"
+ HKR,NDI\Interfaces     ,DefUpper               ,0      ,"ndis3"
+ HKR,NDI\Interfaces     ,DefLower               ,0      ,"ethernet"
+ HKR,NDIS               ,LogDriverName          ,0      ,"smc2835"
+ HKR,NDIS               ,MajorNdisVersion       ,1      ,03
+ HKR,NDIS               ,MinorNdisVersion       ,1      ,0a
+
+[COMMON_NDIS.reg.ME]
+ ;;HKR,                   ,RunningWin9X           ,0      ,"1"
+ HKR,                   ,DevLoader              ,0      ,"*ndis"
+ HKR,                   ,EnumPropPages          ,0      ,"netdi.dll,EnumPropPages"
+ HKR,NDI\Interfaces     ,UpperRange             ,0      ,"ndis3"
+ HKR,NDI\Interfaces     ,LowerRange             ,0      ,"ethernet"
+ HKR,NDI\Interfaces     ,DefUpper               ,0      ,"ndis3"
+ HKR,NDI\Interfaces     ,DefLower               ,0      ,"ethernet"
+ HKR,NDIS               ,LogDriverName          ,0      ,"smc2835"
+ HKR,NDIS               ,MajorNdisVersion       ,1      ,03
+ HKR,NDIS               ,MinorNdisVersion       ,1      ,0a
+
+[COMMON_NDIS.reg.NT]
+ ;;HKR,                   ,EnumPropPages32        ,0      ,"PRISMCFG.cpl,NetPropPageProvider"
+ HKR,NDI\Interfaces     ,UpperRange             ,0      ,"ndis5"
+ HKR,NDI\Interfaces     ,LowerRange             ,0      ,"ethernet"
+
+[COMMON.reg]
+ HKR,                   ,WLANIOC         ,0      ,"XG-300"
+ ;;HKR,                   ,PRISMIOC         ,0      ,"1"
+ HKR,                   ,Band				    ,0      ,"1"
+ ;;HKR,                   ,RegulatorDomain		,0      ,"16"
+;Uncomment the line above to install without user interface prompts
+
+ HKR,,SSID,0,"ANY"
+ HKR,defaults,SSID,0,"ANY"
+ HKR,NDI\params\SSID,ParamDesc,0,%ESSID_STR%
+ HKR,NDI\params\SSID,default,0,"ANY"
+ HKR,Ndi\params\SSID,type,0,"edit"
+ HKR,NDI\params\SSID,limitText,0,"32"
+
+ HKR,,NetworkType,0,1
+ HKR,defaults,NetworkType,0,1
+ HKR,NDI\params\NetworkType,ParamDesc,0,%Network_Type_STR%
+ HKR,Ndi\params\NetworkType,default,0,"1"
+ HKR,NDI\params\NetworkType,type,0,"enum"
+ HKR,NDI\params\NetworkType\enum,0,0,"Ad Hoc"
+ HKR,NDI\params\NetworkType\enum,1,0,"Infrastructure"
+
+ HKR,,DSChannel,0,1
+ HKR,defaults,DSChannel,0,1
+ HKR,NDI\params\DSChannel,ParamDesc,0,%CHANNEL_STR%
+ HKR,Ndi\params\DSChannel,default,0,"1"
+ HKR,NDI\params\DSChannel,type,0,"enum"
+ HKR,NDI\params\DSChannel\enum,1,0,"01"
+ HKR,NDI\params\DSChannel\enum,2,0,"02"
+ HKR,NDI\params\DSChannel\enum,3,0,"03"
+ HKR,NDI\params\DSChannel\enum,4,0,"04"
+ HKR,NDI\params\DSChannel\enum,5,0,"05"
+ HKR,NDI\params\DSChannel\enum,6,0,"06"
+ HKR,NDI\params\DSChannel\enum,7,0,"07"
+ HKR,NDI\params\DSChannel\enum,8,0,"08"
+ HKR,NDI\params\DSChannel\enum,9,0,"09"
+ HKR,NDI\params\DSChannel\enum,10,0,"10"
+ HKR,NDI\params\DSChannel\enum,11,0,"11"
+
+ HKR,,TxRate,,15
+ HKR,defaults,TxRate,,15
+ HKR,NDI\params\TxRate,ParamDesc,0,%TX_RATE_STR%
+ HKR,NDI\params\TxRate,default,0,"15"
+ HKR,NDI\params\TxRate,type,0,"enum"
+ HKR,NDI\params\TxRate\enum,1,0,"1 Mbps"
+ HKR,NDI\params\TxRate\enum,2,0,"2 Mbps"
+ HKR,NDI\params\TxRate\enum,3,0,"1 or 2 Mbps"
+ HKR,NDI\params\TxRate\enum,4,0,"5.5 Mbps"
+ HKR,NDI\params\TxRate\enum,8,0,"11 Mbps"
+ HKR,NDI\params\TxRate\enum,15,0,"Fully Auto" 
+
+ HKR,,WepReq,0,0
+ HKR,defaults,WepReq,0,0
+ HKR,NDI\params\WepReq,ParamDesc,0,%WEP_STR%
+ HKR,Ndi\params\WepReq,default,0,"0"
+ HKR,NDI\params\WepReq,type,0,"enum"
+ HKR,NDI\params\WepReq\enum,0,0,"Disable"
+ HKR,NDI\params\WepReq\enum,2,0,"64-bit"
+ HKR,NDI\params\WepReq\enum,6,0,"128-bit"
+ HKR,NDI\params\WepReq,optional,0,"0"
+ HKR,NDI\params\RTSThresh,,0,2347
+ HKR,Ndi\params\RTSThresh,default,0,2347
+ HKR,NDI\params\RTSThresh,ParamDesc,0,%RTSTHRESH_STR%
+ HKR,NDI\params\RTSThresh,type,0,int
+ HKR,NDI\params\RTSThresh,flag,1,20,00,00,00
+ HKR,NDI\params\RTSThresh,min,0,0
+ HKR,NDI\params\RTSThresh,max,0,2347
+ HKR,NDI\params\RTSThresh,step,0,1
+ HKR,NDI\params\RTSThresh,optional,0,1
+
+ HKR,NDI\params\FragThresh,,0,2346
+ HKR,Ndi\params\FragThresh,default,0,2346
+ HKR,NDI\params\FragThresh,ParamDesc,0,%FRAGTHRESH_STR%
+ HKR,NDI\params\FragThresh,type,0,int
+ HKR,NDI\params\FragThresh,flag,1,20,00,00,00
+ HKR,NDI\params\FragThresh,min,0,256
+ HKR,NDI\params\FragThresh,max,0,2346
+ HKR,NDI\params\FragThresh,step,0,2
+ HKR,NDI\params\FragThresh,optional,0,1
+ 
+
+ HKR,         ,LongPreamble,0,0
+ HKR, defaults,LongPreamble,0,0   ;Infrasturcture
+ HKR, NDI\params\LongPreamble,,0,0
+ HKR, Ndi\params\LongPreamble,default,0,0 
+ HKR, Ndi\params\LongPreamble,ParamDesc,0, %SHORT_PREAM_STR%
+ HKR, Ndi\params\LongPreamble,type,0, "enum"
+ HKR, Ndi\params\LongPreamble,default,0, "1"
+ HKR, Ndi\params\LongPreamble\enum,1,0, "Long"
+ HKR, Ndi\params\LongPreamble\enum,0,0, "Short"
+ HKR, NDI\params\LongPreamble,optional,0,1  
+ 
+;11d Mode.
+ HKR,         ,11dMode,0,0
+ HKR, defaults,11dMode,0,0   ;Disalbed
+ HKR, NDI\params\11dMode,,0,0
+ HKR, Ndi\params\11dMode,default,0,0 
+ HKR, Ndi\params\11dMode,ParamDesc,0, %11D_MODE%
+ HKR, Ndi\params\11dMode,type,0, "enum"
+ HKR, Ndi\params\11dMode,default,0, "0"
+ HKR, Ndi\params\11dMode\enum,0,0, "Disabled"
+ HKR, Ndi\params\11dMode\enum,1,0, "Strict"
+ HKR, Ndi\params\11dMode\enum,2,0, "Flexible"
+ HKR, NDI\params\11dMode,optional,0,1
+ 
+ ;Nitro Mode
+ HKR,		,NitroMode,0,1  ; The default is Enable Nitro Mode.
+; HKR,defaults,NitroMode,0,1
+; HKR,NDI\params\NitroMode,,0,1
+; HKR,NDI\params\NitroMode,default,0,1
+; HKR,NDI\params\NitroMode,ParamDesc,,%NITRO_MODE%
+; HKR,NDI\params\NitroMode,type,0,int
+; HKR,NDI\params\NitroMode,min,0,0
+; HKR,NDI\params\NitroMode,max,0,1
+; HKR,NDI\params\NitroMode,step,0,1
+; HKR,NDI\params\NitroMode,optional,0,1
+ 
+ ;NitroTime
+ 
+ HKR,		,NitroTime,0,0 ; The default is 0.User can change it to other value.
+; HKR,defaults,NitroTime,0,0
+; HKR,NDI\params\NitroTime,,0,0
+; HKR,NDI\params\NitroTime,default,0,0
+; HKR,NDI\params\NitroTime,ParamDesc,,"NitroTime"
+; HKR,NDI\params\NitroTime,type,0,int
+; HKR,NDI\params\NitroTime,min,0,0
+; HKR,NDI\params\NitroTime,max,0,5000
+; HKR,NDI\params\NitroTime,step,0,10
+; HKR,NDI\params\NitroTime,optional,0,1
+  
+
+[COMMON_AMAC_DEL.reg]
+ HKR,defaults,DataRates
+ HKR,NDI\params\DataRates
+ HKR,NDI\params\DataRate
+ HKR,DSChannel
+ HKR,defaults,DSChannel
+ HKR,NDI\params\DSChannel
+
+[COMMON_AMAC.reg]
+ HKR,NDI\params\ShortRetryLimit,,0,7
+ HKR,NDI\params\ShortRetryLimit,default,0,7
+ HKR,NDI\params\ShortRetryLimit,ParamDesc,,%SHORT_RETRY_STR%
+ HKR,NDI\params\ShortRetryLimit,type,,int
+ HKR,NDI\params\ShortRetryLimit,min,0,1
+ HKR,NDI\params\ShortRetryLimit,max,0,255
+ HKR,NDI\params\ShortRetryLimit,step,0,1
+ HKR,NDI\params\ShortRetryLimit,optional,0,1
+
+ HKR,NDI\params\LongRetryLimit,,0,4
+ HKR,NDI\params\LongRetryLimit,default,0,4
+ HKR,NDI\params\LongRetryLimit,ParamDesc,,%LONG_RETRY_STR%
+ HKR,NDI\params\LongRetryLimit,type,0,int
+ HKR,NDI\params\LongRetryLimit,min,0,1
+ HKR,NDI\params\LongRetryLimit,max,0,255
+ HKR,NDI\params\LongRetryLimit,step,0,1
+ HKR,NDI\params\LongRetryLimit,optional,0,1
+
+[COMMON_PSMODE.reg]
+ HKR,defaults,PSMode,0,1
+ HKR,NDI\params\PSMode,,0,1
+ HKR,Ndi\params\PSMode,default,0,1
+ HKR,NDI\params\PSMode,ParamDesc,,%POWER_SAVE_STR%
+ HKR,NDI\params\PSMode,type,,enum
+ HKR,NDI\params\PSMode,flag,1,30,00,00,00
+ HKR,NDI\params\PSMode\enum,1,,%POWER_SAVE_OFF_STR%
+ HKR,NDI\params\PSMode\enum,2,,%POWER_SAVE_DYN_STR%
+ HKR,NDI\params\PSMode\enum,3,,%POWER_SAVE_MAX_STR%
+ HKR,NDI\params\PSMode,optional,0,1
+
+[COMMON_PS_MODE_XP.reg]
+ HKR,defaults,PSMode,0,1
+ HKR,NDI\params\PSMode,,0,1
+ HKR,Ndi\params\PSMode,default,0,1
+ HKR,NDI\params\PSMode,ParamDesc,,%POWER_SAVE_STR%
+ HKR,NDI\params\PSMode,type,,enum
+ HKR,NDI\params\PSMode,flag,1,30,00,00,00
+ HKR,NDI\params\PSMode\enum,1,,%POWER_SAVE_OFF_STR%
+ HKR,NDI\params\PSMode\enum,2,,%POWER_SAVE_DYN_STR%
+ HKR,NDI\params\PSMode\enum,3,,%POWER_SAVE_MAX_STR%
+ HKR,NDI\params\PSMode\enum,4,,%POWER_SAVE_AUTO_DYN_STR%
+ HKR,NDI\params\PSMode\enum,5,,%POWER_SAVE_AUTO_MAX_STR%
+ HKR,NDI\params\PSMode,optional,0,1
+ 
+;###############################################################################
+[DestinationDirs]
+;CopyFiles Section      = Destination Directory ID -- see layout.inf
+;-----------------        ------------------------
+ DefaultDestDir         = 11 ; Win9x=%windir%\system Win2k=%windir%\system32
+ PRISM_DRIVER.copy      = 11 ; Win9x=%windir%\system
+ PRISM_DRIVER.copy.ME   = 11 ; Win9x=%windir%\system
+ PRISM_DRIVER.copy.NT   = 12 ; Win2k=%windir%\system32\drivers
+ PRISM_FWDCB.copy      	= 11 ; Win9x=%windir%\system
+ PRISM_FWDCB.copy.ME   	= 11 ; Win9x=%windir%\system
+ PRISM_FWDCB.copy.NT  	= 12 ; Win2k=%windir%\system32\drivers
+ PRISM_DOM.copy		= 10 ; %windir% all OS
+
+[PRISM_NDI.copy]
+
+[PRISM_NDI.copy.ME]
+
+[PRISM_COINSTALL.copy.NT]
+;Coexe.dll
+;ChangeDomain.exe
+
+[PRISM_DRIVER.copy]
+ smc2835w.sys
+ ;;PRISMIOC.vxd           ; Win9x Ioctl interface
+
+[PRISM_DRIVER.copy.ME]
+ smc2835w.sys
+ ;;PRISMIOC.vxd           ; Win9x Ioctl interface
+
+[PRISM_DRIVER.copy.NT]
+ smc2835w.sys
+
+[PRISM_FWDCB.copy]
+ smc2835w.arm
+
+[PRISM_FWDCB.copy.ME]
+ smc2835w.arm
+
+[PRISM_FWDCB.copy.NT]
+ smc2835w.arm
+
+[PRISM_APPLET.copy]
+
+[PRISM_APPLET.copy.ME]
+
+[PRISM_APPLET.copy.NT]
+
+[PRISM_DOM.copy]
+ smc2835w.ini
+ 
+[SourceDisksNames]
+;Source Disk ID         = Disk Name
+;--------------           ---------
+ 1                      = %INSTALL_DISK_STR%,,,
+
+[SourceDisksFiles]      ; Win9x
+;File Name              = Source Disk ID
+;---------                --------------
+ ;;PRISMIOC.vxd           = 1,win9x
+ smc2835w.sys           = 1
+ smc2835w.arm           = 1
+ smc2835w.ini           = 1
+; Coexe.dll				= 1
+; ChangeDomain.exe		= 1
+
+[SourceDisksFiles.ME]   ; WinMe
+ ;;PRISMIOC.vxd           = 1,win9x
+ smc2835w.sys           = 1
+ smc2835w.arm           = 1
+ smc2835w.ini           = 1
+; Coexe.dll				= 1
+; ChangeDomain.exe		= 1
+
+[SourceDisksFiles.X86]  ; Win2k/Xp
+ smc2835w.sys           = 1
+ smc2835w.arm           = 1
+ smc2835w.ini           = 1
+; Coexe.dll				= 1
+; ChangeDomain.exe		= 1
+
+;###############################################################################
+[Strings]
+;String ID              = String Text
+;---------                -----------
+ VER_VENDOR_STR         = "SMC"
+ VER_VENDOR_NAME_STR    = "SMC Networks, Inc."
+
+ PRISM_SERVICE_DISPLAY_DCB = "SMC2835W 2.4 GHz 54 Mbps Wireless Cardbus Adapter"
+ 
+ INSTALL_DISK_STR       = "SMC Wireless LAN Install Disk"
+
+ ESSID_STR               = "ESSID"
+ NETWORK_TYPE_STR        = "Network Type"
+ CHANNEL_STR		 = "Channel"
+ TX_RATE_STR		 = "Transmit Rate"
+ WEP_STR                 = "Use WEP"	
+ ADHOC_DEMO_STR          = "Adhoc Demo Mode"
+ SHORT_PREAM_STR         = "Preamble Mode"
+ RTSTHRESH_STR           = "RTS Threshold"
+ FRAGTHRESH_STR          = "Fragmentation Threshold"
+ AUTHENT_TYPE_STR        = "Authentication Algorithm"
+ LISTENINTERVAL_STR      = "Listen Interval"
+ POWER_SAVE_STR          = "Power Save Mode"
+ POWER_SAVE_OFF_STR      = "Disabled"
+ POWER_SAVE_DYN_STR      = "Dynamic"
+ POWER_SAVE_MAX_STR      = "Maximum"
+ POWER_SAVE_AUTO_DYN_STR = "Auto Dynamic"
+ POWER_SAVE_AUTO_MAX_STR = "Auto Maximum"
+ LOAD_FIRMWARE_STR       = "Firmware Download"
+ SHORT_RETRY_STR         = "Short Retry Limit"
+ LONG_RETRY_STR          = "Long Retry Limit"
+ CHANNEL_STR             = "Channel"
+ DATARATES_STR           = "Data Rate"
+ DATARATES_AUTO          = "Fully Automatic"
+ ALSR_STR                = "Auto Long Slot Reassociation"
+ 11D_MODE				 = "11D Mode"	
+ NITRO_MODE              = "Nitro Mode"
+
+ DCB_DESC_STR            = "SMC2835W 2.4GHz 54 Mbps Wireless Cardbus Adapter"
+

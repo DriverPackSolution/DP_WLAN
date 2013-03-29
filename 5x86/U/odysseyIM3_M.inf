@@ -1,0 +1,61 @@
+; -- odysseyIM3_M.INF --
+;
+; Funk Odyssey Miniport INF
+;
+; Copyright (c) 2001, 2002 Funk Software
+;
+[Version]
+signature   = "$Windows NT$"
+Class       = Net
+ClassGUID   = {4d36e972-e325-11ce-bfc1-08002be10318}
+Provider    = %Funk%
+DriverVer   = 12/19/2003,3.0.0.0
+CatalogFile = OdysseyIM3_M.cat
+
+[ControlFlags]
+ExcludeFromSelect   = odysseyIM3_mp
+
+[DestinationDirs]
+DefaultDestDir  = 12
+; No files to copy 
+
+[Manufacturer]
+%Funk%  = FUNK
+
+[FUNK]
+%odysseyIM3_MP_Desc%    = odysseyIM3_MP.ndi, odysseyIM3_mp
+
+[odysseyIM3_MP.ndi]
+Characteristics = 0x29 ;NCF_NOT_USER_REMOVABLE | NCF_VIRTUAL | NCF_HIDDEN
+
+[odysseyIM3_MP.ndi.Services]
+AddService  = odysseyIM3,0x2, odysseyIM3_MP.AddService
+
+;--------------------------------------------------------------------------
+; File copy
+;
+[SourceDisksNames]
+1   = %DiskDescription%,"",,
+
+[SourceDisksFiles]
+;None
+
+[odysseyIM3_MP.AddService]
+DisplayName     = %odysseyIM3_MP_Desc%
+ServiceType     = 1 ;SERVICE_KERNEL_DRIVER
+StartType       = 3 ;SERVICE_DEMAND_START
+ErrorControl    = 1 ;SERVICE_ERROR_NORMAL
+ServiceBinary   = %12%\odysseyIM3.sys
+LoadOrderGroup  = PNP_TDI
+AddReg          = odysseyIM3_MP.AddService.AddReg
+
+[odysseyIM3_MP.AddService.AddReg]
+;None
+
+[Strings]
+Funk                = "Funk Software"
+DiskDescription     = "Odyssey Network Services Installation Disk"
+odysseyIM3_MP_Desc  = "Odyssey Network Services Miniport"
+
+
+

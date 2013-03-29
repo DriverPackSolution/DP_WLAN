@@ -1,0 +1,349 @@
+;
+;  Purpose:   Netcard setup information file for 98SE / ME / 2000 / XP /Svr2003
+;
+;  Author:    Kyle Hsu
+;
+;  Date:      Mar. 2006
+;
+;  Copyright: VIA Networking Technologies, Inc.
+;
+
+[Version]
+CatalogFile = vntwnet.cat
+Signature   = "$Chicago$"
+Compatible  = 1
+Class       = Net
+ClassGUID   = {4d36e972-e325-11ce-bfc1-08002be10318}
+Provider    = %Prov%
+DriverVer   = 03/31/2006,2.07.00.0222
+
+[Manufacturer]
+%Manuf%       = MANUF
+
+[MANUF]
+%VT3253.DeviceDesc% = VT3253.ndi,   PCI\VEN_1106&DEV_3253&SUBSYS_66551106
+%VT3253.DeviceDesc% = VT3253.ndi,   PCI\VEN_1106&DEV_3253&SUBSYS_66581106
+%VT3253.DeviceDesc% = VT3253.ndi,   PCI\VEN_1106&DEV_3253
+
+;-------------------------------------------------------------------------------
+; ndi for 3253
+;-------------------------------------------------------------------------------
+[VT3253.ndi]
+DelReg          = WET.delreg, WET.SW.delreg
+AddReg          = VT3253.reg, WET.reg, WET.reg.win, WET.SW.win
+CopyFiles       = WET.CopyFiles.Win, WET.SW.CopyFiles
+
+[VT3253.ndi.NT]
+Characteristics = 0x84 ; NCF_PHYSICAL + NCF_HAS_UI
+BusType         = 5
+DelReg          = WET.delreg, WET.SW.delreg
+AddReg          = VT3253.reg, WET.reg, WET.reg.NT, WET.SW.NT
+CopyFiles       = WET.CopyFiles.NT, WET.SW.CopyFiles.NTx86
+
+[VT3253.ndi.NT.Services]
+AddService      = VNWLNDIS, 2, WET.Service, WET.EventLog
+
+;-------------------------------------------------------------------------------
+; VT3253 specific , AdapterCFID = 0x32531106 (HEX) = 844304646 (DEC)
+;
+[VT3253.reg]
+HKR, Ndi,                                   DeviceID,       0, "PCI\VEN_1106&DEV_3253"
+HKR, ,                                      AdapterCFID,    0, "844304646"
+HKR, ,                                      AdapterType,    0, "5"
+HKR, ,                                      MediaType,      0, "1"
+
+HKR, ,                                      ReceiveBurstIndicate,0,"64"
+HKR, ,                                      ReceiveThreshold,   0, "0"
+HKR, ,                                      TransmitThreshold,  0, "0"
+HKR, ,                                      BurstLength,        0, "2"
+HKR, ,                                      MapRegisters,       0, "32"
+
+HKR, ,                                      TransmitBuffers, 0, "64"
+HKR, Ndi\params\TransmitBuffers,            ParamDesc,       0, %TXBuffer%
+HKR, Ndi\params\TransmitBuffers,            default,         0, "64"
+HKR, Ndi\params\TransmitBuffers,            type,            0, "int"
+HKR, Ndi\params\TransmitBuffers,            Min,             0, "16"
+HKR, Ndi\params\TransmitBuffers,            Max,             0, "64"
+HKR, Ndi\params\TransmitBuffers,            Step,            0, "1"
+HKR, Ndi\params\TransmitBuffers,            Base,            0, "10"
+HKR, Ndi\params\TransmitBuffers,            flag,            1, "20","00","00","00"
+
+HKR, ,                                      ReceiveBuffers,  0, "64"
+HKR, Ndi\params\ReceiveBuffers,             ParamDesc,       0, %RXBuffer%
+HKR, Ndi\params\ReceiveBuffers,             default,         0, "64"
+HKR, Ndi\params\ReceiveBuffers,             type,            0, "int"
+HKR, Ndi\params\ReceiveBuffers,             Min,             0, "16"
+HKR, Ndi\params\ReceiveBuffers,             Max,             0, "128"
+HKR, Ndi\params\ReceiveBuffers,             Step,            0, "1"
+HKR, Ndi\params\ReceiveBuffers,             Base,            0, "10"
+HKR, Ndi\params\ReceiveBuffers,             flag,            1, "20","00","00","00"
+;-------------------------------------------------------------------------------
+; VNWLNDIS common driver parameters
+;
+[WET.reg]
+
+; User defined Network Address
+HKR, Ndi\params\NetworkAddress,             ParamDesc,      0, %NetAddress%
+HKR, Ndi\params\NetworkAddress,             Default,        0, ""
+HKR, Ndi\params\NetworkAddress,             type,           0, "edit"
+HKR, NDI\params\NetworkAddress,             LimitText,      0, "12"
+HKR, NDI\params\NetworkAddress,             UpperCase,      0, "1"
+HKR, NDI\params\NetworkAddress,             optional,       0, "1"
+HKR, NDI\params\NetworkAddress,             Base,           0, "16"
+HKR, Ndi\params\NetworkAddress,             flag,           1, "20","00","00","00"
+
+; Operation Mode
+HKR, ,                                      OperationMode,  0, "0"
+HKR, Ndi\params\OperationMode,              ParamDesc,      0, %OperationMode%
+HKR, Ndi\params\OperationMode,              default,        0, "0"
+HKR, Ndi\params\OperationMode,              type,           0, "enum"
+HKR, Ndi\params\OperationMode\enum,         0,              0, "Infrastructure"
+HKR, Ndi\params\OperationMode\enum,         1,              0, "Ad-Hoc"
+
+;DesiredSSID
+HKR, ,                                      DesiredSSID,    0, ""
+HKR, NDI\params\DesiredSSID,                ParamDesc,      0, %DesiredSSID%
+HKR, NDI\params\DesiredSSID,                default,        0, ""
+HKR, NDI\params\DesiredSSID,                type,           0, "edit"
+HKR, NDI\params\DesiredSSID,                LimitText,      0, "32"
+HKR, NDI\params\DesiredSSID,                optional,       0, "1"
+;
+
+;RTSThreshold
+HKR, ,                                      RTSThreshold,    0, "2347"
+HKR, Ndi\params\RTSThreshold,               ParamDesc,       0, %RTSThreshold%
+HKR, Ndi\params\RTSThreshold,               default,         0, "2347"
+HKR, Ndi\params\RTSThreshold,               type,            0, "int"
+HKR, Ndi\params\RTSThreshold,               Min,             0, "256"
+HKR, Ndi\params\RTSThreshold,               Max,             0, "2347"
+HKR, Ndi\params\RTSThreshold,               Step,            0, "1"
+HKR, Ndi\params\RTSThreshold,               Base,            0, "10"
+HKR, Ndi\params\RTSThreshold,               flag,            1, "30","00","00","00"
+
+;FragThreshold
+HKR, ,                                      FragThreshold,    0, "2346"
+HKR, Ndi\params\FragThreshold,              ParamDesc,       0, %FragThreshold%
+HKR, Ndi\params\FragThreshold,              default,         0, "2346"
+HKR, Ndi\params\FragThreshold,              type,            0, "int"
+HKR, Ndi\params\FragThreshold,              Min,             0, "256"
+HKR, Ndi\params\FragThreshold,              Max,             0, "2346"
+HKR, Ndi\params\FragThreshold,              Step,            0, "1"
+HKR, Ndi\params\FragThreshold,              Base,            0, "10"
+HKR, Ndi\params\FragThreshold,              flag,            1, "30","00","00","00"
+
+;BeaconInterval
+HKR, ,                                      BeaconInterval,    0, "100"
+HKR, Ndi\params\BeaconInterval,             ParamDesc,       0, %BeaconInterval%
+HKR, Ndi\params\BeaconInterval,             default,         0, "100"
+HKR, Ndi\params\BeaconInterval,             type,            0, "int"
+HKR, Ndi\params\BeaconInterval,             Min,             0, "1"
+HKR, Ndi\params\BeaconInterval,             Max,             0, "1000"
+HKR, Ndi\params\BeaconInterval,             Step,            0, "1"
+HKR, Ndi\params\BeaconInterval,             Base,            0, "10"
+HKR, Ndi\params\BeaconInterval,             flag,            1, "30","00","00","00"
+
+; Radio Control
+HKR, ,                                      RadioControl,   0, "0"
+HKR, Ndi\params\RadioControl,               ParamDesc,      0, %RadioControl%
+HKR, Ndi\params\RadioControl,               default,        0, "0"
+HKR, Ndi\params\RadioControl,               type,           0, "enum"
+HKR, Ndi\params\RadioControl\enum,          0,              0, "On"
+HKR, Ndi\params\RadioControl\enum,          1,              0, "Off"
+
+; Antenna Diversity
+HKR, ,                                      AntennaDiversity,   0, "0"
+HKR, Ndi\params\AntennaDiversity,           ParamDesc,      0, %AntennaDiversity%
+HKR, Ndi\params\AntennaDiversity,           default,        0, "0"
+HKR, Ndi\params\AntennaDiversity,           type,           0, "enum"
+HKR, Ndi\params\AntennaDiversity\enum,      0,              0, "Disable"
+HKR, Ndi\params\AntennaDiversity\enum,      1,              0, "Enable"
+
+; Power Save Mode
+HKR, ,                                      PowerSaveMode,  0, "0"
+HKR, Ndi\params\PowerSaveMode,              ParamDesc,      0, %PowerSaveMode%
+HKR, Ndi\params\PowerSaveMode,              default,        0, "0"
+HKR, Ndi\params\PowerSaveMode,              type,           0, "enum"
+HKR, Ndi\params\PowerSaveMode\enum,         0,              0, %CAM%
+HKR, Ndi\params\PowerSaveMode\enum,         1,              0, %FastPSP%
+HKR, Ndi\params\PowerSaveMode\enum,         2,              0, %MaxPSP%
+
+[WET.reg.win]
+
+HKR, NDIS,                                  MajorNdisVersion,1,03
+HKR, NDIS,                                  MinorNdisVersion,1,0A
+HKR, ,                                      DevLoader,      0, "*ndis"
+HKR, ,                                      DeviceVxDs,     0, "VNWL5A.sys"
+HKR, NDIS,                                  LogDriverName,  0, "VNWLNDIS"
+
+HKR, Ndi\Interfaces,                        DefLower,       0, "ethernet"
+HKR, Ndi\Interfaces,                        LowerRange,     0, "ethernet"
+HKR, Ndi\Interfaces,                        DefUpper,       0, "ndis3"
+HKR, Ndi\Interfaces,                        UpperRange,     0, "ndis3"
+
+;-------------------------------------------------------------------------------
+; 16-bit UnInstaller
+[WET.SW.win]
+HKLM, Software\Microsoft\Windows\CurrentVersion\Uninstall\VN_VUIns_PCI_VNT, DisplayName, 0, %VT3253.DeviceDesc%
+HKLM, Software\Microsoft\Windows\CurrentVersion\Uninstall\VN_VUIns_PCI_VNT, UninstallString, 0, "Rundll.exe vuins16.dll,vuins16Ex $PCI $VNT"
+HKLM, Software\VN_VUIns\PCI\VNT\DeviceIdList, 3253, 0, "0"
+
+[WET.reg.NT]
+; Windows 2000/XP
+HKR, Ndi\Interfaces,                        LowerRange,     0, "ethernet"
+HKR, Ndi\Interfaces,                        UpperRange,     0, "ndis5"
+HKR, Ndi,                                   Service,        0, "VNWLNDIS"
+; ScatterGather DMA Capability
+HKR, ,                                      ScatterGather,   0, "1"
+
+;-------------------------------------------------------------------------------
+; 32-bit UnInstaller
+[WET.SW.NT]
+HKLM, Software\Microsoft\Windows\CurrentVersion\Uninstall\VN_VUIns_PCI_VNT, DisplayName, 0, %VT3253.DeviceDesc%
+HKLM, Software\Microsoft\Windows\CurrentVersion\Uninstall\VN_VUIns_PCI_VNT, UninstallString, 0, "Rundll32.exe vuins32.dll,vuins32Ex $PCI $VNT"
+HKLM, Software\VN_VUIns\PCI\VNT\DeviceIdList, 3253, 0, "0"
+
+;-------------------------------------------------------------------------------
+; Installation for NT
+;
+
+[WET.CopyFiles.NT]
+VNWL5B.sys,,,2
+[WET.SW.CopyFiles.NTx86]
+vuins32.dll,,,2
+
+[WET.Service]
+DisplayName     = %WET.Service.DispName%
+ServiceType     = 1 ;%SERVICE_KERNEL_DRIVER%
+StartType       = 3 ;%SERVICE_DEMAND_START%
+ErrorControl    = 1 ;%SERVICE_ERROR_NORMAL%
+ServiceBinary   = %12%\VNWL5B.sys
+LoadOrderGroup  = NDIS
+
+[WET.EventLog]
+AddReg = WET.AddEventLog.reg
+
+[WET.AddEventLog.reg]
+HKR, , EventMessageFile, 0x00020000, "%%SystemRoot%%\System32\netevent.dll"
+HKR, , TypesSupported,   0x00010001, 7
+
+
+;-------------------------------------------------------------------------------
+; CopyFiles sections for Windows 98SE/ME
+;
+
+[WET.CopyFiles.Win]
+VNWL5A.sys,,,2
+
+[WET.SW.CopyFiles]
+vuins16.dll,,,2
+
+;-------------------------------------------------------------------------------
+; DestinationDirs
+;
+[DestinationDirs]
+DefaultDestDir          = 11
+WET.CopyFiles.Win       = 11
+WET.CopyFiles.NT        = 12
+WET.SW.CopyFiles.NTx86  = 11
+WET.SW.CopyFiles        = 11
+
+[SourceDisksFiles]
+VNWL.inf                = 1
+;VNWL5A.sys              = 1
+VNWL5B.sys              = 1
+vuins32.dll             = 1
+;vuins16.dll             = 1
+
+[SourceDisksNames]
+1 = %DiskName%,,,
+
+;-------------------------------------------------------------------------------
+; Uninstall/DelFiles/DelReg
+;
+[WET.delreg]
+HKR,Ndi\Params\ReceiveBuffers
+HKR,,ReceiveBuffers
+HKR,Ndi\Params\TransmitBuffers
+HKR,,TransmitBuffers
+HKR,Ndi\Params\ConnectionRate
+HKR,,ConnectionRate
+HKR,,NetworkAddress
+HKR,Ndi\Params\Channel
+HKR,,Channel
+HKR,Ndi\Params\PreambleType
+HKR,,PreambleType
+HKR,Ndi\Params\RTSThreshold
+HKR,,RTSThreshold
+HKR,Ndi\Params\FragThreshold
+HKR,,FragThreshold
+HKR,Ndi\Params\ShortRetryLimit
+HKR,,ShortRetryLimit
+HKR,Ndi\Params\LongRetryLimit
+HKR,,LongRetryLimit
+HKR,Ndi\Params\OperationMode
+HKR,,OperationMode
+HKR,Ndi\Params\PowerSaveMode
+HKR,,PowerSaveMode
+HKR,Ndi\Params\DesiredSSID
+HKR,,DesiredSSID
+HKR,Ndi\params\802_11_Mode
+HKR,,802_11_Mode
+HKR,Ndi\params\BeaconInterval
+HKR,,BeaconInterval
+HKR,Ndi\Params\RadioControl
+HKR,,RadioControl
+HKR,Ndi\Params\AntennaDiversity
+HKR,,AntennaDiversity
+HKR,Ndi\Params\IEEE802_11h
+HKR,,IEEE802_11h
+
+[WET.SW.delreg]
+HKLM, Software\Microsoft\Windows\CurrentVersion\Uninstall\VN_VUIns_PCI_VNT
+HKLM, Software\VN_VUIns\PCI\VNT
+
+;-------------------------------------------------------------------------------
+; Localizable Strings
+;
+[Strings]
+Prov                 = "VNT"
+DiskName             = "VIA Networking Technologies PCI-Cardbus Wireless LAN Adapter source disk"
+ConnectionRate       = "Connection Rate"
+Channel              = "Default Channel"
+autoR                = "Auto-Rate"
+1M                   = " 1Mbps"
+2M                   = " 2Mbps"
+5M                   = " 5.5Mbps"
+11M                  = "11Mbps"
+6M                   = " 6Mbps"
+9M                   = " 9Mbps"
+12M                  = "12Mbps"
+18M                  = "18Mbps"
+24M                  = "24Mbps"
+36M                  = "36Mbps"
+48M                  = "48Mbps"
+54M                  = "54Mbps"
+PreambleType         = "Preamble Type"
+Long                 = "Long"
+Short                = "Short"
+Disabled             = "Disabled"
+Enabled              = "Enabled"
+TXBuffer             = "Transmit Buffers"
+RXBuffer             = "Receive Buffers"
+NetAddress           = "Network Address"
+HwDefault            = "Hardware Default"
+OperationMode        = "Operation Mode"
+DesiredSSID          = "Desired SSID"
+802_11_Mode          = "802.11 Mode"
+BeaconInterval       = "Adhoc Beacon Interval"
+RTSThreshold         = "RTS Threshold"
+FragThreshold        = "Fragment Threshold"
+RadioControl         = "RadioControl"
+AntennaDiversity     = "Antenna Diversity"
+PowerSaveMode        = "Power Save Mode"
+CAM                  = "CAM(Continuous Access Mode)"
+FastPSP              = "FastPSP(Fast Power Saving Mode)"
+MaxPSP               = "MaxPSP(Max Power Saving Mode)"
+IEEE802_11h          = "IEEE 802.11h"
+Manuf                = "VIA Networking Technologies, Inc."
+VT3253.DeviceDesc    = "VIA Networking Technologies PCI-Cardbus Wireless LAN Adapter"
+WET.Service.DispName = "VIA Networking Technologies PCI-Cardbus Wireless LAN Adapter NT Driver"

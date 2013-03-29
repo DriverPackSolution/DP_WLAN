@@ -1,0 +1,241 @@
+
+;***********************************************************************
+; PRISMA00.INF
+;
+;   This installation script supports Windows XP for the Intersil PRISM 802.11g Adapter.
+;
+;   Copyright 2001-2003 Intersil Americas Inc. All Rights Reserved.
+;***********************************************************************
+
+[Version]
+ DriverVer = 08/07/2003, 2.1.5.0
+ Signature           = "$Windows NT$"
+ Compatible          = 1
+ Class               = Net
+ ClassGUID           = {4d36e972-e325-11ce-bfc1-08002be10318}
+ Provider            = %VER_VENDOR_STR%
+ CatalogFile         = PRISMA00.cat
+
+
+[ControlFlags]
+;Exclude all PNP adapters from user selection
+ ExcludeFromSelect   = *
+
+[Manufacturer]
+ %VER_VENDOR_NAME_STR% = DeviceList
+
+[DeviceList]
+ %A001_DESC_STR%     = PRISM_A001,        PCI\VEN_1260&DEV_3890&SUBSYS_200416BE
+
+;Above for FOK only
+ 
+;==========================================
+[PRISM_A001.NT]    ; Win2k
+ AddReg         = PRISM_A001.reg, COMMON_A00.reg, COMMON_NDIS.reg.NT, COMMON.reg
+ CopyFiles      = PRISM_DRIVER.copy.NT, PRISM_APPLET.copy.NT, PRISM_DOM.copy
+ BusType        = 5     ; PCI
+ Characteristics= 0x84  ; NCF_PHYSICAL | NCF_HAS_UI
+ 
+[PRISM_A001.NT.Services]
+ AddService     = "PRISM_A00", 2, PRISM_DRIVER_A00.Service, PRISM_DRIVER.EventLog
+
+[PRISM_A001.NT.CoInstallers]
+ CopyFiles      = PRISM_COINSTALL.copy.NT
+ AddReg         = PRISM_COINSTALL.reg.NT
+
+[PRISM_A001.reg]
+ HKR,Ndi,DeviceID,0,"PCI\VEN_1260&DEV_3890&SUBSYS_200416BE"
+; 0x3890 = 14480
+ HKR,,PlatformID,0,14480
+ HKR,,VendorDesc,0,%A001_DESC_STR%
+ 
+ 
+;###############################################################################
+[PRISM_COINSTALL.reg.NT]
+ HKR,           ,CoInstallers32         ,0x00010000     ,"PRISMCFG.cpl,NdiProc"
+
+[PRISM_DRIVER_A00.Service]
+ DisplayName    = %A00_SERVICE_STR%
+ ServiceType    = 1    ; SERVICE_KERNEL_DRIVER
+ StartType      = 3    ; SERVICE_DEMAND_START
+ ErrorControl   = 1    ; NORMAL
+ ServiceBinary  = %12%\PRISMA00.sys
+ LoadOrderGroup = NDIS
+ 
+[PRISM_DRIVER.EventLog]
+ AddReg         = PRISM_DRIVER.EventLog.reg
+
+[PRISM_DRIVER.EventLog.reg]
+ HKR,           ,EventMessageFile       ,0x00020000     ,"%%SystemRoot%%\System32\netevent.dll"
+ HKR,           ,TypesSupported         ,0x00010001     ,7
+
+;###############################################################################
+[COMMON_A00.reg]
+ HKR,NDI                ,Service                    ,0  ,"PRISM_A00"
+ HKR,                   ,BusType                    ,0  ,"5"
+ HKR,                   ,DeviceVxDs                 ,0  ,"PRISMA00.sys"
+ HKR,                   ,CardBusBridgeLatencyTimer  ,0  ,"32"
+ HKR,                   ,CardBusBridgeCacheLineSize ,0  ,"8"
+ 
+[COMMON_NDIS.reg.NT]
+ HKR,                   ,EnumPropPages32        ,0      ,"PRISMCFG.cpl,NetPropPageProvider"
+ HKR,NDI\Interfaces     ,UpperRange             ,0      ,"ndis5"
+ HKR,NDI\Interfaces     ,LowerRange             ,0      ,"ethernet"
+
+[COMMON.reg]
+ HKR,                   ,PRISMIOC               ,0      ,"1"
+ HKR,                   ,SilentInstall          ,0      ,"1"
+; HKR,                   ,SilentStatusInstall  ,0      ,"1"  ; Don't show tray app.
+
+
+;Uncomment the line above to install without user interface prompts
+
+ HKR,defaults,NDI\params\RTSThresh,0,2347
+ HKR,Ndi\params\RTSThresh,default,0,2347
+ HKR,NDI\params\RTSThresh,ParamDesc,0,%RTSTHRESH_STR%
+ HKR,NDI\params\RTSThresh,type,0,int
+ HKR,NDI\params\RTSThresh,flag,1,20,00,00,00
+ HKR,NDI\params\RTSThresh,min,0,0
+ HKR,NDI\params\RTSThresh,max,0,2347
+ HKR,NDI\params\RTSThresh,step,0,1
+ HKR,NDI\params\RTSThresh,optional,0,1
+
+ HKR,defaults,NDI\params\FragThresh,0,2346
+ HKR,Ndi\params\FragThresh,default,0,2346
+ HKR,NDI\params\FragThresh,ParamDesc,0,%FRAGTHRESH_STR%
+ HKR,NDI\params\FragThresh,type,0,int
+ HKR,NDI\params\FragThresh,flag,1,20,00,00,00
+ HKR,NDI\params\FragThresh,min,0,256
+ HKR,NDI\params\FragThresh,max,0,2346
+ HKR,NDI\params\FragThresh,step,0,2
+ HKR,NDI\params\FragThresh,optional,0,1
+
+ HKR,defaults,NDI\params\ShortRetryLimit,0,7
+ HKR,NDI\params\ShortRetryLimit,default,0,7
+ HKR,NDI\params\ShortRetryLimit,ParamDesc,,%SHORT_RETRY_STR%
+ HKR,NDI\params\ShortRetryLimit,type,,int
+ HKR,NDI\params\ShortRetryLimit,min,0,1
+ HKR,NDI\params\ShortRetryLimit,max,0,255
+ HKR,NDI\params\ShortRetryLimit,step,0,1
+ HKR,NDI\params\ShortRetryLimit,optional,0,1
+
+ HKR,defaults,NDI\params\LongRetryLimit,0,4
+ HKR,NDI\params\LongRetryLimit,default,0,4
+ HKR,NDI\params\LongRetryLimit,ParamDesc,,%LONG_RETRY_STR%
+ HKR,NDI\params\LongRetryLimit,type,0,int
+ HKR,NDI\params\LongRetryLimit,min,0,1
+ HKR,NDI\params\LongRetryLimit,max,0,255
+ HKR,NDI\params\LongRetryLimit,step,0,1
+ HKR,NDI\params\LongRetryLimit,optional,0,1
+
+ HKR,,ConfigProfile,0,2			  ; Mixed Long
+ HKR,defaults,NDI\params\ConfigProfile,0,2 ; Mixed Long
+ HKR,NDI\params\ConfigProfile,default,0,2 ; Mixed long
+ HKR,NDI\params\ConfigProfile,ParamDesc,,%CONFIG_PROFILE%
+ HKR,NDI\params\ConfigProfile,type,,enum
+ HKR,NDI\params\ConfigProfile,flag,1,30,00,00,00
+ HKR,NDI\params\ConfigProfile\enum,0,,%CONFIG_PROF_B_ONLY%
+ HKR,NDI\params\ConfigProfile\enum,1,,%CONFIG_PROF_MIXED%
+ HKR,NDI\params\ConfigProfile\enum,2,,%CONFIG_PROF_MIXED_LONG%
+ HKR,NDI\params\ConfigProfile\enum,3,,%CONFIG_PROF_G_ONLY%
+ HKR,NDI\params\ConfigProfile\enum,4,,%CONFIG_PROF_TEST%
+ HKR,NDI\params\ConfigProfile\enum,5,,%CONFIG_PROF_B_WIFI%
+ HKR,NDI\params\ConfigProfile\enum,6,,%CONFIG_PROF_MIXED_SHORT%
+ HKR,NDI\params\ConfigProfile\enum,256,,%CONFIG_PROF_WIFI_SPEC%
+ HKR,NDI\params\ConfigProfile,optional,0,1
+ 
+
+ HKR,,NitroMode,0,"1"
+ HKR,defaults,NDI\params\NitroMode,0,1
+ HKR,NDI\params\NitroMode,default,0,1
+ HKR,NDI\params\NitroMode,ParamDesc,,%NITRO_MODE%
+ HKR,NDI\params\NitroMode,type,,enum
+ HKR,NDI\params\NitroMode,flag,1,30,00,00,00
+ HKR,NDI\params\NitroMode\enum,0,,%OFF_STR%
+ HKR,NDI\params\NitroMode\enum,1,,%ON_STR%
+ HKR,NDI\params\NitroMode,optional,0,1
+
+ HKR,,PSMode,0,1
+ HKR,defaults,NDI\params\PSMode,0,1
+ HKR,Ndi\params\PSMode,default,0,1
+ HKR,NDI\params\PSMode,ParamDesc,,%POWER_SAVE_STR%
+ HKR,NDI\params\PSMode,type,,enum
+ HKR,NDI\params\PSMode,flag,1,30,00,00,00
+ HKR,NDI\params\PSMode\enum,1,,%POWER_SAVE_OFF_STR%
+ HKR,NDI\params\PSMode\enum,2,,%POWER_SAVE_DYN_STR%
+ HKR,NDI\params\PSMode\enum,3,,%POWER_SAVE_MAX_STR%
+ HKR,NDI\params\PSMode,optional,0,1
+
+ HKR,,DSFreq,0,"2462000"
+;###############################################################################
+[DestinationDirs]
+;CopyFiles Section      = Destination Directory ID -- see layout.inf
+;-----------------        ------------------------
+ DefaultDestDir         = 11 ; %windir%\system32
+ PRISM_DRIVER.copy.NT   = 12 ; %windir%\system32\drivers
+
+ PRISM_DOM.copy		    = 10 ; %windir% all OS
+
+[PRISM_COINSTALL.copy.NT]
+ PRISMRES.dll
+ PRISMIOC.dll
+ PRISMCFG.cpl           ; CoInstaller
+
+[PRISM_DRIVER.copy.NT]
+ PRISMA00.sys
+
+[PRISM_APPLET.copy.NT]
+;PRISMRES.dll           ; Copied by coinstaller
+;PRISMIOC.dll           ; Copied by coinstaller
+;PRISMCFG.cpl           ; Copied by coinstaller
+ PRISMSTA.exe
+
+[PRISM_DOM.copy]
+ PRISMDOM.ini
+
+[SourceDisksNames]
+;Source Disk ID         = Disk Name
+;--------------           ---------
+ 1                      = %INSTALL_DISK_STR%,,,
+
+[SourceDisksFiles.X86]  ; XP
+ PRISMRES.dll           = 1
+ PRISMIOC.dll           = 1
+ PRISMCFG.cpl           = 1
+ PRISMA00.sys           = 1
+ PRISMDOM.ini           = 1
+ PRISMSTA.exe           = 1
+
+;###############################################################################
+[Strings]
+;String ID               = String Text
+;---------                 -----------
+ VER_VENDOR_STR          = "CREATIX"
+ VER_VENDOR_NAME_STR     = "CREATIX"
+ INSTALL_DISK_STR        ="CREATIX Wireless LAN Install Disk"
+ 
+ A001_DESC_STR           =  "CREATIX 802.11g Adapter"
+ A00_SERVICE_STR         = "CREATIX 802.11g Driver"
+ 
+ ON_STR                  = "On"
+ OFF_STR                 = "Off"
+ RTSTHRESH_STR           = "RTS Threshold"
+ FRAGTHRESH_STR          = "Fragmentation Threshold"
+ AUTHENT_TYPE_STR        = "Authentication Algorithm"
+ POWER_SAVE_STR          = "Power Save Mode"
+ POWER_SAVE_OFF_STR      = "Disabled"
+ POWER_SAVE_DYN_STR      = "Dynamic"
+ POWER_SAVE_MAX_STR      = "Maximum"
+ SHORT_RETRY_STR         = "Short Retry Limit"
+ LONG_RETRY_STR          = "Long Retry Limit"
+ CONFIG_PROFILE          = "Configuration Profile"
+ CONFIG_PROF_B_ONLY      = "B only"
+ CONFIG_PROF_MIXED       = "Mixed"
+ CONFIG_PROF_MIXED_LONG  = "Mixed Long"
+ CONFIG_PROF_G_ONLY      = "G only"
+ CONFIG_PROF_TEST        = "Test"
+ CONFIG_PROF_B_WIFI      = "B WiFi"
+ CONFIG_PROF_MIXED_SHORT = "Mixed Short"
+ CONFIG_PROF_WIFI_SPEC	 = "WiFi Spec"
+ NITRO_MODE              = "Nitro Mode"
+

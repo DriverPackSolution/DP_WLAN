@@ -1,0 +1,108 @@
+;---------------------------------------------------------------------------------
+; BPPROT.INF -- Baxter Peak Protocol driver (based on SV NDIS Usermode I/O Driver)
+;
+; Copyright (c) 2007, Intel Corporation
+;---------------------------------------------------------------------------------
+[version]
+Signature   = "$Windows NT$"
+Class       = NetTrans
+ClassGUID   = {4d36e975-e325-11ce-bfc1-08002be10318}
+Provider    = %Intel%
+DriverVer=11/20/2008,4.1.20.13
+CatalogFile = bpprot.cat
+
+[Manufacturer]
+%Intel%         = INTL,NTAMD64
+
+[INTL.NTAMD64]
+%BPPROT_Desc%   = Install, BPPROT
+
+;-------------------------------------------------------------------------
+; Installation Section
+;-------------------------------------------------------------------------
+[Install]
+AddReg          = Inst_Ndi
+Characteristics = 0x8   ; NCF_HIDDEN 
+CopyFiles       = CpyFiles_Sys
+
+;-------------------------------------------------------------------------
+; Ndi installation support
+;-------------------------------------------------------------------------
+[Inst_Ndi]
+HKR,    Ndi,                Service,        0,  "BPPROT"
+HKR,    Ndi,                HelpText,       0,  %BPPROT_HelpText%
+HKR,    Ndi\Interfaces,     UpperRange,     0,  noupper
+HKR,    "Ndi\Interfaces",   "LowerRange",   0,  "ndis5,ndis4,ndis5_prot"
+
+;-------------------------------------------------------------------------
+; Service installation support
+;-------------------------------------------------------------------------
+[Install.Services]
+AddService      = BPPROT,   ,   BPPROT_Service_Inst
+
+[BPPROT_Service_Inst]
+DisplayName     = %BPPROT_Desc%
+ServiceType     = 1 ;SERVICE_KERNEL_DRIVER
+StartType       = 2 ;SERVICE_AUTO_START
+ErrorControl    = 1 ;SERVICE_ERROR_NORMAL
+ServiceBinary   = %12%\bpprot.sys
+LoadOrderGroup  = NDIS
+Description     = %BPPROT_Desc%
+
+[Install.Remove.Services]
+DelService      = BPPROT,   0x200
+
+;-------------------------------------------------------------------------
+; Declare Destination Directories for file copy/deletion
+;-------------------------------------------------------------------------
+[SourceDisksNames]
+1               = %DiskDescription%,    "", ,
+
+[SourceDisksFiles]
+bpprot.sys      = 1
+
+[DestinationDirs]
+CpyFiles_Sys    = 12    ; DIRID_DRIVERS
+
+;-------------------------------------------------------------------------
+; Files to Copy/Delete - Referenced by Install and Remove sections above
+;-------------------------------------------------------------------------
+[CpyFiles_Sys]
+bpprot.sys,,,2
+
+[Strings]
+Intel           = "Intel Corporation"
+DiskDescription = "Intel(R) WiMAX Link Protocol Driver Installation Disk"
+BPPROT_Desc     = "Intel(R) WiMAX Link Protocol Driver"
+BPPROT_HelpText = "Intel(R) WiMAX Link Protocol Driver"
+
+[Strings.0804] ; Chinese (Simplified)
+Intel           ="”¢Ãÿ∂˚π´Àæ"
+DiskDescription ="Intel(R) WiMAX Link –≠“È«˝∂Ø≥Ã–Ú∞≤◊∞≈Ã"
+BPPROT_Desc     ="Intel(R) WiMAX Link –≠“È«˝∂Ø≥Ã–Ú"
+BPPROT_HelpText ="Intel(R) WiMAX Link –≠“È«˝∂Ø≥Ã–Ú"
+
+[Strings.0C0A] ; Spanish (Spain)
+Intel           ="Intel Corporation"
+DiskDescription ="Disco de la instalaciÛn del controlador de protocolo Intel(R) WiMAX Link"
+BPPROT_Desc     ="Controlador de protocolo Intel(R) WiMAX Link"
+BPPROT_HelpText ="Controlador de protocolo Intel(R) WiMAX Link"
+
+[Strings.040C] ; French (France)
+Intel           ="Intel Corporation"
+DiskDescription ="Disque d'installation du pilote de protocole IntelÆ WiMAX Link"
+BPPROT_Desc     ="Pilote du protocole IntelÆ WiMAX Link"
+BPPROT_HelpText ="Pilote du protocole IntelÆ WiMAX Link"
+
+[Strings.0411] ; Japanese (Japan)
+Intel           ="Intel Corporation"
+DiskDescription ="ÉCÉìÉeÉã(R) WiMAX Link ÉvÉçÉgÉRÉã ÉhÉâÉCÉo ÉCÉìÉXÉgÅ[Éã ÉfÉBÉXÉN"
+BPPROT_Desc     ="ÉCÉìÉeÉã(R) WiMAX Link ÉvÉçÉgÉRÉã ÉhÉâÉCÉo"
+BPPROT_HelpText ="ÉCÉìÉeÉã(R) WiMAX Link ÉvÉçÉgÉRÉã ÉhÉâÉCÉo"
+
+[Strings.0412] ; Korean (Korea)
+Intel           ="Intel Corporation"
+DiskDescription ="Intel(R) WiMAX ∏µ≈© «¡∑Œ≈‰ƒ› µÂ∂Û¿Ãπˆ º≥ƒ° µΩ∫≈©"
+BPPROT_Desc     ="Intel(R) WiMAX ∏µ≈© «¡∑Œ≈‰ƒ› µÂ∂Û¿Ãπˆ"
+BPPROT_HelpText ="Intel(R) WiMAX ∏µ≈© «¡∑Œ≈‰ƒ› µÂ∂Û¿Ãπˆ"
+

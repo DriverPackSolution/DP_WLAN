@@ -1,0 +1,86 @@
+;-------------------------------------------------------------------------------
+; swg3knm01.INF
+;
+; Qualcomm Windows Serial Port Setup File
+;
+; Copyright (c) 2010 Qualcomm Inc.  All rights reserved.
+;-------------------------------------------------------------------------------
+
+[Version]
+signature     = "$WINDOWS NT$"
+Class         = Ports
+Provider      = %SWI%
+ClassGuid     = {4D36E978-E325-11CE-BFC1-08002BE10318}
+DriverVer     = 08/18/2011,11.8.1005.7
+Catalogfile   = swg3kser01.cat
+
+[ControlFlags]
+ExcludeFromSelect = *
+
+[Manufacturer]
+%SWI% = QcomSerialPort, NTamd64
+
+[SourceDisksNames]
+1000 = %QcomSrcDisk%,"",,\sys\x86
+2000 = %QcomSrcDisk%,"",,\sys\amd64
+
+[SourceDisksFiles.x86]
+swg3kser01.sys = 1000
+
+[SourceDisksFiles.amd64]
+swg3kser01.sys = 2000
+
+[QcomSerialPort]
+%SWIDevice90133%  = QportInstall03, USB\VID_1199&PID_9013&MI_03
+%SWIDevice90193%  = QportInstall03, USB\VID_1199&PID_9019&MI_03
+%SWIDevice901B3%  = QportInstall03, USB\VID_1199&PID_901B&MI_03
+%SWIDevice77002%  = QportInstall03, USB\VID_0F3D&PID_68A2&MI_02
+%SWIDevice77502%  = QportInstall03, USB\VID_114F&PID_68A2&MI_02
+
+[QcomSerialPort.NTamd64]
+%SWIDevice90133%  = QportInstall03, USB\VID_1199&PID_9013&MI_03
+%SWIDevice90193%  = QportInstall03, USB\VID_1199&PID_9019&MI_03
+%SWIDevice901B3%  = QportInstall03, USB\VID_1199&PID_901B&MI_03
+%SWIDevice77002%  = QportInstall03, USB\VID_0F3D&PID_68A2&MI_02
+%SWIDevice77502%  = QportInstall03, USB\VID_114F&PID_68A2&MI_02
+
+[QportInstall03.NT]
+CopyFiles = gobiUsbDriverFiles
+AddReg    = All00, QCAddReg, DevFunction1
+
+[gobiUsbDriverFiles]
+swg3kser01.sys
+
+[DestinationDirs]
+DefaultDestDir = 12
+
+[QportInstall03.NT.Services]
+AddService = swg3kser01,  0x00000002, gobi_USBSerialService
+
+[gobi_USBSerialService]
+DisplayName   = %GOBI3KSER%
+ServiceType   = 1
+StartType     = 3
+ErrorControl  = 1
+ServiceBinary = %12%\swg3kser01.sys
+
+[All00]
+HKR,,NTMPDriver,,swg3kser01.sys
+
+[DevFunction1]
+HKR,,QCDeviceFunction,0x00010001,1
+
+[QCAddReg]
+HKR,,PortSubClass,1,01
+HKR,,EnumPropPages32,,"MsPorts.dll,SerialPortPropPageProvider"
+
+[Strings]
+GOBI3KSER       = "Sierra Wireless QMI USB Device for Legacy Serial Communication - Lenovo"
+QcomSrcDisk     = "Sierra Wireless USB Driver Disk"
+SWI             = "Sierra Wireless Incorporated"
+SWIDevice90133  = "Sierra Wireless MC8355 – Gobi(TM) 3000 HS-USB NMEA 9013"
+SWIDevice90193  = "Sierra Wireless MC8355 – Gobi(TM) 3000 HS-USB NMEA 9019"
+SWIDevice901B3  = "Sierra Wireless MC7770 HS-USB NMEA 901B"
+SWIDevice77002  = "Sierra Wireless MC7700 - Gobi(TM) 4000 HS-USB NMEA 68A2"
+SWIDevice77502  = "Sierra Wireless MC7750 - Gobi(TM) 4000 HS-USB NMEA 68A2"
+

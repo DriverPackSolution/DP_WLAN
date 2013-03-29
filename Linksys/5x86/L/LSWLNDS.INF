@@ -1,0 +1,593 @@
+;****************************************************************************************
+;
+;    FILE:
+;            LSWLNDS.inf
+;
+;    DESCRIPTION:
+;            Instant Wireless Network PC Card inf file.
+;            Copyright (C) 2002, Linksys, All rights reserved.
+;
+;*******************************************************************************************
+
+[Version]
+DriverVer = 03/27/2002,1.7.37.1096
+Signature="$Chicago$"
+Compatible=1
+Class=Net
+ClassGUID={4d36e972-e325-11ce-bfc1-08002be10318}
+Provider=%Provider%
+CatalogFile=LSWLNDS.CAT
+
+[Manufacturer]
+%V_Provider%=Adapters, NT.5.1
+
+; All enumerated adapters must be excluded from select
+[ControlFlags]
+ExcludeFromSelect=PCMCIA\THE_LINKSYS_GROUP__INC.-INSTANT_WIRELESS_NETWORK_PC_CARD-FA61
+ExcludeFromSelect=PCMCIA\THE_LINKSYS_GROUP__INC.-WIRELESS_NETWORK_CF_CARD-C7C7
+ExcludeFromSelect=PCMCIA\THE_LINKSYS_GROUP__INC.-INSTANT_WIRELESS_NETWORK_PC_CARD-0C0B
+ExcludeFromSelect=PCMCIA\INSTANT_WIRELESS_-_NETWORK_PC_CARD-317F
+
+; --- For non-Windows XP
+[Adapters]
+; DisplayName                Section                DeviceID
+; -----------                -------                --------
+%WPC11.DeviceDesc%=WPC11.ndi,   PCMCIA\THE_LINKSYS_GROUP__INC.-INSTANT_WIRELESS_NETWORK_PC_CARD-FA61
+%WPC11_1.DeviceDesc%=WPC11_1.ndi,   PCMCIA\THE_LINKSYS_GROUP__INC.-WIRELESS_NETWORK_CF_CARD-C7C7
+%WPC11_2.DeviceDesc%=WPC11_2.ndi,   PCMCIA\THE_LINKSYS_GROUP__INC.-INSTANT_WIRELESS_NETWORK_PC_CARD-0C0B
+%WPC11_3.DeviceDesc%=WPC11_3.ndi,   PCMCIA\INSTANT_WIRELESS_-_NETWORK_PC_CARD-317F
+
+; --- For Windows XP
+[Adapters.NT.5.1]
+; DisplayName                Section                DeviceID
+; -----------                -------                --------
+%WPC11.DeviceDesc%=WPC11.NT51.ndi,   PCMCIA\THE_LINKSYS_GROUP__INC.-INSTANT_WIRELESS_NETWORK_PC_CARD-FA61
+%WPC11_1.DeviceDesc%=WPC11_1.NT51.ndi,   PCMCIA\THE_LINKSYS_GROUP__INC.-WIRELESS_NETWORK_CF_CARD-C7C7
+%WPC11_2.DeviceDesc%=WPC11_2.NT51.ndi,   PCMCIA\THE_LINKSYS_GROUP__INC.-INSTANT_WIRELESS_NETWORK_PC_CARD-0C0B
+%WPC11_3.DeviceDesc%=WPC11_3.NT51.ndi,   PCMCIA\INSTANT_WIRELESS_-_NETWORK_PC_CARD-317F
+
+;----------------------------------------------------------------------------
+; Windows 9X specific entries
+;
+[WPC11.ndi]
+AddReg=WPC11.ndi.reg, Pcmcia9x.reg, Advanced.reg, Common.reg
+CopyFiles=win9x.CopyFiles
+DriverVer = 05/16/2002,1.7.37.1098
+
+[WPC11_1.ndi]
+AddReg=WPC11.ndi.reg, Pcmcia9x_1.reg, Advanced.reg, Common.reg
+CopyFiles=win9x.CopyFiles
+DriverVer = 05/16/2002,1.7.37.1098
+
+[WPC11_2.ndi]
+AddReg=WPC11.ndi.reg, Pcmcia9x_2.reg, Advanced.reg, Common.reg
+CopyFiles=win9x.CopyFiles
+DriverVer = 05/16/2002,1.7.37.1098
+
+[WPC11_3.ndi]
+AddReg=WPC11.ndi.reg, Pcmcia9x_3.reg, Advanced.reg, Common.reg
+CopyFiles=win9x.CopyFiles
+DriverVer = 05/16/2002,1.7.37.1098
+
+
+[WPC11.ndi.reg]
+HKR, ,                            NTMPDriver,      0, LSWLNDS.sys
+
+;
+;HKR, ,                            RunningWin9X,    0, "1"
+HKR, ,                            DevLoader,       0, *ndis
+HKR, ,                            DeviceVxDs,      0, LSWLNDS.sys
+HKR, ,                            EnumPropPages,   0, "netdi.dll,EnumPropPages"
+;
+; NDIS Info
+HKR, NDIS,                        LogDriverName,   0, "WPC11"
+HKR, NDIS,                        MajorNdisVersion,1, 03
+HKR, NDIS,                        MinorNdisVersion,1, 0A
+
+HKR, ,                            BusType,         0, 8
+HKR, NDI,                         CardType,        0, "PCMCIA"
+;
+; Interfaces
+;
+HKR, Ndi\Interfaces,              DefUpper,        0, "ndis3"
+HKR, Ndi\Interfaces,              DefLower,        0, "ethernet"
+HKR, Ndi\Interfaces,              UpperRange,      0, "ndis3"
+HKR, Ndi\Interfaces,              LowerRange,      0, "ethernet"
+;
+; Install sections
+;HKR,Ndi\Install,ndis3,,"WPC11.install"
+
+;[WPC11.install]
+;CopyFiles=win9x.CopyFiles
+
+;----------------------------------------------------------------------------
+; PCMCIA specific
+;
+[Pcmcia9x.reg]
+;
+; All resources are dynamically configured
+;
+HKR, ,                            IOBaseAddress,   1, 02,00,00,00
+HKR, ,                            InterruptNumber, 1, 04,00,00,00
+HKR, ,                            EnableIRQSharing,1, 01,00,00,00
+;
+; Vendor Description
+;
+HKR, ,                            VendorDesc,      0, "Instant Wireless Network PC Card V2.5"
+HKR, Ndi,                         DeviceID,        0, "PCMCIA\THE_LINKSYS_GROUP__INC.-INSTANT_WIRELESS_NETWORK_PC_CARD-FA61"
+
+[Pcmcia9x_1.reg]
+;
+; All resources are dynamically configured
+;
+HKR, ,                            IOBaseAddress,   1, 02,00,00,00
+HKR, ,                            InterruptNumber, 1, 04,00,00,00
+HKR, ,                            EnableIRQSharing,1, 01,00,00,00
+;
+; Vendor Description
+;
+HKR, ,                            VendorDesc,      0, "Instant Wireless Network CF Card"
+HKR, Ndi,                         DeviceID,        0, "PCMCIA\THE_LINKSYS_GROUP__INC.-WIRELESS_NETWORK_CF_CARD-C7C7"
+
+[Pcmcia9x_2.reg]
+;
+; All resources are dynamically configured
+;
+HKR, ,                            IOBaseAddress,   1, 02,00,00,00
+HKR, ,                            InterruptNumber, 1, 04,00,00,00
+HKR, ,                            EnableIRQSharing,1, 01,00,00,00
+;
+; Vendor Description
+;
+HKR, ,                            VendorDesc,      0, "Instant Wireless Network PC Card V3.0"
+HKR, Ndi,                         DeviceID,        0, "PCMCIA\THE_LINKSYS_GROUP__INC.-INSTANT_WIRELESS_NETWORK_PC_CARD-0C0B"
+
+[Pcmcia9x_3.reg]
+;
+; All resources are dynamically configured
+;
+HKR, ,                            IOBaseAddress,   1, 02,00,00,00
+HKR, ,                            InterruptNumber, 1, 04,00,00,00
+HKR, ,                            EnableIRQSharing,1, 01,00,00,00
+;
+; Vendor Description
+;
+HKR, ,                            VendorDesc,      0, "Instant Wireless Network PC Card V2.0"
+HKR, Ndi,                         DeviceID,        0, "PCMCIA\INSTANT_WIRELESS_-_NETWORK_PC_CARD-317F"
+
+;----------------------------------------------------------------------------
+; Window 2000 specific entries
+;
+;-----------------------------------------------------------------------
+[WPC11.ndi.NT]
+AddReg=Advanced.reg, Common.reg, nt.reg
+Characteristics=0x84              ; NCF_REMOVABLE | NCF_HAS_UI | NCF_PHYSICAL
+BusType=8
+CopyFiles=NT.CopyFiles
+DriverVer = 05/16/2002,1.7.37.1098
+
+; NT services sections
+[WPC11.ndi.NT.Services]
+AddService=WPC11, 2, WPC11.Service, common.EventLog
+
+[WPC11.Service]
+DisplayName=%WPC11.Service.DispName%
+ServiceType=1                ;%SERVICE_KERNEL_DRIVER%
+StartType=3                ;%SERVICE_AUTO_START%
+ErrorControl=1                ;%SERVICE_ERROR_NORMAL%
+ServiceBinary=%12%\LSWLNDS.sys
+LoadOrderGroup=NDIS
+
+;-----------------------------------------------------------------------
+[WPC11_1.ndi.NT]
+AddReg=Advanced.reg, Common.reg, nt.reg
+Characteristics=0x84              ; NCF_REMOVABLE | NCF_HAS_UI | NCF_PHYSICAL
+BusType=8
+CopyFiles=NT.CopyFiles
+DriverVer = 05/16/2002,1.7.37.1098
+
+; NT services sections
+[WPC11_1.ndi.NT.Services]
+AddService=WPC11, 2, WPC11_1.Service, common.EventLog
+
+[WPC11_1.Service]
+DisplayName=%WPC11_1.Service.DispName%
+ServiceType=1                ;%SERVICE_KERNEL_DRIVER%
+StartType=3                ;%SERVICE_AUTO_START%
+ErrorControl=1                ;%SERVICE_ERROR_NORMAL%
+ServiceBinary=%12%\LSWLNDS.sys
+LoadOrderGroup=NDIS
+
+
+;-----------------------------------------------------------------------
+[WPC11_2.ndi.NT]
+AddReg=Advanced.reg, Common.reg, nt.reg
+Characteristics=0x84              ; NCF_REMOVABLE | NCF_HAS_UI | NCF_PHYSICAL
+BusType=8
+CopyFiles=NT.CopyFiles
+DriverVer = 05/16/2002,1.7.37.1098
+
+; NT services sections
+[WPC11_2.ndi.NT.Services]
+AddService=WPC11, 2, WPC11_2.Service, common.EventLog
+
+[WPC11_2.Service]
+DisplayName=%WPC11_2.Service.DispName%
+ServiceType=1                ;%SERVICE_KERNEL_DRIVER%
+StartType=3                ;%SERVICE_AUTO_START%
+ErrorControl=1                ;%SERVICE_ERROR_NORMAL%
+ServiceBinary=%12%\LSWLNDS.sys
+LoadOrderGroup=NDIS
+
+;-----------------------------------------------------------------------
+[WPC11_3.ndi.NT]
+AddReg=Advanced.reg, Common.reg, nt.reg
+Characteristics=0x84              ; NCF_REMOVABLE | NCF_HAS_UI | NCF_PHYSICAL
+BusType=8
+CopyFiles=NT.CopyFiles
+DriverVer = 05/16/2002,1.7.37.1098
+
+; NT services sections
+[WPC11_3.ndi.NT.Services]
+AddService=WPC11, 2, WPC11_3.Service, common.EventLog
+
+[WPC11_3.Service]
+DisplayName=%WPC11_3.Service.DispName%
+ServiceType=1                ;%SERVICE_KERNEL_DRIVER%
+StartType=3                ;%SERVICE_AUTO_START%
+ErrorControl=1                ;%SERVICE_ERROR_NORMAL%
+ServiceBinary=%12%\LSWLNDS.sys
+LoadOrderGroup=NDIS
+
+
+;----------------------------------------------------------------------------
+; Window XP specific entries
+;
+;-----------------------------------------------------------------------
+[WPC11.NT51.ndi]
+AddReg=Advanced.reg, Common.reg, nt.reg
+Characteristics=0x84              ; NCF_REMOVABLE | NCF_HAS_UI | NCF_PHYSICAL
+BusType=8
+CopyFiles=NT51.CopyFiles
+DriverVer = 03/27/2002,1.7.37.1096
+
+; NT services sections
+[WPC11.NT51.ndi.Services]
+AddService=WPC11, 2, WPC11.Service, common.EventLog
+
+;-----------------------------------------------------------------------
+[WPC11_1.NT51.ndi]
+AddReg=Advanced.reg, Common.reg, nt.reg
+Characteristics=0x84              ; NCF_REMOVABLE | NCF_HAS_UI | NCF_PHYSICAL
+BusType=8
+CopyFiles=NT51.CopyFiles
+DriverVer = 03/27/2002,1.7.37.1096
+
+; NT services sections
+[WPC11_1.NT51.ndi.Services]
+AddService=WPC11, 2, WPC11_1.Service, common.EventLog
+
+;-----------------------------------------------------------------------
+[WPC11_2.NT51.ndi]
+AddReg=Advanced.reg, Common.reg, nt.reg
+Characteristics=0x84              ; NCF_REMOVABLE | NCF_HAS_UI | NCF_PHYSICAL
+BusType=8
+CopyFiles=NT51.CopyFiles
+DriverVer = 03/27/2002,1.7.37.1096
+
+; NT services sections
+[WPC11_2.NT51.ndi.Services]
+AddService=WPC11, 2, WPC11_2.Service, common.EventLog
+
+;-----------------------------------------------------------------------
+[WPC11_3.NT51.ndi]
+AddReg=Advanced.reg, Common.reg, nt.reg
+Characteristics=0x84              ; NCF_REMOVABLE | NCF_HAS_UI | NCF_PHYSICAL
+BusType=8
+CopyFiles=NT51.CopyFiles
+DriverVer = 03/27/2002,1.7.37.1096
+
+; NT services sections
+[WPC11_3.NT51.ndi.Services]
+AddService=WPC11, 2, WPC11_3.Service, common.EventLog
+
+
+[common.EventLog]
+AddReg=common.AddEventLog.reg
+
+[common.AddEventLog.reg]
+HKR, , EventMessageFile, 0x00020000,%%SystemRoot%%\System32\netevent.dll,%%SystemRoot%%\System32\drivers\LSWLNDS.sys
+HKR, , TypesSupported,   0x00010001, 7
+
+
+
+;----------------------------------------------------------------------------
+; NT specific
+;
+
+[nt.reg]
+HKR, Ndi,                         Service,         0, "WPC11"
+HKR, Ndi\Interfaces,              UpperRange,      0, "ndis5"
+HKR, Ndi\Interfaces,              LowerRange,      0, "ethernet"
+
+
+;----------------------------------------------------------------------------
+; common regs for NT and W9x
+;
+[Common.reg]
+;
+; AP Density
+;
+HKR, ,                            APDensity,       0, "1"
+HKR, defaults,                    APDensity,       0, "1"
+;
+; SSID
+;
+HKR, ,                            SSID,            0, %SSID_DEF_STR%
+HKR, defaults,                    SSID,            0, %SSID_DEF_STR%
+HKR, NDI\params\SSID,             ParamDesc,       0, "SSID"
+HKR, NDI\params\SSID,             type,            0, "edit"
+HKR, NDI\params\SSID,             limitText,       0, "32"
+HKR, NDI\params\SSID,             default,         0, %SSID_DEF_STR%
+HKR, NDI\params\SSID,             flag,            1, "30","00","00","00"
+;
+; StationName
+;
+HKR, ,                            StationName,     0, "Client"
+HKR, defaults,                    StationName,     0, "Client"
+;
+; Channel
+;
+HKR, ,                            DSChannel,       0, %CHANNEL%
+HKR, defaults,                    DSChannel,       0, %CHANNEL%
+HKR, NDI\params\DSChannel,        ParamDesc,       0, "Channel"
+HKR, NDI\params\DSChannel,        type,            0, "enum"
+HKR, NDI\params\DSChannel,        default,         0, %CHANNEL%
+HKR, NDI\params\DSChannel,        flag,            1, "30","00","00","00"
+HKR, NDI\params\DSChannel\enum,   1,               0, "1"
+HKR, NDI\params\DSChannel\enum,   2,               0, "2"
+HKR, NDI\params\DSChannel\enum,   3,               0, "3"
+HKR, NDI\params\DSChannel\enum,   4,               0, "4"
+HKR, NDI\params\DSChannel\enum,   5,               0, "5"
+HKR, NDI\params\DSChannel\enum,   6,               0, "6"
+HKR, NDI\params\DSChannel\enum,   7,               0, "7"
+HKR, NDI\params\DSChannel\enum,   8,               0, "8"
+HKR, NDI\params\DSChannel\enum,   9,               0, "9"
+HKR, NDI\params\DSChannel\enum,   10,              0, "10"
+HKR, NDI\params\DSChannel\enum,   11,              0, "11"
+
+;
+; Encapsultion (i.e. Ethernet Translation)
+;
+HKR, ,                            Encapsulation,   0, "1"
+HKR, defaults,                    Encapsulation,   0, "1"
+
+;
+; TxRate
+;
+HKR, ,                            TxRate,          0, "15"
+HKR, defaults,                    TxRate,          0, "15"
+HKR, NDI\params\TxRate,           ParamDesc,       0, "Transmit Rate"
+HKR, NDI\params\TxRate,           type,            0, "enum"
+HKR, NDI\params\TxRate,           default,         0, "15"
+HKR, NDI\params\TxRate,           flag,            1, "30","00","00","00"
+HKR, NDI\params\TxRate\enum,      1,               0, "Fixed 1 Mb/s"
+HKR, NDI\params\TxRate\enum,      2,               0, "Fixed 2 Mb/s"
+HKR, NDI\params\TxRate\enum,      3,               0, "Auto Select 1 or 2"
+HKR, NDI\params\TxRate\enum,      4,               0, "Fixed 5.5 Mb/s"
+HKR, NDI\params\TxRate\enum,      8,               0, "Fixed 11 Mb/s"
+HKR, NDI\params\TxRate\enum,      15,              0, "Fully Auto"
+
+;
+; Network Type
+;
+HKR, ,                            NetworkType,     0, %NETWORK_TYPE_DEF_STR%
+HKR, defaults,                    NetworkType,     0, %NETWORK_TYPE_DEF_STR%
+HKR, NDI\params\NetworkType,      ParamDesc,       0, "Network Type"
+HKR, NDI\params\NetworkType,      type,            0, "enum"
+HKR, NDI\params\NetworkType,      default,         0, %NETWORK_TYPE_DEF_STR%
+HKR, NDI\params\NetworkType,      flag,            1, "30","00","00","00"
+HKR, NDI\params\NetworkType\enum, 0,               0, "Ad Hoc"
+HKR, NDI\params\NetworkType\enum, 1,               0, "Infrastructure"
+
+;
+;    Wep Required
+;
+HKR, ,                            WepReq,          0, %WEP_REQUIRED_DEF_STR%
+HKR, defaults,                    WepReq,          0, %WEP_REQUIRED_DEF_STR%
+HKR, NDI\params\WepReq,           ParamDesc,       0, "Encryption"
+HKR, NDI\params\WepReq,           flag,            1, "30","00","00","00"
+HKR, NDI\params\WepReq,           type,            0, "enum"
+HKR, Ndi\params\WepReq,           default,         0, %WEP_REQUIRED_DEF_STR%
+HKR, NDI\params\WepReq\enum,      0,               0, "Disabled"
+HKR, NDI\params\WepReq\enum,      2,               0, "64 bit"
+HKR, NDI\params\WepReq\enum,      6,               0, "128 bit"
+HKR, NDI\params\WepReq,           optional,        0, "0"
+
+;
+;    Wep Encrypt in Driver
+;
+HKR, ,                            EncryptInDriver, 0, "1"
+HKR, defaults,                    EncryptInDriver, 0, "1"
+
+;
+;    Wep Decrypt in Driver
+;
+HKR, ,                            DecryptInDriver, 0, "1"
+HKR, defaults,                    DecryptInDriver, 0, "1"
+
+;
+;    WEP Factor
+;
+HKR, ,                            WEPFactor,       0, "3"
+HKR, defaults,                    WEPFactor,       0, "3"
+
+;
+;    Esarhpssap
+;
+HKR, ,                            Esarhpssap,      0, %PASSPHRASE_DEF_STR%
+HKR, defaults,                    Esarhpssap,      0, %PASSPHRASE_DEF_STR%
+HKR, NDI\params\Esarhpssap,       ParamDesc,       0, "WEP Passphrase"
+HKR, NDI\params\Esarhpssap,       type,            0, "edit"
+HKR, NDI\params\Esarhpssap,       limitText,       0, "64"
+HKR, NDI\params\Esarhpssap,       default,         0, %PASSPHRASE_DEF_STR%
+HKR, NDI\params\Esarhpssap,       flag,            1, "30","00","00","00"
+
+;
+;    IBSS in Driver mode control
+;
+HKR, ,                            IBSSInDriver,    0, "0"
+HKR, defaults,                    IBSSInDriver,    0, "0"
+
+HKR,, WEP64_KEY_1,            0,"0000000000"
+HKR,, WEP64_KEY_2,            0,"0000000000"
+HKR,, WEP64_KEY_3,            0,"0000000000"
+HKR,, WEP64_KEY_4,            0,"0000000000"
+
+HKR,, WEP128_KEY_1,           0,"00000000000000000000000000"
+HKR,, WEP128_KEY_2,           0,"00000000000000000000000000"
+HKR,, WEP128_KEY_3,           0,"00000000000000000000000000"
+HKR,, WEP128_KEY_4,           0,"00000000000000000000000000"
+
+HKR,, CurProfile,             0,"default"
+
+[Advanced.reg]
+;
+; Listen Interval
+;
+HKR, ,                            ListenInterval,  0, "3"
+HKR, defaults,                    ListenInterval,  0, "3"
+HKR, NDI\params\ListenInterval,   ParamDesc,       0, "Maximum Listen Interval"
+HKR, NDI\params\ListenInterval,   flag,            1, "30","00","00","00"
+HKR, NDI\params\ListenInterval,   type,            0, "int"
+HKR, Ndi\params\ListenInterval,   default,         0, "3"
+HKR, NDI\params\ListenInterval,   min,             0, "0"
+HKR, NDI\params\ListenInterval,   max,             0, "77"
+HKR, NDI\params\ListenInterval,   step,            0, "1"
+HKR, NDI\params\ListenInterval,   optional,        0, "0"
+
+;
+; RTS Threshold
+;
+HKR, ,                            RTSThresh,       0, "2432"
+HKR, defaults,                    RTSThresh,       0, "2432"
+HKR, NDI\params\RTSThresh,        ParamDesc,       0, "RTS Threshold"
+HKR, NDI\params\RTSThresh,        type,            0, "int"
+HKR, Ndi\params\RTSThresh,        default,         0, "2432"
+HKR, NDI\params\RTSThresh,        min,             0, "0"
+HKR, NDI\params\RTSThresh,        max,             0, "2432"
+HKR, NDI\params\RTSThresh,        step,            0, "64"
+HKR, NDI\params\RTSThresh,        flag,            1, "20","00","00","00"
+HKR, NDI\params\RTSThresh,        optional,        0, "0"
+;
+; Frag Threshold
+;
+HKR, ,                            FragThresh,      0, "2432"
+HKR, defaults,                    FragThresh,      0, "2432"
+HKR, NDI\params\FragThresh,       ParamDesc,       0, "Fragmentation Threshold"
+HKR, NDI\params\FragThresh,       type,            0, "int"
+HKR, Ndi\params\FragThresh,       default,         0, "2432"
+HKR, NDI\params\FragThresh,       min,             0, "256"
+HKR, NDI\params\FragThresh,       max,             0, "2432"
+HKR, NDI\params\FragThresh,       step,            0, "128"
+HKR, NDI\params\FragThresh,       flag,            1, "20","00","00","00"
+HKR, NDI\params\FragThresh,       optional,        0, "0"
+
+;
+;    Short Preamble
+;
+HKR, ,                            PreambleMode,    0, "1"
+HKR, defaults,                    PreambleMode,    0, "1"
+HKR, NDI\params\PreambleMode,     ParamDesc,       0, %SHORT_PREAM_STR%
+HKR, NDI\params\PreambleMode,     flag,            1, "30","00","00","00"
+HKR, NDI\params\PreambleMode,     type,            0, "enum"
+HKR, Ndi\params\PreambleMode,     default,         0, "1"
+HKR, NDI\params\PreambleMode\enum,1,               0, "Long Tx Preamble"
+HKR, NDI\params\PreambleMode\enum,2,               0, "Short Tx Preamble"
+;HKR, NDI\params\PreambleMode\enum,3,              0, "Auto"
+HKR, NDI\params\PreambleMode,     optional,        0, "0"
+
+;
+;
+; Authentication Type
+;
+HKR, ,                            AuthentAlg,      0, %AUTHENT_TYPE_DEF_STR%
+HKR, defaults,                    AuthentAlg,      0, %AUTHENT_TYPE_DEF_STR%
+HKR, NDI\params\AuthentAlg,       ParamDesc,       0, "Authentication Algorithm"
+HKR, NDI\params\AuthentAlg,       type,            0, "enum"
+HKR, NDI\params\AuthentAlg,       default,         0, %AUTHENT_TYPE_DEF_STR%
+HKR, NDI\params\AuthentAlg,       flag,            1, "30","00","00","00"
+HKR, NDI\params\AuthentAlg\enum,  1,               0, "WECA Compliant (always use Open)"
+HKR, NDI\params\AuthentAlg\enum,  2,               0, "Must use Shared with WEP"
+HKR, NDI\params\AuthentAlg\enum,  65535,           0, "Automatic based on WEP setting"
+
+;
+; PS Mode
+;
+HKR, ,                            PSMode,          0, "1"
+HKR, defaults,                    PSMode,          0, "1"
+HKR, NDI\params\PSMode,           ParamDesc,       0, "Power Save Mode"
+HKR, NDI\params\PSMode,           type,            0, "enum"
+HKR, NDI\params\PSMode,           default,         0, "1"
+HKR, NDI\params\PSMode,           flag,            1, "30","00","00","00"
+HKR, NDI\params\PSMode\enum,      1,               0, "Disabled"
+HKR, NDI\params\PSMode\enum,      2,               0, "Enabled"
+
+
+;----------------------------------------------------------------------------
+; DestinationDirs
+;
+[DestinationDirs]
+DefaultDestDir=11
+NT.CopyFiles=12    	; system32\drivers subdirectory on 2000
+NT51.CopyFiles=12    	; system32\drivers subdirectory on XP
+win9x.CopyFiles=11    	; system32 subdirectory on win9x
+
+[NT.CopyFiles]
+LSWLNDS.sys,,,2 		
+
+[NT51.CopyFiles]
+LSWLNDS.sys,LSWLNDSX.SYS,,2 
+
+[win9x.CopyFiles]
+LSWLNDS.sys
+
+
+[SourceDisksNames]
+1=%INSTALL_DISK_STR%,,,
+
+[SourceDisksFiles]
+LSWLNDS.sys  = 1
+LSWLNDSX.sys = 1
+
+
+;----------------------------------------------------------------------------
+; Strings
+;
+[strings]
+Provider="Linksys"
+V_Provider="The Linksys Group, Inc."
+
+WPC11.DeviceDesc="Instant Wireless Network PC Card V2.5"
+WPC11_1.DeviceDesc="Instant Wireless Network CF Card"
+WPC11_2.DeviceDesc="Instant Wireless Network PC Card V3.0"
+WPC11_3.DeviceDesc="Instant Wireless Network PC Card V2.0"
+
+WPC11.Service.DispName = "Instant Wireless Network PC Card V2.5 Driver"
+WPC11_1.Service.DispName = "Instant Wireless Network CF Card Driver"
+WPC11_2.Service.DispName = "Instant Wireless Network PC Card V3.0 Driver"
+WPC11_3.Service.DispName = "Instant Wireless Network PC Card V2.0 Driver"
+
+INSTALL_DISK_STR="Instant Wireless Network PC Card Installation Disk"
+
+;
+; Don't put spaces around=sign otherwise installer will not be able to
+; find these lines.
+SSID_DEF_STR="linksys"
+NETWORK_TYPE_DEF_STR=1
+CHANNEL=6
+AUTHENT_TYPE_DEF_STR="65535"
+PASSPHRASE_DEF_STR=""
+WEP_REQUIRED_DEF_STR="0"
+SHORT_PREAM_STR="Preamble Mode"
+

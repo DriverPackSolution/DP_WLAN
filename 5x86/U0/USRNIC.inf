@@ -1,0 +1,437 @@
+;==============================================================================;
+;								 	       ;
+; USRNIC.INF							 	       ;
+;								  	       ;
+;   This installation script supports Windows 98, Me, 2000 & XP  	       ;
+;   for the USR Wireless Access 802.11b Adapters.		 	       ;
+;								 	       ;
+;   Copyright (c) 2002 U.S. Robotics Corporation           		       ;
+;   All Rights Reserved.					               ;
+;   Developed by U.S. Robotics, Inc. -- http://www.usr.com 		       ;
+;								 	       ;
+;==============================================================================;
+
+[Version]
+ Signature           = "$Chicago$"
+ Compatible          = 1
+ Class               = Net
+ ClassGUID           = {4d36e972-e325-11ce-bfc1-08002be10318}
+ Provider            = %VER_VENDOR_STR%
+ DriverVer 	     = 06/19/2002,1.33.0.0000
+
+[ControlFlags]
+ ExcludeFromSelect   = PCMCIA\U.S._Robotics-IEEE_802.11b_PC-CARD-DB69
+ ExcludeFromSelect   = PCMCIA\U.S._Robotics-IEEE_802.11b_PC-CARD-0B6C
+ ExcludeFromSelect   = PCI\VEN_16EC&DEV_3685&SUBSYS_00E11638
+ ExcludeFromSelect   = PCI\VEN_16EC&DEV_3685&SUBSYS_00E21638
+
+[Manufacturer]
+ %VER_VENDOR_NAME_STR% = DeviceList,NTx86.5.1
+
+[DeviceList]
+ %PRISM_PCMCIA1_STR% = PRISM_PCMCIA1, PCMCIA\U.S._Robotics-IEEE_802.11b_PC-CARD-DB69
+ %PRISM_PCMCIA2_STR% = PRISM_PCMCIA2, PCMCIA\U.S._Robotics-IEEE_802.11b_PC-CARD-0B6C
+ %PRISM_PCI1_STR%    = PRISM_PCI1,    PCI\VEN_16EC&DEV_3685&SUBSYS_00E11638
+ %PRISM_PCI2_STR%    = PRISM_PCI2,    PCI\VEN_16EC&DEV_3685&SUBSYS_00E21638
+
+[DeviceList.NTx86.5.1]
+ %PRISM_PCMCIA1_STR% = PRISM_PCMCIA1_XP, PCMCIA\U.S._Robotics-IEEE_802.11b_PC-CARD-DB69
+ %PRISM_PCMCIA2_STR% = PRISM_PCMCIA2_XP, PCMCIA\U.S._Robotics-IEEE_802.11b_PC-CARD-0B6C
+ %PRISM_PCI1_STR%    = PRISM_PCI1_XP,    PCI\VEN_16EC&DEV_3685&SUBSYS_00E11638
+ %PRISM_PCI2_STR%    = PRISM_PCI2_XP,    PCI\VEN_16EC&DEV_3685&SUBSYS_00E21638
+
+;==============================================================================
+
+[PRISM_PCMCIA1]         ; Win9x
+ AddReg              = PRISM_PCMCIA1.reg, COMMON_PCMCIA.reg, COMMON_NDIS.reg, COMMON.reg
+ CopyFiles           = PRISM_DRIVER.copy, PRISM_APPLET.copy, PRISM_NDI.copy
+
+[PRISM_PCMCIA1.NT]      ; Win2k
+ AddReg              = PRISM_PCMCIA1.reg, COMMON_PCMCIA.reg, COMMON_NDIS.reg.NT, COMMON.reg
+ CopyFiles           = PRISM_DRIVER.copy.NT, PRISM_APPLET.copy.NT
+ BusType             = 8     ; PCMCIA
+ Characteristics     = 0x84  ; NCF_PHYSICAL | NCF_HAS_UI
+
+[PRISM_PCMCIA1.NT.Services]
+ AddService          = "USR", 2, PRISM_DRIVER.Service, PRISM_DRIVER.EventLog
+
+[PRISM_PCMCIA1.NT.CoInstallers]
+ CopyFiles           = PRISM_COINSTALL.copy.NT
+ AddReg              = PRISM_COINSTALL.reg.NT
+
+[PRISM_PCMCIA1.reg]
+ HKR,Ndi             ,DeviceID,0,"PCMCIA\U.S._Robotics-IEEE_802.11b_PC-CARD-DB69"
+
+;==============================================================================
+
+[PRISM_PCMCIA2]         ; Win9x
+ AddReg              = PRISM_PCMCIA2.reg, COMMON_PCMCIA.reg, COMMON_NDIS.reg, COMMON.reg
+ CopyFiles           = PRISM_DRIVER.copy, PRISM_APPLET.copy, PRISM_NDI.copy
+
+[PRISM_PCMCIA2.NT]      ; Win2k
+ AddReg              = PRISM_PCMCIA2.reg, COMMON_PCMCIA.reg, COMMON_NDIS.reg.NT, COMMON.reg
+ CopyFiles           = PRISM_DRIVER.copy.NT, PRISM_APPLET.copy.NT
+ BusType             = 8     ; PCMCIA
+ Characteristics     = 0x84  ; NCF_PHYSICAL | NCF_HAS_UI
+
+[PRISM_PCMCIA2.NT.Services]
+ AddService          = "USR", 2, PRISM_DRIVER.Service, PRISM_DRIVER.EventLog
+
+[PRISM_PCMCIA2.NT.CoInstallers]
+ CopyFiles           = PRISM_COINSTALL.copy.NT
+ AddReg              = PRISM_COINSTALL.reg.NT
+
+[PRISM_PCMCIA2.reg]
+ HKR,Ndi             ,DeviceID,0,"PCMCIA\U.S._Robotics-IEEE_802.11b_PC-CARD-0B6C"
+
+;==============================================================================
+
+[PRISM_PCI1]            ; Win9x
+ AddReg              = PRISM_PCI1.reg, COMMON_PCI.reg, COMMON_NDIS.reg, COMMON.reg
+ CopyFiles           = PRISM_DRIVER.copy, PRISM_APPLET.copy, PRISM_NDI.copy
+
+[PRISM_PCI1.NT]         ; Win2k
+ AddReg              = PRISM_PCI1.reg, COMMON_PCI.reg, COMMON_NDIS.reg.NT, COMMON.reg
+ CopyFiles           = PRISM_DRIVER.copy.NT, PRISM_APPLET.copy.NT
+ BusType             = 5     ; PCI
+ Characteristics     = 0x84  ; NCF_PHYSICAL | NCF_HAS_UI
+
+[PRISM_PCI1.NT.Services]
+ AddService          = "USR", 2, PRISM_DRIVER.Service, PRISM_DRIVER.EventLog
+
+[PRISM_PCI1.NT.CoInstallers]
+ CopyFiles           = PRISM_COINSTALL.copy.NT
+ AddReg              = PRISM_COINSTALL.reg.NT
+
+[PRISM_PCI1.reg]
+ HKR,Ndi             ,DeviceID,0,"PCI\VEN_16EC&DEV_3685&SUBSYS_00E11638"
+
+;==============================================================================
+
+[PRISM_PCI2]            ; Win9x
+ AddReg              = PRISM_PCI2.reg, COMMON_PCI.reg, COMMON_NDIS.reg, COMMON.reg
+ CopyFiles           = PRISM_DRIVER.copy, PRISM_APPLET.copy, PRISM_NDI.copy
+
+[PRISM_PCI2.NT]         ; Win2k
+ AddReg              = PRISM_PCI2.reg, COMMON_PCI.reg, COMMON_NDIS.reg.NT, COMMON.reg
+ CopyFiles           = PRISM_DRIVER.copy.NT, PRISM_APPLET.copy.NT
+ BusType             = 5     ; PCI
+ Characteristics     = 0x84  ; NCF_PHYSICAL | NCF_HAS_UI
+
+[PRISM_PCI2.NT.Services]
+ AddService          = "USR", 2, PRISM_DRIVER.Service, PRISM_DRIVER.EventLog
+
+[PRISM_PCI2.NT.CoInstallers]
+ CopyFiles           = PRISM_COINSTALL.copy.NT
+ AddReg              = PRISM_COINSTALL.reg.NT
+
+[PRISM_PCI2.reg]
+ HKR,Ndi             ,DeviceID,0,"PCI\VEN_16EC&DEV_3685&SUBSYS_00E21638"
+
+;==============================================================================
+
+[PRISM_PCMCIA1_XP]      ; WinXP
+ AddReg              = PRISM_PCMCIA1_XP.reg, COMMON_PCMCIA.reg, COMMON_NDIS.reg.NT, COMMON.reg
+ CopyFiles           = PRISM_DRIVER.copy.XP, PRISM_APPLET.copy.XP
+ BusType             = 8     ; PCMCIA
+ Characteristics     = 0x84  ; NCF_PHYSICAL | NCF_HAS_UI
+
+[PRISM_PCMCIA1_XP.Services]
+ AddService          = "USR", 2, PRISM_DRIVER.Service, PRISM_DRIVER.EventLog
+
+[PRISM_PCMCIA1_XP.CoInstallers]
+ CopyFiles           = PRISM_COINSTALL.copy.XP
+ AddReg              = PRISM_COINSTALL.reg.XP
+
+[PRISM_PCMCIA1_XP.reg]
+ HKR,Ndi             ,DeviceID,0,"PCMCIA\U.S._Robotics-IEEE_802.11b_PC-CARD-DB69"
+
+;==============================================================================
+
+[PRISM_PCMCIA2_XP]      ; WinXP
+ AddReg              = PRISM_PCMCIA2_XP.reg, COMMON_PCMCIA.reg, COMMON_NDIS.reg.NT, COMMON.reg
+ CopyFiles           = PRISM_DRIVER.copy.XP, PRISM_APPLET.copy.XP
+ BusType             = 8     ; PCMCIA
+ Characteristics     = 0x84  ; NCF_PHYSICAL | NCF_HAS_UI
+
+[PRISM_PCMCIA2_XP.Services]
+ AddService          = "USR", 2, PRISM_DRIVER.Service, PRISM_DRIVER.EventLog
+
+[PRISM_PCMCIA2_XP.CoInstallers]
+ CopyFiles           = PRISM_COINSTALL.copy.XP
+ AddReg              = PRISM_COINSTALL.reg.XP
+
+[PRISM_PCMCIA2_XP.reg]
+ HKR,Ndi             ,DeviceID,0,"PCMCIA\U.S._Robotics-IEEE_802.11b_PC-CARD-0B6C"
+
+;==============================================================================
+
+[PRISM_PCI1_XP]         ; WinXP
+ AddReg              = PRISM_PCI1_XP.reg, COMMON_PCI.reg, COMMON_NDIS.reg.NT, COMMON.reg
+ CopyFiles           = PRISM_DRIVER.copy.XP, PRISM_APPLET.copy.XP
+ BusType             = 5     ; PCI
+ Characteristics     = 0x84  ; NCF_PHYSICAL | NCF_HAS_UI
+
+[PRISM_PCI1_XP.Services]
+ AddService          = "USR", 2, PRISM_DRIVER.Service, PRISM_DRIVER.EventLog
+
+[PRISM_PCI1_XP.CoInstallers]
+ CopyFiles           = PRISM_COINSTALL.copy.XP
+ AddReg              = PRISM_COINSTALL.reg.XP
+
+[PRISM_PCI1_XP.reg]
+ HKR,Ndi             ,DeviceID,0,"PCI\VEN_16EC&DEV_3685&SUBSYS_00E11638"
+
+;==============================================================================
+
+[PRISM_PCI2_XP]         ; WinXP
+ AddReg              = PRISM_PCI2_XP.reg, COMMON_PCI.reg, COMMON_NDIS.reg.NT, COMMON.reg
+ CopyFiles           = PRISM_DRIVER.copy.XP, PRISM_APPLET.copy.XP
+ BusType             = 5     ; PCI
+ Characteristics     = 0x84  ; NCF_PHYSICAL | NCF_HAS_UI
+
+[PRISM_PCI2_XP.Services]
+ AddService          = "USR", 2, PRISM_DRIVER.Service, PRISM_DRIVER.EventLog
+
+[PRISM_PCI2_XP.CoInstallers]
+ CopyFiles           = PRISM_COINSTALL.copy.XP
+ AddReg              = PRISM_COINSTALL.reg.XP
+
+[PRISM_PCI2_XP.reg]
+ HKR,Ndi             ,DeviceID,0,"PCI\VEN_16EC&DEV_3685&SUBSYS_00E21638"
+
+;==============================================================================
+
+[PRISM_COINSTALL.reg.NT]
+ HKR,                ,CoInstallers32         ,0x00010000     ,"USRCFG.cpl,NdiProc"
+
+[PRISM_COINSTALL.reg.XP]
+ HKR,                ,CoInstallers32         ,0x00010000     ,"USRCFG.cpl,NdiProc"
+
+[PRISM_DRIVER.Service]
+ DisplayName         = %PRISM_SERVICE_DISPLAY%
+ ServiceType         = 1    ; SERVICE_KERNEL_DRIVER
+ StartType           = 3    ; SERVICE_DEMAND_START
+ ErrorControl        = 1    ; NORMAL
+ ServiceBinary       = %12%\USRNDS.sys
+ LoadOrderGroup      = NDIS
+
+[PRISM_DRIVER.EventLog]
+ AddReg              = PRISM_DRIVER.EventLog.reg
+
+[PRISM_DRIVER.EventLog.reg]
+ HKR,                ,EventMessageFile       ,0x00020000     ,"%%SystemRoot%%\System32\netevent.dll"
+ HKR,                ,TypesSupported         ,0x00010001     ,7
+
+;==============================================================================
+
+[COMMON_PCMCIA.reg]
+;RegKey,SubKey       ,Name                   ,Type   ,Value
+;-------------        -----                   -----   ------
+ HKR,NDI             ,Service                ,0      ,"USR"
+ HKR,NDI             ,CardType               ,0      ,"PCMCIA"
+ HKR,                ,BusType                ,0      ,"8"
+ HKR,                ,DeviceVxDs             ,0      ,"USRNDS.sys"
+ HKR,                ,EnableIRQSharing       ,1      ,01,00,00,00
+ HKR,                ,IOBaseAddress          ,1      ,02,00,00,00
+ HKR,                ,InterruptNumber        ,1      ,04,00,00,00
+
+[COMMON_PCI.reg]
+ HKR,NDI             ,Service                ,0      ,"USR"
+ HKR,NDI             ,CardType               ,0      ,"PCI"
+ HKR,                ,BusType                ,0      ,"5"
+ HKR,                ,DeviceVxDs             ,0      ,"USRNDS.sys"
+ HKR,                ,EnableIRQSharing       ,1      ,01,00,00,00
+ HKR,                ,IOBaseAddress          ,1      ,02,00,00,00
+ HKR,                ,InterruptNumber        ,1      ,04,00,00,00
+
+[COMMON_NDIS.reg]
+ HKR,                ,RunningWin9X           ,0      ,"1"
+ HKR,                ,DevLoader              ,0      ,"*ndis"
+ HKR,                ,EnumPropPages          ,0      ,"netdi.dll,EnumPropPages"
+ HKR,NDI             ,NdiInstaller           ,0      ,"USRCFG.dll,NdiProc"
+ HKR,NDI\Interfaces  ,UpperRange             ,0      ,"ndis3"
+ HKR,NDI\Interfaces  ,LowerRange             ,0      ,"ethernet"
+ HKR,NDI\Interfaces  ,DefUpper               ,0      ,"ndis3"
+ HKR,NDI\Interfaces  ,DefLower               ,0      ,"ethernet"
+ HKR,NDIS            ,LogDriverName          ,0      ,"USR"
+ HKR,NDIS            ,MajorNdisVersion       ,1      ,03
+ HKR,NDIS            ,MinorNdisVersion       ,1      ,0a
+
+ HKR,defaults,PSMode,0,1
+ HKR,Ndi\params\PSMode,default,0,1
+ HKR,NDI\params\PSMode,ParamDesc,,%POWER_SAVE_STR%
+ HKR,NDI\params\PSMode,type,,enum
+ HKR,NDI\params\PSMode,flag,1,30,00,00,00
+ HKR,NDI\params\PSMode\enum,1,,"Disable"
+ HKR,NDI\params\PSMode\enum,2,,"Always Enable"
+
+[COMMON_NDIS.reg.NT]
+ HKR,                ,EnumPropPages32        ,0      ,"USRCFG.cpl,NetPropPageProvider"
+ HKR,NDI\Interfaces  ,UpperRange             ,0      ,"ndis5"
+ HKR,NDI\Interfaces  ,LowerRange             ,0      ,"ethernet"
+
+ HKR,defaults,PSMode,0,1
+ HKR,Ndi\params\PSMode,default,0,1
+ HKR,NDI\params\PSMode,ParamDesc,,%POWER_SAVE_STR%
+ HKR,NDI\params\PSMode,type,,enum
+ HKR,NDI\params\PSMode,flag,1,30,00,00,00
+ HKR,NDI\params\PSMode\enum,1,,"Disable"
+ HKR,NDI\params\PSMode\enum,2,,"Always Enable"
+ HKR,NDI\params\PSMode\enum,3,,"Auto Enable"
+
+[COMMON.reg]
+ HKR,                ,USRIOC               ,0      ,"1"
+ HKR,                ,SilentInstall        ,0      ,"1"
+;Uncomment the line above to install without user interface prompts
+
+ HKR,defaults,ListenInterval,0,3
+ HKR,Ndi\params\ListenInterval,default,0,3
+ HKR,NDI\params\ListenInterval,ParamDesc,,%LISTENINTERVAL_STR%
+ HKR,NDI\params\ListenInterval,type,,int
+ HKR,NDI\params\ListenInterval,flag,1,30,00,00,00
+ HKR,NDI\params\ListenInterval,min,0,0
+ HKR,NDI\params\ListenInterval,max,0,77
+ HKR,NDI\params\ListenInterval,step,0,1
+
+ HKR,defaults,RTSThresh,0,2432
+ HKR,Ndi\params\RTSThresh,default,0,2432
+ HKR,NDI\params\RTSThresh,ParamDesc,0,%RTSTHRESH_STR%
+ HKR,NDI\params\RTSThresh,type,0,int
+ HKR,NDI\params\RTSThresh,flag,1,20,00,00,00
+ HKR,NDI\params\RTSThresh,min,0,0
+ HKR,NDI\params\RTSThresh,max,0,2432
+ HKR,NDI\params\RTSThresh,step,0,64
+
+ HKR,defaults,FragThresh,0,2432
+ HKR,Ndi\params\FragThresh,default,0,2432
+ HKR,NDI\params\FragThresh,ParamDesc,0,%FRAGTHRESH_STR%
+ HKR,NDI\params\FragThresh,type,0,int
+ HKR,NDI\params\FragThresh,flag,1,20,00,00,00
+ HKR,NDI\params\FragThresh,min,0,256
+ HKR,NDI\params\FragThresh,max,0,2432
+ HKR,NDI\params\FragThresh,step,0,128
+
+ HKR,defaults,PreambleMode,0,3
+ HKR,Ndi\params\PreambleMode,default,0,3
+ HKR,NDI\params\PreambleMode,ParamDesc,,%SHORT_PREAM_STR%
+ HKR,NDI\params\PreambleMode,type,,enum
+ HKR,NDI\params\PreambleMode,flag,1,30,00,00,00
+ HKR,NDI\params\PreambleMode\enum,1,,"Long Tx Preamble"
+ HKR,NDI\params\PreambleMode\enum,2,,"Short Tx Preamble"
+ HKR,NDI\params\PreambleMode\enum,3,,"Auto Tx Preamble"
+
+ HKR,defaults,AuthentAlg,0,2
+ HKR,NDI\params\AuthentAlg,default,0,2
+ HKR,NDI\params\AuthentAlg,ParamDesc,,%AUTHENT_TYPE_STR%
+ HKR,NDI\params\AuthentAlg,type,,enum
+ HKR,NDI\params\AuthentAlg,flag,1,30,00,00,00
+ HKR,NDI\params\AuthentAlg\enum,1,,"Open System"
+ HKR,NDI\params\AuthentAlg\enum,2,,"Shared Key"
+ HKR,NDI\params\AuthentAlg\enum,65535,,"Automatic based on WEP setting"
+
+ HKR,defaults,AdhocDemoMode,0,0
+ HKR,Ndi\params\AdhocDemoMode,default,0,0
+ HKR,NDI\params\AdhocDemoMode,ParamDesc,,%ADHOC_DEMO_STR%
+ HKR,NDI\params\AdhocDemoMode,type,,enum
+ HKR,NDI\params\AdhocDemoMode,flag,1,30,00,00,00
+ HKR,NDI\params\AdhocDemoMode\enum,0,,"Disable"
+ HKR,NDI\params\AdhocDemoMode\enum,1,,"Enable"
+
+;==============================================================================
+
+[DestinationDirs]
+;CopyFiles Section   = Destination Directory ID
+;-----------------     --------------------------------------------------
+ DefaultDestDir      = 11 ; Win9x=%windir%\system Win2k=%windir%\system32
+ PRISM_DRIVER.copy   = 11 ; Win9x=%windir%\system
+ PRISM_DRIVER.copy.NT= 12 ; Win2k=%windir%\system32\drivers
+ PRISM_DRIVER.copy.XP= 12 ; WinXP=%windir%\system32\drivers
+
+[PRISM_NDI.copy]
+ USRR16.dll          ; Win9x NDI
+ USRCFG.dll          ; Win9x NDI
+
+[PRISM_COINSTALL.copy.NT]
+ USRRES.dll
+ USRIOC.dll
+ USRCFG.cpl          ; Win2k CoInstaller
+
+[PRISM_COINSTALL.copy.XP]
+ USRRES.dll
+ USRIOC.dll
+ USRCFG.cpl          ; WinXP CoInstaller
+
+[PRISM_DRIVER.copy]
+ USRNDS.sys,USRNDS50.sys,,
+ USRIOC.vxd          ; Win9x Ioctl interface
+
+[PRISM_DRIVER.copy.NT]
+ USRNDS.sys,USRNDS50.sys,,
+
+[PRISM_DRIVER.copy.XP]
+ USRNDS.sys,USRNDS51.sys,,
+
+[PRISM_APPLET.copy]
+ USRRES.dll
+ USRIOC.dll
+ USRCFG.cpl
+ USRSTA.exe
+
+[PRISM_APPLET.copy.NT]
+ USRSTA.exe
+
+[PRISM_APPLET.copy.XP]
+ USRSTA.exe
+
+[SourceDisksNames]
+;Source Disk ID      = Disk Name
+;--------------        ---------
+ 1                   = %INSTALL_DISK_STR%,,,
+
+[SourceDisksFiles]   ; Win9x
+;File Name           = Source Disk ID
+;---------             --------------
+ USRR16.dll          = 1,win9x
+ USRCFG.dll          = 1,win9x
+ USRIOC.vxd          = 1,win9x
+ USRRES.dll          = 1
+ USRIOC.dll          = 1
+ USRCFG.cpl          = 1,winnt
+ USRNDS50.sys        = 1,win2k
+ USRSTA.exe          = 1
+
+[SourceDisksFiles.X86];Win2k
+ USRRES.dll          = 1
+ USRIOC.dll          = 1
+ USRCFG.cpl          = 1,win2k
+ USRNDS50.sys        = 1,win2k
+ USRNDS51.sys        = 1
+ USRSTA.exe          = 1
+
+;==============================================================================
+
+[Strings]
+;String ID           = String Text
+;---------             --------------------------------------------------------
+ VER_VENDOR_STR      = "U.S. Robotics Corporation"
+ VER_VENDOR_NAME_STR = "U.S. Robotics Corporation"
+
+ PRISM_PCMCIA1_STR   = "U.S. Robotics Wireless Access 802.11b"
+ PRISM_PCMCIA2_STR   = "U.S. Robotics Wireless Access 802.11b 3.3V"
+ PRISM_PCI1_STR      = "U.S. Robotics Wireless Access 802.11b PCI Adapter 3.3V"
+ PRISM_PCI2_STR      = "U.S. Robotics Wireless Access 802.11b PCI Adapter 5V"
+
+ PRISM_SERVICE_DISPLAY="U.S. Robotics Wireless Access 802.11b Driver"
+ INSTALL_DISK_STR    = "U.S. Robotics Wireless Access 802.11b Install Disk"
+
+ ADHOC_DEMO_STR      = "Adhoc Demo Mode"
+ SHORT_PREAM_STR     = "Preamble Mode"
+ RTSTHRESH_STR       = "RTS Threshold"
+ FRAGTHRESH_STR      = "Fragmentation Threshold"
+ AUTHENT_TYPE_STR    = "Authentication Algorithm"
+ LISTENINTERVAL_STR  = "Listen Interval"
+ POWER_SAVE_STR      = "Power Save Mode"
+ POWER_LEVEL_STR     = "Power Save Level"
+
+;==============================================================================

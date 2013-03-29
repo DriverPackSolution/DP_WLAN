@@ -1,0 +1,283 @@
+;*******************************************************************************************
+;
+;FILE:
+;
+;    WUSB54G.inf
+;
+;DESCRIPTION:
+;   Linksys Wireless-G USB Network Adapter
+;   Linksys Wireless-G Portable USB Adapter 
+;
+;
+;*******************************************************************************************
+
+[Version]
+ DriverVer = 01/12/2004, 1.0.8.0
+ Signature           = "$Chicago$"
+ Compatible          = 1
+ Class               = Net
+ ClassGUID           = {4d36e972-e325-11ce-bfc1-08002be10318}
+ Provider            = %VER_VENDOR_STR%
+ CatalogFile         = WUSB54G.cat
+
+[ControlFlags]
+;Exclude all PNP adapters from user selection
+ ExcludeFromSelect   = *
+
+[Manufacturer]
+ %VER_VENDOR_NAME_STR% = DeviceList
+
+[DeviceList]
+ %WUSB54G%      = USB20_PID2234,        USB\VID_1915&PID_2234
+ %WUSB54GP%     = USB20_PID2235,        USB\VID_1915&PID_2235
+ %WUSB54G%      = USB20_G,              USB\VID_5041&PID_2234
+ %WUSB54GP%     = USB20_GP,             USB\VID_5041&PID_2235
+  
+[USB20_PID2234]
+ AddReg         = USB20_PID2234.reg, COMMON_A02.reg, COMMON_NDIS.reg, COMMON.reg
+ CopyFiles      = USB_DRIVER.copy 
+
+[USB20_PID2234.NT]
+ AddReg         = USB20_PID2234.reg, COMMON_A02.reg, COMMON_NDIS.reg.NT, COMMON.reg
+ CopyFiles      = USB_DRIVER.copy.NT 
+ BusType        = 15
+ Characteristics= 0x84
+
+[USB20_PID2235]
+ AddReg         = USB20_PID2235.reg, COMMON_A02.reg, COMMON_NDIS.reg, COMMON.reg
+ CopyFiles      = USB_DRIVER.copy 
+
+[USB20_PID2235.NT]
+ AddReg         = USB20_PID2235.reg, COMMON_A02.reg, COMMON_NDIS.reg.NT, COMMON.reg
+ CopyFiles      = USB_DRIVER.copy.NT 
+ BusType        = 15
+ Characteristics= 0x84
+
+[USB20_G]
+ AddReg         = USB20_G.reg, COMMON_A02.reg, COMMON_NDIS.reg, COMMON.reg
+ CopyFiles      = USB_DRIVER.copy 
+
+[USB20_G.NT]
+ AddReg         = USB20_G.reg, COMMON_A02.reg, COMMON_NDIS.reg.NT, COMMON.reg
+ CopyFiles      = USB_DRIVER.copy.NT 
+ BusType        = 15
+ Characteristics= 0x84
+
+[USB20_GP]
+ AddReg         = USB20_GP.reg, COMMON_A02.reg, COMMON_NDIS.reg, COMMON.reg
+ CopyFiles      = USB_DRIVER.copy 
+
+[USB20_GP.NT]
+ AddReg         = USB20_GP.reg, COMMON_A02.reg, COMMON_NDIS.reg.NT, COMMON.reg
+ CopyFiles      = USB_DRIVER.copy.NT 
+ BusType        = 15
+ Characteristics= 0x84
+
+[USB20_PID2234.NT.Services]
+ AddService= "PRISM_A02", 2, PRISM_DRIVER_A02.Service, PRISM_DRIVER.EventLog
+
+[USB20_PID2235.NT.Services]
+ AddService= "PRISM_A02", 2, PRISM_DRIVER_A02.Service, PRISM_DRIVER.EventLog
+
+[USB20_G.NT.Services]
+ AddService= "PRISM_A02", 2, PRISM_DRIVER_A02.Service, PRISM_DRIVER.EventLog
+
+[USB20_GP.NT.Services]
+ AddService= "PRISM_A02", 2, PRISM_DRIVER_A02.Service, PRISM_DRIVER.EventLog
+
+[USB20_PID2234.reg]
+ HKR,Ndi,DeviceID,0,"USB\VID_1915&PID_2234"
+; 0x3890 = 14480
+ HKR,,PlatformID,0,14480
+ HKR,,VendorDesc,0,%WUSB54G%
+
+[USB20_PID2235.reg]
+ HKR,Ndi,DeviceID,0,"USB\VID_1915&PID_2235"
+; 0x3890 = 14480
+ HKR,,PlatformID,0,14480
+ HKR,,VendorDesc,0,%WUSB54GP%
+
+[USB20_G.reg]
+ HKR,Ndi,DeviceID,0,"USB\VID_5041&PID_2234"
+; 0x3890 = 14480
+ HKR,,PlatformID,0,14480
+ HKR,,VendorDesc,0,%WUSB54G%
+
+[USB20_GP.reg]
+ HKR,Ndi,DeviceID,0,"USB\VID_5041&PID_2235"
+; 0x3890 = 14480
+ HKR,,PlatformID,0,14480
+ HKR,,VendorDesc,0,%WUSB54GP%
+;###############################################################################
+
+[PRISM_DRIVER_A02.Service]
+ DisplayName    = %WUSB54GSRV%
+ ServiceType    = 1    ; SERVICE_KERNEL_DRIVER
+ StartType      = 3    ; SERVICE_DEMAND_START
+ ErrorControl   = 1    ; NORMAL
+ ServiceBinary  = %12%\WUSB20XP.sys
+ LoadOrderGroup = NDIS
+
+[PRISM_DRIVER.EventLog]
+ AddReg         = PRISM_DRIVER.EventLog.reg
+
+[PRISM_DRIVER.EventLog.reg]
+ HKR,           ,EventMessageFile       ,0x00020000     ,"%%SystemRoot%%\System32\netevent.dll"
+ HKR,           ,TypesSupported         ,0x00010001     ,7
+
+;###############################################################################
+
+[COMMON_A02.reg]
+ HKR,NDI                ,Service                ,0      ,"PRISM_A02"
+ HKR,NDI                ,CardType               ,0      ,"USB"
+ HKR,                   ,BusType                ,0      ,"0"
+
+[COMMON_NDIS.reg]
+ HKR,                   ,DeviceVxDs             ,0      ,"WUSB209x.sys"
+ HKR,                   ,RunningWin9X           ,0      ,"1"
+ HKR,                   ,DevLoader              ,0      ,"*ndis"
+ HKR,                   ,EnumPropPages          ,0      ,"netdi.dll,EnumPropPages"
+; HKR,NDI                ,NdiInstaller           ,0      ,"USBCoI9x.dll,NdiProc"
+ HKR,NDI\Interfaces     ,UpperRange             ,0      ,"ndis3"
+ HKR,NDI\Interfaces     ,LowerRange             ,0      ,"ethernet"
+ HKR,NDI\Interfaces     ,DefUpper               ,0      ,"ndis3"
+ HKR,NDI\Interfaces     ,DefLower               ,0      ,"ethernet"
+ HKR,NDIS               ,LogDriverName          ,0      ,"WUSB209x"
+ HKR,NDIS               ,MajorNdisVersion       ,1      ,03
+ HKR,NDIS               ,MinorNdisVersion       ,1      ,0a
+
+[COMMON_NDIS.reg.NT]
+ HKR,NDI\Interfaces     ,UpperRange             ,0      ,"ndis5"
+ HKR,NDI\Interfaces     ,LowerRange             ,0      ,"ethernet"
+
+[COMMON.reg]
+ HKR,                   ,PRISMIOC               ,0      ,"1"
+ HKR,                   ,SilentInstall          ,0      ,"1"
+;Uncomment the line above to install without user interface prompts
+
+ HKR,,RTSThresh,0,2432
+ HKR,Ndi\params\RTSThresh,default,0,2347
+ HKR,NDI\params\RTSThresh,ParamDesc,0,%RTSTHRESH_STR%
+ HKR,NDI\params\RTSThresh,type,0,int
+ HKR,NDI\params\RTSThresh,flag,1,20,00,00,00
+ HKR,NDI\params\RTSThresh,min,0,0
+ HKR,NDI\params\RTSThresh,max,0,2347
+ HKR,NDI\params\RTSThresh,step,0,1
+ HKR,NDI\params\RTSThresh,optional,0,1
+
+ HKR,,FragThresh,0,2346
+ HKR,Ndi\params\FragThresh,default,0,2346
+ HKR,NDI\params\FragThresh,ParamDesc,0,%FRAGTHRESH_STR%
+ HKR,NDI\params\FragThresh,type,0,int
+ HKR,NDI\params\FragThresh,flag,1,20,00,00,00
+ HKR,NDI\params\FragThresh,min,0,256
+ HKR,NDI\params\FragThresh,max,0,2346
+ HKR,NDI\params\FragThresh,step,0,2
+ HKR,NDI\params\FragThresh,optional,0,1
+
+ HKR,,ShortRetryLimit,0,7
+ HKR,NDI\params\ShortRetryLimit,default,0,7
+ HKR,NDI\params\ShortRetryLimit,ParamDesc,,%SHORT_RETRY_STR%
+ HKR,NDI\params\ShortRetryLimit,type,,int
+ HKR,NDI\params\ShortRetryLimit,min,0,1
+ HKR,NDI\params\ShortRetryLimit,max,0,255
+ HKR,NDI\params\ShortRetryLimit,step,0,1
+ HKR,NDI\params\ShortRetryLimit,optional,0,1
+
+ HKR,,LongRetryLimit,0,4
+ HKR,NDI\params\LongRetryLimit,default,0,4
+ HKR,NDI\params\LongRetryLimit,ParamDesc,,%LONG_RETRY_STR%
+ HKR,NDI\params\LongRetryLimit,type,0,int
+ HKR,NDI\params\LongRetryLimit,min,0,1
+ HKR,NDI\params\LongRetryLimit,max,0,255
+ HKR,NDI\params\LongRetryLimit,step,0,1
+ HKR,NDI\params\LongRetryLimit,optional,0,1
+
+ HKR,,ConfigProfile,0,256
+ HKR,NDI\params\ConfigProfile,default,0,256
+ HKR,NDI\params\ConfigProfile,ParamDesc,,%CONFIG_PROFILE%
+ HKR,NDI\params\ConfigProfile,type,,enum
+ HKR,NDI\params\ConfigProfile,flag,1,30,00,00,00
+ HKR,NDI\params\ConfigProfile\enum,0,,%CONFIG_PROF_B_ONLY%
+ HKR,NDI\params\ConfigProfile\enum,1,,%CONFIG_PROF_MIXED%
+ HKR,NDI\params\ConfigProfile\enum,2,,%CONFIG_PROF_MIXED_LONG%
+ HKR,NDI\params\ConfigProfile\enum,3,,%CONFIG_PROF_G_ONLY%
+ ;HKR,NDI\params\ConfigProfile\enum,4,,%CONFIG_PROF_TEST%
+ HKR,NDI\params\ConfigProfile\enum,5,,%CONFIG_PROF_B_WIFI%
+ HKR,NDI\params\ConfigProfile\enum,6,,%CONFIG_PROF_MIXED_SHORT%
+ HKR,NDI\params\ConfigProfile\enum,256,,%CONFIG_PROF_WIFI_SPEC%
+ HKR,NDI\params\ConfigProfile,optional,0,1
+
+ HKR,,NitroMode,0,"1"
+ ;HKR,NDI\params\NitroMode,default,0,1
+ ;HKR,NDI\params\NitroMode,ParamDesc,,%NITRO_MODE%
+ ;HKR,NDI\params\NitroMode,type,,enum
+ ;HKR,NDI\params\NitroMode,flag,1,30,00,00,00
+ ;HKR,NDI\params\NitroMode\enum,0,,%OFF_STR%
+ ;HKR,NDI\params\NitroMode\enum,1,,%ON_STR%
+ ;HKR,NDI\params\NitroMode,optional,0,1
+
+ HKR,,PSMode,0,1
+ HKR,Ndi\params\PSMode,default,0,1
+ HKR,NDI\params\PSMode,ParamDesc,,%POWER_SAVE_STR%
+ HKR,NDI\params\PSMode,type,,enum
+ HKR,NDI\params\PSMode,flag,1,30,00,00,00
+ HKR,NDI\params\PSMode\enum,1,,%POWER_SAVE_OFF_STR%
+ HKR,NDI\params\PSMode\enum,2,,%POWER_SAVE_DYN_STR%
+ HKR,NDI\params\PSMode\enum,3,,%POWER_SAVE_MAX_STR%
+ HKR,NDI\params\PSMode,optional,0,1
+
+;###############################################################################
+
+[DestinationDirs]
+ DefaultDestDir       = 11 
+ USB_DRIVER.copy      = 11 
+ USB_DRIVER.copy.NT   = 12 
+
+[USB_DRIVER.copy]
+ WUSB209x.sys
+
+[USB_DRIVER.copy.NT]
+ WUSB20XP.sys
+
+[SourceDisksNames]
+ 1                      = %INSTALL_DISK_STR%,,,
+
+[SourceDisksFiles]
+ WUSB209x.sys           = 1
+
+[SourceDisksFiles.X86]
+ WUSB20XP.sys           = 1
+
+;###############################################################################
+
+[Strings]
+ VER_VENDOR_STR          = "The Cisco-Linksys, LLC."
+ VER_VENDOR_NAME_STR     = "The Cisco-Linksys, LLC."
+ WUSB54G                 = "Linksys Wireless-G USB Network Adapter"
+ WUSB54GP                = "Linksys Wireless-G Portable USB Adapter"
+ 
+ WUSB54GSRV              = "802.11a/g USB Driver"
+ INSTALL_DISK_STR        = "Linksys Wireless-G USB Network Adapter Install Disk"
+
+ ON_STR                  = "On"
+ OFF_STR                 = "Off"
+ RTSTHRESH_STR           = "RTS Threshold"
+ FRAGTHRESH_STR          = "Fragmentation Threshold"
+ AUTHENT_TYPE_STR        = "Authentication Algorithm"
+ POWER_SAVE_STR          = "Power Save Mode"
+ POWER_SAVE_OFF_STR      = "Disabled"
+ POWER_SAVE_DYN_STR      = "Dynamic"
+ POWER_SAVE_MAX_STR      = "Maximum"
+ SHORT_RETRY_STR         = "Short Retry Limit"
+ LONG_RETRY_STR          = "Long Retry Limit"
+ CONFIG_PROFILE          = "Configuration Profile"
+ CONFIG_PROF_B_ONLY      = "B only"
+ CONFIG_PROF_MIXED       = "Mixed"
+ CONFIG_PROF_MIXED_LONG  = "Mixed Long"
+ CONFIG_PROF_G_ONLY      = "G only"
+ CONFIG_PROF_TEST        = "Test"
+ CONFIG_PROF_B_WIFI      = "B WiFi"
+ CONFIG_PROF_MIXED_SHORT = "Mixed Short"
+ CONFIG_PROF_WIFI_SPEC   = "WiFi Spec"
+ NITRO_MODE              = "Nitro Mode"

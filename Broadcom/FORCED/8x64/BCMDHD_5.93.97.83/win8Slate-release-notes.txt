@@ -1,0 +1,611 @@
+[5.93.97.83]
+ PR:114220 RB:6456 - SVT:Win8Slate:WHCK:BSOD during NDIS Tests.
+
+[5.93.97.82]
+ 1007729 - SDIO: BRCM v71 WIFI assication failure.
+  999912 - SDIO: No Reconnection in CS after several hours run.
+  998717 - SDIO: BRCM SoC: WiFi connection dropped after scanning devices via Windows UI.
+  988885 - SDIO: WiFi power drain on entering airplane mode.
+ CSP:578036: BSOD encountered in hibernate cycling pointing to WiFi Drv.
+ RB:6332 PR:114229: remove driver's P2P tx timeout limit.
+ RB:6360 PR:114293: WHCK:BSOD during WDF Logo fault Injection test.
+ RB:6398 Fix for BSOD on resume from hibernation
+
+[5.93.97.81]
+ 1017001 - Broadcom Wireless SDIO Adapter does not respond to all the offloaded NS requests in CS.
+
+[5.93.97.80]
+ RB:6238 - Address a bug check in enabling/disabling miniport driver.
+ RB:6208 - Turn on PROP_TXSTATUS macro in DHD build.
+ Update NVRAM for BT Coex SCO issue and turn on BT Coex in boardflags.
+ 1015901 - SDIO: Wi-Fi driver hanged in bcmdhd63!wl_free_timer on device removal.
+
+[5.93.97.78]
+ 1011800; RB:6010 SDIO 0x7E bcmdhd63 dhdsdio_download_nvrama.
+ 1000968 - SDIO: Broadcom Wi-Fi Driver sends encrypted M4 packet leading to limited connectivity (bcmdhd63.sys 5.93.97.67).
+ RB:5999 PR:113623  CSP:554127: Beacon remove probe response entry in the BSS table of win8 dongle driver.
+
+[5.93.97.77]
+ 1000968 - SDIO: Broadcom Wi-Fi Driver sends encrypted M4 packet leading to limited connectivity (bcmdhd63.sys 5.93.97.67).
+  969020, CSP-562050: ASSERT in scan request.
+ RB:6028 Win8Slate: right fix for M4 encryption issue
+ RB:6062 add missing protection for wlfc event handler and reset function.
+ Back out PropTx as most SoftAP tests are failing with PROP_TXSTATUS enabled
+ Following fixes are included but disabled (as in the above check-in)
+ RB6069: Fix BSOD casued by double freeing packet
+ RB6063: fix for unload hang issue when prop_txstatus enabled
+ RB:6062 add missing protection for wlfc event handler and reset function.
+ 4330 firmware - no change
+ 43241 firmware updated to 6.10.155, including
+ PR:113575 should assign hdr and body first for non ext_sta cases
+ remove EXT_STA_ENABLED from wl_arpoe.c
+
+[5.93.97.75]
+  999912 - SDIO: [sprintblocking_wake]No Reconnection in CS after several hours run.
+ RB:5718 - Enable WAPI definitions in DHD for NDIS platforms.
+ RB:5830 - 43241: Fix SoftAP MIC key error and WPS issue.
+ RB:5835 - 43241: Fix WFD pairing.
+ RB:5842 - 43241: fix 11w issue.
+ RB:5863 - 43241: Have privacy bit set in probe response when security is enabled for SoftAP.
+ RB:5870 - Increase direct scan active dwell time to 60ms for both scan and join.
+ RB:5872 PR:113484 CSP:561977 - Support 20 hidden SSID profiles.
+ RB:5918 - 43241: Fix to pass NDIS WFDPorts_ext test.
+ RB:5923 - 43241: Fix ARP offload issue in checkconnectivitystress test.
+ PR:110733 - Remove vndr ie custom flag when register p2p ie to allow ie filtering in building prb resp body.
+ PR:113281 - Free assoc resp buffer if allocated when resetting or deleting interface.
+ PR:111735: 4330: Fixed trap in A-MSDU handling.
+ CSP:562398 Device fails to automatically reconnect to AP after cold boot.
+ CSP:573160 WiFi Cert: WMM test case 5.2.30 is failing because of less throughput.
+
+[5.93.97.74]
+ 991761 - SDIO BRCM 5.93.97.67: Firmware error when connecting second client to GO.
+ RB:5739 - Improve reconnect after resume from hibernation.
+ RB:5786 - Enable SoftAP for 43241.
+ RB:5760 - Fix firmware crash in GTK Refresh for 43241.
+
+[5.93.97.73]
+ 994529 - SDIO: BRCM v.67: DRIVER_POWER_STATE_FAILURE on bcmdhd63.
+ 967487, CSP:564873 - SDIO: WLAN Disconnecting after resume from Hibernate state.
+ RB:5632 Fix GTKRefresh offload for 43241.
+ RB:5609 PR102968 PR111419: Implementation of XY/6 locale for win8: fix SISO power limits.
+ RB:5589 Add rssi_offset feature.
+ RB:5512 PR112921: Fix .11n reporting by netsh wlan show i.
+ RB:5664 Fix WfdDisable registry entry not working issue.
+
+[5.93.97.72]
+ 989717 - SDIO: BRCM v67: Bugcheck 7E @ bcmdhd63!CTable when attempting WFD ReInvoke group.
+ 987991 - Broadcom 802.11abgn Wireless SDIO Adapter was disabled after blue screen encountered.
+ 975269 - SDIO: AP power strenght changes with no reason.
+ CSP:565693 - bcmdhd63!wl_agebsstable+0xd3 [x:\falcon_rel_5_93_97_68\src\wl\sys\wl_oidcmn.c @ 1050].
+ RB: 5441 Enable async inband interrupt.
+ - Increase NDOE IPv6 addresses to 10, report correct number of supported ARP IPv4 addresses (8.)
+
+[5.93.97.71]
+ 981982 - SDIO Broadcom drivers are incorrectly tampering with DriverVersion string value.
+ 966233 - SDIO: Stop GO and disassociate WFD clients on low power transition.
+ 984822 - SDIO: Address Buffer Overrun in pmkid_list.
+ 984930 - SDIO: TEST-BLOCKING: DRIVER_OVERRAN_STACK_BUFFER (f7) bcmdhd63!__security_cookie.
+ 984869 - Broadcom FN2 device appears for safe removal even though it cannot physically be removed from machine.
+ 966074 - SDIO: SignalStrength_ext.htm test fails sometimes.
+ 973360 - Microsoft SDIO: BRCM v.63: NS offload is not working in Connected Standby.
+ - Add feature to read WLAN NVRAM from UEFI BIOS Environment Variable.
+
+[5.93.97.70]
+ 983772 - SDIO: BRCM v67: Cardhu can be discoverd over WFD when connected to WPA2PSK network on STA port.
+ 980010 - SDIO: 5.93.97.67: DRIVER_POWER_STATE_FAILURE (9F) Bugcheck during shutdown.
+
+[5.93.97.69]
+ 982911 - BRCM SDIO 5.93.97.67: Access Violation in bcmdhd63!wl_wfd_media_access_blocked.
+ 981988 - SDIO:BRCM: WiFi driver adjust ListenInterval to ~ 1s when running in D2.
+ 974563 - SDIO BRCM SDIO 5.93.97.63: Assertion Failure at bcmdhd63!wl_wfd_disc_timer.
+ 966890 - WiFi radio is not turned OFF in Airplane mode and device continues to recieve discovery probes and responds to them.
+ 923743 - SDIO: BRCM [Broadcom] Occassionally the WiFi driver complete OID_DOT11_ENUM_BSS_LIST with zero entries while connected.
+ RB5082 - WFD: Improve reliability of targeted scan when finding GO.
+ CSP555773:  Updated - Slight noise is observed while turning WiFi on during BT handsfree.
+
+[5.93.97.68]
+ CSP552595: Improve WLAN Tx throughput.
+
+[5.93.97.67]
+ 972595 - SDIO: HCK test failure: bcmdhd63.sys | ARM_AV_VRF_bcmdhd63+5683b.
+
+[5.93.97.66]
+ INF file change only: fix issues in WHCK DevFund INF Test and Device Driver INF Verification Test (Certification).
+
+[5.93.97.65]
+ Fix SoftAP, WFD GO Regression introduced in v.64.
+
+[5.93.97.64]
+ 971439 - SDIO: Bug check in bcmdhd63 driver on Intel SoC platform when running WHCK "Crypto Capabilities - Performance" test when using a wireless connection.
+ 940355 - SDIO: BRCM v59: AV in driver while running EXTAPVWifi tests Vegas2 B0.
+ 938232 - SDIO: BRCM v63: WHCK pairing fails for Wifi Direct PC to PC Scenario.
+ 920889 - SDIO: BRCM v62: ASSERT @ bcmdhd63!wl_wfd_encode_gon_rsp_p2p_ie+0x70.
+
+[5.93.97.63]
+ 967652 - SDIO BCM v59 Driver should support OID_PM_GET_PROTOCOL_OFFLOAD for RSN Rekey.
+ 964392 - SDIO: BRCM v59: Cannot start Autonomous GO using IHV Tool when connected on Infra port.
+ 953194 - SDIO: BRCM v.53: Wi-Fi AP Association Lost.
+ 872002 - SDIO: WHCK: BRCM v59: Data transfter after resuming from sleep failed in PM_GtkRefresh (reactive.)
+ CSP553954 - DUT unable to send traffic on native WiFi after establishing a WFD connection.
+
+[5.93.97.62]
+ 938369 - SDIO: BRCM v.50: DPC_ISR: WHCK total interrupts exceeded max allowed interrupts.
+
+[5.93.97.61]
+ 936682 - SDIO: BRCM v.50: WHCK Unable to setup connections or measure throughput NDIS_STATUS_FAILURE in VWiFiPerformance_ext.
+ CSP542970 - [WFD] GO does not disconnect the client from the P2P group by sending DEASSOC/DEAUTH.
+ 953737 - SDIO: BRCM v.59: Pending NBLs are preventing port op mode change, which causes WFD pairing API to hang on failure.
+ 938232 - SDIO: BRCM v.53: WHCK pairing fails for Wifi Direct PC to PC Scenario.
+ 918850 - SDIO: BRCM v.49: WHCK WFD Perfomance tests: Pairing succeeds but performance numbers fail the test.
+
+[5.93.97.60]
+ 961885 - SDIO: BRCM v.59: pm_requirements test check for Wake packet indication flag and NumNSOffloadIPv6Addresses values.
+ 958733 - SDIO: BRCM v.59: WHCK Assertion failure @ bcmdhd63!wl_del_timer+0x2a.
+ 958608 - SDIO: BRCM v.53: Assertion failure @ bcmdhd63!wl_del_timer+0x2a.
+ 937620 - SDIO: BRCM v.50: WHCK Wlanmpe crashes in user mode.
+
+[5.93.97.59]
+ 954124 - SDIO: BRCM v.53: bcmdhd63.sys: Bugcheck during miniport init when a memory allocation fails.
+ CSP545511 - WFD P2P connection is lost when Native WiFi connection is established on the Client.
+
+[5.93.97.58]
+ RB:4421: fix for PM_WoWlanGTKTestAp, WLANWakeTestsTestSoftAP issues: Fix issue uncovered using 8400+QFE WHCK version.
+ 938232 - SDIO: BRCM v.53: WHCK pairing fails for Wifi Direct PC to PC Scenario.
+
+[5.93.97.57]
+ 938727 - SDIO: BRCM v.53: WHCK KeepAlive: Negative ARP and NS offload tests failing.
+ 847032 - SDIO: BRCM v.42: Assertion failure in bcmdhd63.sys!bcmdhd63!wl_add_timer+0x98 (v.42).
+ 719919 - SDIO: MPTPerf: Timer DPC from BRCM miniport firing at short cadences thereby impacting idle residency goals.
+ CSP542970 - In case the device is in high availibility listen mode or scan, disassoc/deauth can be sent to wrong channel. 
+
+[5.93.97.56]
+ 939006 - SDIO: BRCM v.48: NLO discovery happens fast but query of SSID list returns 0 entry.
+ 934804 - SDIO: BRCM: v.53:VAN didn't refresh sometimes.
+ 902178 - SDIO: BRCM v.53 WHCK Broadcast_ext fails while run from WHCK.
+ CSP542154 - Magic Packet still visible in properties window.
+
+[5.93.97.55]
+ Fix regression introduced in v.54 which caused intermittent failures in the following tests:
+	WlanEXTSTATests, WLanSTACommonTests, WLanEXTAPVWIFITests, WlanCheckConnectivityStress, VWifiStress.
+ 955562 - SDIO: BRCM v.53: VWifiStress 'hangs' during cleanup.
+ 940355 - SDIO: BRCM v50: AV in driver while running EXTAPVWifi tests.
+ 934741 - SDIO: BRCM v48: Bugcheck 7E @ bcmdhd63!wl_wfd_media_access_blocked.
+
+[5.93.97.54]
+ 896365: SDIO: BRCM v47: ASSERT in driver while adding a client to the WFD GO while running WFD NDISTest tests.
+ 838474 - SDIO: BRCM v.42+ Not able to start hosted network (SoftAP).
+ CSP542970: SDIO: WFD: GO does not disconnect the client from the P2P group by sending DEASSOC/DEAUTH.
+
+[5.93.97.53]
+ 932121 - SDIO: BRCM v.50: Hardware Wake on Magic Packet capability status is not reported correctly.
+ RB:4141 Fix crash in WlanFUZZTests first seen in v.52.
+
+[5.93.97.52]
+ 936574 - SDIO: BRCM v.50: SUT failed to connect to softAP when WPS is enabled in SoftAP_wps_ext.
+ 924867 - SDIO: BRCM v50: Wake pattern match scenario broken due to failure to set OID_PM_ADD_WOL_PATTERN.
+ 927072 - SDIO: BRCM v.48 WLAN driver failure in OID_DOT11_CURRENT_OPERATION_MODE.
+ 920889 - SDIO: BRCM v49Plus: ASSERT @ bcmdhd63!wl_wfd_encode_gon_rsp_p2p_ie+0x70.
+ 903051 - SDIO: BRCM v48: ARM_AV_VRF_bcmdhd63!osl_debug_mfree while running WlanCheckConnectivityStress.
+ CSP539721 - WiFi Direct: GO Peer Disassociate Not Functional followed by continuous DEAUTH loop.
+
+[5.93.97.51]
+ Test fix for 903051.
+
+[5.93.97.50]
+ 864673 - SDIO: BRCM v.44 driver fails to indicate association start at first connect after boot. 
+ 864975 - SDIO: BRCM v44: Autoconnect after disable/enable of adapter does not happen leading to failure in D2SleepBVT test.
+ 914815 - SDIO: BRCM v49:BSOD while running WakeTestSoftap tests.
+ 915922 - SDIO: Broadcom 4330: v49: Broadcom miniport is not completing OID_PNP_SET_POWER(D2) request.
+ 916805 - SDIO: BRCM v49: Dialog Token being sent by GO in the Invitation Request is always 1. Needs to be incremented for subsequent requests.
+
+Other changes:
+ Added WFDChannelNumber Registry setting to set the default WFD channel (defaults to 11.) 
+ Fix several SoftAP test cases.
+ INF file changed to reflect removal of WakeOnMagicPacket.
+
+[5.93.97.49]
+ 846192 - SDIO: Assertion failure in bcmdhd63.sys!wl_wfd_start_discovery+0x82
+ 871062 - SDIO: BCRM: Connected but idle WiFi NIC constantly uses ~200 mW when it should be in PS Mode.
+ 892796 - SDIO: BRCM v47: PM_WolPattern tests fail due to a 45 byte difference in expected and indicated packet.
+ 892830 - SDIO: BRCM v47: Miniport fails to wake up the machine after receiving wake packet.
+ 894840 - SDIO: BRCM v47: WFD GO negotiation fails with STATUS_UNSUCCESSFULL.
+ 896365 - SDIO: BRCM v47: ASSERT in driver while adding a client to the WFD GO while running WFD NDISTest tests
+ 898577 - SDIO: bcmdhd63!shared_deq+d from running from Wdf Fault Injection Logo Test.
+ 901376 - SDIO: BRCM v48: Indications_ext test suite has failure "uReason field in DOT11_DISASSOCIATION_PARAMETERS cannot be zero"
+ 902384 - SDIO: bcmhd63 v5.93.97.48: bugcheck D4 in bcmdhd63!wl_ndis_setinfo+0x10f4 for dereferencing bad bytes read.
+ 902398 - SDIO: bcmhd63 v5.93.97.48: bugcheck D1 in bcmdhd63!shared_deq+0xc after failing memory allocation in bcmdhd63!wl_dnglhost_allocate+0x23
+ 907739 - SDIO: BRCM v.48 Remove driver indication for Magic Packet.
+
+[5.93.97.48]
+ 848329 - SDIO: WLANFuzz Tests: SoftAP_Security_ext failure: Failed to start softAP and failed to reset DUT.
+ 896874 - SDIO: BRCM v47: Assert @ bcmdhd63!wl_work_item_cb_eventq+0x22 when running ScanProcess_ext.
+ 896423 - SDIO: BRCM v47: Assert in bcmdhd63!wl_work_item_cb while running the EXTSTA tests (ARM_0x3BCB_VRF_bcmdhd63!osl_assert).
+
+[5.93.97.47]
+ RB3571 - Fix handling of WPS association attempts when the WPS window is not open and the BSS is not (yet) secure which causes driver to misinterpret the WPS IE as a WPA IE.
+ RB3605 - Fix firmware crash found during WFD WHCK tests.
+ 866478 - SDIO: BRCM v44: ARM_0x9F_VRF_3_bcmdhd63_IMAGE_sdbus.sys
+ 847227 - SDIO: Failure in Broadcom driver while setting IEs (v.42) 
+ Address several issues in SoftAP WHCK tests.
+
+[5.93.97.46]
+ 820569 - SDIO: Broadcom driver hangs due to pending OID_DOT11_ENUM_BSS_LIST.
+ 838474 - SDIO: Not able to start hosted network (SoftAP)
+ 862236 - SDIO: Bugcheck at bcmdhd63!osl_assert+0x5c.
+ 868638 - SDIO: BRCM: miniport rejects NLO that contains valid auth type.
+ 870281 - SDIO: BRCM: NDISTEST_SOFTAP is still in BSS list after AP device was shut down and list was flushed in FlushBSSList_ext.
+ 874114 - SDIO: BRCM: indicating that it supports 16 Wake bitmap pattern matches but only supports 8.
+
+[5.93.97.45]
+ 840076 - Broadcom 802.11n SDIO driver misses indicating correct disassociation/roaming/association indications when walking between APs.
+ 843996 - SDIO: After adding a hidden network the scanlist is empty.
+ 848674 - SDIO driver drop connectivity during roaming and could not reconnect in roaming time window.
+ 846192 - Assertion failure in bcmdhd63.sys!wl_wfd_start_discovery+0x82
+ 854443 - SDIO: BRCM v42: Assert "wl->wfd_req == NULL" while pairing with WFD Device.
+ 854460 - SDIO: BRCM v42: ASSERT "wfd_role_ext->client_list_count < wfd_role_ext->gen.wfd_grp_gc_limit" while pairing with WFD device.
+ 855119 - SDIO: BSS list is reduced to 1 BSS entry if VAN UI is kept open.
+ 860152 - BRCM v42: signal strength jumps to 100% when walking out of AP range.
+ CSP#522257 - Enable keepalive feature.
+ 861630 - SDIO: BRCM v44: ARM_0xBE_bcmdhd63!dbg_log_add.
+
+[5.93.97.44]
+ 732141 - SDIO: Need to indicate wake reason for various wake scenarios. 
+ 820458 - SDIO: failing memory allocation in bcmdhd63!wl_dnglhost_allocate+0x23 results in a bugcheck in bcmdhd63!wlc_detach_mfree+0x4c.
+ 824454 - SDIO: bugcheck in bcmdhd63!bcmsdh_remove+0x16 after double failure in bcmdhd63!wl_dnglhost_allocate+0x23/bcmdhd63!wlc_attach_malloc+0x8d and bcmdhd63!wlc_attach_malloc+0x135.
+ 824461 - SDIO: bugcheck in bcmdhd63!wlc_detach_mfree+0x4c after failing bcmdhd63!wl_dnglhost_allocate+0x23 (variation 2).
+ 824462 - SDIO: bugcheck in bcmdhd63!bcmsdh_remove+0x16 after failing allocation in bcmdhd63!wl_dnglhost_allocate+0x23 (variation 2).
+ 825354 - SDIO: bugcheck in bcmdhd63!bcmsdh_remove+0x16 after failing bcmdhd63!wl_dnglhost_allocate+0x23/bcmdhd63!wlc_attach_malloc+0x1bb (variation 3).
+ 825375 - SDIO: bugcheck in bcmdhd63!bcmsdh_remove+0x16 after failing bcmdhd63!shared_lb_alloc+0xe3.
+ 825380 - SDIO: bugcheck bcmdhd63!wl_pkt_pending+0x2e when trying to bring up the VAN UI.
+ 842362 - SDIO: BRCM-Bsslist query return 0 BSS entry which prevent auto connect - NLO.
+ 845541 - SDIO: BRCM v42: NDISTest 6.5 - WLANMPE: Assertion at bcmdhd63!osl_assert+5c on the stack. 
+ 850423 - SDIO: BRCM: KD break at bcmdhd63!osl_mfree.
+ 850920 - SDIO: Association completes with STATUS_NETWORK_UNREACHABLE, with various DOT11_ASSOC_STATUS values.
+ 852273 - DRIVER_PAGE_FAULT_IN_FREED_SPECIAL_POOL (d5) - 0xD5_VRF_bcmdhd63!wl_ndis_add_if+a7.
+ 855523 - SDIO: (private .43) : bugcheck at AV_bcmdhd63+24bbb 
+
+[5.93.97.43]
+ 820359 - SDIO: BCM WiFi firmware failed to respond to GTKRefresh while in CS.
+ 824450 - SDIO: bugcheck in bcmdhd63!wlc_detach_mfree+0x4c after failing memory allocation in bcmdhd63!wlc_bsscfg_malloc+0x2f.
+ 842366 - SDIO: BCM WiFi driver needs to add regitery key EnableWoWLAN from INF.
+ 844314 - SDIO: BRCM v42: AV caused by memory corruption with bcmdhd63!bcmsdh_intr_callback+0x7a on the stack. 
+ 845524 - SDIO: Assertion failed at bcmdhd63!osl_assert due to null pointer passed to bcmdhd63!dhd_bus_pub.
+ 846121 - SDIO: BCM Driver has a double OID completion.
+ 846147 - SDIO: BCM WiFI driver FN1 CAT file basename and FN2 INF.
+ 848676 - SDIO: BRCM v42 driver is reporting some networks with channel 0.
+
+[5.93.97.42]
+ 698064 - SDIO: Broadcom SDIO driver takes 2 seconds to associate and 3 seconds to authenticate with a home AP with WPA2.
+ 768645	- SDIO: TEST-BLOCKING: Device is returning NDIS_STATUS_INVALID_OID to OID_DOT11_SAFE_MODE_ENABLED.
+ 790346	- SDIO: BCM WiFI driver catalog file needs to be signed with sha256.
+ 812312	- SDIO: NLO: Hit a bug check on ranning through NDISTest 6.5 - WlanWakeTests. Driver not handling IOCTL_DOT11_OFFLOAD_NETWORKS.
+ 815871 - SDIO: BRCM: miniport sd bus backoff logic is incorrect and can lead to an interrupt storm.
+ 822445	- SDIO: EXTSTA: SafeMode_ext failure: DUT failed to enable safe mode NDIS_STATUS_INVALID_OID.
+ 832179 - SDIO: CMD52 failure with .39 driver.
+ 834737	- SDIO: WFD regression in .41 driver.
+ 837446 - SDIO: ARM_0x2B3C_bcmdhd63!osl_assert+5c in Assoc completion path
+
+[5.93.97.41]
+ 810908	- SDIO: BCM 4330 WiFi should be able to sleep for 0.5s or lower  in PSM when the system is  in Connected Standby:
+    - Changed Registry value D2ListenInterval to a default of 5.
+ 825806 - SDIO: Broadcom driver hits D5 Bugcheck when it reboots.
+
+[5.93.97.40]
+ 822320 - SDIO:  BRCM FN2 driver should not register as Interrupt handler (download bcm-fcn2-rel4.zip from Broadcom CSP.)
+ 797309	- SDIO: [Sprintblocking_selfhost] D5 bugcheck in Broadcom driver
+ 784328	- SDIO: [sprintblocking_selfhost] Bugcheck 9F in v36.1 BRCM driver
+ 810876	- SDIO: [Sprintblocking_offsoc] Broadcom v.38: assert/bugcheck at bcmdhd63!wl_query_oid+0x87c
+ 810908	- SDIO: BCM 4330 WiFi should be able to sleep for 0.5s or lower  in PSM when the system is  in Connected Standby:
+    - Added Registry value ListenInterval to specify the association listen interval (Defaults to 1.)
+    - Added Registry value D2ListenInterval to specify the listen interval when in D2 state (Defaults to 1.)
+ 815169	- SDIO: [sprintblocking_offsoc] Broadcom v.38 driver seems to be indicating NDIS_STATUS_DOT11_LINK_QUALITY very frequently
+ 820116 - SDIO: bugcheck in bcmdhd63!bcmsdh_remove+0x16 after failing allocation in bcmdhd63!wl_dnglhost_allocate+0x23.
+ 821907 - SDIO: 9F bugcheck on Ethernet Nic due to nWiFi cloned NBL due to NBL stuck in BCM going into D2.
+
+[5.93.97.39]
+ 691766 - SDIO: Broadcom SDIO driver fails WlanCheckConnectivityStress during transimission between SUT and DUT.
+ 747130 - SDIO: TEST-BLOCKING: Broadcom wireless driver is not reporting D0 coalescing capability properly.
+ 797155 - SDIO: STACommon: EnableDisable_cmn failure: DUT failed to receive expected number of packets.
+ 797164 - SDIO: STACommon: Encryption_cmn failure: DUT failed to receive expected number of packets.
+ 797364 - SDIO: EXTSTA: Broadcast_ext failure: DUT failed to receive expected number of packets.
+ 797377 - SDIO: EXTSTA: DataThroughput_ext failure: DUT failed to sustain required average and stable throughputs.  
+ 797385 - SDIO: EXTSTA: MulticastOID_ext failure: DUT failed to receive expected number of packets.
+ 797448 - SDIO: EXTSTA: Regression_ext failure: DUT failed to receive expected number of packets.
+ 797468 - SDIO: EXTSTA: PowerSaveMode_ext failure: DUT failed to receive expected number of packets.
+ 797642 - SDIO: AutopowersaveMode_ext intermittent failure: DUT failed to receive expected number of packets.
+ 799262 - SDIO: STACommon: Performance_cmn failure: Unexpected breakpoint hits.
+ 806430 - SDIO: EXTSTA: SendRecv_ext failure: DUT indication failure and SUT failed to connect.
+ 806438 - SDIO: EXTSTA: AddressChange_ext failure: DUT failed to receive expected number of packets.
+
+[5.93.97.38]
+Fixes - The following WinQual bugs are resolved:
+ 709785 - SDIO: Broadcom WiFi signalling SDIO card interrupt while the miniport is still handling the previous card interrupt.
+ 768600 - SDIO: Driver is incrementing statistics while PHY IDs are disabled
+ 768617 - SDIO: Many indication failures in SendRecv_ext tests
+ 768607 - SDIO: Indications_ext failures
+ 797140 - SDIO: STACommon: SendRecv_cmn failure: DUT failed to receive expected number of packets
+ 797147 - SDIO: STACommon: AddRemoveKey_cmn failure: DUT failed to receive expected number of packets.
+ 797174 - SDIO: STACommon: Scan_cmn failure: DUT failed to return the VendorSpecific IE or WPA IE in list entry.
+ 797359 - SDIO: EXTSTA: AddressChange_ext failure: Test adapter network address unchanged after driver reload.
+ 797377 - SDIO: EXTSTA: DataThroughput_ext failure: DUT failed to sustain required average and stable throughputs.
+ 797385 - SDIO: EXTSTA: MulticaseOID_ext failure: DUT failed to receive expected number of packets.
+ 797488 - SDIO: EXTSTA: WcnIE_ext failure: WCN IE verification failed with errors.
+ 797588 - SDIO: EXTSTA: Statistics failure: DUT failed to receive expected number of packets and counter values are incorrect.
+ 797625 - SDIO: EXTSTA: Scan_AdditionalIE failure: DUT Failed to find ProbeRequest IE from capture on AP2. (Fixed issue, verified with sniffer, test still fails.)
+
+ 550475 - SDIO: BCM4330 driver does not go into PS mode while connected and
+idle with Auto power saving
+ 689926 - SDIO: Broadcom SDIO driver fails to connect softAP during
+association in WLanSTACommonTests
+ 709456 - SDIO: Packet transmission failures on autopowersavemode WHCK tests
+ 743969 - SDIO: Broadcom driver is failing scan tests - Wireless BVTs test
+suite
+ 768697 - SDIO: apcheckconnectivty_cmn test is failing to query association
+information
+ 768600 - SDIO: Driver is incrementing statistics while PHY IDs are disabled
+ 768590 - SDIO: Failing association_ext tests with missing IE during
+association (Can not find IE with ID 219)
+ 723491 - SDIO: IRP stuck on a Broadcom WiFi driver -
+DRIVER_POWER_STATE_FAILURE (9f)
+ 718783 - SDIO: bcmsdstddhdwin8arm!osl_assert+5c
+[x:\dhd\falcon_rel_5_93_97_34\src\shared\ndis_osl.c @ 639] (SDIO)
+ 747658 - SDIO: BCM is failing to connect to the AP during the WLAN shim setup SDIO
+ 768714 - SDIO: Many send failures in SendRecvStress_cmn
+ 768569 - SDIO: Broadcom intermittently failing Wireless BVT Scan Tests
+ 768622 - SDIO: Two failures in EnumBSSList_ext tests
+ 768638 - SDIO: AddRemoveKey_ext failures
+ 755252 - SDIO: Miniport roams and associates with the same AP with different
+offset on DOT11_REASSOC_FRAME causing connection failure
+
+New Features: Wi-Fi Direct Group Owner support added.  Wi-Fi Direct is now
+enabled by default.
+
+[5.93.97.36]
+Fixes - The following WinQual bugs are resolved:
+ 707368 - SDIO: Error code 10 on device start of WLAN adapter after running WLANExtSta tests
+ 718884 - SDIO: Broadcom SDIO driver is not indicating support for DOT11_OPERATION_MODE_WFD_GROUP_OWNER mode
+ 719919 - SDIO: MPTPerf: Timer DPC from bcmsdstddhdwin8.sys causes a system thread to run at every 15.6 milliseconds
+ 720552 - SDIO: Assertion d:\7034\base\busdrv\sd\commonlib\interface.c(848): 0 && "don't queue IO while the device is not in D0" while running
+ 722457 - SDIO: Updating driver name and versioning required:
+	- Driver files renamed to bcmdhd63.sys/bcmdhd63.inf for all platforms
+ 725067 - SDIO: Crash at bcmsdstddhdwin8!osl_debug_mfree while changing wake patterns
+ 729135 - SDIO: Crash at bcmsdstddhdwin8!wl_free_work_item while running postconfig script for WLANPremium WHCK test suite
+ 747130 - SDIO: Broadcom wireless driver is not reporting D0 coalescing capability properly
+ 750490 - SDIO: Invalid status buffer size specified in NDIS_STATUS_INDICATION::StatusBufferSize for WakeOnAPDisconnect indication
+
+[5.93.97.35]
+Fixes - The following Winqual bugs are resolved:
+ 715464 SDIO: Broadcom: bugcheck - ARM_AV_VRF_bcmsdstddhdwin8!CTable+3b
+ 709757 SDIO: NetworkListOffloadTest causing KD break at bcmsdstddhdwin8!wl_set_oid   
+ 664051 SDIO: [WLAN] nVidia Tegra T30 machine takes a long time to connect to wireless network
+ 700252 SDIO: Broadcom: bugcheck - ARM_0xDB_VRFOCA_NULL_IP_bcmsdstddhdwin8arm!osl_assert+5c
+ 714370  SDIO: Broadcom: D0 Coalescing is not supported yet in wlan driver
+
+[5.93.97.34]
+Fixes:
+Added the .rc file back in the project. The driver will include version information.
+Enabled the watch dog timer. Clock management is back on.
+Added status check to registry open call, so that in case the hive is not available in a D3 to D0 transition, the driver will not crash the system.
+In case open fails, transition back to D0 still succeeds, but any registry overrides will be ignored.
+
+[5.93.97.33]
+Fixes:
+Corrected the flags in wake packet status indications.
+Fixed a bug so that the wake packet NBL is not dropped, but indicated to the stack fast enough to avoid a resend.
+[5.93.97.32]
+Fixes:
+-fix Winqual bug 664671 - correct the test for supported offloads
+-tx stability
+-add a registry key WfdEnable to enable WiFi Direct
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Class\{4D36E972-E325-11CE-BFC1-08002BE10318}\00xx] where xx is the network device instance
+"WfdEnable"=dword:00000001
+
+[5.93.97.31]
+Fixes: 
+-WPA/WPA2 association fix
+-Stablized WFD
+-ARP and NS offload capability flag fix
+-Throughput stability
+-WFD Disable through registry
+
+[5.93.97.30]
+Fixes: 
+-802.11w fixes with group key update
+-WPA/WPA2 stabalization
+-Stablized WFD
+-Some escan result issue
+
+New feature:
+IGTK refresh in firmware when in D2 power state
+ 
+[5.93.97.29]
+Fixes:
+-Driver disable/uninstall crash issue
+-5G band scan issue
+-ESCAN crash durng D2 transitions
+
+[5.93.97.28]
+Fixes:
+-Stablized WFD
+-Turned off host watchdog timer(temporary workaround) to stablize driver
+-Magic packet and AP disassocation wake event
+-MS reported blocking driver assert
+
+New Features:
+-802.11w(management frame protection)
+
+[5.92.97.27]
+Fixes:
+-scan sometime crashes on OID RESET REQUEST
+
+[5.92.97.26]
+Fixes:
+-Watchdog timer(every 10ms bus idle, it turns off high speed clock on dongle to 
+conserve power)
+-Fixed crash on AP disassoc wake event (but AOAC may still have some issues, 
+such as transitioning from D3->D0 state)
+-Added D0 Coalescing support in Broadcom SDIO INF file
+-Driver signing on binaries
+
+New features:
+-NS offload (IPV6)
+-WFDirect(have not verified WFDirect operation and are still seeing errors 
+running WFD tests on NDISTest.
+
+Note:
+-802.11w NOT included as there are still issues
+
+[5.97.93.25]
+Fixes & New Features
+-ARP offload
+-AOAC
+              -4 Way handshake request 
+              event(NDIS_WLAN_WAKE_ON_4WAY_HANDSHAKE_REQUEST_ENABLED)
+              -GTK handshake error 
+              event(NDIS_WLAN_WAKE_ON_GTK_HANDSHAKE_ERROR_ENABLED)
+
+[5.93.97.24]
+Fixes & New Features
+-AOAC
+              -Increased number of supported AOAC bitmap patterns to 16 (LOGO 
+compliant)
+
+              -Decreased each bitmap size support to 74bytes(enough to 
+support IPv6 packets)
+
+              -Decreased support of pattern matched payload to 74bytes(
+requirement may have been 128bytes, MS needs to comment on this)
+
+              -Fixed wake packet pattern payload problem(due to a bug it used 
+to only send up 4bytes)
+
+-NPOS & power transition
+              -Basic power down transition to D3
+              -Added sdbus set property SDP_SET_CARD_INTERRUPT_FORWARD before 
+going to D2 or D3 and coming back to D0(still need a platform for testing) 
+-NLO
+-D0C
+-Reported interface rate fix (now usually 65Mbps)
+
+
+[5.93.97.23]
+Fixes
+- release to use basically ver 21 driver and ver 22 firmware to avoid some driver issues.
+
+[5.93.97.22]
+Fixes
+-enable D0 Coalescing on firmware (driver already has it enabled).
+
+[5.93.97.21]
+Fixes
+-OID_PM_ADD_WOL_PATTERN BitmapPattern causes mfree bug check(need to turn on
+driver verifier to root cause)
+
+Known Issues
+-D2<->D0 and D3<-D0 transition needs to clean up(wake for wifi driver work
+items to finish, call sdbus INTERRUPT_FORWARD to drain out queued dpc
+callbacks) before return of OID_PNP_SET_POWER of D2 or D3 transition
+
+[5.93.97.20]
+Fixes
+-interrupt storm issue fixed in wifi firmware
+
+Known Issues
+(Same as .19 known issues)
+
+[5.93.97.19]
+Fixes
+-Wifi firmware change: fixed interrupt storm
+
+Known Issues
+-D2<->D0 and D3<-D0 transition needs to clean up(wake for wifi driver work
+items to finish, call sdbus INTERRUPT_FORWARD to drain out queued dpc
+callbacks) before return of OID_PNP_SET_POWER of D2 or D3 transition
+-OID_PM_ADD_WOL_PATTERN BitmapPattern causes mfree bug check(need to turn on
+driver verifier to root cause)
+
+[5.93.97.18]
+-Add new power state D2, D3.
+
+[5.93.97.17]
+-DEBUG only: disable OOB interrupt.
+
+[5.93.97.16]
+Fixes
+-BitMap can only handle 802.11 type, still need to translate to Ethernet format
+
+[5.93.97.14]
+Fixes
+-WOWL pattern BitMap handling of mask size(interpret correctly)
+
+Known Issues
+-BitMap can only handle 802.11 type, still need to translate to Ethernet format
+-Packet pattern detection only runs the most recently added pattern type
+
+[5.93.97.12]
+Fixes
+-WOWL pattern add/remove/enable fix
+-Possile SDIO interrupt storm fix
+
+[5.93.97.11]
+Fixes
+-WOWL general fixes
+
+Known Issues
+-General association issues
+
+
+[5.93.97.10]
+Fixes
+-Sdbus intr disable/enable in callback path fix
+-WOWL
+	-Event triggers(AP Disassoc, NLO Discovery)
+	-Pattern wake(Magic packet, Bitmap pattern)
+
+Known Issues
+-None
+
+[5.93.97.9]
+Fixes
+-All crash fixes
+-NLO support
+-Tested secure association: WEP, WPA/WPA2 with various APs, all functional
+-4330b2 Functional 
+
+Known Issues
+-None
+
+[5.93.97.8]
+Fixes
+-NDIS6.3 migration
+-work item exit at dispatch level(spinlock held) crash
+
+Known Issues
+-Occasional assert in tx data path under stress test
+-Secure association(for now only open association is supported)
+
+
+[5.93.97.7]
+Fixes
+-4330b2 support
+-Rx data path assert
+
+Known Issues
+-Occasional assert in tx data path under stress test
+-Secure association(for now only open association is supported)
+
+[5.93.97.6]
+Fixes
+-High CPU usage issue
+
+Known Issues
+-Occasional assert in data path under stress test
+-Secure association(for now only open association is supported)
+
+[5.93.97.5]
+Fixes
+-Tx path assert issue
+
+[5.93.97.4]
+Fixes
+-Driver disable hang

@@ -1,0 +1,84 @@
+;-------------------------------------------------------------------------------
+; swg3knm00.INF
+;
+; Qualcomm Windows Serial Port Setup File
+;
+; Copyright (c) 2010 Qualcomm Inc.  All rights reserved.
+;-------------------------------------------------------------------------------
+
+[Version]
+signature     = "$WINDOWS NT$"
+Class         = Ports
+Provider      = %SWI%
+ClassGuid     = {4D36E978-E325-11CE-BFC1-08002BE10318}
+DriverVer     = 08/18/2011,11.8.1005.7
+Catalogfile   = swg3kser00.cat
+
+[ControlFlags]
+ExcludeFromSelect = *
+
+[Manufacturer]
+%SWI% = QcomSerialPort, NTamd64
+
+[SourceDisksNames]
+1000 = %QcomSrcDisk%,"",,\sys\x86
+2000 = %QcomSrcDisk%,"",,\sys\amd64
+
+[SourceDisksFiles.x86]
+swg3kser00.sys = 1000
+
+[SourceDisksFiles.amd64]
+swg3kser00.sys = 2000
+
+[QcomSerialPort]
+%SWIDevice90113%  = QportInstall03, USB\VID_1199&PID_9011&MI_03
+%SierraDevice68A23%  = QportInstall03, USB\VID_1199&PID_68A2&MI_02
+%SierraDevice68A53%  = QportInstall03, USB\VID_1199&PID_68A5&MI_03
+%SierraDevice68A93%  = QportInstall03, USB\VID_1199&PID_68A9&MI_03
+
+[QcomSerialPort.NTamd64]
+%SWIDevice90113%  = QportInstall03, USB\VID_1199&PID_9011&MI_03
+%SierraDevice68A23%  = QportInstall03, USB\VID_1199&PID_68A2&MI_02
+%SierraDevice68A53%  = QportInstall03, USB\VID_1199&PID_68A5&MI_03
+%SierraDevice68A93%  = QportInstall03, USB\VID_1199&PID_68A9&MI_03
+
+
+[QportInstall03.NT]
+CopyFiles = gobiUsbDriverFiles
+AddReg    = All00, QCAddReg, DevFunction1
+
+[gobiUsbDriverFiles]
+swg3kser00.sys
+
+[DestinationDirs]
+DefaultDestDir = 12
+
+[QportInstall03.NT.Services]
+AddService = swg3kser00,  0x00000002, gobi_USBSerialService
+
+[gobi_USBSerialService]
+DisplayName   = %GOBI3KSER%
+ServiceType   = 1
+StartType     = 3
+ErrorControl  = 1
+ServiceBinary = %12%\swg3kser00.sys
+
+[All00]
+HKR,,NTMPDriver,,swg3kser00.sys
+
+[DevFunction1]
+HKR,,QCDeviceFunction,0x00010001,1
+
+[QCAddReg]
+HKR,,PortSubClass,1,01
+HKR,,EnumPropPages32,,"MsPorts.dll,SerialPortPropPageProvider"
+
+[Strings]
+GOBI3KSER       = "Sierra Wireless QMI USB Device for Legacy Serial Communication"
+QcomSrcDisk     = "Sierra Wireless USB Driver Disk"
+SWI             = "Sierra Wireless Incorporated"
+SWIDevice90113  = "Sierra Wireless NMEA Port"
+SierraDevice68A23  = "Sierra Wireless NMEA Port"
+SierraDevice68A53  = "Sierra Wireless NMEA Port"
+SierraDevice68A93  = "Sierra Wireless NMEA Port"
+

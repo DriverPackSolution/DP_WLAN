@@ -1,0 +1,129 @@
+; Signature $WLI-PCI-OP$
+;
+; INF file for BUFFALO WLI-PCI-OP
+; Copyright (c) 1998-2000 MELCO INC.
+
+
+; comment: WLI-PCI-OP uninstaller checks "Signature $WLI-PCI-OP$.
+;        : DO NOT CHANGE!!
+
+[Version]
+Signature="$Windows NT$"
+Class=PCMCIA
+ClassGUID={4d36e977-e325-11ce-bfc1-08002be10318}
+Provider=%Buffalo%
+LayoutFile=layout.inf
+DriverVer=10/20/2000,1.01.0000.0
+
+;
+;   Information for installing the PCMCIA class
+;
+[ClassInstall32]
+AddReg=ClassAddReg
+
+[ClassAddReg]
+HKR,,,,%PCMCIAClassName%
+HKR,,Icon,,"-11"
+
+;
+;   List of manufacturers and devices
+;
+[Manufacturer]
+%Buffalo%=Buffalo
+
+
+[ControlFlags]
+ExcludeFromSelect=PCCARD
+ExcludeFromSelect=PCMCIA\PCCARD
+ExcludeFromSelect=PCI\VEN_1180&DEV_0475&SUBSYS_030A1154
+
+
+[Buffalo]
+%PCI\VEN_1180&DEV_0475.DeviceDesc%=BuffaloCARDBUS, PCI\VEN_1180&DEV_0475&SUBSYS_030A1154
+
+
+[wlipcik_Service_Inst]
+DisplayName = %PCI\VEN_1180&DEV_0475.DeviceDesc%
+ServiceType    = 1
+StartType      = 0
+ErrorControl   = 1
+ServiceBinary  = %12%\wlipcik.sys
+
+[pcmcia_Service_Inst]
+ServiceType    = 1
+StartType      = 0
+ErrorControl   = 1
+ServiceBinary  = %12%\pcmcia.sys
+LoadOrderGroup = System Bus Extender
+
+[pcmcia_EventLog_Inst]
+AddReg = pcmcia_EventLog_AddReg
+
+[pcmcia_EventLog_AddReg]
+;REG_EXPAND_SZ = 0x00020000
+HKR,,EventMessageFile,0x00020000,"%%SystemRoot%%\System32\IoLogMsg.dll"
+;REG_DWORD=0x00010001
+HKR,,TypesSupported,0x00010001,7
+
+[pcmcia_Location_AddReg]
+HKR,,UINumberDescFormat,,%PCCARDSlot%
+
+
+;
+; Card bus
+;
+
+[BuffaloCARDBUS]
+CopyFiles=CSCopyFiles
+AddReg=CARDBUSReg, BuffaloCBReg
+Reboot
+
+[BuffaloCARDBUS.Services]
+AddService = wlipcik, 2, wlipcik_Service_Inst
+AddService = pcmcia, 2, pcmcia_Service_Inst, pcmcia_EventLog_Inst
+
+[BuffaloCARDBUS.HW]
+AddReg=CARDBUSLocationReg
+
+[BuffaloCBReg]
+HKR,,CBSSCSContextRanges,3,3e,00,02,00,44,00,04,00,80,00,0c,00,90,00,04,00
+HKR,,CBSSCBContextRanges,3,00,00,14,00,20,00,04,00
+
+
+[CARDBUSReg]
+HKR,,Driver,,"pcmcia.sys"
+HKLM,System\CurrentControlSet\Services\Pcmcia\Parameters,ForcedInterruptMask ,0x00010001,0x0e38
+
+[CARDBUS.PosDup]
+*PNP0E00
+
+[CSCopyFiles]
+pcmcia.sys
+wlipcik.sys
+
+[DestinationDirs]
+CSCopyFiles=12
+
+[CARDBUSLocationReg]
+HKR,,UINumberDescFormat,,%CARDBUSSlot%
+
+[SourceDisksNames]
+1="Air Navigator CD",,,
+
+[SourceDisksFiles]
+wlipcik.sys=1
+
+[Strings]
+PCMCIAClassName = "PCMCIA adapter"
+;
+;   Manufacturer name strings
+;
+Buffalo = "MELCO INC."
+
+;   Device Decription strings
+
+PCI\VEN_1180&DEV_0475.DeviceDesc = "BUFFALO WLI-PCI-OP PCI Bridge"
+
+;
+CARDBUSSlot = "CardBus Slot %1!u!"
+PCCARDSlot = "PCCard Slot %1!u!"

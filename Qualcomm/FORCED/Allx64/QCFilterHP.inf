@@ -1,0 +1,90 @@
+;/*++
+;
+;Module Name:
+;
+;    QCfilter.INF
+;
+;Abstract:
+;    Sample INF file for installing an upper filter device driver for Qualcomm USB composite device
+;
+;--*/
+[Version]
+Signature="$WINDOWS NT$"
+Class=USB
+Provider=%QUALCOMM%
+ClassGUID={36FC9E60-C465-11CF-8056-444553540000}
+DriverVer=10/02/2009,6.0.0.3
+CatalogFile=qcfilterhp.cat
+
+[Manufacturer]
+%QUALCOMM%=QualcommFilter, NTia64, NTamd64
+
+[ControlFlags]
+ExcludeFromSelect = *
+
+[SourceDisksNames]
+  1000 = %QcomSrcDisk%,"",,
+
+[SourceDisksFiles]
+  qcfilterhp.sys  = 1000
+
+[QualcommFilter]
+%QCFilterhp.DeviceDesc1F1D%=QCFilterhp,USB\VID_03F0&PID_1F1D
+%QCFilterhp.DeviceDesc2E1D%=QCFilterhp,USB\VID_03F0&PID_2E1D
+
+[QualcommFilter.NTamd64]
+%QCFilterhp.DeviceDesc1F1D%=QCFilterhp,USB\VID_03F0&PID_1F1D
+%QCFilterhp.DeviceDesc2E1D%=QCFilterhp,USB\VID_03F0&PID_2E1D
+
+[QualcommFilter.NTia64]
+%QCFilterhp.DeviceDesc1F1D%=QCFilterhp,USB\VID_03F0&PID_1F1D
+%QCFilterhp.DeviceDesc2E1D%=QCFilterhp,USB\VID_03F0&PID_2E1D
+
+;=====================================================================
+[QCFilterhp.NT]  
+;=============== Get the standard stuff from USB.inf==============
+Include=USB.inf
+Needs=Composite.Dev.NT
+CopyFiles=QCFilterhp.NT.Copy
+
+[QCFilterhp.NT.Copy]
+qcfilterhp.sys
+
+[DestinationDirs]
+QCFilterhp.NT.Copy = 12
+
+[QCFilterhp.NT.HW]
+AddReg=UpperFilterAddReg, LowerFilterAddReg
+
+[UpperFilterAddReg]
+HKR,,"UpperFilters",0x00010000,"QCFilterhp"
+
+[LowerFilterAddReg]
+HKR,,"LowerFilters",0x00010000,"QCFilterhp"
+
+;*****************************************
+; QC Filter Device Filter Service Section
+;*****************************************
+
+[QCFilterhp.NT.Services]
+Include=USB.inf
+Needs=Composite.Dev.NT.Services
+AddService = QCFilterhp,, filter_Service_Inst 
+
+[filter_Service_Inst]
+DisplayName    = %filter.SvcDesc%                            
+ServiceType    = 1                  ; SERVICE_KERNEL_DRIVER
+StartType      = 3                  ; SERVICE_DEMAND_START
+ErrorControl   = 1                  ; SERVICE_ERROR_NORMAL
+ServiceBinary  = %12%\qcfilterhp.sys                            
+;LoadOrderGroup = Base
+
+[Strings]
+;SPSVCINST_ASSOCSERVICE= 0x00000002
+QUALCOMM   = "Qualcomm Incorporated"
+QcomSrcDisk = "HP USB Driver Disk"
+QCFilterhp.DeviceDesc1F1D = "HP USB Composite Device"
+QCFilterhp.DeviceDesc2E1D = "HP USB Composite Device"
+filter.SvcDesc = "HP USB Composite Device Filter Driver"
+
+

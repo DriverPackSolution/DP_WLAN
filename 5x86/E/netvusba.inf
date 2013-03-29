@@ -1,0 +1,387 @@
+;*******************************************************************************
+; Copyright 2000 ATMEL.
+; AT76C503A based FastVNET USB 11M Network Adapter
+;
+; Supported OS: Windows 98/Me/2000/XP
+;
+;*******************************************************************************
+
+[Version]
+Signature = "$Chicago$"
+Compatible = 1
+Class = Net
+ClassGUID = {4d36e972-e325-11ce-bfc1-08002be10318}
+MillenniumPreferred = .ME
+Provider = %VENDOR%
+;CatalogFile = netvusba.cat
+DriverVer = 07/04/2002,2.5.5.159
+
+[Manufacturer]
+%VENDOR% = ATMEL, NT.5.1
+
+[ControlFlags]
+ExcludeFromSelect = VID_03eb&PID_7603
+
+[ATMEL]
+%DeviceDesc% = DrvInst.Ndi,USB\VID_03eb&PID_7603
+
+[ATMEL.NT.5.1]
+%DeviceDesc% = DrvInstXP.Ndi,USB\VID_03eb&PID_7603
+
+;*******************************************************************************
+; Windows 98 section
+;*******************************************************************************
+[DrvInst.Ndi]
+AddReg    = Win9x.Reg, Win9x2k.Params
+CopyFiles = CopyFile.Sys
+DriverVer = 07/04/2002,2.5.5.159
+
+[Win9x.Reg]
+HKR,Ndi,DeviceID,0,"USB\VID_03eb&PID_7603"
+HKR,Ndi,CardType,,"PNP"
+HKR,,DevLoader,0,"*ndis"
+HKR,,DeviceVxDs,0,"vnetu9xa.sys"
+
+; NDIS Info
+HKR,NDIS,MajorNdisVersion,1,05
+HKR,NDIS,MinorNdisVersion,1,00
+HKR,NDIS,LogDriverName,,%ServiceName%(A)
+
+; Interfaces
+HKR,Ndi\Interfaces,DefUpper,,"ndis3"
+HKR,Ndi\Interfaces,DefLower,,"ethernet"
+HKR,Ndi\Interfaces,UpperRange,,"ndis3"
+HKR,Ndi\Interfaces,LowerRange,,"ethernet"
+
+HKR,Ndi,HelpText,,%Help_Text%
+
+[CopyFile.Sys]
+vnetu9xa.sys,,,2
+
+;*******************************************************************************
+; Windows Me section
+;*******************************************************************************
+[DrvInst.ndi.ME]
+Characteristics = 0x84                         ; NCF_HAS_UI | NCF_PHYSICAL
+BusType         = 15                           ; USB
+AddReg          = WinMe.Reg, Win9x2k.Params
+CopyFiles       = CopyFile.Me.Sys
+
+[DrvInst.ndi.ME.Services]
+AddService = %VENDOR% %ServiceName%(A), 2, FVNETusbMe.Service, FVNETusb.EventLog
+
+[WinMe.Reg]
+HKR,Ndi,Service,0,%VENDOR% %ServiceName%(A)
+HKR,,DevLoader,0,*ndis
+HKR,,DeviceVxDs,0,vnetu9xa.sys
+HKR,,EnumPropPages,0,"netdi.dll,EnumPropPages"
+
+; NDIS Info
+HKR,NDIS,MajorNdisVersion,1,05
+HKR,NDIS,MinorNdisVersion,1,00
+HKR,NDIS,LogDriverName,,%ServiceName%(A)
+
+; Interfaces
+HKR,Ndi\Interfaces,DefUpper,0,"ndis5"
+HKR,Ndi\Interfaces,DefLower,0,"ethernet"
+HKR,Ndi\Interfaces,UpperRange,0,"ndis5"
+HKR,Ndi\Interfaces,LowerRange,0,"ethernet"
+
+; Install sections
+HKR, Ndi\Install,       ndis3,              0, "FVNETusb.ndis5me"
+
+[FVNETusb.ndis5me]
+CopyFiles       = CopyFile.Me.Sys
+
+[CopyFile.Me.Sys]
+vnetu9xa.sys
+
+[FVNETusbMe.Service]
+DisplayName    = %VENDOR% %ServiceName%(A) Service for %DeviceDesc%
+ServiceType    = 1
+StartType      = 3
+ErrorControl   = 1
+ServiceBinary  = %11%\vnetu9xa.sys
+LoadOrderGroup = NDIS
+
+
+;*******************************************************************************
+; Win 2000 section
+;*******************************************************************************
+[DrvInst.Ndi.NTx86]
+Characteristics = 0x84                     ; NCF_HAS_UI | NCF_PHYSICAL
+BusType     = 15                           ; USB
+AddReg      = Win2k.Reg, Win9x2k.Params
+CopyFiles   = CopyFile.2k.Sys
+
+[DrvInst.Ndi.NTx86.Services]
+AddService = %VENDOR% %ServiceName%(A), 2, FVNETusb.Service, FVNETusb.EventLog
+
+[Win2k.Reg]
+; Interfaces
+HKR, Ndi\Interfaces, LowerRange, 0, "ethernet"
+HKR, Ndi\Interfaces, UpperRange, 0, "ndis5"
+HKR, Ndi,            Service,    0, "%VENDOR% %ServiceName%(A)"
+
+[CopyFile.2k.Sys]
+vnetusba.sys,,,2
+
+
+;*******************************************************************************
+; Win XP section
+;*******************************************************************************
+[DrvInstXP.Ndi.NTx86]
+Characteristics = 0x84                     ; NCF_HAS_UI | NCF_PHYSICAL
+BusType         = 15                       ; USB
+AddReg          = WinXP.Reg, WinXP.Params
+CopyFiles       = CopyFile.XP.Sys
+
+[DrvInstXP.Ndi.NTx86.Services]
+AddService = %VENDOR% %ServiceName%(A), 2, FVNETusb.Service, FVNETusb.EventLog
+
+[WinXP.Reg]
+; Interfaces
+HKR, Ndi\Interfaces, LowerRange, 0, "ethernet"
+HKR, Ndi\Interfaces, UpperRange, 0, "ndis5"
+HKR, Ndi,            Service,    0, "%VENDOR% %ServiceName%(A)"
+
+[CopyFile.XP.Sys]
+vnetusba.sys,,,2
+
+;*******************************************************************************
+; Win 2000/XP common section
+;*******************************************************************************
+[FVNETusb.Service]
+DisplayName    = %VENDOR% %ServiceName%(A) Service for %DeviceDesc%
+ServiceType    = 1
+StartType      = 3
+ErrorControl   = 1
+ServiceBinary  = %12%\vnetusba.sys
+LoadOrderGroup = NDIS
+
+;*******************************************************************************
+; Win Me/2000/XP common section
+;*******************************************************************************
+[FVNETusb.EventLog]
+AddReg = FVNETusb.AddEventLog.Reg
+
+[FVNETusb.AddEventLog.Reg]
+HKR, , EventMessageFile, 0x00020000, %%SystemRoot%%\System32\netevent.dll
+HKR, , TypesSupported  , 0x00010001, 7
+
+
+;*******************************************************************************
+; Destination directories
+;*******************************************************************************
+[DestinationDirs]
+DefaultDestDir   = 12 ; Drivers directory
+CopyFile.Sys     = 11
+CopyFile.2k.Sys  = 12
+CopyFile.Me.Sys  = 11
+CopyFile.XP.Sys  = 12
+
+[SourceDisksNames]
+1=%DriverDiskName%,,
+
+[SourceDisksFiles]
+vnetusba.sys=1,vnetusba.sys,10000
+vnetu9xa.sys=1,Win9xMe,vnetu9xa.sys,10000
+
+
+;*******************************************************
+; Driver parameters for Win9x,2k
+;*******************************************************
+[Win9x2k.Params]
+HKR, Ndi\params\PreambleType,                     ParamDesc,           0, "Preamble Type"
+HKR, Ndi\params\PreambleType,                     default,             0, "2"
+HKR, Ndi\params\PreambleType,                     type,                0, "enum"
+HKR, Ndi\params\PreambleType\enum,                0,                   0, "Long"
+HKR, Ndi\params\PreambleType\enum,                1,                   0, "Short"
+HKR, Ndi\params\PreambleType\enum,                2,                   0, "Auto"
+HKR, ,                                            PreambleType,        0, "2"
+
+HKR, Ndi\params\Channel,                          ParamDesc,           0, "Channel"
+HKR, Ndi\params\Channel,                          default,             0, "10"
+HKR, Ndi\params\Channel,                          type,                0, "int"
+HKR, Ndi\params\Channel,                          min,                 0, "1"
+HKR, Ndi\params\Channel,                          max,                 0, "14"
+HKR, Ndi\params\Channel,                          step,                0, "1"
+HKR, ,                                            Channel,             0, "10"
+
+HKR, Ndi\params\Rate,                             ParamDesc,           0, "TX Rate (Mbps)"
+HKR, Ndi\params\Rate,                             default,             0, "3"
+HKR, Ndi\params\Rate,                             type,                0, "enum"
+HKR, Ndi\params\Rate\enum,                        0,                   0, "1 Mbps"
+HKR, Ndi\params\Rate\enum,                        1,                   0, "2 Mbps"
+HKR, Ndi\params\Rate\enum,                        2,                   0, "5.5 Mbps"
+HKR, Ndi\params\Rate\enum,                        3,                   0, "11 Mbps"
+HKR, Ndi\params\Rate\enum,                        4,                   0, "Auto"
+HKR, ,                                            Rate,                0, "3"
+
+HKR, Ndi\params\RTS_Threshold,                    ParamDesc,           0, "RTS Threshold"
+HKR, Ndi\params\RTS_Threshold,                    default,             0, "2347"
+HKR, Ndi\params\RTS_Threshold,                    type,                0, "int"
+HKR, Ndi\params\RTS_Threshold,                    min,                 0, "0"
+HKR, Ndi\params\RTS_Threshold,                    max,                 0, "2347"
+HKR, Ndi\params\RTS_Threshold,                    step,                0, "1"
+HKR, ,                                            RTS_Threshold,       0, "2347"
+
+HKR, Ndi\params\Frag_Threshold,                   ParamDesc,           0, "Fragmentation Threshold"
+HKR, Ndi\params\Frag_Threshold,                   default,             0, "2346"
+HKR, Ndi\params\Frag_Threshold,                   type,                0, "int"
+HKR, Ndi\params\Frag_Threshold,                   min,                 0, "256"
+HKR, Ndi\params\Frag_Threshold,                   max,                 0, "2346"
+HKR, Ndi\params\Frag_Threshold,                   step,                0, "1"
+HKR, ,                                            Frag_Threshold,      0, "2346"
+
+HKR, Ndi\params\Operating_Mode,                   ParamDesc,           0, "Operating Mode"
+HKR, Ndi\params\Operating_Mode,                   default,             0, "1"
+HKR, Ndi\params\Operating_Mode,                   type,                0, "enum"
+HKR, Ndi\params\Operating_Mode\enum,              0,                   0, "Ad-Hoc"
+HKR, Ndi\params\Operating_Mode\enum,              1,                   0, "Infrastructure"
+HKR, ,                                            Operating_Mode,      0, "1"
+
+HKR, Ndi\params\ESSID,                            ParamDesc,           0, "ESSID"
+HKR, Ndi\params\ESSID,                            default,             0, ""
+HKR, Ndi\params\ESSID,                            type,                0, "edit"
+HKR, Ndi\params\ESSID,                            LimitText,           0, "32"
+HKR, Ndi\params\ESSID,                            UpperCase,           0, "0"
+HKR, ,                                            ESSID,               0, ""
+
+HKR, Ndi\params\AuthenticationType,               ParamDesc,           0, "Authentication Type"
+HKR, Ndi\params\AuthenticationType,               default,             0, "2"
+HKR, Ndi\params\AuthenticationType,               type,                0, "enum"
+HKR, Ndi\params\AuthenticationType\enum,          0,                   0, "Open System"
+HKR, Ndi\params\AuthenticationType\enum,          1,                   0, "Shared Key"
+HKR, Ndi\params\AuthenticationType\enum,          2,                   0, "Auto"
+HKR, ,                                            AuthenticationType,  0, "2"
+
+HKR, Ndi\params\WEP_Mode,                         ParamDesc,           0, "Encrypted Data Mode"
+HKR, Ndi\params\WEP_Mode,                         default,             0, "0"
+HKR, Ndi\params\WEP_Mode,                         type,                0, "enum"
+HKR, Ndi\params\WEP_Mode\enum,                    0,                   0, "Mandatory"
+HKR, Ndi\params\WEP_Mode\enum,                    1,                   0, "Optional"
+HKR, ,                                            WEP_Mode,            0, "0"
+
+HKR, Ndi\params\EncryptionLevel,                  ParamDesc,           0, "Encryption Level"
+HKR, Ndi\params\EncryptionLevel,                  type,                0, "enum"
+HKR, Ndi\params\EncryptionLevel,                  default,             0, "0"
+HKR, Ndi\params\EncryptionLevel\enum,             0,                   0, "None"
+HKR, Ndi\params\EncryptionLevel\enum,             1,                   0, "64-bit encryption"
+HKR, Ndi\params\EncryptionLevel\enum,             2,                   0, "128-bit encryption"
+HKR, ,                                            EncryptionLevel,     0, "0"
+
+HKR, Ndi\params\WEP_KEY_INDEX,                    ParamDesc,           0, "WEP Key to use"
+HKR, Ndi\params\WEP_KEY_INDEX,                    type,                0, "enum"
+HKR, Ndi\params\WEP_KEY_INDEX,                    default,             0, "0"
+HKR, Ndi\params\WEP_KEY_INDEX\enum,               0,                   0, "Key #1"
+HKR, Ndi\params\WEP_KEY_INDEX\enum,               1,                   0, "Key #2"
+HKR, Ndi\params\WEP_KEY_INDEX\enum,               2,                   0, "Key #3"
+HKR, Ndi\params\WEP_KEY_INDEX\enum,               3,                   0, "Key #4"
+HKR, ,                                            WEP_KEY_INDEX,       0, "0"
+
+HKR, Ndi\params\WEP_KEY_1,                        ParamDesc,           0, "WEP Key #1"
+HKR, Ndi\params\WEP_KEY_1,                        default,             0, "00000000000000000000000000"
+HKR, Ndi\params\WEP_KEY_1,                        type,                0, "edit"
+HKR, Ndi\params\WEP_KEY_1,                        LimitText,           0, "26"
+HKR, Ndi\params\WEP_KEY_1,                        UpperCase,           0, "1"
+HKR, ,                                            WEP_KEY_1,           0, "00000000000000000000000000"
+
+HKR, Ndi\params\WEP_KEY_2,                        ParamDesc,           0, "WEP Key #2"
+HKR, Ndi\params\WEP_KEY_2,                        default,             0, "00000000000000000000000000"
+HKR, Ndi\params\WEP_KEY_2,                        type,                0, "edit"
+HKR, Ndi\params\WEP_KEY_2,                        LimitText,           0, "26"
+HKR, Ndi\params\WEP_KEY_2,                        UpperCase,           0, "1"
+HKR, ,                                            WEP_KEY_2,           0, "00000000000000000000000000"
+
+HKR, Ndi\params\WEP_KEY_3,                        ParamDesc,           0, "WEP Key #3"
+HKR, Ndi\params\WEP_KEY_3,                        default,             0, "00000000000000000000000000"
+HKR, Ndi\params\WEP_KEY_3,                        type,                0, "edit"
+HKR, Ndi\params\WEP_KEY_3,                        LimitText,           0, "26"
+HKR, Ndi\params\WEP_KEY_3,                        UpperCase,           0, "1"
+HKR, ,                                            WEP_KEY_3,           0, "00000000000000000000000000"
+
+HKR, Ndi\params\WEP_KEY_4,                        ParamDesc,           0, "WEP Key #4"
+HKR, Ndi\params\WEP_KEY_4,                        default,             0, "00000000000000000000000000"
+HKR, Ndi\params\WEP_KEY_4,                        type,                0, "edit"
+HKR, Ndi\params\WEP_KEY_4,                        LimitText,           0, "26"
+HKR, Ndi\params\WEP_KEY_4,                        UpperCase,           0, "1"
+HKR, ,                                            WEP_KEY_4,           0, "00000000000000000000000000"
+
+HKR, Ndi\params\BasicRates,                       ParamDesc,           0, "Basic Rates"
+HKR, Ndi\params\BasicRates,                       type,                0, "enum"
+HKR, Ndi\params\BasicRates,                       default,             0, "1"
+HKR, Ndi\params\BasicRates\enum,                  0,                   0, "1,2 Mbps"
+HKR, Ndi\params\BasicRates\enum,                  1,                   0, "1,2,5.5,11 Mbps"
+HKR, ,                                            BasicRates,          0, "1"
+
+HKR, Ndi\params\BeaconPeriod,                     ParamDesc,           0, "Beacon Period"
+HKR, Ndi\params\BeaconPeriod,                     type,                0, "int"
+HKR, Ndi\params\BeaconPeriod,                     default,             0, "100"
+HKR, Ndi\params\BeaconPeriod,                     min,                 0, "20"
+HKR, Ndi\params\BeaconPeriod,                     max,                 0, "1000"
+HKR, Ndi\params\BeaconPeriod,                     step,                0, "1"
+HKR,,                                             BeaconPeriod,        0, "100"
+
+HKR, Ndi\params\UseWZCS,                          ParamDesc,           0, "API to use"
+HKR, Ndi\params\UseWZCS,                          type,                0, "enum"
+HKR, Ndi\params\UseWZCS,                          default,             0, "0"
+HKR, Ndi\params\UseWZCS\enum,                     0,                   0, "Custom API"
+HKR, Ndi\params\UseWZCS\enum,                     1,                   0, "WZCS API"
+HKR, ,                                            UseWZCS,             0, "0"
+
+
+;*******************************************************
+; Driver parameters for WinXP
+;*******************************************************
+[WinXP.Params]
+HKR, Ndi\params\PreambleType,                     ParamDesc,           0, "Preamble Type"
+HKR, Ndi\params\PreambleType,                     default,             0, "2"
+HKR, Ndi\params\PreambleType,                     type,                0, "enum"
+HKR, Ndi\params\PreambleType\enum,                0,                   0, "Long"
+HKR, Ndi\params\PreambleType\enum,                1,                   0, "Short"
+HKR, Ndi\params\PreambleType\enum,                2,                   0, "Auto"
+HKR, ,                                            PreambleType,        0, "2"
+
+HKR, Ndi\params\Rate,                             ParamDesc,           0, "Rate (Mbps)"
+HKR, Ndi\params\Rate,                             default,             0, "3"
+HKR, Ndi\params\Rate,                             type,                0, "enum"
+HKR, Ndi\params\Rate\enum,                        0,                   0, "1"
+HKR, Ndi\params\Rate\enum,                        1,                   0, "2"
+HKR, Ndi\params\Rate\enum,                        2,                   0, "5.5"
+HKR, Ndi\params\Rate\enum,                        3,                   0, "11"
+HKR, Ndi\params\Rate\enum,                        4,                   0, "Auto"
+HKR, ,                                            Rate,                0, "3"
+
+HKR, Ndi\params\RTS_Threshold,                    ParamDesc,           0, "RTS Threshold"
+HKR, Ndi\params\RTS_Threshold,                    default,             0, "2347"
+HKR, Ndi\params\RTS_Threshold,                    type,                0, "int"
+HKR, Ndi\params\RTS_Threshold,                    min,                 0, "0"
+HKR, Ndi\params\RTS_Threshold,                    max,                 0, "2347"
+HKR, Ndi\params\RTS_Threshold,                    step,                0, "1"
+HKR, ,                                            RTS_Threshold,       0, "2347"
+
+HKR, Ndi\params\Frag_Threshold,                   ParamDesc,           0, "Fragmentation Threshold"
+HKR, Ndi\params\Frag_Threshold,                   default,             0, "2346"
+HKR, Ndi\params\Frag_Threshold,                   type,                0, "int"
+HKR, Ndi\params\Frag_Threshold,                   min,                 0, "256"
+HKR, Ndi\params\Frag_Threshold,                   max,                 0, "2346"
+HKR, Ndi\params\Frag_Threshold,                   step,                0, "1"
+HKR, ,                                            Frag_Threshold,      0, "2346"
+
+HKR, Ndi\params\UseWZCS,                          ParamDesc,           0, "API to use"
+HKR, Ndi\params\UseWZCS,                          type,                0, "enum"
+HKR, Ndi\params\UseWZCS,                          default,             0, "1"
+HKR, Ndi\params\UseWZCS\enum,                     0,                   0, "Custom API"
+HKR, Ndi\params\UseWZCS\enum,                     1,                   0, "WZCS API"
+HKR, ,                                            UseWZCS,             0, "1"
+
+;*******************************************************************************
+; Strings Section
+;*******************************************************************************
+[Strings]
+VENDOR         = "ATMEL"
+DeviceDesc     = "ATMEL USB FastVNET (A)"
+ServiceName    = "FVNETusb (A)"
+DriverDiskName = "ATMEL USB FastVNET (A) Installation Disk"
+Help_Text      = "VirtualNET lets you set up easily and operate a Wireless LAN compliant with 802.11 Standard. It operates in the license free 2.4 GHz ISM band and achieves a peak data rate of 11 Mbs."

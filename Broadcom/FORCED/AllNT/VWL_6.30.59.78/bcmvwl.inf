@@ -1,0 +1,122 @@
+;-------------------------------------------------------------------------------
+; BcmVWL.INF
+;
+; Broadcom Virtual WL Adapter
+;
+; Copyright (c) Broadcom Corporation.  All rights reserved.
+
+
+[version]
+	Signature   		= "$Windows NT$"
+	Class       		= Net
+	ClassGUID   		= {4d36e972-e325-11ce-bfc1-08002be10318}
+	Provider    		= %Brcm%
+	CatalogFile		= BCMVWL32.CAT
+	CatalogFile.NTamd64	= BCMVWL64.CAT
+DriverVer=09/19/2012, 6.30.59.78
+
+[Manufacturer]
+	%Brcm% = BROADCOM,NTx86,NTamd64
+
+;For WinXP and later
+
+[BROADCOM.NTx86]
+%BcmVWL.DeviceDesc%    = BcmVWL.NTx86, root\BcmVWL ; Root enumerated 
+
+[BROADCOM.NTamd64]
+%BcmVWL.DeviceDesc%    = BcmVWL.NTamd64, root\BcmVWL ; Root enumerated 
+
+;-------------------------------------------------------------------------------
+; Broadcom Virtual WL Adapter
+;
+[BcmVWL.NTx86]
+Characteristics = 0x1 ; NCF_VIRTUAL
+AddReg          = BcmVWL.Reg
+CopyFiles       = BcmVWL.CopyFiles.NTx86
+
+[BcmVWL.NTamd64]
+Characteristics = 0x1 ; NCF_VIRTUAL
+AddReg          = BcmVWL.Reg
+CopyFiles       = BcmVWL.CopyFiles.NTamd64
+
+[BcmVWL.NTx86.Services]
+AddService      = BcmVWL, 2, BcmVWL.Service.NTx86, BcmVWL.EventLog
+
+[BcmVWL.NTamd64.Services]
+AddService      = BcmVWL, 2, BcmVWL.Service.NTamd64, BcmVWL.EventLog
+
+;-----------------------------------------------------------------------------
+; Broadcom Virtual Miniport Common
+;
+[BcmVWL.Reg]
+HKR,    ,                         BusNumber,           0, "0" 
+HKR, Ndi,                         Service,             0, "BcmVWL"
+HKR, Ndi\Interfaces,              UpperRange,          0, "ndis5"
+HKR, Ndi\Interfaces,              LowerRange,          0, "ethernet"
+
+;-----------------------------------------------------------------------------
+; Driver and Service Section
+;
+[BcmVWL.CopyFiles.NTx86]
+bcmvwl32.sys,,,2
+
+[BcmVWL.CopyFiles.NTamd64]
+bcmvwl64.sys,,,2
+
+[BcmVWL.Service.NTx86]
+DisplayName     = %BcmVWL.Service.DispName%
+ServiceType     = 1 ;%SERVICE_KERNEL_DRIVER%
+StartType       = 3 ;%SERVICE_DEMAND_START%
+ErrorControl    = 1 ;%SERVICE_ERROR_NORMAL%
+ServiceBinary   = %12%\bcmvwl32.sys
+LoadOrderGroup  = NDIS
+AddReg          = TextModeFlags.Reg
+
+[BcmVWL.Service.NTamd64]
+DisplayName     = %BcmVWL.Service.DispName%
+ServiceType     = 1 ;%SERVICE_KERNEL_DRIVER%
+StartType       = 3 ;%SERVICE_DEMAND_START%
+ErrorControl    = 1 ;%SERVICE_ERROR_NORMAL%
+ServiceBinary   = %12%\bcmvwl64.sys
+LoadOrderGroup  = NDIS
+AddReg          = TextModeFlags.Reg
+
+[BcmVWL.EventLog]
+AddReg = BcmVWL.AddEventLog.Reg
+
+[BcmVWL.AddEventLog.Reg]
+HKR, , EventMessageFile, 0x00020000, "%%SystemRoot%%\System32\netevent.dll"
+HKR, , TypesSupported,   0x00010001, 7
+
+[TextModeFlags.Reg]
+HKR, , TextModeFlags,    0x00010001, 0x0001
+
+[SourceDisksNames]
+1 = %DiskId1%,,,""
+
+[SourceDisksFiles.x86]
+bcmvwl32.sys  = 1,,
+
+[SourceDisksFiles.amd64]
+bcmvwl64.sys  = 1,,
+
+;-----------------------------------------------------------------------------
+; DestinationDirs
+;
+; 11 == %windir%/system32
+; 12 == %windir%/system32/drivers
+
+[DestinationDirs]
+; DefaultDestDir         = 11
+BcmVWL.CopyFiles.NTx86   = 12
+BcmVWL.CopyFiles.NTamd64 = 12
+
+;-----------------------------------------------------------------------------
+; Localizable Strings
+;
+[Strings]
+Brcm                     = "Broadcom"                      
+BcmVWL.DeviceDesc        = "Broadcom Virtual Wireless Adapter"
+BcmVWL.Service.DispName  = "Broadcom Virtual Wireless"
+DiskId1                  = "Broadcom Virtual Wireless Device Installation Disk #1"
+

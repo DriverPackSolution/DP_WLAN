@@ -1,0 +1,150 @@
+; QCLocationSensorsra.inf
+; Copyright (c) 2010 Qualcomm Incorporated
+; Manufacturer: Qualcomm Incorporated
+
+[Version]
+Signature   = "$Windows NT$"
+Class       = Ports
+ClassGuid   = {4D36E978-E325-11CE-BFC1-08002BE10318}
+Provider    = %QCOM%
+CatalogFile = QCLocationSensorsra.cat
+DriverVer   = 04/05/2010,1.0.2.0
+
+; =================== Manufacturer/Models sections =======================
+
+[Manufacturer]
+%QCOM%                        = QCOM, NTamd64
+
+[QCOM]
+%QCLocationSensor.DeviceDesc9001% = QCLocationSensor_Install,USB\VID_1199&PID_9001&MI_03
+%QCLocationSensor.DeviceDesc9002% = QCLocationSensor_Install,USB\VID_1199&PID_9002&MI_03
+%QCLocationSensor.DeviceDesc9003% = QCLocationSensor_Install,USB\VID_1199&PID_9003&MI_03
+%QCLocationSensor.DeviceDesc9004% = QCLocationSensor_Install,USB\VID_1199&PID_9004&MI_03
+%QCLocationSensor.DeviceDesc9005% = QCLocationSensor_Install,USB\VID_1199&PID_9005&MI_03
+%QCLocationSensor.DeviceDesc9006% = QCLocationSensor_Install,USB\VID_1199&PID_9006&MI_03
+%QCLocationSensor.DeviceDesc9007% = QCLocationSensor_Install,USB\VID_1199&PID_9007&MI_03
+%QCLocationSensor.DeviceDesc9008% = QCLocationSensor_Install,USB\VID_1199&PID_9008&MI_03
+%QCLocationSensor.DeviceDesc9009% = QCLocationSensor_Install,USB\VID_1199&PID_9009&MI_03
+%QCLocationSensor.DeviceDesc900A% = QCLocationSensor_Install,USB\VID_1199&PID_900A&MI_03
+
+[QCOM.NTamd64]
+%QCLocationSensor.DeviceDesc9001% = QCLocationSensor_Install,USB\VID_1199&PID_9001&MI_03
+%QCLocationSensor.DeviceDesc9002% = QCLocationSensor_Install,USB\VID_1199&PID_9002&MI_03
+%QCLocationSensor.DeviceDesc9003% = QCLocationSensor_Install,USB\VID_1199&PID_9003&MI_03
+%QCLocationSensor.DeviceDesc9004% = QCLocationSensor_Install,USB\VID_1199&PID_9004&MI_03
+%QCLocationSensor.DeviceDesc9005% = QCLocationSensor_Install,USB\VID_1199&PID_9005&MI_03
+%QCLocationSensor.DeviceDesc9006% = QCLocationSensor_Install,USB\VID_1199&PID_9006&MI_03
+%QCLocationSensor.DeviceDesc9007% = QCLocationSensor_Install,USB\VID_1199&PID_9007&MI_03
+%QCLocationSensor.DeviceDesc9008% = QCLocationSensor_Install,USB\VID_1199&PID_9008&MI_03
+%QCLocationSensor.DeviceDesc9009% = QCLocationSensor_Install,USB\VID_1199&PID_9009&MI_03
+%QCLocationSensor.DeviceDesc900A% = QCLocationSensor_Install,USB\VID_1199&PID_900A&MI_03
+
+; =================== Location Sensor Device ==================================
+
+[QCLocationSensor_Install]
+CopyFiles       = UMDriverCopy
+AddReg          = All00, QCAddReg, DevFunction1  
+FeatureScore    = 0x20  
+
+[QCLocationSensor_Install.hw]
+AddReg          = UpperFilterAddReg
+
+[UpperFilterAddReg]
+HKR,,"UpperFilters",0x00010000,"WUDFRd"
+
+[QCLocationSensor_Install.Services]
+AddService      = qcusbsersra2k,  0x00000002, QC_USBSerialService
+AddService      = WUDFRd,,WUDFRD_ServiceInstall
+
+[QCLocationSensor_Install.CoInstallers]
+AddReg          = WUDF_CoInstallers_AddReg
+CopyFiles       = WUDF_CoInstallers_CopyFiles
+
+[QCLocationSensor_Install.Wdf]
+UmdfService                = QCLocationSensor,UMDFQCLocationSensor_Install
+UmdfServiceOrder           = QCLocationSensor
+UmdfImpersonationLevel     = Impersonation
+UmdfKernelModeClientPolicy = AllowKernelModeClients
+
+[QC_USBSerialService]
+DisplayName   = %QCUSBSER%
+ServiceType   = 1
+StartType     = 3
+ErrorControl  = 1
+ServiceBinary = %12%\qcusbsersra2k.sys
+
+[All00]
+HKR,,NTMPDriver,,qcusbsersra2k.sys
+
+[DevFunction1]
+HKR,,QCDeviceFunction,0x00010001,1
+
+[QCAddReg]
+HKR,,PortSubClass,1,01
+HKR,,EnumPropPages32,,"MsPorts.dll,SerialPortPropPageProvider"
+
+; =================== UMDF Service Install section ===================
+
+[UMDFQCLocationSensor_Install]
+UmdfLibraryVersion      = 1.9.0
+ServiceBinary           = %12%\UMDF\QCLocationSensorsra.dll
+DriverCLSID             = {87D65DC0-B800-40C7-8607-9C3559738B14}
+
+[WUDFRD_ServiceInstall]
+DisplayName     = %WudfRdDisplayName%
+ServiceType     = 1
+StartType       = 3
+ErrorControl    = 1
+ServiceBinary   = %12%\WUDFRd.sys
+LoadOrderGroup  = Base
+
+[SourceDisksFiles]
+QCLocationSensorsra.dll  = 1
+PDSHelpersra.dll         = 1
+WudfUpdate_01009.dll     = 1
+
+[SourceDisksNames]
+1 = %MediaDescription%
+
+[WUDF_CoInstallers_CopyFiles]
+WudfUpdate_01009.dll
+
+[WUDF_CoInstallers_AddReg]
+HKR,,CoInstallers32,0x00010000,"WUDFUpdate_01009.dll"
+
+[DestinationDirs]
+UMDriverCopy                 = 12,UMDF
+WUDF_CoInstallers_CopyFiles  = 11
+
+[UMDriverCopy]
+QCLocationSensorsra.dll
+PDSHelpersra.dll
+
+; =================== Generic ==================================
+[Strings]
+QCOM                            = "Qualcomm Incorporated"
+MediaDescription                = "Qualcomm Gobi Location Sensor Driver Installation Media"
+ClassName                       = "Qualcomm Gobi Location Sensor Driver"
+WudfRdDisplayName               = "Windows Driver Foundation - User-mode Driver Framework Reflector"
+QCLocationSensor.DeviceDesc9001 = "Sierra Wireless Gobi 2000 HS-USB NMEA 9001"
+QCLocationSensor.DeviceDesc9002 = "Sierra Wireless Gobi 2000 HS-USB NMEA 9002"
+QCLocationSensor.DeviceDesc9003 = "Sierra Wireless Gobi 2000 HS-USB NMEA 9003"
+QCLocationSensor.DeviceDesc9004 = "Sierra Wireless Gobi 2000 HS-USB NMEA 9004"
+QCLocationSensor.DeviceDesc9005 = "Sierra Wireless Gobi 2000 HS-USB NMEA 9005"
+QCLocationSensor.DeviceDesc9006 = "Sierra Wireless Gobi 2000 HS-USB NMEA 9006"
+QCLocationSensor.DeviceDesc9007 = "Sierra Wireless Gobi 2000 HS-USB NMEA 9007"
+QCLocationSensor.DeviceDesc9008 = "Sierra Wireless Gobi 2000 HS-USB NMEA 9008"
+QCLocationSensor.DeviceDesc9009 = "Sierra Wireless Gobi 2000 HS-USB NMEA 9009"
+QCLocationSensor.DeviceDesc900A = "Sierra Wireless Gobi 2000 HS-USB NMEA 900A"
+QCUSBSER                        = "Gobi 2000 USB Device for Legacy Serial Communication(1199-9001)"
+QcomDevice90013                 = "Sierra Wireless Gobi 2000 HS-USB NMEA 9001"
+QcomDevice90023                 = "Sierra Wireless Gobi 2000 HS-USB NMEA 9002"
+QcomDevice90033                 = "Sierra Wireless Gobi 2000 HS-USB NMEA 9003"
+QcomDevice90043                 = "Sierra Wireless Gobi 2000 HS-USB NMEA 9004"
+QcomDevice90053                 = "Sierra Wireless Gobi 2000 HS-USB NMEA 9005"
+QcomDevice90063                 = "Sierra Wireless Gobi 2000 HS-USB NMEA 9006"
+QcomDevice90073                 = "Sierra Wireless Gobi 2000 HS-USB NMEA 9007"
+QcomDevice90083                 = "Sierra Wireless Gobi 2000 HS-USB NMEA 9008"
+QcomDevice90093                 = "Sierra Wireless Gobi 2000 HS-USB NMEA 9009"
+QcomDevice900A3                 = "Sierra Wireless Gobi 2000 HS-USB NMEA 900A"
+

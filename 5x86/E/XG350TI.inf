@@ -1,0 +1,309 @@
+;***********************************************************************
+;
+; XG350TI.INF
+;
+;   This installation script supports WinXP for the
+;   802.11G Wireless LAN Adapters.
+;
+;   Copyright (c) 2003 
+;   All Rights Reserved.
+;
+;***********************************************************************
+
+[Version]
+;CatalogFile=TNET1130.cat
+Signature = "$Windows NT$"
+Provider  = %Provider%
+Class     = Net
+ClassGUID={4d36e972-e325-11ce-bfc1-08002be10318}
+DriverVer=07/02/2003,4.0.40
+
+[Manufacturer]
+%Provider% = DeviceList
+
+; pnp cards should be excluded from select
+[ControlFlags]
+ExcludeFromSelect = *
+
+
+[DeviceList]
+%TIACX.DeviceDesc_Cardbus% 	= TIACX_CardBus, 	PCI\VEN_104C&DEV_9066&SUBSYS_003217CF
+%TIACX.DeviceDesc_PCI% 		= TIACX_PCI1, 		PCI\VEN_104C&DEV_9066&SUBSYS_003317CF
+%TIACX.DeviceDesc_PCI%	 	= TIACX_PCI2, 		PCI\VEN_104C&DEV_9066&SUBSYS_003417CF
+
+;=========================================================================
+[TIACX_CardBus.NT]
+ BusType         = 5
+ AddReg          =TIACX.ndi.reg.NT, TI.Param.Reg,TIACX_Cardbus.ndi.reg
+ Characteristics = 0x84
+ CopyFiles       =TIACX.CopyFiles.NT
+
+[TIACX_CardBus.NT.Services]
+ AddService = XG350TI, 2, TNET1130.Service, TNET1130.EventLog
+
+[TIACX_Cardbus.ndi.reg]
+ HKR,Ndi,DeviceID,,"PCI\VEN_104C&DEV_9066&SUBSYS_9066104C&REV_00"
+;==========================================================================
+[TIACX_PCI1.NT]
+ BusType         = 5
+ AddReg          =TIACX.ndi.reg.NT, TI.Param.Reg,TIACX_PCI.ndi.reg
+ Characteristics = 0x84
+ CopyFiles       =TIACX.CopyFiles.NT
+
+[TIACX_PCI1.NT.Services]
+ AddService = XG350TI, 2, TNET1130.Service, TNET1130.EventLog
+
+[TIACX_PCI1.ndi.reg]
+ HKR,Ndi,DeviceID,,"PCI\VEN_104C&DEV_9066&SUBSYS_003317CF"
+
+;==========================================================================
+[TIACX_PCI2.NT]
+ BusType         = 5
+ AddReg          =TIACX.ndi.reg.NT, TI.Param.Reg,TIACX_PCI.ndi.reg
+ Characteristics = 0x84
+ CopyFiles       =TIACX.CopyFiles.NT
+
+[TIACX_PCI2.NT.Services]
+ AddService = XG350TI, 2, TNET1130.Service, TNET1130.EventLog
+
+[TIACX_PCI2.ndi.reg]
+ HKR,Ndi,DeviceID,,"PCI\VEN_104C&DEV_9066&SUBSYS_003417CF"
+
+;==========================================================================
+
+[TIACX.CopyFiles.NT]
+ XG350TI.sys
+ XG350TI.bin
+
+[TIACX.ndi.reg.NT]
+HKR, Ndi,               Service,    0,  "XG350TI"
+HKR, Ndi\Interfaces,    LowerRange, 0,  "ethernet"
+HKR, Ndi\Interfaces,    UpperRange, 0,  "ndis5"
+
+[TNET1130.Service]
+DisplayName     = %TNET1130.Service.DispName%
+ServiceType     = 1 ;%SERVICE_KERNEL_DRIVER%
+StartType       = 3 ;%SERVICE_DEMAND_START%
+ErrorControl    = 1 ;%SERVICE_ERROR_NORMAL%
+ServiceBinary   = %12%\XG350TI.sys
+LoadOrderGroup  = NDIS
+
+[TNET1130.EventLog]
+AddReg = TNET1130.AddEventLog.reg
+
+[TNET1130.AddEventLog.reg]
+HKR, , EventMessageFile, 0x00020000, "%%SystemRoot%%\System32\netevent.dll"
+HKR, , TypesSupported,   0x00010001, 7
+
+;
+; Common sections
+;
+[TI.Param.Reg]
+ HKR, ,WLANIOC,0,"XG-350"
+ HKR, ,DeviceVxDs,0,"XG350TI.sys"
+ 
+; Radio factor RSSI
+HKR, ,FactorRSSI, , 88
+
+;Rate Adaptation table
+;Note - Please use 5 to represent 5.5 MBPS rate
+
+; CCK Only
+HKR, ,RateAdaptationTable0,, "1 2 5 11"
+HKR, ,RateAdaptationFBThd0,, "50 50 50 50"
+HKR, ,RateAdaptationSUThd0,, "30 30 30 30"
+
+; PBCC supported
+HKR, ,RateAdaptationTable1,, "1 2 5 11 22"
+HKR, ,RateAdaptationFBThd1,, "50 50 50 50 50"
+HKR, ,RateAdaptationSUThd1,, "30 30 30 30 30"
+
+; OFDM 
+HKR, ,RateAdaptationTable2,, "1 2 5 11 18 24 36 48 54"
+HKR, ,RateAdaptationFBThd2,, "50 50 50 50 45 45 45 45 20"
+HKR, ,RateAdaptationSUThd2,, "30 30 30 30 30 30 10 5 0"
+
+; PermAddress
+HKR,,PermAddress,,112233
+
+; HardwareID
+HKR, ,HardwareID, ,"TNET1130"
+
+; Desired channel
+HKR, ,dot11DesiredChannel, ,6
+
+; Tx/Rx descriptors
+
+HKR, ,NumACXRxDescriptors, ,32
+HKR, ,NumACXTxDescriptors, ,32
+
+HKR, ,CalibrationInterval, ,300
+
+HKR, ,EnergyDetection, ,1
+
+; LEAP User password
+HKR, ,LeapUserPassword, ,""
+
+HKR, ,DriverDescription, ,"IEEE 802.11g Wireless Network Cardbus Adapter"
+
+HKR, ,TriggerRxMem, ,1
+
+HKR, ,TriggerTx, ,5
+
+HKR, ,TriggerFcs, ,0
+
+HKR, ,ScrPad5, ,0
+
+HKR, ,dot11ABAMode, ,2
+
+HKR, ,ClockRate, ,80
+
+HKR, ,ShortSlotTime, ,0
+
+; TcpWindowSize - TCP Window size
+HKLM,System\CurrentControlSet\Services\Tcpip\Parameters, TcpWindowSize, 0x10001, 25200
+
+HKR, ,RtsCtsProtection, ,1
+HKR,NDI\params\RtsCtsProtection,ParamDesc,,"ERP Protection"
+HKR,NDI\params\RtsCtsProtection,type,,"enum"
+HKR,NDI\params\RtsCtsProtection,default,,"1"
+HKR,NDI\params\RtsCtsProtection\enum,"1",,"Enabled"
+HKR,NDI\params\RtsCtsProtection\enum,"0",,"Disabled"
+
+HKR,NDI\params\dot11DesiredBSSType,ParamDesc,,"Desired BSS Type"
+HKR,NDI\params\dot11DesiredBSSType,type,,"enum"
+HKR,NDI\params\dot11DesiredBSSType,default,,"1"
+HKR,NDI\params\dot11DesiredBSSType\enum,"0",,"802.11 Ad-hoc"
+HKR,NDI\params\dot11DesiredBSSType\enum,"1",,"Infrastructure"
+
+HKR, Ndi\Params\dot11DesiredSSID, ParamDesc, ,"Desired SSID"
+HKR, Ndi\Params\dot11DesiredSSID, Type, ,"edit"
+HKR, Ndi\Params\dot11DesiredSSID, LimitText, ,"32"
+HKR, Ndi\Params\dot11DesiredSSID, Default,,""
+HKR, Ndi\Params\dot11DesiredSSID, UpperCase,,"0"
+
+HKR,NDI\params\dot11PowerMode,ParamDesc,,"Power Mode"
+HKR,NDI\params\dot11PowerMode,type,,"enum"
+HKR,NDI\params\dot11PowerMode,default,,"0"
+HKR,NDI\params\dot11PowerMode\enum,"0",,"Continuous Access Mode"
+HKR,NDI\params\dot11PowerMode\enum,"1",,"Maximum Power Save"
+HKR,NDI\params\dot11PowerMode\enum,"2",,"Fast Power Save"
+
+; Desired Tx Rate 
+HKR,NDI\params\dot11DesiredTxRate,ParamDesc,, "Desired Tx Rate"
+HKR,NDI\params\dot11DesiredTxRate,type,,"enum"
+HKR,NDI\params\dot11DesiredTxRate,default,,"0"
+HKR,NDI\params\dot11DesiredTxRate\enum,"0",,"Auto"
+HKR,NDI\params\dot11DesiredTxRate\enum,"1",,"1 Mbps"
+HKR,NDI\params\dot11DesiredTxRate\enum,"2",,"2 Mbps"
+HKR,NDI\params\dot11DesiredTxRate\enum,"3",,"5.5 Mbps"
+HKR,NDI\params\dot11DesiredTxRate\enum,"4",,"6 Mbps"
+HKR,NDI\params\dot11DesiredTxRate\enum,"5",,"9 Mbps"
+HKR,NDI\params\dot11DesiredTxRate\enum,"6",,"11 Mbps"
+HKR,NDI\params\dot11DesiredTxRate\enum,"7",,"12 Mbps"
+HKR,NDI\params\dot11DesiredTxRate\enum,"8",,"18 Mbps"
+HKR,NDI\params\dot11DesiredTxRate\enum,"9",,"22 Mbps"
+HKR,NDI\params\dot11DesiredTxRate\enum,"10",,"24 Mbps"
+HKR,NDI\params\dot11DesiredTxRate\enum,"11",,"36 Mbps"
+HKR,NDI\params\dot11DesiredTxRate\enum,"12",,"48 Mbps"
+HKR,NDI\params\dot11DesiredTxRate\enum,"13",,"54 Mbps"
+
+; Desired supported Rate Set 
+HKR,NDI\params\dot11SupportedRateMask,ParamDesc,, "Desired Supported Rate Set"
+HKR,NDI\params\dot11SupportedRateMask,type,,"enum"
+HKR,NDI\params\dot11SupportedRateMask,default,,"8"
+HKR,NDI\params\dot11SupportedRateMask\enum,"0",,"1,2 Mbps"
+HKR,NDI\params\dot11SupportedRateMask\enum,"1",,"1,2,5.5,11 Mbps"
+HKR,NDI\params\dot11SupportedRateMask\enum,"2",,"1,2,5.5,11,22 Mbps"
+HKR,NDI\params\dot11SupportedRateMask\enum,"3",,"Up to 18Mbps"
+HKR,NDI\params\dot11SupportedRateMask\enum,"4",,"Up to 24Mbps"
+HKR,NDI\params\dot11SupportedRateMask\enum,"5",,"Up to 36Mbps"
+HKR,NDI\params\dot11SupportedRateMask\enum,"6",,"Up to 48Mbps"
+HKR,NDI\params\dot11SupportedRateMask\enum,"7",,"Up to 54Mbps"
+HKR,NDI\params\dot11SupportedRateMask\enum,"8",,"All"
+
+; Desired Basic Rate Set 
+HKR,NDI\params\dot11BasicRateMask,ParamDesc,, "Desired Basic Rate Set"
+HKR,NDI\params\dot11BasicRateMask,type,,"enum"
+HKR,NDI\params\dot11BasicRateMask,default,,"1"
+HKR,NDI\params\dot11BasicRateMask\enum,"0",,"1,2 Mbps"
+HKR,NDI\params\dot11BasicRateMask\enum,"1",,"1,2,5.5,11 Mbps"
+HKR,NDI\params\dot11BasicRateMask\enum,"2",,"Up to 12Mbps"
+HKR,NDI\params\dot11BasicRateMask\enum,"3",,"Up to 18Mbps"
+HKR,NDI\params\dot11BasicRateMask\enum,"4",,"Up to 24Mbps"
+HKR,NDI\params\dot11BasicRateMask\enum,"5",,"Up to 36Mbps"
+HKR,NDI\params\dot11BasicRateMask\enum,"6",,"Up to 48Mbps"
+HKR,NDI\params\dot11BasicRateMask\enum,"7",,"Up to 54Mbps"
+
+; Fragmentation Threshold 
+HKR, Ndi\Params\dot11FragmentationThreshold, ParamDesc, ,"Fragmentation Threshold"
+HKR, Ndi\Params\dot11FragmentationThreshold, Type, , "int"
+HKR, Ndi\Params\dot11FragmentationThreshold, Default, , "4096"
+HKR, Ndi\Params\dot11FragmentationThreshold, Min, , "256"
+HKR, Ndi\Params\dot11FragmentationThreshold, Max, , "4096"
+HKR, Ndi\Params\dot11FragmentationThreshold, Step, , "1"
+HKR, Ndi\Params\dot11FragmentationThreshold, Base, , "10"
+
+; RTS Threshold 
+HKR, Ndi\Params\dot11RTSThreshold, ParamDesc, ,"RTS Threshold"
+HKR, Ndi\Params\dot11RTSThreshold, Type, , "int"
+HKR, Ndi\Params\dot11RTSThreshold, Default, , "4096"
+HKR, Ndi\Params\dot11RTSThreshold, Min, , "0"
+HKR, Ndi\Params\dot11RTSThreshold, Max, , "4096"
+HKR, Ndi\Params\dot11RTSThreshold, Step, , "1"
+HKR, Ndi\Params\dot11RTSThreshold, Base, , "10"
+
+HKR,NDI\params\dot11WEPStatus,ParamDesc,,"WEP Option"
+HKR,NDI\params\dot11WEPStatus,type,,"enum"
+HKR,NDI\params\dot11WEPStatus,default,,"1"
+HKR,NDI\params\dot11WEPStatus\enum,"0",,"WEP Enabled"
+HKR,NDI\params\dot11WEPStatus\enum,"1",,"WEP Disabled"
+
+HKR,NDI\params\dot11AuthenticationMode,ParamDesc,,"Authentication Mode"
+HKR,NDI\params\dot11AuthenticationMode,type,,"enum"
+HKR,NDI\params\dot11AuthenticationMode,default,,"0"
+HKR,NDI\params\dot11AuthenticationMode\enum,"0",,"Open Authentication"
+HKR,NDI\params\dot11AuthenticationMode\enum,"1",,"Shared Authentication"
+HKR,NDI\params\dot11AuthenticationMode\enum,"2",,"Auto Switch"
+
+HKR,NDI\params\dot11ShortPreambleInvoked,ParamDesc,,"Short Preamble"
+HKR,NDI\params\dot11ShortPreambleInvoked,type,,"enum"
+HKR,NDI\params\dot11ShortPreambleInvoked,default,,"0"
+HKR,NDI\params\dot11ShortPreambleInvoked\enum,"0",,"Off"
+HKR,NDI\params\dot11ShortPreambleInvoked\enum,"1",,"On"
+
+HKR,NDI\params\Mode4x,ParamDesc,,"Mode4x"
+HKR,NDI\params\Mode4x,type,,"enum"
+HKR,NDI\params\Mode4x,default,,"1"
+HKR,NDI\params\Mode4x\enum,"0",,"Off"
+HKR,NDI\params\Mode4x\enum,"1",,"On"
+
+HKR,NDI\params\Mode4xMixed,ParamDesc,,"Mode4xMixed"
+HKR,NDI\params\Mode4xMixed,type,,"enum"
+HKR,NDI\params\Mode4xMixed,default,,"0"
+HKR,NDI\params\Mode4xMixed\enum,"0",,"Off"
+HKR,NDI\params\Mode4xMixed\enum,"1",,"On"
+
+;HKR,NDI\params\IBSSProtectionType,ParamDesc,,"AdHoc Protection Type"
+;HKR,NDI\params\IBSSProtectionType,type,,"enum"
+;HKR,NDI\params\IBSSProtectionType,default,,"0"
+;HKR,NDI\params\IBSSProtectionType\enum,"0",,"None"
+;HKR,NDI\params\IBSSProtectionType\enum,"1",,"Standard"
+;HKR,NDI\params\IBSSProtectionType\enum,"2",,"Proprietary"
+
+[DestinationDirs]
+DefaultDestDir  = 12 ; System Directory
+
+[SourceDisksNames]
+1 = %DiskName%,,
+
+[SourceDisksFiles]
+XG350TI.sys  = 1
+XG350TI.bin = 1
+
+[Strings]
+Provider 			= " "
+TIACX.DeviceDesc_Cardbus 	= "IEEE 802.11g Wireless Network Cardbus Adapter"
+TIACX.DeviceDesc_PCI 		= "IEEE 802.11g Wireless Network PCI Adapter"
+WLANAdapterHelpText		= "A WLAN Adapter provides high speed connection to the Internet through 802.11g technology"
+DiskName 			= "IEEE 802.11g NIC Driver Disk"

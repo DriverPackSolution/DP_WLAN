@@ -1,0 +1,673 @@
+;****************************************************************************************
+;
+;Module Name:
+;
+;    WUSB54GC
+;
+;DESCRIPTION:
+;
+;            Linksys WUSB54GC Compact Wireless-G USB Network Adapter
+;            
+;            Copyright (C) 2008, Cisco Systems, Inc. All rights reserved.
+;*************************************************************************
+
+[Version]
+Signature       = "$Chicago$"
+Class           = Net
+ClassGUID       = {4d36e972-e325-11ce-bfc1-08002be10318}
+Provider        = %Linksys%
+Compatible      = 1
+DriverVer       = 08/28/2008, 1.02.02.0000
+CatalogFile     = WUSB54GCv3.cat            ;for WHQL certified
+
+[ControlFlags]
+;***********Ralink 802.11 n board  ***********
+;ExcludeFromSelect = USB\VID_1737&PID_0077
+
+[Manufacturer]
+%Linksys%        = Linksys
+
+[Linksys]
+; DisplayName               Section                 DeviceID
+; -----------               -------                 --------
+%GenericWLAN.DeviceDesc%    = Ralink_3070.ndi,      USB\VID_1737&PID_0077
+
+;*******************************************************************************************
+; NT specific entries
+;*******************************************************************************************
+
+[Ralink_3070.ndi.NT]
+AddReg                  = Common.reg, RTUSB.ndi.NT.reg
+Characteristics         = 0x84                      ; NCF_REMOVABLE | NCF_HAS_UI | NCF_PHYSICAL
+BusType                 = 15                        ;USB
+CopyFiles               = NT.CopyFiles
+
+;*******************************************************************************************
+; NT services sections
+;*******************************************************************************************
+[Ralink_3070.ndi.NT.Services]
+AddService              = WUSB54GCv3, 2, Generic.Service, common.EventLog
+
+;*******************************************************************************************
+; NT CoInstallers Sections
+;*******************************************************************************************
+[Ralink_3070.ndi.NT.CoInstallers]
+CopyFiles = CoInstaller.CopyFiles
+AddReg = CoInstaller_AddReg
+
+;*******************************************************************************************
+; common regs for NT
+;*******************************************************************************************
+
+[Common.reg]
+;*******************************************************************************************
+; System Level Property
+
+;
+; Current Profile
+;
+HKR, ,                    CurProfile,      0,""
+HKR, Default,             CurProfile,      0,""
+
+;
+; Radio On/Off
+;
+HKR, ,                            Radio,           0, "0"
+HKR, NDI\params\Radio,            ParamDesc,       0, %RadioOnOff%
+HKR, NDI\params\Radio,            type,            0, "enum"
+HKR, NDI\params\Radio,            default,         0, "0"
+HKR, NDI\params\Radio\enum,       1,               0, %Disable%
+HKR, NDI\params\Radio\enum,       0,               0, %Enable%
+
+;
+; Auto Reconnect Mode
+;
+HKR, ,                                  AutoReconnect,      0, "1"
+HKR, NDI\params\AutoReconnect,          ParamDesc,          0, %AutoReconnectMode%
+HKR, NDI\params\AutoReconnect,          type,               0, "enum"
+HKR, NDI\params\AutoReconnect,          default,            0, "1"
+HKR, NDI\params\AutoReconnect\enum,     0,                  0, %Disable%
+HKR, NDI\params\AutoReconnect\enum,     1,                  0, %Enable%
+
+;
+; Show Hidden SSID in Site Survey Page
+;
+HKR, ,                                  ShowHiddenSSID,     0, "0"   ; 0=disable(default), 1=enable
+
+;
+; Country Region G Band
+;
+HKR, ,                                 CountryRegion,      0, "0"
+HKR, NDI\params\CountryRegion,         ParamDesc,          0, %CountryRegion24G%
+HKR, NDI\params\CountryRegion,         type,               0, "enum"
+HKR, NDI\params\CountryRegion,         default,            0, "0"
+HKR, NDI\params\CountryRegion\enum,    0,                  0, %CountryRegion24G_0%
+HKR, NDI\params\CountryRegion\enum,    1,                  0, %CountryRegion24G_1%
+HKR, NDI\params\CountryRegion\enum,    2,                  0, %CountryRegion24G_2%
+HKR, NDI\params\CountryRegion\enum,    3,                  0, %CountryRegion24G_3%
+HKR, NDI\params\CountryRegion\enum,    4,                  0, %CountryRegion24G_4%
+HKR, NDI\params\CountryRegion\enum,    5,                  0, %CountryRegion24G_5%
+HKR, NDI\params\CountryRegion\enum,    6,                  0, %CountryRegion24G_6%
+HKR, NDI\params\CountryRegion\enum,    7,                  0, %CountryRegion24G_7%
+
+;
+; Country Region A Band
+;
+HKR, ,                                 CountryRegionABand, 0, "0"
+HKR, NDI\params\CountryRegionABand,    ParamDesc,          0, %CountryRegion5G%
+HKR, NDI\params\CountryRegionABand,    type,               0, "enum"
+HKR, NDI\params\CountryRegionABand,    default,            0, "0"
+HKR, NDI\params\CountryRegionABand\enum,0,                 0, %CountryRegion5G_0%
+HKR, NDI\params\CountryRegionABand\enum,1,                 0, %CountryRegion5G_1%
+HKR, NDI\params\CountryRegionABand\enum,2,                 0, %CountryRegion5G_2%
+HKR, NDI\params\CountryRegionABand\enum,3,                 0, %CountryRegion5G_3%
+HKR, NDI\params\CountryRegionABand\enum,4,                 0, %CountryRegion5G_4%
+HKR, NDI\params\CountryRegionABand\enum,5,                 0, %CountryRegion5G_5%
+HKR, NDI\params\CountryRegionABand\enum,6,                 0, %CountryRegion5G_6%
+HKR, NDI\params\CountryRegionABand\enum,7,                 0, %CountryRegion5G_7%
+HKR, NDI\params\CountryRegionABand\enum,8,                 0, %CountryRegion5G_8%
+HKR, NDI\params\CountryRegionABand\enum,9,                 0, %CountryRegion5G_9%
+HKR, NDI\params\CountryRegionABand\enum,10,                0, %CountryRegion5G_10%
+HKR, NDI\params\CountryRegionABand\enum,11,                0, %CountryRegion5G_11%
+HKR, NDI\params\CountryRegionABand\enum,12,                0, %CountryRegion5G_12%
+;*******************************************************************************************
+; Advance Page
+
+;
+; OpMode
+;
+HKR, ,                            OpMode,          0, "0"
+
+;
+; WirelessMode
+;
+HKR, ,                            WirelessMode,    0, "5"
+
+;
+; Enable patch for pass wifi 11n draft
+;
+HKR, ,                            TGnWifiTest,         0, "0"
+
+;
+; Use Short Slot Time
+;
+HKR, ,                            ShortSlot,       0, "1"
+
+;
+; Use Turbo rate
+;
+HKR, ,                            TurboRate,       0, "0"
+
+;
+; Use Ofdm rate in adhoc mode
+;
+HKR, ,                            AdhocOfdm,       0, "1"
+
+;
+; Enable TX Burst
+;
+HKR, ,                            TXBurst,              0, "1"
+HKR, NDI\params\TXBurst,                ParamDesc,      0, %TXBurst%
+HKR, NDI\params\TXBurst,                type,           0, "enum"
+HKR, NDI\params\TXBurst,                default,        0, "1"
+HKR, NDI\params\TXBurst\enum,           0,              0, %Disable%
+HKR, NDI\params\TXBurst\enum,           1,              0, %Enable%
+
+;
+; Use BG Protection
+;
+HKR, ,                            BGProtection,    0, "0"
+HKR, NDI\params\BGProtection,           ParamDesc, 0, %BGProtection%
+HKR, NDI\params\BGProtection,           type,      0, "enum"
+HKR, NDI\params\BGProtection,           default,   0, "0"
+HKR, NDI\params\BGProtection\enum,      0,         0, %Auto%
+HKR, NDI\params\BGProtection\enum,      1,         0, %On%
+HKR, NDI\params\BGProtection\enum,      2,         0, %Off%
+
+;
+; FrameAggregation
+;
+HKR, ,                            FrameAggregation,0, "0"
+HKR, NDI\params\FrameAggregation,       ParamDesc, 0, %FrameAggregation%
+HKR, NDI\params\FrameAggregation,       type,      0, "enum"
+HKR, NDI\params\FrameAggregation,       default,   0, "0"
+HKR, NDI\params\FrameAggregation\enum,  0,         0, %Disable%
+HKR, NDI\params\FrameAggregation\enum,  1,         0, %Enable%
+
+;
+; IEEE80211H
+;
+HKR, ,                            IEEE80211H,      0, "0"
+HKR, NDI\params\IEEE80211H,       ParamDesc,       0, %IEEE802_11h%
+HKR, NDI\params\IEEE80211H,       type,            0, "enum"
+HKR, NDI\params\IEEE80211H,       default,         0, "0"
+HKR, NDI\params\IEEE80211H\enum,  0,               0, %Disable%
+HKR, NDI\params\IEEE80211H\enum,  1,               0, %Enable%
+
+;
+; CarrierDetect
+;
+HKR, ,                               CarrierDetect,   0, "0"
+HKR, NDI\params\CarrierDetect,       ParamDesc,       0, %CarrierDetect%
+HKR, NDI\params\CarrierDetect,       type,            0, "enum"
+HKR, NDI\params\CarrierDetect,       default,         0, "0"
+HKR, NDI\params\CarrierDetect\enum,  0,               0, %Disable%
+HKR, NDI\params\CarrierDetect\enum,  1,               0, %Enable%
+
+;
+; AutoChannelSelect
+;
+HKR, ,                            AutoChannelSelect,      0, "0"
+HKR, NDI\params\AutoChannelSelect,       ParamDesc,0, %AutoChannelSelect%
+HKR, NDI\params\AutoChannelSelect,       type,     0, "enum"
+HKR, NDI\params\AutoChannelSelect,       default,  0, "0"
+HKR, NDI\params\AutoChannelSelect\enum,  0,        0, %Disable%
+HKR, NDI\params\AutoChannelSelect\enum,  1,        0, %Enable%
+
+;
+; WMMCapable
+;
+HKR, ,                            WMMCapable,      0, "1"
+HKR, NDI\params\WMMCapable,             ParamDesc, 0, %WMMCapable%
+HKR, NDI\params\WMMCapable,             type,      0, "enum"
+HKR, NDI\params\WMMCapable,             default,   0, "1"
+HKR, NDI\params\WMMCapable\enum,        0,         0, %Disable%
+HKR, NDI\params\WMMCapable\enum,        1,         0, %Enable%
+
+;
+; APSDCapable
+;
+HKR, ,                            APSDCapable,     0, "0"
+HKR, NDI\params\APSDCapable,            ParamDesc, 0, %APSDCapable%
+HKR, NDI\params\APSDCapable,            type,      0, "enum"
+HKR, NDI\params\APSDCapable,            default,   0, "0"
+HKR, NDI\params\APSDCapable\enum,       0,         0, %Disable%
+HKR, NDI\params\APSDCapable\enum,       1,         0, %Enable%
+
+;
+; APSDAC_BE
+;
+HKR, ,                            APSDAC_BE,       0, "0"
+HKR, NDI\params\APSDAC_BE,              ParamDesc, 0, %APSDAC_BE%
+HKR, NDI\params\APSDAC_BE,              type,      0, "enum"
+HKR, NDI\params\APSDAC_BE,              default,   0, "0"
+HKR, NDI\params\APSDAC_BE\enum,         0,         0, %Disable%
+HKR, NDI\params\APSDAC_BE\enum,         1,         0, %Enable%
+
+;
+; APSDAC_BK
+;
+HKR, ,                            APSDAC_BK,       0, "0"
+HKR, NDI\params\APSDAC_BK,              ParamDesc, 0, %APSDAC_BK%
+HKR, NDI\params\APSDAC_BK,              type,      0, "enum"
+HKR, NDI\params\APSDAC_BK,              default,   0, "0"
+HKR, NDI\params\APSDAC_BK\enum,         0,         0, %Disable%
+HKR, NDI\params\APSDAC_BK\enum,         1,         0, %Enable%
+
+;
+; APSDAC_VI
+;
+HKR, ,                            APSDAC_VI,       0, "0"
+HKR, NDI\params\APSDAC_VI,              ParamDesc, 0, %APSDAC_VI%
+HKR, NDI\params\APSDAC_VI,              type,      0, "enum"
+HKR, NDI\params\APSDAC_VI,              default,   0, "0"
+HKR, NDI\params\APSDAC_VI\enum,         0,         0, %Disable%
+HKR, NDI\params\APSDAC_VI\enum,         1,         0, %Enable%
+
+;
+; APSDAC_VO
+;
+HKR, ,                            APSDAC_VO,       0, "0"
+HKR, NDI\params\APSDAC_VO,              ParamDesc, 0, %APSDAC_VO%
+HKR, NDI\params\APSDAC_VO,              type,      0, "enum"
+HKR, NDI\params\APSDAC_VO,              default,   0, "0"
+HKR, NDI\params\APSDAC_VO\enum,         0,         0, %Disable%
+HKR, NDI\params\APSDAC_VO\enum,         1,         0, %Enable%
+
+;
+; MaxSPLength
+;
+HKR, ,                            MaxSPLength,     0, "0"
+HKR, Default,                     MaxSPLength,     0, "0"
+HKR, NDI\params\MaxSPLength,      ParamDesc,       0, %MaxSPLength%
+HKR, NDI\params\MaxSPLength,      type,            0, "int"
+HKR, NDI\params\MaxSPLength,      default,         0, "0"
+HKR, NDI\params\MaxSPLength,      min,             0, "0"
+HKR, NDI\params\MaxSPLength,      max,             0, "3"
+HKR, NDI\params\MaxSPLength,      step,            0, "1"
+HKR, NDI\params\MaxSPLength,      optional,        0, "0"
+
+;
+; DLSCapable
+;
+HKR, ,                            DLSCapable,      0, "0"
+HKR, NDI\params\DLSCapable,             ParamDesc, 0, %DLSCapable%
+HKR, NDI\params\DLSCapable,             type,      0, "enum"
+HKR, NDI\params\DLSCapable,             default,   0, "0"
+HKR, NDI\params\DLSCapable\enum,        0,         0, %Disable%
+HKR, NDI\params\DLSCapable\enum,        1,         0, %Enable%
+
+;
+; RDG
+;
+HKR, ,                            RDG,      0, "1"
+HKR, NDI\params\RDG,                    ParamDesc, 0, %RDG%
+HKR, NDI\params\RDG,                    type,      0, "enum"
+HKR, NDI\params\RDG,                    default,   0, "1"
+HKR, NDI\params\RDG\enum,               0,         0, %Disable%
+HKR, NDI\params\RDG\enum,               1,         0, %Enable%
+
+;
+; SmartScan
+;
+HKR, ,                            SmartScan,       0, "0"
+HKR, NDI\params\SmartScan,              ParamDesc, 0, %SmartScan%
+HKR, NDI\params\SmartScan,              type,      0, "enum"
+HKR, NDI\params\SmartScan,              default,   0, "0"
+HKR, NDI\params\SmartScan\enum,         0,         0, %Disable%
+HKR, NDI\params\SmartScan\enum,         1,         0, %Enable%
+
+;
+; AllowBW40InBGBand
+;
+HKR, ,                            AllowBW40InBGBand,      0, "1"
+HKR, NDI\params\AllowBW40InBGBand,      ParamDesc, 0, %AllowBW40InBGBand%
+HKR, NDI\params\AllowBW40InBGBand,      type,      0, "enum"
+HKR, NDI\params\AllowBW40InBGBand,      default,   0, "1"
+HKR, NDI\params\AllowBW40InBGBand\enum, 0,         0, %Disable%
+HKR, NDI\params\AllowBW40InBGBand\enum, 1,         0, %Enable%
+
+;
+; PSP XLink mode
+;
+HKR, ,                            PSPXlink,        0, "0"
+HKR, NDI\params\PSPXlink,         ParamDesc,       0, %PSPXlink%
+HKR, NDI\params\PSPXlink,         type,            0, "enum"
+HKR, NDI\params\PSPXlink,         default,         0, "0"
+HKR, NDI\params\PSPXlink\enum,    0,               0, %Disable%
+HKR, NDI\params\PSPXlink\enum,    1,               0, %Enable%
+
+;
+; CCX2 control
+;
+HKR, ,                            CCX2Control,     0x00010001, 0x00fa4600
+
+;
+; Block ACK settings
+;
+HKR, ,                            BACapability,      0x10001, "0x0b034020"
+HKR, Default,                     BACapability,      0x10001, "0x0b034020"
+
+
+;
+; Transmit Rate setting
+;
+HKR, ,                            TransmitSetting,      0x10001, "0x2ba15"
+HKR, Default,                     TransmitSetting,      0x10001, "0x2ba15"
+
+
+;
+; Vendor Description
+;
+HKR, ,                            VendorDesc,      0, %VENDOR_DESC_DEF_STR%
+HKR, Default,                     VendorDesc,      0, %VENDOR_DESC_DEF_STR%
+
+;
+; WPS Device Name
+;
+HKR, ,                            WPSDevName,      0, %WPS_DEVNAME_DEF_STR%
+HKR, Default,                     WPSDevName,      0, %WPS_DEVNAME_DEF_STR%
+
+;*******************************************************************************************
+; Profile
+
+;
+; SSID
+;
+;HKR, ,                            SSID,            0, %SSID_DEF_STR%
+;HKR, Default,                     SSID,            0, %SSID_DEF_STR%
+;HKR, NDI\params\SSID,             ParamDesc,       0, "SSID"
+;HKR, NDI\params\SSID,             type,            0, "edit"
+;HKR, NDI\params\SSID,             limitText,       0, "32"
+;HKR, NDI\params\SSID,             default,         0, %SSID_DEF_STR%
+
+;
+; Network Type
+;
+HKR, ,                            NetworkType,     0, %NETWORK_TYPE_DEF_STR%
+HKR, Default,                     NetworkType,     0, %NETWORK_TYPE_DEF_STR%
+HKR, NDI\params\NetworkType,      ParamDesc,       0, %NetworkType%
+HKR, NDI\params\NetworkType,      type,            0, "enum"
+HKR, NDI\params\NetworkType,      default,         0, %NETWORK_TYPE_DEF_STR%
+HKR, NDI\params\NetworkType\enum, 0,               0, %AdHoc%
+HKR, NDI\params\NetworkType\enum, 1,               0, %Infrastructure%
+
+;
+; Channel
+;
+HKR, ,                            Channel,         0, %CHANNEL%
+HKR, Default,                     Channel,         0, %CHANNEL%
+
+
+;*******************************************************************************************
+; System Configuration Page
+
+;
+; Local Administration MAC Network Address
+;
+HKR, ,                            NetworkAddress,  0, ""
+HKR, Default,                     NetworkAddress,  0, ""
+HKR, NDI\params\NetworkAddress,   ParamDesc,       0, %LocalNetworkAddress%
+HKR, NDI\params\NetworkAddress,   type,            0, "edit"
+HKR, NDI\params\NetworkAddress,   limitText,       0, "12"
+HKR, NDI\params\NetworkAddress,   default,         0, ""
+HKR, NDI\params\Networkaddress,    optional,   0,  "1"
+
+;
+; Power Saving Mode
+;
+HKR, ,                            PSMode,          0, "0"
+HKR, Default,                     PSMode,          0, "0"
+HKR, NDI\params\PSMode,           ParamDesc,       0, %PSMode%
+HKR, NDI\params\PSMode,           type,            0, "enum"
+HKR, NDI\params\PSMode,           default,         0, "0"
+HKR, NDI\params\PSMode\enum,      0,               0, %CAM%
+HKR, NDI\params\PSMode\enum,      1,               0, %MAXPSP%
+
+;
+; CAM when AC Power
+;
+HKR, ,                            ACPowerCam,      0, "0"
+HKR, Default,                     ACPowerCam,      0, "0"
+HKR, NDI\params\ACPowerCam,       ParamDesc,       0, %ACPowerCam%
+HKR, NDI\params\ACPowerCam,       type,            0, "enum"
+HKR, NDI\params\ACPowerCam,       default,         0, "0"
+HKR, NDI\params\ACPowerCam\enum,  0,               0, %Disable%
+HKR, NDI\params\ACPowerCam\enum,  1,               0, %Enable%
+
+;
+; Preamble Type
+;
+HKR, ,                            PreambleType,    0, "0"
+HKR, Default,                     PreambleType,    0, "0"
+
+;
+; RTS Threshold
+;
+HKR, ,                            RTSThresh,       0, "2347"
+HKR, Default,                     RTSThresh,       0, "2347"
+HKR, NDI\params\RTSThresh,        ParamDesc,       0, %RTSThresh%
+HKR, NDI\params\RTSThresh,        type,            0, "int"
+HKR, Ndi\params\RTSThresh,        default,         0, "2347"
+HKR, NDI\params\RTSThresh,        min,             0, "0"
+HKR, NDI\params\RTSThresh,        max,             0, "2347"
+HKR, NDI\params\RTSThresh,        step,            0, "1"
+HKR, NDI\params\RTSThresh,        optional,        0, "0"
+
+;
+; Fragment Threshold
+;
+HKR, ,                            FragThresh,      0, "2346"
+HKR, Default,                     FragThresh,      0, "2346"
+HKR, NDI\params\FragThresh,       ParamDesc,       0, %FragThresh%
+HKR, NDI\params\FragThresh,       type,            0, "int"
+HKR, Ndi\params\FragThresh,       default,         0, "2346"
+HKR, NDI\params\FragThresh,       min,             0, "256"
+HKR, NDI\params\FragThresh,       max,             0, "2346"
+HKR, NDI\params\FragThresh,       step,            0, "1"
+HKR, NDI\params\FragThresh,       optional,        0, "0"
+
+;*******************************************************************************************
+; Authentication & Security Page
+
+;
+; Authentication Type
+;
+HKR, ,                AuthenType,      0, "0" ; Open System
+HKR, Default,         AuthenType,      0, "0"
+
+;
+; Encryption
+;
+HKR, ,                Encryption,      0, "1" ; Disable
+HKR, Default,         Encryption,      0, "1"
+
+;
+; WEP Keys Length
+;
+HKR, ,                WEPKeyLen,       0, "0"
+HKR, Default,         WEPKeyLen,       0, "0"
+
+;
+; WEP Key to use
+;
+HKR, ,                WEPKeyUse,       0,"1"
+HKR, Default,         WEPKeyUse,       0,"1"
+
+;
+; WEP Key1
+;
+HKR, ,                WEPKey1,         0,""
+HKR, Default,         WEPKey1,         0,""
+
+;
+; WEP Key2
+;
+HKR, ,                WEPKey2,         0,""
+HKR, Default,         WEPKey2,         0,""
+
+;
+; WEP Key3
+;
+HKR, ,                WEPKey3,         0,""
+HKR, Default,         WEPKey3,         0,""
+
+;
+; WEP Key4
+;
+HKR, ,                WEPKey4,         0,""
+HKR, Default,         WEPKey4,         0,""
+
+[RemoveFlag.reg]
+HKR, ,                SafelyRemoveOff,    0, "1"
+
+[IEEE80211H.reg]
+HKR, ,                IEEE80211H,         0, "1"
+
+[CarrierDetect.reg]
+HKR, ,                CarrierDetect,      0, "1"
+
+[SmartScan.reg]
+HKR, ,                SmartScan,          0, "1"
+
+[CoInstaller_AddReg]
+HKR,,CoInstallers32,0x00010000, "RaCoInst.dll,ClassCoInstaller"
+
+;*******************************************************************************************
+; DestinationDirs
+;*******************************************************************************************
+
+[DestinationDirs]
+NT.CopyFiles            = 12    ; system32\drivers subdirectory on NT
+
+CoInstaller.CopyFiles   = 11
+
+[NT.CopyFiles]
+WUSB54GCv3.sys,rt2870.sys,,2                   ; NT Installation
+
+[CoInstaller.CopyFiles]
+RaCoInst.dll
+RaCoInst.dat
+
+[SourceDisksNames]
+1                       = %INSTALL_DISK_STR%,,,
+
+[SourceDisksFiles] 
+rt2870.sys              = 1
+RaCoInst.dll            = 1
+RaCoInst.dat            = 1
+
+;*******************************************************************************************
+; NT specific
+;*******************************************************************************************
+[RTUSB.ndi.NT.reg]
+HKR, Ndi,                   Service,            0, "WUSB54GCv3"
+HKR, Ndi\Interfaces,        UpperRange,         0, "ndis5"
+HKR, Ndi\Interfaces,        LowerRange,         0, "ethernet"
+
+[Generic.Service]
+DisplayName                 = %Generic.Service.DispName%
+ServiceType                 = 1                             ;%SERVICE_KERNEL_DRIVER%
+StartType                   = 3                             ;%SERVICE_AUTO_START%
+ErrorControl                = 1                             ;%SERVICE_ERROR_NORMAL%
+ServiceBinary               = %12%\WUSB54GCv3.sys
+LoadOrderGroup              = NDIS
+
+[common.EventLog]
+AddReg=common.AddEventLog.reg
+
+[common.AddEventLog.reg]
+HKR, , EventMessageFile, 0x00020000, "%%SystemRoot%%\System32\netevent.dll,%%SystemRoot%%\System32\drivers\WUSB54GCv3.sys"
+HKR, , TypesSupported,   0x00010001, 7
+
+;*******************************************************************************************
+; Strings
+;*******************************************************************************************
+[strings]
+Linksys                      = "Linksys, A Division of Cisco."
+
+
+GenericWLAN.DeviceDesc      = "Compact Wireless-G USB Network Adapter"
+
+INSTALL_DISK_STR            = "Compact Wireless-G USB Network Adapter Installation Disk"
+
+Generic.Service.DispName    = "Compact Wireless-G USB Network Adapter"
+
+;
+; Don't put spaces around=sign otherwise installer will not be able to
+; find these lines.
+; SSID_DEF_STR                = ""
+VENDOR_DESC_DEF_STR         = "Linksys Wireless Card."
+NETWORK_TYPE_DEF_STR        = "1"
+CHANNEL                     = "1"
+WPS_DEVNAME_DEF_STR         = "Linksys Client"
+
+RadioOnOff                  = "Radio On/Off"
+Disable                     = "Disable"
+Enable                      = "Enable"
+AutoReconnectMode           = "Auto Reconnect Mode"
+CountryRegion24G            = "Country Region 11G"
+CountryRegion24G_0          = "#0 (Channel 1 - 11)"
+CountryRegion24G_1          = "#1 (Channel 1 - 13)"
+CountryRegion24G_2          = "#2 (Channel 10 - 11)"
+CountryRegion24G_3          = "#3 (Channel 10 - 13)"
+CountryRegion24G_4          = "#4 (Channel 14)"
+CountryRegion24G_5          = "#5 (Channel 1 - 14)"
+CountryRegion24G_6          = "#6 (Channel 3 - 9)"
+CountryRegion24G_7          = "#7 (Channel 5 - 13)"
+CountryRegion5G             = "Country Region 11A"
+CountryRegion5G_0           = "#0 Ch(36 - 64,149 - 165)"
+CountryRegion5G_1           = "#1 Ch(36 - 140)"
+CountryRegion5G_2           = "#2 Ch(36 - 64)"
+CountryRegion5G_3           = "#3 Ch(52 - 64,149 - 161)"
+CountryRegion5G_4           = "#4 Ch(149 - 165)"
+CountryRegion5G_5           = "#5 Ch(149 - 161)"
+CountryRegion5G_6           = "#6 Ch(36 - 48)"
+CountryRegion5G_7           = "#7 Ch(36 - 165)"
+CountryRegion5G_8           = "#8 Ch(52 - 64)"
+CountryRegion5G_9           = "#9 Ch(36 - 116,132 - 165)"
+CountryRegion5G_10          = "#10 Ch(36 - 48,149 - 165)"
+CountryRegion5G_11          = "#11 Ch(36 - 120,149 - 161)"
+CountryRegion5G_12          = "#12 Ch(36 - 140)"
+TXBurst                     = "TX Burst"
+BGProtection                = "B/G Protection"
+Auto                        = "Auto"
+On                          = "On"
+Off                         = "Off"
+FrameAggregation            = "Frame Aggregation"
+IEEE802_11h                 = "IEEE802.11h"
+CarrierDetect               = "Carrier Detect"
+AutoChannelSelect           = "Auto Channel Select"
+WMMCapable                  = "WMM Capable"
+APSDCapable                 = "APSD Capable"
+APSDAC_BE                   = "AC_BE support APSD"
+APSDAC_BK                   = "AC_BK support APSD"
+APSDAC_VI                   = "AC_VI support APSD"
+APSDAC_VO                   = "AC_VO support APSD"
+MaxSPLength                 = "Max Service Period Length"
+DLSCapable                  = "DLS Capable"
+RDG                         = "RDG"
+SmartScan                   = "SmartScan"
+AllowBW40InBGBand           = "AllowBW40InBGBand"
+PSPXlink                    = "PSP Xlink Mode"
+NetworkType                 = "Network Type"
+AdHoc                       = "802.11 Ad Hoc"
+Infrastructure              = "Infrastructure"
+LocalNetworkAddress         = "Local Administration MAC Network Address"
+PSMode                      = "Power Saving Mode"
+CAM                         = "CAM (Constantly Awake Mode)"
+MAXPSP                      = "Max_PSP (Max Power Savings)"
+ACPowerCam                  = "CAM when AC Power"
+RTSThresh                   = "RTS Threshold"
+FragThresh                  = "Fragment Threshold"
+

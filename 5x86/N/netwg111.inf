@@ -1,0 +1,192 @@
+;***********************************************************************
+; NetWG111.INF
+;
+;   This installation script supports Windows 2000, XP for the
+;   Wireless LAN Adapters.
+;
+;   Copyright (c) 2004 Netgear Inc.
+;   All Rights Reserved.
+;
+;***********************************************************************
+
+[Version]
+ DriverVer		= 06/04/2004, 3.0.18.201
+ Signature		= "$Chicago$"
+ Compatible		= 1
+ Class			= Net
+ ClassGUID		= {4d36e972-e325-11ce-bfc1-08002be10318}
+ Provider		= %DRV_PROVIDER_STR%
+ CatalogFile.NT	= 	netwg111.cat
+
+[ControlFlags]
+;Exclude all PNP adapters from user selection
+ ExcludeFromSelect   = *
+
+[Manufacturer]
+ %MANUFACTURER_STR% = DeviceList
+
+[DeviceList]
+ %WLAN_USB_DESC_STR%     = WLAN_USB1,        USB\VID_0846&PID_4220
+ %WLAN_USB_DESC_STR%     = WLAN_USB2,        USB\VID_0846&PID_4240
+
+;==========
+[WLAN_USB1.NT]    ; Win2k
+ AddReg         = WLAN_USB1_REG, COMMON_USB_REG_NT, COMMON_NDIS_REG_NT, COMMON_REG
+ CopyFiles      = WLAN_USB_DRIVER_COPY_NT
+ BusType        = 15	;USB
+ Characteristics= 0x84
+
+[WLAN_USB1.NT.Services]
+ AddService= "wg111nd5", 2, WLAN_DRIVER_USB_SERVICE, WLAN_USB_DRIVER_EVENTLOG
+
+[WLAN_USB1_REG]
+ HKR,Ndi,DeviceID,0,"USB\VID_0846&PID_4220"
+ HKR,,PlatformID,0,14480
+ HKR,,UsbVariant,0,8832
+ HKR,,VendorDesc,0,%WLAN_USB_DESC_STR%
+ 
+;==========
+[WLAN_USB2.NT]    ; Win2k
+ AddReg         = WLAN_USB2_REG, COMMON_USB_REG_NT, COMMON_NDIS_REG_NT, COMMON_REG
+ CopyFiles      = WLAN_USB_DRIVER_COPY_NT
+ BusType        = 15	;USB
+ Characteristics= 0x84
+
+[WLAN_USB2.NT.Services]
+ AddService= "wg111nd5", 2, WLAN_DRIVER_USB_SERVICE, WLAN_USB_DRIVER_EVENTLOG
+
+[WLAN_USB2_REG]
+ HKR,Ndi,DeviceID,0,"USB\VID_0846&PID_4240"
+ HKR,,PlatformID,0,14480
+ HKR,,UsbVariant,0,14471
+ HKR,,VendorDesc,0,%WLAN_USB_DESC_STR%
+
+;###############################################################################
+[WLAN_DRIVER_USB_SERVICE]
+ DisplayName    = %WLAN_USB_SERVICE_STR%
+ ServiceType    = 1    ; SERVICE_KERNEL_DRIVER
+ StartType      = 3    ; SERVICE_DEMAND_START
+ ErrorControl   = 1    ; NORMAL
+ ServiceBinary  = %12%\wg111nd5.sys
+ LoadOrderGroup = NDIS
+
+[WLAN_USB_DRIVER_EVENTLOG]
+ AddReg         = WLAN_USB_DRIVER_EVENTLOG_REG
+
+[WLAN_USB_DRIVER_EVENTLOG_REG]
+ HKR,           ,EventMessageFile       ,0x00020000     ,"%%SystemRoot%%\System32\netevent.dll"
+ HKR,           ,TypesSupported         ,0x00010001     ,7
+
+;############################################################################### 
+[COMMON_USB_REG_NT]
+ HKR,NDI                ,Service                ,0      ,"wg111nd5"
+ HKR,NDI                ,CardType               ,0      ,"USB"
+ HKR,                   ,BusType                ,0      ,"0"
+ HKR,                   ,DeviceVxDs             ,0      ,"wg111nd5.sys" 
+
+[COMMON_NDIS_REG_NT]
+ HKR,NDI\Interfaces     ,UpperRange             ,0      ,"ndis5"
+ HKR,NDI\Interfaces     ,LowerRange             ,0      ,"ethernet"
+
+[COMMON_REG]
+ HKR,		 ,WLANIOC,0,"XG-300"
+   
+ HKR,		,RTSThresh,0,2346
+ HKR,defaults	,RTSThresh,0,2346
+ HKR,		,FragThresh,0,2346
+ HKR,defaults	,FragThresh,0,2346
+ HKR,		,ConfigProfile,0,256
+ HKR,defaults	,ConfigProfile,0,256
+ HKR,		,NitroMode,0,1
+ HKR,defaults	,NitroMode,0,1
+ HKR,		,PSMode,0,1
+ HKR,defaults	,PSMode,0,1
+ HKR,		,SSID,0,"ANY"
+ HKR,defaults	,SSID,0,"ANY"		;Default value is "any"
+ HKR,		,NetworkType,0,1
+ HKR,defaults	,NetworkType,0,1	;Infrasturcture
+ HKR,		,NitroTime,0,1400
+ HKR,defaults	,NitroTime,0,1400
+ HKR,		,ProfileName,0,"Default"
+ HKR,		,11dMode,0,0
+
+ HKR,		,ShortRetryLimit,0,7
+ HKR,defaults	,ShortRetryLimit,0,7
+ HKR,NDI\params\ShortRetryLimit,default,0,7
+ HKR,NDI\params\ShortRetryLimit,ParamDesc,,%SHORT_RETRY_STR%
+ HKR,NDI\params\ShortRetryLimit,type,,int
+ HKR,NDI\params\ShortRetryLimit,min,0,1
+ HKR,NDI\params\ShortRetryLimit,max,0,255
+ HKR,NDI\params\ShortRetryLimit,step,0,1
+
+ HKR,		,LongRetryLimit,0,4
+ HKR,defaults	,LongRetryLimit,0,4
+ HKR,NDI\params\LongRetryLimit,default,0,4
+ HKR,NDI\params\LongRetryLimit,ParamDesc,,%LONG_RETRY_STR%
+ HKR,NDI\params\LongRetryLimit,type,0,int
+ HKR,NDI\params\LongRetryLimit,min,0,1
+ HKR,NDI\params\LongRetryLimit,max,0,255
+ HKR,NDI\params\LongRetryLimit,step,0,1
+ 
+ ;Country Desc
+ HKR,		,CountryCode,0,US
+ HKR,defaults	,CountryCode,0,US
+ HKR,Ndi\params\CountryCode,default,0,US
+ HKR,NDI\params\CountryCode,ParamDesc,,%REGULATOR_DOMAIN%
+ HKR,NDI\params\CountryCode,type,,enum
+ HKR,NDI\params\CountryCode,flag,1,30,00,00,00
+ HKR,NDI\params\CountryCode\enum,US,,%REGULATOR_DOMAIN_US%
+ HKR,NDI\params\CountryCode\enum,AT,,%REGULATOR_DOMAIN_AF%
+ HKR,NDI\params\CountryCode\enum,BE,,%REGULATOR_DOMAIN_AS%
+ HKR,NDI\params\CountryCode\enum,DK,,%REGULATOR_DOMAIN_AU%
+ HKR,NDI\params\CountryCode\enum,TW,,%REGULATOR_DOMAIN_CA%
+ HKR,NDI\params\CountryCode\enum,GB,,%REGULATOR_DOMAIN_EU%
+ HKR,NDI\params\CountryCode\enum,FI,,%REGULATOR_DOMAIN_FR%
+ HKR,NDI\params\CountryCode\enum,DE,,%REGULATOR_DOMAIN_JA%
+ HKR,NDI\params\CountryCode\enum,GR,,%REGULATOR_DOMAIN_ME%
+ HKR,NDI\params\CountryCode\enum,IE,,%REGULATOR_DOMAIN_SA%
+
+;###############################################################################
+[DestinationDirs]
+;CopyFiles Section      = Destination Directory ID -- see layout.inf
+;-----------------        ------------------------
+ WLAN_USB_DRIVER_COPY_NT   = 12 ; Win2k=%windir%\system32\drivers
+
+[WLAN_USB_DRIVER_COPY_NT]
+ wg111nd5.sys
+
+[SourceDisksNames]
+;Source Disk ID         = Disk Name
+;--------------           ---------
+ 1                      = %INSTALL_DISK_STR%,,,
+
+[SourceDisksFiles.X86]  ; Win2k/Xp
+ wg111nd5.sys		= 1
+
+;###############################################################################
+[Strings]
+;String ID			= String Text
+;---------			-----------
+ DRV_PROVIDER_STR		= "NETGEAR, Inc."
+ MANUFACTURER_STR		= "NETGEAR, Inc."
+ 
+ WLAN_USB_SERVICE_STR		= "NETGEAR WG111 802.11g Wireless USB Adapter Driver"
+ 
+ INSTALL_DISK_STR        	= "NETGEAR WG111 Wireless LAN Install Disk"
+ WLAN_USB_DESC_STR		= "NETGEAR WG111 802.11g Wireless USB2.0 Adapter"
+
+ SHORT_RETRY_STR         	= "Short Retry Limit"
+ LONG_RETRY_STR          	= "Long Retry Limit"
+ REGULATOR_DOMAIN		= "Regulator Domain"
+ REGULATOR_DOMAIN_US		= "United States"
+ REGULATOR_DOMAIN_AF		= "Africa"
+ REGULATOR_DOMAIN_AS		= "Asia"
+ REGULATOR_DOMAIN_AU		= "Australia"
+ REGULATOR_DOMAIN_CA		= "Canada"
+ REGULATOR_DOMAIN_EU		= "Europe"
+ REGULATOR_DOMAIN_FR		= "France"
+ REGULATOR_DOMAIN_JA		= "Japan"
+ REGULATOR_DOMAIN_ME		= "Mexico"
+ REGULATOR_DOMAIN_SA		= "South America"
+ 
+ 

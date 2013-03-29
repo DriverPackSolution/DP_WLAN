@@ -1,0 +1,71 @@
+; Windows Virtual Serial Port Setup File
+; Copyright (c) 2002,2003 Huawei Incorporated
+; Manufacturer: Huawei Incorporated
+;
+; This INF file installs a virtual COM port on Win2K system.
+
+[Version]
+signature  = "$WINDOWS NT$"
+Class      = Ports
+Provider   = %HUAWEI%
+ClassGuid  = {4D36E978-E325-11CE-BFC1-08002BE10318}
+DriverVer  = 10/12/2009,1.0.0.9
+CatalogFile= ewusbdev.cat
+
+[SourceDisksNames]
+1000 = %HWSRCDISK%,"",,
+
+[SourceDisksFiles]
+ewusbdev.sys = 1000
+
+[ControlFlags]
+ExcludeFromSelect = *
+
+[DestinationDirs]
+DefaultDestDir = 12
+
+[Manufacturer]
+%HUAWEI% = QcomSerialPort
+
+[QcomSerialPort]
+
+%QcomDevice00% = QportInstall00, USB\VID_12d1&PID_1446
+
+%QcomDevice00% = QportInstall00, USB\VID_12d1&PID_15FF&MI_03
+
+; ###### Installation Section ######
+
+[QportInstall00.NT]
+CopyFiles = CopyFileSection00
+AddReg = All00, AddReg.NT
+
+[QportInstall00.NT.Services]
+AddService = hwusbdev,  0x00000002, Qport_Service_Inst00
+
+[Qport_Service_Inst00]
+DisplayName   = "Huawei DataCard USB PNP Device"
+ServiceType   = 1
+StartType     = 3
+ErrorControl  = 1
+ServiceBinary = %12%\ewusbdev.sys
+AddReg        = PowerReg
+
+[CopyFileSection00]
+ewusbdev.sys
+
+[All00]
+HKR,,NTMPDriver,,ewusbdev.sys
+HKR,,PortIdentify,,HWPNP
+
+
+[AddReg.NT]
+HKR,,PortSubClass,1,01
+HKR,,EnumPropPages32,,"MsPorts.dll,SerialPortPropPageProvider"
+
+[PowerReg]
+HKR,,QCDriverResident,0x00010001,1
+[Strings]
+HUAWEI   = "HUAWEI Incorporated"
+HWSRCDISK = "HUAWEI Multimedia USB Driver Disk"
+QcomDevice00 = "HUAWEI Mobile Connect - USB Device"
+

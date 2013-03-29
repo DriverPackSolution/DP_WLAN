@@ -1,0 +1,413 @@
+;/*++
+;
+;Copyright (c) 2002 NETGEAR, Incorporated All Rights Reserved
+;
+;Module Name:
+;
+;    WPN111.inf
+;
+;Abstract:
+;    INF file for installing NETGEAR WPN111 Wireless Network Adapter
+;
+;    Installs WPN111.sys (NDIS 5/5.1 driver) on NT platforms (2000, XP and greater)
+;    Installs WPN1119x.sys (NDIS 5 driver) on 9x platforms
+;
+;--*/
+
+[Version]
+Signature   = "$CHICAGO$"
+Class       = Net
+ClassGUID   = {4d36e972-e325-11ce-bfc1-08002be10318}
+Provider    = %NETGEAR%
+Compatible  = 1
+DriverVer   = 09/26/2005,1.5.0.2102
+Catalogfile = WPN111.cat
+
+[Manufacturer]
+%NETGEAR%     = NETGEAR
+
+[ControlFlags]
+ExcludeFromSelect = \  ;for win95 and legacy support
+  PCI\VEN_168C&DEV_0013
+
+[NETGEAR]
+; DisplayName               Section                 DeviceID
+; -----------               -------                 --------
+; NETGEAR
+%ATHER.DeviceDesc.5523%	 = ATHER_DEV_5523.ndi,	  USB\VID_1385&PID_5F01
+
+; Windows 9X specific entries
+
+[ATHER_DEV_5523.ndi]
+AddReg          = ATHER_DEV_5523.id.reg, 5523.reg, ATHER.win.reg, 5212.abg.reg
+CopyFiles       = ATHER.win.CopyFiles, DEFAULTDESTDIRS
+DelFiles        = ATHER.DelIniFiles
+DelReg          = 5523.DelReg
+
+[ATHER_DEV_UB51.ndi]
+AddReg          = ATHER_DEV_UB51.id.reg, 5523.reg, ATHER.win.reg, 5212.abg.reg
+CopyFiles       = ATHER.win.CopyFiles, DEFAULTDESTDIRS
+DelFiles        = ATHER.DelIniFiles
+DelReg          = 5523.DelReg
+
+[ATHER_DEV_UB52.ndi]
+AddReg          = ATHER_DEV_UB52.id.reg, 5523.reg, ATHER.win.reg, 5212.abg.reg
+CopyFiles       = ATHER.win.CopyFiles, DEFAULTDESTDIRS
+DelFiles        = ATHER.DelIniFiles
+DelReg          = 5523.DelReg
+
+
+; Windows NT specific entries
+
+[ATHER_DEV_5523.ndi.NT]
+Characteristics = 0x84 ; NCF_PHYSICAL | NCF_HAS_UI
+BusType         = 15
+AddReg          = 5523.reg, ATHER.reg, 5523.reg, 5212.abgmp.reg
+CopyFiles       = ATHER.CopyFiles.nt, DEFAULTDESTDIRS
+DelFiles        = ATHER.DelIniFiles
+DelReg          = 5523.DelReg
+
+[ATHER_DEV_UB51.ndi.NT]
+Characteristics = 0x84 ; NCF_PHYSICAL | NCF_HAS_UI
+BusType         = 15
+AddReg          = 5523.reg, ATHER.reg, 5523.reg, 5212.abgmp.reg
+CopyFiles       = ATHER.CopyFiles.nt, DEFAULTDESTDIRS
+DelFiles        = ATHER.DelIniFiles
+DelReg          = 5523.DelReg
+
+
+[ATHER_DEV_UB52.ndi.NT]
+Characteristics = 0x84 ; NCF_PHYSICAL | NCF_HAS_UI
+BusType         = 15
+AddReg          = 5523.reg, ATHER.reg, 5523.reg, 5212.abgmp.reg
+CopyFiles       = ATHER.CopyFiles.nt, DEFAULTDESTDIRS
+DelFiles        = ATHER.DelIniFiles
+DelReg          = 5523.DelReg
+
+
+[ATHER_DEV_5523.ndi.NT.Services]
+AddService      = WPN111, 2, ATHER.Service, common.EventLog
+
+;[ATHER_DEV_UB51.ndi.NT.Services]
+;AddService      = AR5523, 2, ATHER.Service, common.EventLog
+
+;[ATHER_DEV_UB52.ndi.NT.Services]
+;AddService      = AR5523, 2, ATHER.Service, common.EventLog
+;----------------------------------------------------------------------------
+; Win9x id registry sections
+; These are not needed by NT
+
+[ATHER_DEV_5523.id.reg]
+HKR, Ndi, DeviceID, 0, "USB\VID_1385&PID_5F01"
+
+[ATHER_DEV_UB51.id.reg]
+HKR, Ndi, DeviceID, 0, "USB\VID_0CF3&PID_0004"
+
+[ATHER_DEV_UB52.id.reg]
+HKR, Ndi, DeviceID, 0, "USB\VID_0CF3&PID_0006"
+
+; 5523 Enumerated Types
+
+[5523.acb.reg]
+HKR, ,                                  NetBand,                        0x00002,  "3"
+HKR, CustomParams\Configurations,       NicType,                        0x10003,  0
+
+[5523.amp.reg]
+HKR, ,                                  NetBand,                        0x00002,  "3"
+HKR, CustomParams\Configurations,       NicType,                        0x10003,  0
+
+[5523.abcb.reg]
+HKR, ,                                  NetBand,                        0x00002,  "7"
+HKR, CustomParams\Configurations,       NicType,                        0x10003,  1
+
+[5523.abmp.reg]
+HKR, ,                                  NetBand,                        0x00002,  "7"
+HKR, CustomParams\Configurations,       NicType,                        0x10003,  2
+
+[5212.abgcb.reg]
+HKR, ,                                  NetBand,                        0x00002,  "15"
+HKR, CustomParams\Configurations,       NicType,                        0x10003,  1
+
+[5212.abgmp.reg]
+HKR, ,                                  NetBand,                        0x00002,  "28"
+HKR, CustomParams\Configurations,       NicType,                        0x10003,  2
+
+[5212.bgcb.reg]
+HKR, ,                                  NetBand,                        0x00002,  "12"
+HKR, CustomParams\Configurations,       NicType,                        0x10003,  1
+
+[5212.bgmp.reg]
+HKR, ,                                  NetBand,                        0x00002,  "12"
+HKR, CustomParams\Configurations,       NicType,                        0x10003,  2
+
+;-----------------------------------------------------------------------------
+
+;
+; 5523 common
+;
+
+[5523.DelReg]
+HKR,,NetBand
+HKR,,ssid
+HKR,,ssid2
+HKR,,ssid3
+HKR,,prefBssid1
+HKR,,prefBssid2
+HKR,,prefBssid3
+HKR,,prefBssid4
+HKR,Ndi\Params\tpc
+HKR,,tpc
+HKR,Ndi\Params\authTypeUseOnly
+HKR,,authTypeUseOnly
+
+
+[5523.reg]
+
+;HKR, Ndi\params\MapRegisters,           ParamDesc,                      0,  %MapRegisters%
+;HKR, Ndi\params\MapRegisters,           default,                        0,  "256"
+;HKR, Ndi\params\MapRegisters,           min,                            0,  "32"
+;HKR, Ndi\params\MapRegisters,           max,                            0,  "512"
+;HKR, Ndi\params\MapRegisters,           step,                           0,  "8"
+;HKR, Ndi\params\MapRegisters,           base,                           0,  "10"
+;HKR, Ndi\params\MapRegisters,           type,                           0,  "int"
+
+HKR, Ndi\params\NetworkAddress,         ParamDesc,                      0,  %NetworkAddress%
+HKR, Ndi\params\NetworkAddress,         default,                        0,  ""
+HKR, Ndi\params\NetworkAddress,         LimitText,                      0,  "12"
+HKR, Ndi\params\NetworkAddress,         UpperCase,                      0,  "1"
+HKR, Ndi\params\NetworkAddress,         optional,                       0,  "1"
+HKR, Ndi\params\NetworkAddress,         type,                           0,  "edit"
+
+;HKR, Ndi\params\sleepMode,              ParamDesc,                      0,  %sleepMode%
+;HKR, Ndi\params\sleepMode,              Base,                           0,  "10"
+;HKR, Ndi\params\sleepMode,              default,                        0,  "0"
+;HKR, Ndi\params\sleepMode,              type,                           0,  "enum"
+;HKR, Ndi\params\sleepMode\enum,         "0",                            0,  %sleepModeOff%
+;HKR, Ndi\params\sleepMode\enum,         "2",                            0,  %sleepModeNormal%
+;HKR, Ndi\params\sleepMode\enum,         "1",                            0,  %sleepModeMax%
+
+;HKR, Ndi\params\shortPreamble,          ParamDesc,                      0,  %shortPreamble%
+;HKR, Ndi\params\shortPreamble,          Base,                           0,  "10"
+;HKR, Ndi\params\shortPreamble,          default,                        0,  "1"
+;HKR, Ndi\params\shortPreamble,          type,                           0,  "enum"
+;HKR, Ndi\params\shortPreamble\enum,     "1",                            0,  %shortPreambleEnable%
+;HKR, Ndi\params\shortPreamble\enum,     "0",                            0,  %shortPreambleDisable%
+
+;HKR, Ndi\params\radioEnable,            ParamDesc,                      0,  %radioEnable%
+;HKR, Ndi\params\radioEnable,            Base,                           0,  "10"
+;HKR, Ndi\params\radioEnable,            default,                        0,  "1"
+;HKR, Ndi\params\radioEnable,            type,                           0,  "enum"
+;HKR, Ndi\params\radioEnable\enum,       "1",                            0,  %radioEnableOn%
+;HKR, Ndi\params\radioEnable\enum,       "0",                            0,  %radioEnableOff%
+
+;HKR, Ndi\params\scanTimeValid,          ParamDesc,                      0,  %scanTimeValid%
+;HKR, Ndi\params\scanTimeValid,          default,                        0,  "60"
+;HKR, Ndi\params\scanTimeValid,          min,                            0,  "20"
+;HKR, Ndi\params\scanTimeValid,          max,                            0,  "120"
+;HKR, Ndi\params\scanTimeValid,          step,                           0,  "5"
+;HKR, Ndi\params\scanTimeValid,          base,                           0,  "10"
+;HKR, Ndi\params\scanTimeValid,          type,                           0,  "int"
+
+HKR, CustomParams\Configurations,       MajorVersion,                   0x10003,  2
+HKR, CustomParams\Configurations,       MinorVersion,                   0x10003,  0
+
+HKR, CustomParams\Configurations,       SelectedConfigurationIndex,     0x10003,  0
+HKR, CustomParams\Configurations,       SelectedConfigurationName,      0x00002,  "Default"
+
+
+;
+;kenny
+;
+
+
+HKR, ,						ccode,					0x00002, %ccode_DEFAULT%
+HKR, Ndi\params\ccode,				ParamDesc,				0,	%ccode_Description%
+HKR, Ndi\params\ccode,				Base,					0,	"10"
+HKR, Ndi\params\ccode,				default,				0,	%ccode_DEFAULT%
+HKR, Ndi\params\ccode,				type,					0,	"enum"
+HKR, Ndi\params\ccode\enum,			"DZ",					0,	%ccode_Africa%
+HKR, Ndi\params\ccode\enum,			"CN",					0,	%ccode_Asia%
+HKR, Ndi\params\ccode\enum,			"AU",					0,	%ccode_Australia%
+HKR, Ndi\params\ccode\enum,			"CA",					0,	%ccode_Canada%
+HKR, Ndi\params\ccode\enum,			"GB",					0,	%ccode_Europe%
+HKR, Ndi\params\ccode\enum,			"FR",					0,	%ccode_France%
+HKR, Ndi\params\ccode\enum,			"IL",					0,	%ccode_Israel%
+HKR, Ndi\params\ccode\enum,			"JP",					0,	%ccode_Japan%
+HKR, Ndi\params\ccode\enum,			"MX",					0,	%ccode_Mexico%
+HKR, Ndi\params\ccode\enum,			"BR",					0,	%ccode_SouthAmerica%
+HKR, Ndi\params\ccode\enum,			"US",					0,	%ccode_UnitedStates%
+
+
+HKR, ,						SilentInstall,				0,  "1"
+HKR, ,						AdHocBand,				0x00002,	 "0"
+HKR, ,						AwakeTimePerf,				0x00002,	 "200"
+HKR, ,						beaconInterval,				0x00002,	 "100"
+HKR, ,						bkScanEnable,				0x00002,	 "1"
+HKR, ,						bssType,				0x00002,	 "1"
+;HKR, ,						ccode,					0x00002,	 "US"
+HKR, ,						clist,					0x00002,	 ""
+HKR, ,						defaultKey,				0x00002,	 "0"
+HKR, ,						EncryptionAlg,				0x00002,	 "2"
+;HKR, ,						rateCtrlEnable,				0x00002,	 "1"
+HKR, ,						FragThreshold,				0x00002,	 "2346"
+HKR, ,						HwTxRetries,				0x00002,	 "4"
+HKR, ,						privacyInvoked,				0x00002,	 "0"
+HKR, ,						QoS,					0x00002,	 "0"
+HKR, ,						RTSThreshold,				0x00002,	 "2346"
+HKR, ,						scanType,				0x00002,	 "2"
+HKR, ,						SwTxRetryScale,				0x00002,	 "6"
+HKR, ,						SSID,					0x00002,	 "any"
+HKR, ,						SmeEnable,				0x00002,	 "1"
+HKR, ,						PHlength,				0x00002,	 "0"
+;HKR, ,						abolt,					0x00002,	 "1"
+HKR, ,						sleepMode,				0x00002,	 "0"
+
+
+HKR, CustomParams\Configurations,		MajorVersion,				0x10003,	 2
+HKR, CustomParams\Configurations,		MinorVersion,				0x10003,	 0
+HKR, CustomParams\Configurations,		SelectedConfigurationIndex,		0x10003,	 0
+HKR, CustomParams\Configurations,		SelectedConfigurationName,		0x00002,	 "Default"
+
+; Allow non-admin users to switch profiles
+[5523.reg.security]
+"D:ARAI(A;;GA;;;BA)(A;;GA;;;SY)(A;CI;GA;;;IU)"
+
+;-----------------------------------------------------------------------------
+; ATHER NT specific
+;
+
+[ATHER.reg]
+HKR, Ndi,             Service,      0, "WPN111"
+HKR, Ndi\Interfaces,  UpperRange,   0, "ndis5"
+HKR, Ndi\Interfaces,  LowerRange,   0, "ethernet"
+
+[ATHER.Service]
+DisplayName     = %ATHER.Service.DispName%
+ServiceType     = 1 ;%SERVICE_KERNEL_DRIVER%
+StartType       = 3 ;%SERVICE_DEMAND_START%
+ErrorControl    = 1 ;%SERVICE_ERROR_NORMAL%
+ServiceBinary   = %12%\WPN111.sys
+LoadOrderGroup  = NDIS
+
+;-----------------------------------------------------------------------------
+; ATHER NT/XP common
+;
+[common.EventLog]
+AddReg = common.AddEventLog.reg
+
+[common.AddEventLog.reg]
+HKR, ,                  EventMessageFile,   0x00020000,   "%%SystemRoot%%\System32\netevent.dll"
+HKR, ,                  TypesSupported,     0x00010001,   7
+
+;----------------------------------------------------------------------------
+; ATHER Win9x specific
+;
+[ATHER.win.reg]
+HKR, ,                  DevLoader,          0,            "*ndis"
+HKR, ,                  DeviceVxDs,         0,            "WPN1119x.sys"
+HKR, ,                  EnumPropPages,      0,            "netdi.dll,EnumPropPages"
+
+HKR, Ndi\Interfaces,    DefUpper,           0,            "ndis3"
+HKR, Ndi\Interfaces,    DefLower,           0,            "ethernet"
+HKR, Ndi\Interfaces,    UpperRange,         0,            "ndis3"
+HKR, Ndi\Interfaces,    LowerRange,         0,            "ethernet"
+
+
+HKR, NDIS,              LogDriverName,      0,            "WPN1119X"
+HKR, NDIS,              MajorNdisVersion,   1,            03
+HKR, NDIS,              MinorNdisVersion,   1,            0A
+
+HKR, Ndi\Install,       ndis3,              0,            "ATHER.install"
+
+;----------------------------------------------------------------------------
+; Win9x Files to Copy
+[ATHER.win.CopyFiles]
+WPN1119x.sys,,,2
+
+;----------------------------------------------------------------------------
+; NT Files to Copy
+[ATHER.CopyFiles.nt]
+WPN111.sys,,,2
+ar5523.bin,,,2
+
+[ATHER.DelIniFiles]
+Athnic.ini,,,1
+
+[SourceDisksNames]
+;
+; diskid = description[, [tagfile] [, <unused>, subdir]]
+;
+1 = %NETGEAR_Disk%,,,
+
+;----------------------------------------------------------------------------
+; Source Files
+[SourceDisksFiles]
+WPN1119x.sys                 = 1,, ; on distribution disk 1
+WPN111.sys                   = 1,, ; on distribution disk 1
+ar5523.bin                   = 1,, ; on distribution disk 1
+
+
+[DestinationDirs]
+ATHER.CopyFiles.nt           = 12
+ATHER.win.CopyFiles          = 10,system32\drivers ; %SystemRoot%\system32\drivers
+ATHER.DelIniFiles            = 10,system32\drivers ; %SystemRoot%\system32\drivers
+DefaultDestDir               = 11
+
+[DEFAULTDESTDIRS]
+;
+
+
+[Strings]
+NETGEAR                      = "NETGEAR"
+MapRegisters                 = "Map Registers"
+NetworkAddress               = "Network Address"
+scanTimeValid                = "Scan Valid Interval"
+sleepMode                    = "Power Save Mode"
+sleepModeOff                 = "Off"
+sleepModeNormal              = "Normal"
+sleepModeMax                 = "Maximum"
+shortPreamble                = "802.11b Preamble"
+shortPreambleEnable          = "Long and Short"
+shortPreambleDisable         = "Long only"
+radioEnable                  = "Radio On/Off"
+radioEnableOn                = "On"
+radioEnableOff               = "Off"
+
+NETGEAR_Disk				= "NETGEAR Driver Disk 1"
+ATHER.Service.DispName			= "Wireless USB 2.0 Adapter with RangeMax Service"
+ATHER.DeviceDesc.5523			= "NETGEAR RangeMax(TM) Wireless USB 2.0 Adapter WPN111"
+
+
+;
+;kenny
+;
+ccode_Description			= "Regional Domain"
+ccode_Africa				= "Africa"
+ccode_Asia				= "Asia"
+ccode_Australia				= "Australia"
+ccode_Canada				= "Canada"
+ccode_Europe				= "Europe"
+ccode_France				= "France"
+ccode_Israel				= "Israel"
+ccode_Mexico				= "Mexico"
+ccode_Japan				= "Japan"
+ccode_SouthAmerica			= "South America"
+ccode_UnitedStates			= "United States"
+ccode_DEFAULT				= "US"
+TransmitRate11b				= "TransmitRate11b"
+TransmitRate11g				= "TransmitRate11g"
+TransmitRate_1M				= "1Mbps"
+TransmitRate_2M				= "2Mbps"
+TransmitRate_5M				= "5.5Mbps"
+TransmitRate_11M			= "11Mbps"
+TransmitRate_6M				= "6Mbps"
+TransmitRate_9M				= "9Mbps"
+TransmitRate_12M			= "12Mbps"
+TransmitRate_18M			= "18Mbps"
+TransmitRate_24M			= "24Mbps"
+TransmitRate_36M			= "36Mbps"
+TransmitRate_48M			= "48Mbps"
+TransmitRate_54M			= "54Mbps"
+RateControl				= "Rate Control"
+RateControlEnable			= "Enable"
+RateControlDisable			= "Disable"

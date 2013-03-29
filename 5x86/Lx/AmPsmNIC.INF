@@ -1,0 +1,265 @@
+;**************************************************************************
+; Copyright (c) 2002, LAN-Express Wireless LAN Card for Windows 2K/XP
+;**************************************************************************
+
+[Version]
+ DriverVer = 11/14/2002, 2.1.0
+ Signature           = "$Chicago$"
+ Compatible          = 1
+ Class               = Net
+ ClassGUID           = {4d36e972-e325-11ce-bfc1-08002be10318}
+ Provider            = %VER_VENDOR_STR%
+ CatalogFile         = AmPsmNIC.cat
+ ;MillenniumPreferred = .ME
+
+; ---------------------------------------------------------------------------------
+
+[Strings]
+;String ID              = String Text
+;---------                -----------
+ VER_VENDOR_STR         = "LAN-Express"
+ VER_VENDOR_NAME_STR    = "LAN-Express"
+
+ PRISM_SERVICE_DISPLAY  = "IEEE 802.11 Wireless NIC Driver"
+ INSTALL_DISK_STR       = "LAN-Express IEEE 802.11 PCMCIA/PCI Driver Disk"
+
+ SHORT_PREAM_STR        = "Preamble Mode"
+ RTSTHRESH_STR          = "RTS Threshold"
+ FRAGTHRESH_STR         = "Fragmentation Threshold"
+ AUTHENT_TYPE_STR       = "Authentication Algorithm"
+ LISTENINTERVAL_STR     = "Listen Interval"
+ POWER_SAVE_STR         = "Power Save Mode"
+ POWER_LEVEL_STR        = "Power Save Level"
+ LOAD_FIRMWARE_STR      = "Firmware Download"
+ PDWELL_STR             = "Passive Scan Dwell Time"
+
+ PCI_DESC_STR           = "LAN-Express IEEE 802.11 PCI Adapter"
+
+; ---------------------------------------------------------------------------------
+[ControlFlags]
+;Exclude all PNP adapters from user selection
+ ExcludeFromSelect   = *
+
+[Manufacturer]
+ %VER_VENDOR_NAME_STR% = DeviceList
+
+[DeviceList]
+%PCI_DESC_STR%     = PRISM_PCI1,        PCI\VEN_1260&DEV_3873&SUBSYS_02001468
+%PCI_DESC_STR%     = PRISM_PCI2,        PCI\VEN_1260&DEV_3872&SUBSYS_02001468
+
+;==========================================
+[PRISM_PCI1]       ; Win9x
+ AddReg         = PRISM_PCI1.reg, COMMON_PCI.reg, COMMON_NDIS.reg, COMMON.reg
+ CopyFiles      = PRISM_DRIVER.copy
+
+[PRISM_PCI1.NT]    ; Win2k
+ AddReg         = PRISM_PCI1.reg, COMMON_PCI.reg, COMMON_NDIS.reg.NT, COMMON.reg
+ CopyFiles      = PRISM_DRIVER.copy.NT
+ BusType        = 5     ; PCI
+ Characteristics= 0x84  ; NCF_PHYSICAL | NCF_HAS_UI
+
+[PRISM_PCI1.NT.Services]
+ AddService     = PRISM, 2, PRISM_DRIVER.Service, PRISM_DRIVER.EventLog
+
+[PRISM_PCI1.reg]
+ HKR,Ndi        ,DeviceID,0,"PCI\VEN_1260&DEV_3873&SUBSYS__PRISM_PCI_SUBSYSID_"
+ HKR,           ,PlatformId,0,"0"
+ HKR,           ,VendorDesc,0,%PCI_DESC_STR%
+ HKR,           ,LoadFirmware,0,"0"
+ ;HKR, NDI\params\LoadFirmware,,0,1
+
+;==========================================
+[PRISM_PCI2]       ; Win9x
+ AddReg         = PRISM_PCI2.reg, COMMON_PCI.reg, COMMON_NDIS.reg, COMMON.reg
+ CopyFiles      = PRISM_DRIVER.copy
+
+[PRISM_PCI2.NT]    ; Win2k
+ AddReg         = PRISM_PCI2.reg, COMMON_PCI.reg, COMMON_NDIS.reg.NT, COMMON.reg
+ CopyFiles      = PRISM_DRIVER.copy.NT
+ BusType        = 5     ; PCI
+ Characteristics= 0x84  ; NCF_PHYSICAL | NCF_HAS_UI
+
+[PRISM_PCI2.NT.Services]
+ AddService     = PRISM, 2, PRISM_DRIVER.Service, PRISM_DRIVER.EventLog
+
+[PRISM_PCI2.reg]
+ HKR,Ndi        ,DeviceID,0,"PCI\VEN_1260&DEV_3872&SUBSYS__PRISM_PCI_SUBSYSID_"
+ HKR,           ,PlatformId,0,"0"
+ HKR,           ,VendorDesc,0,%PCI_DESC_STR%
+ HKR,           ,LoadFirmware,0,"0"
+ ;HKR, NDI\params\LoadFirmware,,0,1
+
+;###############################################################################
+
+[PRISM_DRIVER.Service]
+ DisplayName    = %PRISM_SERVICE_DISPLAY%
+ ServiceType    = 1    ; SERVICE_KERNEL_DRIVER
+ StartType      = 3    ; SERVICE_DEMAND_START
+ ErrorControl   = 1    ; NORMAL
+ ServiceBinary  = %12%\EXPRESS.sys
+ LoadOrderGroup = NDIS
+
+[PRISM_DRIVER.EventLog]
+ AddReg         = PRISM_DRIVER.EventLog.reg
+
+[PRISM_DRIVER.EventLog.reg]
+ HKR,           ,EventMessageFile       ,0x00020000     ,"%%SystemRoot%%\System32\netevent.dll"
+ HKR,           ,TypesSupported         ,0x00010001     ,7
+
+;###############################################################################
+
+[COMMON_PCI.reg]
+ HKR,NDI                ,Service                ,0      ,"PRISM"
+ HKR,NDI                ,CardType               ,0      ,"PCI"
+ HKR,                   ,BusType                ,0      ,"5"
+ HKR,                   ,DeviceVxDs             ,0      ,"EXPRESS.sys"
+ HKR,                   ,EnableIRQSharing       ,1      ,"01","00","00","00"
+ HKR,                   ,IOBaseAddress          ,1      ,"02","00","00","00"
+ HKR,                   ,InterruptNumber        ,1      ,"04","00","00","00"
+
+[COMMON_NDIS.reg]
+ HKR,                   ,RunningWin9X           ,0      ,"1"
+ HKR,                   ,DevLoader              ,0      ,"*ndis"
+ HKR,                   ,EnumPropPages          ,0      ,"netdi.dll,EnumPropPages"
+ ;HKR,NDI                ,NdiInstaller           ,0      ,"PRISMCFG.dll,NdiProc"
+ ;HKR,NDI                ,NdiInstaller           ,0      ,"NdiProc"
+ HKR,NDI\Interfaces     ,UpperRange             ,0      ,"ndis3"
+ HKR,NDI\Interfaces     ,LowerRange             ,0      ,"ethernet"
+ HKR,NDI\Interfaces     ,DefUpper               ,0      ,"ndis3"
+ HKR,NDI\Interfaces     ,DefLower               ,0      ,"ethernet"
+ HKR,NDIS               ,LogDriverName          ,0      ,"PRISM"
+ HKR,NDIS               ,MajorNdisVersion       ,1      ,03
+ HKR,NDIS               ,MinorNdisVersion       ,1      ,0a
+
+ HKR,defaults,PSMode,0,1
+ HKR,Ndi\params\PSMode,default,0,"1"
+ HKR,NDI\params\PSMode,ParamDesc,,%POWER_SAVE_STR%
+ HKR,NDI\params\PSMode,type,,"enum"
+ HKR,NDI\params\PSMode,flag,1,"30","00","00","00"
+ HKR,NDI\params\PSMode\enum,1,,"Disable"
+ HKR,NDI\params\PSMode\enum,2,,"Always Enable"
+ HKR,NDI\params\PSMode,optional,0,"1"
+
+[COMMON_NDIS.reg.NT]
+ ;HKR,                   ,EnumPropPages32        ,0      ,"PRISMCFG.cpl,NetPropPageProvider"
+ ;HKR,                   ,EnumPropPages32        ,0      ,"NetPropPageProvider"
+ HKR,NDI\Interfaces     ,UpperRange             ,0      ,"ndis5"
+ HKR,NDI\Interfaces     ,LowerRange             ,0      ,"ethernet"
+
+ HKR,defaults,PSMode,0,1
+ HKR,Ndi\params\PSMode,default,0,"1"
+ HKR,NDI\params\PSMode,ParamDesc,,%POWER_SAVE_STR%
+ HKR,NDI\params\PSMode,type,,"enum"
+ HKR,NDI\params\PSMode,flag,1,"30","00","00","00"
+ HKR,NDI\params\PSMode\enum,1,,"Disable"
+ HKR,NDI\params\PSMode\enum,2,,"Always Enable"
+ HKR,NDI\params\PSMode\enum,3,,"Auto Enable"
+ HKR,NDI\params\PSMode,optional,0,"1"
+
+[COMMON.reg]
+ HKR,                   ,LanExpress             ,0      ,"1"
+ HKR,                   ,PRISMIOC               ,0      ,"1"
+ HKR,                   ,SilentInstall          ,0      ,"1"
+;Uncomment the line above to install without user interface prompts
+
+ HKR,defaults,ListenInterval,0,3
+ HKR,Ndi\params\ListenInterval,default,0,"3"
+ HKR,NDI\params\ListenInterval,ParamDesc,,%LISTENINTERVAL_STR%
+ HKR,NDI\params\ListenInterval,type,,"int"
+ HKR,NDI\params\ListenInterval,flag,1,"30","00","00","00"
+ HKR,NDI\params\ListenInterval,min,0,"0"
+ HKR,NDI\params\ListenInterval,max,0,"77"
+ HKR,NDI\params\ListenInterval,step,0,"1"
+ HKR,NDI\params\ListenInterval,optional,0,"1"
+
+ HKR,defaults,RTSThresh,0,2432
+ HKR,Ndi\params\RTSThresh,default,0,"2432"
+ HKR,NDI\params\RTSThresh,ParamDesc,0,%RTSTHRESH_STR%
+ HKR,NDI\params\RTSThresh,type,0,"int"
+ HKR,NDI\params\RTSThresh,flag,1,"20","00","00","00"
+ HKR,NDI\params\RTSThresh,min,0,"0"
+ HKR,NDI\params\RTSThresh,max,0,"2432"
+ HKR,NDI\params\RTSThresh,step,0,"64"
+ HKR,NDI\params\RTSThresh,optional,0,"1"
+
+ HKR,defaults,FragThresh,0,2432
+ HKR,Ndi\params\FragThresh,default,0,"2432"
+ HKR,NDI\params\FragThresh,ParamDesc,0,%FRAGTHRESH_STR%
+ HKR,NDI\params\FragThresh,type,0,"int"
+ HKR,NDI\params\FragThresh,flag,1,"20","00","00","00"
+ HKR,NDI\params\FragThresh,min,0,"256"
+ HKR,NDI\params\FragThresh,max,0,"2432"
+ HKR,NDI\params\FragThresh,step,0,"128"
+ HKR,NDI\params\FragThresh,optional,0,"1"
+
+ HKR,defaults,PreambleMode,0,1
+ HKR,Ndi\params\PreambleMode,default,0,"1"
+ HKR,NDI\params\PreambleMode,ParamDesc,,%SHORT_PREAM_STR%
+ HKR,NDI\params\PreambleMode,type,,"enum"
+ HKR,NDI\params\PreambleMode,flag,1,"30","00","00","00"
+ HKR,NDI\params\PreambleMode\enum,1,,"Long Tx Preamble"
+ HKR,NDI\params\PreambleMode\enum,2,,"Short Tx Preamble"
+ HKR,NDI\params\PreambleMode\enum,3,,"Auto Tx Preamble"
+ HKR,NDI\params\PreambleMode,optional,0,"1"
+
+ HKR,defaults,AuthentAlg,0,65535
+ HKR,NDI\params\AuthentAlg,default,0,"65535"
+ HKR,NDI\params\AuthentAlg,ParamDesc,,%AUTHENT_TYPE_STR%
+ HKR,NDI\params\AuthentAlg,type,,"enum"
+ HKR,NDI\params\AuthentAlg,flag,1,"30","00","00","00"
+ HKR,NDI\params\AuthentAlg\enum,1,,"WECA Compliant (always use Open)"
+ HKR,NDI\params\AuthentAlg\enum,2,,"Must use Shared with WEP"
+ HKR,NDI\params\AuthentAlg\enum,65535,,"Automatic based on WEP setting"
+ HKR,NDI\params\AuthentAlg,optional,0,"1"
+
+ HKR,defaults,LoadFirmware,0,0
+;HKR,NDI\params\LoadFirmware,,0,1 ; Moved to device specific entry
+ HKR,Ndi\params\LoadFirmware,default,0,"0"
+ HKR,NDI\params\LoadFirmware,ParamDesc,,%LOAD_FIRMWARE_STR%
+ HKR,NDI\params\LoadFirmware,type,,"enum"
+ HKR,NDI\params\LoadFirmware,flag,1,"30","00","00","00"
+ HKR,NDI\params\LoadFirmware\enum,0,,"Disable"
+ HKR,NDI\params\LoadFirmware\enum,1,,"Enable"
+ HKR,NDI\params\LoadFirmware,optional,0,"1"
+  
+ HKR,defaults,PDwellTime,0,"120"
+;HKR,NDI\params\PDwellTime,,0,120
+ HKR,Ndi\params\PDwellTime,default,0,"120"
+ HKR,NDI\params\PDwellTime,ParamDesc,0,%PDWELL_STR%
+ HKR,NDI\params\PDwellTime,type,0,"int"
+ HKR,NDI\params\PDwellTime,flag,1,"20","00","00","00"
+ HKR,NDI\params\PDwellTime,min,0,"0"
+ HKR,NDI\params\PDwellTime,max,0,"1000"
+ HKR,NDI\params\PDwellTime,step,0,"10"
+ HKR,NDI\params\PDwellTime,optional,0,"1"
+
+;###############################################################################
+[DestinationDirs]
+;CopyFiles Section      = Destination Directory ID -- see layout.inf
+;-----------------        ------------------------
+ DefaultDestDir         = 11 ; Win9x=%windir%\system Win2k=%windir%\system32
+ PRISM_DRIVER.copy      = 11 ; Win9x=%windir%\system
+; PRISM_DRIVER.copy.ME   = 11 ; Win9x=%windir%\system
+ PRISM_DRIVER.copy.NT   = 12 ; Win2k=%windir%\system32\drivers
+
+[PRISM_DRIVER.copy]
+ EXPRESS.sys
+
+;[PRISM_DRIVER.copy.ME]
+; EXPRESS.sys
+
+[PRISM_DRIVER.copy.NT]
+ EXPRESS.sys
+
+[SourceDisksNames]
+;Source Disk ID         = Disk Name
+;--------------           ---------
+ 1                      = %INSTALL_DISK_STR%,,,
+
+[SourceDisksFiles]      ; Win9x
+;File Name              = Source Disk ID
+;---------                --------------
+ EXPRESS.sys           = 1
+
+[SourceDisksFiles.X86]  ; Win2k/Xp
+ EXPRESS.sys           = 1

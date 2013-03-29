@@ -1,0 +1,242 @@
+[Version]
+Signature           = "$CHICAGO$"
+Class               = Net
+ClassGUID           = {4d36e972-e325-11ce-bfc1-08002be10318}
+Provider            = %Broadcom%
+Compatible          = 1
+MillenniumPreferred = .ME
+DriverVer           = 08/09/2001,5.1.3538.0
+CatalogFile         = wliusg54.cat
+
+[Manufacturer]
+%Broadcom%           = BroadcomDevices,NT.5.1
+
+[BroadcomDevices]
+%BroadcomDevice%     = RNDIS, USB\VID_0411&PID_004B
+
+[BroadcomDevices.NT.5.1]
+%BroadcomDevice%     = RNDIS.NT.5.1, USB\VID_0411&PID_004B
+
+[ControlFlags]
+ExcludeFromSelect=*
+
+; Windows 98, Windows 98 Second Edition specific sections --------
+
+[RNDIS]
+DeviceID        = usb8023
+MaxInstance     = 512
+DriverVer       = 08/09/2001,5.1.3538.0
+AddReg          = RNDIS_AddReg_98, RNDIS_AddReg_Common
+CopyFiles	= BWCDRV98INF_CopyFiles_98
+
+[RNDIS_AddReg_98]
+; if CD
+HKR, Ndi,            InstallInf,       0, "NETBWC98.INF"
+; if MDRIVER
+;HKR, Ndi,           InstallInf,       0, "NETBWC9M.INF"
+HKR, ,               DevLoader,        0, *ndis
+HKR, ,               DeviceVxDs,       0, usb8023.sys
+HKR, NDIS,           LogDriverName,    0, "usb8023"
+HKR, NDIS,           MajorNdisVersion, 1, 5
+HKR, NDIS,           MinorNdisVersion, 1, 0
+HKR, Ndi\Interfaces, DefUpper,         0, "ndis3,ndis4,ndis5"
+HKR, Ndi\Interfaces, DefLower,         0, "ethernet"
+HKR, Ndi\Interfaces, UpperRange,       0, "ndis3,ndis4,ndis5"
+HKR, Ndi\Interfaces, LowerRange,       0, "ethernet"
+HKR, Ndi\Install,    ndis3,            0, "RNDIS_Install_98"
+HKR, Ndi\Install,    ndis4,            0, "RNDIS_Install_98"
+HKR, Ndi\Install,    ndis5,            0, "RNDIS_Install_98"
+HKR, Ndi,            DeviceId,         0, "USB\VID_0411&PID_004B"
+; BUFFALO Wireless Configuration Required
+HKR, Ndi\Compatibility, RequireAll,     , "BWCDRV"
+
+[RNDIS_Install_98]
+CopyFiles=RNDIS_CopyFiles_98
+
+[RNDIS_CopyFiles_98]
+usb8023.sys, usb8023w.sys, , 0 
+rndismp.sys, rndismpw.sys, , 0 
+; if MDRIVER
+;BWCDRV.VXD, BWCDRV.VXD, , 2
+
+[BWCDRV98INF_CopyFiles_98]
+; if CD
+NETBWC98.INF, NETBWC98.INF, , 2
+; if MDRIVER
+;NETBWC9M.INF, NETBWC9M.INF, , 2
+
+; Windows Millennium Edition specific sections --------------------
+
+[RNDIS.ME]
+DeviceID        = usb8023
+MaxInstance     = 512
+DriverVer       = 08/09/2001,5.1.3538.0
+AddReg          = RNDIS_AddReg_ME, RNDIS_AddReg_Common
+CopyFiles	= BWCDRV98INF_CopyFiles_ME
+
+[RNDIS_AddReg_ME]
+; if CD
+HKR, Ndi,            InstallInf,       0, "NETBWC98.INF"
+; if MDRIVER
+;HKR, Ndi,           InstallInf,       0, "NETBWC9M.INF"
+HKR, ,               DevLoader,        0, *ndis
+HKR, ,               DeviceVxDs,       0, usb8023.sys
+HKR, NDIS,           LogDriverName,    0, "usb8023"
+HKR, NDIS,           MajorNdisVersion, 1, 5
+HKR, NDIS,           MinorNdisVersion, 1, 0
+HKR, Ndi\Interfaces, DefUpper,         0, "ndis3,ndis4,ndis5"
+HKR, Ndi\Interfaces, DefLower,         0, "ethernet"
+HKR, Ndi\Interfaces, UpperRange,       0, "ndis3,ndis4,ndis5"
+HKR, Ndi\Interfaces, LowerRange,       0, "ethernet"
+HKR, Ndi\Install,    ndis3,            0, "RNDIS_Install_ME"
+HKR, Ndi\Install,    ndis4,            0, "RNDIS_Install_ME"
+HKR, Ndi\Install,    ndis5,            0, "RNDIS_Install_ME"
+HKR, Ndi,            DeviceId,         0, "USB\VID_0411&PID_004B"
+; BUFFALO Wireless Configuration Required
+HKR, Ndi\Compatibility, RequireAll,     , "BWCDRV"
+
+[RNDIS_Install_ME]
+CopyFiles=RNDIS_CopyFiles_ME
+
+[RNDIS_CopyFiles_ME]
+usb8023.sys, usb8023m.sys, , 0 
+rndismp.sys, rndismpm.sys, , 0 
+; if MDRIVER
+;BWCDRV.VXD, BWCDRV.VXD, , 2
+
+[BWCDRV98INF_CopyFiles_ME]
+; if CD
+NETBWC98.INF, NETBWC98.INF, , 2
+; if MDRIVER
+;NETBWC9M.INF, NETBWC9M.INF, , 2
+
+; Windows 2000 specific sections ---------------------------------
+[RNDIS.NT.CoInstallers]
+AddReg          = CoCopyINF.AddReg
+CopyFiles       = CoCopyINF.CopyFiles
+
+[RNDIS.NT]
+Characteristics = 0x84   ; NCF_PHYSICAL + NCF_HAS_UI
+BusType         = 15
+DriverVer       = 08/09/2001,5.1.3538.0
+AddReg          = RNDIS_AddReg_NT, RNDIS_AddReg_Common
+CopyFiles       = RNDIS_CopyFiles_NT
+InitService     = bwcdrv
+; if CD
+CopyINF         = netbwc2k.inf
+; if MDRIVER
+;CopyINF         = netbwc2m.inf
+
+[RNDIS.NT.Services]
+AddService = USB_RNDIS, 2, RNDIS_ServiceInst_NT, RNDIS_EventLog
+
+[RNDIS_CopyFiles_NT]
+usb8023k.sys, usb8023k.sys, , 0 
+rndismpk.sys, rndismpk.sys, , 0 
+; if MDRIVER
+;BWCDRV.SYS, BWCDRV.SYS, , 2
+
+; Windows XP specific sections -----------------------------------
+[RNDIS.NT.5.1]
+Characteristics = 0x84   ; NCF_PHYSICAL + NCF_HAS_UI
+BusType         = 15
+DriverVer       = 08/09/2001,5.1.3538.0
+AddReg          = RNDIS_AddReg_NT, RNDIS_AddReg_Common
+; no copyfiles - the files are already in place
+InitService     = bwcdrv
+; if CD
+CopyINF         = netbwc2k.inf
+; if MDRIVER
+;CopyINF         = netbwc2m.inf
+
+[RNDIS.NT.5.1.Services]
+AddService      = USB_RNDIS, 2, RNDIS_ServiceInst_XP, RNDIS_EventLog
+
+; Windows 2000 and Windows XP common sections --------------------
+
+[RNDIS_AddReg_NT]
+HKR, Ndi,               Service,        0, "USB_RNDIS"
+HKR, Ndi\Interfaces,    UpperRange,     0, "ndis5" 
+HKR, Ndi\Interfaces,    LowerRange,     0, "ethernet"
+HKR, Ndi,               RequiredAll,    0, "MEL_BWCDRV2K"
+
+[RNDIS_ServiceInst_NT]
+DisplayName     = %ServiceDisplayName%
+ServiceType     = 1 
+StartType       = 3 
+ErrorControl    = 1 
+ServiceBinary   = %12%\usb8023k.sys    
+LoadOrderGroup  = NDIS
+AddReg          = RNDIS_WMI_AddReg_NT
+
+[RNDIS_ServiceInst_XP]
+DisplayName     = %ServiceDisplayName%
+ServiceType     = 1 
+StartType       = 3 
+ErrorControl    = 1 
+ServiceBinary   = %12%\usb8023.sys    
+LoadOrderGroup  = NDIS
+AddReg          = RNDIS_WMI_AddReg_XP
+
+[RNDIS_WMI_AddReg_NT]
+HKR, , MofImagePath, 0x00020000, "System32\drivers\rndismpk.sys"
+
+[RNDIS_WMI_AddReg_XP]
+HKR, , MofImagePath, 0x00020000, "System32\drivers\rndismp.sys"
+
+[RNDIS_EventLog]
+AddReg = RNDIS_EventLog_AddReg
+
+[RNDIS_EventLog_AddReg]
+HKR, , EventMessageFile, 0x00020000, "%%SystemRoot%%\System32\netevent.dll"
+HKR, , TypesSupported,   0x00010001, 7
+
+[CoCopyINF.AddReg]
+HKR, , CoInstallers32,   0x10000, "bwcinst.DLL,CoCopyINF"
+
+[CoCopyINF.CopyFiles]
+bwcinst.dll,,,0x10 
+
+; Common Sections -------------------------------------------------
+
+[RNDIS_AddReg_Common]
+HKR, NDI\params\NetworkAddress, ParamDesc,  0, %NetworkAddress%
+HKR, NDI\params\NetworkAddress, type,       0, "edit"
+HKR, NDI\params\NetworkAddress, LimitText,  0, "12"
+HKR, NDI\params\NetworkAddress, UpperCase,  0, "1"
+HKR, NDI\params\NetworkAddress, default,    0, " "
+HKR, NDI\params\NetworkAddress, optional,   0, "1"
+
+[SourceDisksNames]
+1=%SourceDisk%,,1
+
+[SourceDisksFiles]
+usb8023m.sys=1
+rndismpm.sys=1
+usb8023w.sys=1
+rndismpw.sys=1
+usb8023k.sys=1
+rndismpk.sys=1
+; if CD
+netbwc2k.inf=1
+netbwc98.inf=1
+; if MDRIVER
+;bwcdrv.sys=1
+;bwcdrv.vxd=1
+;netbwc2m.inf=1
+;netbwc9m.inf=1
+
+[DestinationDirs]
+RNDIS_CopyFiles_98    = 10, system32/drivers
+RNDIS_CopyFiles_ME    = 10, system32/drivers
+RNDIS_CopyFiles_NT    = 12
+CoCopyINF.CopyFiles   = 11
+BWCDRV98INF_CopyFiles_98 = 17
+BWCDRV98INF_CopyFiles_ME = 17
+
+[Strings]
+ServiceDisplayName    = "USB Remote NDIS 802.11b Wireless Adapter Driver"
+NetworkAddress        = "Network Address"
+Broadcom              = "BUFFALO INC."
+BroadcomDevice        = "BUFFALO WLI-USB-G54 Wireless LAN Adapter"
+SourceDisk            = "AirNavigator CD"

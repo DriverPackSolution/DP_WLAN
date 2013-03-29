@@ -1,0 +1,87 @@
+; Windows Vista Virtual Serial Port Setup File
+; Copyright (c) 2009 Qualcomm Incorporated
+; Manufacturer: Qualcomm Incorporated
+;
+
+[Version]
+signature  = "$WINDOWS NT$"
+Class      = Ports
+Provider   = %QUALCOMM%
+ClassGuid  = {4D36E978-E325-11CE-BFC1-08002BE10318}
+DriverVer=01/12/2010,6.0.7.1
+Catalogfile= qcusbserhp.cat
+
+[ControlFlags]
+ExcludeFromSelect = *
+
+[Manufacturer]
+%QUALCOMM% = QcomSerialPorthp, NTia64, NTamd64
+
+[SourceDisksNames]
+  1000 = %QcomSrcDisk%,"",,
+
+[SourceDisksFiles]
+  qcusbserhp.sys = 1000
+
+[QcomSerialPorthp]
+%QcomDevice201D0%  = QportInstall00, USB\VID_03F0&PID_201D
+%QcomDevice1F1D0%  = QportInstall00, USB\VID_03F0&PID_1F1D&MI_00
+%QcomDevice1F1D1%  = QportInstall00, USB\VID_03F0&PID_1F1D&MI_01
+%QcomDevice2D1D0%  = QportInstall00, USB\VID_03F0&PID_2D1D
+%QcomDevice2E1D0%  = QportInstall00, USB\VID_03F0&PID_2E1D&MI_00
+%QcomDevice2E1D1%  = QportInstall00, USB\VID_03F0&PID_2E1D&MI_01
+
+[QcomSerialPorthp.NTia64]
+%QcomDevice201D0%  = QportInstall00, USB\VID_03F0&PID_201D
+%QcomDevice1F1D0%  = QportInstall00, USB\VID_03F0&PID_1F1D&MI_00
+%QcomDevice1F1D1%  = QportInstall00, USB\VID_03F0&PID_1F1D&MI_01
+%QcomDevice2D1D0%  = QportInstall00, USB\VID_03F0&PID_2D1D
+%QcomDevice2E1D0%  = QportInstall00, USB\VID_03F0&PID_2E1D&MI_00
+%QcomDevice2E1D1%  = QportInstall00, USB\VID_03F0&PID_2E1D&MI_01
+
+[QcomSerialPorthp.NTamd64]
+%QcomDevice201D0%  = QportInstall00, USB\VID_03F0&PID_201D
+%QcomDevice1F1D0%  = QportInstall00, USB\VID_03F0&PID_1F1D&MI_00
+%QcomDevice1F1D1%  = QportInstall00, USB\VID_03F0&PID_1F1D&MI_01
+%QcomDevice2D1D0%  = QportInstall00, USB\VID_03F0&PID_2D1D
+%QcomDevice2E1D0%  = QportInstall00, USB\VID_03F0&PID_2E1D&MI_00
+%QcomDevice2E1D1%  = QportInstall00, USB\VID_03F0&PID_2E1D&MI_01
+
+[QportInstall00.NT]
+CopyFiles=QCUsbDriverFiles
+AddReg = All00, AddReg
+
+[QCUsbDriverFiles]
+qcusbserhp.sys
+
+[DestinationDirs]
+DefaultDestDir = 12
+
+[QportInstall00.NT.Services]
+AddService=qcusbserhp,  0x00000002, QC_USBSerialService
+
+[QC_USBSerialService]
+DisplayName   = %QCUSBSER%
+ServiceType   = 1
+StartType     = 3
+ErrorControl  = 1
+ServiceBinary = %12%\qcusbserhp.sys
+
+[All00]
+HKR,,NTMPDriver,,qcusbserhp.sys
+
+[AddReg]
+HKR,,PortSubClass,1,01
+HKR,,EnumPropPages32,,"MsPorts.dll,SerialPortPropPageProvider"
+
+[Strings]
+QCUSBSER = "HP USB Device for Legacy Serial Communication"
+QcomSrcDisk = "HP USB Driver Disk"
+QUALCOMM   = "Qualcomm Incorporated"
+QcomDevice201D0 = "Qualcomm HS-USB QDLoader"
+QcomDevice1F1D0 = "HP un2400 Mobile Broadband Module"
+QcomDevice1F1D1 = "HP un2400 Mobile Broadband Module Device "
+QcomDevice2D1D0 = "HP at2410 HS-USB QDLoader"
+QcomDevice2E1D0 = "HP at2410 Mobile Broadband Module"
+QcomDevice2E1D1 = "HP at2410 Mobile Broadband Module Device "
+

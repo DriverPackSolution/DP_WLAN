@@ -1,0 +1,397 @@
+;/*++
+;
+;Copyright (c) D-Link, All Rights Reserved
+;
+;Module Name:
+;
+;    net5513.inf
+;
+;Abstract:
+;    INF file for installing D-Link Wireless Network Adapter
+;
+;    Installs ar5513.sys (NDIS 5/5.1 driver) on NT platforms (2000, XP and greater)
+;    Installs ar55139x.sys (NDIS 5 driver) on 9x platforms
+;
+;--*/
+
+[Version]
+Signature   = "$CHICAGO$"
+Class       = Net
+ClassGUID   = {4d36e972-e325-11ce-bfc1-08002be10318}
+Provider    = %DLINK%
+Compatible  = 1
+DriverVer   = 09/12/2005,1.0.0.56
+Catalogfile = net5513.cat
+
+[Manufacturer]
+%DLINK%     = D-Link
+
+[ControlFlags]
+ExcludeFromSelect = \  ;for win95 and legacy support
+  PCI\VEN_168C&DEV_0020
+
+[D-Link]
+; DisplayName               Section                 DeviceID
+; -----------               -------                 --------
+; Generic
+%ATHER.DeviceDesc.G650M%  = ATHER_DEV_G650M.ndi,    PCI\VEN_168C&DEV_0020&SUBSYS_3A671186
+%ATHER.DeviceDesc.G520M%  = ATHER_DEV_G520M.ndi,    PCI\VEN_168C&DEV_0020&SUBSYS_3A681186
+
+
+; Windows 9X specific entries
+[ATHER_DEV_0020.ndi]
+AddReg          = ATHER_DEV_0020.id.reg, 5211.reg, ATHER.win.reg, 5212.abgcb.reg
+CopyFiles       = ATHER.win.CopyFiles, DEFAULTDESTDIRS
+DelFiles        = ATHER.DelIniFiles
+DelReg          = 5211.DelReg
+
+; Windows NT specific entries
+[ATHER_DEV_G650M.ndi.NT]
+Characteristics = 0x84 ; NCF_PHYSICAL | NCF_HAS_UI
+BusType         = 5
+DelReg          = 5211.DelReg
+AddReg          = 5211.reg, ATHER.reg, 5211.reg, 5212.bgcb.reg, 5212_650M.reg
+CopyFiles       = ATHER.CopyFiles.nt, DEFAULTDESTDIRS
+DelFiles        = ATHER.DelIniFiles
+
+[ATHER_DEV_G520M.ndi.NT]
+Characteristics = 0x84 ; NCF_PHYSICAL | NCF_HAS_UI
+BusType         = 5
+DelReg          = 5211.DelReg
+AddReg          = 5211.reg, ATHER.reg, 5211.reg, 5212.bgcb.reg
+CopyFiles       = ATHER.CopyFiles.nt, DEFAULTDESTDIRS
+DelFiles        = ATHER.DelIniFiles
+
+
+[ATHER_DEV_G520M.ndi.NT.Services]
+AddService      = AR5513, 2, ATHER.Service, common.EventLog
+
+[ATHER_DEV_G650M.ndi.NT.Services]
+AddService      = AR5513, 2, ATHER.Service, common.EventLog
+
+;----------------------------------------------------------------------------
+; Win9x id registry sections
+; These are not needed by NT
+
+[ATHER_DEV_0020.id.reg]
+HKR, Ndi, DeviceID, 0, "PCI\VEN_168C&DEV_0020"
+
+;
+; 5211 Enumerated Types
+;
+[5211.acb.reg]
+HKR, ,                                  NetBand,                        0x00002,  "3"
+HKR, CustomParams\Configurations,       NicType,                        0x10003,  0
+
+[5211.amp.reg]
+HKR, ,                                  NetBand,                        0x00002,  "3"
+HKR, CustomParams\Configurations,       NicType,                        0x10003,  0
+
+[5211.abcb.reg]
+HKR, ,                                  NetBand,                        0x00002,  "7"
+HKR, CustomParams\Configurations,       NicType,                        0x10003,  1
+
+[5211.abmp.reg]
+HKR, ,                                  NetBand,                        0x00002,  "7"
+HKR, CustomParams\Configurations,       NicType,                        0x10003,  2
+
+[5212.abgcb.reg]
+HKR, ,                                  NetBand,                        0x00002,  "15"
+HKR, CustomParams\Configurations,       NicType,                        0x10003,  1
+
+[5212.abgmp.reg]
+HKR, ,                                  NetBand,                        0x00002,  "15"
+HKR, CustomParams\Configurations,       NicType,                        0x10003,  2
+
+[5212.bgcb.reg]
+HKR, ,                                  NetBand,                        0x00002,  "28"
+HKR, CustomParams\Configurations,       NicType,                        0x10003,  1
+
+[5212.bgmp.reg]
+HKR, ,                                  NetBand,                        0x00002,  "28"
+HKR, CustomParams\Configurations,       NicType,                        0x10003,  2
+
+[5212_650M.reg]
+; BusConfig
+HKR, ,                                  BusConfig,                      0x00002,  "0"
+HKR, ,                                  SmeEnable,                      0x00002,  "1"
+HKR, ,                                  LinkLedFunc,                    0x00002,  "29"
+HKR, ,                                  ActivityLedFunc,                0x00002,  "31"
+
+;-----------------------------------------------------------------------------
+
+;
+; 5211 common
+;
+[5211.DelReg]
+HKR,,NetBand
+HKR,,ssid
+HKR,,ssid2
+HKR,,ssid3
+HKR,,prefBssid1
+HKR,,prefBssid2
+HKR,,prefBssid3
+HKR,,prefBssid4
+HKR,Ndi\Params\tpc
+HKR,,tpc
+HKR,Ndi\Params\authTypeUseOnly
+HKR,,authTypeUseOnly
+HKR,,AdHocBand
+HKR,,AwakeTimePerf
+HKR,,beaconInterval
+HKR,,bkScanEnable
+HKR,,bssType
+HKR,,ccode
+HKR,,clist
+HKR,,defaultKey
+HKR,,EncryptionAlg
+HKR,,FragThreshold
+HKR,,HwTxRetries
+HKR,,privacyInvoked
+HKR,,QoS
+HKR,,rateCtrlEnable
+HKR,,RTSThreshold
+HKR,,scanType
+HKR,,SwTxRetryScale
+HKR,,SmeEnable
+HKR,,aifs
+HKR,,cwmin
+
+[5211.reg]
+
+HKR, Ndi\params\MapRegisters,           ParamDesc,                      0,  %MapRegisters%
+HKR, Ndi\params\MapRegisters,           default,                        0,  "256"
+HKR, Ndi\params\MapRegisters,           min,                            0,  "32"
+HKR, Ndi\params\MapRegisters,           max,                            0,  "512"
+HKR, Ndi\params\MapRegisters,           step,                           0,  "8"
+HKR, Ndi\params\MapRegisters,           base,                           0,  "10"
+HKR, Ndi\params\MapRegisters,           type,                           0,  "int"
+
+HKR, Ndi\params\NetworkAddress,         ParamDesc,                      0,  %NetworkAddress%
+HKR, Ndi\params\NetworkAddress,         default,                        0,  ""
+HKR, Ndi\params\NetworkAddress,         LimitText,                      0,  "12"
+HKR, Ndi\params\NetworkAddress,         UpperCase,                      0,  "1"
+HKR, Ndi\params\NetworkAddress,         optional,                       0,  "1"
+HKR, Ndi\params\NetworkAddress,         type,                           0,  "edit"
+
+HKR, Ndi\params\sleepMode,              ParamDesc,                      0,  %sleepMode%
+HKR, Ndi\params\sleepMode,              Base,                           0,  "10"
+HKR, Ndi\params\sleepMode,              default,                        0,  "0"
+HKR, Ndi\params\sleepMode,              type,                           0,  "enum"
+HKR, Ndi\params\sleepMode\enum,         "0",                            0,  %sleepModeOff%
+HKR, Ndi\params\sleepMode\enum,         "2",                            0,  %sleepModeNormal%
+HKR, Ndi\params\sleepMode\enum,         "1",                            0,  %sleepModeMax%
+
+; rxChainCtrl 
+HKR, Ndi\params\rxChainCtrl,                    ParamDesc,                      0,  "rxChainCtrl"
+HKR, Ndi\params\rxChainCtrl,                    Base,                           0,  "10"
+HKR, Ndi\params\rxChainCtrl,                    default,                        0,  "2"
+HKR, Ndi\params\rxChainCtrl,                    type,                           0,  "enum"
+HKR, Ndi\params\rxChainCtrl\enum,               "2",                            0,  "Chain Both"
+HKR, Ndi\params\rxChainCtrl\enum,               "0",                            0,  "Chain 0"
+
+HKR, Ndi\params\tpc,                    ParamDesc,                      0,  %tpc%
+HKR, Ndi\params\tpc,                    Base,                           0,  "10"
+HKR, Ndi\params\tpc,                    default,                        0,  "0"
+HKR, Ndi\params\tpc,                    type,                           0,  "enum"
+HKR, Ndi\params\tpc\enum,               "0",                            0,  %tpc100%
+HKR, Ndi\params\tpc\enum,               "1",                            0,  %tpc50%
+HKR, Ndi\params\tpc\enum,               "2",                            0,  %tpc25%
+HKR, Ndi\params\tpc\enum,               "3",                            0,  %tpc12%
+HKR, Ndi\params\tpc\enum,               "4",                            0,  %tpcLowest%
+
+HKR, Ndi\params\shortPreamble,          ParamDesc,                      0,  %shortPreamble%
+HKR, Ndi\params\shortPreamble,          Base,                           0,  "10"
+HKR, Ndi\params\shortPreamble,          default,                        0,  "1"
+HKR, Ndi\params\shortPreamble,          type,                           0,  "enum"
+HKR, Ndi\params\shortPreamble\enum,     "1",                            0,  %shortPreambleEnable%
+HKR, Ndi\params\shortPreamble\enum,     "0",                            0,  %shortPreambleDisable%
+
+HKR, Ndi\params\radioEnable,            ParamDesc,                      0,  %radioEnable%
+HKR, Ndi\params\radioEnable,            Base,                           0,  "10"
+HKR, Ndi\params\radioEnable,            default,                        0,  "1"
+HKR, Ndi\params\radioEnable,            type,                           0,  "enum"
+HKR, Ndi\params\radioEnable\enum,       "1",                            0,  %radioEnableOn%
+HKR, Ndi\params\radioEnable\enum,       "0",                            0,  %radioEnableOff%
+
+
+HKR, ,                                  AdHocBand,                      0x00002,  "0"
+HKR, ,                                  AdHocChannel,                   0x00002,  "2437"
+HKR, ,                                  AwakeTimePerf,                  0x00002,  "200"
+HKR, ,                                  beaconInterval,                 0x00002,  "100"
+
+; 03.12.2003  
+; 0 - don't del bssid list
+HKR, ,                                  DelBSSIDList,                   0x00002,  "0"
+
+; Disable back scan
+; 0 - don't back scan
+HKR, ,                                  bkScanEnable,                   0x00002,  "1"
+
+; Check Our Card
+HKR, ,                                  CheckOurCard,                   0x00002,  "1"
+
+; ssid 03.25.2003
+HKR, ,                                  ssid,                           0x00002,  "default"
+
+; 108G
+HKR, ,                                  abolt,                          0x00002,  "175"
+
+; WiFi 11g Adhoc
+HKR, ,                                  WiFiAdhoc,			0x00002,  "1"
+
+
+HKR, ,                                  bssType,                        0x00002,  "1"
+HKR, ,                                  ccode,                          0x00002,  "US"
+HKR, ,                                  clist,                          0x00002,  ""
+HKR, ,                                  defaultKey,                     0x00002,  "0"
+HKR, ,                                  EncryptionAlg,                  0x00002,  "2"
+HKR, ,                                  FragThreshold,                  0x00002,  "2346"
+HKR, ,                                  HwTxRetries,                    0x00002,  "4"
+HKR, ,                                  privacyInvoked,                 0x00002,  "0"
+HKR, ,                                  QoS,                            0x00002,  "0"
+HKR, ,                                  rateCtrlEnable,                 0x00002,  "1"
+HKR, ,                                  RTSThreshold,                   0x00002,  "2346"
+HKR, ,                                  scanType,                       0x00002,  "2"
+HKR, ,                                  SwTxRetryScale,                 0x00002,  "6"
+
+
+HKR, CustomParams\Configurations,       MajorVersion,                   0x10003,  2
+HKR, CustomParams\Configurations,       MinorVersion,                   0x10003,  0
+
+HKR, CustomParams\Configurations,       SelectedConfigurationIndex,     0x10003,  0
+HKR, CustomParams\Configurations,       SelectedConfigurationName,      0x00002,  "Default"
+HKR, CustomParams\Configurations\Cfg0,  AdHocBand,                      0x10003,  1
+HKR, CustomParams\Configurations\Cfg0,  ConfigurationName,              0x00002,  "Default"
+HKR, CustomParams\Configurations\Cfg0,  DefaultKey,                     0x10003,  0
+HKR, CustomParams\Configurations\Cfg0,  EnableMacAddress,               0x10003,  0
+HKR, CustomParams\Configurations\Cfg0,  EnableSecurity,                 0x10003,  0
+HKR, CustomParams\Configurations\Cfg0,  EncryptionAlg,                  0x10003,  4
+HKR, CustomParams\Configurations\Cfg0,  HexEntry,                       0x10003,  1
+HKR, CustomParams\Configurations\Cfg0,  leapEnabled,                    0x10003,  0
+HKR, CustomParams\Configurations\Cfg0,  MacAddress,                     0x00002,  ""
+HKR, CustomParams\Configurations\Cfg0,  NetworkConnectionType,          0x10003,  1
+HKR, CustomParams\Configurations\Cfg0,  NetworkName,                    0x00002,  ""
+HKR, CustomParams\Configurations\Cfg0,  PowerManagement,                0x10003,  1
+HKR, CustomParams\Configurations\Cfg0,  Preamble,                       0x10003,  1
+HKR, CustomParams\Configurations\Cfg0,  QoS,                            0x10003,  0
+HKR, CustomParams\Configurations\Cfg0,  scanType,                       0x10003,  2
+HKR, CustomParams\Configurations\Cfg0,  tpc,                            0x10003,  0
+
+; Allow non admin uses to switch profiles
+[5211.reg.security]
+"D:ARAI(A;;GA;;;BA)(A;;GA;;;SY)(A;CI;GA;;;IU)"
+
+;-----------------------------------------------------------------------------
+; ATHER NT specific
+;
+
+[ATHER.reg]
+HKR, Ndi,             Service,      0, "AR5513"
+HKR, Ndi\Interfaces,  UpperRange,   0, "ndis5"
+HKR, Ndi\Interfaces,  LowerRange,   0, "ethernet"
+HKR, ,                aifs,         0, "2"
+HKR, ,                cwmin,        0, "15"
+
+
+[ATHER.Service]
+DisplayName     = %ATHER.Service.DispName%
+ServiceType     = 1 ;%SERVICE_KERNEL_DRIVER%
+StartType       = 3 ;%SERVICE_DEMAND_START%
+ErrorControl    = 1 ;%SERVICE_ERROR_NORMAL%
+ServiceBinary   = %12%\ar5513.sys
+LoadOrderGroup  = NDIS
+
+;-----------------------------------------------------------------------------
+; ATHER NT/XP common
+;
+[common.EventLog]
+AddReg = common.AddEventLog.reg
+
+[common.AddEventLog.reg]
+HKR, ,                  EventMessageFile,   0x00020000,   "%%SystemRoot%%\System32\netevent.dll"
+HKR, ,                  TypesSupported,     0x00010001,   7
+
+;----------------------------------------------------------------------------
+; ATHER Win9x specific
+;
+[ATHER.win.reg]
+HKR, ,                  DevLoader,          0,            "*ndis"
+HKR, ,                  DeviceVxDs,         0,            "ar55139x.sys"
+HKR, ,                  EnumPropPages,      0,            "netdi.dll,EnumPropPages"
+
+HKR, Ndi\Interfaces,    DefUpper,           0,            "ndis3"
+HKR, Ndi\Interfaces,    DefLower,           0,            "ethernet"
+HKR, Ndi\Interfaces,    UpperRange,         0,            "ndis3"
+HKR, Ndi\Interfaces,    LowerRange,         0,            "ethernet"
+
+
+HKR, NDIS,              LogDriverName,      0,            "AR55139X"
+HKR, NDIS,              MajorNdisVersion,   1,            03
+HKR, NDIS,              MinorNdisVersion,   1,            0A
+HKR, ,                  aifs,               0,    "2"
+HKR, ,                  cwmin,              0,    "15"
+
+HKR, Ndi\Install,       ndis3,              0,            "ATHER.install"
+
+;----------------------------------------------------------------------------
+; Win9x Files to Copy
+[ATHER.win.CopyFiles]
+ar55139x.sys,,,2
+
+;----------------------------------------------------------------------------
+; NT Files to Copy
+[ATHER.CopyFiles.nt]
+ar5513.sys,,,2
+
+[ATHER.DelIniFiles]
+Athnic.ini,,,1
+
+[SourceDisksNames]
+;
+; diskid = description[, [tagfile] [, <unused>, subdir]]
+;
+1 = %DLINK_Disk%,,,
+
+;----------------------------------------------------------------------------
+; Source Files
+[SourceDisksFiles]
+ar55139x.sys                 = 1,, ; on distribution disk 1
+ar5513.sys                   = 1,, ; on distribution disk 1
+
+
+[DestinationDirs]
+ATHER.CopyFiles.nt           = 12
+ATHER.win.CopyFiles          = 10,system32\drivers ; %SystemRoot%\system32\drivers
+ATHER.DelIniFiles            = 10,system32\drivers ; %SystemRoot%\system32\drivers
+DefaultDestDir               = 11
+
+[DEFAULTDESTDIRS]
+;
+
+
+[Strings]
+DLINK                        = "D-Link"
+MapRegisters                 = "Map Registers"
+NetworkAddress               = "Network Address"
+sleepMode                    = "Power Save Mode"
+sleepModeOff                 = "Off"
+sleepModeNormal              = "Normal"
+sleepModeMax                 = "Maximum"
+tpc                          = "Transmit Power"
+tpcLowest                    = "Lowest"
+tpc12                        = "12.5%"
+tpc25                        = "25%"
+tpc50                        = "50%"
+tpc100                       = "100%"
+shortPreamble                = "802.11b Preamble"
+shortPreambleEnable          = "Long and Short"
+shortPreambleDisable         = "Long only"
+radioEnable                  = "Radio On/Off"
+radioEnableOn                = "On"
+radioEnableOff               = "Off"
+
+
+DLINK_Disk                   = "D-Link Wireless LAN Install Disk"
+ATHER.DeviceDesc.G650M       = "DWL-G650M  Super G MIMO Wireless Notebook Adapter"
+ATHER.DeviceDesc.G520M       = "DWL-G520M Wireless 108G MIMO PCI Adapter"

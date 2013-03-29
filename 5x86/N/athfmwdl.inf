@@ -1,0 +1,73 @@
+; Installation inf for NETGEAR Predator USB board
+;
+
+
+[Version]
+Signature="$CHICAGO$"
+Class=USB
+ClassGUID={36FC9E60-C465-11CF-8056-444553540000}
+provider=%ATHR%
+DriverVer=12/05/2003,1.00.001
+
+[SourceDisksNames]
+1=%Disk_Description%,,,
+
+[SourceDisksFiles]
+athfmwdl.sys = 1
+athfmw9x.sys = 1
+ar5523.bin = 1
+ar55239x.bin = 1
+
+[Manufacturer]
+%MfgName%=NETGEAR
+
+[NETGEAR]
+%ATHR.DeviceDesc%=ATHFMWDL.Dev, USB\VID_1385&PID_4251
+
+
+[DestinationDirs]
+NT.CopyFiles = 10,System32\Drivers
+CopyFiles = 10,System32
+
+[ATHFMWDL.Dev.NT]
+CopyFiles=NT.CopyFiles
+
+[ATHFMWDL.Dev]
+CopyFiles=CopyFiles
+AddReg         = ATHFMWDL.AddReg
+
+[ATHFMWDL.Dev.NT.Services]
+Addservice = ATHFMWDL, 0x00000002, ATHFMWDL.AddService
+
+[ATHFMWDL.AddService]
+DisplayName    = %ATHFMWDL.SvcDesc%
+ServiceType    = 1                  ; SERVICE_KERNEL_DRIVER
+StartType      = 3                  ; SERVICE_DEMAND_START
+ErrorControl   = 1                  ; SERVICE_ERROR_NORMAL
+ServiceBinary  = %10%\System32\Drivers\ATHFMWDL.sys
+AddReg         = ATHFMWDL.AddReg
+LoadOrderGroup = Base
+
+[ATHFMWDL.AddReg]
+HKR,,DevLoader,,*ntkern
+HKR,,NTMPDriver,,ATHFMW9x.sys
+HKR,"Parameters","MaximumTransferSize",0x10001,4096
+HKR,"Parameters","DebugLevel",0x10001,3
+HKR,"Parameters","AthUsbEnable",0x10001,0
+
+[NT.CopyFiles]
+Athfmwdl.sys
+ar5523.bin
+
+[CopyFiles]
+Athfmw9x.sys
+ar55239x.bin
+
+;---------------------------------------------------------------;
+
+[Strings]
+ATHR="NETGEAR"
+MfgName="NETGEAR"
+Disk_Description="AthUsb Installation Disk"
+ATHFMWDL.SvcDesc="NETGEAR WG111T Bootloader driver"
+ATHR.DeviceDesc="NETGEAR WG111T bootloader device"

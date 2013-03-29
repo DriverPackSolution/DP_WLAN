@@ -1,0 +1,53 @@
+**
+**
+**  VIA Networking VT6656 USB-Wireless LAN Adapter
+**
+**  Driver Component for Windows XP Embedded SP1
+**
+**
+**
+
+Release note
+============
+
+    This component is adapted from logo'ed driver for Windows XP
+    for the VT6656 USB-Wireless LAN Adapter.
+
+    VNT provides the user with this sample component implementation,
+    to ease development and test effort. The user, however,
+    is advised to obtain the latest available driver and author
+    his or her own components.
+
+
+File description
+================
+
+    VNUWL5B.sys         The NDIS5 driver for Windows XP Embedded SP1.
+    VNUWL.INF           The installation information file.
+    VNUWL.CAT           CAT file for this driver.
+    VNUWL.SLD           Driver component description file.
+    VUINS32.DLL         The uninstaller for Windows.
+    XPE.TXT             This file.
+
+
+Import the driver component
+===========================
+
+    1.Component Database Manager
+    (1) Open "Component Database Manager" under Microsoft Windows
+        Embedded Studio.
+    (2) Click on the "Database", "Import...", and then SLD files "..." buttons.
+        Navigate to directory of this driver component and then choose
+        the .SLD file. Click on the "Import" and then "Close" buttons
+        to close the dialog.
+    (3) Close Component Database Manager.
+
+    2.Target Designer
+    (1) In Tools -> Options... -> Tab "Build" -> Extra Files Folder,
+        fill the directory of this driver component.
+
+
+Note
+====
+
+    

@@ -1,0 +1,173 @@
+;**********************************************************
+;ATMEL ATMEL PCMCIA FastVNET (504-C)
+;Copyright 2002 ATMEL
+;**********************************************************
+
+[Version]
+Signature  = "$Windows NT$"
+Class      = Net
+ClassGUID  = {4d36e972-e325-11ce-bfc1-08002be10318}
+Provider   = %VENDOR%
+;CatalogFile = netvnt4c.cat
+DriverVer  = 06/28/2002,4.3.3.48
+
+[Manufacturer]
+%VENDOR%   = ATMEL
+
+[ControlFlags]
+ExcludeFromSelect = ATMEL-AT76C504_C-1A45
+          
+                                                             
+[ATMEL]
+%FVNET4C1.DeviceDesc% = FVNET4C.Ndi,PCMCIA\ATMEL-AT76C504_C-1A45
+
+;*******************************************************************************
+; Win XP main sections
+;*******************************************************************************
+
+
+[FVNET4C.Ndi.NT]
+Characteristics = 0x84 	; NCF_HAS_UI | NCF_PHYSICAL
+BusType         = 8 	; PCMCIA
+AddReg          = FVNET4C.NT.Reg, FVNET4C.Params
+CopyFiles       = CopyFile.NT.Sys
+DriverVer  	= 06/28/2002,4.3.3.48
+
+[FVNET4C.Ndi.NT.Services]
+AddService = FVNET4C, 2, FVNET4C.Service, Common.EventLog
+
+
+;*******************************************************************************
+; Driver parameters
+;*******************************************************************************
+
+[FVNET4C.Params]
+
+HKR, Ndi\params\Rate,	      		ParamDesc,     	0, %RateStr%
+HKR, Ndi\params\Rate,	      		type,		0, "enum"
+HKR, Ndi\params\Rate,			default,	0, "3"
+HKR, Ndi\params\Rate\enum,		0,		0, %Fixed1Str%
+HKR, Ndi\params\Rate\enum,		1,		0, %Fixed2Str%
+HKR, Ndi\params\Rate\enum,		2,		0, %Fixed55Str%
+HKR, Ndi\params\Rate\enum,		3,		0, %Fixed11Str%
+HKR, Ndi\params\Rate\enum,		4,		0, %AutoStr%
+HKR, ,                                	Rate,    	0, "3"
+
+HKR, Ndi\params\RTS_Threshold,	      	ParamDesc,     	0, %RTS_Str%
+HKR, Ndi\params\RTS_Threshold,	      	type,		0, "int"
+HKR, Ndi\params\RTS_Threshold,		default,	0, "2347"
+HKR, Ndi\params\RTS_Threshold,		min,		0, "0"
+HKR, Ndi\params\RTS_Threshold,		max,		0, "2347"
+HKR, Ndi\params\RTS_Threshold,		step,		0, "1"
+HKR, ,                                	RTS_Threshold,  0, "2347"
+
+HKR, Ndi\params\Frag_Threshold,	      	ParamDesc,     	0, %FragmentationStr%
+HKR, Ndi\params\Frag_Threshold,	      	type,		0, "int"
+HKR, Ndi\params\Frag_Threshold,		default,	0, "2346"
+HKR, Ndi\params\Frag_Threshold,		min,		0, "256"
+HKR, Ndi\params\Frag_Threshold,		max,		0, "2346"
+HKR, Ndi\params\Frag_Threshold,		step,		0, "1"
+HKR, ,                                	Frag_Threshold, 0, "2346"
+
+HKR,Ndi\params\PreambleType,		ParamDesc,	0,%PreambleStr%
+HKR,Ndi\params\PreambleType,		type,		0,"enum"
+HKR,Ndi\params\PreambleType,		default,	0,"2"
+HKR,Ndi\params\PreambleType\enum,	0,		0,%LongPreambleStr%
+HKR,Ndi\params\PreambleType\enum,	1,		0,%ShortPreambleStr%
+HKR,Ndi\params\PreambleType\enum,	2,		0,%AutoPreambleStr%
+HKR,,					PreambleType,	0,"2"
+
+HKR,Ndi\params\RadioOnOff,		ParamDesc,	0,%RadioOnOffStr%
+HKR,Ndi\params\RadioOnOff,		type,		0,"enum"
+HKR,Ndi\params\RadioOnOff,		default,	0,"1"
+HKR,Ndi\params\RadioOnOff\enum,	0,			0,%RadioOffStr%
+HKR,Ndi\params\RadioOnOff\enum,	1,			0,%RadioOnStr%
+HKR,,					RadioOnOff,	0,"1"
+
+
+HKR,Ndi\params\UseWZCS,			ParamDesc,	0,%APItoUse%
+HKR,Ndi\params\UseWZCS,			type,		0,"enum"
+HKR,Ndi\params\UseWZCS,			default,	0,"1"
+HKR,Ndi\params\UseWZCS\enum,		0,		0,%CustomAPI%
+HKR,Ndi\params\UseWZCS\enum,		1,		0,%WZCSAPI%
+HKR,,					UseWZCS,	0,"1"
+
+[FVNET4C.NT.Reg]
+; Interfaces
+HKR, Ndi\Interfaces, LowerRange, 0, "ethernet"
+HKR, Ndi\Interfaces, UpperRange, 0, "ndis5"
+HKR, Ndi,            Service,    0, "FVNET4C"
+
+[FVNET4C.Service]
+DisplayName    = %FVNET4C.DisplayName%
+ServiceType    = 1
+StartType      = 3
+ErrorControl   = 1
+ServiceBinary  = %12%\fvnet4c.sys
+LoadOrderGroup = NDIS
+
+
+[Common.EventLog]
+AddReg = Common.AddEventLog.Reg
+
+[Common.AddEventLog.Reg]
+HKR, , EventMessageFile, 0x00020000, %%SystemRoot%%\System32\netevent.dll
+HKR, , TypesSupported  , 0x00010001, 7
+
+
+[CopyFile.NT.Sys]
+fvnet4c.sys,,,2
+
+
+
+;*******************************************************************************
+; Destination directories
+;*******************************************************************************
+
+[DestinationDirs]
+DefaultDestDir   = 12 ; Drivers directory
+CopyFile.Sys    = 11
+CopyFile.NT.Sys = 12
+
+[SourceDisksNames]
+50=%DriverDisketteName%,,
+
+[SourceDisksFiles]
+fvnet4c.sys=50,.,fvnet4c.sys,10000
+netvnt4c.inf=50,.,netvnt4c.inf,10000
+
+;*******************************************************************************
+; Localizable strings
+;*******************************************************************************
+
+[Strings]
+VENDOR = "ATMEL"
+
+FVNET4C1.DeviceDesc = "ATMEL PCMCIA FastVNET (504-C)"
+FVNET4C.DisplayName = "ATMEL PCMCIA FastVNET (504-C)"
+
+DriverDisketteName      = "ATMEL Wireless LAN Driver's Disk"
+
+
+RateStr			= "Rate"
+Fixed1Str		= "Fixed 1 Mbps"
+Fixed2Str		= "Fixed 2 Mbps"
+Fixed55Str		= "Fixed 5.5 Mbps"
+Fixed11Str		= "Fixed 11 Mbps"
+AutoStr			= "Auto"
+
+RTS_Str			= "RTS Threshold"
+FragmentationStr	= "Fragmentation Threshold"
+
+PreambleStr		= "Preamble Type"
+LongPreambleStr		= "Long"
+ShortPreambleStr	= "Short"
+AutoPreambleStr		= "Auto"
+
+RadioOnOffStr		= "Radio"	
+RadioOffStr		= "Off"
+RadioOnStr		= "On"
+
+APItoUse		= "API to use"	
+CustomAPI		= "Custom API"
+WZCSAPI			= "WZCS API"

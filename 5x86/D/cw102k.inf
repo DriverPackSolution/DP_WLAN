@@ -1,0 +1,421 @@
+;*******************************************************************************
+; Netcw10.INF
+; NT 5.0
+;	
+;
+;          Copyright (c) 1998-2000 D-Link Corporation
+;          All Rights Reserved.
+;
+;
+;
+;------------------------------------------------------------
+-------------------
+
+[version]
+Signature   = "$Windows NT$"
+Class       = Net
+ClassGUID   = {4d36e972-e325-11ce-bfc1-08002be10318}
+Provider    = %Provider%
+;LayoutFile  = layout.inf
+DriverVer   = 12/06/99
+; CatalogFile Directive
+
+[Manufacturer]
+%Provider%=Provider
+
+; All enumerated adapters must be excluded from select
+[ControlFlags]
+;ExcludeFromSelect =   PCMCIA\Lucent_Technologies-WaveLAN/IEEE-C908
+;ExcludeFromSelect = PCMCIA\CHOICE_MICROSYSTEMS-CW10/IEEE-4AE8
+
+[Provider]
+;
+;DisplayName            Section         DeviceID
+;-----------            -------         --------
+%CW10.DeviceDescPRISM2%= CW10.ndi, 	 PCMCIA\D-Link_DWL-650_11Mbps_WLAN_Card-F360
+;----------------------------------------------------------------------------
+; Windows 9X 
+[CW10.ndi]
+
+; NT main sections
+[CW10.ndi.NT]
+AddReg          = Common.reg, Pcmcia.reg, nt.reg
+Characteristics = 0x84   ; NCF_REMOVABLE | NCF_HAS_UI | NCF_PHYSICAL
+BusType         = 8
+CopyFiles       = CW10.CopyFiles
+
+[CW10_PCI.ndi.NT]
+AddReg          = Common.reg, PCI.reg, nt.reg
+Characteristics = 0x84   ; NCF_REMOVABLE | NCF_HAS_UI | NCF_PHYSICAL
+BusType         = 8
+CopyFiles       = CW10.CopyFiles
+
+[CW10.ndi.NT.Services]
+AddService  = CW10, 2, CW10.Service, common.EventLog
+
+[CW10_PCI.ndi.NT.Services]
+AddService  = CW10, 2, CW10.Service, common.EventLog
+
+;DestinationDirs Section
+[DestinationDirs]
+CW10.CopyFiles = 12 ; system32\drivers subdirectory on NT
+CW10.PCICopyFiles = 12 ; system32\drivers subdirectory on NT
+
+[CW10.CopyFiles]
+cw10.sys,,,2        ; NT Installation
+
+;[CW10.PCICopyFiles]
+;cw10.sys,cw10poll.sys,,2        ; NT Installation
+
+[SourceDiskNames]
+1 = %ROM_Description%,,,
+
+[SourceDisksFiles]
+
+;----------------------------------------------------------------------------
+; common regs for NT and W9x
+;
+[Common.reg]
+;
+; Vendor Description
+;
+HKR,,VendorDesc,0,"D-Link DWL-650 11Mbps WLAN Adapter"
+
+;
+; AP Density
+;
+HKR,,APDensity,,1
+HKR,defaults,APDensity,,1
+;HKR,NDI\params\APDensity,ParamDesc,,"AP Density"
+;HKR,NDI\params\APDensity,type,,enum
+;HKR,NDI\params\APDensity,Default,,1
+;HKR,NDI\params\APDensity,flag,1,28,00,00,00
+;HKR,NDI\params\APDensity\enum,1,,"Low Density"
+;HKR,NDI\params\APDensity\enum,2,,"Medium Density"
+;HKR,NDI\params\APDensity\enum,3,,"High Density"
+;
+; SSID
+; 
+HKR,,SSID,,%SSID_DEF_STR%
+HKR,defaults,SSID,,%SSID_DEF_STR%
+HKR,NDI\params\SSID,ParamDesc,,"SSID"
+HKR,NDI\params\SSID,type,,edit
+HKR,NDI\params\SSID,limitText,,32
+HKR,NDI\params\SSID,default,,%SSID_DEF_STR%
+HKR,NDI\params\SSID,flag,1,30,00,00,00
+;
+; StationName
+;
+HKR,,StationName,,"Client"
+HKR,defaults,StationName,,"Client"
+;HKR,NDI\params\StationName,ParamDesc,,"Station Name"
+;HKR,NDI\params\StationName,type,,edit
+;HKR,NDI\params\StationName,limitText,,32
+;HKR,NDI\params\StationName,default,,""
+;HKR,NDI\params\StationName,flag,1,28,00,00,00
+;
+; 802.0 Locally Administrated Address
+;
+HKR,,LAA,,""
+;HKR,NDI\params\LAA,ParamDesc,,"Mac Address"
+;HKR,NDI\params\LAA,type,,edit
+;HKR,NDI\params\LAA,LimitText,,12
+;HKR,NDI\params\LAA,default,,""
+;HKR,NDI\params\LAA,flag,1,28,00,00,00
+
+;
+; Listen Interval
+;
+HKR,,ListenInterval,0,3
+HKR,defaults,ListenInterval,0,3
+HKR,NDI\params\ListenInterval,,0,3
+HKR,NDI\params\ListenInterval,ParamDesc,,"Maximum Listen Interval"
+HKR,NDI\params\ListenInterval,flag,1,30,00,00,00
+HKR,NDI\params\ListenInterval,type,,int
+HKR,Ndi\params\ListenInterval,default,,3
+HKR,NDI\params\ListenInterval,min,0,0
+HKR,NDI\params\ListenInterval,max,0,77
+HKR,NDI\params\ListenInterval,step,0,1
+HKR,NDI\params\ListenInterval,optional,0,0
+
+;
+; Channel
+; 
+HKR,,DSChannel,,6
+HKR,defaults,DSChannel,,6
+HKR,NDI\params\Channel,ParamDesc,,"Channel"
+HKR,NDI\params\Channel,type,,enum
+HKR,NDI\params\Channel,default,,6
+HKR,NDI\params\Channel,flag,1,20,00,00,00
+HKR,NDI\params\Channel\enum,1,,"Channel 1"
+HKR,NDI\params\Channel\enum,2,,"Channel 2"
+HKR,NDI\params\Channel\enum,3,,"Channel 3"
+HKR,NDI\params\Channel\enum,4,,"Channel 4"
+HKR,NDI\params\Channel\enum,5,,"Channel 5"
+HKR,NDI\params\Channel\enum,6,,"Channel 6"
+HKR,NDI\params\Channel\enum,7,,"Channel 7"
+HKR,NDI\params\Channel\enum,8,,"Channel 8"
+HKR,NDI\params\Channel\enum,9,,"Channel 9"
+HKR,NDI\params\Channel\enum,10,,"Channel 10"
+HKR,NDI\params\Channel\enum,11,,"Channel 11"
+HKR,NDI\params\Channel\enum,12,,"Channel 12"
+HKR,NDI\params\Channel\enum,13,,"Channel 13"
+HKR,NDI\params\Channel\enum,14,,"Channel 14"
+
+;
+; Encapsultion (i.e. Ethernet Translation)
+;
+HKR,,Encapsulation,,1
+HKR,defaults,Encapsulation,,1
+
+;
+; TxRate
+;
+HKR, ,TxRate,				,15
+HKR, defaults,TxRate,		,15
+HKR, NDI\params\TxRate,      ParamDesc, , "Transmit Rate"
+HKR, NDI\params\TxRate,      type,      , enum
+HKR, NDI\params\TxRate,      default,   , 15
+HKR, NDI\params\TxRate,flag, 1,       30, 00, 00, 00
+HKR, NDI\params\TxRate\enum, 1,				,"Fixed 1 Mb/s"
+HKR, NDI\params\TxRate\enum, 2,				,"Fixed 2 Mb/s"
+HKR, NDI\params\TxRate\enum, 3,				,"Auto Select 1 or 2"
+HKR, NDI\params\TxRate\enum, 4,				,"Fixed 5.5 Mb/s"
+HKR, NDI\params\TxRate\enum, 8,				,"Fixed 11 Mb/s"
+HKR, NDI\params\TxRate\enum, 15,			,"Fully Auto"
+
+;
+; RTS Threshold
+;
+HKR, ,RTSThresh,				0,			2432
+HKR, defaults,RTSThresh,		0,			2432
+HKR, NDI\params\RTSThresh,      ParamDesc, , "Medium Reservation"
+HKR, NDI\params\RTSThresh,      type,      , enum
+HKR, NDI\params\RTSThresh,      default,   , 2432
+HKR, NDI\params\RTSThresh,      flag,     1, 30, 00, 00, 00
+HKR, NDI\params\RTSThresh\enum, 2432,      , "Off"
+HKR, NDI\params\RTSThresh\enum, 500,       , "Hidden Stations"
+;
+; Frag Threshold
+;
+HKR, ,FragThresh,				0,			2432
+HKR, defaults,FragThresh,		0,			2432
+HKR, NDI\params\FragThresh,		,0,			2432
+HKR, NDI\params\FragThresh,		ParamDesc,	0,"Fragmentation Threshold"
+HKR, NDI\params\FragThresh,		type,		0,int
+HKR, Ndi\params\FragThresh,		default,	0,2432
+HKR, NDI\params\FragThresh,		min,		0,256
+HKR, NDI\params\FragThresh,		max,		0,2432
+HKR, NDI\params\FragThresh,		step,		0,128
+HKR, NDI\params\FragThresh,		flag,		1,20,00,00,00
+HKR, NDI\params\FragThresh,		optional,	0,0
+
+;
+; Network Type
+;
+HKR,,NetworkType,,%NETWORK_TYPE_DEF_STR%
+HKR,defaults,NetworkType,,%NETWORK_TYPE_DEF_STR%
+HKR,NDI\params\NetworkType,ParamDesc,,"Network Type"
+HKR,NDI\params\NetworkType,type,,enum
+HKR,NDI\params\NetworkType,default,,%NETWORK_TYPE_DEF_STR%
+HKR,NDI\params\NetworkType,flag,1,30,00,00,00
+HKR,NDI\params\NetworkType\enum,0,,"802.11 Ad Hoc"
+HKR,NDI\params\NetworkType\enum,1,,"Infrastructure"
+HKR,NDI\params\NetworkType\enum,3,,"Ad Hoc"
+
+;
+; PS Mode
+;
+HKR,,PSMode,,1
+HKR,defaults,PSMode,,1
+HKR,NDI\params\PSMode,ParamDesc,,"Power Save Mode"
+HKR,NDI\params\PSMode,type,,enum
+HKR,NDI\params\PSMode,default,,1
+HKR,NDI\params\PSMode,flag,1,30,00,00,00
+HKR,NDI\params\PSMode\enum,1,,"Disabled"
+HKR,NDI\params\PSMode\enum,2,,"Enabled"
+
+;
+;	Wep Required
+;
+HKR,,WepReq,0,0
+HKR,defaults,WepReq,0,0
+HKR,NDI\params\WepReq,,0,0
+HKR,NDI\params\WepReq,ParamDesc,,"Encryption"
+HKR,NDI\params\WepReq,flag,1,30,00,00,00
+HKR,NDI\params\WepReq,type,,enum
+HKR,Ndi\params\WepReq,default,,0
+HKR,NDI\params\WepReq\enum,0,,"Disabled"
+HKR,NDI\params\WepReq\enum,2,,"64 bit"
+HKR,NDI\params\WepReq\enum,6,,"128 bit"
+HKR,NDI\params\WepReq,optional,0,0
+
+;
+;	Wep Encrypt in Driver
+;
+HKR,,EncryptInDriver,0,1
+HKR,defaults,EncryptInDriver,0,1
+
+;
+;	Wep Decrypt in Driver
+;
+HKR,,DecryptInDriver,0,1
+HKR,defaults,DecryptInDriver,0,1
+
+;
+;	WEP Factor
+;
+HKR,,WEPFactor,0,3
+HKR,defaults,WEPFactor,0,3
+
+;
+;	Short Preamble
+;
+HKR,,PreambleMode,0,1
+HKR,defaults,PreambleMode,0,1
+HKR,NDI\params\PreambleMode,,0,1
+HKR,NDI\params\PreambleMode,ParamDesc,,%SHORT_PREAM_STR%
+HKR,NDI\params\PreambleMode,flag,1,30,00,00,00
+HKR,NDI\params\PreambleMode,type,,enum
+HKR,Ndi\params\PreambleMode,default,,1
+HKR,NDI\params\PreambleMode\enum,1,,"Long Tx Preamble"
+HKR,NDI\params\PreambleMode\enum,2,,"Short Tx Preamble"
+HKR,NDI\params\PreambleMode\enum,3,,"Auto"
+HKR,NDI\params\PreambleMode,optional,0,0
+
+;
+;
+; Authentication Type
+;
+HKR,,AuthentAlg,,%AUTHENT_TYPE_DEF_STR%
+HKR,defaults,AuthentAlg,,%AUTHENT_TYPE_DEF_STR%
+HKR,NDI\params\AuthentAlg,ParamDesc,,"Authentication Algorithm"
+HKR,NDI\params\AuthentAlg,type,,enum
+HKR,NDI\params\AuthentAlg,default,,%AUTHENT_TYPE_DEF_STR%
+HKR,NDI\params\AuthentAlg,flag,1,30,00,00,00
+HKR,NDI\params\AuthentAlg\enum,1,,"WECA Compliant (always use Open)"
+HKR,NDI\params\AuthentAlg\enum,2,,"Must use Shared with WEP"
+
+;
+;	Esarhpssap
+;
+HKR,,Esarhpssap,,"dlink"
+HKR,defaults,Esarhpssap,,"dlink"
+HKR,NDI\params\Esarhpssap,ParamDesc,,"WEP Passphrase"
+HKR,NDI\params\Esarhpssap,type,,edit
+HKR,NDI\params\Esarhpssap,limitText,,64
+HKR,NDI\params\Esarhpssap,default,,"dlink"
+HKR,NDI\params\Esarhpssap,flag,1,30,00,00,00
+
+;
+;	IBSS in Driver mode control
+;
+HKR,,IBSSInDriver,0,1
+HKR,defaults,IBSSInDriver,0,1
+HKR,NDI\params\IBSSInDriver,,0,1
+HKR,NDI\params\IBSSInDriver,ParamDesc,,"Driver based IBSS"
+HKR,NDI\params\IBSSInDriver,type,,enum
+HKR,NDI\params\IBSSInDriver,default,,1
+HKR,NDI\params\IBSSInDriver,flag,1,30,00,00,00
+HKR,NDI\params\IBSSInDriver\enum,0,,"Disabled"
+HKR,NDI\params\IBSSInDriver\enum,1,,"Enabled"
+
+;
+;
+; WDSAddress
+;
+;HKR,,WDSAddress,,""
+;
+; Port Type
+;
+;HKR, NDI\params\PortType,      ParamDesc, , "Port Type"
+;HKR, NDI\params\PortType,      type,      , enum
+;HKR, NDI\params\PortType,      default,   , 1
+;HKR, NDI\params\PortType,      flag,     1, 28, 00, 00, 00
+;HKR, NDI\params\PortType\enum, 1,         , "Station"
+;HKR, NDI\params\PortType\enum, 3,         , "PsIBSS"
+
+
+;----------------------------------------------------------------------------
+; PCMCIA specific
+;
+
+[Pcmcia.reg]
+;
+;	Poll in Driver mode control
+;
+HKR,,PollInDriver,0,0
+HKR,defaults,PollInDriver,0,0
+HKR,NDI\params\PollInDriver,,0,0
+HKR,NDI\params\PollInDriver,ParamDesc,,"Driver Polling"
+HKR,NDI\params\PollInDriver,type,,enum
+HKR,NDI\params\PollInDriver,default,,0
+HKR,NDI\params\PollInDriver,flag,1,30,00,00,00
+HKR,NDI\params\PollInDriver\enum,0,,"Disabled"
+HKR,NDI\params\PollInDriver\enum,1,,"Enabled"
+
+;----------------------------------------------------------------------------
+; PCI specific
+;
+
+[PCI.reg]
+;
+;	Poll in Driver mode control
+;
+HKR,,PollInDriver,0,1
+HKR,defaults,PollInDriver,0,1
+HKR,NDI\params\PollInDriver,,0,1
+HKR,NDI\params\PollInDriver,ParamDesc,,"Driver Polling"
+HKR,NDI\params\PollInDriver,type,,enum
+HKR,NDI\params\PollInDriver,default,,1
+HKR,NDI\params\PollInDriver,flag,1,30,00,00,00
+HKR,NDI\params\PollInDriver\enum,0,,"Disabled"
+HKR,NDI\params\PollInDriver\enum,1,,"Enabled"
+
+
+
+;----------------------------------------------------------------------------
+; NT specific
+;
+
+[nt.reg]
+HKR, ,               BusType,    0, "8"         ; PCMCIA
+HKR, Ndi,            Service,    0, "CW10"
+HKR, Ndi\Interfaces, UpperRange, 0, "ndis4"
+HKR, Ndi\Interfaces, LowerRange, 0, "ethernet"
+
+[CW10.Service]
+DisplayName     = %CW10.Service.DispName%
+ServiceType     = 1 ;%SERVICE_KERNEL_DRIVER%
+StartType       = 3 ;%SERVICE_AUTO_START%
+ErrorControl    = 1 ;%SERVICE_ERROR_NORMAL%
+ServiceBinary   = %12%\CW10.sys
+LoadOrderGroup  = NDIS
+
+[common.EventLog]
+AddReg = common.AddEventLog.reg
+
+[common.AddEventLog.reg]
+HKR, , EventMessageFile, 0x00020000,"%%SystemRoot%%\System32\netevent.dll,%%SystemRoot%%\System32\drivers\CW10.sys"
+HKR, , TypesSupported,   0x00010001, 7
+
+;----------------------------------------------------------------------------
+; DestinationDirs
+;
+[Strings]
+Provider					= "D-Link Corporation" 
+CW10        			= "CW10"
+
+CW10.DeviceDescPRISM2	= "D-Link DWL-650 11Mbps WLAN Adapter"
+
+CW10.Service.DispName	= "Prism Wireless LAN Win2K Driver"
+
+SHORT_PREAM_STR			="Preamble Mode"
+;
+; Don't put spaces around = sign otherwise installer will not be able to
+; find these lines.
+SSID_DEF_STR="default"
+NETWORK_TYPE_DEF_STR="1"
+AUTHENT_TYPE_DEF_STR="2"
+
+ROM_Description        = ""

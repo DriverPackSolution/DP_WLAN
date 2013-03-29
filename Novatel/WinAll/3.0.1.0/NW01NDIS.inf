@@ -1,0 +1,171 @@
+;------------------------------------------------------------------------------
+; Novatel Wireless Virtual Network Adapter
+; Installation file (.inf).
+; (c) Copyright 2007 Novatel Wireless Inc. 
+;------------------------------------------------------------------------------
+
+;when       who     what, where, why
+;--------   -----   -----------------------------------------------------------
+;07/29/05   SK      Updated drivers
+;02/02/05   SK      Updated for EVDO NDIS
+;10/22/03   SK      Updated for NVTL NDIS drivers
+;04/02/04   SK      Updated driver
+;12/07/05   SK      Fixed I/O Conflict
+
+;-------------------------------------------------------------------------------
+; INF Version Section
+;-------------------------------------------------------------------------------
+[version]
+signature   = "$WINDOWS NT$"
+Class       = Net
+ClassGUID   = {4d36e972-e325-11ce-bfc1-08002be10318}
+Provider    =%Mfg%
+Compatible  = 1
+DriverVer   = 03/01/2007,1.0.3.6
+CatalogFile.NT = NWADI01.cat
+CatalogFile.NTAMD64 = NWADI164.cat
+
+;-------------------------------------------------------------------------------
+; INF Manufactuerer Section
+;-------------------------------------------------------------------------------
+[Manufacturer]
+%Mfg%=Models,NTamd64
+
+
+;-------------------------------------------------------------------------------
+; INF ControlFlags Section
+;-------------------------------------------------------------------------------
+[ControlFlags]
+; Note: Uncomment next line if your NIC is not to be installed manually
+ExcludeFromSelect = *
+
+;-------------------------------------------------------------------------------
+; INF Models Section
+;-------------------------------------------------------------------------------
+[Models]
+%NW000%=*novatel.ndi, NWADI\DELL-VNIC_413C_8114
+%NW001%=*novatel.ndi, NWADI\DELL-VNIC_413C_8115
+%NW002%=*novatel.ndi, NWADI\DELL-VNIC_413C_8116 
+%NW003%=*novatel.ndi, NWADI\DELL-VNIC_413C_8128 
+%NW004%=*novatel.ndi, NWADI\DELL-VNIC_413C_8129 
+%NW005%=*novatel.ndi, NWADI\DELL-VNIC_413C_8133
+%NW006%=*novatel.ndi, NWADI\DELL-VNIC_413C_8134 
+%NW007%=*novatel.ndi, NWADI\DELL-VNIC_413C_8135 
+%NW008%=*novatel.ndi, NWADI\DELL-VNIC_413C_8136 
+%NW009%=*novatel.ndi, NWADI\DELL-VNIC_413C_8137 
+%NW010%=*novatel.ndi, NWADI\DELL-VNIC_413C_8138 
+
+[Models.NTamd64]
+%NW000%=*novatel.ndi, NWADI\DELL-VNIC_413C_8114
+%NW001%=*novatel.ndi, NWADI\DELL-VNIC_413C_8115
+%NW002%=*novatel.ndi, NWADI\DELL-VNIC_413C_8116 
+%NW003%=*novatel.ndi, NWADI\DELL-VNIC_413C_8128 
+%NW004%=*novatel.ndi, NWADI\DELL-VNIC_413C_8129 
+%NW005%=*novatel.ndi, NWADI\DELL-VNIC_413C_8133
+%NW006%=*novatel.ndi, NWADI\DELL-VNIC_413C_8134 
+%NW007%=*novatel.ndi, NWADI\DELL-VNIC_413C_8135 
+%NW008%=*novatel.ndi, NWADI\DELL-VNIC_413C_8136 
+%NW009%=*novatel.ndi, NWADI\DELL-VNIC_413C_8137 
+%NW010%=*novatel.ndi, NWADI\DELL-VNIC_413C_8138 
+
+
+;-------------------------------------------------------------------------------
+; INF SourceDisksNames Section
+;------------------------------------------------------------------------------- 
+[SourceDisksNames]
+1 = %novatel_disk%,,,""
+
+;-------------------------------------------------------------------------------
+; INF SourceDisksFiles Section
+;-------------------------------------------------------------------------------
+[SourceDisksFiles]
+nw01ndis.sys = 1,,
+
+[SourceDisksFiles.amd64]
+nw01nd64.sys = 1,,
+
+
+[NDIS_NT_DRIVER]
+nw01ndis.sys,,,0x20
+
+[NDIS_NT_DRIVERamd64]
+nw01ndis.sys,nw01nd64.sys,,0x20
+
+
+;-------------------------------------------------------------------------------
+; INF DestinationDirs Section
+;-------------------------------------------------------------------------------
+[DestinationDirs]
+DefaultDestDir           =12 ; system dir
+
+;-------------------------------------------------------------------------------
+; INF DDInstall Section
+;-------------------------------------------------------------------------------
+[*novatel.ndi.NT]
+AddReg          = novatel.w2k.reg, NOVATEL.params.reg
+CopyFiles       = NDIS_NT_DRIVER
+Characteristics = 0x81 ; NCF_ flags
+
+[*novatel.ndi.NTamd64]
+AddReg          = novatel.w2k.reg, NOVATEL.params.reg
+CopyFiles       = NDIS_NT_DRIVERamd64
+Characteristics = 0x81 ; NCF_ flags
+
+[novatel.w2k.reg]
+HKR, , Connect, 0x00010001, 0x01
+HKR, Ndi, Service, 0,"NW001NDIS"
+HKR, Ndi\Interfaces, UpperRange, 0, "ndis5"
+HKR, Ndi\Interfaces, LowerRange, 0, "ethernet"
+
+[NOVATEL.params.reg]
+HKR, NDI\params\NetworkAddress,           ParamDesc,      0, %NetworkAddress%
+HKR, NDI\params\NetworkAddress,           type,           0, "edit"
+HKR, NDI\params\NetworkAddress,           LimitText,      0, "12"
+HKR, NDI\params\NetworkAddress,           UpperCase,      0, "1"
+HKR, NDI\params\NetworkAddress,           default,        0, " "
+HKR, NDI\params\NetworkAddress,           optional,       0, "1"
+
+;-------------------------------------------------------------------------------
+; INF DDInstall.Services Section
+;-------------------------------------------------------------------------------
+[*novatel.ndi.NT.Services]
+AddService = NW001NDIS, 2, novatel.Service, novatel.EventLog
+
+[*novatel.ndi.NTamd64.Services]
+AddService = NW001NDIS, 2, novatel.Service, novatel.EventLog
+
+
+[novatel.Service]
+DisplayName     = %novatel.Service.DispName%
+ServiceType     = 1 ;%SERVICE_KERNEL_DRIVER%
+StartType       = 3 ;%SERVICE_DEMAND_START%
+ErrorControl    = 1 ;%SERVICE_ERROR_NORMAL%
+ServiceBinary   = %12%\nw01ndis.sys
+LoadOrderGroup  = NDIS
+
+[novatel.EventLog]
+AddReg = novatel.AddEventLog.reg
+
+[novatel.AddEventLog.reg]
+HKR, , EventMessageFile, 0x00020000, "%%SystemRoot%%\System32\netevent.dll"
+HKR, , TypesSupported,   0x00010001, 7
+
+;-------------------------------------------------------------------------------
+; INF Strings Section
+;-------------------------------------------------------------------------------
+[strings]
+Mfg                      = "Novatel Wireless Inc"
+novatel.Service.DispName = "Dell Wireless Network Adapter Service"
+NetworkAddress           = "Network Address (MAC)"
+novatel_disk             = "Novatel CDMA Driver Install Disk"
+NW000            = "Dell Wireless 5700 Mobile Broadband (CDMA EV-DO) Minicard Network Adapter"
+NW001            = "Dell Wireless 5500 Mobile Broadband (3G HSDPA) Minicard Network Adapter"
+NW002            = "Dell Wireless 5505 Mobile Broadband (3G HSDPA) Minicard Network Adapter"
+NW003            = "Dell Wireless 5700 Sprint Mobile Broadband (CDMA EV-DO) Minicard Network Adapter"
+NW004            = "Dell Wireless 5700 Telus Mobile Broadband (CDMA EV-DO) Minicard Network Adapter"
+NW005            = "Dell Wireless 5720 VZW Mobile Broadband (EVDO Rev-A) Minicard Network Adapter"
+NW006            = "Dell Wireless 5720 Sprint Mobile Broadband (EVDO Rev-A) Minicard Network Adapter"
+NW007            = "Dell Wireless 5720 TELUS Mobile Broadband (EVDO Rev-A) Minicard Network Adapter"
+NW008            = "Dell Wireless 5520 Cingular Mobile Broadband (3G HSDPA) Minicard Network Adapter"
+NW009            = "Dell Wireless 5520 Voda L Mobile Broadband (3G HSDPA) Minicard Network Adapter"
+NW010            = "Dell Wireless 5520 Voda I Mobile Broadband (3G HSDPA) Minicard Network Adapter"

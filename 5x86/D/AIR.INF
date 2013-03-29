@@ -1,0 +1,292 @@
+; 
+; AIR.INF
+;
+; Win9x/Win2k/WinXP installation file (a)
+;
+; Copyright (c) 2001, 2002, All Rights Reserved.
+;
+
+[Version]
+;CatalogFile=air.cat
+Signature = "$Windows NT$"
+Provider  = %TI%
+Class     = Net
+ClassGUID={4d36e972-e325-11ce-bfc1-08002be10318}
+DriverVer=08/13/2002,1.0.0.0
+
+[Manufacturer]
+%TI% = D-Link
+
+; pnp cards should be excluded from select
+[ControlFlags]
+ExcludeFromSelect = PCI\VEN_104C&DEV_8400&SUBSYS_3B021186
+
+[D-Link]
+%AIR.DeviceDesc% = AIR.8400, PCI\VEN_104C&DEV_8400&SUBSYS_3B021186
+
+;
+; This section is necessary for the tool
+;
+[TI3000P.ndi]
+AddReg=AIR.ndi.reg
+
+[AIR.8400.NT]
+BusType         = 5
+AddReg          =AIR.ndi.reg.NT, TI.Param.Reg, TI.Param.Reg.8400
+Characteristics = 0x84
+CopyFiles       =AIR.8400.CopyFiles.NT, AIR.8400.BinFiles.NT
+
+[AIR.ndi.reg.NT]
+HKR, Ndi,               Service,    0,  "AIR"
+HKR, Ndi\Interfaces,    LowerRange, 0,  "ethernet"
+HKR, Ndi\Interfaces,    UpperRange, 0,  "ndis5"
+
+[AIR.8400.NT.Services]
+AddService = AIR, 2, AIR.Service, AIR.EventLog
+
+[AIR.Service]
+DisplayName     = %AIR.Service.DispName%
+ServiceType     = 1 ;%SERVICE_KERNEL_DRIVER%
+StartType       = 3 ;%SERVICE_DEMAND_START%
+ErrorControl    = 1 ;%SERVICE_ERROR_NORMAL%
+ServiceBinary   = %12%\AIR.sys
+LoadOrderGroup  = NDIS
+
+[AIR.EventLog]
+AddReg = AIR.AddEventLog.reg
+
+[AIR.AddEventLog.reg]
+HKR, , EventMessageFile, 0x00020000, "%%SystemRoot%%\System32\netevent.dll"
+HKR, , TypesSupported,   0x00010001, 7
+
+[AIR.8400.CopyFiles.NT]
+AIR.sys
+AIR.bin
+
+;
+; Copy AIR.bin to system directory for ME
+;
+[AIR.8400.BinFiles.NT]
+AIR.bin
+
+;
+; Windows9x specific
+;
+[AIR.8400]
+AddReg=AIR.ndi.reg, TI.Param.Reg, TI.Param.Reg.8400, AIR.8400.Install
+
+[AIR.8400.Install]
+HKR,Ndi\Install,,,"AIR.8400.Copy"
+HKR,Ndi\Remove,,,"AIR.8400.Remove"
+
+[AIR.ndi.reg]
+HKR,Ndi,DeviceID,,"PCI\VEN_104C&DEV_8400"
+
+;HKR,Ndi,NetType,,1
+HKR,Ndi,HelpText,0,%WLANAdapterHelpText%
+
+; key,subkey,valuname,type,value
+HKR,,DevLoader,,*ndis
+HKR,,DeviceVxDs,,AIR.sys
+HKR,,EnumPropPages,,"netdi.dll,EnumPropPages"
+
+; NDIS Info
+HKR, NDIS, LogDriverName, , "AIR"
+HKR, NDIS, MajorNdisVersion, 1, 03
+HKR, NDIS, MinorNdisVersion, 1, 0A
+
+HKR,Ndi\Interfaces,DefLower,,"ethernet"
+HKR,Ndi\Interfaces,LowerRange,,"ethernet"
+HKR,Ndi\Interfaces,DefUpper,,"ndis3,ndis4,ndis5"
+HKR,Ndi\Interfaces,UpperRange,,"ndis3,ndis4,ndis5"
+
+; Required Components
+HKR,Ndi,InstallInf,,"AIR.INF"
+
+[AIR.8400.Copy]
+CopyFiles=AIR.8400.CopyFiles
+
+[AIR.8400.Remove]
+DelFiles=AIR.8400.CopyFiles
+
+[AIR.8400.CopyFiles]
+AIR.sys
+AIR.bin
+
+;
+; Common sections
+;
+[TI.Param.Reg]
+
+; PermAddress
+HKR,,PermAddress,,112233
+
+; HardwareID
+HKR, ,HardwareID, ,"ACX100"
+
+; NetworkAddress
+HKR,NDI\params\NetworkAddress,ParamDesc, 0, "NetworkAddress"
+HKR,NDI\params\NetworkAddress,type,      0, edit
+HKR,NDI\params\NetworkAddress,LimitText, 0, 12
+HKR,NDI\params\NetworkAddress,UpperCase, 0, "1"
+HKR,NDI\params\NetworkAddress,default,   0, ""
+HKR,NDI\params\NetworkAddress,optional,  0, "1"
+
+HKR, Ndi\Params\NumACXRxDescriptors, ParamDesc, ,"Rx Descriptors"
+HKR, Ndi\Params\NumACXRxDescriptors, Type, , "int"
+HKR, Ndi\Params\NumACXRxDescriptors, Default, , "32"
+
+HKR, Ndi\Params\NumACXRxDescriptors, Min, , "16"
+HKR, Ndi\Params\NumACXRxDescriptors, Max, , "128"
+HKR, Ndi\Params\NumACXRxDescriptors, Step, , "1"
+HKR, Ndi\Params\NumACXRxDescriptors, Base, , "10"
+
+HKR, Ndi\Params\NumACXTxDescriptors, ParamDesc, ,"Tx Descriptors"
+HKR, Ndi\Params\NumACXTxDescriptors, Type, , "int"
+HKR, Ndi\Params\NumACXTxDescriptors, Default, , "32"
+HKR, Ndi\Params\NumACXTxDescriptors, Min, , "16"
+HKR, Ndi\Params\NumACXTxDescriptors, Max, , "128"
+HKR, Ndi\Params\NumACXTxDescriptors, Step, , "1"
+HKR, Ndi\Params\NumACXTxDescriptors, Base, , "10"
+
+HKR,NDI\params\dot11DesiredBSSType,ParamDesc,,"Desired BSS Type"
+HKR,NDI\params\dot11DesiredBSSType,type,,"enum"
+HKR,NDI\params\dot11DesiredBSSType,default,,"1"
+HKR,NDI\params\dot11DesiredBSSType\enum,"0",,"Ad-hoc"
+HKR,NDI\params\dot11DesiredBSSType\enum,"1",,"Infrastructure"
+;HKR,NDI\params\dot11DesiredBSSType\enum,"2",,"Any"
+
+HKR, Ndi\Params\dot11DesiredSSID, ParamDesc, ,"Desired SSID"
+HKR, Ndi\Params\dot11DesiredSSID, Type, ,"edit"
+HKR, Ndi\Params\dot11DesiredSSID, LimitText, ,"32"
+HKR, Ndi\Params\dot11DesiredSSID, Default,,"default"
+HKR, Ndi\Params\dot11DesiredSSID, UpperCase,,"0"
+
+HKR,NDI\params\dot11PowerMode,ParamDesc,,"Power Mode"
+HKR,NDI\params\dot11PowerMode,type,,"enum"
+HKR,NDI\params\dot11PowerMode,default,,"0"
+HKR,NDI\params\dot11PowerMode\enum,"0",,"Continuous Access Mode"
+HKR,NDI\params\dot11PowerMode\enum,"1",,"Maximum Power Save"
+HKR,NDI\params\dot11PowerMode\enum,"2",,"Power Save"
+
+; Desired Tx Rate 
+HKR,NDI\params\dot11DesiredTxRate,ParamDesc,, "Desired Tx Rate"
+HKR,NDI\params\dot11DesiredTxRate,type,,"enum"
+HKR,NDI\params\dot11DesiredTxRate,default,,"5"
+HKR,NDI\params\dot11DesiredTxRate\enum,"0",,"Auto"
+HKR,NDI\params\dot11DesiredTxRate\enum,"1",,"1 Mbps"
+HKR,NDI\params\dot11DesiredTxRate\enum,"2",,"2 Mbps"
+HKR,NDI\params\dot11DesiredTxRate\enum,"3",,"5.5 Mbps"
+HKR,NDI\params\dot11DesiredTxRate\enum,"5",,"11 Mbps"
+
+; Desired supported Rate Set 
+HKR,NDI\params\dot11SupportedRateMask,ParamDesc,, "Desired Supported Rate Set"
+HKR,NDI\params\dot11SupportedRateMask,type,,"enum"
+HKR,NDI\params\dot11SupportedRateMask,default,,"1"
+HKR,NDI\params\dot11SupportedRateMask\enum,"0",,"1,2 Mbps"
+HKR,NDI\params\dot11SupportedRateMask\enum,"1",,"1,2,5.5,11 Mbps"
+
+; Desired Basic Rate Set 
+HKR,NDI\params\dot11BasicRateMask,ParamDesc,, "Desired Basic Rate Set"
+HKR,NDI\params\dot11BasicRateMask,type,,"enum"
+HKR,NDI\params\dot11BasicRateMask,default,,"0"
+HKR,NDI\params\dot11BasicRateMask\enum,"0",,"1,2,5.5,11 Mbps"
+HKR,NDI\params\dot11BasicRateMask\enum,"1",,"1,2 Mbps"
+
+; Desired channel
+HKR, Ndi\Params\dot11DesiredChannel, ParamDesc, ,"Desired Channel"
+HKR, Ndi\Params\dot11DesiredChannel, Type, , "int"
+HKR, Ndi\Params\dot11DesiredChannel, Default, , "6"
+HKR, Ndi\Params\dot11DesiredChannel, Min, , "1"
+HKR, Ndi\Params\dot11DesiredChannel, Max, , "11"
+HKR, Ndi\Params\dot11DesiredChannel, Step, , "1"
+HKR, Ndi\Params\dot11DesiredChannel, Base, , "10"
+
+; Fragmentation Threshold 
+HKR, Ndi\Params\dot11FragmentationThreshold, ParamDesc, ,"Fragmentation Threshold"
+HKR, Ndi\Params\dot11FragmentationThreshold, Type, , "int"
+HKR, Ndi\Params\dot11FragmentationThreshold, Default, , "2346"
+HKR, Ndi\Params\dot11FragmentationThreshold, Min, , "256"
+HKR, Ndi\Params\dot11FragmentationThreshold, Max, , "2346"
+HKR, Ndi\Params\dot11FragmentationThreshold, Step, , "1"
+HKR, Ndi\Params\dot11FragmentationThreshold, Base, , "10"
+
+; RTS Threshold 
+HKR, Ndi\Params\dot11RTSThreshold, ParamDesc, ,"RTS Threshold"
+HKR, Ndi\Params\dot11RTSThreshold, Type, , "int"
+HKR, Ndi\Params\dot11RTSThreshold, Default, , "2432"
+HKR, Ndi\Params\dot11RTSThreshold, Min, , "0"
+HKR, Ndi\Params\dot11RTSThreshold, Max, , "2432"
+HKR, Ndi\Params\dot11RTSThreshold, Step, , "1"
+HKR, Ndi\Params\dot11RTSThreshold, Base, , "10"
+
+HKR,NDI\params\dot11WEPStatus,ParamDesc,,"WEP Option"
+HKR,NDI\params\dot11WEPStatus,type,,"enum"
+HKR,NDI\params\dot11WEPStatus,default,,"1"
+HKR,NDI\params\dot11WEPStatus\enum,"0",,"WEP Enabled"
+HKR,NDI\params\dot11WEPStatus\enum,"1",,"WEP Disabled"
+
+HKR,NDI\params\dot11AuthMode,ParamDesc,,"Authentication Mode"
+HKR,NDI\params\dot11AuthMode,type,,"enum"
+HKR,NDI\params\dot11AuthMode,default,,"2"
+HKR,NDI\params\dot11AuthMode\enum,"0",,"Open Authentication"
+HKR,NDI\params\dot11AuthMode\enum,"1",,"Shared Authentication"
+HKR,NDI\params\dot11AuthMode\enum,"2",,"Auto"
+
+HKR,NDI\params\dot11PrivacyFilter,ParamDesc,,"Privacy Filter"
+HKR,NDI\params\dot11PrivacyFilter,type,,"enum"
+HKR,NDI\params\dot11PrivacyFilter,default,,"0"
+HKR,NDI\params\dot11PrivacyFilter\enum,"0",,"Accept All Packets"
+HKR,NDI\params\dot11PrivacyFilter\enum,"1",,"Filtering Mode"
+
+HKR,NDI\params\dot11ShortPreambleInvoked,ParamDesc,,"Short Preamble"
+HKR,NDI\params\dot11ShortPreambleInvoked,type,,"enum"
+HKR,NDI\params\dot11ShortPreambleInvoked,default,,"0"
+HKR,NDI\params\dot11ShortPreambleInvoked\enum,"0",,"Off"
+HKR,NDI\params\dot11ShortPreambleInvoked\enum,"1",,"On"
+
+; For Antenna
+HKR,NDI\params\dot11TxAntenna,ParamDesc,,"Antenna TX"
+HKR,NDI\params\dot11TxAntenna,type,,"enum"
+HKR,NDI\params\dot11TxAntenna,default,,"1"
+HKR,NDI\params\dot11TxAntenna\enum,"0",,"Antenna 1"
+HKR,NDI\params\dot11TxAntenna\enum,"1",,"Antenna 2"
+;HKR,NDI\params\dot11TxAntenna\enum,"2",,"Both"
+
+HKR,NDI\params\dot11RxAntenna,ParamDesc,,"Antenna RX"
+HKR,NDI\params\dot11RxAntenna,type,,"enum"
+HKR,NDI\params\dot11RxAntenna,default,,"1"
+HKR,NDI\params\dot11RxAntenna\enum,"0",,"Antenna 1"
+HKR,NDI\params\dot11RxAntenna\enum,"1",,"Antenna 2"
+HKR,NDI\params\dot11RxAntenna\enum,"2",,"Both"
+
+[TI.Param.Reg.8400]
+HKR, Ndi\Params\FirmwareFileName, ParamDesc, ,"Firmware File"
+HKR, Ndi\Params\FirmwareFileName, Type, ,"edit"
+HKR, Ndi\Params\FirmwareFileName, LimitText, ,"24"
+HKR, Ndi\Params\FirmwareFileName, Default,,"AIR.bin"
+HKR, Ndi\Params\FirmwareFileName, UpperCase,,"1"
+
+HKR, Ndi\Params\DriverDescription, ParamDesc, ,"Driver Description"
+HKR, Ndi\Params\DriverDescription, Type, ,"edit"
+HKR, Ndi\Params\DriverDescription, LimitText, ,"64"
+HKR, Ndi\Params\DriverDescription, Default,,"D-Link AIR Wireless Adapter"
+
+[DestinationDirs]
+DefaultDestDir  = 12 ; System Directory
+AIR.8400.CopyFiles = 11
+AIR.8400.BinFiles.NT = 10,system
+
+[SourceDisksNames]
+1 = %DiskName%,,
+
+[SourceDisksFiles]
+AIR.sys  = 1
+AIR.bin  = 1
+
+[Strings]
+TI="D-Link"
+AIR.DeviceDesc="D-Link Air DWL-650 Wireless PC Card"
+AIR.Service.DispName="D-Link AIR Wireless Adapter"
+WLANAdapterHelpText="A D-Link AIR Wireless Adapter provides high speed connection to the Internet through 802.11b technology"
+DiskName="D-Link AIR Wireless Adapter Installation Disk"

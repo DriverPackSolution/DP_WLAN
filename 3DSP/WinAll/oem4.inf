@@ -1,0 +1,324 @@
+;****************************************************************************************
+;
+;    FILE:
+;            usbwlan732_Japan.inf for Window Server 2003 and Vista
+;
+;    DESCRIPTION:
+;            3DSP Wireless B+G USB Adapter inf file.
+;            Copyright (C) 2008, 3DSP
+;
+;*******************************************************************************************
+
+
+[Version]
+Signature="$Windows NT$"
+Class     = Net
+ClassGUID = {4d36e972-e325-11ce-bfc1-08002be10318}
+Provider  = %ThreeDSPcorp%
+DriverVer = 08/12/2009,2.2.0.0
+CatalogFile=wlusb732.cat
+DriverPackageDisplayName="3DSP USB Wireless LAN Driver"
+DriverPackageType=PlugAndPlay
+
+[Manufacturer]
+%ThreeDSPcorp% = DeviceList
+
+[DeviceList]
+%ThreeDSP.DeviceDesc%   = WLAN3DSPUSBXP, USB\VID_05E1&PID_0100&MI_00
+ 
+[WLAN3DSPUSBXP]  
+BusType         = 15
+Characteristics = 0x84
+CopyFiles=FilesToCopy
+AddReg=UpdateRegistry, UpdateRegistryXP
+
+[FilesToCopy]
+wlusb732.sys
+
+;[ControlFlags]
+;ExcludeFromSelect = USB\VID_3D5B&PID_0003
+;ExcludeFromSelect = USB\VID_05E1&PID_0100&MI_00
+
+[WLAN3DSPUSBXP.Services]
+AddService = WLAN3DSPUSBXP, 2, Service_Info, Service_EventLog
+
+[Service_Info]
+DisplayName     = %ThreeDSP.Service.DispName%
+ServiceType     = 1 ;%SERVICE_KERNEL_DRIVER%
+StartType       = 3 ;%SERVICE_DEMAND_START%
+ErrorControl    = 1 ;%SERVICE_ERROR_NORMAL%
+ServiceBinary   = %12%\wlusb732.sys
+LoadOrderGroup  = NDIS
+
+[Service_EventLog]
+AddReg = Service_AddEventLog.reg
+
+[Service_AddEventLog.reg]
+HKR, , EventMessageFile, 0x00020000, "%%SystemRoot%%\System32\netevent.dll"
+HKR, , TypesSupported,   0x00010001, 7
+
+[SourceDisksFiles]
+wlusb732.sys  = 1
+
+[SourceDisksNames]
+1 = %DiskName%,,
+
+[DestinationDirs]
+DefaultDestDir=10, system32/drivers
+FilesToCopy=10, system32/drivers
+ 
+ 
+[UpdateRegistryXP]
+HKR, NDI,               Service,    0,  "WLAN3DSPUSBXP"
+HKR, NDI\Interfaces,    LowerRange, 0,  "ethernet"
+HKR, NDI\Interfaces,    UpperRange, 0,  "ndis5"
+
+[UpdateRegistry]
+HKR, , PrivacyMode,, "2"
+HKR, , utlPrivacyMode,, "0"
+HKR, , utlAuthenticationMode,, "0"
+
+; Regions
+HKR, NDI\params\RegulatoryDomain, ParamDesc,,%sRegulatoryDomain%
+HKR, NDI\params\RegulatoryDomain, type,,"enum"
+HKR, NDI\params\RegulatoryDomain, default,,"3"
+HKR, NDI\params\RegulatoryDomain\enum, "0",,%RegulatoryDomain_US%
+HKR, NDI\params\RegulatoryDomain\enum, "1",,%RegulatoryDomain_Europe%
+HKR, NDI\params\RegulatoryDomain\enum, "2",,%RegulatoryDomain_Japan%
+HKR, NDI\params\RegulatoryDomain\enum, "3",,%RegulatoryDomain_RestofWorld%
+
+; Power Mode
+HKR, NDI\params\PowerSaveEnable, ParamDesc,,%sPowerMode%
+HKR, NDI\params\PowerSaveEnable, type,,"enum"
+HKR, NDI\params\PowerSaveEnable, default,,"0"
+HKR, NDI\params\PowerSaveEnable\enum, "0",,%PowerMode_CAM% 
+HKR, NDI\params\PowerSaveEnable\enum, "1",,%PowerMode_MPS%
+
+; Transmit Power
+HKR, NDI\params\TxPower, ParamDesc,,%sTxPower%
+HKR, NDI\params\TxPower, type,,"enum"
+HKR, NDI\params\TxPower, default,,"3"
+HKR, NDI\params\TxPower\enum, "0",,%TxPower_25%
+HKR, NDI\params\TxPower\enum, "1",,%TxPower_50%
+HKR, NDI\params\TxPower\enum, "2",,%TxPower_75%
+HKR, NDI\params\TxPower\enum, "3",,%TxPower_100%
+
+; Fragmentation Threshold 
+HKR, NDI\Params\FragmentationThreshold, ParamDesc, ,%sFragmentationThreshold%
+HKR, NDI\Params\FragmentationThreshold, Type, ,     "int"
+HKR, NDI\Params\FragmentationThreshold, Default, ,  "2346"
+HKR, NDI\Params\FragmentationThreshold, Min, ,      "256"
+HKR, NDI\Params\FragmentationThreshold, Max, ,      "2346"
+HKR, NDI\Params\FragmentationThreshold, Step, ,     "1"
+HKR, NDI\Params\FragmentationThreshold, Base, ,     "10"
+
+; Auto-Fragmentation Threshold Enable
+HKR, NDI\params\AutoFragEnable, ParamDesc,,%sAutoFragEnable%
+HKR, NDI\params\AutoFragEnable, type,,"enum"
+HKR, NDI\params\AutoFragEnable, default,,"0"
+HKR, NDI\params\AutoFragEnable\enum ,"0",,%AutoFragEnable_Dis%
+HKR, NDI\params\AutoFragEnable\enum ,"1",,%AutoFragEnable_Auto%
+HKR, NDI\params\AutoFragEnable\enum ,"2",,%AutoFragEnable_Enter%
+
+; RTS Threshold 
+HKR, NDI\Params\RtsThreshold, ParamDesc, ,%sRtsThreshold%
+HKR, NDI\Params\RtsThreshold, Type, ,     "int"
+HKR, NDI\Params\RtsThreshold, Default, ,  "2347"
+HKR, NDI\Params\RtsThreshold, Min, ,      "0"
+HKR, NDI\Params\RtsThreshold, Max, ,      "2347"
+HKR, NDI\Params\RtsThreshold, Step, ,     "1"
+HKR, NDI\Params\RtsThreshold, Base, ,     "10"
+
+; RTS Threshold Enable
+HKR, NDI\params\RtsThresholdEnable, ParamDesc,,%sRtsThresholdEnable%
+HKR, NDI\params\RtsThresholdEnable, type,,     "enum"
+HKR, NDI\params\RtsThresholdEnable, default,,  "0"
+HKR, NDI\params\RtsThresholdEnable\enum, "0",, %RtsThresholdEnable_Dis%
+HKR, NDI\params\RtsThresholdEnable\enum, "1",, %RtsThresholdEnable_En%
+
+; Bit Rate
+HKR, NDI\params\BitRate ,ParamDesc,,%sBitRate%
+HKR, NDI\params\BitRate ,type,,     "enum"
+HKR, NDI\params\BitRate ,default,,  "0"
+HKR, NDI\params\BitRate\enum, "0",,  %BitRate_Auto%
+HKR, NDI\params\BitRate\enum, "2",,  %BitRate_1%
+HKR, NDI\params\BitRate\enum, "4",,  %BitRate_2%
+HKR, NDI\params\BitRate\enum, "11",, %BitRate_5_5%
+HKR, NDI\params\BitRate\enum, "12",, %BitRate_6%
+HKR, NDI\params\BitRate\enum, "22",, %BitRate_11%
+HKR, NDI\params\BitRate\enum, "18",, %BitRate_9%
+HKR, NDI\params\BitRate\enum, "24",, %BitRate_12%
+HKR, NDI\params\BitRate\enum, "36",, %BitRate_18%
+HKR, NDI\params\BitRate\enum, "48",, %BitRate_24%
+HKR, NDI\params\BitRate\enum, "72",, %BitRate_36%
+HKR, NDI\params\BitRate\enum, "96",, %BitRate_48%
+HKR, NDI\params\BitRate\enum, "108",,%BitRate_54%
+
+HKR, NDI\params\IbssModeABG, ParamDesc,,%sIbssModeABG%
+HKR, NDI\params\IbssModeABG, type,,     "enum"
+HKR, NDI\params\IbssModeABG, default,,  "2"
+;HKR, NDI\params\IbssModeABG\enum, "0",, "802.11a"
+;HKR, NDI\params\IbssModeABG\enum, "1",, "802.11b"
+;HKR, NDI\params\IbssModeABG\enum, "2",, "802.11g"
+HKR, NDI\params\IbssModeABG\enum, "2",, %IbssModeABG_BG%
+
+HKR, NDI\params\IbssChannel, ParamDesc,,%sIbssChannel%
+HKR, NDI\params\IbssChannel, type,,     "enum"
+HKR, NDI\params\IbssChannel, default,,  "11"
+HKR, NDI\params\IbssChannel\enum,  "0",,   %IbssChannel_auto%
+HKR, NDI\params\IbssChannel\enum,  "1",,   %IbssChannel_1%
+HKR, NDI\params\IbssChannel\enum,  "2",,   %IbssChannel_2%
+HKR, NDI\params\IbssChannel\enum,  "3",,   %IbssChannel_3%
+HKR, NDI\params\IbssChannel\enum,  "4",,   %IbssChannel_4%
+HKR, NDI\params\IbssChannel\enum,  "5",,   %IbssChannel_5%
+HKR, NDI\params\IbssChannel\enum,  "6",,   %IbssChannel_6%
+HKR, NDI\params\IbssChannel\enum,  "7",,   %IbssChannel_7%
+HKR, NDI\params\IbssChannel\enum,  "8",,   %IbssChannel_8%
+HKR, NDI\params\IbssChannel\enum,  "9",,   %IbssChannel_9%
+HKR, NDI\params\IbssChannel\enum,  "10",,  %IbssChannel_10%
+HKR, NDI\params\IbssChannel\enum,  "11",,  %IbssChannel_11%
+HKR, NDI\params\IbssChannel\enum,  "12",,  %IbssChannel_12%
+HKR, NDI\params\IbssChannel\enum,  "13",,  %IbssChannel_13%
+HKR, NDI\params\IbssChannel\enum,  "14",,  %IbssChannel_14%
+;HKR, NDI\params\IbssChannel\enum,  "34",,  "34 Japan only"
+;HKR, NDI\params\IbssChannel\enum,  "36",,  "36 US Only"
+;HKR, NDI\params\IbssChannel\enum,  "38",,  "38 Japan only"
+;HKR, NDI\params\IbssChannel\enum,  "40",,  "40 US Only"
+;HKR, NDI\params\IbssChannel\enum,  "42",,  "42 Japan only"
+;HKR, NDI\params\IbssChannel\enum,  "44",,  "44 US Only"
+;HKR, NDI\params\IbssChannel\enum,  "46",,  "46 Japan only"
+;HKR, NDI\params\IbssChannel\enum,  "48",,  "48 US Only"
+;HKR, NDI\params\IbssChannel\enum,  "52",,  "52 US Only"
+;HKR, NDI\params\IbssChannel\enum,  "56",,  "56 US Only"
+;HKR, NDI\params\IbssChannel\enum,  "60",,  "60 US Only"
+;HKR, NDI\params\IbssChannel\enum,  "64",,  "64 US Only"
+;HKR, NDI\params\IbssChannel\enum,  "100",, "100 Not for US or Japan"
+;HKR, NDI\params\IbssChannel\enum,  "108",, "108 Not for US or Japan"
+;HKR, NDI\params\IbssChannel\enum,  "112",, "112 Not for US or Japan"
+;HKR, NDI\params\IbssChannel\enum,  "116",, "116 Not for US or Japan"
+;HKR, NDI\params\IbssChannel\enum,  "120",, "120 Not for US or Japan"
+;HKR, NDI\params\IbssChannel\enum,  "124",, "124 Not for US or Japan"
+;HKR, NDI\params\IbssChannel\enum,  "128",, "128 Not for US or Japan"
+;HKR, NDI\params\IbssChannel\enum,  "132",, "132 Not for US or Japan"
+;HKR, NDI\params\IbssChannel\enum,  "136",, "136 Not for US or Japan"
+;HKR, NDI\params\IbssChannel\enum,  "140",, "140 Not for US or Japan"
+;HKR, NDI\params\IbssChannel\enum,  "149",, "149 Not for Japan or European Countries"
+;HKR, NDI\params\IbssChannel\enum,  "153",, "153 Not for Japan or European Countries"
+;HKR, NDI\params\IbssChannel\enum,  "157",, "157 Not for Japan or European Countries"
+;HKR, NDI\params\IbssChannel\enum,  "161",, "161 Not for Japan or European Countries"
+
+; IBSS Beacon Interval 
+HKR, NDI\Params\IbssBeaconInterval, ParamDesc, ,%sIbssBeaconInterval%
+HKR, NDI\Params\IbssBeaconInterval, Type, ,     "int"
+HKR, NDI\Params\IbssBeaconInterval, Default, ,  "100"
+HKR, NDI\Params\IbssBeaconInterval, Min, ,      "100"
+HKR, NDI\Params\IbssBeaconInterval, Max, ,      "1000"
+HKR, NDI\Params\IbssBeaconInterval, Step, ,     "1"
+HKR, NDI\Params\IbssBeaconInterval, Base, ,     "10"
+
+; IBSS ATIM Window Interval 
+;HKR, NDI\Params\IbssAtimWindow, ParamDesc, ,%sIbssAtimWindow%
+;HKR, NDI\Params\IbssAtimWindow, Type, ,     "int"
+;HKR, NDI\Params\IbssAtimWindow, Default, ,  "0"
+;HKR, NDI\Params\IbssAtimWindow, Min, ,      "0"
+;HKR, NDI\Params\IbssAtimWindow, Max, ,      "50"
+;HKR, NDI\Params\IbssAtimWindow, Step, ,     "1"
+;HKR, NDI\Params\IbssAtimWindow, Base, ,     "10"
+
+
+[Strings]
+ThreeDSP="3DSP"
+ThreeDSPcorp="3DSP Corporation"
+
+ThreeDSP.DeviceDesc   = "3DSP Wireless 802.11 B+G USB Adapter"
+OTHERMFR1.DeviceDesc  = "OtherMfr#1 Wireless A+G USB Notebook Adapter"
+OTHERMFR2.DeviceDesc  = "OtherMfr#2 Wireless A+G USB Notebook Adapter"
+OTHERMFR3.DeviceDesc  = "OtherMfr#3 Wireless A+G USB Notebook Adapter"
+ThreeDSP.Service.DispName  = "3DSP Wireless A+G USB Notebook Adapter.."
+
+ThreeDSP_OLD.DeviceDesc   = "3DSP Wireless B+G USB Adapter"
+OTHERMFR1_OLD.DeviceDesc  = "OtherMfr#1 Wireless A+G USB Notebook Adapter"
+OTHERMFR2_OLD.DeviceDesc  = "OtherMfr#2 Wireless A+G USB Notebook Adapter"
+OTHERMFR3_OLD.DeviceDesc  = "OtherMfr#3 Wireless A+G USB Notebook Adapter"
+ThreeDSP_OLD.Service.DispName  = "3DSP Wireless A+G USB Notebook Adapter.."
+
+WLANAdapterHelpText= "A WLAN Adapter provides high speed connection to the Internet through 802.11b,g technology"
+DiskName="3DSP Wireless B+G USB Adapter Installation Disk"
+
+;define strings for update registry
+
+sRegulatoryDomain	= "Regions Selection"
+RegulatoryDomain_US 	= "US"
+RegulatoryDomain_Europe	= "Europe"
+RegulatoryDomain_Japan 	= "Japan"
+RegulatoryDomain_RestofWorld	= "RestofWorld"
+
+; Power Mode
+sPowerMode 		= "Power Mode"
+PowerMode_CAM 		= "Continuous Access Mode"
+PowerMode_MPS 		= "Maximum Power Save"
+
+; Transmit Power
+sTxPower			= "Transmit Power"
+TxPower_25		= "25%"
+TxPower_50		= "50%"
+TxPower_75		= "75%"
+TxPower_100		= "Maximum"
+
+; Fragmentation Threshold 
+sFragmentationThreshold	= "Fragmentation Threshold"
+
+; Auto-Fragmentation Threshold Enable
+sAutoFragEnable		= "Fragmentation Mode"
+AutoFragEnable_Dis	= "Disable"
+AutoFragEnable_Auto	= "Auto"
+AutoFragEnable_Enter	= "User Entered"
+
+; RTS Threshold 
+sRtsThreshold		= "RTS Threshold"
+
+
+; RTS Threshold Enable
+sRtsThresholdEnable	= "RTS Threshold Enable"
+RtsThresholdEnable_Dis	= "Disable"
+RtsThresholdEnable_En	= "Enable"
+
+; Bit Rate
+sBitRate		= "Bit Rate"
+BitRate_Auto	= "Auto"
+BitRate_1	= " 1"
+BitRate_2	= " 2"
+BitRate_5_5	= " 5.5"
+BitRate_6	= " 6"
+BitRate_11	= "11"
+BitRate_9	= " 9"
+BitRate_12	= "12"
+BitRate_18	= "18"
+BitRate_24	= "24"
+BitRate_36	= "36"
+BitRate_48	= "48"
+BitRate_54	= "54"
+
+sIbssModeABG	= "IBSS Network Type"
+IbssModeABG_BG	= "802.11b&11g"
+
+sIbssChannel	= "IBSS Start Channel"
+IbssChannel_Auto	= "auto"
+IbssChannel_1		= " 1"
+IbssChannel_2		= " 2"
+IbssChannel_3		= " 3"
+IbssChannel_4		= " 4"
+IbssChannel_5		= " 5"
+IbssChannel_6		= " 6"
+IbssChannel_7		= " 7"
+IbssChannel_8		= " 8"
+IbssChannel_9		= " 9"
+IbssChannel_10		= "10"
+IbssChannel_11		= "11"
+IbssChannel_12		= "12 Not for US"
+IbssChannel_13		= "13 Not for US"
+IbssChannel_14		= "14 Japan Only"
+
+
+; IBSS Beacon Interval 
+sIbssBeaconInterval	= "IBSS Beacon Interval"

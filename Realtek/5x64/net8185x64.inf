@@ -1,0 +1,267 @@
+;; NET8185.INF
+;;
+;; Realtek RTL8185 PCI/Cardbus 802.11g 54M Wireless LAN Network Interface Cards.
+;;
+;; Copyright 1996-2004, Realtek Semiconductor Corporation
+;;
+
+[version]
+Signature      = "$Chicago$"
+Compatible     = 1
+Class          = Net
+ClassGUID      = {4d36e972-e325-11ce-bfc1-08002be10318}
+Provider       = %Realtek%                                 ;;
+CatalogFile.NT    = net8185x64.cat                               ;; for WHQL certified
+;CatalogFile.NT = net8185n.cat
+DriverVer      = 03/08/2010,5.1115.0308.2010
+
+[Manufacturer]
+%Realtek%   = Realtek, NTamd64
+%Surecom%   = Surecom, NTamd64
+
+[ControlFlags]
+ExcludeFromSelect     = PCI\VEN_10EC&DEV_8185&REV_20
+ExcludeFromSelect     = PCI\VEN_10EC&DEV_8185&SUBSYS_818510EC&REV_20   
+ExcludeFromSelect     = PCI\VEN_10EC&DEV_8185&SUBSYS_616510E8                      
+ExcludeFromSelect     = PCI\VEN_10EC&DEV_8185&SUBSYS_13F210BD&REV_20  
+ExcludeFromSelect     = PCI\VEN_10EC&DEV_8185&SUBSYS_14F210BD&REV_20            
+
+[Realtek.NTamd64]
+%RTL8185.DeviceDesc%  = RTL8185.ndi, PCI\VEN_10EC&DEV_8185&REV_20
+%RTL8185.DeviceDesc%  = RTL8185.ndi, PCI\VEN_10EC&DEV_8185&SUBSYS_818510EC&REV_20
+%RTL8185.DeviceDesc%  = RTL8185.ndi, PCI\VEN_10EC&DEV_8185&SUBSYS_616518E8 
+
+[Surecom.NTamd64]
+%RTL8185.DeviceDesc_SURECOME_EP9321%  	= RTL8185.ndi, PCI\VEN_10EC&DEV_8185&SUBSYS_13F210BD&REV_20
+%RTL8185.DeviceDesc_SURECOME_EP9428%  	= RTL8185.ndi, PCI\VEN_10EC&DEV_8185&SUBSYS_14F210BD&REV_20
+
+
+;;****************************************************************************
+;; Windows 9x
+;;****************************************************************************
+[RTL8185.ndi]
+DriverVer       = 03/08/2010,1115
+AddReg          = rtl8185.id.reg, RTL8185.common.reg, RTL8185.win.reg
+CopyFiles       = RTL8185.CopyFiles98
+
+;;****************************************************************************
+;; NT 5.0
+;;****************************************************************************
+[RTL8185.ndi.NT]
+AddReg          = RTL8185.common.reg, RTL8185.reg
+Characteristics = 0x84
+BusType         = 5
+CopyFiles       = RTL8185.CopyFiles
+
+[RTL8185.ndi.NT.Services]
+AddService = rtl8185, 2, rtl8185.Service, RTL8185.EventLog
+
+[RTL8185.CopyFiles]
+rtl8185.sys,,,2
+
+[RTL8185.CopyFiles98]
+rtl8185.sys,,,2
+
+;;----------------------------------------------------------------------------
+;; RTL8185 Parameters
+;;----------------------------------------------------------------------------
+;;***************************************************************************
+;; Windows 9x parameters
+;;***************************************************************************
+[rtl8185.id.reg]
+HKR, Ndi,       DeviceID,       0,      "PCI\VEN_10EC&DEV_8185"
+
+HKR, Ndi\Install,                       ,       0,      rtsnt.install
+HKR, NDI\Params\NetworkAddress,         flag,   1,      30, 00, 00, 00
+
+[RTL8185.win.reg]
+;; key,subkey,valuname,type,value
+HKR, ,  DriverDesc,     0,      "Realtek RTL8185 54M Wireless LAN Network Adapter"
+HKR, ,  DevLoader,      0,      *ndis
+HKR, ,  DeviceVxDs,     0,      rtl8185.sys
+HKR, ,  EnumPropPages,  0,      netdi.dll,      EnumPropPages
+
+;;params
+HKR, ,  MediaType,      0,      1
+HKR, ,  AdapterType,    0,      5
+HKR, ,  BusType,        0,      5
+
+;; NDIS Info
+HKR, NDIS,              MajorNdisVersion,       1,      03
+HKR, NDIS,              MinorNdisVersion,       1,      0a
+HKR, NDIS,              LogDriverName,          0,      "RTL8185"
+
+;; Interfaces
+HKR, Ndi\Interfaces,    DefLower,               ,       "ethernet"
+HKR, Ndi\Interfaces,    LowerRange,             ,       "ethernet"
+HKR, Ndi\Interfaces,    DefUpper,               ,       "ndis3"
+HKR, Ndi\Interfaces,    UpperRange,             ,       "ndis3"
+
+;; Install sections
+HKR, Ndi\Install,       ndis3,                  0,      "rtl185.ndis5"
+
+;;****************************************************************************
+;; RTL8185 common parameters
+;;****************************************************************************
+[RTL8185.common.reg]
+;HKR,defaults,SWAntennaDiversity, 0, "0"    ;for manual antenna switch
+
+HKR,defaults,FragThresh, 0, "2432"
+HKR,Ndi\params\FragThresh, default, 0, "2432"
+HKR,Ndi\params\FragThresh, ParamDesc, 0, %FRAGTHRESH_STR%
+HKR,Ndi\params\FragThresh, type, 0, "int"
+HKR,Ndi\params\FragThresh, min, 0, "256"
+HKR,Ndi\params\FragThresh, max, 0, "2432"
+HKR,Ndi\params\FragThresh, step, 0, "1"
+
+HKR,defaults,Channel,0,"1"
+HKR,Ndi\params\Channel,default,	0,"1"
+HKR,Ndi\params\Channel,ParamDesc,,%CHANNEL_STR%
+HKR,Ndi\params\Channel,type,		,"int"
+HKR,Ndi\params\Channel,flag,		1,"30","00","00","00"
+HKR,Ndi\params\Channel,min,			0,"1"
+HKR,Ndi\params\Channel,max,			0,"14"
+HKR,Ndi\params\Channel,step,		0,"1"
+
+HKR,defaults,PowerSaveMode,0,"0"
+HKR,Ndi\params\PowerSaveMode,default,0,"0"
+HKR,NDI\params\PowerSaveMode,ParamDesc,,%POWER_SAVE_STR%
+HKR,NDI\params\PowerSaveMode,type,,"enum"
+HKR,NDI\params\PowerSaveMode,flag,1,"30","00","00","00"
+HKR,NDI\params\PowerSaveMode\enum,0,,"None"
+HKR,NDI\params\PowerSaveMode\enum,2,,"Min"
+HKR,NDI\params\PowerSaveMode\enum,1,,"Max"
+;HKR,NDI\params\PowerSaveMode,optional,0,"1"
+
+HKR,Ndi\params\SSID,   	ParamDesc, 	0, 	%SSID_STR%
+HKR,defaults,			SSID,		0,	"ANY"
+HKR,Ndi\params\SSID,   	type,      	0, 	"edit"
+HKR,Ndi\params\SSID,   	default,   	0, 	"ANY"
+HKR,Ndi\params\SSID,   	LimitText, 	0, 	"32"
+;HKR,Ndi\params\SSID,   	Optional,  	0, 	"1"
+
+HKR,Ndi\Params\ChannelPlan, ParamDesc, 0, "Channel Plan"
+HKR,Ndi\Params\ChannelPlan, Type, 0, "enum"
+HKR,Ndi\Params\ChannelPlan, Default, 0, "15"
+HKR,Ndi\Params\ChannelPlan\enum, "0", 0, "FCC"
+HKR,Ndi\Params\ChannelPlan\enum, "1", 0, "IC"
+HKR,Ndi\Params\ChannelPlan\enum, "2", 0, "ETSI"
+HKR,Ndi\Params\ChannelPlan\enum, "3", 0, "Spain"
+HKR,Ndi\Params\ChannelPlan\enum, "4", 0, "France"
+HKR,Ndi\Params\ChannelPlan\enum, "5", 0, "MKK"
+HKR,Ndi\Params\ChannelPlan\enum, "6", 0, "MKK1"
+HKR,Ndi\Params\ChannelPlan\enum, "7", 0, "Israel"
+HKR,Ndi\Params\ChannelPlan\enum, "8", 0, "TELEC"
+HKR,Ndi\Params\ChannelPlan\enum, "15", 0, "DOMAIN_FROM_EEPROM"
+
+HKR,Ndi\Params\PSPXLINKMode, ParamDesc, 0, "PSP XLINK Mode"
+HKR,Ndi\Params\PSPXLINKMode, Type, 0, "enum"
+HKR,Ndi\Params\PSPXLINKMode, Default, 0, "0"
+HKR,Ndi\Params\PSPXLINKMode\enum, "0", 0, "Disable"
+HKR,Ndi\Params\PSPXLINKMode\enum, "1", 0, "Enable"
+
+HKR,defaults,NetworkType,0,"1"
+HKR,Ndi\params\NetworkType,default,0,"1"
+HKR,NDI\params\NetworkType,ParamDesc,,%NETWORK_TYPE_STR%
+HKR,NDI\params\NetworkType,type,,"enum"
+HKR,NDI\params\NetworkType,flag,1,"30","00","00","00"
+HKR,NDI\params\NetworkType\enum,0,,"Ad Hoc"
+HKR,NDI\params\NetworkType\enum,1,,"Infrastructure"
+HKR,NDI\params\NetworkType\enum,2,,"Auto select"
+;HKR,NDI\params\NetworkType,optional,0,"1"
+
+HKR,Ndi\Params\bRateAdaptive, ParamDesc, 0, %RATE_ADAPTIVE_STR%
+HKR,Ndi\Params\bRateAdaptive, Type, 0, "enum"
+HKR,Ndi\Params\bRateAdaptive, Default, 0, "1"
+HKR,Ndi\Params\bRateAdaptive\enum, "0", 0, "Disable"
+HKR,Ndi\Params\bRateAdaptive\enum, "1", 0, "Enable"
+
+HKR,Ndi\Params\AdhocWirelessMode, ParamDesc, 0, %DEFAULY_ADHOC_MODE_STR%
+HKR,Ndi\Params\AdhocWirelessMode, Type,      0, "enum"
+HKR,Ndi\Params\AdhocWirelessMode, Default,   0, "2"
+HKR,Ndi\Params\AdhocWirelessMode\enum, "2",  0, "WIRELESS_MODE_B"
+HKR,Ndi\Params\AdhocWirelessMode\enum, "4",  0, "WIRELESS_MODE_G"
+
+HKR,Ndi\Params\SupportWOL, ParamDesc, 0, "Wireless WakeOnLan"
+HKR,Ndi\Params\SupportWOL, Type, 0, "enum"
+HKR,Ndi\Params\SupportWOL, Default, 0, "0"
+HKR,Ndi\Params\SupportWOL\enum, "0", 0, "Disable"
+HKR,Ndi\Params\SupportWOL\enum, "1", 0, "Enable"
+
+;HKR,Ndi\Params\Enable_S5_WOL, ParamDesc, 0, "PCI Wake on Lan at Shutdown"
+;HKR,Ndi\Params\Enable_S5_WOL, Type,      0, "enum"
+;HKR,Ndi\Params\Enable_S5_WOL, Default,   0, "0"
+;HKR,Ndi\Params\Enable_S5_WOL\enum, "0",  0, "Disable"
+;HKR,Ndi\Params\Enable_S5_WOL\enum, "1",  0, "Enable"
+
+HKR,,DefaultKeyID,,"0"
+HKR,,DefaultKey0,,""
+HKR,,DefaultKey1,,""
+HKR,,DefaultKey2,,""
+HKR,,DefaultKey3,,""
+
+;;****************************************************************************
+;; NT 5.0 parameters
+;;****************************************************************************
+[RTL8185.reg]
+HKR, Ndi\Interfaces,            UpperRange, 0, "ndis5,mdcwifi"
+HKR, Ndi\Interfaces,            LowerRange, 0, "ethernet"
+HKR, Ndi,                       Service,    0, "RTL8185"
+
+[rtl8185.Service]
+DisplayName     = %RTL8185.Service.DispName%
+ServiceType     = 1                             ; %SERVICE_KERNEL_DRIVER%
+StartType       = 3                             ; %SERVICE_DEMAND_START%
+ErrorControl    = 1                             ; %SERVICE_ERROR_NORMAL%
+ServiceBinary   = %12%\rtl8185.sys
+LoadOrderGroup  = NDIS
+
+[RTL8185.EventLog]
+Addreg = RTL8185.AddEventLog.reg
+
+[RTL8185.AddEventLog.reg]
+HKR,    ,   EventMessageFile,   0x00020000, "%%SystemRoot%%\System32\netevent.dll"
+HKR,    ,   TypesSupported,     0x00010001, 7
+
+;;****************************************************************************
+;; Destination Directory
+;;****************************************************************************
+[DestinationDirs]
+RTL8185.CopyFiles           = 12
+RTL8185.CopyFiles98         = 11
+DefaultDestDir              = 11        ; LDID_SYS
+
+;;****************************************************************************
+;; Source Files
+;;****************************************************************************
+[SourceDisksNames]
+1=%DISKNAME%,,,
+
+[SourceDisksFiles]
+rtl8185.sys  = 1
+;netr8185.inf  = 1
+;netr8185x64.cat  = 1
+;netr8185n.cat  = 1
+
+;;****************************************************************************
+;; Strings
+;;****************************************************************************
+[Strings]
+Realtek                   = "Realtek"
+Surecom			  = "Surecom"
+
+;;Source disk name
+DISKNAME = " Realtek RTL8185 54M Wireless LAN Network Adapter Driver Disk "
+SHORT_PREAM_STR =		"Preamble Mode"
+FRAGTHRESH_STR =		"Fragmentation Threshold"
+CHANNEL_STR	 =			"Channel"
+POWER_SAVE_STR 	=		"Power Save Mode"
+SSID_STR =				"SSID"
+NETWORK_TYPE_STR =		"Network Type"
+RATE_ADAPTIVE_STR =		"Rate Adaptive"
+DEFAULY_ADHOC_MODE_STR =		"Default Adhoc WirelessMode"
+RTL8185.DeviceDesc =	"Realtek RTL8185 54M Wireless LAN Network Adapter"
+RTL8185.Service.DispName =	"Realtek RTL8185 54M Wireless LAN Network Adapter Driver"
+RTL8185.DeviceDesc_SURECOME_EP9321 = "SURECOM EP-9321-g/g1 802.11g 54M WLAN PCI Adapter"
+RTL8185.DeviceDesc_SURECOME_EP9428 = "SURECOM EP-9428-g 802.11g 54M WLAN CardBus Adapter"
+;

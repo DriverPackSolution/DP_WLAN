@@ -1,0 +1,528 @@
+;======================================================
+; Copyright (c) 2004, Silicon Integrated Systems Corp.
+;
+; INF file for Windows NT--- SIS163u.INF          
+;
+;======================================================
+
+[Version]
+Signature           = "$Windows NT$"
+Class               = Net
+ClassGUID           = {4d36e972-e325-11ce-bfc1-08002be10318}
+Provider            = %SiSMfg%
+CatalogFile         = sis163u.cat
+DriverVer           = 01/25/2007,6.0.1039.1094
+
+[Manufacturer]
+%SiSMfg%            = SiS, NTamd64
+%FSCMfg%	    = FSC, NTamd64
+%ROPERMfg%	    = ROPER, NTamd64
+
+[ControlFlags]
+;ExcludeFromSelect   =USB\VID_0457&PID_0163 
+;ExcludeFromSelect   =USB\VID_0d8e&PID_0163
+;ExcludeFromSelect   =USB\VID_1371&PID_0021
+;ExcludeFromSelect   =USB\VID_1371&PID_0022
+;ExcludeFromSelect   =USB\VID_1371&PID_0023
+;ExcludeFromSelect   =USB\VID_0769&PID_11F7
+;ExcludeFromSelect   =USB\VID_0B3B&PID_0163
+;ExcludeFromSelect   =USB\VID_18E8&PID_6171
+;ExcludeFromSelect   =USB\VID_0BF8&PID_100F
+;ExcludeFromSelect   =USB\VID_0457&PID_5401
+;ExcludeFromSelect   =USB\VID_0A3A&PID_0163
+;ExcludeFromSelect   =USB\VID_07D1&PID_3C05
+
+[SiS]
+%sis163.DeviceDesc%  = sis163_NO1, USB\VID_0457&PID_0163
+%GST.DeviceDesc%     = sis163_NO2, USB\VID_0d8e&PID_0163
+%Cnet1.DeviceDesc%   = sis163_NO3, USB\VID_1371&PID_0021
+%Cnet2.DeviceDesc%   = sis163_NO4, USB\VID_1371&PID_0022
+%Surecom.DeviceDesc% = sis163_NO5, USB\VID_0769&PID_11F7
+%Cnet3.DeviceDesc%   = sis163_NO6, USB\VID_1371&PID_0023
+%TP_LINK.DeviceDesc% = sis163_NO7, USB\VID_0B3B&PID_0163
+%sis163.DeviceDesc%  = sis163_NO8, USB\VID_18E8&PID_6171
+%KINGNET.DeviceDesc% = sis163_NO9, USB\VID_0A3A&PID_0163
+%EHOME.DeviceDesc%   = sis163_NO10,USB\VID_07D1&PID_3C05
+[SiS.NTamd64]
+%sis163.DeviceDesc%  = sis163_NO1, USB\VID_0457&PID_0163
+%GST.DeviceDesc%     = sis163_NO2, USB\VID_0d8e&PID_0163
+%Cnet1.DeviceDesc%   = sis163_NO3, USB\VID_1371&PID_0021
+%Cnet2.DeviceDesc%   = sis163_NO4, USB\VID_1371&PID_0022
+%Surecom.DeviceDesc% = sis163_NO5, USB\VID_0769&PID_11F7
+%Cnet3.DeviceDesc%   = sis163_NO6, USB\VID_1371&PID_0023
+%TP_LINK.DeviceDesc% = sis163_NO7, USB\VID_0B3B&PID_0163
+%sis163.DeviceDesc%  = sis163_NO8, USB\VID_18E8&PID_6171
+%KINGNET.DeviceDesc% = sis163_NO9, USB\VID_0A3A&PID_0163
+%EHOME.DeviceDesc%   = sis163_NO10,USB\VID_07D1&PID_3C05
+
+[FSC]
+%FSC.DeviceDesc%	 = FSC_NO1, USB\VID_0BF8&PID_100F
+[FSC.NTamd64]
+%FSC.DeviceDesc%	 = FSC_NO1, USB\VID_0BF8&PID_100F
+
+[ROPER]
+%ROPER.DeviceDesc%	= roper_NO1, USB\VID_0457&PID_5401
+[ROPER.NTamd64]
+%ROPER.DeviceDesc%	= roper_NO1, USB\VID_0457&PID_5401
+;------------------------------------------------------------------------
+; SIS
+;
+[sis163_NO1]
+Characteristics     = 0x84		; NCF_PHYSICAL
+BusType             = 15		;usb
+DelReg              = ndis6.reg, SiSDefault.reg, SiSWireless.reg, sisuninstall.reg,sisuninstall1.reg, SiSWireless.DelReg
+AddReg              = ndis6.reg, SiSDefault.reg, SiSWireless.reg, sisuninstall.reg,sisuninstall1.reg
+CopyFiles           = sis163.CopyFiles;,Uninstall.CopyFiles;,Inst.CopyFiles
+*IfType             = 71		; IF_TYPE_ETHERNET_CSMACD (Currently)
+*MediaType          = 16		; NdisMediumNative802_11
+*PhysicalMediaType  = 9			; NdisPhysicalMediumNative802_11
+
+[sis163_NO2]
+Characteristics     = 0x84		; NCF_PHYSICAL
+BusType             = 15		;usb
+DelReg              = ndis6.reg, SiSDefault.reg, SiSWireless.reg, sisuninstall.reg,sisuninstall2.reg, SiSWireless.DelReg
+AddReg              = ndis6.reg, SiSDefault.reg, SiSWireless.reg, sisuninstall.reg,sisuninstall2.reg
+CopyFiles           = sis163.CopyFiles;,Uninstall.CopyFiles;,Inst.CopyFiles
+*IfType             = 71		; IF_TYPE_ETHERNET_CSMACD (Currently)
+*MediaType          = 16		; NdisMediumNative802_11
+*PhysicalMediaType  = 9			; NdisPhysicalMediumNative802_11
+
+[sis163_NO3]
+Characteristics     = 0x84		; NCF_PHYSICAL
+BusType             = 15		;usb
+DelReg              = ndis6.reg, SiSDefault.reg, SiSWireless.reg, sisuninstall.reg,sisuninstall3.reg, SiSWireless.DelReg
+AddReg              = ndis6.reg, SiSDefault.reg, SiSWireless.reg, sisuninstall.reg,sisuninstall3.reg
+CopyFiles           = sis163.CopyFiles;,Uninstall.CopyFiles;,Inst.CopyFiles
+*IfType             = 71		; IF_TYPE_ETHERNET_CSMACD (Currently)
+*MediaType          = 16		; NdisMediumNative802_11
+*PhysicalMediaType  = 9			; NdisPhysicalMediumNative802_11
+
+[sis163_NO4]
+Characteristics     = 0x84		; NCF_PHYSICAL
+BusType             = 15		;usb
+DelReg              = ndis6.reg, SiSDefault.reg, SiSWireless.reg, sisuninstall.reg,sisuninstall4.reg, SiSWireless.DelReg
+AddReg              = ndis6.reg, SiSDefault.reg, SiSWireless.reg, sisuninstall.reg,sisuninstall4.reg
+CopyFiles           = sis163.CopyFiles;,Uninstall.CopyFiles;,Inst.CopyFiles
+*IfType             = 71		; IF_TYPE_ETHERNET_CSMACD (Currently)
+*MediaType          = 16		; NdisMediumNative802_11
+*PhysicalMediaType  = 9			; NdisPhysicalMediumNative802_11
+
+[sis163_NO5]
+Characteristics     = 0x84		; NCF_PHYSICAL
+BusType             = 15		;usb
+DelReg              = ndis6.reg, SiSDefault.reg, SiSWireless.reg, sisuninstall.reg,sisuninstall5.reg, SiSWireless.DelReg
+AddReg              = ndis6.reg, SiSDefault.reg, SiSWireless.reg, sisuninstall.reg,sisuninstall5.reg
+CopyFiles           = sis163.CopyFiles;,Uninstall.CopyFiles;,Inst.CopyFiles
+*IfType             = 71		; IF_TYPE_ETHERNET_CSMACD (Currently)
+*MediaType          = 16		; NdisMediumNative802_11
+*PhysicalMediaType  = 9			; NdisPhysicalMediumNative802_11
+
+[sis163_NO6]
+Characteristics     = 0x84		; NCF_PHYSICAL
+BusType             = 15		;usb
+DelReg              = ndis6.reg, SiSDefault.reg, SiSWireless.reg, sisuninstall.reg,sisuninstall6.reg, SiSWireless.DelReg
+AddReg              = ndis6.reg, SiSDefault.reg, SiSWireless.reg, sisuninstall.reg,sisuninstall6.reg
+CopyFiles           = sis163.CopyFiles;,Uninstall.CopyFiles;,Inst.CopyFiles
+*IfType             = 71		; IF_TYPE_ETHERNET_CSMACD (Currently)
+*MediaType          = 16		; NdisMediumNative802_11
+*PhysicalMediaType  = 9			; NdisPhysicalMediumNative802_11
+
+[sis163_NO7]
+Characteristics     = 0x84		; NCF_PHYSICAL
+BusType             = 15		;usb
+DelReg              = ndis6.reg, SiSDefault.reg, SiSWireless.reg, sisuninstall.reg,sisuninstall7.reg, SiSWireless.DelReg
+AddReg              = ndis6.reg, SiSDefault.reg, SiSWireless.reg, sisuninstall.reg,sisuninstall7.reg
+CopyFiles           = sis163.CopyFiles;,Uninstall.CopyFiles;,Inst.CopyFiles
+*IfType             = 71		; IF_TYPE_ETHERNET_CSMACD (Currently)
+*MediaType          = 16		; NdisMediumNative802_11
+*PhysicalMediaType  = 9			; NdisPhysicalMediumNative802_11
+
+[sis163_NO8]
+Characteristics     = 0x84		; NCF_PHYSICAL
+BusType             = 15		;usb
+DelReg              = ndis6.reg, SiSDefault.reg, SiSWireless.reg, sisuninstall.reg,sisuninstall8.reg, SiSWireless.DelReg
+AddReg              = ndis6.reg, SiSDefault.reg, SiSWireless.reg, sisuninstall.reg,sisuninstall8.reg
+CopyFiles           = sis163.CopyFiles;,Uninstall.CopyFiles;,Inst.CopyFiles
+*IfType             = 71		; IF_TYPE_ETHERNET_CSMACD (Currently)
+*MediaType          = 16		; NdisMediumNative802_11
+*PhysicalMediaType  = 9			; NdisPhysicalMediumNative802_11
+
+[sis163_NO9]
+Characteristics     = 0x84		; NCF_PHYSICAL
+BusType             = 15		;usb
+DelReg              = ndis6.reg, SiSDefault.reg, SiSWireless.reg, sisuninstall.reg,sisuninstall9.reg, SiSWireless.DelReg
+AddReg              = ndis6.reg, SiSDefault.reg, SiSWireless.reg, sisuninstall.reg,sisuninstall9.reg
+CopyFiles           = sis163.CopyFiles;,Uninstall.CopyFiles;,Inst.CopyFiles
+*IfType             = 71		; IF_TYPE_ETHERNET_CSMACD (Currently)
+*MediaType          = 16		; NdisMediumNative802_11
+*PhysicalMediaType  = 9			; NdisPhysicalMediumNative802_11
+
+[sis163_NO10]
+Characteristics     = 0x84		; NCF_PHYSICAL
+BusType             = 15		;usb
+DelReg              = ndis6.reg, SiSDefault.reg, SiSWireless.reg, sisuninstall.reg,sisuninstall10.reg, SiSWireless.DelReg
+AddReg              = ndis6.reg, SiSDefault.reg, SiSWireless.reg, sisuninstall.reg,sisuninstall10.reg
+CopyFiles           = sis163.CopyFiles;,Uninstall.CopyFiles;,Inst.CopyFiles
+*IfType             = 71		; IF_TYPE_ETHERNET_CSMACD (Currently)
+*MediaType          = 16		; NdisMediumNative802_11
+*PhysicalMediaType  = 9			; NdisPhysicalMediumNative802_11
+
+[FSC_NO1]
+Characteristics     = 0x84		; NCF_PHYSICAL
+BusType             = 15		;usb
+DelReg              = ndis6.reg, SiSDefault.reg, SiSWireless.reg, sisuninstall.reg,fscuninstall1.reg, SiSWireless.DelReg
+AddReg              = ndis6.reg, SiSDefault.reg, SiSWireless.reg, sisuninstall.reg,fscuninstall1.reg
+CopyFiles           = sis163.CopyFiles;,Uninstall.CopyFiles;,Inst.CopyFiles
+*IfType             = 71		; IF_TYPE_ETHERNET_CSMACD (Currently)
+*MediaType          = 16		; NdisMediumNative802_11
+*PhysicalMediaType  = 9			; NdisPhysicalMediumNative802_11
+
+[roper_NO1]
+Characteristics     = 0x84		; NCF_PHYSICAL
+BusType             = 15		;usb
+DelReg              = ndis6.reg, SiSDefault.reg, SiSWireless.reg, SiSWireless_ROPER.reg, sisuninstall.reg,roperuninstall1.reg, SiSWireless.DelReg
+AddReg              = ndis6.reg, SiSDefault.reg, SiSWireless.reg, SiSWireless_ROPER.reg, sisuninstall.reg,roperuninstall1.reg
+CopyFiles           = sis163.CopyFiles;,Uninstall.CopyFiles;,Inst.CopyFiles
+*IfType             = 71		; IF_TYPE_ETHERNET_CSMACD (Currently)
+*MediaType          = 16		; NdisMediumNative802_11
+*PhysicalMediaType  = 9			; NdisPhysicalMediumNative802_11
+
+;----------------------------------------------------------------------------
+[sis163_NO1.Services]
+AddService          = SIS163u, 2, SIS163u.AddService, SIS163u.AddEventLog
+
+[sis163_NO2.Services]
+AddService          = SIS163u, 2, SIS163u.AddService, SIS163u.AddEventLog
+
+[sis163_NO3.Services]
+AddService          = SIS163u, 2, SIS163u.AddService, SIS163u.AddEventLog
+
+[sis163_NO4.Services]
+AddService          = SIS163u, 2, SIS163u.AddService, SIS163u.AddEventLog
+
+[sis163_NO5.Services]
+AddService          = SIS163u, 2, SIS163u.AddService, SIS163u.AddEventLog
+
+[sis163_NO6.Services]
+AddService          = SIS163u, 2, SIS163u.AddService, SIS163u.AddEventLog
+
+[sis163_NO7.Services]
+AddService          = SIS163u, 2, SIS163u.AddService, SIS163u.AddEventLog
+
+[sis163_NO8.Services]
+AddService          = SIS163u, 2, SIS163u.AddService, SIS163u.AddEventLog
+
+[sis163_NO9.Services]
+AddService          = SIS163u, 2, SIS163u.AddService, SIS163u.AddEventLog
+
+[sis163_NO10.Services]
+AddService          = SIS163u, 2, SIS163u.AddService, SIS163u.AddEventLog
+
+[FSC_NO1.Services]
+AddService          = SIS163u, 2, SIS163u.AddService, SIS163u.AddEventLog
+
+[roper_NO1.Services]
+AddService          = SIS163u, 2, SIS163u.AddService, SIS163u.AddEventLog
+
+;--------------------------------------------------------------------------------
+
+; Services Sections for NT
+;
+[SIS163u.AddService]
+DisplayName         = %sis163u.Service.DispName%
+ServiceType         = 1 ;%SERVICE_KERNEL_DRIVER%
+StartType           = 3 ;%SERVICE_DEMAND_START%
+ErrorControl        = 1 ;%SERVICE_ERROR_NORMAL%
+ServiceBinary       = %12%\sis163u.sys
+LoadOrderGroup      = NDIS
+
+[ROPER.AddService]
+DisplayName         = %ROPER.Service.DispName%
+ServiceType         = 1 ;%SERVICE_KERNEL_DRIVER%
+StartType           = 3 ;%SERVICE_DEMAND_START%
+ErrorControl        = 1 ;%SERVICE_ERROR_NORMAL%
+ServiceBinary       = %12%\sis163u.sys
+LoadOrderGroup      = NDIS
+
+[SIS163u.AddEventLog]
+AddReg              = SIS163u.AddEventLog.reg
+
+[SIS163u.AddEventLog.reg]
+HKR,,EventMessageFile,   0x00020000, "%%SystemRoot%%\System32\netevent.dll"
+HKR,,TypesSupported,     0x00010001, 7
+
+; -----------------------------------------
+; Ndi object registration
+;
+;NT specific
+[nt5.reg]
+HKR, Ndi,                               Service,            0, "SIS163u"
+HKR, Ndi\Interfaces,                    UpperRange,         0, "ndis5"
+HKR, Ndi\Interfaces,                    LowerRange,         0, "ethernet"
+
+;ndis60 specific
+[ndis6.reg]
+HKR,    Ndi,                Service,                0,  "SIS163u"
+HKR,    Ndi\Interfaces,     UpperRange,             0,  "ndis5"
+HKR,    Ndi\Interfaces,     LowerRange,             0,  "wlan,ethernet"
+;HKR,    ,                   *IfType,                0,  "71"
+;HKR,    ,                   *MediaType,             0,  "NdisMediumNative802_11"
+;HKR,    ,                   *PhysicalMediumType,    0,  "NdisPhysicalMediumNative802_11"
+
+;----------------------------------------------------------------------------
+; Common driver parameters
+;
+[SiSDefault.reg]
+
+;====== Driver Information for UI ======;
+HKR,Ndi\SiSdefault\,SiSWirelessLan,2,"VID_0457&PID_0163"
+HKR,Ndi\SiSdefault\,Channel,2,"000"
+HKR,Ndi\SiSdefault\,InfrastructureMode,2,"000"
+HKR,Ndi\SiSdefault\,AuthenticationMode,2,"000"
+HKR,Ndi\SiSdefault\,Preamble,2,"002"
+HKR,Ndi\SiSdefault\,AntennaSelect,2,"0"
+HKR,Ndi\SiSdefault\,SSID,2,"LOCAL"
+HKR,Ndi\SiSdefault\,Password,2,""
+HKR,Ndi\SiSdefault\,WepStatus,2,"000"
+HKR,Ndi\SiSdefault\,TransmitKey,2,"001"
+HKR,Ndi\SiSdefault\,WepStatus1,2, "001"
+HKR,Ndi\SiSdefault\,KeyData1,2,""
+HKR,Ndi\SiSdefault\,WepStatus2,2,"001"
+HKR,Ndi\SiSdefault\,KeyData2,2,""
+HKR,Ndi\SiSdefault\,WepStatus3,2,"001"
+HKR,Ndi\SiSdefault\,KeyData3,2,""
+HKR,Ndi\SiSdefault\,WepStatus4,2,"001"
+HKR,Ndi\SiSdefault\,KeyData4,2,""
+HKR,Ndi\SiSdefault\,HWProbe,2,"000"
+HKR,Ndi\SiSdefault\,FrameThreshold,2,"2312"
+HKR,Ndi\SiSdefault\,RTSThreshold,2,"2312"
+HKR,Ndi\SiSdefault\,TxRate,2,"004"
+HKR,Ndi\SiSdefault\,BeaconInterval,2,"100"
+HKR,Ndi\SiSdefault\,ListenInterval,2,"1"
+HKR,Ndi\SiSdefault\,CTxPower12345,2,"24924924"
+HKR,Ndi\SiSdefault\,CTxPower6789A,2,"24924924"
+HKR,Ndi\SiSdefault\,CTxPowerBCDE,2,"924924"
+HKR,Ndi\SiSdefault\,SiSRFReg,2,"80"
+HKR,Ndi\SiSdefault\,TxRetryCounts,2,"7"
+HKR,Ndi\SiSdefault\,TxPowerLevel,2,"3f"
+HKR,Ndi\SiSdefault\,PowerMode,2,"000"
+HKR,Ndi\SiSdefault\,ATIMWindow,2,"5"
+HKR,Ndi\SiSdefault\,PromiscuousOption,2,"1"
+HKR,Ndi\SiSdefault\,RFType,2,"8"
+HKR,Ndi\SiSdefault\,Distance,2,"0"
+HKR,Ndi\SiSdefault\,Radio,2,"1"
+HKR,Ndi\SiSdefault\,BasebandMode,2,"5"
+HKR,Ndi\SiSdefault\,OldMaximParam,2,"0"
+;-----------------------------------------------------------------------------
+
+[SiSWireless.reg]
+;====== Driver Information for UI ======;
+HKR,,SiSWirelessLan,2,"VID_0457&PID_0163"
+
+;====== Driver parameters in device manager =======;
+HKR, Ndi\params\NetworkAddress,ParamDesc,,"NetworkAddress"
+HKR, NDI\params\NetworkAddress,default,,""
+HKR, Ndi\params\NetworkAddress,optional,,"1"
+HKR, NDI\params\NetworkAddress,type,,"edit"
+HKR, NDI\params\NetworkAddress,LimitText,,"12"
+HKR, NDI\params\NetworkAddress,UpperCase,,"1"
+
+HKR, Ndi\params\HWProbe,        ParamDesc, 0, "HWProbe"
+HKR, NDI\params\HWProbe,default,,"0"
+HKR, Ndi\params\HWProbe,optional,,"0"
+HKR, NDI\params\HWProbe,type,,"edit"
+HKR, NDI\params\HWProbe,LimitText,,"3"
+HKR, NDI\params\HWProbe,UpperCase,,"0"
+;HKR, Ndi\params\HWProbe,flag,1,20,00,00,00
+
+;====== Initial values for driver ==================
+HKR,,Channel,2,"000"
+HKR,,InfrastructureMode,2,"000"
+HKR,,AuthenticationMode,2,"000"
+HKR,,Preamble,2,"002"
+HKR,,AntennaSelect,2,"0"
+HKR,,SSID,2,"LOCAL"
+HKR,,Password,2,""
+HKR,,WepStatus,2,"000"
+HKR,,TransmitKey,2,"001"
+HKR,,WepStatus1,2, "001"
+HKR,,KeyData1,2,""
+HKR,,WepStatus2,2,"001"
+HKR,,KeyData2,2,""
+HKR,,WepStatus3,2,"001"
+HKR,,KeyData3,2,""
+HKR,,WepStatus4,2,"001"
+HKR,,KeyData4,2,""
+HKR,,HWProbe,2,"000"
+HKR,,FrameThreshold,2,"2312"
+HKR,,RTSThreshold,2,"2312"
+HKR,,TxRate,2,"004"
+HKR,,BeaconInterval,2,"100"
+HKR,,ListenInterval,2,"1"
+HKR,,CTxPower12345,2,"24924924"
+HKR,,CTxPower6789A,2,"24924924"
+HKR,,CTxPowerBCDE,2,"924924"
+HKR,,SiSRFReg,2,"80"
+HKR,,TxRetryCounts,2,"7"
+HKR,,TxPowerLevel,2,"3f"
+HKR,,PowerMode,2,"000"
+HKR,,ATIMWindow,2,"5"
+HKR,,PromiscuousOption,2,"1"
+;HKR,,RFType,2,"8"
+HKR,,Distance,2,"0"
+HKR,,BasebandMode,2,"5"
+HKR,,OldMaximParam,2,"0"
+HKR,,UISetRegionAfterInstallDriver,2,"UnChecked"
+HKR,,SW_QOS_ENABLE,2,"1"
+
+[SiSWireless.DelReg]
+HKR,,RFType
+;-----------------------------------------------------------------------------
+
+[SiSWireless_ROPER.reg]
+HKR, Ndi\params\RTSThreshold,ParamDesc, 0, "RTS"
+HKR, Ndi\params\RTSThreshold,optional,,"0"
+HKR, NDI\params\RTSThreshold,type,,int
+HKR, NDI\params\RTSThreshold,Min,,0
+HKR, NDI\params\RTSThreshold,Max,,2312
+HKR, NDI\params\RTSThreshold,default,,2312
+
+HKR, Ndi\params\FrameThreshold,ParamDesc, 0, "Fragmentation"
+HKR, Ndi\params\FrameThreshold,optional,,"0"
+HKR, NDI\params\FrameThreshold,type,,int
+HKR, NDI\params\FrameThreshold,Min,,256
+HKR, NDI\params\FrameThreshold,Max,,2312
+HKR, NDI\params\FrameThreshold,default,,2312
+
+HKR, Ndi\params\TxRetryCounts,ParamDesc, 0, "TxRetry Count"
+HKR, Ndi\params\TxRetryCounts,optional,,"0"
+HKR, NDI\params\TxRetryCounts,type,,int
+HKR, NDI\params\TxRetryCounts,Min,,0
+HKR, NDI\params\TxRetryCounts,Max,,128
+HKR, NDI\params\TxRetryCounts,default,,7
+
+;==================================================================================================
+
+[sisuninstall.reg]
+HKLM,%SiS163uUninst%,UninstallString,0,"%11%\unwlsdrv.exe SiS163u"
+ 
+;----------------------------------------------------------------------------
+[sisuninstall1.reg]
+HKLM,%SiS163uUninst%,DisplayName,0,%sis163.DeviceDesc%
+HKLM,%SiS163uUninst1%,DeviceID,0,"USB\VID_0457&PID_0163"
+
+[sisuninstall2.reg]
+HKLM,%SiS163uUninst%,DisplayName,0,%GST.DeviceDesc%
+HKLM,%SiS163uUninst2%,DeviceID,0,"USB\VID_0d8e&PID_0163"
+
+[sisuninstall3.reg]
+HKLM,%SiS163uUninst%,DisplayName,0,%Cnet1.DeviceDesc%
+HKLM,%SiS163uUninst3%,DeviceID,0,"USB\VID_1371&PID_0021"
+
+[sisuninstall4.reg]
+HKLM,%SiS163uUninst%,DisplayName,0,%Cnet2.DeviceDesc%
+HKLM,%SiS163uUninst4%,DeviceID,0,"USB\VID_1371&PID_0022"
+
+[sisuninstall5.reg]
+HKLM,%SiS163uUninst%,DisplayName,0,%Surecom.DeviceDesc%
+HKLM,%SiS163uUninst5%,DeviceID,0,"USB\VID_0769&PID_11F7"
+
+[sisuninstall6.reg]
+HKLM,%SiS163uUninst%,DisplayName,0,%Cnet3.DeviceDesc%
+HKLM,%SiS163uUninst6%,DeviceID,0,"USB\VID_1371&PID_0023"
+
+[sisuninstall7.reg]
+HKLM,%SiS163uUninst%,DisplayName,0,%TP_LINK.DeviceDesc%
+HKLM,%SiS163uUninst7%,DeviceID,0,"USB\VID_0B3B&PID_0163"
+
+[sisuninstall8.reg]
+HKLM,%SiS163uUninst%,DisplayName,0,%sis163.DeviceDesc%
+HKLM,%SiS163uUninst8%,DeviceID,0,"USB\VID_18E8&PID_6171"
+
+[sisuninstall9.reg]
+HKLM,%SiS163uUninst%,DisplayName,0,%KINGNET.DeviceDesc%
+HKLM,%SiS163uUninst9%,DeviceID,0,"USB\VID_0A3A&PID_0163"
+
+[sisuninstall10.reg]
+HKLM,%SiS163uUninst%,DisplayName,0,%EHOME.DeviceDesc%
+HKLM,%SiS163uUninst10%,DeviceID,0,"USB\VID_07D1&PID_3C05"
+
+[fscuninstall1.reg]
+HKLM,%SiS163uUninst%,DisplayName,0,%FSC.DeviceDesc%
+HKLM,%FSCUninst1%,DeviceID,0,"USB\VID_0BF8&PID_100F"
+
+[roperuninstall1.reg]
+HKLM,%SiS163uUninst%,DisplayName,0,%ROPER.DeviceDesc%
+HKLM,%RoperUninst1%,DeviceID,0,"USB\VID_0457&PID_5401"
+
+;----------------------------------------------------------------------------
+; Copy files
+;
+[DestinationDirs]
+DefaultDestDir       = 12
+sis163.CopyFiles     = 12
+Uninstall.CopyFiles  = 11  
+Inst.CopyFiles       = 11
+
+[SourceDisksNames]
+1                   = %SiSSourceDiskName%,,,""
+
+[SourceDisksFiles]
+sis163u.sys=1
+;Unwlsdrv.exe=1
+;SiSWInst.dll=1
+;SiSWPars.dll=1
+;SiSWBase.dll=1
+
+[sis163.CopyFiles]
+sis163u.sys
+
+[Uninstall.CopyFiles]
+unwlsdrv.exe
+
+[Inst.CopyFiles]
+SiSWInst.dll
+SiSWPars.dll
+SiSWBase.dll
+
+;----------------------------------------------------------------------------
+; Localizable Strings
+;
+[Strings]
+;SiS                           = "SiS"
+SiSMfg                         = "Silicon Integrated Systems Corp.(1.09d.00)"
+FSCMfg                         = "Fujitsu Siemens Computers"
+ROPERMfg                       = "ROPER"
+sis163.DeviceDesc              = "802.11 USB Wireless LAN Adapter"
+GST.DeviceDesc                 = "802.11g 54 Mbps Wireless USB Dongle"
+Cnet1.DeviceDesc               = "Wireless-G USB Adapter"
+Cnet2.DeviceDesc               = "Wireless-G USB Dongle"
+Surecom.DeviceDesc             = "SURECOM 802.11g 54M WLAN USB Adapter"
+Cnet3.DeviceDesc               = "Wireless-G USB Module"
+TP_LINK.DeviceDesc             = "TL-WN320G 1.0 USB WLAN Adapter"
+FSC.DeviceDesc                 = "Fujitsu Siemens Computers WLAN 802.11b/g (SiS163u)"
+ROPER.DeviceDesc               = "Wireless USB Adapter RO80211GS-USB"
+KINGNET.DeviceDesc             = "KN-W510U 1.0 USB Wireless LAN Adapter"
+EHOME.DeviceDesc               = "EH103 Wireless G USB Adapter"
+
+
+;=============================================================================;
+ROPER.Service.DispName          = "Wireless USB Adapter RO80211GS-USB Driver"
+sis163u.Service.DispName        = "SiS163 USB Wireless LAN Adapter Driver"
+SiSSourceDiskName               = "SiS163 USB Wireless LAN Adapter Drivers Disk"
+
+
+SiS163uUninst                  ="Software\Microsoft\Windows\CurrentVersion\Uninstall\SiS163u"
+SiS163uUninst1                 ="Software\Microsoft\Windows\CurrentVersion\Uninstall\SiS163u\SiS163u1"
+SiS163uUninst2                 ="Software\Microsoft\Windows\CurrentVersion\Uninstall\SiS163u\SiS163u2"
+SiS163uUninst3                 ="Software\Microsoft\Windows\CurrentVersion\Uninstall\SiS163u\SiS163u3"
+SiS163uUninst4                 ="Software\Microsoft\Windows\CurrentVersion\Uninstall\SiS163u\SiS163u4"
+SiS163uUninst5                 ="Software\Microsoft\Windows\CurrentVersion\Uninstall\SiS163u\SiS163u5"
+SiS163uUninst6                 ="Software\Microsoft\Windows\CurrentVersion\Uninstall\SiS163u\SiS163u6"
+SiS163uUninst7                 ="Software\Microsoft\Windows\CurrentVersion\Uninstall\SiS163u\SiS163u7"
+SiS163uUninst8                 ="Software\Microsoft\Windows\CurrentVersion\Uninstall\SiS163u\SiS163u8"
+FSCUninst1                     ="Software\Microsoft\Windows\CurrentVersion\Uninstall\SiS163u\FSC1"
+RoperUninst1                   ="Software\Microsoft\Windows\CurrentVersion\Uninstall\SiS163u\ROPER1"
+SiS163uUninst9                 ="Software\Microsoft\Windows\CurrentVersion\Uninstall\SiS163u\SiS163u9"
+SiS163uUninst10                ="Software\Microsoft\Windows\CurrentVersion\Uninstall\SiS163u\SiS163u10"
+;=============================================================================;

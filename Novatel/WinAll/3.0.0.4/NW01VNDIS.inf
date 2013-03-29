@@ -1,0 +1,325 @@
+;------------------------------------------------------------------------------
+; Novatel Wireless Virtual Network Adapter
+; Installation file (.inf).
+; (c) Copyright 2003 Novatel Wireless Inc. 
+;------------------------------------------------------------------------------
+
+;when       who     what, where, why
+;--------   -----   -----------------------------------------------------------
+;07/29/05   SK      Updated drivers
+;02/02/05   SK      Updated for EVDO NDIS
+;10/22/03   SK      Updated for NVTL NDIS drivers
+;04/02/04   SK      Updated driver   
+;12/02/05   SK      Fixed I/O Conflict  
+;04/17/06   SK      Updated driver
+
+;-------------------------------------------------------------------------------
+; INF Version Section
+;-------------------------------------------------------------------------------
+[version]
+signature   = "$WINDOWS NT$"
+Class       = Net
+ClassGUID   = {4d36e972-e325-11ce-bfc1-08002be10318}
+Provider    =%Mfg%
+Compatible  = 1
+DriverVer   = 09/26/2006,1.0.3.0
+CatalogFile.NT = NWADI_BUS.cat
+CatalogFile.NTAMD64 = NWADI_x64.cat
+
+;-------------------------------------------------------------------------------
+; INF Manufactuerer Section
+;-------------------------------------------------------------------------------
+[Manufacturer]
+%Mfg%=Models,NTamd64
+
+
+;-------------------------------------------------------------------------------
+; INF ControlFlags Section
+;-------------------------------------------------------------------------------
+[ControlFlags]
+; Note: Uncomment next line if your NIC is not to be installed manually
+ExcludeFromSelect = *
+
+;-------------------------------------------------------------------------------
+; INF Models Section
+;-------------------------------------------------------------------------------
+[Models]
+%NW000%=*novatel.ndi, NWADI\NOVATEL_WIRELESS-VNIC_1410_1000 
+%NW000%=*novatel.ndi, NWADI\NOVATEL_WIRELESS-VNIC_1410_1010 
+%NW000%=*novatel.ndi, NWADI\NOVATEL_WIRELESS-VNIC_1410_1020 
+%NW000%=*novatel.ndi, NWADI\NOVATEL_WIRELESS-VNIC_1410_1030 
+%NW001%=*novatel.ndi, NWADI\NOVATEL_WIRELESS-VNIC_1410_1100 
+%NW001%=*novatel.ndi, NWADI\NOVATEL_WIRELESS-VNIC001 
+%NW001%=*novatel.ndi, NWADI\NOVATEL_WIRELESS-VNIC_1410_1120 
+%NW001%=*novatel.ndi, NWADI\NOVATEL_WIRELESS-VNIC_1410_1130 
+%NW002%=*novatel.ndi, NWADI\NOVATEL_WIRELESS-VNIC_1410_1200 
+%NW002%=*novatel.ndi, NWADI\NOVATEL_WIRELESS-VNIC_1410_1210 
+%NW002%=*novatel.ndi, NWADI\NOVATEL_WIRELESS-VNIC_1410_1220 
+%NW002%=*novatel.ndi, NWADI\NOVATEL_WIRELESS-VNIC_1410_1230 
+%NW003%=*novatel.ndi, NWADI\NOVATEL_WIRELESS-VNIC_1410_1300 
+%NW003%=*novatel.ndi, NWADI\NOVATEL_WIRELESS-VNIC_1410_1310 
+%NW003%=*novatel.ndi, NWADI\NOVATEL_WIRELESS-VNIC_1410_1320 
+%NW003%=*novatel.ndi, NWADI\NOVATEL_WIRELESS-VNIC_1410_1330 
+%NW004%=*novatel.ndi, NWADI\NOVATEL_WIRELESS-VNIC_1410_1400 
+%NW004%=*novatel.ndi, NWADI\NOVATEL_WIRELESS-VNIC_1410_1410 
+%NW004%=*novatel.ndi, NWADI\NOVATEL_WIRELESS-VNIC_1410_1420 
+%NW004%=*novatel.ndi, NWADI\NOVATEL_WIRELESS-VNIC_1410_1430 
+%NW005%=*novatel.ndi, NWADI\NOVATEL_WIRELESS-VNIC_1410_2000 
+%NW005%=*novatel.ndi, NWADI\NOVATEL_WIRELESS-VNIC_1410_2010 
+%NW005%=*novatel.ndi, NWADI\NOVATEL_WIRELESS-VNIC_1410_2020 
+%NW005%=*novatel.ndi, NWADI\NOVATEL_WIRELESS-VNIC_1410_2030 
+%NW006%=*novatel.ndi, NWADI\NOVATEL_WIRELESS-VNIC_1410_2100 
+%NW006%=*novatel.ndi, NWADI\NOVATEL_WIRELESS-VNIC_1410_2110 
+%NW006%=*novatel.ndi, NWADI\NOVATEL_WIRELESS-VNIC_1410_2120 
+%NW006%=*novatel.ndi, NWADI\NOVATEL_WIRELESS-VNIC_1410_2130 
+%NW007%=*novatel.ndi, NWADI\NOVATEL_WIRELESS-VNIC_1410_2200 
+%NW007%=*novatel.ndi, NWADI\NOVATEL_WIRELESS-VNIC_1410_2210 
+%NW007%=*novatel.ndi, NWADI\NOVATEL_WIRELESS-VNIC_1410_2220 
+%NW007%=*novatel.ndi, NWADI\NOVATEL_WIRELESS-VNIC_1410_2230 
+%NW008%=*novatel.ndi, NWADI\NOVATEL_WIRELESS-VNIC_1410_2300 
+%NW008%=*novatel.ndi, NWADI\NOVATEL_WIRELESS-VNIC_1410_2310 
+%NW008%=*novatel.ndi, NWADI\NOVATEL_WIRELESS-VNIC_1410_2320 
+%NW008%=*novatel.ndi, NWADI\NOVATEL_WIRELESS-VNIC_1410_2330 
+%NW009%=*novatel.ndi, NWADI\NOVATEL_WIRELESS-VNIC_1410_2400 
+%NW009%=*novatel.ndi, NWADI\NOVATEL_WIRELESS-VNIC_1410_2410 
+%NW009%=*novatel.ndi, NWADI\NOVATEL_WIRELESS-VNIC_1410_2420 
+%NW009%=*novatel.ndi, NWADI\NOVATEL_WIRELESS-VNIC_1410_2430 
+%NW010%=*novatel.ndi, NWADI\NOVATEL_WIRELESS-VNIC_1410_3000 
+%NW010%=*novatel.ndi, NWADI\NOVATEL_WIRELESS-VNIC_1410_3010 
+%NW010%=*novatel.ndi, NWADI\NOVATEL_WIRELESS-VNIC_1410_3020 
+%NW010%=*novatel.ndi, NWADI\NOVATEL_WIRELESS-VNIC_1410_3030 
+%NW011%=*novatel.ndi, NWADI\NOVATEL_WIRELESS-VNIC_1410_3100 
+%NW011%=*novatel.ndi, NWADI\NOVATEL_WIRELESS-VNIC_1410_3110 
+%NW011%=*novatel.ndi, NWADI\NOVATEL_WIRELESS-VNIC_1410_3120 
+%NW011%=*novatel.ndi, NWADI\NOVATEL_WIRELESS-VNIC_1410_3130 
+%NW012%=*novatel.ndi, NWADI\NOVATEL_WIRELESS-VNIC_1410_3200 
+%NW012%=*novatel.ndi, NWADI\NOVATEL_WIRELESS-VNIC_1410_3210 
+%NW012%=*novatel.ndi, NWADI\NOVATEL_WIRELESS-VNIC_1410_3220 
+%NW012%=*novatel.ndi, NWADI\NOVATEL_WIRELESS-VNIC_1410_3230 
+%NW013%=*novatel.ndi, NWADI\NOVATEL_WIRELESS-VNIC_1410_3300 
+%NW013%=*novatel.ndi, NWADI\NOVATEL_WIRELESS-VNIC_1410_3310 
+%NW013%=*novatel.ndi, NWADI\NOVATEL_WIRELESS-VNIC_1410_3320 
+%NW013%=*novatel.ndi, NWADI\NOVATEL_WIRELESS-VNIC_1410_3330 
+%NW014%=*novatel.ndi, NWADI\NOVATEL_WIRELESS-VNIC_1410_3400 
+%NW014%=*novatel.ndi, NWADI\NOVATEL_WIRELESS-VNIC_1410_3410 
+%NW014%=*novatel.ndi, NWADI\NOVATEL_WIRELESS-VNIC_1410_3420 
+%NW014%=*novatel.ndi, NWADI\NOVATEL_WIRELESS-VNIC_1410_3430 
+%NW015%=*novatel.ndi, NWADI\NOVATEL_WIRELESS-VNIC_1410_4000 
+%NW015%=*novatel.ndi, NWADI\NOVATEL_WIRELESS-VNIC_1410_4010 
+%NW015%=*novatel.ndi, NWADI\NOVATEL_WIRELESS-VNIC_1410_4020 
+%NW015%=*novatel.ndi, NWADI\NOVATEL_WIRELESS-VNIC_1410_4030 
+%NW016%=*novatel.ndi, NWADI\NOVATEL_WIRELESS-VNIC_1410_4100 
+%NW016%=*novatel.ndi, NWADI\NOVATEL_WIRELESS-VNIC_1410_4110 
+%NW016%=*novatel.ndi, NWADI\NOVATEL_WIRELESS-VNIC_1410_4120 
+%NW016%=*novatel.ndi, NWADI\NOVATEL_WIRELESS-VNIC_1410_4130 
+%NW017%=*novatel.ndi, NWADI\NOVATEL_WIRELESS-VNIC_1410_4200 
+%NW017%=*novatel.ndi, NWADI\NOVATEL_WIRELESS-VNIC_1410_4210 
+%NW017%=*novatel.ndi, NWADI\NOVATEL_WIRELESS-VNIC_1410_4220 
+%NW017%=*novatel.ndi, NWADI\NOVATEL_WIRELESS-VNIC_1410_4230 
+%NW018%=*novatel.ndi, NWADI\NOVATEL_WIRELESS-VNIC_1410_4300 
+%NW018%=*novatel.ndi, NWADI\NOVATEL_WIRELESS-VNIC_1410_4310 
+%NW018%=*novatel.ndi, NWADI\NOVATEL_WIRELESS-VNIC_1410_4320 
+%NW018%=*novatel.ndi, NWADI\NOVATEL_WIRELESS-VNIC_1410_4330 
+%NW019%=*novatel.ndi, NWADI\NOVATEL_WIRELESS-VNIC_1410_4400 
+%NW019%=*novatel.ndi, NWADI\NOVATEL_WIRELESS-VNIC_1410_4410 
+%NW019%=*novatel.ndi, NWADI\NOVATEL_WIRELESS-VNIC_1410_4420 
+%NW019%=*novatel.ndi, NWADI\NOVATEL_WIRELESS-VNIC_1410_4430 
+%NW020%=*novatel.ndi, NWADI\NOVATEL_WIRELESS-VNIC_1410_0001 
+%NW020%=*novatel.ndi, NWADI\NOVATEL_WIRELESS-VNIC_1410_0002 
+%NW020%=*novatel.ndi, NWADI\NOVATEL_WIRELESS-VNIC_1410_0003 
+%NW020%=*novatel.ndi, NWADI\NOVATEL_WIRELESS-VNIC_1410_0004
+
+[Models.NTamd64]
+%NW000%=*novatel.ndi, NWADI\NOVATEL_WIRELESS-VNIC_1410_1000 
+%NW000%=*novatel.ndi, NWADI\NOVATEL_WIRELESS-VNIC_1410_1010 
+%NW000%=*novatel.ndi, NWADI\NOVATEL_WIRELESS-VNIC_1410_1020 
+%NW000%=*novatel.ndi, NWADI\NOVATEL_WIRELESS-VNIC_1410_1030 
+%NW001%=*novatel.ndi, NWADI\NOVATEL_WIRELESS-VNIC_1410_1100 
+%NW001%=*novatel.ndi, NWADI\NOVATEL_WIRELESS-VNIC001 
+%NW001%=*novatel.ndi, NWADI\NOVATEL_WIRELESS-VNIC_1410_1120 
+%NW001%=*novatel.ndi, NWADI\NOVATEL_WIRELESS-VNIC_1410_1130 
+%NW002%=*novatel.ndi, NWADI\NOVATEL_WIRELESS-VNIC_1410_1200 
+%NW002%=*novatel.ndi, NWADI\NOVATEL_WIRELESS-VNIC_1410_1210 
+%NW002%=*novatel.ndi, NWADI\NOVATEL_WIRELESS-VNIC_1410_1220 
+%NW002%=*novatel.ndi, NWADI\NOVATEL_WIRELESS-VNIC_1410_1230 
+%NW003%=*novatel.ndi, NWADI\NOVATEL_WIRELESS-VNIC_1410_1300 
+%NW003%=*novatel.ndi, NWADI\NOVATEL_WIRELESS-VNIC_1410_1310 
+%NW003%=*novatel.ndi, NWADI\NOVATEL_WIRELESS-VNIC_1410_1320 
+%NW003%=*novatel.ndi, NWADI\NOVATEL_WIRELESS-VNIC_1410_1330 
+%NW004%=*novatel.ndi, NWADI\NOVATEL_WIRELESS-VNIC_1410_1400 
+%NW004%=*novatel.ndi, NWADI\NOVATEL_WIRELESS-VNIC_1410_1410 
+%NW004%=*novatel.ndi, NWADI\NOVATEL_WIRELESS-VNIC_1410_1420 
+%NW004%=*novatel.ndi, NWADI\NOVATEL_WIRELESS-VNIC_1410_1430 
+%NW005%=*novatel.ndi, NWADI\NOVATEL_WIRELESS-VNIC_1410_2000 
+%NW005%=*novatel.ndi, NWADI\NOVATEL_WIRELESS-VNIC_1410_2010 
+%NW005%=*novatel.ndi, NWADI\NOVATEL_WIRELESS-VNIC_1410_2020 
+%NW005%=*novatel.ndi, NWADI\NOVATEL_WIRELESS-VNIC_1410_2030 
+%NW006%=*novatel.ndi, NWADI\NOVATEL_WIRELESS-VNIC_1410_2100 
+%NW006%=*novatel.ndi, NWADI\NOVATEL_WIRELESS-VNIC_1410_2110 
+%NW006%=*novatel.ndi, NWADI\NOVATEL_WIRELESS-VNIC_1410_2120 
+%NW006%=*novatel.ndi, NWADI\NOVATEL_WIRELESS-VNIC_1410_2130 
+%NW007%=*novatel.ndi, NWADI\NOVATEL_WIRELESS-VNIC_1410_2200 
+%NW007%=*novatel.ndi, NWADI\NOVATEL_WIRELESS-VNIC_1410_2210 
+%NW007%=*novatel.ndi, NWADI\NOVATEL_WIRELESS-VNIC_1410_2220 
+%NW007%=*novatel.ndi, NWADI\NOVATEL_WIRELESS-VNIC_1410_2230 
+%NW008%=*novatel.ndi, NWADI\NOVATEL_WIRELESS-VNIC_1410_2300 
+%NW008%=*novatel.ndi, NWADI\NOVATEL_WIRELESS-VNIC_1410_2310 
+%NW008%=*novatel.ndi, NWADI\NOVATEL_WIRELESS-VNIC_1410_2320 
+%NW008%=*novatel.ndi, NWADI\NOVATEL_WIRELESS-VNIC_1410_2330 
+%NW009%=*novatel.ndi, NWADI\NOVATEL_WIRELESS-VNIC_1410_2400 
+%NW009%=*novatel.ndi, NWADI\NOVATEL_WIRELESS-VNIC_1410_2410 
+%NW009%=*novatel.ndi, NWADI\NOVATEL_WIRELESS-VNIC_1410_2420 
+%NW009%=*novatel.ndi, NWADI\NOVATEL_WIRELESS-VNIC_1410_2430 
+%NW010%=*novatel.ndi, NWADI\NOVATEL_WIRELESS-VNIC_1410_3000 
+%NW010%=*novatel.ndi, NWADI\NOVATEL_WIRELESS-VNIC_1410_3010 
+%NW010%=*novatel.ndi, NWADI\NOVATEL_WIRELESS-VNIC_1410_3020 
+%NW010%=*novatel.ndi, NWADI\NOVATEL_WIRELESS-VNIC_1410_3030 
+%NW011%=*novatel.ndi, NWADI\NOVATEL_WIRELESS-VNIC_1410_3100 
+%NW011%=*novatel.ndi, NWADI\NOVATEL_WIRELESS-VNIC_1410_3110 
+%NW011%=*novatel.ndi, NWADI\NOVATEL_WIRELESS-VNIC_1410_3120 
+%NW011%=*novatel.ndi, NWADI\NOVATEL_WIRELESS-VNIC_1410_3130 
+%NW012%=*novatel.ndi, NWADI\NOVATEL_WIRELESS-VNIC_1410_3200 
+%NW012%=*novatel.ndi, NWADI\NOVATEL_WIRELESS-VNIC_1410_3210 
+%NW012%=*novatel.ndi, NWADI\NOVATEL_WIRELESS-VNIC_1410_3220 
+%NW012%=*novatel.ndi, NWADI\NOVATEL_WIRELESS-VNIC_1410_3230 
+%NW013%=*novatel.ndi, NWADI\NOVATEL_WIRELESS-VNIC_1410_3300 
+%NW013%=*novatel.ndi, NWADI\NOVATEL_WIRELESS-VNIC_1410_3310 
+%NW013%=*novatel.ndi, NWADI\NOVATEL_WIRELESS-VNIC_1410_3320 
+%NW013%=*novatel.ndi, NWADI\NOVATEL_WIRELESS-VNIC_1410_3330 
+%NW014%=*novatel.ndi, NWADI\NOVATEL_WIRELESS-VNIC_1410_3400 
+%NW014%=*novatel.ndi, NWADI\NOVATEL_WIRELESS-VNIC_1410_3410 
+%NW014%=*novatel.ndi, NWADI\NOVATEL_WIRELESS-VNIC_1410_3420 
+%NW014%=*novatel.ndi, NWADI\NOVATEL_WIRELESS-VNIC_1410_3430 
+%NW015%=*novatel.ndi, NWADI\NOVATEL_WIRELESS-VNIC_1410_4000 
+%NW015%=*novatel.ndi, NWADI\NOVATEL_WIRELESS-VNIC_1410_4010 
+%NW015%=*novatel.ndi, NWADI\NOVATEL_WIRELESS-VNIC_1410_4020 
+%NW015%=*novatel.ndi, NWADI\NOVATEL_WIRELESS-VNIC_1410_4030 
+%NW016%=*novatel.ndi, NWADI\NOVATEL_WIRELESS-VNIC_1410_4100 
+%NW016%=*novatel.ndi, NWADI\NOVATEL_WIRELESS-VNIC_1410_4110 
+%NW016%=*novatel.ndi, NWADI\NOVATEL_WIRELESS-VNIC_1410_4120 
+%NW016%=*novatel.ndi, NWADI\NOVATEL_WIRELESS-VNIC_1410_4130 
+%NW017%=*novatel.ndi, NWADI\NOVATEL_WIRELESS-VNIC_1410_4200 
+%NW017%=*novatel.ndi, NWADI\NOVATEL_WIRELESS-VNIC_1410_4210 
+%NW017%=*novatel.ndi, NWADI\NOVATEL_WIRELESS-VNIC_1410_4220 
+%NW017%=*novatel.ndi, NWADI\NOVATEL_WIRELESS-VNIC_1410_4230 
+%NW018%=*novatel.ndi, NWADI\NOVATEL_WIRELESS-VNIC_1410_4300 
+%NW018%=*novatel.ndi, NWADI\NOVATEL_WIRELESS-VNIC_1410_4310 
+%NW018%=*novatel.ndi, NWADI\NOVATEL_WIRELESS-VNIC_1410_4320 
+%NW018%=*novatel.ndi, NWADI\NOVATEL_WIRELESS-VNIC_1410_4330 
+%NW019%=*novatel.ndi, NWADI\NOVATEL_WIRELESS-VNIC_1410_4400 
+%NW019%=*novatel.ndi, NWADI\NOVATEL_WIRELESS-VNIC_1410_4410 
+%NW019%=*novatel.ndi, NWADI\NOVATEL_WIRELESS-VNIC_1410_4420 
+%NW019%=*novatel.ndi, NWADI\NOVATEL_WIRELESS-VNIC_1410_4430 
+%NW020%=*novatel.ndi, NWADI\NOVATEL_WIRELESS-VNIC_1410_0001 
+%NW020%=*novatel.ndi, NWADI\NOVATEL_WIRELESS-VNIC_1410_0002 
+%NW020%=*novatel.ndi, NWADI\NOVATEL_WIRELESS-VNIC_1410_0003 
+%NW020%=*novatel.ndi, NWADI\NOVATEL_WIRELESS-VNIC_1410_0004
+
+;-------------------------------------------------------------------------------
+; INF SourceDisksNames Section
+;------------------------------------------------------------------------------- 
+[SourceDisksNames]
+1 = %novatel_disk%,,,""
+
+;-------------------------------------------------------------------------------
+; INF SourceDisksFiles Section
+;-------------------------------------------------------------------------------
+[SourceDisksFiles]
+NWVNdis.sys = 1,,
+
+[SourceDisksFiles.amd64]
+NWVNdis64.sys = 1,,
+
+[NDIS_NT_DRIVER]
+NWVNdis.sys,,,0x20
+
+[NDIS_NT_DRIVERamd64]
+NWVNdis.sys,NWVNdis64.sys,,0x20
+
+;-------------------------------------------------------------------------------
+; INF DestinationDirs Section
+;-------------------------------------------------------------------------------
+[DestinationDirs]
+DefaultDestDir           =12 ; system dir
+
+;-------------------------------------------------------------------------------
+; INF DDInstall Section
+;-------------------------------------------------------------------------------
+[*novatel.ndi.NT]
+AddReg          = novatel.w2k.reg, NOVATEL.params.reg
+CopyFiles       = NDIS_NT_DRIVER
+Characteristics = 0x81 ; NCF_ flags
+
+[*novatel.ndi.NTamd64]
+AddReg          = novatel.w2k.reg, NOVATEL.params.reg
+CopyFiles       = NDIS_NT_DRIVERamd64
+Characteristics = 0x81 ; NCF_ flags
+
+[novatel.w2k.reg]
+HKR, , Connect, 0x00010001, 0x01
+HKR, Ndi, Service, 0,"NWVNDIS"
+HKR, Ndi\Interfaces, UpperRange, 0, "ndis5"
+HKR, Ndi\Interfaces, LowerRange, 0, "ethernet"
+
+[NOVATEL.params.reg]
+HKR, NDI\params\NetworkAddress,           ParamDesc,      0, %NetworkAddress%
+HKR, NDI\params\NetworkAddress,           type,           0, "edit"
+HKR, NDI\params\NetworkAddress,           LimitText,      0, "12"
+HKR, NDI\params\NetworkAddress,           UpperCase,      0, "1"
+HKR, NDI\params\NetworkAddress,           default,        0, " "
+HKR, NDI\params\NetworkAddress,           optional,       0, "1"
+
+;-------------------------------------------------------------------------------
+; INF DDInstall.Services Section
+;-------------------------------------------------------------------------------
+[*novatel.ndi.NT.Services]
+AddService = NWVNDIS, 2, novatel.Service, novatel.EventLog
+
+[*novatel.ndi.NTamd64.Services]
+AddService = NWVNDIS, 2, novatel.Service, novatel.EventLog
+
+[novatel.Service]
+DisplayName     = %novatel.Service.DispName%
+ServiceType     = 1 ;%SERVICE_KERNEL_DRIVER%
+StartType       = 3 ;%SERVICE_DEMAND_START%
+ErrorControl    = 1 ;%SERVICE_ERROR_NORMAL%
+ServiceBinary   = %12%\NWVNdis.sys
+LoadOrderGroup  = NDIS
+
+[novatel.EventLog]
+AddReg = novatel.AddEventLog.reg
+
+[novatel.AddEventLog.reg]
+HKR, , EventMessageFile, 0x00020000, "%%SystemRoot%%\System32\netevent.dll"
+HKR, , TypesSupported,   0x00010001, 7
+
+;-------------------------------------------------------------------------------
+; INF Strings Section
+;-------------------------------------------------------------------------------
+[strings]
+Mfg                      = "Novatel Wireless Inc"
+novatel.Service.DispName = "Novatel Wireless Virtual Network Adapter"
+NetworkAddress           = "Network Address (MAC)"
+novatel_disk             = "Novatel Wireless Driver Disk"
+NW000            = "Novatel Wireless Merlin CDMA 1X Network Adapter"
+NW001            = "Novatel Wireless Merlin CDMA EV-DO Network Adapter"
+NW002            = "Novatel Wireless Merlin EV-DV Network Adapter"
+NW003            = "Novatel Wireless Merlin UMTS Network Adapter"
+NW004            = "Novatel Wireless Merlin HSDPA Network Adapter"
+NW005            = "Novatel Wireless Expedite CDMA 1X Network Adapter"
+NW006            = "Novatel Wireless Expedite EV-DO Network Adapter"
+NW007            = "Novatel Wireless Expedite EV-DV Network Adapter"
+NW008            = "Novatel Wireless Expedite UMTS Network Adapter"
+NW009            = "Novatel Wireless Expedite HSDPA Network Adapter"
+NW010            = "Novatel Wireless Freedom Box CDMA 1X Network Adapter"
+NW011            = "Novatel Wireless Freedom Box EV-DO Network Adapter"
+NW012            = "Novatel Wireless Freedom Box EV-DV Network Adapter"
+NW013            = "Novatel Wireless Freedom Box UMTS Network Adapter"
+NW014            = "Novatel Wireless Freedom Box HSDPA Network Adapter"
+NW015            = "Novatel Wireless Ovation CDMA 1X Network Adapter"
+NW016            = "Novatel Wireless Ovation EV-DO Network Adapter"
+NW017            = "Novatel Wireless Ovation EV-DV Network Adapter"
+NW018            = "Novatel Wireless Ovation UMTS Network Adapter"
+NW019            = "Novatel Wireless Ovation HSDPA Network Adapter"
+NW020            = "Novatel Wireless Network Adapter"
+ 

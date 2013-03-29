@@ -1,0 +1,1285 @@
+; netX500.INF
+;
+; PCX500 Cards. for all of Cisco Systems A50X based Wireless LAN cards
+;
+; Copyright 1998-2002, Cisco Systems, Inc.
+;
+;---------------------------------------------------------------------
+
+[Version]
+Signature           = "$Chicago$"
+Compatible          = 1
+Class               = Net
+ClassGUID           = {4d36e972-e325-11ce-bfc1-08002be10318}
+Provider            = %V_CISCO%
+DriverVer           = 09/20/2004, 8.6.16
+MillenniumPreferred = .ME
+CatalogFile         = netx500.cat
+
+[SourceDisksNames]
+1= %Disk_1_Desc%,,
+
+[SourceDisksFiles]
+pcx500.sys      = 1
+pcx500.xp       = 1
+pcx500mp.sys    = 1
+vxdx500.vxd     = 1
+CInsX500.dll    = 1
+CInst16.dll     = 1
+CUtil16.exe     = 1
+pcx500b.img     = 1
+
+[DestinationDirs]
+CopyFiles_XP      = 12  ;Drivers Dir
+CopyFiles_XP_Co   = 11  ;System  Dir
+CopyFiles_NT      = 12  ;Drivers Dir
+CopyFW_NT         = 12  ;Drivers Dir
+CopyFiles_NT_Co   = 11  ;System  Dir
+CopySys_Win9x     = 11  ;System  Dir
+CopyInst_Win9x    = 11  ;System  Dir
+CopyFW_Win9x      = 11  ;System  Dir
+DefaultDestDir    = 11  ;System  Dir
+
+
+[ControlFlags]
+ExcludeFromSelect =  * 
+
+[Manufacturer]
+%V_CISCO%  = CISCO,NT.5.1
+
+[CISCO]
+; DisplayName                      Section                   DeviceID
+; ---------------               --------------          ---------------------------
+%PC2500.DevDesc%                = PC2500.ndi,           PCMCIA\AIRONET-PC2500-5313
+%PCI2500.DevDesc%               = PCI2500.ndi,          PCI\VEN_14B9&DEV_2500    
+%ISA2500.DevDesc%               = ISA2500.ndi,          ISAPNP\AWL2500 
+
+%PC3100.DevDesc%                = PC3100.ndi,           PCMCIA\AIRONET-PC3100-25CA
+%PCI3100.DevDesc%               = PCI3100.ndi,          PCI\VEN_14B9&DEV_3100    
+%PCI3100.DevDesc%               = PCI3100.ndi,          PCI\VEN_14B9&DEV_3101    
+%ISA3100.DevDesc%               = ISA3100.ndi,          ISAPNP\AWL3100 
+%ISA3100.DevDesc%               = ISA3100.ndi,          ISAPNP\AWL3101 
+
+%PC3500.DevDesc%                = PC3500.ndi,           PCMCIA\AIRONET-PC3500-D29B
+%PC3500.DevDesc%                = PC3500.ndi,           PCMCIA\AIRONET-PC3500-1492
+%PCI3500.DevDesc%               = PCI3500.ndi,          PCI\VEN_14B9&DEV_3500    
+%ISA3500.DevDesc%               = ISA3500.ndi,          ISAPNP\AWL3500        
+
+%PC4500.DevDesc%                = PC4500.ndi,           PCMCIA\AIRONET-PC4500-13ED
+%PC4500.DevDesc%                = PC4500.ndi,           PCMCIA\AIRONET-PC4500-D4C4
+%PCI4500.DevDesc%               = PCI4500.ndi,          PCI\VEN_14B9&DEV_4500 
+%ISA4500.DevDesc%               = ISA4500.ndi,          ISAPNP\AWL4500
+ 
+%PC4800.DevDesc%                = PC4800.ndi,           PCMCIA\AIRONET-PC4800-D913
+%PCI4800.DevDesc%               = PCI4800.ndi,          PCI\VEN_14B9&DEV_4800    
+%ISA4800.DevDesc%               = ISA4800.ndi,          ISAPNP\AWL4800 
+
+%PC340.DevDesc%                 = PC340.ndi,            PCMCIA\CISCO_SYSTEMS-340_SERIES_WIRELESS_LAN_ADAPTER-5FE9
+%PCI340.DevDesc%                = PCI340.ndi,           PCI\VEN_14B9&DEV_0340
+
+%PC350.DevDesc%                 = PC350.ndi,            PCMCIA\CISCO_SYSTEMS-350_SERIES_WIRELESS_LAN_ADAPTER-512A
+%PCI350.DevDesc%                = PCI350.ndi,           PCI\VEN_14B9&DEV_0350
+
+
+[CISCO.NT.5.1]
+; DisplayName                      Section                   DeviceID
+; ---------------               --------------          ---------------------------
+%PC2500.DevDesc%                = PC2500.ndi.XP,        PCMCIA\AIRONET-PC2500-5313
+%PCI2500.DevDesc%               = PCI2500.ndi.XP,       PCI\VEN_14B9&DEV_2500
+%ISA2500.DevDesc%               = ISA2500.ndi.XP,       ISAPNP\AWL2500
+
+%PC3100.DevDesc%                = PC3100.ndi.XP,        PCMCIA\AIRONET-PC3100-25CA
+%PCI3100.DevDesc%               = PCI3100.ndi.XP,       PCI\VEN_14B9&DEV_3100
+%PCI3100.DevDesc%               = PCI3100.ndi.XP,       PCI\VEN_14B9&DEV_3101
+%ISA3100.DevDesc%               = ISA3100.ndi.XP,       ISAPNP\AWL3100 
+%ISA3100.DevDesc%               = ISA3100.ndi.XP,       ISAPNP\AWL3101 
+
+%PC3500.DevDesc%                = PC3500.ndi.XP,        PCMCIA\AIRONET-PC3500-D29B
+%PC3500.DevDesc%                = PC3500.ndi.XP,        PCMCIA\AIRONET-PC3500-1492
+%PCI3500.DevDesc%               = PCI3500.ndi.XP,       PCI\VEN_14B9&DEV_3500
+%ISA3500.DevDesc%               = ISA3500.ndi.XP,       ISAPNP\AWL3500
+
+%PC4500.DevDesc%                = PC4500.ndi.XP,        PCMCIA\AIRONET-PC4500-13ED
+%PC4500.DevDesc%                = PC4500.ndi.XP,        PCMCIA\AIRONET-PC4500-D4C4
+%PCI4500.DevDesc%               = PCI4500.ndi.XP,       PCI\VEN_14B9&DEV_4500
+%ISA4500.DevDesc%               = ISA4500.ndi.XP,       ISAPNP\AWL4500
+ 
+%PC4800.DevDesc%                = PC4800.ndi.XP,        PCMCIA\AIRONET-PC4800-D913
+%PCI4800.DevDesc%               = PCI4800.ndi.XP,       PCI\VEN_14B9&DEV_4800
+%ISA4800.DevDesc%               = ISA4800.ndi.XP,       ISAPNP\AWL4800 
+
+%PC340.DevDesc%                 = PC340.ndi.XP,         PCMCIA\CISCO_SYSTEMS-340_SERIES_WIRELESS_LAN_ADAPTER-5FE9
+%PCI340.DevDesc%                = PCI340.ndi.XP,        PCI\VEN_14B9&DEV_0340
+
+%PC350.DevDesc%                 = PC350.ndi.XP,         PCMCIA\CISCO_SYSTEMS-350_SERIES_WIRELESS_LAN_ADAPTER-512A
+%PCI350.DevDesc%                = PCI350.ndi.XP,        PCI\VEN_14B9&DEV_0350
+
+;*****************************************************************
+[PC350.ndi.XP]
+AddReg          =       NDI5, COMMON, SSIDS, Mb11, PC4800, BUS8
+DelReg          =       NDI5_REMOVE
+Characteristics =       0x84
+BusType         =       8
+CopyFiles       =       CopyFiles_XP, CopyFW_NT
+
+[PC350.ndi.XP.Services]
+AddService      =       PCX500, 2, PCX500.Service, PCX500.EventLog
+AddService      =       PCX500MP,,Filter_Service_Inst 
+
+[PC350.ndi.XP.CoInstallers]
+AddReg          =       CoInstaller.NT.AddReg
+CopyFiles       =       CopyFiles_XP_Co
+
+[PC350.ndi.NT]
+AddReg          =       NDI5, COMMON, SSIDS, Mb11, PC4800, BUS8
+DelReg          =       NDI5_REMOVE
+Characteristics =       0x84
+BusType         =       8
+CopyFiles       =       CopyFiles_NT, CopyFW_NT
+
+[PC350.ndi.NT.Services]
+AddService      =       PCX500, 2, PCX500.Service, PCX500.EventLog
+AddService      =       PCX500MP,,Filter_Service_Inst 
+
+[PC350.ndi.NT.CoInstallers]
+AddReg          =       CoInstaller.NT.AddReg
+CopyFiles       =       CopyFiles_NT_Co
+
+[PC350.ndi.ME]
+AddReg          =       NDI.9x, NDI.Me, COMMON, SSIDS, Mb11, PC4800, BUS8
+DelReg          =       NDI5_REMOVE
+Characteristics =       0x84
+BusType         =       8
+CopyFiles       =       CopyInst_Win9x, CopySys_Win9x, CopyFW_Win9x
+
+[PC350.ndi.ME.Services]
+
+[PC350.ndi]
+AddReg          =       NDI.9x, COMMON, SSIDS, Mb11, PC4800, BUS8, DEV.PC350
+CopyFiles       =       CopyInst_Win9x, CopySys_Win9x, CopyFW_Win9x
+
+;--------------------------------------------------------------------------------------
+[PCI350.ndi.XP]
+AddReg          =       NDI5, COMMON, SSIDS, Mb11, PC4800, BUS5
+DelReg          =       NDI5_REMOVE
+Characteristics =       0x84
+BusType         =       5
+CopyFiles       =       CopyFiles_XP, CopyFW_NT
+
+[PCI350.ndi.XP.Services]
+AddService      =       PCX500, 2, PCX500.Service, PCX500.EventLog
+
+[PCI350.ndi.XP.CoInstallers]
+AddReg          =       CoInstaller.NT.AddReg
+CopyFiles       =       CopyFiles_XP_Co
+
+[PCI350.ndi.NT]
+AddReg          =       NDI5, COMMON, SSIDS, Mb11, PC4800, BUS5
+DelReg          =       NDI5_REMOVE
+Characteristics =       0x84
+BusType         =       5
+CopyFiles       =       CopyFiles_NT, CopyFW_NT
+
+[PCI350.ndi.NT.Services]
+AddService      =       PCX500, 2, PCX500.Service, PCX500.EventLog
+
+[PCI350.ndi.NT.CoInstallers]
+AddReg          =       CoInstaller.NT.AddReg
+CopyFiles       =       CopyFiles_NT_Co
+
+[PCI350.ndi.ME]
+AddReg          =       NDI.9x, NDI.Me, COMMON, SSIDS, Mb11, PC4800, BUS5.9x
+DelReg          =       NDI5_REMOVE
+Characteristics =       0x84
+BusType         =       5
+CopyFiles       =       CopyInst_Win9x, CopySys_Win9x, CopyFW_Win9x
+
+[PCI350.ndi.ME.Services]
+
+[PCI350.ndi]
+AddReg          =       NDI.9x, COMMON, SSIDS, Mb11, PC4800, BUS5.9x, DEV.PCI350
+CopyFiles       =       CopyInst_Win9x, CopySys_Win9x, CopyFW_Win9x
+
+;*****************************************************************
+[PC340.ndi.XP]
+AddReg          =       NDI5, COMMON, SSIDS, Mb11, PC4800, BUS8
+DelReg          =       NDI5_REMOVE
+Characteristics =       0x84
+BusType         =       8
+CopyFiles       =       CopyFiles_XP, CopyFW_NT
+
+[PC340.ndi.XP.Services]
+AddService      =       PCX500, 2, PCX500.Service, PCX500.EventLog
+AddService      =       PCX500MP,,Filter_Service_Inst 
+
+[PC340.ndi.XP.CoInstallers]
+AddReg          =       CoInstaller.NT.AddReg
+CopyFiles       =       CopyFiles_XP_Co
+
+[PC340.ndi.NT]
+AddReg          =       NDI5, COMMON, SSIDS, Mb11, PC4800, BUS8
+DelReg          =       NDI5_REMOVE
+Characteristics =       0x84
+BusType         =       8
+CopyFiles       =       CopyFiles_NT, CopyFW_NT
+
+[PC340.ndi.NT.Services]
+AddService      =       PCX500, 2, PCX500.Service, PCX500.EventLog
+AddService      =       PCX500MP,,Filter_Service_Inst 
+
+[PC340.ndi.NT.CoInstallers]
+AddReg          =       CoInstaller.NT.AddReg
+CopyFiles       =       CopyFiles_NT_Co
+
+[PC340.ndi.ME]
+AddReg          =       NDI.9x, NDI.Me, COMMON, SSIDS, Mb11, PC4800, BUS8
+DelReg          =       NDI5_REMOVE
+Characteristics =       0x84
+BusType         =       8
+CopyFiles       =       CopyInst_Win9x, CopySys_Win9x, CopyFW_Win9x
+
+[PC340.ndi.ME.Services]
+
+[PC340.ndi]
+AddReg          =       NDI.9x, COMMON, SSIDS, Mb11, PC4800, BUS8, DEV.PC340
+CopyFiles       =       CopyInst_Win9x, CopySys_Win9x, CopyFW_Win9x
+
+;--------------------------------------------------------------------------------------
+[PCI340.ndi.XP]
+AddReg          =       NDI5, COMMON, SSIDS, Mb11, PC4800, BUS5
+DelReg          =       NDI5_REMOVE
+Characteristics =       0x84
+BusType         =       5
+CopyFiles       =       CopyFiles_XP, CopyFW_NT
+
+[PCI340.ndi.XP.Services]
+AddService      =       PCX500, 2, PCX500.Service, PCX500.EventLog
+
+[PCI340.ndi.XP.CoInstallers]
+AddReg          =       CoInstaller.NT.AddReg
+CopyFiles       =       CopyFiles_XP_Co
+ 
+[PCI340.ndi.NT]
+AddReg          =       NDI5, COMMON, SSIDS, Mb11, PC4800, BUS5
+DelReg          =       NDI5_REMOVE
+Characteristics =       0x84
+BusType         =       5
+CopyFiles       =       CopyFiles_NT, CopyFW_NT
+
+[PCI340.ndi.NT.Services]
+AddService      =       PCX500, 2, PCX500.Service, PCX500.EventLog
+
+[PCI340.ndi.NT.CoInstallers]
+AddReg          =       CoInstaller.NT.AddReg
+CopyFiles       =       CopyFiles_NT_Co
+
+[PCI340.ndi.ME]
+AddReg          =       NDI.9x, NDI.Me, COMMON, SSIDS, Mb11, PC4800, BUS5.9x
+DelReg          =       NDI5_REMOVE
+Characteristics =       0x84
+BusType         =       5
+CopyFiles       =       CopyInst_Win9x, CopySys_Win9x, CopyFW_Win9x
+
+[PCI340.ndi.ME.Services]
+
+[PCI340.ndi]
+AddReg          =       NDI.9x, COMMON, SSIDS, Mb11, PC4800, BUS5.9x, DEV.PCI340
+CopyFiles       =       CopyInst_Win9x, CopySys_Win9x, CopyFW_Win9x
+
+;*****************************************************************
+[PC4800.ndi.XP]
+AddReg          =       NDI5, COMMON, SSIDS, Mb11, PC4800, BUS8
+DelReg          =       NDI5_REMOVE
+Characteristics =       0x84
+BusType         =       8
+CopyFiles       =       CopyFiles_XP, CopyFW_NT
+
+[PC4800.ndi.XP.Services]
+AddService      =       PCX500, 2, PCX500.Service, PCX500.EventLog
+AddService      =       PCX500MP,,Filter_Service_Inst 
+
+[PC4800.ndi.XP.CoInstallers]
+AddReg          =       CoInstaller.NT.AddReg
+CopyFiles       =       CopyFiles_XP_Co
+
+[PC4800.ndi.NT]
+AddReg          =       NDI5, COMMON, SSIDS, Mb11, PC4800, BUS8
+DelReg          =       NDI5_REMOVE
+Characteristics =       0x84
+BusType         =       8
+CopyFiles       =       CopyFiles_NT, CopyFW_NT
+
+[PC4800.ndi.NT.Services]
+AddService      =       PCX500, 2, PCX500.Service, PCX500.EventLog
+AddService      =       PCX500MP,,Filter_Service_Inst 
+
+[PC4800.ndi.NT.CoInstallers]
+AddReg          =       CoInstaller.NT.AddReg
+CopyFiles       =       CopyFiles_NT_Co
+
+[PC4800.ndi.ME]
+AddReg          =       NDI.9x, NDI.Me, COMMON, SSIDS, Mb11, PC4800, BUS8
+DelReg          =       NDI5_REMOVE
+Characteristics =       0x84
+BusType         =       8
+CopyFiles       =       CopyInst_Win9x, CopySys_Win9x, CopyFW_Win9x
+
+[PC4800.ndi.ME.Services]
+
+[PC4800.ndi]
+AddReg          =       NDI.9x, COMMON, SSIDS, Mb11, PC4800, BUS8, DEV.PC4800
+CopyFiles       =       CopyInst_Win9x, CopySys_Win9x, CopyFW_Win9x
+
+;--------------------------------------------------------------------------------------
+[PCI4800.ndi.XP]
+AddReg          =       NDI5, COMMON, SSIDS, Mb11, PC4800, BUS5
+DelReg          =       NDI5_REMOVE
+Characteristics =       0x84
+BusType         =       5
+CopyFiles       =       CopyFiles_XP, CopyFW_NT
+
+[PCI4800.ndi.XP.Services]
+AddService      =       PCX500, 2, PCX500.Service, PCX500.EventLog
+
+[PCI4800.ndi.XP.CoInstallers]
+AddReg          =       CoInstaller.NT.AddReg
+CopyFiles       =       CopyFiles_XP_Co
+
+[PCI4800.ndi.NT]
+AddReg          =       NDI5, COMMON, SSIDS, Mb11, PC4800, BUS5
+DelReg          =       NDI5_REMOVE
+Characteristics =       0x84
+BusType         =       5
+CopyFiles       =       CopyFiles_NT, CopyFW_NT
+
+[PCI4800.ndi.NT.Services]
+AddService      =       PCX500, 2, PCX500.Service, PCX500.EventLog
+
+[PCI4800.ndi.NT.CoInstallers]
+AddReg          =       CoInstaller.NT.AddReg
+CopyFiles       =       CopyFiles_NT_Co
+
+[PCI4800.ndi.ME]
+AddReg          =       NDI.9x, NDI.Me, COMMON, SSIDS, Mb11, PC4800, BUS5.9x
+DelReg          =       NDI5_REMOVE
+Characteristics =       0x84
+BusType         =       5
+CopyFiles       =       CopyInst_Win9x, CopySys_Win9x, CopyFW_Win9x
+
+[PCI4800.ndi.ME.Services]
+
+[PCI4800.ndi]
+AddReg          =       NDI.9x, COMMON, SSIDS, Mb11, PC4800, BUS5.9x, DEV.PCI4800
+CopyFiles       =       CopyInst_Win9x, CopySys_Win9x, CopyFW_Win9x
+
+;--------------------------------------------------------------------------------------
+[ISA4800.ndi.XP]
+AddReg          =       NDI5, COMMON, SSIDS, Mb11, PC4800, BUS14
+DelReg          =       NDI5_REMOVE
+Characteristics =       0x84
+BusType         =       14
+LogConfig       =       ISA.LogConfig
+CopyFiles       =       CopyFiles_XP, CopyFW_NT
+
+[ISA4800.ndi.XP.Services]
+AddService      =       PCX500, 2, PCX500.Service, PCX500.EventLog
+
+[ISA4800.ndi.XP.CoInstallers]
+AddReg          =       CoInstaller.NT.AddReg
+CopyFiles       =       CopyFiles_XP_Co
+
+[ISA4800.ndi.NT]
+AddReg          =       NDI5, COMMON, SSIDS, Mb11, PC4800, BUS14
+DelReg          =       NDI5_REMOVE
+Characteristics =       0x84
+BusType         =       14
+LogConfig       =       ISA.LogConfig
+CopyFiles       =       CopyFiles_NT, CopyFW_NT
+
+[ISA4800.ndi.NT.Services]
+AddService      =       PCX500, 2, PCX500.Service, PCX500.EventLog
+
+[ISA4800.ndi.NT.CoInstallers]
+AddReg          =       CoInstaller.NT.AddReg
+CopyFiles       =       CopyFiles_NT_Co
+
+[ISA4800.ndi.ME]
+AddReg          =       NDI.9x, NDI.Me, COMMON, SSIDS, Mb11, PC4800, BUS14
+DelReg          =       NDI5_REMOVE
+Characteristics =       0x84
+BusType         =       1
+LogConfig       =       ISA.LogConfig
+CopyFiles       =       CopyInst_Win9x, CopySys_Win9x, CopyFW_Win9x
+
+[ISA4800.ndi.ME.Services]
+
+[ISA4800.ndi]
+AddReg          =       NDI.9x, COMMON, SSIDS, Mb11, PC4800, BUS14, DEV.ISA4800
+LogConfig       =       ISA.LogConfig
+CopyFiles       =       CopyInst_Win9x, CopySys_Win9x, CopyFW_Win9x
+
+;*****************************************************************
+[PC2500.ndi.XP]
+AddReg          =       NDI5, COMMON, TMA, PC2500, BUS8
+DelReg          =       NDI5_REMOVE
+Characteristics =       0x84
+BusType         =       8
+CopyFiles       =       CopyFiles_XP, CopyFW_NT
+
+[PC2500.ndi.XP.Services]
+AddService      =       PCX500, 2, PCX500.Service, PCX500.EventLog
+
+[PC2500.ndi.XP.CoInstallers]
+AddReg          =       CoInstaller.NT.AddReg
+CopyFiles       =       CopyFiles_XP_Co
+
+[PC2500.ndi.NT]
+AddReg          =       NDI5, COMMON, TMA, PC2500, BUS8
+DelReg          =       NDI5_REMOVE
+Characteristics =       0x84
+BusType         =       8
+CopyFiles       =       CopyFiles_NT, CopyFW_NT
+
+[PC2500.ndi.NT.Services]
+AddService      =       PCX500, 2, PCX500.Service, PCX500.EventLog
+
+[PC2500.ndi.NT.CoInstallers]
+AddReg          =       CoInstaller.NT.AddReg
+CopyFiles       =       CopyFiles_NT_Co
+
+[PC2500.ndi.ME]
+AddReg          =       NDI5, COMMON, TMA, PC2500, BUS8
+DelReg          =       NDI5_REMOVE
+Characteristics =       0x84
+BusType         =       8
+CopyFiles       =       CopyInst_Win9x, CopySys_Win9x, CopyFW_Win9x
+
+[PC2500.ndi.ME.Services]
+
+[PC2500.ndi]
+AddReg          =       NDI.9x, COMMON, TMA, PC2500, BUS8, DEV.PC2500
+CopyFiles       =       CopyInst_Win9x, CopySys_Win9x, CopyFW_Win9x
+
+;--------------------------------------------------------------------------------------
+[PCI2500.ndi.XP]
+AddReg          =       NDI5, COMMON, TMA, PC2500, BUS5
+DelReg          =       NDI5_REMOVE
+Characteristics =       0x84
+BusType         =       5
+CopyFiles       =       CopyFiles_XP, CopyFW_NT
+
+[PCI2500.ndi.XP.Services]
+AddService      =       PCX500, 2, PCX500.Service, PCX500.EventLog
+
+[PCI2500.ndi.XP.CoInstallers]
+AddReg          =       CoInstaller.NT.AddReg
+CopyFiles       =       CopyFiles_XP_Co
+
+[PCI2500.ndi.NT]
+AddReg          =       NDI5, COMMON, TMA, PC2500, BUS5
+DelReg          =       NDI5_REMOVE
+Characteristics =       0x84
+BusType         =       5
+CopyFiles       =       CopyFiles_NT, CopyFW_NT
+
+[PCI2500.ndi.NT.Services]
+AddService      =       PCX500, 2, PCX500.Service, PCX500.EventLog
+
+[PCI2500.ndi.NT.CoInstallers]
+AddReg          =       CoInstaller.NT.AddReg
+CopyFiles       =       CopyFiles_NT_Co
+
+[PCI2500.ndi.ME]
+AddReg          =       NDI5, COMMON, TMA, PC2500, BUS5.9x
+DelReg          =       NDI5_REMOVE
+Characteristics =       0x84
+BusType         =       5
+CopyFiles       =       CopyInst_Win9x, CopySys_Win9x, CopyFW_Win9x
+
+[PCI2500.ndi.ME.Services]
+
+[PCI2500.ndi]
+AddReg          =       NDI.9x, COMMON, TMA, PC2500, BUS5.9x, DEV.PCI2500
+CopyFiles       =       CopyInst_Win9x, CopySys_Win9x, CopyFW_Win9x
+
+;--------------------------------------------------------------------------------------
+[ISA2500.ndi.XP]
+AddReg          =       NDI5, COMMON, TMA, PC2500, BUS14
+DelReg          =       NDI5_REMOVE
+Characteristics =       0x84
+BusType         =       14
+LogConfig       =       ISA.LogConfig
+CopyFiles       =       CopyFiles_XP, CopyFW_NT
+
+[ISA2500.ndi.XP.Services]
+AddService      =       PCX500, 2, PCX500.Service, PCX500.EventLog
+
+[ISA2500.ndi.XP.CoInstallers]
+AddReg          =       CoInstaller.NT.AddReg
+CopyFiles       =       CopyFiles_XP_Co
+
+[ISA2500.ndi.NT]
+AddReg          =       NDI5, COMMON, TMA, PC2500, BUS14
+DelReg          =       NDI5_REMOVE
+Characteristics =       0x84
+BusType         =       14
+LogConfig       =       ISA.LogConfig
+CopyFiles       =       CopyFiles_NT, CopyFW_NT
+
+[ISA2500.ndi.NT.Services]
+AddService      =       PCX500, 2, PCX500.Service, PCX500.EventLog
+
+[ISA2500.ndi.NT.CoInstallers]
+AddReg          =       CoInstaller.NT.AddReg
+CopyFiles       =       CopyFiles_NT_Co
+
+[ISA2500.ndi.ME]
+AddReg          =       NDI5, COMMON, TMA, PC2500, BUS14
+DelReg          =       NDI5_REMOVE
+Characteristics =       0x84
+BusType         =       14
+LogConfig       =       ISA.LogConfig
+CopyFiles       =       CopyInst_Win9x, CopySys_Win9x, CopyFW_Win9x
+
+[ISA2500.ndi.ME.Services]
+
+[ISA2500.ndi]
+AddReg          =       NDI.9x, COMMON, TMA, PC2500, BUS14, DEV.ISA2500
+LogConfig       =       ISA.LogConfig
+CopyFiles       =       CopyInst_Win9x, CopySys_Win9x, CopyFW_Win9x
+
+;*****************************************************************
+[PC3100.ndi.XP]
+AddReg          =       NDI5, COMMON, SSIDS, Mb1, PC3100, BUS8
+DelReg          =       NDI5_REMOVE
+Characteristics =       0x84
+BusType         =       8
+CopyFiles       =       CopyFiles_XP, CopyFW_NT
+
+[PC3100.ndi.XP.Services]
+AddService      =       PCX500, 2, PCX500.Service, PCX500.EventLog
+
+[PC3100.ndi.XP.CoInstallers]
+AddReg          =       CoInstaller.NT.AddReg
+CopyFiles       =       CopyFiles_XP_Co
+
+[PC3100.ndi.NT]
+AddReg          =       NDI5, COMMON, SSIDS, Mb1, PC3100, BUS8
+DelReg          =       NDI5_REMOVE
+Characteristics =       0x84
+BusType         =       8
+CopyFiles       =       CopyFiles_NT, CopyFW_NT
+
+[PC3100.ndi.NT.Services]
+AddService      =       PCX500, 2, PCX500.Service, PCX500.EventLog
+
+[PC3100.ndi.NT.CoInstallers]
+AddReg          =       CoInstaller.NT.AddReg
+CopyFiles       =       CopyFiles_NT_Co
+
+[PC3100.ndi.ME]
+AddReg          =       NDI5, COMMON, SSIDS, Mb1, PC3100, BUS8
+DelReg          =       NDI5_REMOVE
+Characteristics =       0x84
+BusType         =       8
+CopyFiles       =       CopyInst_Win9x, CopySys_Win9x, CopyFW_Win9x
+
+[PC3100.ndi.ME.Services]
+
+[PC3100.ndi]
+AddReg          =       NDI.9x, COMMON, SSIDS, Mb1, PC3100, BUS8, DEV.PC3100
+CopyFiles       =       CopyInst_Win9x, CopySys_Win9x, CopyFW_Win9x
+
+;--------------------------------------------------------------------------------------
+[PCI3100.ndi.XP]
+AddReg          =       NDI5, COMMON, SSIDS, Mb1, PC3100, BUS5
+DelReg          =       NDI5_REMOVE
+Characteristics =       0x84
+BusType         =       5
+CopyFiles       =       CopyFiles_XP, CopyFW_NT
+
+[PCI3100.ndi.XP.Services]
+AddService      =       PCX500, 2, PCX500.Service, PCX500.EventLog
+
+[PCI3100.ndi.XP.CoInstallers]
+AddReg          =       CoInstaller.NT.AddReg
+CopyFiles       =       CopyFiles_XP_Co
+
+[PCI3100.ndi.NT]
+AddReg          =       NDI5, COMMON, SSIDS, Mb1, PC3100, BUS5
+DelReg          =       NDI5_REMOVE
+Characteristics =       0x84
+BusType         =       5
+CopyFiles       =       CopyFiles_NT, CopyFW_NT
+
+[PCI3100.ndi.NT.Services]
+AddService      =       PCX500, 2, PCX500.Service, PCX500.EventLog
+
+[PCI3100.ndi.NT.CoInstallers]
+AddReg          =       CoInstaller.NT.AddReg
+CopyFiles       =       CopyFiles_NT_Co
+
+[PCI3100.ndi.ME]
+AddReg          =       NDI5, COMMON, SSIDS, Mb1, PC3100, BUS5.9x
+DelReg          =       NDI5_REMOVE
+Characteristics =       0x84
+BusType         =       5
+CopyFiles       =       CopyInst_Win9x, CopySys_Win9x, CopyFW_Win9x
+
+[PCI3100.ndi.ME.Services]
+
+[PCI3100.ndi]
+AddReg          =       NDI.9x, COMMON, SSIDS, Mb1, PC3100, BUS5.9x, DEV.PCI3100
+CopyFiles       =       CopyInst_Win9x, CopySys_Win9x, CopyFW_Win9x
+
+;--------------------------------------------------------------------------------------
+[ISA3100.ndi.XP]
+AddReg          =       NDI5, COMMON, SSIDS, Mb1, PC3100, BUS14
+DelReg          =       NDI5_REMOVE
+Characteristics =       0x84
+BusType         =       14
+LogConfig       =       ISA.LogConfig
+CopyFiles       =       CopyFiles_XP, CopyFW_NT
+
+[ISA3100.ndi.XP.Services]
+AddService      =       PCX500, 2, PCX500.Service, PCX500.EventLog
+
+[ISA3100.ndi.XP.CoInstallers]
+AddReg          =       CoInstaller.NT.AddReg
+CopyFiles       =       CopyFiles_XP_Co
+
+[ISA3100.ndi.NT]
+AddReg          =       NDI5, COMMON, SSIDS, Mb1, PC3100, BUS14
+DelReg          =       NDI5_REMOVE
+Characteristics =       0x84
+BusType         =       14
+LogConfig       =       ISA.LogConfig
+CopyFiles       =       CopyFiles_NT, CopyFW_NT
+
+[ISA3100.ndi.NT.Services]
+AddService      =       PCX500, 2, PCX500.Service, PCX500.EventLog
+
+[ISA3100.ndi.NT.CoInstallers]
+AddReg          =       CoInstaller.NT.AddReg
+CopyFiles       =       CopyFiles_NT_Co
+
+[ISA3100.ndi.ME]
+AddReg          =       NDI5, COMMON, SSIDS, Mb1, PC3100, BUS14
+DelReg          =       NDI5_REMOVE
+Characteristics =       0x84
+BusType         =       14
+LogConfig       =       ISA.LogConfig
+CopyFiles       =       CopyInst_Win9x, CopySys_Win9x, CopyFW_Win9x
+
+[ISA3100.ndi.ME.Services]
+
+[ISA3100.ndi]
+AddReg          =       NDI.9x, COMMON, SSIDS, Mb1, PC3100, BUS14, DEV.ISA3100
+LogConfig       =       ISA.LogConfig
+CopyFiles       =       CopyInst_Win9x, CopySys_Win9x, CopyFW_Win9x
+
+;*****************************************************************
+[PC3500.ndi.XP]
+AddReg          =       NDI5, COMMON, SSIDS, Mb2, PC3500, BUS8
+DelReg          =       NDI5_REMOVE
+Characteristics =       0x84
+BusType         =       8
+CopyFiles       =       CopyFiles_XP, CopyFW_NT
+
+[PC3500.ndi.XP.Services]
+AddService      =       PCX500, 2, PCX500.Service, PCX500.EventLog
+
+[PC3500.ndi.XP.CoInstallers]
+AddReg          =       CoInstaller.NT.AddReg
+CopyFiles       =       CopyFiles_XP_Co
+
+[PC3500.ndi.NT]
+AddReg          =       NDI5, COMMON, SSIDS, Mb2, PC3500, BUS8
+DelReg          =       NDI5_REMOVE
+Characteristics =       0x84
+BusType         =       8
+CopyFiles       =       CopyFiles_NT, CopyFW_NT
+
+[PC3500.ndi.NT.Services]
+AddService      =       PCX500, 2, PCX500.Service, PCX500.EventLog
+
+[PC3500.ndi.NT.CoInstallers]
+AddReg          =       CoInstaller.NT.AddReg
+CopyFiles       =       CopyFiles_NT_Co
+
+[PC3500.ndi.ME]
+AddReg          =       NDI5, COMMON, SSIDS, Mb2, PC3500, BUS8
+DelReg          =       NDI5_REMOVE
+Characteristics =       0x84
+BusType         =       8
+CopyFiles       =       CopyInst_Win9x, CopySys_Win9x, CopyFW_Win9x
+
+[PC3500.ndi.ME.Services]
+
+[PC3500.ndi]
+AddReg          =       NDI.9x, COMMON, SSIDS, Mb2, PC3500, BUS8, DEV.PC3500
+CopyFiles       =       CopyInst_Win9x, CopySys_Win9x, CopyFW_Win9x
+
+;--------------------------------------------------------------------------------------
+[PCI3500.ndi.XP]
+AddReg          =       NDI5, COMMON, SSIDS, Mb2, PC3500, BUS5
+DelReg          =       NDI5_REMOVE
+Characteristics =       0x84
+BusType         =       5
+CopyFiles       =       CopyFiles_XP, CopyFW_NT
+
+[PCI3500.ndi.XP.Services]
+AddService      =       PCX500, 2, PCX500.Service, PCX500.EventLog
+
+[PCI3500.ndi.XP.CoInstallers]
+AddReg          =       CoInstaller.NT.AddReg
+CopyFiles       =       CopyFiles_XP_Co
+
+[PCI3500.ndi.NT]
+AddReg          =       NDI5, COMMON, SSIDS, Mb2, PC3500, BUS5
+DelReg          =       NDI5_REMOVE
+Characteristics =       0x84
+BusType         =       5
+CopyFiles       =       CopyFiles_NT, CopyFW_NT
+
+[PCI3500.ndi.NT.Services]
+AddService      =       PCX500, 2, PCX500.Service, PCX500.EventLog
+
+[PCI3500.ndi.NT.CoInstallers]
+AddReg          =       CoInstaller.NT.AddReg
+CopyFiles       =       CopyFiles_NT_Co
+
+[PCI3500.ndi.ME]
+AddReg          =       NDI5, COMMON, SSIDS, Mb2, PC3500, BUS5.9x
+DelReg          =       NDI5_REMOVE
+Characteristics =       0x84
+BusType         =       5
+CopyFiles       =       CopyInst_Win9x, CopySys_Win9x, CopyFW_Win9x
+
+[PCI3500.ndi.ME.Services]
+
+[PCI3500.ndi]
+AddReg          =       NDI.9x, COMMON, SSIDS, Mb2, PC3500, BUS5.9x, DEV.PCI3500
+CopyFiles       =       CopyInst_Win9x, CopySys_Win9x, CopyFW_Win9x
+
+;--------------------------------------------------------------------------------------
+[ISA3500.ndi.XP]
+AddReg          =       NDI5, COMMON, SSIDS, Mb2, PC3500, BUS14
+DelReg          =       NDI5_REMOVE
+Characteristics =       0x84
+BusType         =       14
+LogConfig       =       ISA.LogConfig
+CopyFiles       =       CopyFiles_XP, CopyFW_NT
+
+[ISA3500.ndi.XP.Services]
+AddService      =       PCX500, 2, PCX500.Service, PCX500.EventLog
+
+[ISA3500.ndi.XP.CoInstallers]
+AddReg          =       CoInstaller.NT.AddReg
+CopyFiles       =       CopyFiles_XP_Co
+
+[ISA3500.ndi.NT]
+AddReg          =       NDI5, COMMON, SSIDS, Mb2, PC3500, BUS14
+DelReg          =       NDI5_REMOVE
+Characteristics =       0x84
+BusType         =       14
+LogConfig       =       ISA.LogConfig
+CopyFiles       =       CopyFiles_NT, CopyFW_NT
+
+[ISA3500.ndi.NT.Services]
+AddService      =       PCX500, 2, PCX500.Service, PCX500.EventLog
+
+[ISA3500.ndi.NT.CoInstallers]
+AddReg          =       CoInstaller.NT.AddReg
+CopyFiles       =       CopyFiles_NT_Co
+
+[ISA3500.ndi.ME]
+AddReg          =       NDI5, COMMON, SSIDS, Mb2, PC3500, BUS14
+DelReg          =       NDI5_REMOVE
+Characteristics =       0x84
+BusType         =       14
+LogConfig       =       ISA.LogConfig
+CopyFiles       =       CopyInst_Win9x, CopySys_Win9x, CopyFW_Win9x
+
+[ISA3500.ndi.ME.Services]
+
+[ISA3500.ndi]
+AddReg          =       NDI.9x, COMMON, SSIDS, Mb2, PC3500, BUS14, DEV.ISA3500
+LogConfig       =       ISA.LogConfig
+CopyFiles       =       CopyInst_Win9x, CopySys_Win9x, CopyFW_Win9x
+
+;*****************************************************************
+[PC4500.ndi.XP]
+AddReg          =       NDI5, COMMON, SSIDS, Mb2, PC4500, BUS8
+DelReg          =       NDI5_REMOVE
+Characteristics =       0x84
+BusType         =       8
+CopyFiles       =       CopyFiles_XP, CopyFW_NT
+
+[PC4500.ndi.XP.Services]
+AddService      =       PCX500, 2, PCX500.Service, PCX500.EventLog
+
+[PC4500.ndi.XP.CoInstallers]
+AddReg          =       CoInstaller.NT.AddReg
+CopyFiles       =       CopyFiles_XP_Co
+
+[PC4500.ndi.NT]
+AddReg          =       NDI5, COMMON, SSIDS, Mb2, PC4500, BUS8
+DelReg          =       NDI5_REMOVE
+Characteristics =       0x84
+BusType         =       8
+CopyFiles       =       CopyFiles_NT, CopyFW_NT
+
+[PC4500.ndi.NT.Services]
+AddService      =       PCX500, 2, PCX500.Service, PCX500.EventLog
+
+[PC4500.ndi.NT.CoInstallers]
+AddReg          =       CoInstaller.NT.AddReg
+CopyFiles       =       CopyFiles_NT_Co
+
+[PC4500.ndi.ME]
+AddReg          =       NDI5, COMMON, SSIDS, Mb2, PC4500, BUS8
+DelReg          =       NDI5_REMOVE
+Characteristics =       0x84
+BusType         =       8
+CopyFiles       =       CopyInst_Win9x, CopySys_Win9x, CopyFW_Win9x
+
+[PC4500.ndi.ME.Services]
+
+[PC4500.ndi]
+AddReg          =       NDI.9x, COMMON, SSIDS, Mb2, PC4500, BUS8, DEV.PC4500
+CopyFiles       =       CopyInst_Win9x, CopySys_Win9x, CopyFW_Win9x
+
+;--------------------------------------------------------------------------------------
+[PCI4500.ndi.XP]
+AddReg          =       NDI5, COMMON, SSIDS, Mb2, PC4500, BUS5
+DelReg          =       NDI5_REMOVE
+Characteristics =       0x84
+BusType         =       5
+CopyFiles       =       CopyFiles_XP, CopyFW_NT
+
+[PCI4500.ndi.XP.Services]
+AddService      =       PCX500, 2, PCX500.Service, PCX500.EventLog
+
+[PCI4500.ndi.XP.CoInstallers]
+AddReg          =       CoInstaller.NT.AddReg
+CopyFiles       =       CopyFiles_XP_Co
+
+[PCI4500.ndi.NT]
+AddReg          =       NDI5, COMMON, SSIDS, Mb2, PC4500, BUS5
+DelReg          =       NDI5_REMOVE
+Characteristics =       0x84
+BusType         =       5
+CopyFiles       =       CopyFiles_NT, CopyFW_NT
+
+[PCI4500.ndi.NT.Services]
+AddService      =       PCX500, 2, PCX500.Service, PCX500.EventLog
+
+[PCI4500.ndi.NT.CoInstallers]
+AddReg          =       CoInstaller.NT.AddReg
+CopyFiles       =       CopyFiles_NT_Co
+
+[PCI4500.ndi.ME]
+AddReg          =       NDI5, COMMON, SSIDS, Mb2, PC4500, BUS5.9x
+DelReg          =       NDI5_REMOVE
+Characteristics =       0x84
+BusType         =       5
+CopyFiles       =       CopyInst_Win9x, CopySys_Win9x, CopyFW_Win9x
+
+[PCI4500.ndi.ME.Services]
+
+[PCI4500.ndi]
+AddReg          =       NDI.9x, COMMON, SSIDS, Mb2, PC4500, BUS5.9x, DEV.PCI4500
+CopyFiles       =       CopyInst_Win9x, CopySys_Win9x, CopyFW_Win9x
+
+;--------------------------------------------------------------------------------------
+[ISA4500.ndi.XP]
+AddReg          =       NDI5, COMMON, SSIDS, Mb2, PC4500, BUS14
+DelReg          =       NDI5_REMOVE
+Characteristics =       0x84
+BusType         =       14
+LogConfig       =       ISA.LogConfig
+CopyFiles       =       CopyFiles_XP, CopyFW_NT
+
+[ISA4500.ndi.XP.Services]
+AddService      =       PCX500, 2, PCX500.Service, PCX500.EventLog
+
+[ISA4500.ndi.XP.CoInstallers]
+AddReg          =       CoInstaller.NT.AddReg
+CopyFiles       =       CopyFiles_XP_Co
+
+[ISA4500.ndi.NT]
+AddReg          =       NDI5, COMMON, SSIDS, Mb2, PC4500, BUS14
+DelReg          =       NDI5_REMOVE
+Characteristics =       0x84
+BusType         =       14
+LogConfig       =       ISA.LogConfig
+CopyFiles       =       CopyFiles_NT, CopyFW_NT
+
+
+[ISA4500.ndi.NT.Services]
+AddService      =       PCX500, 2, PCX500.Service, PCX500.EventLog
+
+[ISA4500.ndi.NT.CoInstallers]
+AddReg          =       CoInstaller.NT.AddReg
+CopyFiles       =       CopyFiles_NT_Co
+
+[ISA4500.ndi.ME]
+AddReg          =       NDI5, COMMON, SSIDS, Mb2, PC4500, BUS14
+DelReg          =       NDI5_REMOVE
+Characteristics =       0x84
+BusType         =       14
+LogConfig       =       ISA.LogConfig
+CopyFiles       =       CopyInst_Win9x, CopySys_Win9x, CopyFW_Win9x
+
+[ISA4500.ndi.ME.Services]
+
+[ISA4500.ndi]
+AddReg          =       NDI.9x, COMMON, SSIDS, Mb2, PC4500, BUS14, DEV.ISA4500
+LogConfig       =       ISA.LogConfig
+CopyFiles       =       CopyInst_Win9x, CopySys_Win9x, CopyFW_Win9x
+
+;*****************************************************************
+[ISA.LogConfig]
+IRQConfig=3,4,5,6,7,8,9,10,11,12,13,14,15
+IOConfig=40@100-3FF(3FF::)
+ConfigPriority=HARDRECONFIG
+
+[CoInstaller.NT.AddReg]
+HKR,,CoInstallers32,0x00010000,"CInsX500.dll,CiscoX500CoInstaller"
+
+[DEV.PC350]
+HKR, Ndi,   DeviceID,   0, "PCMCIA\CISCO_SYSTEMS-350_SERIES_WIRELESS_LAN_ADAPTER-512A"
+
+[DEV.PC340]
+HKR, Ndi,   DeviceID,   0, "PCMCIA\CISCO_SYSTEMS-340_SERIES_WIRELESS_LAN_ADAPTER-5FE9"
+
+[DEV.PC4800]
+HKR, Ndi,   DeviceID,   0, "PCMCIA\AIRONET-PC4800-D913"
+
+[DEV.PC4500]
+HKR, Ndi,   DeviceID,   0, "PCMCIA\AIRONET-PC4500-13ED"
+HKR, Ndi,   DeviceID,   0, "PCMCIA\AIRONET-PC4500-D4C4"
+
+[DEV.PC3500]
+HKR, Ndi,   DeviceID,   0, "PCMCIA\AIRONET-PC3500-D29B"
+HKR, Ndi,   DeviceID,   0, "PCMCIA\AIRONET-PC3500-1492"
+
+[DEV.PC3100]
+HKR, Ndi,   DeviceID,   0, "PCMCIA\AIRONET-PC3100-25CA"  
+
+[DEV.PC2500]
+HKR, Ndi,   DeviceID,   0, "PCMCIA\AIRONET-PC2500-5313"
+
+[DEV.PCI350]
+HKR, Ndi,   DeviceID,   0, "PCI\VEN_14B9&DEV_0350"
+
+[DEV.PCI340]
+HKR, Ndi,   DeviceID,   0, "PCI\VEN_14B9&DEV_0340"
+
+[DEV.PCI4800]
+HKR, Ndi,   DeviceID,   0, "PCI\VEN_14B9&DEV_4800"
+
+[DEV.PCI4500]
+HKR, Ndi,   DeviceID,   0, "PCI\VEN_14B9&DEV_4500"
+
+[DEV.PCI3500]
+HKR, Ndi,   DeviceID,   0, "PCI\VEN_14B9&DEV_3500"
+
+[DEV.PCI3101]
+HKR, Ndi,   DeviceID,   0, "PCI\VEN_14B9&DEV_3101"   
+
+[DEV.PCI3100]
+HKR, Ndi,   DeviceID,   0, "PCI\VEN_14B9&DEV_3100"
+
+[DEV.PCI2500]
+HKR, Ndi,   DeviceID,   0, "PCI\VEN_14B9&DEV_2500"   
+
+[DEV.ISA4800]
+HKR, Ndi,   DeviceID,   0, "ISAPNP\AWL4800"   
+
+[DEV.ISA4500]
+HKR, Ndi,   DeviceID,   0, "ISAPNP\AWL4500"   
+
+[DEV.ISA3500]
+HKR, Ndi,   DeviceID,   0, "ISAPNP\AWL3500"   
+
+[DEV.ISA3101]
+HKR, Ndi,   DeviceID,   0, "ISAPNP\AWL3101"   
+
+[DEV.ISA3100]
+HKR, Ndi,   DeviceID,   0, "ISAPNP\AWL3100"   
+
+[DEV.ISA2500]
+HKR, Ndi,   DeviceID,   0, "ISAPNP\AWL2500"   
+
+[NDI5]
+HKR, Ndi,               Service,         0, "PCX500"
+HKR, Ndi\Interfaces,    UpperRange,      0, "ndis5"
+HKR, Ndi\Interfaces,    LowerRange,      0, "ethernet"
+;HKR,               ,    EnumPropPages32, 0, "CInsx500.dll,CiscoExtensions"
+
+[NDI5_REMOVE]
+HKR, ,PCCARDAttributeMemoryAddress, 1, 01,00,00,00
+HKR,NDI\params\SupportedRates\enum, 8, 0, %5Mb%
+
+[NDI.Me]
+HKR, NDIS,            MajorNdisVersion, 1, 05
+HKR, NDIS,            MinorNdisVersion, 1, 00
+HKR, Ndi\Interfaces,  DefUpper,         0, "ndis5"
+HKR, Ndi\Interfaces,  DefLower,         0, "ethernet"
+HKR, Ndi\Interfaces,  UpperRange,       0, "ndis5"
+HKR, Ndi\Interfaces,  LowerRange,       0, "ethernet"
+
+[NDI.9x]
+HKR,     ,            DevLoader,        0, *ndis
+HKR,     ,            DeviceVxDs,       0, PCX500.sys
+;Property Page HKR,     ,            EnumPropPages,    0, "netdi.dll,EnumPropPages"
+; NDIS Info
+HKR, NDIS,            LogDriverName,    0, "PCX500"
+HKR, NDIS,            MajorNdisVersion, 1, 03
+HKR, NDIS,            MinorNdisVersion, 1, 0A
+;HKR, Ndi\Install,  ,                    0, "PCX500.9x"
+; Interfaces
+HKR, Ndi\Interfaces,  DefUpper,         0, "ndis3"
+HKR, Ndi\Interfaces,  DefLower,         0, "ethernet"
+HKR, Ndi\Interfaces,  UpperRange,       0, "ndis3"
+HKR, Ndi\Interfaces,  LowerRange,       0, "ethernet"
+; Installer
+HKR, Ndi,             NdiInstaller,     0, "CINST16.DLL, CiscoNdiProc"
+
+;[PCX500.9x]
+;CopyFiles=CopySys_Win9x
+
+[BUS5]
+HKR, NDI, CardType,    0, "PCI"
+HKR,    , BusType,     0, "5"
+HKR,    , FormFactor,  0, "PCI"
+
+[BUS5.9x]
+HKR, NDI, CardType,    0, "PCI"
+HKR,    , BusType,     0, "5"
+HKR,    , FormFactor,  0, "PCI"
+;So windows skips PCI readonly registry test
+HKLM,System\CurrentControlSet\Services\VxD\PCI, 250014B9, 1, 00,00,40,00
+HKLM,System\CurrentControlSet\Services\VxD\PCI, 310114B9, 1, 00,00,40,00
+HKLM,System\CurrentControlSet\Services\VxD\PCI, 310014B9, 1, 00,00,40,00
+HKLM,System\CurrentControlSet\Services\VxD\PCI, 350014B9, 1, 00,00,40,00
+HKLM,System\CurrentControlSet\Services\VxD\PCI, 450014B9, 1, 00,00,40,00
+HKLM,System\CurrentControlSet\Services\VxD\PCI, 480014B9, 1, 00,00,40,00
+HKLM,System\CurrentControlSet\Services\VxD\PCI, 034014B9, 1, 00,00,40,00
+HKLM,System\CurrentControlSet\Services\VxD\PCI, 035014B9, 1, 00,00,40,00
+
+[BUS8]
+HKR, NDI, CardType,    0, "PCMCIA"
+HKR,    , BusType,     0, "8"
+HKR,    , FormFactor,  0, "PCMCIA"
+
+[BUS14]
+HKR, NDI, CardType,    0, "ISAPNP"
+HKR,    , BusType,     0, "1"
+HKR,    , FormFactor,  0, "ISA"
+
+
+;================================================================
+[COMMON]
+HKR, , MediaDisconnectDamper,  2, "10" 
+
+HKR, ,                                  InfrastructureMode, 2, "1"
+HKR,NDI\params\InfrastructureMode,      ParamDesc,          0, %InfraMode%
+HKR,NDI\params\InfrastructureMode,      Type,               0, "enum"
+HKR,NDI\params\InfrastructureMode,      Default,            2, "1" 
+HKR,NDI\params\InfrastructureMode\enum, 0,                  0, %No%
+HKR,NDI\params\InfrastructureMode\enum, 1,                  0, %Yes%
+
+HKR, ,                                  PowerSaveMode,  2, "0"
+HKR,NDI\params\PowerSaveMode,           ParamDesc,      0, %PSP%
+HKR,NDI\params\PowerSaveMode,           Type,           0, "enum"
+HKR,NDI\params\PowerSaveMode,           Default,        2, "0" 
+HKR,NDI\params\PowerSaveMode\enum,      0,              0, %CAM%
+HKR,NDI\params\PowerSaveMode\enum,      2,              0, %PSP-CAM%
+HKR,NDI\params\PowerSaveMode\enum,      3,              0, %MAXPSP%
+
+HKR,,QOS,2,"0"
+HKR,NDI\params\QOS,ParamDesc,,%QOS%
+HKR,NDI\params\QOS,flag,1,30,00,00,00
+HKR,NDI\params\QOS,type,,"enum"
+HKR,NDI\params\QOS,default,,"0" 
+HKR,NDI\params\QOS\enum,0,0,%Disabled%
+HKR,NDI\params\QOS\enum,1,0,%Enabled%
+
+HKR, ,                                  NodeName,   2, ""
+HKR,NDI\params\NodeName,                ParamDesc,  0, %ClientName%
+HKR,NDI\params\NodeName,                Type,       0, "edit"
+HKR,NDI\params\NodeName,                Optional,   0, "1"
+HKR,NDI\params\NodeName,                Default,    2, ""
+
+[Mb11]
+HKR, ,                                  SupportedRates, 2, "0"
+HKR,NDI\params\SupportedRates,          ParamDesc,      0, %DataRates%    
+HKR,NDI\params\SupportedRates,          Type,           0, "enum"
+HKR,NDI\params\SupportedRates,          Default,        2, "0" 
+HKR,NDI\params\SupportedRates,          Base,           0, "16"
+HKR,NDI\params\SupportedRates\enum,     0,              0, %Auto%
+HKR,NDI\params\SupportedRates\enum,     2,              0, %1Mb%                                     
+HKR,NDI\params\SupportedRates\enum,     4,              0, %2Mb%
+HKR,NDI\params\SupportedRates\enum,     B,              0, %5Mb%
+HKR,NDI\params\SupportedRates\enum,     16,             0, %11Mb%
+
+[Mb2]
+HKR, ,                                  SupportedRates, 2, "0"
+HKR,NDI\params\SupportedRates,          ParamDesc,      0, %DataRates%
+HKR,NDI\params\SupportedRates,          Type,           0, "enum"
+HKR,NDI\params\SupportedRates,          Default,        2, "0"
+HKR,NDI\params\SupportedRates\enum,     0,              0, %Auto%
+HKR,NDI\params\SupportedRates\enum,     2,              0, %1Mb%
+HKR,NDI\params\SupportedRates\enum,     4,              0, %2Mb%
+
+[Mb1]
+HKR, ,                                  SupportedRates, 2, "0"
+HKR,NDI\params\SupportedRates,          ParamDesc,      0, %DataRates%
+HKR,NDI\params\SupportedRates,          Type,           0, "enum"
+HKR,NDI\params\SupportedRates,          Default,        2, "2"
+HKR,NDI\params\SupportedRates\enum,     1,              0, %500K%
+HKR,NDI\params\SupportedRates\enum,     2,              0, %1Mb%
+
+[SSIDS]
+HKR, ,                  SSID1,      2, ""
+HKR,NDI\params\SSID1,   ParamDesc,  0, "SSID"
+HKR,NDI\params\SSID1,   Type,       0, "edit"
+HKR,NDI\params\SSID1,   Optional,   0, "1"
+HKR,NDI\params\SSID1,   Default,    2, ""
+
+[TMA]
+HKR, ,                  SSID1,      2, "2"   
+HKR,NDI\params\SSID1,   ParamDesc,  0, %systemID%     
+HKR,NDI\params\SSID1,   Type,       0, "dword"
+HKR,NDI\params\SSID1,   Min,        0, "2"
+HKR,NDI\params\SSID1,   Max,        0, "ffffffff"
+HKR,NDI\params\SSID1,   Step,       0, "2"
+HKR,NDI\params\SSID1,   Default,    0, "2"
+HKR,NDI\params\SSID1,   Base,       0, "16"
+
+[PC2500] 
+HKR, ,  RadioName,  0,  "PC2500"
+
+[PC3100] 
+HKR, ,  RadioName,  0,  "PC3100"
+
+[PC3500] 
+HKR, ,  RadioName,  0,  "PC3500"
+
+[PC4500] 
+HKR, ,  RadioName,  0,  "PC4500"
+
+[PC4800] 
+HKR, ,  RadioName,  0,  "PC4800"
+
+;----------------------------------------------------------------------------
+[CopyFiles_XP]
+pcx500.sys,pcx500.xp , ,2
+pcx500mp.sys,        , ,2
+
+[CopyFiles_XP_Co]
+CInsX500.dll,,,2
+
+[CopyFiles_NT]
+pcx500.sys,          , ,2
+pcx500mp.sys,        , ,2
+                 
+[CopyFiles_NT_Co]
+CInsX500.dll,        , ,2
+
+[CopySys_Win9x]
+pcx500.sys,          , ,2
+vxdX500.vxd,         , ,2
+
+[CopyInst_Win9x]
+CUtil16.exe,         , ,2
+CInst16.dll,         , ,2
+
+[CopyFW_NT]
+pcx500b.img
+
+[CopyFW_Win9x]
+pcx500b.img
+
+;----------------------------------------------------------------------------
+[PCX500.Service]
+DisplayName     = %PCX500.Service.DispName%
+ServiceType     = 1 ;%SERVICE_KERNEL_DRIVER%
+StartType       = 3 ;%SERVICE_DEMAND_START%
+ErrorControl    = 1 ;%SERVICE_ERROR_NORMAL%
+ServiceBinary   = %12%\pcx500.sys
+LoadOrderGroup  = NDIS
+
+[Filter_Service_Inst]
+DisplayName    = %Filter.DevDesc%
+ServiceType    = 1 ;%SERVICE_KERNEL_DRIVER%
+StartType      = 3 ;%SERVICE_DEMAND_START%
+ErrorControl   = 0 ;%SERVICE_ERROR_IGNORE%
+ServiceBinary  = %12%\pcx500mp.sys
+LoadOrderGroup = extended base
+
+[PCX500.EventLog]
+AddReg = PCX500.EventLog.Add
+
+[PCX500.EventLog.Add]
+HKR, , EventMessageFile, 0x00020000, "%%SystemRoot%%\System32\netevent.dll"
+HKR, , TypesSupported,   0x00010001, 7
+
+;****************************************************************************
+; Localizable Strings
+;****************************************************************************
+[strings]
+V_CISCO                         = "Cisco"
+ClientName                      = "Client Name"
+InfraMode                       = "Infrastructure Mode"
+QOS                             = "Quality of Service (QOS)"
+No                              = "No"
+Yes                             = "Yes"
+Disabled                        = "Disabled"
+Enabled                         = "Enabled"
+PSP                             = "Power Saving Mode(PSP)"
+CAM                             = "CAM"
+PSP-CAM                         = "PSP-CAM (FASTPSP)"
+MAXPSP                          = "Max Power Save/PSP"
+DataRates                       = "Data Rates"
+Auto                            = "Auto"
+1Mb                             = " 1 Mb"
+2Mb                             = " 2 Mb"
+5Mb                             = " 5.5 Mb"
+11Mb                            = "11 Mb"
+500K                            = "500 Kb"
+systemID                        = "System ID(hexadecimal)"
+
+Disk_1_Desc                     = "Cisco Wireless LAN Adapter Installation Disk"
+PCX500.Service.DispName         = "Cisco Wireless LAN Adapters Driver"
+
+PC2500.DevDesc                  = "PC2500 DS Wireless PCMCIA LAN Adapter"
+PCI2500.DevDesc                 = "PC2500 DS Wireless PCI LAN Adapter"
+ISA2500.DevDesc                 = "PC2500 DS Wireless PNP ISA LAN Adapter"
+
+PC3100.DevDesc                  = "PC3100 FH PCMCIA LAN Adapter"
+PCI3100.DevDesc                 = "PC3100 FH Wireless PCI LAN Adapter"
+ISA3100.DevDesc                 = "PC3100 FH Wireless PNP ISA LAN Adapter"
+
+PC3500.DevDesc                  = "PC3500 FH PCMCIA LAN Adapter"
+PCI3500.DevDesc                 = "PC3500 FH Wireless PCI LAN Adapter"
+ISA3500.DevDesc                 = "PC3500 FH Wireless PNP ISA LAN Adapter"
+
+PC4500.DevDesc                  = "PC4500 DS Wireless PCMCIA LAN Adapter"
+PCI4500.DevDesc                 = "PC4500 DS Wireless PCI LAN Adapter"
+ISA4500.DevDesc                 = "PC4500 DS Wireless PNP ISA LAN Adapter"
+
+PC4800.DevDesc                  = "PC4800 DS Wireless PCMCIA LAN Adapter"
+PCI4800.DevDesc                 = "PC4800 DS Wireless PCI LAN Adapter"
+ISA4800.DevDesc                 = "PC4800 DS Wireless PNP ISA LAN Adapter"
+
+PC340.DevDesc                   = "Cisco Systems 340 Series PCMCIA Wireless LAN Adapter"
+PC350.DevDesc                   = "Cisco Systems 350 Series PCMCIA Wireless LAN Adapter"
+
+PCI340.DevDesc                  = "Cisco Systems 340 Series PCI Wireless LAN Adapter"
+PCI350.DevDesc                  = "Cisco Systems 350 Series PCI Wireless LAN Adapter"
+
+Filter.DevDesc                  = "Cisco 350 Series Lower Device Filter"

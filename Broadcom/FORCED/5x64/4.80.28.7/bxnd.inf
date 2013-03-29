@@ -1,0 +1,571 @@
+;*******************************************************************************
+; Copyright (c) 2002-2007 Broadcom Corporation.
+;
+; L2 Ndis Bus Driver client INF for Windows 2003.
+;
+; History:
+;    10/25/02 havk             Inception.
+;
+; INF version 4.0.23.0.b
+;*******************************************************************************
+
+
+[Version]
+signature   = "$Windows NT$"
+class       = net
+classguid   = {4d36e972-e325-11ce-bfc1-08002be10318}
+compatible  = 1
+provider    = %brcm%
+catalogfile = bxnd.cat
+driverver   = 12/05/2007,4.0.23.0
+
+
+[manufacturer]
+%brcm% = broadcom, ntx86, ntamd64, ntia64, ntx86.6.0, ntamd64.6.0, ntia64.6.0
+
+
+[controlflags]
+excludefromselect = *
+
+
+; W2K installation.
+[broadcom]
+%bcm5706c_desc% = bcm5706c_x86w2k, b06bdrv\l2nd&pci_164a14e4
+%bcm5706s_desc% = bcm5706s_x86w2k, b06bdrv\l2nd&pci_16aa14e4
+%bcm5708c_desc% = bcm5708c_x86w2k, b06bdrv\l2nd&pci_164c14e4
+%bcm5708s_desc% = bcm5708s_x86w2k, b06bdrv\l2nd&pci_16ac14e4
+%bcm5709c_desc% = bcm5709c_x86w2k, b06bdrv\l2nd&pci_163914e4
+%bcm5709s_desc% = bcm5709s_x86w2k, b06bdrv\l2nd&pci_163a14e4
+
+
+; x86 WS3 or XP installation.
+[broadcom.ntx86]
+%bcm5706c_desc% = bcm5706c_x86ws3, b06bdrv\l2nd&pci_164a14e4
+%bcm5706s_desc% = bcm5706s_x86ws3, b06bdrv\l2nd&pci_16aa14e4
+%bcm5708c_desc% = bcm5708c_x86ws3, b06bdrv\l2nd&pci_164c14e4
+%bcm5708s_desc% = bcm5708s_x86ws3, b06bdrv\l2nd&pci_16ac14e4
+%bcm5709c_desc% = bcm5709c_x86ws3, b06bdrv\l2nd&pci_163914e4
+%bcm5709s_desc% = bcm5709s_x86ws3, b06bdrv\l2nd&pci_163a14e4
+
+
+; x86-64 WS3 or XP installation.
+[broadcom.ntamd64]
+
+
+; ia64 WS3 or XP installation.
+[broadcom.ntia64]
+
+
+; x86 Longhorn installation.
+[broadcom.ntx86.6.0]
+
+
+; x86-64 Longhorn installation.
+[broadcom.ntamd64.6.0]
+
+
+; ia64 Longhorn installation.
+[broadcom.ntia64.6.0]
+
+
+
+;*******************************************************************************
+; x86 install sections for W2K.
+;*******************************************************************************
+
+[bcm5706c_x86w2k]
+characteristics = 0x84 ; NCF_HAS_UI | NCF_PHYSICAL
+addreg          = x86w2k_addreg, params_nt, params_utp, params_w2klso, params_flow, params_flow_auto
+delreg          = delreg.req_medium, delreg.enable_chimney
+copyfiles       = x86w2k_sys_file
+bustype         = 5
+
+[bcm5706c_x86w2k.Services]
+addservice      = l2nd, 2, x86w2k_add_service, x86w2k_eventlog
+
+[bcm5706c_x86w2k.CoInstallers]
+addreg          = x86w2k_coinst_addreg
+copyfiles       = x86_coinst_file
+
+[bcm5706s_x86w2k]
+characteristics = 0x84 ; NCF_HAS_UI | NCF_PHYSICAL
+addreg          = x86w2k_addreg, params_nt, params_fiber06, params_w2klso, params_flow, params_flow_auto
+delreg          = delreg.req_medium, delreg.enable_chimney
+copyfiles       = x86w2k_sys_file
+bustype         = 5
+
+[bcm5706s_x86w2k.Services]
+addservice      = l2nd, 2, x86w2k_add_service, x86w2k_eventlog
+
+[bcm5706s_x86w2k.CoInstallers]
+addreg          = x86w2k_coinst_addreg
+copyfiles       = x86_coinst_file
+
+[bcm5708c_x86w2k]
+characteristics = 0x84 ; NCF_HAS_UI | NCF_PHYSICAL
+addreg          = x86w2k_addreg, params_nt, params_utp, params_w2klso, params_flow, params_flow_auto
+delreg          = delreg.req_medium, delreg.enable_chimney
+copyfiles       = x86w2k_sys_file
+bustype         = 5
+
+[bcm5708c_x86w2k.Services]
+addservice      = l2nd, 2, x86w2k_add_service, x86w2k_eventlog
+
+[bcm5708c_x86w2k.CoInstallers]
+addreg          = x86w2k_coinst_addreg
+copyfiles       = x86_coinst_file
+
+[bcm5708s_x86w2k]
+characteristics = 0x84 ; NCF_HAS_UI | NCF_PHYSICAL
+addreg          = x86w2k_addreg, params_nt, params_fiber, params_w2klso, params_flow, params_flow_auto
+delreg          = delreg.req_medium, delreg.enable_chimney
+copyfiles       = x86w2k_sys_file
+bustype         = 5
+
+[bcm5708s_x86w2k.Services]
+addservice      = l2nd, 2, x86w2k_add_service, x86w2k_eventlog
+
+[bcm5708s_x86w2k.CoInstallers]
+addreg          = x86w2k_coinst_addreg
+copyfiles       = x86_coinst_file
+
+[bcm5709c_x86w2k]
+characteristics = 0x84 ; NCF_HAS_UI | NCF_PHYSICAL
+addreg          = x86w2k_addreg, params_nt, params_utp, params_w2klso, params_flow, params_flow_auto
+delreg          = delreg.req_medium, delreg.enable_chimney
+copyfiles       = x86w2k_sys_file
+bustype         = 5
+
+[bcm5709c_x86w2k.Services]
+addservice      = l2nd, 2, x86w2k_add_service, x86w2k_eventlog
+
+[bcm5709c_x86w2k.CoInstallers]
+addreg          = x86w2k_coinst_addreg
+copyfiles       = x86_coinst_file
+
+[bcm5709s_x86w2k]
+characteristics = 0x84 ; NCF_HAS_UI | NCF_PHYSICAL
+addreg          = x86w2k_addreg, params_nt, params_fiber, params_w2klso, params_flow, params_flow_auto
+delreg          = delreg.req_medium, delreg.enable_chimney
+copyfiles       = x86w2k_sys_file
+bustype         = 5
+
+[bcm5709s_x86w2k.Services]
+addservice      = l2nd, 2, x86w2k_add_service, x86w2k_eventlog
+
+[bcm5709s_x86w2k.CoInstallers]
+addreg          = x86w2k_coinst_addreg
+copyfiles       = x86_coinst_file
+
+
+
+;*******************************************************************************
+; x86 common sections for W2K.
+;*******************************************************************************
+
+[x86w2k_add_service]
+displayname     = %mp_srv_desc%
+servicetype     = 1 
+starttype       = 3
+errorcontrol    = 1
+servicebinary   = %12%\bxnd50x.sys
+loadordergroup  = ndis
+addreg          = product_version
+
+[x86w2k_addreg]
+hkr, ndi,            service,    0, "l2nd"
+hkr, ndi\interfaces, upperrange, 0, "ndis5"
+hkr, ndi\interfaces, lowerrange, 0, "ethernet"
+
+[x86w2k_eventlog]
+addreg = x86w2k_addreg_eventlog
+
+[x86w2k_addreg_eventlog]
+hkr, , eventmessagefile, 0x00020000, "%%SystemRoot%%\System32\netevent.dll;%%SystemRoot%%\System32\drivers\bxnd50x.sys"
+hkr, , typessupported  , 0x00010001, 7
+
+[x86w2k_coinst_addreg]
+hkr, , CoInstallers32, 0x00010000, "bxndcox.dll,bxnd_coinstaller"
+
+
+
+;*******************************************************************************
+; x86 install sections for XP, W2K3, and later.
+;*******************************************************************************
+
+[bcm5706c_x86ws3]
+characteristics = 0x84 ; NCF_HAS_UI | NCF_PHYSICAL
+addreg          = x86ws3_addreg, params_nt, params_utp, params_lso, params_rss, params_flow, params_flow_auto
+delreg          = delreg.req_medium, delreg.enable_chimney
+copyfiles       = x86ws3_sys_file
+bustype         = 5
+
+[bcm5706c_x86ws3.Services]
+addservice      = l2nd, 2, x86ws3_add_service, x86ws3_eventlog
+
+[bcm5706c_x86ws3.CoInstallers]
+addreg          = x86ws3_coinst_addreg
+copyfiles       = x86_coinst_file
+
+[bcm5706s_x86ws3]
+characteristics = 0x84 ; NCF_HAS_UI | NCF_PHYSICAL
+addreg          = x86ws3_addreg, params_nt, params_fiber06, params_lso, params_rss, params_flow, params_flow_auto
+delreg          = delreg.req_medium, delreg.enable_chimney
+copyfiles       = x86ws3_sys_file
+bustype         = 5
+
+[bcm5706s_x86ws3.Services]
+addservice      = l2nd, 2, x86ws3_add_service, x86ws3_eventlog
+
+[bcm5706s_x86ws3.CoInstallers]
+addreg          = x86ws3_coinst_addreg
+copyfiles       = x86_coinst_file
+
+[bcm5708c_x86ws3]
+characteristics = 0x84 ; NCF_HAS_UI | NCF_PHYSICAL
+addreg          = x86ws3_addreg, params_nt, params_utp, params_lso, params_rss, params_flow, params_flow_auto
+delreg          = delreg.req_medium, delreg.enable_chimney
+copyfiles       = x86ws3_sys_file
+bustype         = 5
+
+[bcm5708c_x86ws3.Services]
+addservice      = l2nd, 2, x86ws3_add_service, x86ws3_eventlog
+
+[bcm5708c_x86ws3.CoInstallers]
+addreg          = x86ws3_coinst_addreg
+copyfiles       = x86_coinst_file
+
+[bcm5708s_x86ws3]
+characteristics = 0x84 ; NCF_HAS_UI | NCF_PHYSICAL
+addreg          = x86ws3_addreg, params_nt, params_fiber, params_lso, params_rss, params_flow, params_flow_auto
+delreg          = delreg.req_medium, delreg.enable_chimney
+copyfiles       = x86ws3_sys_file
+bustype         = 5
+
+[bcm5708s_x86ws3.Services]
+addservice      = l2nd, 2, x86ws3_add_service, x86ws3_eventlog
+
+[bcm5708s_x86ws3.CoInstallers]
+addreg          = x86ws3_coinst_addreg
+copyfiles       = x86_coinst_file
+
+[bcm5709c_x86ws3]
+characteristics = 0x84 ; NCF_HAS_UI | NCF_PHYSICAL
+addreg          = x86ws3_addreg, params_nt, params_utp, params_lso, params_rss_5709, params_flow, params_flow_auto, disable_toe
+delreg          = delreg.req_medium, delreg.enable_chimney
+copyfiles       = x86ws3_sys_file
+bustype         = 5
+
+[bcm5709c_x86ws3.Services]
+addservice      = l2nd, 2, x86ws3_add_service, x86ws3_eventlog
+
+[bcm5709c_x86ws3.CoInstallers]
+addreg          = x86ws3_coinst_addreg
+copyfiles       = x86_coinst_file
+
+[bcm5709s_x86ws3]
+characteristics = 0x84 ; NCF_HAS_UI | NCF_PHYSICAL
+addreg          = x86ws3_addreg, params_nt, params_fiber, params_lso, params_rss_5709, params_flow, params_flow_auto, disable_toe
+delreg          = delreg.req_medium, delreg.enable_chimney
+copyfiles       = x86ws3_sys_file
+bustype         = 5
+
+[bcm5709s_x86ws3.Services]
+addservice      = l2nd, 2, x86ws3_add_service, x86ws3_eventlog
+
+[bcm5709s_x86ws3.CoInstallers]
+addreg          = x86ws3_coinst_addreg
+copyfiles       = x86_coinst_file
+
+
+
+;*******************************************************************************
+; x86 common sections for XP, W2K3, and later.
+;*******************************************************************************
+
+[x86ws3_add_service]
+displayname     = %mp_srv_desc%
+servicetype     = 1 
+starttype       = 3
+errorcontrol    = 1
+servicebinary   = %12%\bxnd52x.sys
+loadordergroup  = ndis
+addreg          = product_version
+
+[x86ws3_addreg]
+hkr, ndi,            service,    0, "l2nd"
+hkr, ndi\interfaces, upperrange, 0, "ndis5"
+hkr, ndi\interfaces, lowerrange, 0, "ethernet"
+
+[x86ws3_eventlog]
+addreg = x86ws3_addreg_eventlog
+
+[x86ws3_addreg_eventlog]
+hkr, , eventmessagefile, 0x00020000, "%%SystemRoot%%\System32\netevent.dll;%%SystemRoot%%\System32\drivers\bxnd52x.sys"
+hkr, , typessupported  , 0x00010001, 7
+
+[x86ws3_coinst_addreg]
+hkr, , CoInstallers32, 0x00010000, "bxndcox.dll,bxnd_coinstaller"
+
+
+
+;*******************************************************************************
+; Registry parameters.
+;*******************************************************************************
+
+[product_version]
+hkr, , product_version, 0, "12.0.0"
+
+[disable_toe]
+hkr, , *TCPConnectionOffloadIPv4, 0, "0"
+hkr, , *TCPConnectionOffloadIPv6, 0, "0"
+
+[params_nt]
+hkr, ndi\params\ofld_cap,      paramDesc, , %taskoffload_desc_ipv4%
+hkr, ndi\params\ofld_cap,      default,   , "63"
+hkr, ndi\params\ofld_cap,      type,      , "enum"
+hkr, ndi\params\ofld_cap\enum, 0,         , %taskoffload_none%
+hkr, ndi\params\ofld_cap\enum, 21,        , %taskoffload_tx_cksum%
+hkr, ndi\params\ofld_cap\enum, 42,        , %taskoffload_rx_cksum%
+hkr, ndi\params\ofld_cap\enum, 63,        , %taskoffload_rx_tx_cksum%
+
+hkr, ndi\params\enable_8021p,      paramDesc, , %qos_8021p_desc%
+hkr, ndi\params\enable_8021p,      default,   , "0"
+hkr, ndi\params\enable_8021p,      type,      , "enum"
+hkr, ndi\params\enable_8021p\enum, 0,         , %qos_8021p_disable%
+hkr, ndi\params\enable_8021p\enum, 1,         , %qos_8021p_enable%
+
+hkr, ndi\params\networkaddress, paramdesc, 0, %network_address%
+hkr, ndi\params\networkaddress, default,   0, ""
+hkr, ndi\params\networkaddress, type,      0, "edit"
+hkr, ndi\params\networkaddress, limittext, 0, "12"
+hkr, ndi\params\networkaddress, uppercase, 0, "1"
+hkr, ndi\params\networkaddress, optional,  0, "1"
+
+
+[params_flow]
+hkr, ndi\params\flow_ctrl_cap,      paramdesc,  , %flow_ctrl%
+hkr, ndi\params\flow_ctrl_cap,      type,       , "enum"
+hkr, ndi\params\flow_ctrl_cap\enum, 0,          , %flow_ctrl_disable%
+hkr, ndi\params\flow_ctrl_cap\enum, 1,          , %flow_ctrl_rx_pause%
+hkr, ndi\params\flow_ctrl_cap\enum, 2,          , %flow_ctrl_tx_pause%
+hkr, ndi\params\flow_ctrl_cap\enum, 3,          , %flow_ctrl_rx_tx_pause%
+
+[params_flow_auto]
+hkr, ndi\params\flow_ctrl_cap\enum, 2147483648, , %flow_ctrl_auto%
+hkr, ndi\params\flow_ctrl_cap,      default,    , "2147483648"
+
+[params_flow_no_auto_default]
+hkr, ndi\params\flow_ctrl_cap,      default,    , "0"
+
+
+[params_rss]
+hkr, ndi\params\enable_rss,      paramDesc, , %rss_desc%
+hkr, ndi\params\enable_rss,      default,   , "1"
+hkr, ndi\params\enable_rss,      type,      , "enum"
+hkr, ndi\params\enable_rss\enum, 0,         , %rss_disable%
+hkr, ndi\params\enable_rss\enum, 1,         , %rss_enable%
+
+[params_rss_5709]
+hkr, ndi\params\enable_rss,      paramDesc, , %rss_desc%
+hkr, ndi\params\enable_rss,      default,   , "0"
+hkr, ndi\params\enable_rss,      type,      , "enum"
+hkr, ndi\params\enable_rss\enum, 0,         , %rss_disable%
+hkr, ndi\params\enable_rss\enum, 1,         , %rss_enable%
+
+[params_speed_common]
+hkr, ndi\params\*SpeedDuplex,         paramDesc, , %speed_duplex_desc%
+hkr, ndi\params\*SpeedDuplex,         default,   , "0"
+hkr, ndi\params\*SpeedDuplex,         type,      , "enum"
+
+
+[params_speed_all]
+hkr, , *SpeedDuplex,          2, "0"
+hkr, ndi\params\*SpeedDuplex\enum,    0,         , %speed_duplex_auto%
+hkr, ndi\params\*SpeedDuplex\enum,    1,         , %speed_duplex_10Mb_hd%
+hkr, ndi\params\*SpeedDuplex\enum,    2,         , %speed_duplex_10Mb_fd%
+hkr, ndi\params\*SpeedDuplex\enum,    3,         , %speed_duplex_100Mb_hd%
+hkr, ndi\params\*SpeedDuplex\enum,    4,         , %speed_duplex_100Mb_fd%
+hkr, ndi\params\*SpeedDuplex\enum,    6,         , %speed_duplex_1Gb_fd%
+hkr, ndi\params\*SpeedDuplex\enum,    2147484672,, %speed_duplex_2500Mb_fd%
+hkr, ndi\params\*SpeedDuplex\enum,    7,         , %speed_duplex_10Gb_fd%
+
+
+[params_speed_10G]
+hkr, ndi\params\*SpeedDuplex\enum,    7,         , %speed_duplex_10Gb_fd%
+
+
+[params_speed_1G]
+hkr, ndi\params\*SpeedDuplex\enum,    6,         , %speed_duplex_1Gb_fd%
+
+
+[params_speed_auto]
+hkr, , *SpeedDuplex,          2, "0"
+hkr, ndi\params\*SpeedDuplex\enum,    0,         , %speed_duplex_auto%
+
+
+[params_speed_10MB_100MB]
+hkr, ndi\params\*SpeedDuplex\enum,    1,         , %speed_duplex_10Mb_hd%
+hkr, ndi\params\*SpeedDuplex\enum,    2,         , %speed_duplex_10Mb_fd%
+hkr, ndi\params\*SpeedDuplex\enum,    3,         , %speed_duplex_100Mb_hd%
+hkr, ndi\params\*SpeedDuplex\enum,    4,         , %speed_duplex_100Mb_fd%
+
+
+[params_speed_10G_default]
+hkr, , *SpeedDuplex,          2, "7"
+
+
+[params_utp]
+hkr, ndi\params\*SpeedDuplex,      paramDesc,  , %speed_duplex_desc%
+hkr, ndi\params\*SpeedDuplex,      default,    , "0"
+hkr, ndi\params\*SpeedDuplex,      type,       , "enum"
+hkr, ndi\params\*SpeedDuplex\enum, 0,          , %speed_duplex_auto%
+hkr, ndi\params\*SpeedDuplex\enum, 1,          , %speed_duplex_10Mb_hd%
+hkr, ndi\params\*SpeedDuplex\enum, 2,          , %speed_duplex_10Mb_fd%
+hkr, ndi\params\*SpeedDuplex\enum, 3,          , %speed_duplex_100Mb_hd%
+hkr, ndi\params\*SpeedDuplex\enum, 4,          , %speed_duplex_100Mb_fd%
+hkr, ndi\params\*SpeedDuplex\enum, 2164261634, , %speed_duplex_1Gb_fd_an%
+
+hkr, ndi\params\wire_speed,      paramdesc, , %wire_speed%
+hkr, ndi\params\wire_speed,      default,   , "1"
+hkr, ndi\params\wire_speed,      type,      , "enum"
+hkr, ndi\params\wire_speed\enum, 0,         , %wire_speed_disable%
+hkr, ndi\params\wire_speed\enum, 1,         , %wire_speed_enable%
+
+
+[params_fiber06]
+hkr, ndi\params\*SpeedDuplex,      paramDesc,  , %speed_duplex_desc%
+hkr, ndi\params\*SpeedDuplex,      default,    , "2147548931"
+hkr, ndi\params\*SpeedDuplex,      type,       , "enum"
+hkr, ndi\params\*SpeedDuplex\enum, 0,          , %speed_duplex_auto%
+hkr, ndi\params\*SpeedDuplex\enum, 6,          , %speed_duplex_1Gb_fd%
+hkr, ndi\params\*SpeedDuplex\enum, 2147517187, , %speed_duplex_auto_1Gb_fd_fallback%
+hkr, ndi\params\*SpeedDuplex\enum, 2147548931, , %speed_nvram_default%
+
+
+[params_fiber]
+hkr, ndi\params\*SpeedDuplex,      paramDesc,  , %speed_duplex_desc%
+hkr, ndi\params\*SpeedDuplex,      default,    , "2147548931"
+hkr, ndi\params\*SpeedDuplex,      type,       , "enum"
+hkr, ndi\params\*SpeedDuplex\enum, 0,          , %speed_duplex_auto%
+hkr, ndi\params\*SpeedDuplex\enum, 6,          , %speed_duplex_1Gb_fd%
+hkr, ndi\params\*SpeedDuplex\enum, 2147517187, , %speed_duplex_auto_1Gb_fd_fallback%
+hkr, ndi\params\*SpeedDuplex\enum, 2147548931, , %speed_nvram_default%
+
+
+[params_lso]
+hkr, ndi\params\enable_lso,      paramDesc, , %lso_desc_ipv4%
+hkr, ndi\params\enable_lso,      default,   , "1"
+hkr, ndi\params\enable_lso,      type,      , "enum"
+hkr, ndi\params\enable_lso\enum, 0,         , %lso_disable%
+hkr, ndi\params\enable_lso\enum, 1,         , %lso_enable%
+
+[params_w2klso]
+hkr, , enable_lso, 0, "0"
+
+
+
+;*******************************************************************************
+; Delete old registry parameters.
+;*******************************************************************************
+
+[delreg.req_medium]
+hkr, , req_medium
+hkr, ndi\params\req_medium
+
+[delreg.enable_chimney]
+hkr, , enable_chimney
+
+
+
+;*******************************************************************************
+; Destination directories
+;*******************************************************************************
+
+[destinationdirs]
+defaultdestdir       = 11
+x86w2k_sys_file      = 12
+x86ws3_sys_file      = 12
+x86_coinst_file      = 11
+
+[sourcedisksnames]
+1 = %disk_desc%,,,
+
+[sourcedisksfiles]
+bxnd50x.sys = 1
+bxnd52x.sys = 1
+bxndcox.dll = 1
+
+[x86w2k_sys_file]
+bxnd50x.sys,,,1
+
+[x86ws3_sys_file]
+bxnd52x.sys,,,1
+
+[x86_coinst_file]
+bxndcox.dll,,,1
+
+
+
+;*******************************************************************************
+; Localizable strings
+;*******************************************************************************
+
+[strings]
+brcm = "Broadcom Corporation"
+disk_desc = "Broadcom Installation Media"
+mp_srv_desc = "Broadcom NetXtreme II BXND"
+
+bcm5706c_desc = "Broadcom BCM5706C NetXtreme II GigE (NDIS VBD Client)"
+bcm5706s_desc = "Broadcom BCM5706S NetXtreme II GigE (NDIS VBD Client)"
+bcm5708c_desc = "Broadcom BCM5708C NetXtreme II GigE (NDIS VBD Client)"
+bcm5708s_desc = "Broadcom BCM5708S NetXtreme II GigE (NDIS VBD Client)"
+bcm5709c_desc = "Broadcom BCM5709C NetXtreme II GigE (NDIS VBD Client)"
+bcm5709s_desc = "Broadcom BCM5709S NetXtreme II GigE (NDIS VBD Client)"
+
+speed_duplex_desc       = "Speed & Duplex"
+speed_duplex_auto       = "Auto"
+speed_duplex_10Mb_hd    = "10 Mb Half"
+speed_duplex_10Mb_fd    = "10 Mb Full"
+speed_duplex_100Mb_hd   = "100 Mb Half"
+speed_duplex_100Mb_fd   = "100 Mb Full"
+speed_duplex_1Gb_fd_an  = "1 Gb Full Auto"
+speed_duplex_1Gb_fd     = "1 Gb Full"
+speed_duplex_2500Mb_fd  = "2.5 Gb Full"
+speed_duplex_10Gb_fd    = "10 Gb Full"
+speed_duplex_auto_1Gb_fd_fallback = "Auto With 1Gb Fallback Full"
+speed_nvram_default     = "Hardware Default"
+
+wire_speed              = "Ethernet@WireSpeed"
+wire_speed_disable      = "Disable"
+wire_speed_enable       = "Enable"
+
+qos_8021p_desc          = "802.1p QOS"
+qos_8021p_disable       = "Disable"
+qos_8021p_enable        = "Enable"
+
+taskoffload_desc_ipv4   = "IPv4 Checksum Offload"
+taskoffload_desc_ipv6   = "IPv6 Checksum Offload"
+taskoffload_none        = "None"
+taskoffload_tx_cksum    = "Tx enabled"
+taskoffload_rx_cksum    = "Rx enabled"
+taskoffload_rx_tx_cksum = "Tx/Rx enabled"
+
+lso_desc_ipv4           = "IPv4 Large Send Offload"
+lso_desc_ipv6           = "IPv6 Large Send Offload"
+lso_disable             = "Disable"
+lso_enable              = "Enable"
+
+flow_ctrl               = "Flow Control"
+flow_ctrl_disable       = "Disable"
+flow_ctrl_rx_pause      = "Rx PAUSE"
+flow_ctrl_tx_pause      = "Tx PAUSE"
+flow_ctrl_rx_tx_pause   = "Rx/Tx PAUSE"
+flow_ctrl_auto          = "Auto"
+
+network_address         = "Locally Administered Address"
+
+rss_desc                = "Receive Side Scaling"
+rss_disable             = "Disable"
+rss_enable              = "Enable"
+

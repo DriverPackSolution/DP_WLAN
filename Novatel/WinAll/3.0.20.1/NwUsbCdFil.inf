@@ -1,0 +1,148 @@
+;-------------------------------------------------------------------------------
+; Novatel Wireless USB CD-ROM Installer  
+; Module Name -- NwUsbCdFil.inf
+; Copyright (c) 2007 Novatel Wireless Inc.
+;-------------------------------------------------------------------------------
+;
+;when          who   what, where, why
+;-----------   ---   -----------------------------------------------------------
+;21 MAY 2007   KH    Birth
+;19 JUN	2007   KH    Add 64 bit support
+;25 JUN	2007   SK    Ver no update, USBSTOR update.
+
+;-------------------------------------------------------------------------------
+
+;-------------------------------------------------------------------------------
+; INF Version Section
+;-------------------------------------------------------------------------------
+[Version]
+Signature	= "$CHICAGO$"
+Class		= USB
+ClassGUID	= {36FC9E60-C465-11CF-8056-444553540000}
+provider	= %NVTL%
+DriverVer      = 11/06/2008,1.0.5.1
+CatalogFile.NT		= NwUsbCdFil.cat
+CatalogFile.NTAMD64 = NwUsbCdFil64.cat
+
+;-------------------------------------------------------------------------------
+; INF Manufactuerer Section
+;-------------------------------------------------------------------------------
+[Manufacturer]
+%Novatel.Mfg%=Novatel,NTamd64
+
+;-------------------------------------------------------------------------------
+; INF ControlFlags Section
+;-------------------------------------------------------------------------------
+[ControlFlags]
+ExcludeFromSelect = *
+
+;-------------------------------------------------------------------------------
+; INF Models Section
+;-------------------------------------------------------------------------------
+[Novatel]
+%NVTL_DeviceDesc%	=	NVTL_CD_INST,	USB\VID_1410&PID_5010
+%NVTL_DeviceDesc%	=	NVTL_CD_INST,	USB\VID_1410&PID_5020
+%NVTL_DeviceDesc%	=	NVTL_CD_INST,	USB\VID_1410&PID_5030&MI_00
+%NVTL_DeviceDesc%	=	NVTL_CD_INST,	USB\VID_1410&PID_5040&MI_00
+%NVTL_DeviceDesc%	=	NVTL_CD_INST,	USB\VID_1410&PID_5041
+
+[Novatel.NTamd64]
+%NVTL_DeviceDesc%	=	NVTL_CD_INST,	USB\VID_1410&PID_5010
+%NVTL_DeviceDesc%	=	NVTL_CD_INST,	USB\VID_1410&PID_5020
+%NVTL_DeviceDesc%	=	NVTL_CD_INST,	USB\VID_1410&PID_5030&MI_00
+%NVTL_DeviceDesc%	=	NVTL_CD_INST,	USB\VID_1410&PID_5040&MI_00
+%NVTL_DeviceDesc%	=	NVTL_CD_INST,	USB\VID_1410&PID_5041
+
+
+;-------------------------------------------------------------------------------
+; INF SourceDisksNames Section
+;-------------------------------------------------------------------------------
+[SourceDisksNames]
+1 = %NWSrcDisk%
+
+;-------------------------------------------------------------------------------
+; INF SourceDisksFiles Section
+;-------------------------------------------------------------------------------
+[SourceDisksFiles]
+NwUsbCdFil.sys = 1
+
+[SourceDisksFiles.amd64]
+NwUsbCdFil64.sys = 1
+
+;-------------------------------------------------------------------------------
+; INF DestinationDirs Section
+;-------------------------------------------------------------------------------
+[DestinationDirs]
+NVTL_CD_INST.CopyList = 10, system32\drivers
+NVTL_CD_INST64.CopyList = 10, system32\drivers
+
+;-------------------------------------------------------------------------------
+; INF DDInstall Section
+;-------------------------------------------------------------------------------
+[NVTL_CD_INST.NT]
+Include = usbstor.inf
+Needs=USBSTOR_BULK.NT
+CopyFiles=NVTL_CD_INST.CopyList
+
+[NVTL_CD_INST.NTamd64]
+Include = usbstor.inf
+Needs=USBSTOR_BULK.NT
+CopyFiles=NVTL_CD_INST64.CopyList
+
+[NVTL_CD_INST_Filter_Reg]
+HKR,,"LowerFilters",0x00010000,"NWUSBCDFIL"
+
+[NVTL_CD_INST_Filter_Reg64]
+HKR,,"LowerFilters",0x00010000,"NWUSBCDFIL64"
+
+[NVTL_CD_INST.NT.HW]
+Addreg=NVTL_CD_INST_Filter_Reg
+
+[NVTL_CD_INST.NTamd64.HW]
+Addreg=NVTL_CD_INST_Filter_Reg64
+
+;-------------------------------------------------------------------------------
+; INF DDInstall.Services Section
+;-------------------------------------------------------------------------------
+[NVTL_CD_INST.NT.Services]
+Include = usbstor.inf
+Needs=USBSTOR_BULK.NT.Services
+Addservice = NWUSBCDFIL, , NVTL_CD_INST.AddService
+
+[NVTL_CD_INST.NTamd64.Services]
+Include = usbstor.inf
+Needs=USBSTOR_BULK.NT.Services
+Addservice = NWUSBCDFIL64, , NVTL_CD_INST64.AddService
+
+[NVTL_CD_INST.AddService]
+DisplayName    = %NVTL_CD_INST.SvcDesc%
+ServiceType    = 1                  ; SERVICE_KERNEL_DRIVER
+StartType      = 3                  ; SERVICE_DEMAND_START
+ErrorControl   = 1                  ; SERVICE_ERROR_NORMAL
+ServiceBinary  = %12%\NwUsbCdFil.sys
+LoadOrderGroup = PnP Filter
+
+[NVTL_CD_INST64.AddService]
+DisplayName    = %NVTL_CD_INST.SvcDesc%
+ServiceType    = 1                  ; SERVICE_KERNEL_DRIVER
+StartType      = 3                  ; SERVICE_DEMAND_START
+ErrorControl   = 1                  ; SERVICE_ERROR_NORMAL
+ServiceBinary  = %12%\NwUsbCdFil64.sys
+LoadOrderGroup = PnP Filter
+
+[NVTL_CD_INST.CopyList]
+NwUsbCdFil.sys
+
+[NVTL_CD_INST64.CopyList]
+NwUsbCdFil64.sys
+
+;-------------------------------------------------------------------------------
+; INF Strings Section
+;-------------------------------------------------------------------------------
+[Strings]
+NVTL					= "Novatel Wireless"
+Novatel.Mfg				= "Novatel Wireless"
+NVTL_DeviceDesc			= "Novatel Wireless Installation CD"
+NVTL_CD_INST.SvcDesc	= "Novatel Wireless Installation CD"
+NWSrcDisk				= "Novatel Wireless USB Driver Disk"
+

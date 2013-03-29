@@ -1,0 +1,320 @@
+;======================================================================
+;  3Com Corporation Copyright (C) 2003									
+;----------------------------------------------------------------------
+;  NETWD675.INF - 3Com 3CRDAG675 Wireless LAN PCI Adapter
+;  NDIS 5.X Setup File
+;======================================================================
+
+[Version]
+Signature   = "$CHICAGO$"
+Compatible  = 1
+Class       = Net
+ClassGUID   = {4d36e972-e325-11ce-bfc1-08002be10318}
+Provider    = %V_3COM%
+Catalogfile = netwd675.cat
+DriverVer   = 08/01/2003,1.0.0.25
+
+[Manufacturer]
+%V_3COM%    = 3COM,NTx86,NTx86.5.1
+
+[ControlFlags]
+ExcludeFromSelect = *
+
+[3COM]
+%WLD675.DeviceDesc%  = WLD675.ndi,    PCI\VEN_10B7&DEV_0013&SUBSYS_203110B7
+
+[3COM.NTx86]
+%WLD675.DeviceDesc%  = WLD675.ndi.NT,    PCI\VEN_10B7&DEV_0013&SUBSYS_203110B7
+
+[3COM.NTx86.5.1]
+%WLD675.DeviceDesc%  = WLD675.ndi.NT.5.1,    PCI\VEN_10B7&DEV_0013&SUBSYS_203110B7
+
+
+;*******************************************************************************
+; Win98 Install Sections
+;*******************************************************************************
+
+[WLD675.ndi]
+AddReg          = WLD675.id.reg, WLD675.reg, WLD675.win.reg
+CopyFiles       = WLD675.win.CopyFiles
+
+
+;*******************************************************************************
+; Win 2000 Install Sections
+;*******************************************************************************
+
+[WLD675.ndi.NT]
+Characteristics = 0x84 ; NCF_PHYSICAL | NCF_HAS_UI
+BusType         = 5
+AddReg          = WLD675.reg, WLD675.NT.reg
+CopyFiles       = WLD675.NT.CopyFiles
+
+[WLD675.ndi.NT.Services]
+AddService      = WLD675, 2, WLD675.NT.Service, common.EventLog
+
+
+;*******************************************************************************
+; Win XP Install Sections
+;*******************************************************************************
+
+[WLD675.ndi.NT.5.1]
+Characteristics = 0x84 ; NCF_PHYSICAL | NCF_HAS_UI
+BusType         = 5
+AddReg          = WLD675.reg, WLD675.NT.reg
+CopyFiles       = WLD675.NT.5.1.CopyFiles
+
+[WLD675.ndi.NT.5.1.Services]
+AddService      = WLD675, 2, WLD675.NT.5.1.Service, common.EventLog
+
+
+;*******************************************************************************
+; Windows 98 section
+; Win9x id registry sections
+; These are not needed by NT
+;*******************************************************************************
+
+[WLD675.id.reg]
+HKR, Ndi, DeviceID, 0, "PCI\VEN_10B7&DEV_0013&SUBSYS_203110B7"
+
+
+;*******************************************************************************
+; Common Registry Section
+;*******************************************************************************
+
+[WLD675.reg]
+
+HKR, Ndi\params\MapRegisters,           ParamDesc,                      0,  %MapRegisters%
+HKR, Ndi\params\MapRegisters,           default,                        0,  "256"
+HKR, Ndi\params\MapRegisters,           min,                            0,  "32"
+HKR, Ndi\params\MapRegisters,           max,                            0,  "512"
+HKR, Ndi\params\MapRegisters,           step,                           0,  "8"
+HKR, Ndi\params\MapRegisters,           base,                           0,  "10"
+HKR, Ndi\params\MapRegisters,           type,                           0,  "int"
+
+HKR, Ndi\params\NetworkAddress,         ParamDesc,                      0,  %NetworkAddress%
+HKR, Ndi\params\NetworkAddress,         default,                        0,  ""
+HKR, Ndi\params\NetworkAddress,         LimitText,                      0,  "12"
+HKR, Ndi\params\NetworkAddress,         UpperCase,                      0,  "1"
+HKR, Ndi\params\NetworkAddress,         optional,                       0,  "1"
+HKR, Ndi\params\NetworkAddress,         type,                           0,  "edit"
+
+HKR, Ndi\params\sleepMode,              ParamDesc,                      0,  %sleepMode%
+HKR, Ndi\params\sleepMode,              Base,                           0,  "10"
+HKR, Ndi\params\sleepMode,              default,                        0,  "2"
+HKR, Ndi\params\sleepMode,              type,                           0,  "enum"
+HKR, Ndi\params\sleepMode\enum,         "0",                            0,  %sleepModeOff%
+HKR, Ndi\params\sleepMode\enum,         "2",                            0,  %sleepModeNormal%
+HKR, Ndi\params\sleepMode\enum,         "1",                            0,  %sleepModeMax%
+
+HKR, Ndi\params\tpc,                    ParamDesc,                      0,  %tpc%
+HKR, Ndi\params\tpc,                    Base,                           0,  "10"
+HKR, Ndi\params\tpc,                    default,                        0,  "0"
+HKR, Ndi\params\tpc,                    type,                           0,  "enum"
+HKR, Ndi\params\tpc\enum,               "0",                            0,  %tpc100%
+HKR, Ndi\params\tpc\enum,               "1",                            0,  %tpc50%
+HKR, Ndi\params\tpc\enum,               "2",                            0,  %tpc25%
+HKR, Ndi\params\tpc\enum,               "3",                            0,  %tpc12%
+HKR, Ndi\params\tpc\enum,               "4",                            0,  %tpcLowest%
+
+HKR, Ndi\params\shortPreamble,          ParamDesc,                      0,  %shortPreamble%
+HKR, Ndi\params\shortPreamble,          Base,                           0,  "10"
+HKR, Ndi\params\shortPreamble,          default,                        0,  "1"
+HKR, Ndi\params\shortPreamble,          type,                           0,  "enum"
+HKR, Ndi\params\shortPreamble\enum,     "1",                            0,  %shortPreambleEnable%
+HKR, Ndi\params\shortPreamble\enum,     "0",                            0,  %shortPreambleDisable%
+
+HKR, Ndi\params\radioEnable,            ParamDesc,                      0,  %radioEnable%
+HKR, Ndi\params\radioEnable,            Base,                           0,  "10"
+HKR, Ndi\params\radioEnable,            default,                        0,  "1"
+HKR, Ndi\params\radioEnable,            type,                           0,  "enum"
+HKR, Ndi\params\radioEnable\enum,       "1",                            0,  %radioEnableOn%
+HKR, Ndi\params\radioEnable\enum,       "0",                            0,  %radioEnableOff%
+
+HKR, Ndi\params\authTypeUseOnly,        ParamDesc,                      0,  %authTypeUseOnly%
+HKR, Ndi\params\authTypeUseOnly,        Base,                           0,  "10"
+HKR, Ndi\params\authTypeUseOnly,        default,                        0,  "0"
+HKR, Ndi\params\authTypeUseOnly,        type,                           0,  "enum"
+HKR, Ndi\params\authTypeUseOnly\enum,   "0",                            0,  %authAuto%
+HKR, Ndi\params\authTypeUseOnly\enum,   "1",                            0,  %authOpen%
+HKR, Ndi\params\authTypeUseOnly\enum,   "2",                            0,  %authShared%
+
+HKR,Ndi\params\InternationalRoaming,  	ParamDesc,     					0,  %IntRoamingStr%
+HKR,Ndi\params\InternationalRoaming,    Base,							0,  "10"
+HKR,Ndi\params\InternationalRoaming,	default,						0,  "0"
+HKR,Ndi\params\InternationalRoaming,    type,							0,  "enum"
+HKR,Ndi\params\InternationalRoaming\enum,"1",							0,  %EnabledStr%
+HKR,Ndi\params\InternationalRoaming\enum,"0",							0,  %DisabledStr%
+
+HKR,Ndi\params\ALBEnable, 	            ParamDesc,     					0,  %ALBEnableStr%
+HKR,Ndi\params\ALBEnable,               Base,	                        0,  "10"
+HKR,Ndi\params\ALBEnable,	            default,						0,  "1"
+HKR,Ndi\params\ALBEnable,               type,							0,  "enum"
+HKR,Ndi\params\ALBEnable\enum,	        "1",							0,  %EnabledStr%
+HKR,Ndi\params\ALBEnable\enum,          "0",							0,  %DisabledStr%
+
+HKR, ,                                  AdHocBand,                      0x00002,  "0"
+HKR, ,                                  AwakeTimePerf,                  0x00002,  "200"
+HKR, ,                                  beaconInterval,                 0x00002,  "100"
+HKR, ,                                  bkScanEnable,                   0x00002,  "1"
+HKR, ,                                  bssType,                        0x00002,  "1"
+HKR, ,                                  ccode,                          0x00002,  "US"
+HKR, ,                                  clist,                          0x00002,  ""
+HKR, ,                                  defaultKey,                     0x00002,  "0"
+HKR, ,                                  dpc,                            0x00002,  "0"
+HKR, ,                                  EncryptionAlg,                  0x00002,  "2"
+HKR, ,                                  FragThreshold,                  0x00002,  "2346"
+HKR, ,                                  HwTxRetries,                    0x00002,  "4"
+HKR, ,                                  privacyInvoked,                 0x00002,  "0"
+HKR, ,                                  QoS,                            0x00002,  "0"
+HKR, ,                                  rateCtrlEnable,                 0x00002,  "1"
+HKR, ,                                  RTSThreshold,                   0x00002,  "2346"
+HKR, ,                                  scanType,                       0x00002,  "2"
+HKR, ,                                  SwTxRetryScale,                 0x00002,  "6"
+HKR, ,                                  SmeEnable,                      0x00002,  "1"
+
+
+;*******************************************************************************
+; NT Common
+;*******************************************************************************
+
+[WLD675.NT.reg]
+HKR, Ndi,             Service,      0, "wld675"
+HKR, Ndi\Interfaces,  UpperRange,   0, "ndis5"
+HKR, Ndi\Interfaces,  LowerRange,   0, "ethernet"
+HKR, ,                aifs,         0, "2"
+HKR, ,                cwmin,        0, "15"
+
+;*******************************************************************************
+; Install section for Windows 2000
+;*******************************************************************************
+
+[WLD675.NT.Service]
+DisplayName     = %WLD675.Service.DispName%
+ServiceType     = 1 ;%SERVICE_KERNEL_DRIVER%
+StartType       = 3 ;%SERVICE_DEMAND_START%
+ErrorControl    = 1 ;%SERVICE_ERROR_NORMAL%
+ServiceBinary   = %12%\wld675e.sys
+LoadOrderGroup  = NDIS
+
+;*******************************************************************************
+; Install section for Windows XP
+;*******************************************************************************
+
+[WLD675.NT.5.1.Service]
+DisplayName     = %WLD675.Service.DispName%
+ServiceType     = 1 ;%SERVICE_KERNEL_DRIVER%
+StartType       = 3 ;%SERVICE_DEMAND_START%
+ErrorControl    = 1 ;%SERVICE_ERROR_NORMAL%
+ServiceBinary   = %12%\wld675f.sys
+LoadOrderGroup  = NDIS
+
+;-----------------------------------------------------------------------------
+; WLD675 NT/XP common
+;
+[common.EventLog]
+AddReg = common.AddEventLog.reg
+
+[common.AddEventLog.reg]
+HKR, ,                  EventMessageFile,   0x00020000,   "%%SystemRoot%%\System32\netevent.dll"
+HKR, ,                  TypesSupported,     0x00010001,   7
+
+;----------------------------------------------------------------------------
+; WLD675 Win9x specific
+;
+[WLD675.win.reg]
+HKR, ,                  DevLoader,          0,    "*ndis"
+HKR, ,                  DeviceVxDs,         0,    "wld675e.sys"
+HKR, ,                  EnumPropPages,      0,    "netdi.dll,EnumPropPages"
+
+HKR, Ndi\Interfaces,    DefUpper,           0,    "ndis3"
+HKR, Ndi\Interfaces,    DefLower,           0,    "ethernet"
+HKR, Ndi\Interfaces,    UpperRange,         0,    "ndis3"
+HKR, Ndi\Interfaces,    LowerRange,         0,    "ethernet"
+
+
+HKR, NDIS,              LogDriverName,      0,    "wld675ee"
+HKR, NDIS,              MajorNdisVersion,   1,    03
+HKR, NDIS,              MinorNdisVersion,   1,    0A
+HKR, ,                  aifs,               0,    "2"
+HKR, ,                  cwmin,              0,    "15"
+
+HKR, Ndi\Install,       ndis3,              0,    "WLD675.install"
+
+
+;*******************************************************************************
+; File Sections
+;*******************************************************************************
+
+;----------------------------------------------------------------------------
+; Windows XP Copy Files
+[WLD675.NT.5.1.CopyFiles]
+wld675f.sys,,,2
+
+;----------------------------------------------------------------------------
+; Windows 2000 Copy Files
+[WLD675.NT.CopyFiles]
+wld675e.sys,,,2
+
+;----------------------------------------------------------------------------
+; Win9x Files to Copy
+[WLD675.win.CopyFiles]
+wld675e.sys,,,2
+
+
+;*******************************************************************************
+; Destination directories
+;*******************************************************************************
+
+[SourceDisksNames]
+;
+; diskid = description[, [tagfile] [, <unused>, subdir]]
+;
+1 = %3Com_Disk%,,,
+
+;----------------------------------------------------------------------------
+; Source Files
+[SourceDisksFiles]
+WLD675e.sys                 = 1,, ; on distribution disk 1
+WLD675f.sys                 = 1,, ; on distribution disk 1
+
+
+[DestinationDirs]
+DefaultDestDir              = 11
+WLD675.win.CopyFiles        = 11    ; windows\system 
+WLD675.NT.CopyFiles         = 12    ; winnt\system32\drivers
+WLD675.NT.5.1.CopyFiles     = 12    ; winnt\system32\drivers
+
+
+[Strings]                   
+V_3COM                      = "3Com"
+authTypeUseOnly             = "802.11 Authentication Type"
+authAuto                    = "Auto"
+authOpen                    = "Open"
+authShared                  = "Shared"
+MapRegisters                = "Map Registers"
+NetworkAddress              = "Network Address"
+sleepMode                   = "Power Save Mode"
+sleepModeOff                = "Off"
+sleepModeNormal             = "Normal"
+sleepModeMax                = "Maximum"
+tpc                         = "Transmit Power"
+tpcLowest                   = "Lowest"
+tpc12                       = "12.5%"
+tpc25                       = "25%"
+tpc50                       = "50%"
+tpc100                      = "100%"
+shortPreamble               = "802.11b Preamble"
+shortPreambleEnable         = "Long and Short"
+shortPreambleDisable        = "Long only"
+radioEnable                 = "Radio On/Off"
+radioEnableOn               = "On"
+radioEnableOff              = "Off"
+IntRoamingStr               = "International Roaming"
+DisabledStr                 = "Disabled"
+EnabledStr                  = "Enabled"
+ALBEnableStr                = "ALB Mode"
+
+
+3Com_Disk                   = "3Com 3CRDAG675 Wireless LAN PCI Adapter Install CD"
+WLD675.DeviceDesc           = "3Com 3CRDAG675 Wireless LAN PCI Adapter"
+WLD675.Service.DispName     = "3Com 3CRDAG675 Wireless LAN PCI Adapter"

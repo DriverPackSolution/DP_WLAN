@@ -1,0 +1,145 @@
+; Windows Serial Port Setup File
+; Copyright (c) 2010 Qualcomm Incorporated
+; Manufacturer: Qualcomm Incorporated
+;
+
+[Version]
+signature  = "$WINDOWS NT$"
+Class      = Ports
+Provider   = %QUALCOMM%
+ClassGuid  = {4D36E978-E325-11CE-BFC1-08002BE10318}
+DriverVer=05/11/2010,2.0.7.3
+Catalogfile= qcusbsersra2k.cat
+
+[ControlFlags]
+ExcludeFromSelect = *
+
+[Manufacturer]
+%MFG% =  QcomSerialPort, NTamd64
+
+[SourceDisksNames]
+  1000 = %QcomSrcDisk%,"",,
+
+[SourceDisksFiles]
+  qcusbsersra2k.sys = 1000
+
+[QcomSerialPort]
+%QcomDevice90000%  = QportInstall00, USB\VID_1199&PID_9000
+%QcomDevice90011%  = QportInstall01, USB\VID_1199&PID_9001&MI_01
+%QcomDevice90013%  = QportInstall03, USB\VID_1199&PID_9001&MI_03
+%QcomDevice90021%  = QportInstall01, USB\VID_1199&PID_9002&MI_01
+%QcomDevice90023%  = QportInstall03, USB\VID_1199&PID_9002&MI_03
+%QcomDevice90031%  = QportInstall01, USB\VID_1199&PID_9003&MI_01
+%QcomDevice90033%  = QportInstall03, USB\VID_1199&PID_9003&MI_03
+%QcomDevice90041%  = QportInstall01, USB\VID_1199&PID_9004&MI_01
+%QcomDevice90043%  = QportInstall03, USB\VID_1199&PID_9004&MI_03
+%QcomDevice90051%  = QportInstall01, USB\VID_1199&PID_9005&MI_01
+%QcomDevice90053%  = QportInstall03, USB\VID_1199&PID_9005&MI_03
+%QcomDevice90061%  = QportInstall01, USB\VID_1199&PID_9006&MI_01
+%QcomDevice90063%  = QportInstall03, USB\VID_1199&PID_9006&MI_03
+%QcomDevice90071%  = QportInstall01, USB\VID_1199&PID_9007&MI_01
+%QcomDevice90073%  = QportInstall03, USB\VID_1199&PID_9007&MI_03
+%QcomDevice90081%  = QportInstall01, USB\VID_1199&PID_9008&MI_01
+%QcomDevice90083%  = QportInstall03, USB\VID_1199&PID_9008&MI_03
+%QcomDevice90091%  = QportInstall01, USB\VID_1199&PID_9009&MI_01
+%QcomDevice90093%  = QportInstall03, USB\VID_1199&PID_9009&MI_03
+%QcomDevice900A1%  = QportInstall01, USB\VID_1199&PID_900A&MI_01
+%QcomDevice900A3%  = QportInstall03, USB\VID_1199&PID_900A&MI_03
+
+[QcomSerialPort.NTamd64]
+%QcomDevice90000%  = QportInstall00, USB\VID_1199&PID_9000
+%QcomDevice90011%  = QportInstall01, USB\VID_1199&PID_9001&MI_01
+%QcomDevice90013%  = QportInstall03, USB\VID_1199&PID_9001&MI_03
+%QcomDevice90021%  = QportInstall01, USB\VID_1199&PID_9002&MI_01
+%QcomDevice90023%  = QportInstall03, USB\VID_1199&PID_9002&MI_03
+%QcomDevice90031%  = QportInstall01, USB\VID_1199&PID_9003&MI_01
+%QcomDevice90033%  = QportInstall03, USB\VID_1199&PID_9003&MI_03
+%QcomDevice90041%  = QportInstall01, USB\VID_1199&PID_9004&MI_01
+%QcomDevice90043%  = QportInstall03, USB\VID_1199&PID_9004&MI_03
+%QcomDevice90051%  = QportInstall01, USB\VID_1199&PID_9005&MI_01
+%QcomDevice90053%  = QportInstall03, USB\VID_1199&PID_9005&MI_03
+%QcomDevice90061%  = QportInstall01, USB\VID_1199&PID_9006&MI_01
+%QcomDevice90063%  = QportInstall03, USB\VID_1199&PID_9006&MI_03
+%QcomDevice90071%  = QportInstall01, USB\VID_1199&PID_9007&MI_01
+%QcomDevice90073%  = QportInstall03, USB\VID_1199&PID_9007&MI_03
+%QcomDevice90081%  = QportInstall01, USB\VID_1199&PID_9008&MI_01
+%QcomDevice90083%  = QportInstall03, USB\VID_1199&PID_9008&MI_03
+%QcomDevice90091%  = QportInstall01, USB\VID_1199&PID_9009&MI_01
+%QcomDevice90093%  = QportInstall03, USB\VID_1199&PID_9009&MI_03
+%QcomDevice900A1%  = QportInstall01, USB\VID_1199&PID_900A&MI_01
+%QcomDevice900A3%  = QportInstall03, USB\VID_1199&PID_900A&MI_03
+
+[QportInstall00]
+CopyFiles = QCUsbDriverFiles
+AddReg    = All00, QCAddReg, DevFunction2
+
+[QportInstall01]
+CopyFiles = QCUsbDriverFiles
+AddReg    = All00, QCAddReg
+
+[QportInstall03]
+CopyFiles = QCUsbDriverFiles
+AddReg    = All00, QCAddReg, DevFunction1
+
+[QCUsbDriverFiles]
+qcusbsersra2k.sys
+
+[DestinationDirs]
+DefaultDestDir = 12
+
+[QportInstall00.Services]
+AddService=qcusbsersra2k,  0x00000002, QC_USBSerialService
+
+[QportInstall01.Services]
+AddService=qcusbsersra2k,  0x00000002, QC_USBSerialService
+
+[QportInstall03.Services]
+AddService=qcusbsersra2k,  0x00000002, QC_USBSerialService
+
+[QC_USBSerialService]
+DisplayName   = %QCUSBSER%
+ServiceType   = 1
+StartType     = 3
+ErrorControl  = 1
+ServiceBinary = %12%\qcusbsersra2k.sys
+
+[All00]
+HKR,,NTMPDriver,,qcusbsersra2k.sys
+
+[DevFunction1]
+HKR,,QCDeviceFunction,0x00010001,1
+
+[DevFunction2]
+HKR,,QCDeviceFunction,0x00010001,2
+
+[QCAddReg]
+HKR,,PortSubClass,1,01
+HKR,,EnumPropPages32,,"MsPorts.dll,SerialPortPropPageProvider"
+
+[Strings]
+QCUSBSER = "Gobi 2000 USB Device for Legacy Serial Communication(1199-9001)"
+QcomSrcDisk = "Qualcomm USB Driver Disk"
+MFG = "Sierra Wireless Inc"
+QUALCOMM   = "Qualcomm Incorporated"
+QcomDevice90000 = "Sierra Wireless Gobi 2000 HS-USB QDLoader 9000"
+QcomDevice90011 = "Sierra Wireless Gobi 2000 HS-USB Diagnostics 9001"
+QcomDevice90013 = "Sierra Wireless Gobi 2000 HS-USB NMEA 9001"
+QcomDevice90021 = "Sierra Wireless Gobi 2000 HS-USB Diagnostics 9002"
+QcomDevice90023 = "Sierra Wireless Gobi 2000 HS-USB NMEA 9002"
+QcomDevice90031 = "Sierra Wireless Gobi 2000 HS-USB Diagnostics 9003"
+QcomDevice90033 = "Sierra Wireless Gobi 2000 HS-USB NMEA 9003"
+QcomDevice90041 = "Sierra Wireless Gobi 2000 HS-USB Diagnostics 9004"
+QcomDevice90043 = "Sierra Wireless Gobi 2000 HS-USB NMEA 9004"
+QcomDevice90051 = "Sierra Wireless Gobi 2000 HS-USB Diagnostics 9005"
+QcomDevice90053 = "Sierra Wireless Gobi 2000 HS-USB NMEA 9005"
+QcomDevice90061 = "Sierra Wireless Gobi 2000 HS-USB Diagnostics 9006"
+QcomDevice90063 = "Sierra Wireless Gobi 2000 HS-USB NMEA 9006"
+QcomDevice90071 = "Sierra Wireless Gobi 2000 HS-USB Diagnostics 9007"
+QcomDevice90073 = "Sierra Wireless Gobi 2000 HS-USB NMEA 9007"
+QcomDevice90081 = "Sierra Wireless Gobi 2000 HS-USB Diagnostics 9008"
+QcomDevice90083 = "Sierra Wireless Gobi 2000 HS-USB NMEA 9008"
+QcomDevice90091 = "Sierra Wireless Gobi 2000 HS-USB Diagnostics 9009"
+QcomDevice90093 = "Sierra Wireless Gobi 2000 HS-USB NMEA 9009"
+QcomDevice900A1 = "Sierra Wireless Gobi 2000 HS-USB Diagnostics 900A"
+QcomDevice900A3 = "Sierra Wireless Gobi 2000 HS-USB NMEA 900A"
+

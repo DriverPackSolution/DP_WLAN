@@ -1,0 +1,163 @@
+;-------------------------------------------------------------------------------
+; Novatel Wireless Merlin USB Serial Port
+; Module Name -- NWTshSr2.inf
+; Copyright (c) 2004-2005 Novatel Wireless Inc.
+;-------------------------------------------------------------------------------
+;
+;when          who   what, where, why
+;-----------   ---   -----------------------------------------------------------
+;19 Aug 2004   SK    Added Resident mode
+;24 Aug 2004   SK    Removed upperfilters
+;30 Aug 2004   SK    Removed resident mode
+;24 Feb 2005   SK    Fixed HT issue
+;01 Apr 2005   SK    Driver Fix + Device list
+;28 Sep 2005   SK    Updated driver 
+;19 Oct 2005   SK    Added PowerMgt and updated driver
+;15 Dec 2005   SK    Added Modem response strings
+;08 Mar 2006   SK    Fixed standby BSOD
+;-------------------------------------------------------------------------------
+
+;-------------------------------------------------------------------------------
+; INF Version Section
+;-------------------------------------------------------------------------------
+[Version]
+signature  = "$WINDOWS NT$"
+Class      = Ports
+Provider   = %NW%
+ClassGuid  = {4D36E978-E325-11CE-BFC1-08002BE10318}
+DriverVer  = 04/05/2007,3.0.0.8
+CatalogFile.NT = NWTshMdm.cat
+CatalogFile.NTAMD64 = nwtshx64.cat
+
+;-------------------------------------------------------------------------------
+; INF Manufactuerer Section
+;-------------------------------------------------------------------------------
+[Manufacturer]
+%NW% = Models,NTamd64
+
+;-------------------------------------------------------------------------------
+; INF ControlFlags Section
+;-------------------------------------------------------------------------------
+[ControlFlags]
+ExcludeFromSelect = *
+
+;-------------------------------------------------------------------------------
+; INF Models Section
+;-------------------------------------------------------------------------------
+
+[Models]
+%NW000_2% = Port,  USB\VID_0930&PID_1300&MI_02
+%NW001_2% = Port,  USB\VID_0930&PID_1301&MI_02
+%NW002_2% = Port,  USB\VID_0930&PID_1302&MI_02
+%NW003_2% = Port,  USB\VID_0930&PID_1303&MI_02
+
+%NW000_3% = Port,  USB\VID_0930&PID_1300&MI_03
+%NW001_3% = Port,  USB\VID_0930&PID_1301&MI_03
+%NW002_3% = Port,  USB\VID_0930&PID_1302&MI_03
+%NW003_3% = Port,  USB\VID_0930&PID_1303&MI_03
+
+[Models.NTamd64]
+%NW000_2% = Port,  USB\VID_0930&PID_1300&MI_02
+%NW001_2% = Port,  USB\VID_0930&PID_1301&MI_02
+%NW002_2% = Port,  USB\VID_0930&PID_1302&MI_02
+%NW003_2% = Port,  USB\VID_0930&PID_1303&MI_02
+
+%NW000_3% = Port,  USB\VID_0930&PID_1300&MI_03
+%NW001_3% = Port,  USB\VID_0930&PID_1301&MI_03
+%NW002_3% = Port,  USB\VID_0930&PID_1302&MI_03
+%NW003_3% = Port,  USB\VID_0930&PID_1303&MI_03
+
+
+;-------------------------------------------------------------------------------
+; INF SourceDisksNames Section
+;-------------------------------------------------------------------------------
+[SourceDisksNames]
+1000 = %NWSrcDisk%,"",,
+
+;-------------------------------------------------------------------------------
+; INF SourceDisksFiles Section
+;-------------------------------------------------------------------------------
+[SourceDisksFiles]
+nwtshmdm.sys = 1000
+
+[SourceDisksFiles.amd64]
+nwtshx64.sys = 1000
+
+
+[NWUsbDriverFiles]
+nwtshser2.sys,nwtshmdm.sys,,0x20
+
+[NWUsbDriverFilesamd64]
+nwtshser2.sys,nwtshx64.sys,,0x20
+
+
+;-------------------------------------------------------------------------------
+; INF DestinationDirs Section
+;-------------------------------------------------------------------------------
+[DestinationDirs]
+DefaultDestDir = 12
+
+;-------------------------------------------------------------------------------
+; INF DDInstall Section
+;-------------------------------------------------------------------------------
+[Port.NT]
+CopyFiles = NWUsbDriverFiles
+AddReg    = All, AddReg.NT
+
+[Port.NTamd64]
+CopyFiles = NWUsbDriverFilesamd64
+AddReg    = All, AddReg.NT
+
+;-------------------------------------------------------------------------------
+; INF DDInstall.Services Section
+;-------------------------------------------------------------------------------
+[Port.NT.Services]
+AddService = NWTshPort2,  0x00000002, NWPort_Service_Inst
+
+[Port.NTamd64.Services]
+AddService = NWTshPort2,  0x00000002, NWPort_Service_Inst
+
+
+[NWPort_Service_Inst]
+DisplayName   = %NWPortSvcName%
+ServiceType   = 1
+StartType     = 3
+ErrorControl  = 1
+ServiceBinary = %12%\nwTshser2.sys
+AddReg	      = PowerMgt
+
+;-------------------------------------------------------------------------------
+; INF DDInstall Addreg Sections
+;-------------------------------------------------------------------------------
+[All]
+HKR,,NTMPDriver,,nwTshser2.sys
+
+[AddReg.NT]
+HKR,,PortSubClass,1,01
+HKR,,EnumPropPages32,,"MsPorts.dll,SerialPortPropPageProvider"
+
+[Debug]
+HKR,,QCDriverConfig,0x00010001,0x00000000
+HKR,,QCDriverLoggingDirectory,0,"\??\C:\"
+HKR,,QCDriverDebugMask,0x00010001,0x00000000
+
+[PowerMgt]
+HKR,,QCDriverPowerManagementEnabled,0x00010001,0x00000001
+HKR,,QCDriverWaitWakeEnabled,0x00010001,0x00000001
+
+;-------------------------------------------------------------------------------
+; INF Strings Section
+;-------------------------------------------------------------------------------
+[Strings]
+NW               = "Novatel Wireless Inc"
+NWSrcDisk        = "Novatel Wireless USB Driver Disk"
+NWPortSvcName    = "Toshiba Broadband Status2 Port Driver"
+NW000_2            = "Toshiba Broadband (CDMA EV-DO) SM-Bus Minicard Diagnostics Port"
+NW001_2            = "Toshiba Broadband (CDMA EV-DO) Minicard Diagnostics Port"
+NW002_2            = "Toshiba Broadband (3G HSDPA) SM-Bus Minicard Diagnostics Port"
+NW003_2            = "Toshiba Broadband (3G HSDPA) Minicard Diagnostics Port"
+
+NW000_3            = "Toshiba Broadband (CDMA EV-DO) SM-Bus Minicard GPS Port"
+NW001_3            = "Toshiba Broadband (CDMA EV-DO) Minicard GPS Port"
+NW002_3            = "Toshiba Broadband (3G HSDPA) SM-Bus Minicard EAP-SIM Port"
+NW003_3            = "Toshiba Broadband (3G HSDPA) Minicard EAP-SIM Port"

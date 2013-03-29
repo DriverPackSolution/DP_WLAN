@@ -1,0 +1,456 @@
+;======================================================================
+; NetW35G.INF
+;
+; Information (INF) file for Winbond W89C35 802.11bg WLAN USB Adapters
+;
+; Copyright (C) Winbond Electronics Corp. All Rights Reserved
+;======================================================================
+
+[Version]
+Signature      = "$Chicago$"
+Compatible     = 1
+Class          = Net
+ClassGUID      = {4D36E972-E325-11CE-BFC1-08002BE10318}
+Provider       = %Winbond%
+CatalogFile   = netw35.cat                        ;; for WHQL certified
+DriverVer      = 08/26/2005,1.0.43.3
+
+[SourceDisksNames]
+1              = %DiskName%,,,
+
+[SourceDisksFiles]
+W35UND.SYS     = 1
+
+[Manufacturer]
+%Winbond%      = W89C35_Model
+%Q802%         = Q802UWG_Model
+
+[W89C35_Model]
+; Display Name           Section        Device ID
+%W89C35.DeviceDesc%  = W89C35_ndi, USB\VID_0416&PID_0035, USB\VID_ffff&PID_ffff
+
+[Q802UWG_Model]
+; Display Name           Section        Device ID
+%Q802UWG.DeviceDesc%  = Q802UWG_ndi, USB\VID_18E8&PID_6201
+%Q802UWG.DeviceDesc%  = Q802UWG2_ndi, USB\VID_18E8&PID_6206
+%Q802UWG.DeviceDesc%  = Q802UWG3_ndi, USB\VID_18E8&PID_6217
+
+
+
+
+
+
+;-------------------------------------------------------------------------------------------------------------------------
+;***************************************************************
+; Windows 9x Platform
+;
+[Q802UWG_ndi]
+DriverVer	= 08/30/2005,016
+AddReg          = Q802UWG.win.reg, W89C35.common.reg, Q802UWG.staticparams.reg
+CopyFiles = W89C35.sys.CopyFiles
+;---------------------
+; Windows 9x specific
+;
+[Q802UWG.win.reg]
+; Key, Subkey, ValueName, Flag, Value
+
+;General Driver Information
+HKR, , DriverDesc,      0,    "802.11 b/g USB Wireless Adapter"
+HKR, , DevLoader,,*ndis,*ntkern,*ndis
+HKR, , DeviceVxDs,      0,    "W35UND.SYS"
+HKR, , EnumPropPages,   0,    "netdi.dll,EnumPropPages"
+
+;NDI Registration Parameter
+HKR, Ndi, DeviceID,     0,    "USB\VID_18E8&PID_6201"
+
+;Needed by PnP driver
+HKR, Ndi, CardType,     0,    "PNP"
+
+; Driver Interfaces
+HKR, Ndi\Interfaces,    DefLower,               0,      "ethernet"
+HKR, Ndi\Interfaces,    DefUpper,               0,      "ndis3"
+HKR, Ndi\Interfaces,    LowerRange,             0,      "ethernet"
+HKR, Ndi\Interfaces,    UpperRange,             0,      "ndis3"
+
+; NDIS Driver Infornation
+HKR, NDIS,              LogDriverName,          0,      "W35UND"
+HKR, NDIS,              MajorNdisVersion,       1,      03
+HKR, NDIS,              MinorNdisVersion,       1,      0A
+
+; Install
+HKR, Ndi\Install,       ndis3,                  0,      "W35UND.install"
+
+;***************************************************************
+; NT Platform
+;
+[Q802UWG_ndi.NT]
+AddReg          = Q802UWG.nt.reg, W89C35.common.reg
+CopyFiles       = W89C35.nt.CopyFiles
+Characteristics = 0x84                          ;NCF_HAS_UI | NCF_PHYSICAL
+BusType         = 15                            ; USB
+
+[Q802UWG_ndi.NT.Services]
+AddService      = W35UND, 2, W35ND.Service, W35ND.EventLog
+
+;-----------------------
+; NT specific
+;
+[Q802UWG.nt.reg]
+HKR, Ndi,               Service,                0, "W35UND"
+HKR, Ndi\Interfaces,    UpperRange,             0, "ndis5"
+HKR, Ndi\Interfaces,    LowerRange,             0, "ethernet"
+
+;-------------------------------------------------------------------------------------------------------------------------
+;***************************************************************
+; Windows 9x Platform
+;
+[Q802UWG2_ndi]
+DriverVer	= 08/30/2005,016
+AddReg          = Q802UWG2.win.reg, W89C35.common.reg, Q802UWG2.staticparams.reg
+CopyFiles = W89C35.sys.CopyFiles
+;---------------------
+; Windows 9x specific
+;
+[Q802UWG2.win.reg]
+; Key, Subkey, ValueName, Flag, Value
+
+;General Driver Information
+HKR, , DriverDesc,      0,    "802.11 b/g USB Wireless Adapter"
+HKR, , DevLoader,,*ndis,*ntkern,*ndis
+HKR, , DeviceVxDs,      0,    "W35UND.SYS"
+HKR, , EnumPropPages,   0,    "netdi.dll,EnumPropPages"
+
+;NDI Registration Parameter
+HKR, Ndi, DeviceID,     0,    "USB\VID_18E8&PID_6206"
+
+;Needed by PnP driver
+HKR, Ndi, CardType,     0,    "PNP"
+
+; Driver Interfaces
+HKR, Ndi\Interfaces,    DefLower,               0,      "ethernet"
+HKR, Ndi\Interfaces,    DefUpper,               0,      "ndis3"
+HKR, Ndi\Interfaces,    LowerRange,             0,      "ethernet"
+HKR, Ndi\Interfaces,    UpperRange,             0,      "ndis3"
+
+; NDIS Driver Infornation
+HKR, NDIS,              LogDriverName,          0,      "W35UND"
+HKR, NDIS,              MajorNdisVersion,       1,      03
+HKR, NDIS,              MinorNdisVersion,       1,      0A
+
+; Install
+HKR, Ndi\Install,       ndis3,                  0,      "W35UND.install"
+
+;***************************************************************
+; NT Platform
+;
+[Q802UWG2_ndi.NT]
+AddReg          = Q802UWG2.nt.reg, W89C35.common.reg
+CopyFiles       = W89C35.nt.CopyFiles
+Characteristics = 0x84                          ;NCF_HAS_UI | NCF_PHYSICAL
+BusType         = 15                            ; USB
+
+[Q802UWG2_ndi.NT.Services]
+AddService      = W35UND, 2, W35ND.Service, W35ND.EventLog
+
+;-----------------------
+; NT specific
+;
+[Q802UWG2.nt.reg]
+HKR, Ndi,               Service,                0, "W35UND"
+HKR, Ndi\Interfaces,    UpperRange,             0, "ndis5"
+HKR, Ndi\Interfaces,    LowerRange,             0, "ethernet"
+
+;-------------------------------------------------------------------------------------------------------------------------
+;***************************************************************
+; Windows 9x Platform
+;
+[Q802UWG3_ndi]
+DriverVer	= 08/30/2005,016
+AddReg          = Q802UWG3.win.reg, W89C35.common.reg, Q802UWG3.staticparams.reg
+CopyFiles = W89C35.sys.CopyFiles
+;---------------------
+; Windows 9x specific
+;
+[Q802UWG3.win.reg]
+; Key, Subkey, ValueName, Flag, Value
+
+;General Driver Information
+HKR, , DriverDesc,      0,    "802.11 b/g USB Wireless Adapter"
+HKR, , DevLoader,,*ndis,*ntkern,*ndis
+HKR, , DeviceVxDs,      0,    "W35UND.SYS"
+HKR, , EnumPropPages,   0,    "netdi.dll,EnumPropPages"
+
+;NDI Registration Parameter
+HKR, Ndi, DeviceID,     0,    "USB\VID_18E8&PID_6217"
+
+;Needed by PnP driver
+HKR, Ndi, CardType,     0,    "PNP"
+
+; Driver Interfaces
+HKR, Ndi\Interfaces,    DefLower,               0,      "ethernet"
+HKR, Ndi\Interfaces,    DefUpper,               0,      "ndis3"
+HKR, Ndi\Interfaces,    LowerRange,             0,      "ethernet"
+HKR, Ndi\Interfaces,    UpperRange,             0,      "ndis3"
+
+; NDIS Driver Infornation
+HKR, NDIS,              LogDriverName,          0,      "W35UND"
+HKR, NDIS,              MajorNdisVersion,       1,      03
+HKR, NDIS,              MinorNdisVersion,       1,      0A
+
+; Install
+HKR, Ndi\Install,       ndis3,                  0,      "W35UND.install"
+
+;***************************************************************
+; NT Platform
+;
+[Q802UWG3_ndi.NT]
+AddReg          = Q802UWG3.nt.reg, W89C35.common.reg
+CopyFiles       = W89C35.nt.CopyFiles
+Characteristics = 0x84                          ;NCF_HAS_UI | NCF_PHYSICAL
+BusType         = 15                            ; USB
+
+[Q802UWG3_ndi.NT.Services]
+AddService      = W35UND, 2, W35ND.Service, W35ND.EventLog
+
+;-----------------------
+; NT specific
+;
+[Q802UWG3.nt.reg]
+HKR, Ndi,               Service,                0, "W35UND"
+HKR, Ndi\Interfaces,    UpperRange,             0, "ndis5"
+HKR, Ndi\Interfaces,    LowerRange,             0, "ethernet"
+
+;-------------------------------------------------------------------------------------------------------------------------
+;***************************************************************
+; Windows 9x Platform
+;
+[W89C35_ndi]
+DriverVer	= 10/13/2003,016
+AddReg          = W89C35.win.reg, W89C35.common.reg, W89C35.staticparams.reg
+CopyFiles = W89C35.sys.CopyFiles
+;---------------------
+; Windows 9x specific
+;
+[W89C35.win.reg]
+; Key, Subkey, ValueName, Flag, Value
+
+;General Driver Information
+HKR, , DriverDesc,      0,    "Winbond W89C35 USB 802.11 WLAN Adapter Driver"
+HKR, , DevLoader,,*ndis,*ntkern,*ndis
+HKR, , DeviceVxDs,      0,    "W35UND.SYS"
+HKR, , EnumPropPages,   0,    "netdi.dll,EnumPropPages"
+
+;NDI Registration Parameter
+HKR, Ndi, DeviceID,     0,    "USB\VID_0416&PID_0035"
+
+;Needed by PnP driver
+HKR, Ndi, CardType,     0,    "PNP"
+
+; Driver Interfaces
+HKR, Ndi\Interfaces,    DefLower,               0,      "ethernet"
+HKR, Ndi\Interfaces,    DefUpper,               0,      "ndis3"
+HKR, Ndi\Interfaces,    LowerRange,             0,      "ethernet"
+HKR, Ndi\Interfaces,    UpperRange,             0,      "ndis3"
+
+; NDIS Driver Infornation
+HKR, NDIS,              LogDriverName,          0,      "W35UND"
+HKR, NDIS,              MajorNdisVersion,       1,      03
+HKR, NDIS,              MinorNdisVersion,       1,      0A
+
+; Install
+HKR, Ndi\Install,       ndis3,                  0,      "W35UND.install"
+
+[W35UND.install]
+CopyFiles = W89C35.sys.CopyFiles
+
+[W89C35.sys.CopyFiles]
+W35UND.SYS,,,2
+
+;***************************************************************
+; NT Platform
+;
+[W89C35_ndi.NT]
+AddReg          = W89C35.nt.reg, W89C35.common.reg
+CopyFiles       = W89C35.nt.CopyFiles
+Characteristics = 0x84                          ;NCF_HAS_UI | NCF_PHYSICAL
+BusType         = 15                            ; USB
+
+[W89C35_ndi.NT.Services]
+AddService      = W35UND, 2, W35ND.Service, W35ND.EventLog
+
+[W35ND.Service]
+DisplayName     = %W35ND.Service.DispName%
+Description     = %W35ND.Service.Description%
+ServiceType     = 1                             ; SERVICE_KERNEL_DRIVER
+StartType       = 3                             ; SERVICE_DEMAND_START
+ErrorControl    = 1                             ; SERVICE_ERROR_NORMAL
+ServiceBinary   = %12%\W35UND.SYS
+LoadOrderGroup  = NDIS
+
+[W35ND.EventLog]
+Addreg          = W35ND.AddEventLog.reg
+
+[W35ND.AddEventLog.reg]
+HKR, , EventMessageFile,   0x00020000, "%%SystemRoot%%\System32\netevent.dll"
+HKR, , TypesSupported,     0x00010001, 7
+
+[W89C35.NT.CopyFiles]
+W35UND.SYS,,,2
+
+;-----------------------
+; NT specific
+;
+[W89C35.nt.reg]
+HKR, Ndi,               Service,                0, "W35UND"
+HKR, Ndi\Interfaces,    UpperRange,             0, "ndis5"
+HKR, Ndi\Interfaces,    LowerRange,             0, "ethernet"
+
+;-------------------------------------------------------
+; Driver Parameters for W89C35 applied to all platforms
+;
+[W89C35.common.reg]
+
+;PLT
+HKR, Ndi\params\PLT,                ParamDesc,  0, "PLT"
+HKR, Ndi\params\PLT,                default,    0, "0"
+HKR, Ndi\params\PLT,                type,       0, "enum"
+HKR, Ndi\params\PLT\enum,           "0",        0, "Disable"
+HKR, Ndi\params\PLT\enum,           "1",        0, "Enable"
+
+;RATE POLICY
+HKR, Ndi\params\RatePolicy,         ParamDesc,  0, "RatePolicy"
+HKR, Ndi\params\RatePolicy,         default,    0, "1"
+HKR, Ndi\params\RatePolicy,         type,       0, "enum"
+HKR, Ndi\params\RatePolicy\enum,    "0",        0, "Default"
+HKR, Ndi\params\RatePolicy\enum,    "1",        0, "Up speed"
+HKR, Ndi\params\RatePolicy\enum,    "2",        0, "Down speed"
+
+;REGION
+HKR, Ndi\params\Region,                ParamDesc,  0, "Region"
+HKR, Ndi\params\Region,                default,    0, "0"
+HKR, Ndi\params\Region,                type,       0, "enum"
+HKR, Ndi\params\Region\enum,           "3",        0, "Channel 1-11"
+HKR, Ndi\params\Region\enum,           "1",        0, "Channel 1-13"
+HKR, Ndi\params\Region\enum,           "2",        0, "Channel 1-14"
+HKR, Ndi\params\Region\enum,           "4",        0, "Channel 10-13"
+HKR, Ndi\params\Region\enum,           "5",        0, "Channel 10-11"
+HKR, Ndi\params\Region\enum,           "6",        0, "Channel 3-9"
+HKR, Ndi\params\Region\enum,           "0",        0, "Reg_Unknown"
+
+;RADIO
+HKR, Ndi\params\Radio,                 ParamDesc,  0, "Radio"
+HKR, Ndi\params\Radio,                 default,    0, "0"
+HKR, Ndi\params\Radio,                 type,       0, "enum"
+HKR, Ndi\params\Radio\enum,            "0",        0, "ON"
+HKR, Ndi\params\Radio\enum,            "1",        0, "OFF"
+
+;MaxTxRate
+HKR, Ndi\params\MaxTxRate,      ParamDesc,  0, "Data Rate"
+HKR, Ndi\params\MaxTxRate,      default,    0, "0"
+HKR, Ndi\params\MaxTxRate,      type,       0, "enum"
+HKR, Ndi\params\MaxTxRate\enum, "0",        0, "Auto"
+HKR, Ndi\params\MaxTxRate\enum, "2",        0, "1 Mbps"
+HKR, Ndi\params\MaxTxRate\enum, "4",        0, "2 Mbps"
+HKR, Ndi\params\MaxTxRate\enum, "11",       0, "5.5 Mbps"
+HKR, Ndi\params\MaxTxRate\enum, "22",       0, "11 Mbps"
+HKR, Ndi\params\MaxTxRate\enum, "12",       0, "6 Mbps"
+HKR, Ndi\params\MaxTxRate\enum, "18",       0, "9 Mbps"
+HKR, Ndi\params\MaxTxRate\enum, "24",       0, "12 Mbps"
+HKR, Ndi\params\MaxTxRate\enum, "36",       0, "18 Mbps"
+HKR, Ndi\params\MaxTxRate\enum, "48",       0, "24 Mbps"
+HKR, Ndi\params\MaxTxRate\enum, "72",       0, "36 Mbps"
+HKR, Ndi\params\MaxTxRate\enum, "96",       0, "48 Mbps"
+HKR, Ndi\params\MaxTxRate\enum, "108",      0, "54 Mbps"
+HKR, Ndi\params\MaxTxRate\enum, "255",      0, "Max"
+
+;Preamble
+HKR, Ndi\params\Preamble,           ParamDesc,  0, "Preamble Mode"
+HKR, Ndi\params\Preamble,           default,    0, "0"
+HKR, Ndi\params\Preamble,           type,       0, "enum"
+HKR, Ndi\params\Preamble\enum,      "0",        0, "Auto Tx Preamble (Long/Short)"
+HKR, Ndi\params\Preamble\enum,      "1",        0, "Long Tx Preamble"
+
+;Channel
+HKR, Ndi\params\Channel,            ParamDesc,  0, "IBSS Channel No."
+HKR, Ndi\params\Channel,            default,    0, "0"
+HKR, Ndi\params\Channel,            type,       0, "enum"
+HKR, Ndi\params\Channel\enum,		"2412",		0, " 1"
+HKR, Ndi\params\Channel\enum,		"2417",		0, " 2"
+HKR, Ndi\params\Channel\enum,		"2422",		0, " 3"
+HKR, Ndi\params\Channel\enum,		"2427",		0, " 4"
+HKR, Ndi\params\Channel\enum,		"2432",		0, " 5"
+HKR, Ndi\params\Channel\enum,		"2437",		0, " 6"
+HKR, Ndi\params\Channel\enum,		"2442",		0, " 7"
+HKR, Ndi\params\Channel\enum,		"2447",		0, " 8"
+HKR, Ndi\params\Channel\enum,		"2452",		0, " 9"
+HKR, Ndi\params\Channel\enum,		"2457",		0, "10"
+HKR, Ndi\params\Channel\enum,		"2462",		0, "11"
+HKR, Ndi\params\Channel\enum,		"2467",		0, "12"
+HKR, Ndi\params\Channel\enum,		"2472",		0, "13"
+HKR, Ndi\params\Channel\enum,		"2484",		0, "14"
+HKR, Ndi\params\Channel\enum,		"0",		0, "Auto"
+
+;RTSThreshold
+HKR, Ndi\params\RTSThreshold,       ParamDesc,  0, "RTS Threshold"
+HKR, Ndi\params\RTSThreshold,       default,    0, "2347"
+HKR, Ndi\params\RTSThreshold,       type,       0, "int"
+HKR, Ndi\params\RTSThreshold,       min,        0, "0"
+HKR, Ndi\params\RTSThreshold,       max,        0, "2347"
+
+;TxFragThreshold
+HKR, Ndi\params\TxFragThreshold,    ParamDesc,  0, "Fragmentation Threshold"
+HKR, Ndi\params\TxFragThreshold,    default,    0, "2346"
+HKR, Ndi\params\TxFragThreshold,    type,       0, "int"
+HKR, Ndi\params\TxFragThreshold,    min,        0, "256"
+HKR, Ndi\params\TxFragThreshold,    max,        0, "2346"
+HKR, Ndi\params\TxFragThreshold,    step,       0, "2"
+
+;PowerSaveMode
+HKR, Ndi\params\PowerSave,          ParamDesc,  0, "Power Save Mode"
+HKR, Ndi\params\PowerSave,          default,    0, "0"
+HKR, Ndi\params\PowerSave,          type,       0, "enum"
+HKR, Ndi\params\PowerSave\enum,     "0",        0, "Disabled"
+HKR, Ndi\params\PowerSave\enum,     "1",        0, "Enabled"
+
+;Background scan
+HKR, Ndi\params\BScan,          ParamDesc,  0, "Background Scan"
+HKR, Ndi\params\BScan,          default,    0, "1"
+HKR, Ndi\params\BScan,          type,       0, "enum"
+HKR, Ndi\params\BScan\enum,     "0",        0, "Disabled"
+HKR, Ndi\params\BScan\enum,     "1",        0, "Enabled"
+
+;ModulationType
+HKR, Ndi\params\ModulationType,	    ParamDesc,  0, "Modulation Type"
+HKR, Ndi\params\ModulationType,     default,    0, "255"
+HKR, Ndi\params\ModulationType,     type,       0, "enum"
+HKR, Ndi\params\ModulationType\enum,"0",        0, "802.11b/g"
+;HKR, Ndi\params\ModulationType\enum,"1",        0, "802.11a"
+;HKR, Ndi\params\ModulationType\enum,"2",        0, "802.11a/b/g"
+HKR, Ndi\params\ModulationType\enum,"3",        0, "802.11g-IBSS"
+HKR, Ndi\params\ModulationType\enum,"255",	0, "AUTO"
+
+
+
+;-----------------------
+; Destination Directory
+;
+[DestinationDirs]
+DefaultDestDir              = 12        ; Drivers Dir
+W89C35.sys.CopyFiles       = 11        ; System Dir
+W89C35.NT.CopyFiles        = 12        ; Drivers Dir
+
+;-----------------------
+; Strings
+;
+[Strings]
+Q802                      = "802.11 b/g USB Wireless Adapter"
+Q802UWG.DeviceDesc        = "802.11 b/g USB Wireless Adapter"
+
+Winbond                    = "Winbond Electronics Corp."
+W89C35.DeviceDesc         = "Winbond W89C35 802.11bg WLAN USB Adapter"
+W35ND.Service.DispName    = "W89C35 802.11bg WLAN USB Adapter Driver"
+W35ND.Service.Description = "Winbond W89C35 802.11bg WLAN USB Adapter Driver"
+
+
+
+DiskName  = "802.11bg WLAN USB Adapter Driver Disk"

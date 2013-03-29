@@ -1,0 +1,452 @@
+; SiS160.inf
+;
+; Copyright (c) 2003, SiS Corp. 
+
+[Version]
+Signature           = "$Windows NT$"
+Class               = Net
+ClassGUID           = {4d36e972-e325-11ce-bfc1-08002be10318}
+Provider            = %SiSMfg%
+CatalogFile	    = sis160.cat
+DriverVer=06/03/2003,5.1.1039.1010
+
+[Manufacturer]
+%SiSMfg%               = SiS
+;%CNET%                 =CNET
+[ControlFlags]
+ExcludeFromSelect   = *
+
+[SiS]
+%GEN.DeviceDesc%    = sis160.ndi, PCI\VEN_1039&DEV_0160
+%sis160.DeviceDesc% = sis160.ndi, PCI\VEN_1039&DEV_0160&SUBSYS_01601039
+
+%SiSWireless.DeviceDesc% = SiSWireless.ndi, PCI\VEN_1039&DEV_0160&SUBSYS_88881039
+;811 Wireless LAN Adapter
+%siscnet811.DeviceDesc% = sis160.ndi, PCI\VEN_1039&DEV_0160&SUBSYS_000D1371
+;511 Wireless LAN Adapter
+%siscnet511.DeviceDesc% = sis160.ndi, PCI\VEN_1039&DEV_0160&SUBSYS_000F1371
+;CNet CNWLC-811 Wireless LAN Adapter
+%siscnwlc811.DeviceDesc% = sis160.ndi, PCI\VEN_1039&DEV_0160&SUBSYS_000C1371 
+;CNet CNWLC-511 Wireless LAN Adapter
+%siscnwlc511.DeviceDesc% = sis160.ndi, PCI\VEN_1039&DEV_0160&SUBSYS_000E1371
+;======================== Billionton ========================================
+%Others.DeviceDesc%      = SiS160.ndi, PCI\VEN_1039&DEV_0160&SUBSYS_020314CB
+%Others.DeviceDesc%      = SiS160.ndi, PCI\VEN_1039&DEV_0160&SUBSYS_020414CB
+
+
+
+
+;------------------------------------------------------------------------
+; SIS
+;
+[SiSWireless.ndi]
+Characteristics     = 0x84    ; NCF_PHYSICAL | NCF_HAS_UI
+BusType             = 5       ; PCI
+AddReg              = SiSWireless.reg, nt5.reg
+CopyFiles           = sis160.CopyFiles,Uninstall.CopyFiles
+[sis160.ndi]
+Characteristics     = 0x84    ; NCF_PHYSICAL | NCF_HAS_UI
+BusType             = 5       ; PCI
+AddReg              = SiSWireless.reg,sis160.reg, nt5.reg
+CopyFiles           = sis160.CopyFiles,Uninstall.CopyFiles
+
+[sis160.ndi.Services]
+AddService          = SIS160, 2, sis160.Service, common.EventLog
+
+
+[SiSWireless.ndi.Services]
+AddService          = SIS160, 2, sis160.Service, common.EventLog
+
+
+
+;----------------------------------------------------------------------------
+; Common driver parameters
+;
+[SiSWireless.reg]
+;====== Driver Information for UI ======;
+HKR,,SiSDriverVersion,2,"5.0.1039.1010"
+HKR,,SiSDriverDate   ,2,"06/03/2003"
+HKR,,HWRadio         ,2,"0"
+;=======================================;
+HKR, Ndi\params\NetworkAddress,ParamDesc,,"NetworkAddress"
+HKR, NDI\params\NetworkAddress,default,,""
+HKR, Ndi\params\NetworkAddress,optional,,"1"
+HKR, NDI\params\NetworkAddress,type,,"edit"
+HKR, NDI\params\NetworkAddress,LimitText,,"12"
+HKR, NDI\params\NetworkAddress,UpperCase,,"1"
+
+
+HKLM,%SiS160Uninst%,%SiSUnDisplayName%,0,"SiS160 Wireless LAN Driver"
+HKLM,%SiS160Uninst%,%SiSUninstString%,0,"%16422%\SiS160\Uninst\uninst2k.exe PCI\VEN_1039&DEV_0160"
+
+[sis160.reg]
+HKR, Ndi\params\Channel,		ParamDesc, 0, "Channel"
+HKR, Ndi\params\Channel,		default,   0, "000"
+HKR, Ndi\params\Channel,		type,      0, "enum"
+HKR, Ndi\params\Channel\enum,	"000",     0, "Auto"
+HKR, Ndi\params\Channel\enum,	"001",     0, "Channel  1"
+HKR, Ndi\params\Channel\enum,	"002",     0, "Channel  2"
+HKR, Ndi\params\Channel\enum,	"003",     0, "Channel  3"
+HKR, Ndi\params\Channel\enum,	"004",     0, "Channel  4"
+HKR, Ndi\params\Channel\enum,	"005",     0, "Channel  5"
+HKR, Ndi\params\Channel\enum,	"006",     0, "Channel  6"
+HKR, Ndi\params\Channel\enum,	"007",     0, "Channel  7"
+HKR, Ndi\params\Channel\enum,	"008",     0, "Channel  8"
+HKR, Ndi\params\Channel\enum,	"009",     0, "Channel  9"
+HKR, Ndi\params\Channel\enum,	"00a",     0, "Channel 10"
+HKR, Ndi\params\Channel\enum,	"00b",     0, "Channel 11"
+HKR, Ndi\params\Channel\enum,	"00c",     0, "Channel 12"
+HKR, Ndi\params\Channel\enum,	"00d",     0, "Channel 13"
+HKR, Ndi\params\Channel\enum,	"00e",     0, "Channel 14"
+
+HKR, Ndi\params\Region,		ParamDesc, 0, "Region"
+HKR, Ndi\params\Region,		default,   0, "000"
+HKR, Ndi\params\Region,		type,      0, "enum"
+HKR, Ndi\params\Region\enum,	"000",     0, "Decide By HardWare"
+HKR, Ndi\params\Region\enum,	"001",     0, "FCC-USA,Canada"
+HKR, Ndi\params\Region\enum,	"002",     0, "ETSI-Europe"
+HKR, Ndi\params\Region\enum,	"003",     0, "MEXICO"
+HKR, Ndi\params\Region\enum,	"004",     0, "SPAIN"
+HKR, Ndi\params\Region\enum,	"005",     0, "FRANCE"
+HKR, Ndi\params\Region\enum,	"006",     0, "SINGAPORE"
+HKR, Ndi\params\Region\enum,	"007",     0, "MKK1-JAPAN"
+HKR, Ndi\params\Region\enum,	"008",     0, "ISREAL"
+HKR, Ndi\params\Region\enum,	"009",     0, "IC-Australia"
+
+
+
+HKR, Ndi\params\InfrastructureMode,	ParamDesc, 0, "InfrastructureMode"
+HKR, Ndi\params\InfrastructureMode,	default,   0, "000"
+HKR, Ndi\params\InfrastructureMode,	type,      0, "enum"
+HKR, Ndi\params\InfrastructureMode\enum,	"000",     0, "Infrastructure"
+HKR, Ndi\params\InfrastructureMode\enum,	"002",     0, "Ad Hoc"
+
+
+
+
+
+HKR, Ndi\params\AuthenticationMode,	ParamDesc, 0, "AuthenticationMode"
+HKR, Ndi\params\AuthenticationMode,	default,   0, "000"
+HKR, Ndi\params\AuthenticationMode,	type,      0, "enum"
+HKR, Ndi\params\AuthenticationMode\enum,	"000",     0, "Open System"
+HKR, Ndi\params\AuthenticationMode\enum,	"001",     0, "Shared Key"
+HKR, Ndi\params\AuthenticationMode\enum,	"002",     0, "AutoSwitch"
+HKR, Ndi\params\Preamble,	ParamDesc, 0, "Preamble"
+HKR, Ndi\params\Preamble,	default,   0, "000"
+HKR, Ndi\params\Preamble,	type,      0, "enum"
+HKR, Ndi\params\Preamble\enum,	"000",     0, "Short Preamble"
+HKR, Ndi\params\Preamble\enum,	"001",     0, "Long Preamble"
+
+
+
+
+HKR, Ndi\params\AntennaSelect,	ParamDesc, 0, "AntennaSelect"
+HKR, Ndi\params\AntennaSelect,	default,   0, "0ff"
+HKR, Ndi\params\AntennaSelect,	type,      0, "enum"
+HKR, Ndi\params\AntennaSelect\enum,	"0ff",     0, "Diversity"
+HKR, Ndi\params\AntennaSelect\enum,	"000",     0, "Antenna 1"
+HKR, Ndi\params\AntennaSelect\enum,	"001",     0, "Antenna 2"
+
+HKR, Ndi\params\SSID,ParamDesc,,"SSID"
+HKR, NDI\params\SSID,default,,"NDTESTWEPO"
+HKR, Ndi\params\SSID,optional,,1
+HKR, NDI\params\SSID,type,,edit
+HKR, NDI\params\SSID,LimitText,,32
+HKR, NDI\params\SSID,UpperCase,,0
+HKR, Ndi\params\SSID,flag,1,20,00,00,00
+
+HKR, Ndi\params\Password,ParamDesc,,"Password"
+HKR, NDI\params\Password,default,,""
+HKR, Ndi\params\Password,optional,,0
+HKR, NDI\params\Password,type,,edit
+HKR, NDI\params\Password,LimitText,,8
+HKR, NDI\params\Password,UpperCase,,1
+HKR, Ndi\params\Password,flag,1,20,00,00,00
+
+HKR, Ndi\params\WepStatus,	ParamDesc, 0, "WEP_WepStatus"
+HKR, Ndi\params\WepStatus,	default,   0, "000"
+HKR, Ndi\params\WepStatus,	type,      0, "enum"
+HKR, Ndi\params\WepStatus\enum,	"000",     0, "Disabled"
+HKR, Ndi\params\WepStatus\enum,	"001",     0, "40-bits"
+HKR, Ndi\params\WepStatus\enum,	"002",     0, "128-bits"
+
+HKR, Ndi\params\TransmitKey,	ParamDesc, 0, "WEP_TransmitKey"
+HKR, Ndi\params\TransmitKey,	default,   0, "001"
+HKR, Ndi\params\TransmitKey,	type,      0, "enum"
+HKR, Ndi\params\TransmitKey\enum,	"000",     0, "Disabled"
+HKR, Ndi\params\TransmitKey\enum,	"001",     0, "KEY 1"
+HKR, Ndi\params\TransmitKey\enum,	"002",     0, "KEY 2"
+HKR, Ndi\params\TransmitKey\enum,	"003",     0, "KEY 3"
+HKR, Ndi\params\TransmitKey\enum,	"004",     0, "KEY 4"
+
+HKR, Ndi\params\WepStatus1,	ParamDesc, 0, "WEP_Key1Status"
+HKR, Ndi\params\WepStatus1,	default,   0, "001"
+HKR, Ndi\params\WepStatus1,	type,      0, "enum"
+HKR, Ndi\params\WepStatus1\enum,	"000",     0, "Disabled"
+HKR, Ndi\params\WepStatus1\enum,	"001",     0, "40-bits"
+HKR, Ndi\params\WepStatus1\enum,	"002",     0, "128-bits"
+
+HKR, Ndi\params\KeyData1,ParamDesc,,"WEP_KeyData1"
+HKR, NDI\params\KeyData1,default,,""
+HKR, Ndi\params\KeyData1,optional,,1
+HKR, NDI\params\KeyData1,type,,edit
+HKR, NDI\params\KeyData1,LimitText,,26
+HKR, NDI\params\KeyData1,UpperCase,,0
+HKR, Ndi\params\KeyData1,flag,1,20,00,00,00
+
+HKR, Ndi\params\WepStatus2,	ParamDesc, 0, "WEP_Key2Status"
+HKR, Ndi\params\WepStatus2,	default,   0, "001"
+HKR, Ndi\params\WepStatus2,	type,      0, "enum"
+HKR, Ndi\params\WepStatus2\enum,	"000",     0, "Disabled"
+HKR, Ndi\params\WepStatus2\enum,	"001",     0, "40-bits"
+HKR, Ndi\params\WepStatus2\enum,	"002",     0, "128-bits"
+
+HKR, Ndi\params\KeyData2,ParamDesc,,"WEP_KeyData2"
+HKR, NDI\params\KeyData2,default,,""
+HKR, Ndi\params\KeyData2,optional,,1
+HKR, NDI\params\KeyData2,type,,edit
+HKR, NDI\params\KeyData2,LimitText,,26
+HKR, NDI\params\KeyData2,UpperCase,,0
+HKR, Ndi\params\KeyData2,flag,1,20,00,00,00
+
+HKR, Ndi\params\WepStatus3,	ParamDesc, 0, "WEP_Key3Status"
+HKR, Ndi\params\WepStatus3,	default,   0, "001"
+HKR, Ndi\params\WepStatus3,	type,      0, "enum"
+HKR, Ndi\params\WepStatus3\enum,	"000",     0, "Disabled"
+HKR, Ndi\params\WepStatus3\enum,	"001",     0, "40-bits"
+HKR, Ndi\params\WepStatus3\enum,	"002",     0, "128-bits"
+
+HKR, Ndi\params\KeyData3,ParamDesc,,"WEP_KeyData3"
+HKR, NDI\params\KeyData3,default,,""
+HKR, Ndi\params\KeyData3,optional,,1
+HKR, NDI\params\KeyData3,type,,edit
+HKR, NDI\params\KeyData3,LimitText,,26
+HKR, NDI\params\KeyData3,UpperCase,,0
+HKR, Ndi\params\KeyData3,flag,1,20,00,00,00
+
+HKR, Ndi\params\WepStatus4,	ParamDesc, 0, "WEP_Key4Status"
+HKR, Ndi\params\WepStatus4,	default,   0, "001"
+HKR, Ndi\params\WepStatus4,	type,      0, "enum"
+HKR, Ndi\params\WepStatus4\enum,	"000",     0, "Disabled"
+HKR, Ndi\params\WepStatus4\enum,	"001",     0, "40-bits"
+HKR, Ndi\params\WepStatus4\enum,	"002",     0, "128-bits"
+
+HKR, Ndi\params\KeyData4,ParamDesc,,"WEP_KeyData4"
+HKR, NDI\params\KeyData4,default,,""
+HKR, Ndi\params\KeyData4,optional,,1
+HKR, NDI\params\KeyData4,type,,edit
+HKR, NDI\params\KeyData4,LimitText,,26
+HKR, NDI\params\KeyData4,UpperCase,,0
+HKR, Ndi\params\KeyData4,flag,1,20,00,00,00
+
+HKR, Ndi\params\HWProbe,		ParamDesc, 0, "HWProbe"
+HKR, Ndi\params\HWProbe,		default,   0, "000"
+HKR, Ndi\params\HWProbe,		type,      0, "enum"
+HKR, Ndi\params\HWProbe\enum,	"000",     0, "0x00"
+HKR, Ndi\params\HWProbe\enum,	"001",     0, "0x01"
+HKR, Ndi\params\HWProbe\enum,	"002",     0, "0x02"
+HKR, Ndi\params\HWProbe\enum,	"003",     0, "0x03"
+HKR, Ndi\params\HWProbe\enum,	"004",     0, "0x04"
+HKR, Ndi\params\HWProbe\enum,	"005",     0, "0x05"
+HKR, Ndi\params\HWProbe\enum,	"006",     0, "0x06"
+HKR, Ndi\params\HWProbe\enum,	"007",     0, "0x07"
+HKR, Ndi\params\HWProbe\enum,	"008",     0, "0x08"
+HKR, Ndi\params\HWProbe\enum,	"009",     0, "0x09"
+HKR, Ndi\params\HWProbe\enum,	"00a",     0, "0x0a"
+HKR, Ndi\params\HWProbe\enum,	"00b",     0, "0x0b"
+HKR, Ndi\params\HWProbe\enum,	"00c",     0, "0x0c"
+HKR, Ndi\params\HWProbe\enum,	"00d",     0, "0x0d"
+HKR, Ndi\params\HWProbe\enum,	"00e",     0, "0x0e"
+HKR, Ndi\params\HWProbe\enum,	"00f",     0, "0x0f"
+
+HKR, Ndi\params\FrameThreshold,ParamDesc,,"Frame Threshold"
+HKR, NDI\params\FrameThreshold,default,,"2312"
+HKR, Ndi\params\FrameThreshold,optional,,0
+HKR, NDI\params\FrameThreshold,type,,edit
+HKR, NDI\params\FrameThreshold,LimitText,,5
+HKR, NDI\params\FrameThreshold,UpperCase,,0
+HKR, Ndi\params\FrameThreshold,flag,1,20,00,00,00
+
+HKR, Ndi\params\RTSThreshold,ParamDesc,,"RTS Threshold"
+HKR, NDI\params\RTSThreshold,default,,"2312"
+HKR, Ndi\params\RTSThreshold,optional,,0
+HKR, NDI\params\RTSThreshold,type,,edit
+HKR, NDI\params\RTSThreshold,LimitText,,5
+HKR, NDI\params\RTSThreshold,UpperCase,,0
+HKR, Ndi\params\RTSThreshold,flag,1,20,00,00,00
+
+HKR, Ndi\params\TxRate,		ParamDesc, 0, "Tx Rate"
+HKR, Ndi\params\TxRate,		default,   0, "003"
+HKR, Ndi\params\TxRate,		type,      0, "enum"
+HKR, Ndi\params\TxRate\enum,	"000",     0, " 1.0 Mbps"
+HKR, Ndi\params\TxRate\enum,	"001",     0, " 2.0 Mbps"
+HKR, Ndi\params\TxRate\enum,	"002",     0, " 5.5 Mbps"
+HKR, Ndi\params\TxRate\enum,	"003",     0, "11.0 Mbps"
+HKR, Ndi\params\TxRate\enum,	"004",     0, "Auto TxRate"
+
+HKR, Ndi\params\BeaconInterval,ParamDesc,,"Beacon Interval"
+HKR, NDI\params\BeaconInterval,default,,"100"
+HKR, Ndi\params\BeaconInterval,optional,,0
+HKR, NDI\params\BeaconInterval,type,,edit
+HKR, NDI\params\BeaconInterval,LimitText,,5
+HKR, NDI\params\BeaconInterval,UpperCase,,0
+HKR, Ndi\params\BeaconInterval,flag,1,20,00,00,00
+
+HKR, Ndi\params\ListenInterval,ParamDesc,,"Listen Interval"
+HKR, NDI\params\ListenInterval,default,,"1"
+HKR, Ndi\params\ListenInterval,optional,,0
+HKR, NDI\params\ListenInterval,type,,edit
+HKR, NDI\params\ListenInterval,LimitText,,5
+HKR, NDI\params\ListenInterval,UpperCase,,0
+HKR, Ndi\params\ListenInterval,flag,1,20,00,00,00
+
+HKR, Ndi\params\CTxPower12345,ParamDesc,,"CTxPower12345"
+HKR, NDI\params\CTxPower12345,default,,"0"
+HKR, Ndi\params\CTxPower12345,optional,,0
+HKR, NDI\params\CTxPower12345,type,,edit
+HKR, NDI\params\CTxPower12345,LimitText,,8
+HKR, NDI\params\CTxPower12345,UpperCase,,0
+HKR, Ndi\params\CTxPower12345,flag,1,20,00,00,00
+
+HKR, Ndi\params\CTxPower6789A,ParamDesc,,"CTxPower6789A"
+HKR, NDI\params\CTxPower6789A,default,,"0"
+HKR, Ndi\params\CTxPower6789A,optional,,0
+HKR, NDI\params\CTxPower6789A,type,,edit
+HKR, NDI\params\CTxPower6789A,LimitText,,8
+HKR, NDI\params\CTxPower6789A,UpperCase,,0
+HKR, Ndi\params\CTxPower6789A,flag,1,20,00,00,00
+
+HKR, Ndi\params\CTxPowerBCDE,ParamDesc,,"CTxPowerBCDE"
+HKR, NDI\params\CTxPowerBCDE,default,,"0"
+HKR, Ndi\params\CTxPowerBCDE,optional,,0
+HKR, NDI\params\CTxPowerBCDE,type,,edit
+HKR, NDI\params\CTxPowerBCDE,LimitText,,8
+HKR, NDI\params\CTxPowerBCDE,UpperCase,,0
+HKR, Ndi\params\CTxPowerBCDE,flag,1,20,00,00,00
+
+
+
+
+
+HKR, Ndi\params\SiSRFReg,ParamDesc,,"SiSRFReg"
+HKR, NDI\params\SiSRFReg,default,,"80"
+HKR, Ndi\params\SiSRFReg,optional,,0
+HKR, NDI\params\SiSRFReg,type,,edit
+HKR, NDI\params\SiSRFReg,LimitText,,5
+HKR, NDI\params\SiSRFReg,UpperCase,,0
+HKR, Ndi\params\SiSRFReg,flag,1,20,00,00,00
+
+HKR, Ndi\params\CoExist,ParamDesc,,"CoExist"
+HKR, NDI\params\CoExist,default,,"0"
+HKR, Ndi\params\CoExist,optional,,0
+HKR, NDI\params\CoExist,type,,edit
+HKR, NDI\params\CoExist,LimitText,,5
+HKR, NDI\params\CoExist,UpperCase,,0
+HKR, Ndi\params\CoExist,flag,1,20,00,00,00
+
+HKR, Ndi\params\TxRetryCounts,ParamDesc,,"TxRetryCounts"
+HKR, NDI\params\TxRetryCounts,default,,"7"
+HKR, Ndi\params\TxRetryCounts,optional,,0
+HKR, NDI\params\TxRetryCounts,type,,edit
+HKR, NDI\params\TxRetryCounts,LimitText,,5
+HKR, NDI\params\TxRetryCounts,UpperCase,,0
+HKR, Ndi\params\TxRetryCounts,flag,1,20,00,00,00
+
+
+
+
+HKR, Ndi\params\TxPowerLevel,ParamDesc,,"TxPowerLevel"
+HKR, NDI\params\TxPowerLevel,default,,"3f"
+HKR, Ndi\params\TxPowerLevel,optional,,0
+HKR, NDI\params\TxPowerLevel,type,,edit
+HKR, NDI\params\TxPowerLevel,LimitText,,5
+HKR, NDI\params\TxPowerLevel,UpperCase,,0
+HKR, Ndi\params\TxPowerLevel,flag,1,20,00,00,00
+
+HKR, Ndi\params\PowerMode,	ParamDesc, 0, "POWER_MODE"
+HKR, Ndi\params\PowerMode,	default,   0, "000"
+HKR, Ndi\params\PowerMode,	type,      0, "enum"
+HKR, Ndi\params\PowerMode\enum,	"000",     0, "Ndis802_11PowerModeCAM"
+HKR, Ndi\params\PowerMode\enum,	"001",     0, "Ndis802_11PowerModeMAX_PSP"
+HKR, Ndi\params\PowerMode\enum,	"002",     0, "Ndis802_11PowerModeFast_PSP"
+HKR, Ndi\params\PowerMode\enum,	"003",     0, "Ndis802_11PowerModeMax"
+
+HKR, Ndi\params\ATIMWindow,ParamDesc,,"ATIMWindow"
+HKR, NDI\params\ATIMWindow,default,,"5"
+HKR, Ndi\params\ATIMWindow,optional,,0
+HKR, NDI\params\ATIMWindow,type,,edit
+HKR, NDI\params\ATIMWindow,LimitText,,5
+HKR, NDI\params\ATIMWindow,UpperCase,,0
+HKR, Ndi\params\ATIMWindow,flag,1,20,00,00,00
+
+HKLM,%SiS160Uninst%,%SiSUnDisplayName%,0,"SiS160 Wireless LAN Driver"
+HKLM,%SiS160Uninst%,%SiSUninstString%,0,"%16422%\SiS160\Uninst\uninst2k.exe PCI\VEN_1039&DEV_0160"
+;-----------------------------------------------------------------------------
+; Ndi object registration
+;
+;NT specific
+[nt5.reg]
+HKR, Ndi,                               Service,            0, "SIS160"
+HKR, Ndi\Interfaces,                    UpperRange,         0, "ndis5"
+HKR, Ndi\Interfaces,                    LowerRange,         0, "ethernet"
+
+;----------------------------------------------------------------------------
+; Services Sections for NT
+;
+[sis160.Service]
+DisplayName         = %sis160.Service.DispName%
+ServiceType         = 1 ;%SERVICE_KERNEL_DRIVER%
+StartType           = 3 ;%SERVICE_DEMAND_START%
+ErrorControl        = 1 ;%SERVICE_ERROR_NORMAL%
+ServiceBinary       = %12%\sis160.sys
+LoadOrderGroup      = NDIS
+
+[common.EventLog]
+AddReg              = common.AddEventLog.reg
+
+[common.AddEventLog.reg]
+HKR,,EventMessageFile,   0x00020000, = "%%SystemRoot%%\System32\netevent.dll"
+HKR,,TypesSupported,     0x00010001, = 7
+
+[DestinationDirs]
+DefaultDestDir      = 12
+sis160.CopyFiles    = 12
+Uninstall.CopyFiles  = 16422,SiS160\Uninst
+
+[SourceDisksNames]
+1                   = %SiSSourceDiskName%,,,""
+
+[SourceDisksFiles]
+sis160.sys=1
+Uninst2k.exe=1
+
+[sis160.CopyFiles]
+sis160.sys
+
+[Uninstall.CopyFiles]
+uninst2k.exe
+
+[Strings]
+SiS                           = "SiS"
+SiSMfg                        = "Silicon Integrated Systems Corp."
+MSFT                          = "Microsoft"
+
+GEN.DeviceDesc                = "SiS160 Series Wireless LAN Adapter"
+sis160.DeviceDesc             = "SiS160 Series Wireless LAN Adapter"
+SiSWireless.DeviceDesc         = "SiS Wireless LAN Adapter"
+Others.DeviceDesc              = "802.11b Wireless LAN Adapter"  
+;============================ For CNET =======================================; 
+siscnet811.DeviceDesc         = "811 Wireless LAN Adapter"
+siscnet511.DeviceDesc         = "511 Wireless LAN Adapter"
+siscnwlc811.DeviceDesc        = "CNet CNWLC-811 Wireless LAN Adapter"
+siscnwlc511.DeviceDesc        = "CNet CNWLC-511 Wireless LAN Adapter"
+;=============================================================================;
+
+sis160.Service.DispName       = "SiS160 Series Wireless LAN Adapter Driver"
+SiSSourceDiskName             = "SiS160 Series Wireless LAN Adapter Drivers Disk"
+
+SiSNetworkAddress             = "NetworkAddress"
+SiS160Uninst                  ="Software\Microsoft\Windows\CurrentVersion\Uninstall\SiS160"
+SiSUnDisplayName              = "DisplayName"
+SiSUnDisplayNameStr           = "SiS160 Series Wireless LAN Adapter Driver"
+SiSUninstString               = "UninstallString"

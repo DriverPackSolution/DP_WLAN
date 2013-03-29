@@ -1,0 +1,516 @@
+;/*++
+;
+;Copyright (c) 2001-2010 Ubiquiti Networks, Incorporated All Rights Reserved
+;
+;Module Name:
+;
+;    ubnt_athurx.inf
+;
+;Abstract:
+;    INF file for installing Ubiquiti WifiStation/WifiStation-Ext Wireless Network Adapter
+;
+;    Installs ubnt_athurx.sys (NDIS driver) on NT platforms (Vista 64 bits)
+
+;--*/
+
+[version]
+Signature   = "$Windows NT$"
+Class       = Net
+ClassGUID   = {4d36e972-e325-11ce-bfc1-08002be10318}
+Provider    = %UBIQUITI%
+LayoutFiles   = layout.inf
+CatalogFile = ubnt_athurx.cat
+DriverVer   = 09/30/2009,8.0.0.54
+
+
+[Manufacturer]
+%UBIQUITI%     = Ubiquiti, NTamd64
+
+[ControlFlags]
+ExcludeFromSelect = *
+
+
+[Ubiquiti.NTamd64]
+; DisplayName               Section                 DeviceID
+; -----------               -------                 --------
+%UBNT.DeviceDesc.B002% = UBNT_DEV_B00X.ndi,     USB\VID_0CF3&PID_B002
+%UBNT.DeviceDesc.B003% = UBNT_DEV_B00X.ndi,     USB\VID_0CF3&PID_B003
+
+[UBNT_DEV_B00X.ndi.NTamd64]
+Characteristics = 0x84
+BusType         = 15
+AddReg          = ubiquiti.reg, B00X.reg, UBNT_CC.reg, ignore11d.reg
+DelReg          = ubiquiti.DelReg
+CopyFiles       = ubiquiti.CopyFiles
+*IfType         = 71		; IF_TYPE_IEEE80211
+*MediaType      = 16		; NdisMediumNative802_11
+*PhysicalMediaType = 9		; NdisPhysicalMediumNative802_11
+
+[UBNT_DEV_B00X.ndi.NTamd64.Services]
+AddService = ubnt_athur, 2, ubiquiti.Service, ubiquiti.EventLog
+
+[ubiquiti.reg]
+HKR, Ndi,                           Service,    0, "UB00X"
+HKR, Ndi\Interfaces,                UpperRange, 0, "ndis5"
+HKR, Ndi\Interfaces,                LowerRange, 0, "wlan,ethernet"
+HKR, Ndi\params\*ReceiveBuffers,    ParamDesc,  0, "%ReceiveBuffers%"
+HKR, Ndi\params\*ReceiveBuffers,    default,    0, "256"
+HKR, Ndi\params\*ReceiveBuffers,    min,        0, "1"
+HKR, Ndi\params\*ReceiveBuffers,    max,        0, "00000512"
+HKR, Ndi\params\*ReceiveBuffers,    step,       0, "1"
+HKR, Ndi\params\*ReceiveBuffers,    Base,       0, "10"
+HKR, Ndi\params\*ReceiveBuffers,    type,       0, "int"
+HKR, Ndi\params\*TransmitBuffers,   ParamDesc,  0, "%TransmitBuffers%"
+HKR, Ndi\params\*TransmitBuffers,   default,    0, "256"
+HKR, Ndi\params\*TransmitBuffers,   min,        0, "1"
+HKR, Ndi\params\*TransmitBuffers,   max,        0, "00000512"
+HKR, Ndi\params\*TransmitBuffers,   step,       0, "1"
+HKR, Ndi\params\*TransmitBuffers,   Base,       0, "10"
+HKR, Ndi\params\*TransmitBuffers,   type,       0, "int"
+HKR, Ndi\params\NetworkAddress,     ParamDesc,  0,  %NetworkAddress%
+HKR, Ndi\params\NetworkAddress,     default,    0,  ""
+HKR, Ndi\params\NetworkAddress,     LimitText,  0,  "12"
+HKR, Ndi\params\NetworkAddress,     UpperCase,  0,  "1"
+HKR, Ndi\params\NetworkAddress,     optional,   0,  "1"
+HKR, Ndi\params\NetworkAddress,     type,       0,  "edit"
+HKR, Ndi\params\shortPreamble,      ParamDesc,  0,  %shortPreamble%
+HKR, Ndi\params\shortPreamble,      Base,       0,  "10"
+HKR, Ndi\params\shortPreamble,      default,    0,  "1"
+HKR, Ndi\params\shortPreamble,      type,       0,  "enum"
+HKR, Ndi\params\shortPreamble\enum, "1",        0,  %shortPreambleEnable%
+HKR, Ndi\params\shortPreamble\enum, "0",        0,  %shortPreambleDisable%
+HKR, Ndi\params\scanTimeValid,      ParamDesc,  0,  %scanTimeValid%
+HKR, Ndi\params\scanTimeValid,      default,    0,  "60"
+HKR, Ndi\params\scanTimeValid,      min,        0,  "20"
+HKR, Ndi\params\scanTimeValid,      max,        0,  "120"
+HKR, Ndi\params\scanTimeValid,      step,       0,  "5"
+HKR, Ndi\params\scanTimeValid,      base,       0,  "10"
+HKR, Ndi\params\scanTimeValid,      type,       0,  "int"
+
+HKR, ,                                  forceNormalSlotMrvl,             0x00002,  "1"
+HKR, ,                                  abolt,                           0x00002,  "0"
+
+[ubiquiti.DelReg]
+HKR,,NetBand
+HKR,,ssid
+HKR,,ssid2
+HKR,,ssid3
+HKR,,prefBssid1
+HKR,,prefBssid2
+HKR,,prefBssid3
+HKR,,prefBssid4
+HKR,Ndi\Params\tpc
+HKR,,tpc
+HKR,Ndi\Params\authTypeUseOnly
+HKR,,authTypeUseOnly
+HKR,,AdHocBand
+HKR,,AwakeTimePerf
+HKR,,beaconInterval
+HKR,,bkScanEnable
+HKR,,bssType
+HKR,,ccode
+HKR,,clist
+HKR,,defaultKey
+HKR,,EncryptionAlg
+HKR,,FragThreshold
+HKR,,HwTxRetries
+HKR,,privacyInvoked
+HKR,,QoS
+HKR,,rateCtrlEnable
+HKR,,RTSThreshold
+HKR,,scanType
+HKR,,SwTxRetryScale
+HKR,,SmeEnable
+HKR,,aifs
+HKR,,cwmin
+HKR,Ndi\params,MapRegisters,0x2000
+HKR,,MapRegisters
+HKR,Ndi\params,radioEnable,0x2000
+HKR,Ndi\params,sleepMode,0x2000
+HKR,,sleepMode
+HKR,,transmitRateMax
+HKR, Ndi\params\*TransmitBuffers
+HKR,,*TransmitBuffers
+HKR,,rxChainMask
+HKR,,txChainMaskLegacy
+HKR,,rxChainMaskLegacy
+HKR,,rxChainDetect
+HKR,,rxChainDetectRef
+HKR,,rxChainDetectThreshA
+HKR,,rxChainDetectThreshG
+HKR,,rxChainDetectDeltaA
+HKR,,rxChainDetectDeltaG
+HKR,,ignore11dBeacon
+
+[B00X.reg]
+;HKR, , GreenTx,                          0, "0"
+
+[UBNT_CC.reg]
+HKR, Ndi\params\ccode,            ParamDesc,                      0,  %ccode%
+HKR, Ndi\params\ccode,            default,                        0,  "US"
+HKR, Ndi\params\ccode,            type,                           0,  "enum"
+HKR, Ndi\params\ccode\enum,	"AL",	0,%AL%
+HKR, Ndi\params\ccode\enum,	"DZ",	0,%DZ%
+HKR, Ndi\params\ccode\enum,	"AR",	0,%AR%
+HKR, Ndi\params\ccode\enum,	"AM",	0,%AM%
+HKR, Ndi\params\ccode\enum,	"AU",	0,%AU%
+HKR, Ndi\params\ccode\enum,	"AT",	0,%AT%
+HKR, Ndi\params\ccode\enum,	"AZ",	0,%AZ%
+HKR, Ndi\params\ccode\enum,	"BH",	0,%BH%
+HKR, Ndi\params\ccode\enum,	"BY",	0,%BY%
+HKR, Ndi\params\ccode\enum,	"BE",	0,%BE%
+HKR, Ndi\params\ccode\enum,	"BZ",	0,%BZ%
+HKR, Ndi\params\ccode\enum,	"BO",	0,%BO%
+HKR, Ndi\params\ccode\enum,	"BR",	0,%BR%
+HKR, Ndi\params\ccode\enum,	"BG",	0,%BG%
+HKR, Ndi\params\ccode\enum,	"CA",	0,%CA%
+HKR, Ndi\params\ccode\enum,	"CL",	0,%CL%
+HKR, Ndi\params\ccode\enum,	"CN",	0,%CN%
+HKR, Ndi\params\ccode\enum,	"CO",	0,%CO%
+HKR, Ndi\params\ccode\enum,	"CR",	0,%CR%
+HKR, Ndi\params\ccode\enum,	"HR",	0,%HR%
+HKR, Ndi\params\ccode\enum,	"CY",	0,%CY%
+HKR, Ndi\params\ccode\enum,	"CZ",	0,%CZ%
+HKR, Ndi\params\ccode\enum,	"DK",	0,%DK%
+HKR, Ndi\params\ccode\enum,	"EC",	0,%EC%
+HKR, Ndi\params\ccode\enum,	"EG",	0,%EG%
+HKR, Ndi\params\ccode\enum,	"SV",	0,%SV%
+HKR, Ndi\params\ccode\enum,	"EE",	0,%EE%
+HKR, Ndi\params\ccode\enum,	"FI",	0,%FI%
+HKR, Ndi\params\ccode\enum,	"FR",	0,%FR%
+HKR, Ndi\params\ccode\enum,	"F2",	0,%F2%
+HKR, Ndi\params\ccode\enum,	"GE",	0,%GE%
+HKR, Ndi\params\ccode\enum,	"DE",	0,%DE%
+HKR, Ndi\params\ccode\enum,	"GR",	0,%GR%
+HKR, Ndi\params\ccode\enum,	"GT",	0,%GT%
+HKR, Ndi\params\ccode\enum,	"HN",	0,%HN%
+HKR, Ndi\params\ccode\enum,	"HK",	0,%HK%
+HKR, Ndi\params\ccode\enum,	"HU",	0,%HU%
+HKR, Ndi\params\ccode\enum,	"IS",	0,%IS%
+HKR, Ndi\params\ccode\enum,	"IN",	0,%IN%
+HKR, Ndi\params\ccode\enum,	"ID",	0,%ID%
+HKR, Ndi\params\ccode\enum,	"IR",	0,%IR%
+HKR, Ndi\params\ccode\enum,	"IE",	0,%IE%
+HKR, Ndi\params\ccode\enum,	"IL",	0,%IL%
+HKR, Ndi\params\ccode\enum,	"IT",	0,%IT%
+HKR, Ndi\params\ccode\enum,	"JP",	0,%JP%
+HKR, Ndi\params\ccode\enum,	"J1",	0,%J1%
+HKR, Ndi\params\ccode\enum,	"J2",	0,%J2%
+HKR, Ndi\params\ccode\enum,	"J3",	0,%J3%
+HKR, Ndi\params\ccode\enum,	"J4",	0,%J4%
+HKR, Ndi\params\ccode\enum,	"J5",	0,%J5%
+HKR, Ndi\params\ccode\enum,	"J6",	0,%J6%
+HKR, Ndi\params\ccode\enum,	"JO",	0,%JO%
+HKR, Ndi\params\ccode\enum,	"KZ",	0,%KZ%
+HKR, Ndi\params\ccode\enum,	"KP",	0,%KP%
+HKR, Ndi\params\ccode\enum,	"KR",	0,%KR%
+HKR, Ndi\params\ccode\enum,	"K2",	0,%K2%
+HKR, Ndi\params\ccode\enum,	"K3",	0,%K3%
+HKR, Ndi\params\ccode\enum,	"KW",	0,%KW%
+HKR, Ndi\params\ccode\enum,	"LV",	0,%LV%
+HKR, Ndi\params\ccode\enum,	"LB",	0,%LB%
+HKR, Ndi\params\ccode\enum,	"LI",	0,%LI%
+HKR, Ndi\params\ccode\enum,	"LT",	0,%LT%
+HKR, Ndi\params\ccode\enum,	"LU",	0,%LU%
+HKR, Ndi\params\ccode\enum,	"MO",	0,%MO%
+HKR, Ndi\params\ccode\enum,	"MK",	0,%MK%
+HKR, Ndi\params\ccode\enum,	"MY",	0,%MY%
+HKR, Ndi\params\ccode\enum,	"MT",	0,%MT%
+HKR, Ndi\params\ccode\enum,	"MX",	0,%MX%
+HKR, Ndi\params\ccode\enum,	"MC",	0,%MC%
+HKR, Ndi\params\ccode\enum,	"MA",	0,%MA%
+HKR, Ndi\params\ccode\enum,	"NL",	0,%NL%
+HKR, Ndi\params\ccode\enum,	"NZ",	0,%NZ%
+HKR, Ndi\params\ccode\enum,	"NO",	0,%NO%
+HKR, Ndi\params\ccode\enum,	"OM",	0,%OM%
+HKR, Ndi\params\ccode\enum,	"PK",	0,%PK%
+HKR, Ndi\params\ccode\enum,	"PA",	0,%PA%
+HKR, Ndi\params\ccode\enum,	"PE",	0,%PE%
+HKR, Ndi\params\ccode\enum,	"PH",	0,%PH%
+HKR, Ndi\params\ccode\enum,	"PL",	0,%PL%
+HKR, Ndi\params\ccode\enum,	"PT",	0,%PT%
+HKR, Ndi\params\ccode\enum,	"PR",	0,%PR%
+HKR, Ndi\params\ccode\enum,	"QA",	0,%QA%
+HKR, Ndi\params\ccode\enum,	"RO",	0,%RO%
+HKR, Ndi\params\ccode\enum,	"RU",	0,%RU%
+HKR, Ndi\params\ccode\enum,	"SA",	0,%SA%
+HKR, Ndi\params\ccode\enum,	"SG",	0,%SG%
+HKR, Ndi\params\ccode\enum,	"SK",	0,%SK%
+HKR, Ndi\params\ccode\enum,	"SI",	0,%SI%
+HKR, Ndi\params\ccode\enum,	"ZA",	0,%ZA%
+HKR, Ndi\params\ccode\enum,	"ES",	0,%ES%
+HKR, Ndi\params\ccode\enum,	"SE",	0,%SE%
+HKR, Ndi\params\ccode\enum,	"CH",	0,%CH%
+HKR, Ndi\params\ccode\enum,	"SY",	0,%SY%
+HKR, Ndi\params\ccode\enum,	"TW",	0,%TW%
+HKR, Ndi\params\ccode\enum,	"TH",	0,%TH%
+HKR, Ndi\params\ccode\enum,	"TN",	0,%TN%
+HKR, Ndi\params\ccode\enum,	"TR",	0,%TR%
+HKR, Ndi\params\ccode\enum,	"AE",	0,%AE%
+HKR, Ndi\params\ccode\enum,	"UA",	0,%UA%
+HKR, Ndi\params\ccode\enum,	"GB",	0,%GB%
+HKR, Ndi\params\ccode\enum,	"US",	0,%US%
+HKR, Ndi\params\ccode\enum,	"UY",	0,%UY%
+HKR, Ndi\params\ccode\enum,	"UZ",	0,%UZ%
+HKR, Ndi\params\ccode\enum,	"VE",	0,%VE%
+HKR, Ndi\params\ccode\enum,	"VN",	0,%VN%
+HKR, Ndi\params\ccode\enum,	"YE",	0,%YE%
+HKR, Ndi\params\ccode\enum,	"ZW",	0,%ZW%
+HKR, Ndi\params\ccode\enum,	"DB",	0,%DB%
+
+[ignore11d.reg]
+HKR,NDI\params\ignore11dBeacon,         ParamDesc,,                               %11DModeSwitch%
+HKR,NDI\params\ignore11dBeacon,         type,,                                    "enum"
+HKR,NDI\params\ignore11dBeacon,         Default,,                                 "0"
+HKR,NDI\params\ignore11dBeacon\enum,    0,,                                       %Enable%
+HKR,NDI\params\ignore11dBeacon\enum,    1,,                                       %Disable%
+
+[ubiquiti.Service]
+DisplayName     = %UBNT.Service.DispName%
+ServiceType     = 1         ;SERVICE_KERNEL_DRIVER
+StartType       = 3         ;SERVICE_DEMAND_START
+ErrorControl    = 1         ;SERVICE_ERROR_NORMAL
+ServiceBinary   = %12%\ubnt_athurx.sys
+LoadOrderGroup  = NDIS
+
+[ubiquiti.EventLog]
+AddReg = ubiquiti.AddEventLog.reg
+
+[ubiquiti.AddEventLog.reg]
+HKR, , EventMessageFile, 0x00020000, "%%SystemRoot%%\System32\netevent.dll"
+HKR, , TypesSupported,   0x00010001, 7
+
+
+[ubiquiti.CopyFiles]
+ubnt_athurx.sys,,,2
+
+[SourceDisksNames]
+1 = %DiskDescription%,ubnt_athurx.sys,,
+
+[SourceDisksFiles]
+ubnt_athurx.sys = 1,,
+
+[DestinationDirs]
+ubiquiti.CopyFiles            = 12
+DefaultDestDirs              = 11
+
+;-------------- WDF Coinstaller installation
+[DestinationDirs]
+CoInstaller_CopyFiles = 11
+
+[ubnt_athurx.Dev.NT.CoInstallers]
+AddReg=CoInstaller_AddReg
+CopyFiles=CoInstaller_CopyFiles
+
+[CoInstaller_CopyFiles]
+wdfcoinstaller01005.dll
+
+[SourceDisksFiles]
+wdfcoinstaller01005.dll=1 ; make sure the number matches with SourceDisksNames
+
+[CoInstaller_AddReg]
+HKR,,CoInstallers32,0x00010000, "wdfcoinstaller01005.dll,WdfCoInstaller"
+
+[ubnt_athurx.Dev.NT.Wdf]
+KmdfService = ubnt_athurx, ubnt_athurx_wdfsect
+
+[ubnt_athurx_wdfsect]
+KmdfLibraryVersion = 1.5
+
+[Strings]
+Ubiquiti                     = "Ubiquiti Networks, Inc."
+UBNT.Service.DispName        = "Ubiquiti UB00X 802.11 b/g/n Wireless Network Adapter Service"
+DiskDescription              = "Ubiquiti UB00X 802.11 b/g/n Driver Disk"
+TransmitBuffers              = "Transmit Buffers"
+ReceiveBuffers               = "Receive Buffers"
+NetworkAddress               = "Network Address"
+scanTimeValid                = "Scan Valid Interval"
+shortPreamble                = "802.11b Preamble"
+shortPreambleEnable          = "Long and Short"
+shortPreambleDisable         = "Long only"
+rssiThrHigh                  = "RSSI Threshold"
+rssiThrHighNormal            = "Normal"
+rssiThrHighMin               = "Min"
+;radioEnable                  = "Radio On/Off"
+;radioEnableOn                = "On"
+;radioEnableOff               = "Off"
+scanTime                     = "Roam Time (sec)"
+roamRssiA                    = "Roam Time Threshold (db)"
+WirelessMode                 = "Wireless Mode Selection"
+adhocchannel                 = "Adhoc channel Selection"
+bkScanEnable                 = "BackgroundScan On/Off"
+bkScanEnableOn               = "On"
+bkScanEnableOff              = "Off"
+radioEnable                  = "Radio On/Off"
+radioEnableOn                = "On"
+radioEnableOff               = "Off"
+roamRssi11A                  = "roamRssiA"
+roamRssi11B                  = "roamRssiB"
+roamRssi11BOnly              = "roamRssiBOnly"
+roamRateA                    = "roamRateA"
+roamRateA6M                  = " 6Mbps"
+roamRateA9M                  = " 9Mbps"
+roamRateA12M                 = "12Mbps"
+roamRateA18M                 = "18Mbps"
+roamRateA24M                 = "24Mbps"
+roamRateA36M                 = "36Mbps"
+roamRateA48M                 = "48Mbps"
+roamRateA54M                 = "54Mbps"
+roamRateBOnly                = "roamRateBOnly"
+roamRateBOnly1M              = " 1Mbps"
+roamRateBOnly2M              = " 2Mbps"
+roamRateBOnly5M              = " 5Mbps"
+roamRateBOnly11M             = "11Mbps"
+roamRateB                    = "roamRateB"
+roamRateB1M                  = " 1Mbps"
+roamRateB2M                  = " 2Mbps"
+roamRateB5M                  = " 5Mbps"
+roamRateB6M                  = " 6Mbps"
+roamRateB9M                  = " 9Mbps"
+roamRateB11M                 = "11Mbps"
+pcieAspm                     = "pcieAspm"
+pcieAspmOff                  = "L0s Off, L1 Off"
+pcieAspmL0sOn                = "L0s On,  L1 Off"
+pcieAspmL1On                 = "L0s Off, L1 On"
+pcieAspmL0sandL1On           = "L0s On,  L1 On"
+wModeSelect                  = "Wireless Mode"
+wModeSelect11bonly           = "11b only"
+wModeSelect11nbg             = "11n(2.4GHz) and g and b"
+wModeSelect11na              = "11n(5GHz) and a"
+wModeSelect11abgn            = "11abgn"
+wModeLegacy11a               = "11a only"
+wModeLegacy11bonly           = "11b only"
+wModeLegacy11bg              = "11g and 11b"
+wModeLegacy11abg             = "11abg"
+antennaSwitch                = "AntennaSwitch"
+antennaSwitchAuto            = "Auto"
+antennaSwitchA               = "Antenna A"
+antennaSwitchB               = "Antenna B"
+Auto                         = "Auto"
+5GOnly	                     = "5Ghz Only"
+2GOnly	                     = "2Ghz Only"
+11DModeSwitch                = "11d Mode Switch"
+Enable                       = "Enable"
+Disable                      = "Disable"
+PowerSaveMode                = "Power Save Mode"
+Off                          = "Off"
+Maximum                      = "Maximum"
+Normal                       = "Normal"
+802_11d                      = "802.11d"
+ccode			     = "Country Code"
+AL="Albania"
+DZ="Algeria"
+AR="Argentina"
+AM="Armenia"
+AU="Australia"
+AT="Austria"
+AZ="Azerbaijan"
+BH="Bahrain"
+BY="Belarus"
+BE="Belgium"
+BZ="Belize"
+BO="Bolivia"
+BR="Brazil"
+BN="Brunei Darussalam"
+BG="Bulgaria"
+CA="Canada"
+CL="Chile"
+CN="People's Republic of China"
+CO="Colombia"
+CR="Costa Rica"
+HR="Croatia"
+CY="Cyprus"
+CZ="Czech Republic"
+DK="Denmark"
+DO="Dominican Republic"
+EC="Ecuador"
+EG="Egyp"
+SV="El Salvador"
+EE="Estonia"
+FI="Finland"
+FR="France"
+F2="France2"
+GE="Georgia"
+DE="Germany"
+GR="Greece"
+GT="Guatemala"
+HN="Honduras"
+HK="Hong Kong S.A.R., P.R.C."
+HU="Hungary"
+IS="Iceland"
+IN="India"
+ID="Indonesia"
+IR="Iran"
+IE="Ireland"
+IL="Israel"
+IT="Italy"
+JP="Japan"
+J1="Japan (JP1)"
+J2="Japan (JP0)"
+J3="Japan (JP1-1)"
+J4="Japan (JE1)"
+J5="Japan (JE2)"
+J6="Japan (JP6)"
+JO="Jordan"
+KZ="Kazakhstan"
+KP="North Korea"
+KR="South Korea"
+K2="South Korea 2"
+K3="South Korea 3"
+KW="Kuwai"
+LV="Latvia"
+LB="Lebanon"
+LI="Liechtenstein"
+LT="Lithuania"
+LU="Luxembourg"
+MO="Macau"
+MK="the Former Yugoslav Republic of Macedonia"
+MY="Malaysia"
+MT="Malta"
+MX="Mexico"
+MC="Principality of Monaco"
+MA="Morocco"
+NL="Netherlands"
+NZ="New Zealand"
+NO="Norway"
+OM="Oman"
+PK="Islamic Republic of Pakistan"
+PA="Panama"
+PE="Peru"
+PH="Republic of the Philippines"
+PL="Poland"
+PT="Portugal"
+PR="Puerto Rico"
+QA="Qatar"
+RO="Romania"
+RU="Russia"
+SA="Saudi Arabia"
+SG="Singapore"
+SK="Slovak Republic"
+SI="Slovenia"
+ZA="South Africa"
+ES="Spain"
+SE="Sweden"
+CH="Switzerland"
+SY="Syria"
+TW="Taiwan"
+TH="Thailand"
+TT="Trinidad y Tobago"
+TN="Tunisia"
+TR="Turkey"
+AE="U.A.E."
+UA="Ukraine"
+GB="United Kingdom"
+US="United States"
+PS="United States - Public Safety"
+UY="Uruguay"
+UZ="Uzbekistan"
+VE="Venezuela"
+VN="Viet Nam"
+YE="Yemen"
+ZW="Zimbabwe"
+DB="Compliance Test"
+
+UBNT.DeviceDesc.B002         = "Ubiquiti WifiStation USB 802.11 b/g/n Wireless Network Adapter"
+UBNT.DeviceDesc.B003         = "Ubiquiti WifiStationExt USB 802.11 b/g/n Wireless Network Adapter"
+

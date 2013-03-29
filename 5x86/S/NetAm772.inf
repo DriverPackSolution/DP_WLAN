@@ -1,0 +1,193 @@
+[Version]
+Signature="$Chicago$"
+Compatible=1
+Provider=%AMD%
+ClassGUID={4d36e972-e325-11ce-bfc1-08002be10318}
+Class=Net
+CatalogFile=Am1772.cat
+DriverVer=01/26/2004,2.2.0.0
+
+[Manufacturer]
+%AMD%=AMD
+%ZCOM%=ZCom
+%SMC%=SMC
+
+[ZCom]
+%DeviceNameZCOM%=ZCOMHW.ndi,PCI\VEN_1022&DEV_2003&SUBSYS_003117CF
+
+[SMC]
+%DeviceNameSMC%=SMCHW.ndi,PCI\VEN_1022&DEV_2003&SUBSYS_260210B8
+
+[AMD] 
+%DeviceNameAMDHW1%=AMDHW.ndi,PCI\VEN_1022&DEV_2003
+%DeviceNameAMDHW2%=AMDHW.ndi,PCI\VEN_1022&DEV_2003&SUBSYS_20031022
+
+[ControlFlags]
+ExcludeFromSelect = *
+
+; ****************************************************************************
+; Advanced Micro Devices
+; ****************************************************************************
+[AMDHW.ndi]
+AddReg=Am1772_9x.id.reg,Am1772_9x.win.reg,Am1772_RegParamsHW
+; DeviceId="PCI\VEN_1022&DEV_2003"
+Copyfiles=Am1772_9x_Sys_Files
+
+[AMDHW.ndi.NT]
+BusType=5                             
+Characteristics=0x84                          
+CopyFiles=Am1772_SysFiles
+AddReg=Am1772_RegNdis,Am1772_RegParamsHW
+
+[AmDHW.ndi.NT.Services]
+AddService=Am772,0x00000002,AMD_Service,Am1772_EventLog
+
+[AMD_Service]
+DisplayName=%DeviceNameAMD%
+ServiceType=1                                  
+StartType=3                                  
+ErrorControl=0                                  
+LoadOrderGroup=NDIS
+ServiceBinary=%12%\Am772.sys
+
+[Am1772_9x.id.reg]
+HKR,Ndi,DeviceID,0,"PCI\VEN_1022&DEV_2003"
+
+[Am1772_RegParamsHW]
+HKR,,VendorName,0,%AMD%
+HKR,,ProductName,0,%DeviceNameAMDHW2%
+HKR,,ProductVersion,0,%DriverVersion%
+
+; ****************************************************************************
+; ZCOM
+; ****************************************************************************
+
+[ZCOMHW.ndi]
+AddReg=ZCOM0031_9x.id.reg,Am1772_9x.win.reg,ZCOM0031_RegParamsHW
+; DeviceId="PCI\VEN_1022&DEV_2003"
+Copyfiles=Am1772_9x_Sys_Files
+
+[ZCOMHW.ndi.NT]
+BusType=5                             
+Characteristics=0x84                          
+CopyFiles=Am1772_SysFiles
+AddReg=Am1772_RegNdis,ZCOM0031_RegParamsHW
+
+[ZCOMHW.ndi.NT.Services]
+AddService=Am772,0x00000002,ZCOMHW_Service,Am1772_EventLog
+
+[ZCOMHW_Service]
+DisplayName=%DeviceNameZCOM%
+ServiceType=1                                  
+StartType=3                                  
+ErrorControl=0                                  
+LoadOrderGroup=NDIS
+ServiceBinary=%12%\Am772.sys
+
+[ZCOM0031_9x.id.reg]
+HKR,Ndi,DeviceID,0,"PCI\VEN_1022&DEV_2003&SUBSYS_260210B8"
+
+[ZCOM0031_RegParamsHW]
+HKR,,VendorName,0,%ZCOM%
+HKR,,ProductName,0,%DeviceNameZCOMHW%
+HKR,,ProductVersion,0,%DriverVersion%
+
+; ****************************************************************************
+; SMC Networks
+; ****************************************************************************
+
+[SMCHW.ndi]
+AddReg=SMC2602W_9x.id.reg,Am1772_9x.win.reg,SMC2602W_RegParamsHW
+; DeviceId="PCI\VEN_1022&DEV_2003"
+Copyfiles=Am1772_9x_Sys_Files
+
+[SMCHW.ndi.NT]
+BusType=5                             
+Characteristics=0x84                          
+CopyFiles=Am1772_SysFiles
+AddReg=Am1772_RegNdis,SMC2602W_RegParamsHW
+
+[SMCHW.ndi.NT.Services]
+AddService=Am772,0x00000002,SMCHW_Service,Am1772_EventLog
+
+[SMCHW_Service]
+DisplayName=%DeviceNameSMC%
+ServiceType=1                                  
+StartType=3                                  
+ErrorControl=0                                  
+LoadOrderGroup=NDIS
+ServiceBinary=%12%\Am772.sys
+
+[SMC2602W_9x.id.reg]
+HKR,Ndi,DeviceID,0,"PCI\VEN_1022&DEV_2003&SUBSYS_260210B8"
+
+[SMC2602W_RegParamsHW]
+HKR,,VendorName,0,%SMC%
+HKR,,ProductName,0,%DeviceNameSMCHW%
+HKR,,ProductVersion,0,%DriverVersion%
+
+; *****************************************************************
+
+[Am1772_EventLog]
+AddReg=Am1772_RegEventLog
+
+[Am1772_9x.win.reg]
+HKR,	,DevLoader,	,*ndis
+HKR,	,DeviceVxDs,	,Am772.sys
+HKR,	,EnumPropPages,	,"netdi.dll,EnumPropPages"
+
+HKR,	NDIS,		LogDriverName,		,"Am772"
+HKR,	NDIS,		MajorNdisVersion	,1		,03
+HKR,	NDIS,		MinorNdisVersion	,1		,0a
+
+HKR,	Ndi\Interfaces,	DefUpper,		,"ndis3"
+HKR,	Ndi\Interfaces,	DefLower,		,"ethernet"
+HKR,	Ndi\Interfaces,	UpperRange,		,"ndis3"
+HKR,	Ndi\Interfaces,	LowerRange,		,"ethernet"
+
+[Am1772_9x_Sys_Files]
+Am772.sys,Am7729x.sys,,2
+
+[Am1772_RegEventLog]
+HKR,,EventMessageFile,0x00020000,"%11%\IoLogMsg.dll;%12%\Am772.sys"
+HKR,,TypesSupported,0x00010001,7
+
+[Am1772_RegNdis]
+HKR,Ndi,Service,0,"Am772"
+HKR,Ndi\Interfaces,LowerRange,0,"ethernet"
+HKR,Ndi\Interfaces,UpperRange,0,"ndis5"
+HKR,Ndi\Interfaces,DefLower,0,"ethernet"
+HKR,Ndi\Interfaces,DefUpper,0,"ndis5"
+
+[Am1772_SysFiles]
+Am772.sys
+
+[SourceDisksNames]
+1=%DeviceDiscAMD%,,,""
+
+[SourceDisksFiles]
+Am772.sys=1,,
+
+[DestinationDirs]
+Am1772_9x_Sys_Files=11                            
+Am1772_SysFiles=12                            
+
+[Strings]
+
+DriverVersion=RDK-2-2-0-0
+
+AMD="Advanced Micro Devices"
+DeviceNameAMD="AMD Alchemy(tm) Solutions Wireless 802.11 Adapter"
+DeviceNameAMDHW1="Am1772(tm) Wireless Engineering Version"
+DeviceNameAMDHW2="Am1772(tm) Wireless LAN Chipset"
+DeviceDiscAMD="Am1772(tm) Wireless LAN Adapter Installation Disk"
+
+ZCOM="ZCOM"
+DeviceNameZCOM="ZCOM 11 Mbps Wireless 802.11 Adapter"
+DeviceNameZCOMHW="ZCOM 11 Mbps Wireless LAN Chipset"
+DeviceDiscZCOM="ZCOM 11 Mbps Wireless LAN Adapter Installation Disk"
+
+SMC="SMC Networks, Inc."
+DeviceNameSMC="SMC2602W 11 Mbps Wireless 802.11 Adapter"
+DeviceNameSMCHW="SMC2602W 11 Mbps Wireless LAN Chipset"
+DeviceDiscSMC="SMC 2602W Wireless LAN Adapter Installation Disk"

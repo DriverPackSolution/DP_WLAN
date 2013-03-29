@@ -1,0 +1,689 @@
+
+;****************************************************************************************
+;
+;    Copyright (c) 1998-2001 Intersil Corporation
+;    All Rights Reserved.
+;
+;    $Logfile:  $
+;    $Revision:  $
+;    $Date:  $
+;    $Author:  $
+;
+;    FILE:
+;            netcw10.inf
+;
+;    DESCRIPTION:
+;            Intersil IEEE 802.11 LAN USB Adapter inf file.
+;
+;    COMMENTS:
+;            Generated from combining the Netmate inf file and CW10 2K inf.
+;            
+;    
+;    CHANGE LOG:
+;            0.1 - Initial Combined INF file.
+;            0.2 - Add the PRISM Freedom adapter and the new 2.5 PCMCIA adapter to the 
+;				   Adapter list.
+;            0.3 - Correct checksum for the 2.5 PCMCIA adapter.
+;            0.4 - Correct spelling of 2.5 PCMCIA section name: [CW10_PCMCIA125.ndi.NT]
+;				   should be: [CW10_PCMCIA25.ndi.NT]
+;				 - Add Specific Driver version for USB 2K entry.
+;            0.5 - Add Correct USB Vendor ID. 
+;            0.6 - Add entry for real Mini-PCI adapter.
+;
+;*******************************************************************************************
+
+
+
+[version]
+DriverVer   = 12/06/2000, 0.30.0
+Signature   = "$Chicago$"
+Compatible  = 1
+Class       = Net
+ClassGUID   = {4d36e972-e325-11ce-bfc1-08002be10318}
+Provider    = %Provider%
+; LayoutFile  = layout.inf
+; CatalogFile Directive
+
+[Manufacturer]
+%Provider% = Adapters
+
+; All enumerated adapters must be excluded from select
+[ControlFlags]
+ ExcludeFromSelect   = PCMCIA\INTERSIL-HFA384X/IEEE-CA62
+ ExcludeFromSelect   = PCMCIA\CHOICE_MICROSYSTEMS-CW10/IEEE-4AE8
+ ExcludeFromSelect   = PCMCIA\INTERSIL-PRISM2_MINI-PCI_ADAPTER-B537
+ ExcludeFromSelect   = PCI\VEN_1260&DEV_3873
+
+
+[Adapters]
+; DisplayName                Section                DeviceID
+; -----------                -------                --------
+%CW10.DeviceDescMiniPCIA%   = CW10_MINIPCMA.ndi,   PCMCIA\INTERSIL-PRISM2_MINI-PCI_ADAPTER-0EE7
+%CW10.DeviceDescMiniPCIB%   = CW10_MINIPCMB.ndi,   PCMCIA\INTERSIL-PRISM2_MINI-PCI_ADAPTER-B537
+%CW10.DeviceDescMiniPCI25%  = CW10_MINIPCM25.ndi,  PCMCIA\INTERSIL-PRISM2_5_MINI-PCI_ADAPTER-7759
+%CW10.DeviceDescPRISM1%     = CW10_PRISM1.ndi,     PCMCIA\INTERSIL-HFA384X/IEEE-CA62
+%CW10.DeviceDescPRISM2%     = CW10_PRISM2.ndi,     PCMCIA\INTERSIL-HFA384x/IEEE-CC3C
+%CW10.DeviceDescEVB1%       = CW10_EVB2.ndi,       PCMCIA\CHOICE_Microsystems-CW10/IEEE-5F95
+%CW10.DeviceDescEVB2%       = CW10_EVB1.ndi,       PCMCIA\CHOICE_Microsystems-CW10/IEEE-4AE8
+%CW10.DeviceDescUSB%        = CW10_USB_1.ndi,      USB\VID_2474&PID_3642
+%CW10.DeviceDescUSB%        = CW10_USB.ndi,        USB\VID_09AA&PID_3642
+%CW10.DeviceDescFreedom%    = CW10_FREEDOM.ndi,    PCMCIA\INTERSIL-PRISM_FREEDOM_PCMCIA_ADAPTER-40CB
+%CW10.DeviceDescPCM25%      = CW10_PCMCIA25.ndi,   PCMCIA\INTERSIL-PRISM_2_5_PCMCIA_ADAPTER-F429
+%CW10.DeviceDescPCI%        = CW10_PCI.ndi,        PCI\VEN_1260&DEV_3873
+
+
+;----------------------------------------------------------------------------
+; Windows 9X specific entries
+;
+[CW10_PRISM1.ndi]
+AddReg      = PRISM1_ID.reg, Common.reg, win9x.reg, Pcmcia9x.reg, Pcmcia.reg
+CopyFiles   = win9x.CopyFiles
+
+[CW10_PRISM2.ndi]
+AddReg      = PRISM2_ID.reg, Common.reg, win9x.reg, Pcmcia9x.reg, Pcmcia.reg
+CopyFiles   = win9x.CopyFiles
+
+[CW10_EVB1.ndi]
+AddReg      = EVB1_ID.reg, Common.reg, win9x.reg, Pcmcia9x.reg, Pcmcia.reg
+CopyFiles   = win9x.CopyFiles
+
+[CW10_EVB2.ndi]
+AddReg      = EVB2_ID.reg, Common.reg, win9x.reg, Pcmcia9x.reg, Pcmcia.reg
+CopyFiles   = win9x.CopyFiles
+
+[CW10_MINIPCMA.ndi]
+AddReg      = MINIPCMA_ID.reg, Common.reg, win9x.reg, Pcmcia9x.reg, Pcmcia.reg
+CopyFiles   = win9x.CopyFiles
+
+[CW10_MINIPCMB.ndi]
+AddReg      = MINIPCMB_ID.reg, Common.reg, win9x.reg, Pcmcia9x.reg, Pcmcia.reg
+CopyFiles   = win9x.CopyFiles
+
+[CW10_MINIPCM25.ndi]
+AddReg      = MINIPCM25_ID.reg, Common.reg, win9x.reg, Pcmcia9x.reg, Pcmcia.reg
+CopyFiles   = win9x.CopyFiles
+
+[CW10_USB_1.ndi]
+AddReg      = USB_ID_1.reg, Common.reg, win9x.reg, USB.reg 
+CopyFiles   = win9x.USBCopyFiles
+
+[CW10_USB.ndi]
+AddReg      = USB_ID.reg, Common.reg, win9x.reg, USB.reg 
+CopyFiles   = win9x.USBCopyFiles
+
+[CW10_FREEDOM.ndi]
+AddReg      = FREEDOM_ID.reg, Common.reg, win9x.reg, Pcmcia9x.reg, Pcmcia.reg
+CopyFiles   = win9x.CopyFiles
+
+[CW10_PCMCIA25.ndi]
+AddReg      = PCMCIA25_ID.reg, Common.reg, win9x.reg, Pcmcia9x.reg, Pcmcia.reg
+CopyFiles   = win9x.CopyFiles
+
+[CW10_PCI.ndi]
+AddReg      = PCI_ID.reg, Common.reg, win9x.reg, PCI.reg
+CopyFiles   = win9x.PCICopyFiles
+;----------------------------------------------------------------------------
+; NT specific entries
+;
+[CW10_PRISM1.ndi.NT]
+AddReg          = Common.reg, nt.reg
+Characteristics = 0x84              ; NCF_REMOVABLE | NCF_HAS_UI | NCF_PHYSICAL
+BusType         = 8
+CopyFiles       = NT.CopyFiles
+
+[CW10_PRISM2.ndi.NT]
+AddReg          = Common.reg, nt.reg
+Characteristics = 0x84              ; NCF_REMOVABLE | NCF_HAS_UI | NCF_PHYSICAL
+BusType         = 8
+CopyFiles       = NT.CopyFiles
+
+[CW10_EVB1.ndi.NT]
+AddReg          = Common.reg, nt.reg
+Characteristics = 0x84              ; NCF_REMOVABLE | NCF_HAS_UI | NCF_PHYSICAL
+BusType         = 8
+CopyFiles       = NT.CopyFiles
+
+[CW10_EVB2.ndi.NT]
+AddReg          = Common.reg, nt.reg
+Characteristics = 0x84              ; NCF_REMOVABLE | NCF_HAS_UI | NCF_PHYSICAL
+BusType         = 8
+CopyFiles       = NT.CopyFiles
+
+[CW10_MINIPCMA.ndi.NT]
+AddReg          = Common.reg, nt.reg, MiniPCM2k.reg
+Characteristics = 0x84              ; NCF_REMOVABLE | NCF_HAS_UI | NCF_PHYSICAL
+BusType         = 8
+CopyFiles       = NT.CopyFiles
+
+[CW10_MINIPCMB.ndi.NT]
+AddReg          = Common.reg, nt.reg, MiniPCM2k.reg
+Characteristics = 0x84              ; NCF_REMOVABLE | NCF_HAS_UI | NCF_PHYSICAL
+BusType         = 8
+CopyFiles       = NT.CopyFiles
+
+[CW10_MINIPCM25.ndi.NT]
+AddReg          = Common.reg, nt.reg, MiniPCM2k.reg
+Characteristics = 0x84              ; NCF_REMOVABLE | NCF_HAS_UI | NCF_PHYSICAL
+BusType         = 8
+CopyFiles       = NT.CopyFiles
+
+[CW10_USB_1.ndi.NT]
+DriverVer   = 03/13/2001, 0.31.7.5
+AddReg          = Common.reg, nt.reg, USB.reg 
+Characteristics = 0x84              ; NCF_REMOVABLE | NCF_HAS_UI | NCF_PHYSICAL
+BusType         = 0                 ; USB
+CopyFiles       = NT.USBCopyFiles
+
+[CW10_USB.ndi.NT]
+DriverVer   = 03/13/2001, 0.31.7.5
+AddReg          = Common.reg, nt.reg, USB.reg 
+Characteristics = 0x84              ; NCF_REMOVABLE | NCF_HAS_UI | NCF_PHYSICAL
+BusType         = 0                 ; USB
+CopyFiles       = NT.USBCopyFiles
+
+[CW10_FREEDOM.ndi.NT]
+AddReg          = Common.reg, nt.reg
+Characteristics = 0x84              ; NCF_REMOVABLE | NCF_HAS_UI | NCF_PHYSICAL
+BusType         = 8
+CopyFiles       = NT.CopyFiles
+
+[CW10_PCMCIA25.ndi.NT]
+AddReg          = Common.reg, nt.reg
+Characteristics = 0x84              ; NCF_REMOVABLE | NCF_HAS_UI | NCF_PHYSICAL
+BusType         = 8
+CopyFiles       = NT.CopyFiles
+
+[CW10_PCI.ndi.NT]
+AddReg          = Common.reg, nt.reg
+Characteristics = 0x84              ; NCF_REMOVABLE | NCF_HAS_UI | NCF_PHYSICAL
+BusType         = 5
+CopyFiles       = NT.CopyFiles
+
+
+; NT services sections
+[CW10_PRISM1.ndi.NT.Services]
+AddService  = CW10, 2, CW10.Service, common.EventLog
+
+[CW10_PRISM2.ndi.NT.Services]
+AddService  = CW10, 2, CW10.Service, common.EventLog
+
+[CW10_EVB1.ndi.NT.Services]
+AddService  = CW10, 2, CW10.Service, common.EventLog
+
+[CW10_EVB2.ndi.NT.Services]
+AddService  = CW10, 2, CW10.Service, common.EventLog
+
+[CW10_MINIPCMA.ndi.NT.Services]
+AddService  = CW10, 2, CW10.Service, common.EventLog
+
+[CW10_MINIPCMB.ndi.NT.Services]
+AddService  = CW10, 2, CW10.Service, common.EventLog
+
+[CW10_MINIPCM25.ndi.NT.Services]
+AddService  = CW10, 2, CW10.Service, common.EventLog
+
+[CW10_USB_1.ndi.NT.Services]
+AddService  = CW10, 2, CW10_USB.Service, common.EventLog
+
+[CW10_USB.ndi.NT.Services]
+AddService  = CW10, 2, CW10_USB.Service, common.EventLog
+
+[CW10_FREEDOM.ndi.NT.Services]
+AddService  = CW10, 2, CW10.Service, common.EventLog
+
+[CW10_PCMCIA25.ndi.NT.Services]
+AddService  = CW10, 2, CW10.Service, common.EventLog
+
+[CW10_PCI.ndi.NT.Services]
+AddService  = CW10, 2, CW10.Service, common.EventLog
+
+;----------------------------------------------------------------------------
+; DestinationDirs
+;
+[DestinationDirs]
+NT.CopyFiles           = 12    ; system32\drivers subdirectory on NT
+NT.PCICopyFiles        = 12    ; system32\drivers subdirectory on NT
+NT.USBCopyFiles        = 12    ; system32\drivers subdirectory on NT
+win9x.CopyFiles        = 11    ; system32 subdirectory on win9x
+win9x.PCICopyFiles     = 11    ; system32 subdirectory on win9x
+win9x.USBCopyFiles     = 11    ; system32 subdirectory on win9x
+
+[NT.CopyFiles]
+cw10.sys                       ; NT Installation
+
+[NT.PCICopyFiles]
+cw10.sys                       ; NT Installation
+
+[NT.USBCopyFiles]
+cw10usb.sys                    ; NT Installation
+
+[win9x.CopyFiles]
+cw10.sys                       ; win9x Installation
+
+[win9x.PCICopyFiles]
+cw10.sys                       ; win9x Installation
+
+[win9x.USBCopyFiles]
+cw10usb.sys                    ; win9x Installation
+
+
+
+[SourceDisksNames]
+1                      = %INSTALL_DISK_STR%,,,
+
+[SourceDisksFiles] 
+cw10.sys               = 1
+cw10usb.sys            = 1
+cw10pci.sys            = 1
+
+
+;----------------------------------------------------------------------------
+; common regs for NT and W9x
+;
+[Common.reg]
+;
+; Vendor Description
+;
+HKR, ,                            VendorDesc,      0, "PRISM IEEE 802.11 Adapter"
+
+;
+; AP Density
+;
+HKR, ,                            APDensity,       0, 1
+HKR, defaults,                    APDensity,       0, 1
+;
+; SSID
+;
+HKR, ,                            SSID,            0, %SSID_DEF_STR%
+HKR, defaults,                    SSID,            0, %SSID_DEF_STR%
+HKR, NDI\params\SSID,             ParamDesc,       0, "SSID"
+HKR, NDI\params\SSID,             type,            0, edit
+HKR, NDI\params\SSID,             limitText,       0, 32
+HKR, NDI\params\SSID,             default,         0, %SSID_DEF_STR%
+HKR, NDI\params\SSID,             flag,            1, 30,00,00,00
+;
+; StationName
+;
+HKR, ,                            StationName,     0, "Client"
+HKR, defaults,                    StationName,     0, "Client"
+;
+; Listen Interval
+;
+HKR, ,                            ListenInterval,  0, 3
+HKR, defaults,                    ListenInterval,  0, 3
+HKR, NDI\params\ListenInterval,   ,                0, 3
+HKR, NDI\params\ListenInterval,   ParamDesc,       0, "Maximum Listen Interval"
+HKR, NDI\params\ListenInterval,   flag,            1, 30,00,00,00
+HKR, NDI\params\ListenInterval,   type,            0, int
+HKR, Ndi\params\ListenInterval,   default,         0, 3
+HKR, NDI\params\ListenInterval,   min,             0, 0
+HKR, NDI\params\ListenInterval,   max,             0, 77
+HKR, NDI\params\ListenInterval,   step,            0, 1
+HKR, NDI\params\ListenInterval,   optional,        0, 0
+
+;
+; Channel
+;
+HKR, ,                            DSChannel,       0, 10
+HKR, defaults,                    DSChannel,       0, 10
+
+;
+; Encapsultion (i.e. Ethernet Translation)
+;
+HKR, ,                            Encapsulation,   0, 1
+HKR, defaults,                    Encapsulation,   0, 1
+
+;
+; TxRate
+;
+HKR, ,                            TxRate,          0, 15
+HKR, defaults,                    TxRate,          0, 15
+HKR, NDI\params\TxRate,           ParamDesc,       0, "Transmit Rate"
+HKR, NDI\params\TxRate,           type,            0, enum
+HKR, NDI\params\TxRate,           default,         0, 15
+HKR, NDI\params\TxRate,           flag,            1, 30,00,00,00
+HKR, NDI\params\TxRate\enum,      1,               0, "Fixed 1 Mb/s"
+HKR, NDI\params\TxRate\enum,      2,               0, "Fixed 2 Mb/s"
+HKR, NDI\params\TxRate\enum,      3,               0, "Auto Select 1 or 2"
+HKR, NDI\params\TxRate\enum,      4,               0, "Fixed 5.5 Mb/s"
+HKR, NDI\params\TxRate\enum,      8,               0, "Fixed 11 Mb/s"
+HKR, NDI\params\TxRate\enum,      15,              0, "Fully Auto"
+
+;
+; RTS Threshold
+;
+HKR, ,                            RTSThresh,       0, 2432
+HKR, defaults,                    RTSThresh,       0, 2432
+HKR, NDI\params\RTSThresh,        ParamDesc,       0, "Medium Reservation"
+HKR, NDI\params\RTSThresh,        type,            0, enum
+HKR, NDI\params\RTSThresh,        default,         0, 2432
+HKR, NDI\params\RTSThresh,        flag,            1, 30, 00, 00, 00
+HKR, NDI\params\RTSThresh\enum,   2432,            0, "Off"
+HKR, NDI\params\RTSThresh\enum,   500,             0, "Hidden Stations"
+;
+; Frag Threshold
+;
+HKR, ,                            FragThresh,      0, 2432
+HKR, defaults,                    FragThresh,      0, 2432
+HKR, NDI\params\FragThresh,       ,                0, 2432
+HKR, NDI\params\FragThresh,       ParamDesc,       0, "Fragmentation Threshold"
+HKR, NDI\params\FragThresh,       type,            0, int
+HKR, Ndi\params\FragThresh,       default,         0, 2432
+HKR, NDI\params\FragThresh,       min,             0, 256
+HKR, NDI\params\FragThresh,       max,             0, 2432
+HKR, NDI\params\FragThresh,       step,            0, 128
+HKR, NDI\params\FragThresh,       flag,            1, 20,00,00,00
+HKR, NDI\params\FragThresh,       optional,        0, 0
+
+;
+; Network Type
+;
+HKR, ,                            NetworkType,     0, %NETWORK_TYPE_DEF_STR%
+HKR, defaults,                    NetworkType,     0, %NETWORK_TYPE_DEF_STR%
+HKR, NDI\params\NetworkType,      ParamDesc,       0, "Network Type"
+HKR, NDI\params\NetworkType,      type,            0, enum
+HKR, NDI\params\NetworkType,      default,         0, %NETWORK_TYPE_DEF_STR%
+HKR, NDI\params\NetworkType,      flag,            1, 30,00,00,00
+HKR, NDI\params\NetworkType\enum, 0,               0, "802.11 Ad Hoc"
+HKR, NDI\params\NetworkType\enum, 1,               0, "Infrastructure"
+HKR, NDI\params\NetworkType\enum, 3,               0, "Ad Hoc"
+
+;
+; PS Mode
+;
+HKR, ,                            PSMode,          0, 1
+HKR, defaults,                    PSMode,          0, 1
+HKR, NDI\params\PSMode,           ParamDesc,       0, "Power Save Mode"
+HKR, NDI\params\PSMode,           type,            0, enum
+HKR, NDI\params\PSMode,           default,         0, 1
+HKR, NDI\params\PSMode,           flag,            1, 30,00,00,00
+HKR, NDI\params\PSMode\enum,      1,               0, "Disabled"
+HKR, NDI\params\PSMode\enum,      2,               0, "Enabled"
+
+;
+;    Wep Required
+;
+HKR, ,                            WepReq,          0, %WEP_REQUIRED_DEF_STR%
+HKR, defaults,                    WepReq,          0, %WEP_REQUIRED_DEF_STR%
+HKR, NDI\params\WepReq,           ,                0, %WEP_REQUIRED_DEF_STR%
+HKR, NDI\params\WepReq,           ParamDesc,       0, "Encryption"
+HKR, NDI\params\WepReq,           flag,            1, 30,00,00,00
+HKR, NDI\params\WepReq,           type,            0, enum
+HKR, Ndi\params\WepReq,           default,         0, %WEP_REQUIRED_DEF_STR%
+HKR, NDI\params\WepReq\enum,      0,               0, "Disabled"
+HKR, NDI\params\WepReq\enum,      2,               0, "64 bit"
+HKR, NDI\params\WepReq\enum,      6,               0, "128 bit"
+HKR, NDI\params\WepReq,           optional,        0, 0
+
+;
+;    Wep Encrypt in Driver
+;
+HKR, ,                            EncryptInDriver, 0, 1
+HKR, defaults,                    EncryptInDriver, 0, 1
+
+;
+;    Wep Decrypt in Driver
+;
+HKR, ,                            DecryptInDriver, 0, 1
+HKR, defaults,                    DecryptInDriver, 0, 1
+
+;
+;    WEP Factor
+;
+HKR, ,                            WEPFactor,       0, 3
+HKR, defaults,                    WEPFactor,       0, 3
+
+;
+;    Esarhpssap
+;
+HKR, ,                            Esarhpssap,      0, %PASSPHRASE_DEF_STR%
+HKR, defaults,                    Esarhpssap,      0, %PASSPHRASE_DEF_STR%
+HKR, NDI\params\Esarhpssap,       ParamDesc,       0, "WEP Passphrase"
+HKR, NDI\params\Esarhpssap,       type,            0, edit
+HKR, NDI\params\Esarhpssap,       limitText,       0, 64
+HKR, NDI\params\Esarhpssap,       default,         0, %PASSPHRASE_DEF_STR%
+HKR, NDI\params\Esarhpssap,       flag,            1, 30,00,00,00
+
+;
+;    Short Preamble
+;
+HKR, ,                            PreambleMode,    0, 1
+HKR, defaults,                    PreambleMode,    0, 1
+HKR, NDI\params\PreambleMode,     ,                0, 1
+HKR, NDI\params\PreambleMode,     ParamDesc,       0, %SHORT_PREAM_STR%
+HKR, NDI\params\PreambleMode,     flag,            1, 30,00,00,00
+HKR, NDI\params\PreambleMode,     type,            0, enum
+HKR, Ndi\params\PreambleMode,     default,         0, 1
+HKR, NDI\params\PreambleMode\enum,1,               0, "Long Tx Preamble"
+HKR, NDI\params\PreambleMode\enum,2,               0, "Short Tx Preamble"
+HKR, NDI\params\PreambleMode\enum,3,               0, "Auto"
+HKR, NDI\params\PreambleMode,     optional,        0, 0
+ 
+;
+;
+; Authentication Type
+;
+HKR, ,                            AuthentAlg,      0, %AUTHENT_TYPE_DEF_STR%
+HKR, defaults,                    AuthentAlg,      0, %AUTHENT_TYPE_DEF_STR%
+HKR, NDI\params\AuthentAlg,       ParamDesc,       0, "Authentication Algorithm"
+HKR, NDI\params\AuthentAlg,       type,            0, enum
+HKR, NDI\params\AuthentAlg,       default,         0, %AUTHENT_TYPE_DEF_STR%
+HKR, NDI\params\AuthentAlg,       flag,            1, 30,00,00,00
+HKR, NDI\params\AuthentAlg\enum,  1,               0, "WECA Compliant (always use Open)"
+HKR, NDI\params\AuthentAlg\enum,  2,               0, "Must use Shared with WEP"
+
+;
+;    IBSS in Driver mode control
+;
+HKR, ,                            IBSSInDriver,    0, 1
+HKR, defaults,                    IBSSInDriver,    0, 1
+HKR, NDI\params\IBSSInDriver,     ,                0, 1
+HKR, NDI\params\IBSSInDriver,     ParamDesc,       0, "Driver based IBSS"
+HKR, NDI\params\IBSSInDriver,     type,            0, enum
+HKR, NDI\params\IBSSInDriver,     default,         0, 1
+HKR, NDI\params\IBSSInDriver,     flag,            1, 30,00,00,00
+HKR, NDI\params\IBSSInDriver\enum,0,               0, "Disabled"
+HKR, NDI\params\IBSSInDriver\enum,1,               0, "Enabled"
+
+
+;----------------------------------------------------------------------------
+; PCMCIA specific
+;
+[Pcmcia9x.reg]
+;
+; All resources are dynamically configured
+;
+HKR, ,                            IOBaseAddress,   1, 02,00,00,00
+HKR, ,                            InterruptNumber, 1, 04,00,00,00
+HKR, ,                            EnableIRQSharing,1, 01,00,00,00
+
+[Pcmcia.reg]
+HKR, ,                            BusType,         0, 8
+HKR, NDI,                         CardType,        0, "PCMCIA"
+
+
+;----------------------------------------------------------------------------
+; PCI specific
+;
+;
+[MiniPCM2k.reg]
+; Add registry entry to allow interrupt to be routed to PCI bus.
+HKLM, System\CurrentControlSet\Services\Pcmcia\Parameters, DisableIsaToPciRouting, 0x00010001, 0
+
+[PCI.reg]
+
+HKR, ,	                          BusType,         0, 5
+HKR, NDI,                         CardType,        0, "PCI"
+HKR, ,                            IOBaseAddress,   1, 02,00,00,00
+HKR, ,                            InterruptNumber, 1, 04,00,00,00
+
+
+;----------------------------------------------------------------------------
+; USB specific
+;
+
+[USB.reg]
+
+HKR, ,                            BusType,         0, 0
+HKR, NDI,                         CardType,        0, "PNP"
+
+
+;----------------------------------------------------------------------------
+; 9X specific
+;
+
+[win9x.reg]
+HKR, ,                            DevLoader,       0, "*ndis,*ntkern,*ndis"
+HKR, ,                            EnumPropPages,   0, "netdi.dll,EnumPropPages"
+;
+; NDIS Info
+;
+HKR, NDIS,                        LogDriverName,   0, "cw10"
+HKR, NDIS,                        MajorNdisVersion,1, 03
+HKR, NDIS,                        MinorNdisVersion,1, 0A
+;
+; Interfaces
+;
+HKR, Ndi\Interfaces,              DefUpper,        0, "ndis3"
+HKR, Ndi\Interfaces,              DefLower,        0, "ethernet"
+HKR, Ndi\Interfaces,              UpperRange,      0, "ndis3"
+HKR, Ndi\Interfaces,              LowerRange,      0, "ethernet"
+;
+; Install sections
+;
+;HKR, Ndi\Install,ndis3,, "cw10.install"
+
+
+;[cw10.install]
+;CopyFiles = win9x.CopyFiles
+
+;----------------------------------------------------------------------------
+; 9x ID sections
+;
+[PRISM1_ID.reg]
+HKR, ,                            DeviceVxDs,      0, cw10.sys
+HKR, ,                            NTMPDriver,      0, cw10.sys
+HKR, Ndi,                         DeviceID,        0, "PCMCIA\INTERSIL-HFA384X/IEEE-CA62"
+
+[PRISM2_ID.reg]
+HKR, ,                            DeviceVxDs,      0, cw10.sys
+HKR, ,                            NTMPDriver,      0, cw10.sys
+HKR, Ndi,                         DeviceID,        0, "PCMCIA\INTERSIL-HFA384x/IEEE-CC3C"
+ 
+[EVB1_ID.reg]
+HKR, ,                            DeviceVxDs,      0, cw10.sys
+HKR, ,                            NTMPDriver,      0, cw10.sys
+HKR, Ndi,                         DeviceID,        0, "PCMCIA\CHOICE_MICROSYSTEMS-CW10/IEEE-5F95"
+
+[EVB2_ID.reg]
+HKR, ,                            DeviceVxDs,      0, cw10.sys
+HKR, ,                            NTMPDriver,      0, cw10.sys
+HKR, Ndi,                         DeviceID,        0, "PCMCIA\CHOICE_MICROSYSTEMS-CW10/IEEE-4AE8"
+
+[MINIPCMA_ID.reg]
+HKR, ,                            DeviceVxDs,      0, cw10.sys
+HKR, ,                            NTMPDriver,      0, cw10.sys
+HKR, Ndi,                         DeviceID,        0, "PCMCIA\INTERSIL-PRISM2_MINI-PCI_ADAPTER-0EE7"
+
+[MINIPCMB_ID.reg]
+HKR, ,                            DeviceVxDs,      0, cw10.sys
+HKR, ,                            NTMPDriver,      0, cw10.sys
+HKR, Ndi,                         DeviceID,        0, "PCMCIA\INTERSIL-PRISM2_MINI-PCI_ADAPTER-B537"
+
+[MINIPCM25_ID.reg]
+HKR, ,                            DeviceVxDs,      0, cw10.sys
+HKR, ,                            NTMPDriver,      0, cw10.sys
+HKR, Ndi,                         DeviceID,        0, "PCMCIA\INTERSIL-PRISM2_5_MINI-PCI_ADAPTER-7759
+
+[USB_ID_1.reg]
+HKR, ,                            DeviceVxDs,      0, cw10usb.sys
+HKR, ,                            NTMPDriver,      0, cw10usb.sys
+HKR, Ndi,                         DeviceID,        0, "USB\VID_2474&PID_3642"
+
+[USB_ID.reg]
+HKR, ,                            DeviceVxDs,      0, cw10usb.sys
+HKR, ,                            NTMPDriver,      0, cw10usb.sys
+HKR, Ndi,                         DeviceID,        0, "USB\VID_09AA&PID_3642"
+
+[FREEDOM_ID.reg]
+HKR, ,                            DeviceVxDs,      0, cw10.sys
+HKR, ,                            NTMPDriver,      0, cw10.sys
+HKR, Ndi,                         DeviceID,        0, "PCMCIA\INTERSIL-PRISM_FREEDOM_PCMCIA_ADAPTER-40CB"
+
+[PCMCIA25_ID.reg]
+HKR, ,                            DeviceVxDs,      0, cw10.sys
+HKR, ,                            NTMPDriver,      0, cw10.sys
+HKR, Ndi,                         DeviceID,        0, "PCMCIA\INTERSIL-PRISM_2_5_PCMCIA_ADAPTER-F429"
+
+[PCI_ID.reg]
+HKR, ,                            DeviceVxDs,      0, cw10.sys
+HKR, ,                            NTMPDriver,      0, cw10.sys
+HKR, Ndi,                         DeviceID,        0, "PCI\VEN_1260&DEV_3873"
+;----------------------------------------------------------------------------
+; NT specific
+;
+
+[nt.reg]
+HKR, Ndi,                         Service,         0, "CW10"
+HKR, Ndi\Interfaces,              UpperRange,      0, "ndis4"
+HKR, Ndi\Interfaces,              LowerRange,      0, "ethernet"
+
+[CW10.Service]
+DisplayName     = %CW10.Service.DispName%
+ServiceType     = 1                ;%SERVICE_KERNEL_DRIVER%
+StartType       = 3                ;%SERVICE_AUTO_START%
+ErrorControl    = 1                ;%SERVICE_ERROR_NORMAL%
+ServiceBinary   = %12%\CW10.sys
+LoadOrderGroup  = NDIS
+
+[CW10_USB.Service]
+DisplayName     = %CW10_USB.Service.DispName%
+ServiceType     = 1                ;%SERVICE_KERNEL_DRIVER%
+StartType       = 3                ;%SERVICE_AUTO_START%
+ErrorControl    = 1                ;%SERVICE_ERROR_NORMAL%
+ServiceBinary   = %12%\CW10Usb.sys
+LoadOrderGroup  = NDIS
+
+[common.EventLog]
+AddReg = common.AddEventLog.reg
+
+[common.AddEventLog.reg]
+HKR, , EventMessageFile, 0x00020000,"%%SystemRoot%%\System32\netevent.dll,%%SystemRoot%%\System32\drivers\CW10.sys"
+HKR, , TypesSupported,   0x00010001, 7
+
+
+;----------------------------------------------------------------------------
+; Strings
+;
+[Strings]
+Provider                   = "Intersil Corporation"
+CW10                       = "CW10"
+
+CW10.DeviceDescPRISM1      = "PRISM1 IEEE 802.11 PC CARD Adapter"
+CW10.DeviceDescPRISM2      = "PRISM2 IEEE 802.11 PC CARD Adapter"
+CW10.DeviceDescEVB1        = "PRISM1 IEEE 802.11 PC CARD Adapter/EVB"
+CW10.DeviceDescEVB2        = "PRISM2 IEEE 802.11 PC CARD Adapter/EVB"
+CW10.DeviceDescMiniPCIA    = "Intersil PRISM2 Mini-PCI Adapter"
+CW10.DeviceDescMiniPCIB    = "Intersil PRISM2 Mini-PCI Adapter"
+CW10.DeviceDescMiniPCI25   = "Intersil PRISM2.5 Mini-PCI Adapter"
+CW10.DeviceDescUSB         = "Intersil IEEE 802.11 LAN USB Adapter"
+CW10.DeviceDescFreedom     = "Intersil PRISM Freedom PCMCIA Adapter"
+CW10.DeviceDescPCM25       = "Intersil PRISM2.5 PCMCIA Adapter"
+CW10.DeviceDescPCI         = "Intersil PRISM2 11Mbps Wireless LAN PCI Card"
+
+
+CW10.Service.DispName      = "Prism PCMCIA Wireless LAN Driver"
+CW10_USB.Service.DispName  = "Prism USB Wireless LAN Driver"
+
+SHORT_PREAM_STR            = "Preamble Mode"
+
+INSTALL_DISK_STR           = "Wireless LAN Installation Disk"
+
+;
+; Don't put spaces around = sign otherwise installer will not be able to
+; find these lines.
+SSID_DEF_STR="IEEE 802.11 LAN"
+NETWORK_TYPE_DEF_STR="1"
+AUTHENT_TYPE_DEF_STR="2"
+PASSPHRASE_DEF_STR="INTERSIL"
+WEP_REQUIRED_DEF_STR="0"

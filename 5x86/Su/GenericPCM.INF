@@ -1,0 +1,564 @@
+
+[Version]
+Signature = "$Chicago$"
+Compatible = 1
+Class      = Net
+ClassGUID  = {4d36e972-e325-11ce-bfc1-08002be10318}
+MillenniumPreferred = .ME
+Provider   = %VENDOR%
+;;CatalogFile = fvnetr.cat
+DriverVer  = 10/09/2002, 4.3.3.57
+
+[Manufacturer]
+%VENDOR%   = OEM, NTx86.5.1
+
+[ControlFlags]
+ExcludeFromSelect =	OEM-11Mbps_Wireless_LAN_PC_Card_V-3(3V)-A10A, \
+			OEM-11Mbps_Wireless_LAN_PC_Card_V-3-DE3A
+[OEM]
+%PCMCIAOEM3V.DeviceDesc% = PCMCIAOEM3V.Ndi, PCMCIA\OEM-11Mbps_Wireless_LAN_PC_Card_V-3(3V)-A10A
+%PCMCIAOEM5V.DeviceDesc% = PCMCIAOEM5V.Ndi, PCMCIA\OEM-11Mbps_Wireless_LAN_PC_Card_V-3-DE3A     
+
+[OEM.NTx86.5.1]
+%PCMCIAOEM3V.DeviceDesc% = PCMCIAOEM3V.XPNdi, PCMCIA\OEM-11Mbps_Wireless_LAN_PC_Card_V-3(3V)-A10A
+%PCMCIAOEM5V.DeviceDesc% = PCMCIAOEM5V.XPNdi, PCMCIA\OEM-11Mbps_Wireless_LAN_PC_Card_V-3-DE3A
+
+;;*******************************************************************************
+;; Win XP main sections
+;;*******************************************************************************
+[PCMCIAOEM3V.XPNdi.NT]
+Characteristics = 0x84 	; NCF_HAS_UI | NCF_PHYSICAL
+BusType         = 8 	; PCMCIA
+AddReg          = PCMCIAFVNETR.XP.Reg, PCMCIAFVNETR.XP.Params
+CopyFiles       = CopyFile.XP.Sys
+
+[PCMCIAOEM5V.XPNdi.NT]
+Characteristics = 0x84 	; NCF_HAS_UI | NCF_PHYSICAL
+BusType         = 8 	; PCMCIA
+AddReg          = PCMCIAFVNETR.XP.Reg, PCMCIAFVNETR.XP.Params
+CopyFiles       = CopyFile.XP.Sys
+
+[PCMCIAOEM3V4.XPNdi.NT]
+Characteristics = 0x84 	; NCF_HAS_UI | NCF_PHYSICAL
+BusType         = 8 	; PCMCIA
+AddReg          = PCMCIAFVNETR.XP.Reg, PCMCIAFVNETR.XP.Params
+CopyFiles       = CopyFile.XP.Sys
+
+[PCMCIAOEM5V4.XPNdi.NT]
+Characteristics = 0x84 	; NCF_HAS_UI | NCF_PHYSICAL
+BusType         = 8 	; PCMCIA
+AddReg          = PCMCIAFVNETR.XP.Reg, PCMCIAFVNETR.XP.Params
+CopyFiles       = CopyFile.XP.Sys
+
+[PCMCIAOEM3V.XPNdi.NT.Services]
+AddService = "PCMCIAFVNETR", 2, PCMCIAFVNETR.XP.Service, Common.EventLog
+
+[PCMCIAOEM5V.XPNdi.NT.Services]
+AddService = "PCMCIAFVNETR", 2, PCMCIAFVNETR.XP.Service, Common.EventLog
+
+[PCMCIAOEM3V4.XPNdi.NT.Services]
+AddService = "PCMCIAFVNETR", 2, PCMCIAFVNETR.XP.Service, Common.EventLog
+
+[PCMCIAOEM5V4.XPNdi.NT.Services]
+AddService = "PCMCIAFVNETR", 2, PCMCIAFVNETR.XP.Service, Common.EventLog
+
+;;*******************************************************************************
+;; Win 2000 main sections
+;;*******************************************************************************
+[PCMCIAOEM3V.Ndi.NT]
+Characteristics = 0x84 	; NCF_HAS_UI | NCF_PHYSICAL
+BusType         = 8 	; PCMCIA
+AddReg          = PCMCIAFVNETR.NT.Reg, PCMCIAFVNETR.Params
+CopyFiles       = CopyFile.NT.Sys
+
+[PCMCIAOEM5V.Ndi.NT]
+Characteristics = 0x84 	; NCF_HAS_UI | NCF_PHYSICAL
+BusType         = 8 	; PCMCIA
+AddReg          = PCMCIAFVNETR.NT.Reg, PCMCIAFVNETR.Params
+CopyFiles       = CopyFile.NT.Sys
+
+[PCMCIAOEM3V4.Ndi.NT]
+Characteristics = 0x84 	; NCF_HAS_UI | NCF_PHYSICAL
+BusType         = 8 	; PCMCIA
+AddReg          = PCMCIAFVNETR.NT.Reg, PCMCIAFVNETR.Params
+CopyFiles       = CopyFile.NT.Sys
+
+[PCMCIAOEM5V4.Ndi.NT]
+Characteristics = 0x84 	; NCF_HAS_UI | NCF_PHYSICAL
+BusType         = 8 	; PCMCIA
+AddReg          = PCMCIAFVNETR.NT.Reg, PCMCIAFVNETR.Params
+CopyFiles       = CopyFile.NT.Sys
+
+[PCMCIAOEM3V.Ndi.NT.Services]
+AddService = "PCMCIAFVNETR", 2, PCMCIAFVNETR.Service, Common.EventLog
+
+[PCMCIAOEM5V.Ndi.NT.Services]
+AddService = "PCMCIAFVNETR", 2, PCMCIAFVNETR.Service, Common.EventLog
+
+[PCMCIAOEM3V4.Ndi.NT.Services]
+AddService = "PCMCIAFVNETR", 2, PCMCIAFVNETR.Service, Common.EventLog
+
+[PCMCIAOEM5V4.Ndi.NT.Services]
+AddService = "PCMCIAFVNETR", 2, PCMCIAFVNETR.Service, Common.EventLog
+
+;;*******************************************************************************
+;; Win98 main sections
+;;*******************************************************************************
+[PCMCIAOEM3V.Ndi]
+AddReg   = DEVICE3V.Reg, PCMCIAFVNETR.Reg, PCMCIAFVNETR.Params
+CopyFiles= CopyFile.Sys
+
+[PCMCIAOEM5V.Ndi]
+AddReg   = DEVICE5V.Reg, PCMCIAFVNETR.Reg, PCMCIAFVNETR.Params
+CopyFiles= CopyFile.Sys
+
+[PCMCIAOEM3V4.Ndi]
+AddReg   = DEVICE3V4.Reg, PCMCIAFVNETR.Reg, PCMCIAFVNETR.Params
+CopyFiles= CopyFile.Sys
+
+[PCMCIAOEM5V4.Ndi]
+AddReg   = DEVICE5V4.Reg, PCMCIAFVNETR.Reg, PCMCIAFVNETR.Params
+CopyFiles= CopyFile.Sys
+
+;;*******************************************************************************
+;; Windows 98 section
+;;*******************************************************************************
+[DEVICE3V.Reg]
+HKR,Ndi,DeviceID,,PCMCIA\OEM-11Mbps_Wireless_LAN_PC_Card_V-3(3V)-A10A
+
+[DEVICE5V.Reg]
+HKR,Ndi,DeviceID,,OEM-11Mbps_Wireless_LAN_PC_Card_V-3-DE3A
+
+[DEVICE3V4.Reg]
+HKR,Ndi,DeviceID,,PCMCIA\OEM-11Mbps_Wireless_LAN_PC_Card_V-4(3V)-1BA0
+
+[DEVICE5V4.Reg]
+HKR,Ndi,DeviceID,,PCMCIA\OEM-11Mbps_Wireless_LAN_PC_Card_V-4-10F6
+
+[PCMCIAFVNETR.Reg]
+HKR,Ndi,CardType,,"PNP"
+
+HKR,,BusType,0,"8"
+HKR,,EnableIRQSharing,1,01,00,00,00
+HKR,,IOBaseAddress,1,02,00,00,00
+HKR,,InterruptNumber,1,04,00,00,00
+
+HKR,,DevLoader,,*ndis,*ntkern,*ndis
+HKR,,DeviceVxDs,,fvnetr.sys
+
+;; NDIS Info
+HKR,NDIS,MajorNdisVersion,1,05
+HKR,NDIS,MinorNdisVersion,1,00
+HKR,NDIS,LogDriverName,,"fvnetr"
+
+;; Interfaces
+HKR,Ndi\Interfaces,DefUpper,,"ndis3"
+HKR,Ndi\Interfaces,DefLower,,"ethernet"
+HKR,Ndi\Interfaces,UpperRange,,"ndis3"
+HKR,Ndi\Interfaces,LowerRange,,"ethernet"
+
+HKR,Ndi,HelpText,,%Help_Text%
+
+;;*******************************************************************************
+;; WinMe main sections
+;;*******************************************************************************
+[PCMCIAOEM3V.Ndi.ME]
+AddReg   = DEVICE3V.ME.Reg, PCMCIAFVNETR.ME.Reg, PCMCIAFVNETR.Params
+CopyFiles= CopyFile.Sys
+
+[PCMCIAOEM5V.Ndi.ME]
+AddReg   = DEVICE5V.ME.Reg, PCMCIAFVNETR.ME.Reg, PCMCIAFVNETR.Params
+CopyFiles= CopyFile.Sys
+
+[PCMCIAOEM3V4.Ndi.ME]
+AddReg   = DEVICE3V4.ME.Reg, PCMCIAFVNETR.ME.Reg, PCMCIAFVNETR.Params
+CopyFiles= CopyFile.Sys
+
+[PCMCIAOEM5V4.Ndi.ME]
+AddReg   = DEVICE5V4.ME.Reg, PCMCIAFVNETR.ME.Reg, PCMCIAFVNETR.Params
+CopyFiles= CopyFile.Sys
+
+[PCMCIAOEM3V.Ndi.ME.Services]
+AddService = "PCMCIAFVNETR", 2, PCMCIAFVNETR.Service, Common.EventLog
+
+[PCMCIAOEM5V.Ndi.ME.Services]
+AddService = "PCMCIAFVNETR", 2, PCMCIAFVNETR.Service, Common.EventLog
+
+[PCMCIAOEM3V4.Ndi.ME.Services]
+AddService = "PCMCIAFVNETR", 2, PCMCIAFVNETR.Service, Common.EventLog
+
+[PCMCIAOEM5V4.Ndi.ME.Services]
+AddService = "PCMCIAFVNETR", 2, PCMCIAFVNETR.Service, Common.EventLog
+
+;;*******************************************************************************
+;; Windows Me section
+;;*******************************************************************************
+[DEVICE3V.ME.Reg]
+HKR,Ndi,DeviceID,,PCMCIA\OEM-11Mbps_Wireless_LAN_PC_Card_V-3(3V)-A10A
+
+[DEVICE5V.ME.Reg]
+HKR,Ndi,DeviceID,,OEM-11Mbps_Wireless_LAN_PC_Card_V-3-DE3A
+
+[DEVICE3V4.ME.Reg]
+HKR,Ndi,DeviceID,,PCMCIA\OEM-11Mbps_Wireless_LAN_PC_Card_V-4(3V)-1BA0
+
+[DEVICE5V4.ME.Reg]
+HKR,Ndi,DeviceID,,PCMCIA\OEM-11Mbps_Wireless_LAN_PC_Card_V-4-10F6
+
+[PCMCIAFVNETR.ME.Reg]
+HKR,Ndi,CardType,,"PNP"
+
+HKR,,DevLoader,,*ndis,*ntkern,*ndis
+HKR,,DeviceVxDs,,fvnetr.sys
+
+;; NDIS Info
+HKR,NDIS,MajorNdisVersion,1,05
+HKR,NDIS,MinorNdisVersion,1,00
+HKR,NDIS,LogDriverName,,"fvnetr"
+
+;; Interfaces
+HKR,Ndi\Interfaces,DefUpper,,"ndis3"
+HKR,Ndi\Interfaces,DefLower,,"ethernet"
+HKR,Ndi\Interfaces,UpperRange,,"ndis3"
+HKR,Ndi\Interfaces,LowerRange,,"ethernet"
+
+HKR,Ndi,HelpText,,%Help_Text%
+
+;; Install sections
+HKR, Ndi\Install,       ndis3,              0, "PCMCIAFVNETR.ndis5me"
+
+[PCMCIAFVNETR.ndis5me]
+CopyFiles       = CopyFile.Sys
+
+;;*******************************************************************************
+;; Driver parameters
+;;*******************************************************************************
+[PCMCIAFVNETR.Params]
+HKR, Ndi\params\Channel,	      	ParamDesc,     	0, %ChannelStr%
+HKR, Ndi\params\Channel,	      	type,		0, "int"
+HKR, Ndi\params\Channel,		default,	0, "3"
+HKR, Ndi\params\Channel,		min,		0, "1"
+HKR, Ndi\params\Channel,		max,		0, "14"
+HKR, Ndi\params\Channel,		step,		0, "1"
+HKR, ,                                	Channel,    	0, "3"
+
+HKR, Ndi\params\Rate,	      		ParamDesc,     	0, %RateStr%
+HKR, Ndi\params\Rate,	      		type,		0, "enum"
+HKR, Ndi\params\Rate,			default,	0, "3"
+HKR, Ndi\params\Rate\enum,		0,		0, %Fixed1Str%
+HKR, Ndi\params\Rate\enum,		1,		0, %Fixed2Str%
+HKR, Ndi\params\Rate\enum,		2,		0, %Fixed55Str%
+HKR, Ndi\params\Rate\enum,		3,		0, %Fixed11Str%
+HKR, Ndi\params\Rate\enum,		4,		0, %AutoStr%
+HKR, ,                                	Rate,    	0, "3"
+
+HKR, Ndi\params\RTS_Threshold,	      	ParamDesc,     	0, %RTS_Str%
+HKR, Ndi\params\RTS_Threshold,	      	type,		0, "int"
+HKR, Ndi\params\RTS_Threshold,		default,	0, "2347"
+HKR, Ndi\params\RTS_Threshold,		min,		0, "0"
+HKR, Ndi\params\RTS_Threshold,		max,		0, "2347"
+HKR, Ndi\params\RTS_Threshold,		step,		0, "1"
+HKR, ,                                	RTS_Threshold,  0, "2347"
+
+HKR, Ndi\params\Frag_Threshold,	      	ParamDesc,     	0, %FragmentationStr%
+HKR, Ndi\params\Frag_Threshold,	      	type,		0, "int"
+HKR, Ndi\params\Frag_Threshold,		default,	0, "2346"
+HKR, Ndi\params\Frag_Threshold,		min,		0, "256"
+HKR, Ndi\params\Frag_Threshold,		max,		0, "2346"
+HKR, Ndi\params\Frag_Threshold,		step,		0, "1"
+HKR, ,                                	Frag_Threshold, 0, "2346"
+
+HKR, Ndi\params\Operating_Mode,	      	ParamDesc,     	0, %OperatingModeStr%
+HKR, Ndi\params\Operating_Mode,	      	type,		0, "enum"
+HKR, Ndi\params\Operating_Mode,		default,	0, "1"
+HKR, Ndi\params\Operating_Mode\enum,	0,		0, %AdHocStr%
+HKR, Ndi\params\Operating_Mode\enum,	1,		0, %InfrastructureStr%
+HKR, ,                                	Operating_Mode, 0, "1"
+
+HKR, Ndi\params\ESSID,			ParamDesc,	0, %ESSID_Str%
+HKR, Ndi\params\ESSID,           	type,          	0, "edit"
+HKR, Ndi\params\ESSID,           	default,       	0, ""
+HKR, Ndi\params\ESSID,           	LimitText,	0, "32"
+HKR, Ndi\params\ESSID,           	UpperCase,	0, "0"
+HKR, ,                                	ESSID,    	0, ""
+
+
+HKR,Ndi\params\WEP_KEY_INDEX,		ParamDesc,	0,%WEP_Key_Str%
+HKR,Ndi\params\WEP_KEY_INDEX,		type,		0,"enum"
+HKR,Ndi\params\WEP_KEY_INDEX,		default,	0,"0"
+HKR,Ndi\params\WEP_KEY_INDEX\enum,	0,		0,%Key1Str%
+HKR,Ndi\params\WEP_KEY_INDEX\enum,	1,		0,%Key2Str%
+HKR,Ndi\params\WEP_KEY_INDEX\enum,	2,		0,%Key3Str%
+HKR,Ndi\params\WEP_KEY_INDEX\enum,	3,		0,%Key4Str%
+HKR,,					WEP_KEY_INDEX,	0,"0"
+
+HKR,Ndi\params\EncryptionLevel,		ParamDesc,	0,"Encryption Level"
+HKR,Ndi\params\EncryptionLevel,		type,		0,"enum"
+HKR,Ndi\params\EncryptionLevel,		default,	0,"0"
+HKR,Ndi\params\EncryptionLevel\enum,	0,		0,%DisabledStr%
+HKR,Ndi\params\EncryptionLevel\enum,	1,		0,%64bit%
+HKR,Ndi\params\EncryptionLevel\enum,	2,		0,%128bit%
+HKR,,					EncryptionLevel,0,"0"
+
+HKR,Ndi\params\WEP_KEY_1,		ParamDesc,	0,%KEY1_Str%
+HKR,Ndi\params\WEP_KEY_1,		type,		0,"edit"
+HKR,Ndi\params\WEP_KEY_1,		default,	0,"0000000000"
+HKR,Ndi\params\WEP_KEY_1,		LimitText,	0,"10"
+HKR,Ndi\params\WEP_KEY_1,		UpperCase,	0,"1"
+HKR,,					WEP_KEY_1,	0,"0000000000"
+
+HKR,Ndi\params\WEP_KEY_2,		ParamDesc,	0,%KEY2_Str%
+HKR,Ndi\params\WEP_KEY_2,		type,		0,"edit"
+HKR,Ndi\params\WEP_KEY_2,		default,	0,"0000000000"
+HKR,Ndi\params\WEP_KEY_2,		LimitText,	0,"10"
+HKR,Ndi\params\WEP_KEY_2,		UpperCase,	0,"1"
+HKR,,					WEP_KEY_2,	0,"0000000000"
+
+HKR,Ndi\params\WEP_KEY_3,		ParamDesc,	0,%KEY3_Str%
+HKR,Ndi\params\WEP_KEY_3,		type,		0,"edit"
+HKR,Ndi\params\WEP_KEY_3,		default,	0,"0000000000"
+HKR,Ndi\params\WEP_KEY_3,		LimitText,	0,"10"
+HKR,Ndi\params\WEP_KEY_3,		UpperCase,	0,"1"
+HKR,,					WEP_KEY_3,	0,"0000000000"
+
+HKR,Ndi\params\WEP_KEY_4,		ParamDesc,	0,%KEY4_Str%
+HKR,Ndi\params\WEP_KEY_4,		type,		0,"edit"
+HKR,Ndi\params\WEP_KEY_4,		default,	0,"0000000000"
+HKR,Ndi\params\WEP_KEY_4,		LimitText,	0,"10"
+HKR,Ndi\params\WEP_KEY_4,		UpperCase,	0,"1"
+HKR,,					WEP_KEY_4,	0,"0000000000"
+
+HKR,Ndi\params\WEP_Mode,		ParamDesc,	0,%WEP_Mode_Str%
+HKR,Ndi\params\WEP_Mode,		type,		0,"enum"
+HKR,Ndi\params\WEP_Mode,		default,	0,"0"
+HKR,Ndi\params\WEP_Mode\enum,		0,		0,%WepMandatoryStr%
+HKR,Ndi\params\WEP_Mode\enum,		1,		0,%WepOptionalStr%
+HKR,,					WEP_Mode,	0,"0"
+
+HKR,Ndi\params\AuthenticationType,	ParamDesc,	0,%AuthTypeStr%
+HKR,Ndi\params\AuthenticationType,	type,		0,"enum"
+HKR,Ndi\params\AuthenticationType,	default,	0,"2"
+HKR,Ndi\params\AuthenticationType\enum,	0,		0,%OpenSystemStr%
+HKR,Ndi\params\AuthenticationType\enum,	1,		0,%SharedKeyStr%
+HKR,Ndi\params\AuthenticationType\enum,	2,		0,%AutoAuthStr%
+HKR,,				AuthenticationType,	0,"2"
+
+HKR,Ndi\params\PreambleType,		ParamDesc,	0,%PreambleStr%
+HKR,Ndi\params\PreambleType,		type,		0,"enum"
+HKR,Ndi\params\PreambleType,		default,	0,"2"
+HKR,Ndi\params\PreambleType\enum,	0,		0,%LongPreambleStr%
+HKR,Ndi\params\PreambleType\enum,	1,		0,%ShortPreambleStr%
+HKR,Ndi\params\PreambleType\enum,	2,		0,%AutoPreambleStr%
+HKR,,					PreambleType,	0,"2"
+
+HKR,Ndi\params\PowerMgmtMode,		ParamDesc,	0,%PowerMgmtStr%
+HKR,Ndi\params\PowerMgmtMode,		type,		0,"enum"
+HKR,Ndi\params\PowerMgmtMode,		default,	0,"0"
+HKR,Ndi\params\PowerMgmtMode\enum,	0,		0,%ActiveStr%
+HKR,Ndi\params\PowerMgmtMode\enum,	1,		0,%PSStr%
+HKR,,					PowerMgmtMode,	0,"0"
+
+HKR,Ndi\params\BasicRates,		ParamDesc,	0,%BasicRatesStr%
+HKR,Ndi\params\BasicRates,		type,		0,"enum"
+HKR,Ndi\params\BasicRates,		default,	0,"1"
+HKR,Ndi\params\BasicRates\enum,	0,			0,%BR1Str%
+HKR,Ndi\params\BasicRates\enum,	1,			0,%BR2Str%
+HKR,,					BasicRates,	0,"1"
+
+HKR, Ndi\params\BeaconPeriod,	      	ParamDesc,     	0, %BeaconPeriodStr%
+HKR, Ndi\params\BeaconPeriod,	      	type,		0, "int"
+HKR, Ndi\params\BeaconPeriod,		default,	0, "100"
+HKR, Ndi\params\BeaconPeriod,		min,		0, "20"
+HKR, Ndi\params\BeaconPeriod,		max,		0, "1000"
+HKR, Ndi\params\BeaconPeriod,		step,		0, "1"
+HKR, ,                                	BeaconPeriod,   0, "100"
+
+HKR,Ndi\params\RadioOnOff,		ParamDesc,	0,%RadioOnOffStr%
+HKR,Ndi\params\RadioOnOff,		type,		0,"enum"
+HKR,Ndi\params\RadioOnOff,		default,	0,"1"
+HKR,Ndi\params\RadioOnOff\enum,	0,			0,%RadioOffStr%
+HKR,Ndi\params\RadioOnOff\enum,	1,			0,%RadioOnStr%
+HKR,,					RadioOnOff,	0,"1"
+
+[PCMCIAFVNETR.XP.Params]
+HKR, Ndi\params\Rate,	      		ParamDesc,     	0, %RateStr%
+HKR, Ndi\params\Rate,	      		type,		0, "enum"
+HKR, Ndi\params\Rate,			default,	0, "3"
+HKR, Ndi\params\Rate\enum,		0,		0, %Fixed1Str%
+HKR, Ndi\params\Rate\enum,		1,		0, %Fixed2Str%
+HKR, Ndi\params\Rate\enum,		2,		0, %Fixed55Str%
+HKR, Ndi\params\Rate\enum,		3,		0, %Fixed11Str%
+HKR, Ndi\params\Rate\enum,		4,		0, %AutoStr%
+HKR, ,                                	Rate,    	0, "3"
+
+HKR, Ndi\params\RTS_Threshold,	      	ParamDesc,     	0, %RTS_Str%
+HKR, Ndi\params\RTS_Threshold,	      	type,		0, "int"
+HKR, Ndi\params\RTS_Threshold,		default,	0, "2347"
+HKR, Ndi\params\RTS_Threshold,		min,		0, "0"
+HKR, Ndi\params\RTS_Threshold,		max,		0, "2347"
+HKR, Ndi\params\RTS_Threshold,		step,		0, "1"
+HKR, ,                                	RTS_Threshold,  0, "2347"
+
+HKR, Ndi\params\Frag_Threshold,	      	ParamDesc,     	0, %FragmentationStr%
+HKR, Ndi\params\Frag_Threshold,	      	type,		0, "int"
+HKR, Ndi\params\Frag_Threshold,		default,	0, "2346"
+HKR, Ndi\params\Frag_Threshold,		min,		0, "256"
+HKR, Ndi\params\Frag_Threshold,		max,		0, "2346"
+HKR, Ndi\params\Frag_Threshold,		step,		0, "1"
+HKR, ,                                	Frag_Threshold, 0, "2346"
+
+HKR,Ndi\params\PreambleType,		ParamDesc,	0,%PreambleStr%
+HKR,Ndi\params\PreambleType,		type,		0,"enum"
+HKR,Ndi\params\PreambleType,		default,	0,"2"
+HKR,Ndi\params\PreambleType\enum,	0,		0,%LongPreambleStr%
+HKR,Ndi\params\PreambleType\enum,	1,		0,%ShortPreambleStr%
+HKR,Ndi\params\PreambleType\enum,	2,		0,%AutoPreambleStr%
+HKR,,					PreambleType,	0,"2"
+
+HKR,Ndi\params\RadioOnOff,		ParamDesc,	0,%RadioOnOffStr%
+HKR,Ndi\params\RadioOnOff,		type,		0,"enum"
+HKR,Ndi\params\RadioOnOff,		default,	0,"1"
+HKR,Ndi\params\RadioOnOff\enum,	0,			0,%RadioOffStr%
+HKR,Ndi\params\RadioOnOff\enum,	1,			0,%RadioOnStr%
+HKR,,					RadioOnOff,	0,"1"
+
+;;*******************************************************************************
+;; Install section for Windows 2000/XP
+;;*******************************************************************************
+[PCMCIAFVNETR.NT.Reg]
+;; Interfaces
+HKR, Ndi\Interfaces, LowerRange, 0, "ethernet"
+HKR, Ndi\Interfaces, UpperRange, 0, "ndis5"
+HKR, Ndi,            Service,    0, "PCMCIAFVNETR"
+
+[PCMCIAFVNETR.XP.Reg]
+;; Interfaces
+HKR, Ndi\Interfaces, LowerRange, 0, "ethernet"
+HKR, Ndi\Interfaces, UpperRange, 0, "ndis5"
+HKR, Ndi,            Service,    0, "PCMCIAFVNETR"
+
+[PCMCIAFVNETR.Service]
+DisplayName    = %PCMCIAFVNETR.DisplayName%
+ServiceType    = 1
+StartType      = 3
+ErrorControl   = 1
+ServiceBinary  = %12%\fvnetr.sys
+LoadOrderGroup = NDIS
+
+[PCMCIAFVNETR.XP.Service]
+DisplayName    = %PCMCIAFVNETR.DisplayName%
+ServiceType    = 1
+StartType      = 3
+ErrorControl   = 1
+ServiceBinary  = %12%\fvnetr.sys
+LoadOrderGroup = NDIS
+
+[Common.EventLog]
+AddReg = Common.AddEventLog.Reg
+
+[Common.AddEventLog.Reg]
+HKR, , EventMessageFile, 0x00020000, %%SystemRoot%%\System32\netevent.dll
+HKR, , TypesSupported  , 0x00010001, 7
+
+[CopyFile.Sys]
+;fvnetr.sys,,,2
+
+[CopyFile.NT.Sys]
+;fvnetr.sys,,,2
+
+[CopyFile.XP.Sys]
+;fvnetr.sys,fvnetrxp.sys,,2
+
+;;*******************************************************************************
+;; Destination directories
+;;*******************************************************************************
+[DestinationDirs]
+CopyFile.Sys    = 11
+CopyFile.NT.Sys = 12
+CopyFile.XP.Sys = 12
+DefaultDestDir  = 11 ; Drivers directory
+
+[SourceDisksNames]
+1=%DriverDisketteName%,,
+
+[SourceDisksFiles] ;;WIN98/ME/2K
+fvnetr.sys= 1,,
+
+[SourceDisksFiles.x86] ;;WINXP
+fvnetrxp.sys= 1,,
+
+;;*******************************************************************************
+;; Localizable strings
+;;*******************************************************************************
+[Strings]
+VENDOR = " "
+
+PCMCIAOEM3V.DeviceDesc = "WLAN 11Mbps PCMCIA ADAPTER(3.3V)"
+PCMCIAOEM5V.DeviceDesc = "WLAN 11Mbps PCMCIA ADAPTER(5V)"
+
+PCMCIAFVNETR.DisplayName = "WLAN 11Mbps PCMCIA ADAPTER"
+
+DriverDisketteName      = "WLAN 11Mbps PCMCIA ADAPTER Drivers Diskette/CD"
+Help_Text = "VirtualNET lets you set up easily and operate a Wireless LAN compliant with 802.11 Standard. It operates in the license free 2.4 GHz ISM band and achieves a peak data rate of 11 Mbs."
+
+
+ChannelStr		= "Channel"
+
+RateStr			= "Rate"
+Fixed1Str		= "Fixed 1 Mbps"
+Fixed2Str		= "Fixed 2 Mbps"
+Fixed55Str		= "Fixed 5.5 Mbps"
+Fixed11Str		= "Fixed 11 Mbps"
+AutoStr			= "Auto"
+
+RTS_Str			= "RTS Threshold"
+FragmentationStr	= "Fragmentation Threshold"
+
+OperatingModeStr	= "Operating Mode"
+AdHocStr		= "Ad-Hoc"
+InfrastructureStr	= "Infrastructure"
+
+ESSID_Str		= "ESSID"
+
+WEP_Key_Str		= "WEP Key To Use"
+KEY1_Str		= "WEP Key 1"
+KEY2_Str		= "WEP Key 2"
+KEY3_Str		= "WEP Key 3"
+KEY4_Str		= "WEP Key 4"
+WEP_Mode_Str		= "WEP Mode"
+
+Key1Str			= "Key 1"
+Key2Str			= "Key 2"
+Key3Str			= "Key 3"
+Key4Str			= "Key 4"
+
+DisabledStr		= "Disabled"
+
+64bit			= "64-bit"
+128bit			= "128-bit"	
+
+WepMandatoryStr		= "Mandatory"
+WepOptionalStr		= "Optional"
+AuthTypeStr		= "Authentication Type"
+OpenSystemStr		= "Open System"
+SharedKeyStr		= "Shared Key"
+AutoAuthStr		= "Auto"	
+
+PreambleStr		= "Preamble Type"
+LongPreambleStr		= "Long"
+ShortPreambleStr	= "Short"
+AutoPreambleStr		= "Auto"
+
+PowerMgmtStr		= "Power Mgmt Mode"
+ActiveStr		= "Active"
+PSStr			= "Power Save"
+
+BasicRatesStr		= "Basic Rates"
+BR1Str			= "1, 2 Mbps"
+BR2Str			= "1, 2, 5.5, 11 Mbps"
+
+BeaconPeriodStr		= "Beacon Period"
+
+RadioOnOffStr		= "Radio"	
+RadioOffStr		= "Off"
+RadioOnStr		= "On"

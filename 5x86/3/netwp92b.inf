@@ -1,0 +1,399 @@
+;======================================================================
+;  3Com Corporation Copyright (C) 2002									
+;----------------------------------------------------------------------
+;  NETWP92B.INF - 3COM 3CRWE62092B 11Mbps Wireless LAN PC Card
+;  NDIS 5.X Setup File
+;======================================================================
+
+[Version]
+Signature   = "$CHICAGO$"
+Compatible  = 1
+Class       = Net
+ClassGUID   = {4d36e972-e325-11ce-bfc1-08002be10318}
+Provider    = %V_3COM%
+CatalogFile = netwp92b.cat
+DriverVer   = 08/04/2003,2.1.1.3005
+
+[Manufacturer]
+%V_3COM%    = 3COM,NTx86,NTx86.5.1
+
+[ControlFlags]
+ExcludeFromSelect.NTx86 = *
+                                                             
+[3COM]
+%WLP92B.DeviceDesc% = WLP92B.Ndi,PCMCIA\3COM-3CRWE62092B_Wireless_LAN_PC_Card-9978
+
+[3COM.NTx86]
+%WLP92B.DeviceDesc% = WLP92B.Ndi.NT,PCMCIA\3COM-3CRWE62092B_Wireless_LAN_PC_Card-9978
+
+[3COM.NTx86.5.1]
+%WLP92B.DeviceDesc% = WLP92B.Ndi.NT.5.1,PCMCIA\3COM-3CRWE62092B_Wireless_LAN_PC_Card-9978
+
+
+;*******************************************************************************
+; Win98 Install Sections
+;*******************************************************************************
+
+[WLP92B.Ndi]
+AddReg      = WLP92B.Reg, WLP92B.Params, WLP92B.ExtParams
+CopyFiles   = CopyDriver.Sys
+
+
+;*******************************************************************************
+; Win 2000 Install Sections
+;*******************************************************************************
+
+[WLP92B.Ndi.NT]
+Characteristics = 0x84 	; NCF_HAS_UI | NCF_PHYSICAL
+BusType         = 8 	; PCMCIA
+AddReg          = WLP92B.NT.Reg, WLP92B.Params, WLP92B.ExtParams
+CopyFiles       = CopyDriver.NT.Sys
+
+[WLP92B.Ndi.NT.Services]
+AddService = WLP92B, 2, WLP92B.NT.Service, Common.NT.EventLog
+
+
+;*******************************************************************************
+; Win XP Install Sections
+;*******************************************************************************
+
+[WLP92B.Ndi.NT.5.1]
+Characteristics = 0x84 	; NCF_HAS_UI | NCF_PHYSICAL
+BusType         = 8 	; PCMCIA
+AddReg          = WLP92B.NT.5.1.Reg, WLP92B.Params, WLP92B.ExtParams
+CopyFiles       = CopyDriver.NT.5.1.Sys
+
+[WLP92B.Ndi.NT.5.1.Services]
+AddService = WLP92B, 2, WLP92B.NT.5.1.Service, Common.NT.EventLog
+
+
+;*******************************************************************************
+; Windows 98 section
+;*******************************************************************************
+
+[WLP92B.Reg]
+HKR,Ndi,DeviceID,,PCMCIA\3COM-3CRWE62092B_Wireless_LAN_PC_Card-9978
+HKR,Ndi,CardType,,"PNP"
+
+HKR,,DevLoader,,*ndis,*ntkern,*ndis
+HKR,,DeviceVxDs,,wlp92be.sys
+
+; NDIS Info
+HKR,NDIS,MajorNdisVersion,1,05
+HKR,NDIS,MinorNdisVersion,1,00
+HKR,NDIS,LogDriverName,,WLP92BE
+
+; Interfaces
+HKR,Ndi\Interfaces,DefUpper,,"ndis3"
+HKR,Ndi\Interfaces,DefLower,,"ethernet"
+HKR,Ndi\Interfaces,UpperRange,,"ndis3"
+HKR,Ndi\Interfaces,LowerRange,,"ethernet"
+
+
+;*******************************************************************************
+; Driver parameters
+;*******************************************************************************
+
+[WLP92B.Params]
+HKR, Ndi\params\Rate,	      		ParamDesc,  0, %RateStr%
+HKR, Ndi\params\Rate,	      		type,		0, "enum"
+HKR, Ndi\params\Rate,			    default,	0, "4"
+HKR, Ndi\params\Rate\enum,		    0,		    0, %Fixed1Str%
+HKR, Ndi\params\Rate\enum,		    1,		    0, %Fixed2Str%
+HKR, Ndi\params\Rate\enum,		    2,		    0, %Fixed55Str%
+HKR, Ndi\params\Rate\enum,		    3,		    0, %Fixed11Str%
+HKR, Ndi\params\Rate\enum,		    4,		    0, %AutoStr%
+HKR, ,                              Rate,    	0, "4"
+
+HKR, Ndi\params\RTS_Threshold,	    ParamDesc,  0, %RTS_Str%
+HKR, Ndi\params\RTS_Threshold,	    type,		0, "int"
+HKR, Ndi\params\RTS_Threshold,		default,	0, "2347"
+HKR, Ndi\params\RTS_Threshold,		min,		0, "0"
+HKR, Ndi\params\RTS_Threshold,		max,		0, "2347"
+HKR, Ndi\params\RTS_Threshold,		step,		0, "1"
+HKR, ,                              RTS_Threshold,  0, "2347"
+
+HKR, Ndi\params\Frag_Threshold,	    ParamDesc,  0, %FragmentationStr%
+HKR, Ndi\params\Frag_Threshold,	    type,		0, "int"
+HKR, Ndi\params\Frag_Threshold,		default,	0, "2346"
+HKR, Ndi\params\Frag_Threshold,		min,		0, "256"
+HKR, Ndi\params\Frag_Threshold,		max,		0, "2346"
+HKR, Ndi\params\Frag_Threshold,		step,		0, "1"
+HKR, ,                              Frag_Threshold, 0, "2346"
+
+HKR,Ndi\params\PreambleType,		ParamDesc,	0,%PreambleStr%
+HKR,Ndi\params\PreambleType,		type,		0,"enum"
+HKR,Ndi\params\PreambleType,		default,	0,"2"
+HKR,Ndi\params\PreambleType\enum,	0,		    0,%LongPreambleStr%
+HKR,Ndi\params\PreambleType\enum,	1,		    0,%ShortPreambleStr%
+HKR,Ndi\params\PreambleType\enum,	2,		    0,%AutoPreambleStr%
+HKR,,					            PreambleType,	0,"2"
+
+
+;*******************************************************************************
+; Extended Driver parameters
+;*******************************************************************************
+
+[WLP92B.ExtParams]
+
+HKR,Ndi\params\ALBMode,  	            ParamDesc,     	0,%ALBModeStr%
+HKR,Ndi\params\ALBMode,                 type,		    0,"enum"
+HKR,Ndi\params\ALBMode,	                default,	    0,"1"
+HKR,Ndi\params\ALBMode\enum,            0,			    0,%DisabledStr%
+HKR,Ndi\params\ALBMode\enum,	        1,			    0,%EnabledStr%
+HKR,,                                	ALBMode,        0,"1"
+
+HKR,Ndi\params\AuthenticationType,	    ParamDesc,	    0,%AuthTypeStr%
+HKR,Ndi\params\AuthenticationType,	    type,		    0,"enum"
+HKR,Ndi\params\AuthenticationType,	    default,	    0,"255"
+HKR,Ndi\params\AuthenticationType\enum,	0,		        0,%OpenSystemStr%
+HKR,Ndi\params\AuthenticationType\enum,	1,		        0,%SharedKeyStr%
+HKR,Ndi\params\AuthenticationType\enum,	255,		    0,%AutoAuthStr%
+HKR,,				                    AuthenticationType,	0,"255"
+
+HKR,Ndi\params\BasicRates,		        ParamDesc,	    0,%BasicRatesStr%
+HKR,Ndi\params\BasicRates,		        type,		    0,"enum"
+HKR,Ndi\params\BasicRates,		        default,	    0,"0"
+HKR,Ndi\params\BasicRates\enum,	        0,			    0,%BR1Str%
+HKR,Ndi\params\BasicRates\enum,	        1,			    0,%BR2Str%
+HKR,,					                BasicRates,	    0,"0"
+
+HKR,Ndi\params\BeaconPeriod,	      	ParamDesc,     	0,%BeaconPeriodStr%
+HKR,Ndi\params\BeaconPeriod,	      	type,		    0,"int"
+HKR,Ndi\params\BeaconPeriod,		    default,	    0,"100"
+HKR,Ndi\params\BeaconPeriod,		    min,		    0,"20"
+HKR,Ndi\params\BeaconPeriod,		    max,		    0,"1000"
+HKR,Ndi\params\BeaconPeriod,		    step,		    0,"1"
+HKR,,                                	BeaconPeriod,   0,"100"
+
+HKR, Ndi\params\Channel,	   	        ParamDesc,      0, %ChannelStr%
+HKR, Ndi\params\Channel,	            type,		    0, "int"
+HKR, Ndi\params\Channel,		        default,	    0, "3"
+HKR, Ndi\params\Channel,		        min,		    0, "1"
+HKR, Ndi\params\Channel,		        max,		    0, "11"
+HKR, Ndi\params\Channel,		        step,		    0, "1"
+HKR, ,                                  Channel,        0, "3"
+
+HKR, Ndi\params\ESSID,			        ParamDesc,	    0, %ESSID_Str%
+HKR, Ndi\params\ESSID,           	    type,          	0, "edit"
+HKR, Ndi\params\ESSID,           	    default,       	0, ""
+HKR, Ndi\params\ESSID,           	    LimitText,	    0, "32"
+HKR, Ndi\params\ESSID,           	    UpperCase,	    0, "0"
+HKR, ,                                	ESSID,    	    0, ""
+
+HKR,Ndi\params\EncryptionLevel,		    ParamDesc,	    0,"Encryption Level"
+HKR,Ndi\params\EncryptionLevel,		    type,		    0,"enum"
+HKR,Ndi\params\EncryptionLevel,		    default,	    0,"0"
+HKR,Ndi\params\EncryptionLevel\enum,	0,		        0,%DisabledStr%
+HKR,Ndi\params\EncryptionLevel\enum,	1,		        0,%64bit%
+HKR,Ndi\params\EncryptionLevel\enum,	2,		        0,%128bit%
+HKR,Ndi\params\EncryptionLevel\enum,	3,		        0,%3ComDSL%
+HKR,,					                EncryptionLevel,0,"0"
+
+HKR,Ndi\params\InternationalRoaming,  	ParamDesc,     	0,%IntRoamingStr%
+HKR,Ndi\params\InternationalRoaming,    type,		    0,"enum"
+HKR,Ndi\params\InternationalRoaming,	default,	    0,"0"
+HKR,Ndi\params\InternationalRoaming\enum,   0,			0,%DisabledStr%
+HKR,Ndi\params\InternationalRoaming\enum,	1,			0,%EnabledStr%
+HKR,,                                	InternationalRoaming,0,"0"
+
+HKR, Ndi\params\Operating_Mode,	      	ParamDesc,     	0, %OperatingModeStr%
+HKR, Ndi\params\Operating_Mode,	      	type,		    0, "enum"
+HKR, Ndi\params\Operating_Mode,		    default,	    0, "1"
+HKR, Ndi\params\Operating_Mode\enum,	0,		        0, %AdHocStr%
+HKR, Ndi\params\Operating_Mode\enum,	1,		        0, %InfrastructureStr%
+HKR, ,                                	Operating_Mode, 0, "1"
+
+HKR,Ndi\params\PowerMgmtMode,		    ParamDesc,	    0,%PowerMgmtStr%
+HKR,Ndi\params\PowerMgmtMode,		    type,		    0,"enum"
+HKR,Ndi\params\PowerMgmtMode,		    default,	    0,"0"
+HKR,Ndi\params\PowerMgmtMode\enum,	    0,		        0,%ActiveStr%
+HKR,Ndi\params\PowerMgmtMode\enum,	    1,		        0,%PSStr%
+HKR,,					                PowerMgmtMode,	0,"0"
+
+HKR,Ndi\params\RadioMode,		        ParamDesc,	    0,%RadioModeStr%
+HKR,Ndi\params\RadioMode,		        type,		    0,"enum"
+HKR,Ndi\params\RadioMode,		        default,	    0,"2"
+HKR,Ndi\params\RadioMode\enum,	        0,		        0,%RadioOffStr%
+HKR,Ndi\params\RadioMode\enum,	        1,		        0,%RadioOnStr%
+HKR,Ndi\params\RadioMode\enum,	        2,		        0,%RadioAntennaStr%
+HKR,,					                RadioMode,      0,"2"
+
+HKR,Ndi\params\WEP_Mode,		        ParamDesc,	    0,%WEP_Mode_Str%
+HKR,Ndi\params\WEP_Mode,		        type,		    0,"enum"
+HKR,Ndi\params\WEP_Mode,		        default,	    0,"0"
+HKR,Ndi\params\WEP_Mode\enum,		    0,		        0,%WepMandatoryStr%
+HKR,Ndi\params\WEP_Mode\enum,		    1,		        0,%WepOptionalStr%
+HKR,,					                WEP_Mode,	    0,"0"
+
+
+;*******************************************************************************
+; Install section for Windows XP
+;*******************************************************************************
+
+[WLP92B.NT.5.1.Reg]
+; Interfaces
+HKR, Ndi\Interfaces, LowerRange, 0, "ethernet"
+HKR, Ndi\Interfaces, UpperRange, 0, "ndis5"
+HKR, Ndi,            Service,    0, "wlp92b"
+
+[WLP92B.NT.5.1.Service]
+DisplayName    = %WLP92B.DisplayName%
+ServiceType    = 1
+StartType      = 3
+ErrorControl   = 1
+ServiceBinary  = %12%\wlp92bf.sys
+LoadOrderGroup = NDIS
+
+
+;*******************************************************************************
+; Install section for Windows 2000
+;*******************************************************************************
+
+[WLP92B.NT.Reg]
+; Interfaces
+HKR, Ndi\Interfaces, LowerRange, 0, "ethernet"
+HKR, Ndi\Interfaces, UpperRange, 0, "ndis5"
+HKR, Ndi,            Service,    0, "wlp92b"
+
+[WLP92B.NT.Service]
+DisplayName    = %WLP92B.DisplayName%
+ServiceType    = 1
+StartType      = 3
+ErrorControl   = 1
+ServiceBinary  = %12%\wlp92be.sys
+LoadOrderGroup = NDIS
+
+
+;*******************************************************************************
+; Common NT Install section
+;*******************************************************************************
+
+[Common.NT.EventLog]
+AddReg = Common.AddEventLog.Reg
+
+[Common.AddEventLog.Reg]
+HKR,,EventMessageFile, 0x00020000, %%SystemRoot%%\System32\netevent.dll
+HKR,,TypesSupported  , 0x00010001, 7
+
+
+;*******************************************************************************
+; File Sections
+;*******************************************************************************
+
+; WinXP
+[CopyDriver.NT.5.1.Sys]
+wlp92bf.sys,,,2
+
+; Win2K
+[CopyDriver.NT.Sys]
+wlp92be.sys,,,2
+
+; Win98SE/ME
+[CopyDriver.Sys]
+wlp92be.sys,,,2
+
+
+;*******************************************************************************
+; Destination directories
+;*******************************************************************************
+
+[DestinationDirs]
+DefaultDestDir          = 11 ; System directory
+CopyDriver.Sys          = 11 ; System Directory
+CopyDriver.NT.5.1.Sys   = 12 ; Drivers directory
+CopyDriver.NT.Sys       = 12 ; Drivers directory
+
+
+[SourceDisksNames]
+;
+; diskid = description[, [tagfile] [, <unused>, subdir]]
+;
+50=%DriverDisketteName%,,,
+
+[SourceDisksFiles]
+;
+; filename_on_source = diskID[, [subdir][, size]]
+;
+wlp92be.sys=50
+wlp92bf.sys=50
+
+
+;*******************************************************************************
+; Localizable strings
+;*******************************************************************************
+
+[Strings]
+V_3COM = "3COM"
+
+WLP92B.DeviceDesc   = "3Com 3CRWE62092B Wireless LAN PC Card"
+WLP92B.DisplayName  = "3Com 3CRWE62092B Wireless LAN PC Card"
+DriverDisketteName  = "3Com 3CRWE62092B Drivers Disk"
+
+RateStr			    = "Tx Rate"
+Fixed1Str		    = "Fixed 1 Mbps"
+Fixed2Str		    = "Fixed 2 Mbps"
+Fixed55Str		    = "Fixed 5.5 Mbps"
+Fixed11Str		    = "Fixed 11 Mbps"
+AutoStr			    = "Auto"
+
+RTS_Str			    = "RTS Threshold"
+FragmentationStr	= "Fragmentation Threshold"
+
+PreambleStr		    = "Preamble Type"
+LongPreambleStr		= "Long"
+ShortPreambleStr	= "Short"
+AutoPreambleStr		= "Auto"
+
+ChannelStr		    = "Channel"
+
+OperatingModeStr    = "Operating Mode"
+AdHocStr		    = "Ad-Hoc"
+InfrastructureStr	= "Infrastructure"
+
+ESSID_Str		    = "ESSID"
+
+WEP_Key_Str		    = "WEP Key To Use"
+KEY1_Str		    = "WEP Key 1"
+KEY2_Str		    = "WEP Key 2"
+KEY3_Str		    = "WEP Key 3"
+KEY4_Str		    = "WEP Key 4"
+WEP_Mode_Str	    = "WEP Mode"
+
+Key1Str			    = "Key 1"
+Key2Str			    = "Key 2"
+Key3Str			    = "Key 3"
+Key4Str			    = "Key 4"
+
+DisabledStr		    = "Disabled"
+EnabledStr          = "Enabled"
+
+64bit			    = "64-bit"
+128bit			    = "128-bit"	
+3ComDSL             = "128-bit 3Com DSL"
+
+WepMandatoryStr	    = "Mandatory"
+WepOptionalStr 	    = "Optional"
+AuthTypeStr		    = "Authentication Type"
+OpenSystemStr	    = "Open System"
+SharedKeyStr	    = "Shared Key"
+AutoAuthStr		    = "Auto"	
+
+PowerMgmtStr	    = "Power Mgmt Mode"
+ActiveStr		    = "Active"
+PSStr			    = "Power Save"
+
+BasicRatesStr	    = "Basic Rates"
+BR1Str			    = "1, 2 Mbps"
+BR2Str			    = "1, 2, 5.5, 11 Mbps"
+
+BeaconPeriodStr	    = "Beacon Period"
+
+IntRoamingStr       = "International Roaming"
+
+ALBModeStr          = "ALB Mode"
+
+RadioModeStr        = "Radio Mode"
+RadioOnStr          = "Always ON"
+RadioOffStr         = "Always OFF"
+RadioAntennaStr     = "By Antenna Position"

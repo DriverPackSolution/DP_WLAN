@@ -1,0 +1,351 @@
+;****************************************************************************************
+;
+;    FILE:
+;            WLIPNDS.inf
+;
+;    DESCRIPTION:
+;            Wireless-G Notebook Adapter inf file.
+;            Copyright (C) 2003, Linksys, All rights reserved.
+;
+;*******************************************************************************************
+
+[version]
+Signature           = "$Chicago$"
+Class               = Net
+ClassGUID           = {4d36e972-e325-11ce-bfc1-08002be10318}
+Provider            = %V_INPROCOMM%
+Compatible          = 1
+MillenniumPreferred = .ME
+CatalogFile         = WLIPNDS.cat
+DriverVer           = 01/05/2004,1.22.01.2004
+
+[Manufacturer]
+%V_INPROCOMM% = Linksys
+
+[ControlFlags]
+ExcludeFromSelect = PCI\VEN_17FE&DEV_2220&SUBSYS_00291737
+
+[Linksys]
+%IPN2220.DeviceDesc%    = IPN2220.ndi,  PCI\VEN_17FE&DEV_2220&SUBSYS_00291737
+
+; Windows NT specific entry
+[IPN2220.ndi.NT]
+Characteristics = 0x84
+BusType         = 5
+AddReg          = IPN2220.common.reg, IPN2220WinNT.reg
+DelReg          = IPN2220.common.DelReg
+CopyFiles       = IPN2220WinNT.CopyFiles
+
+[IPN2220.ndi.NT.Services]
+AddService = IPN2220, 2, IPN2220WinNT.Service, common.EventLog
+
+;; Windows Me specific entry
+[IPN2220.ndi.ME]
+Characteristics = 0x84
+BusType         = 5
+AddReg          = IPN2220.common.reg, IPN2220WinME.reg
+DelReg          = IPN2220.common.DelReg
+CopyFiles       = IPN2220WinME.CopyFiles
+
+[IPN2220.ndi.ME.Services]
+AddService = IPN2220, 2, IPN2220WinME.Service, common.EventLog
+
+; Windows 9X specific entry
+[IPN2220.ndi]
+DriverVer = 01/05/2004,1.22.01.2004
+AddReg    = IPN2220Win9X.id.reg, IPN2220.common.reg, IPN2220Win9X.flags.reg, IPN2220Win9X.win.reg
+DelReg    = IPN2220.common.DelReg
+CopyFiles = IPN2220Win9X.CopyFiles
+
+;-----------------------------------------------------------------------------
+; IPN2220 common registry section
+;
+[IPN2220.common.reg]
+HKR, Ndi\params\NetworkAddress,     ParamDesc,  0, %NetworkAddress%
+HKR, Ndi\params\NetworkAddress,     Type,       0, "edit"
+HKR, Ndi\params\NetworkAddress,     Default,    0, ""
+HKR, Ndi\params\NetworkAddress,     Optional,   0, "1"
+HKR, Ndi\params\NetworkAddress,     LimitText,  0, "12"
+HKR, Ndi\params\NetworkAddress,     UpperCase,  0, "1"
+
+;HKR, Ndi\params\DeviceType,         ParamDesc,  0, %DeviceType%
+;HKR, Ndi\params\DeviceType,         Type,       0, "enum"
+;HKR, Ndi\params\DeviceType,         Default,    0, "1"
+;HKR, Ndi\params\DeviceType\enum,    "1",        0, %DeviceSTA%
+;HKR, Ndi\params\DeviceType\enum,    "2",        0, %DeviceAP%
+
+HKR, Ndi\params\Rate,               ParamDesc,  0, %Rate%
+HKR, Ndi\params\Rate,               Type,       0, "enum"
+HKR, Ndi\params\Rate,               Default,    0, "65295"
+HKR, Ndi\params\Rate\enum,          "1",        0, %Rate1M%
+HKR, Ndi\params\Rate\enum,          "2",        0, %Rate2M%
+HKR, Ndi\params\Rate\enum,          "4",        0, %Rate5_5M%
+HKR, Ndi\params\Rate\enum,          "8",        0, %Rate11M%
+HKR, Ndi\params\Rate\enum,          "256",      0, %Rate6M%
+HKR, Ndi\params\Rate\enum,          "512",      0, %Rate9M%
+HKR, Ndi\params\Rate\enum,          "1024",     0, %Rate12M%
+HKR, Ndi\params\Rate\enum,          "2048",     0, %Rate18M%
+HKR, Ndi\params\Rate\enum,          "4096",     0, %Rate24M%
+HKR, Ndi\params\Rate\enum,          "8192",     0, %Rate36M%
+HKR, Ndi\params\Rate\enum,          "16384",    0, %Rate48M%
+HKR, Ndi\params\Rate\enum,          "32768",    0, %Rate54M%
+HKR, Ndi\params\Rate\enum,          "65295",    0, %RateAutomatic%
+HKR, Ndi\params\Rate\enum,          "15",       0, %RateAutomatic2%
+
+HKR, Ndi\params\Ssid,               ParamDesc,  0, %SSID%
+HKR, Ndi\params\Ssid,               Type,       0, "edit"
+HKR, Ndi\params\Ssid,               Default,    0, ""
+HKR, Ndi\params\Ssid,               Optional,   0, "1"
+HKR, Ndi\params\Ssid,               LimitText,  0, "32"
+
+HKR, Ndi\params\BssType,            ParamDesc,  0, %BSSType%
+HKR, Ndi\params\BssType,            Type,       0, "enum"
+HKR, Ndi\params\BssType,            Default,    0, "1"
+HKR, Ndi\params\BssType\enum,       "1",        0, %ESS%
+HKR, Ndi\params\BssType\enum,       "2",        0, %IBSS%
+
+HKR, Ndi\params\AdHocMode,          ParamDesc,  0, %AdHocMode%
+HKR, Ndi\params\AdHocMode,          Type,       0, "enum"
+HKR, Ndi\params\AdHocMode,          Default,    0, "0"
+HKR, Ndi\params\AdHocMode\enum,     "0",        0, %WiFiMode%
+HKR, Ndi\params\AdHocMode\enum,     "1",        0, %IEEEMode%
+
+HKR, Ndi\params\Channel,            ParamDesc,  0, %Channel%
+HKR, Ndi\params\Channel,            Type,       0, "int"
+HKR, Ndi\params\Channel,            Default,    0, "1"
+HKR, Ndi\params\Channel,            Min,        0, "1"
+HKR, Ndi\params\Channel,            Max,        0, "14"
+HKR, Ndi\params\Channel,            Step,       0, "1"
+HKR, Ndi\params\Channel,            Base,       0, "10"
+
+HKR, Ndi\params\BasicRateSet,       ParamDesc,  0, %BasicRateSet%
+HKR, Ndi\params\BasicRateSet,       Type,       0, "enum"
+HKR, Ndi\params\BasicRateSet,       Default,    0, "15"
+HKR, Ndi\params\BasicRateSet\enum,  "15",       0, %BasicRateSet1%
+HKR, Ndi\params\BasicRateSet\enum,  "5391",     0, %BasicRateSet2%
+HKR, Ndi\params\BasicRateSet\enum,  "3",        0, %BasicRateSet3%
+HKR, Ndi\params\BasicRateSet\enum,  "65295",    0, %BasicRateSet5%
+
+HKR, Ndi\params\RtsThreshold,       ParamDesc,  0, %RTSThreshold%
+HKR, Ndi\params\RtsThreshold,       Type,       0, "int"
+HKR, Ndi\params\RtsThreshold,       Default,    0, "2347"
+HKR, Ndi\params\RtsThreshold,       Min,        0, "0"
+HKR, Ndi\params\RtsThreshold,       Max,        0, "00002347"
+HKR, Ndi\params\RtsThreshold,       Step,       0, "1"
+HKR, Ndi\params\RtsThreshold,       Base,       0, "10"
+
+HKR, Ndi\params\FragThreshold,      ParamDesc,  0, %FragmentationThreshold%
+HKR, Ndi\params\FragThreshold,      Type,       0, "int"
+HKR, Ndi\params\FragThreshold,      Default,    0, "2346"
+HKR, Ndi\params\FragThreshold,      Min,        0, "256"
+HKR, Ndi\params\FragThreshold,      Max,        0, "00002346"
+HKR, Ndi\params\FragThreshold,      Step,       0, "1"
+HKR, Ndi\params\FragThreshold,      Base,       0, "10"
+
+;HKR, Ndi\params\PowerMode,          ParamDesc,  0, %PowerMode%
+;HKR, Ndi\params\PowerMode,          Type,       0, "enum"
+;HKR, Ndi\params\PowerMode,          Default,    0, "0"
+;HKR, Ndi\params\PowerMode\enum,     "0",        0, %PowerModeCAM%
+;HKR, Ndi\params\PowerMode\enum,     "1",        0, %PowerModeMAX_PSP%
+;HKR, Ndi\params\PowerMode\enum,     "2",        0, %PowerModeFast_PSP%
+
+
+[IPN2220.common.DelReg]
+HKR,,NumRfb
+HKR, Ndi\params\NumRfb
+
+HKR,,NumTfcb
+HKR, Ndi\params\NumTfcb
+
+HKR, Ndi\params\BssType\enum,       130
+
+HKR, Ndi\params\BasicRateSet\enum,  5376
+
+HKR,,ScanType
+HKR, Ndi\params\ScanType
+
+HKR, Ndi\params\AuthMode
+
+
+;-----------------------------------------------------------------------------
+; IPN2220 NT specific
+;
+[IPN2220WinNT.reg]
+HKR, Ndi,               Service,            0, "IPN2220"
+HKR, Ndi\Interfaces,    UpperRange,         0, "ndis5"
+HKR, Ndi\Interfaces,    LowerRange,         0, "ethernet"
+
+;-----------------------------------------------------------------------------
+; IPN2220 Windows Me specific
+;
+[IPN2220WinME.reg]
+HKR, ,                  DevLoader,          0, "*ndis"
+HKR, ,                  DeviceVxDs,         0, "i2220.sys"
+;HKR, ,                  EnumPropPages,      0, "netdi.dll,EnumPropPages"
+
+HKR, Ndi,               CardType,           0, "PCI"
+HKR, Ndi,               Service,            0, "IPN2220"
+HKR, Ndi\Interfaces,    UpperRange,         0, "ndis5"
+HKR, Ndi\Interfaces,    LowerRange,         0, "ethernet"
+
+HKR, NDIS,              LogDriverName,      0, "IPN2220"
+HKR, NDIS,              MajorNdisVersion,   1, 05
+HKR, NDIS,              MinorNdisVersion,   1, 00
+
+;----------------------------------------------------------------------------
+; IPN2220 Win9x id registry section
+; These are not needed by NT
+;
+[IPN2220Win9X.id.reg]
+HKR, Ndi, CardType, 0, "PCI"
+HKR, Ndi, DeviceID, 0, "PCI\VEN_17FE&DEV_2220&SUBSYS_00291737"
+
+;----------------------------------------------------------------------------
+; IPN2220 Win9x flags section
+; Flags are not needed by NT
+;
+[IPN2220Win9X.flags.reg]
+HKR, Ndi\params\Channel,        flag, 1, 20,00,00,00
+HKR, Ndi\params\RtsThreshold,   flag, 1, 20,00,00,00
+HKR, Ndi\params\FragThreshold,  flag, 1, 20,00,00,00
+
+;----------------------------------------------------------------------------
+; IPN2220 Win9X specific
+;
+[IPN2220Win9X.win.reg]
+HKR, ,                  DevLoader,          0, "*ndis"
+HKR, ,                  DeviceVxDs,         0, "i2220.sys"
+;HKR, ,                  EnumPropPages,      0, "netdi.dll,EnumPropPages"
+
+HKR, Ndi\Interfaces,    DefUpper,   	    0, "ndis3"
+HKR, Ndi\Interfaces,    DefLower,   	    0, "ethernet"
+HKR, Ndi\Interfaces,    UpperRange, 	    0, "ndis3"
+HKR, Ndi\Interfaces,    LowerRange, 	    0, "ethernet"
+
+HKR, NDIS,              LogDriverName,      0, "IPN2220"
+HKR, NDIS,              MajorNdisVersion,   1, 03
+HKR, NDIS,              MinorNdisVersion,   1, 0A
+
+HKR, Ndi\Install,       ndis3,              0, "IPN2220.Install"
+
+;-----------------------------------------------------------------------------
+; IPN2220 service sections
+;
+[IPN2220WinNT.Service]
+DisplayName     = %IPN2220.Service.DispName%
+ServiceType     = 1
+StartType       = 3
+ErrorControl    = 1
+ServiceBinary   = %12%\i2220ntx.sys
+LoadOrderGroup  = NDIS
+
+[IPN2220WinME.Service]
+DisplayName     = %IPN2220.Service.DispName%
+ServiceType     = 1
+StartType       = 3
+ErrorControl    = 1
+ServiceBinary   = %12%\i2220.sys
+LoadOrderGroup  = NDIS
+
+;-----------------------------------------------------------------------------
+; common event log section
+;
+[common.EventLog]
+AddReg = common.AddEventLog.reg
+
+[common.AddEventLog.reg]
+HKR, , EventMessageFile, 0x00020000, "%%SystemRoot%%\System32\netevent.dll"
+HKR, , TypesSupported,   0x00010001, 7
+
+;-----------------------------------------------------------------------------
+; CopyFiles sections
+;
+[IPN2220WinNT.CopyFiles]
+i2220ntx.sys,,,2
+
+[IPN2220WinME.CopyFiles]
+i2220.sys,,,2
+
+[IPN2220Win9X.CopyFiles]
+i2220.sys,,,2
+
+;-----------------------------------------------------------------------------
+; source
+;
+[SourceDisksNames]
+1 = %IPN2220.SourceDiskName%,,,
+
+[SourceDisksFiles]
+i2220.sys    = 1,,
+i2220ntx.sys = 1,,
+
+;-----------------------------------------------------------------------------
+; target
+;
+[DestinationDirs]
+IPN2220WinNT.CopyFiles  = 12
+IPN2220WinME.CopyFiles  = 11
+IPN2220Win9X.CopyFiles  = 11
+DefaultDestDir          = 11
+
+;-----------------------------------------------------------------------------
+; strings section
+;
+[Strings]
+V_INPROCOMM                 = "Cisco-Linksys, LLC."
+
+NetworkAddress              = "Network Address"
+
+DeviceType                  = "Device Type"
+DeviceSTA                   = "Wireless Station"
+DeviceAP                    = "Access Point (AP)"
+
+Rate                        = "Transmission Rate"
+Rate1M                      = "1   Mbps"
+Rate2M                      = "2   Mbps"
+Rate5_5M                    = "5.5 Mbps"
+Rate11M                     = "11  Mbps"
+Rate6M                      = "6   Mbps"
+Rate9M                      = "9   Mbps"
+Rate12M                     = "12  Mbps"
+Rate18M                     = "18  Mbps"
+Rate24M                     = "24  Mbps"
+Rate36M                     = "36  Mbps"
+Rate48M                     = "48  Mbps"
+Rate54M                     = "54  Mbps"
+RateAutomatic               = "Automatic (All)"
+RateAutomatic2              = "Automatic (1/2/5.5/11)"
+
+SSID                        = "SSID"
+
+BSSType                     = "Network Type"
+ESS                         = "Infrastructure"
+IBSS                        = "Ad Hoc (IBSS)"
+
+AdHocMode                   = "Ad Hoc Operational Mode"
+WiFiMode                    = "Wi-Fi 802.11g Mode"
+IEEEMode                    = "IEEE 802.11g Mode"
+
+Channel                     = "Channel to Start Ad Hoc/AP"
+
+BasicRateSet                = "Basic Rates to Start Ad Hoc/AP"
+BasicRateSet1               = "1/2/5.5/11 Mbps"
+BasicRateSet2               = "1/2/5.5/11/6/12/24 Mbps"
+BasicRateSet3               = "1/2 Mbps"
+BasicRateSet5               = "All"
+
+RTSThreshold                = "RTS Threshold"
+
+FragmentationThreshold      = "Fragmentation Threshold"
+
+PowerMode                   = "Power Mode"
+PowerModeCAM                = "Continuous Access Mode (CAM)"
+PowerModeMAX_PSP            = "Maximum (MAX) Power-Saving Mode"
+PowerModeFast_PSP           = "Fast Power-Saving Mode"
+
+IPN2220.DeviceDesc          = "Wireless-G Notebook Adapter ver.4.0"
+
+IPN2220.Service.DispName    = "Wireless-G Notebook Adapter ver.4.0 Driver"
+
+IPN2220.SourceDiskName      = "Wireless-G Notebook Adapter ver.4.0 Driver Disk"
+

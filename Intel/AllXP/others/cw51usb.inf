@@ -1,0 +1,470 @@
+;****************************************************************************************
+;
+;    Copyright (c) 2001 Intel Corporation
+;    All Rights Reserved.
+;
+;
+;    FILE: wlanusb.inf
+;
+;    DESCRIPTION: WinXP Support
+;
+;    COMMENTS:
+;            
+;    Version. 1.5.24.7
+;
+;*******************************************************************************************
+
+[Version]
+Signature   = "$Chicago$"
+CatalogFile = cw51usb.cat
+Compatible  = 1
+Class       = Net
+ClassGUID   = {4d36e972-e325-11ce-bfc1-08002be10318}
+Provider    = %Provider%
+DriverVer   = 06/21/2002,1.5.24.7
+; LayoutFile  = layout.inf
+
+[Manufacturer]
+%Provider% = Adapters,NT.5.1
+
+[ControlFlags]
+ExcludeFromSelect   = USB\VID_2474&PID_3642 ; Intersil
+ExcludeFromSelect   = USB\VID_8086&PID_1110 ; Intel
+ExcludeFromSelect   = USB\VID_8086&PID_1111 ; Intel Windansea
+ExcludeFromSelect   = USB\VID_049F&PID_0033 ; Compaq
+ExcludeFromSelect   = USB\VID_05E0&PID_0800 ; Symbol Windansea
+
+
+[Adapters.NT.5.1]
+;This Section read by XP.
+; DisplayName                Section                DeviceID
+; -----------                -------                --------
+%CW10USB_ISIL.DeviceDescUSB%     = CW10_USB.ndi,        USB\VID_2474&PID_3642
+%CW10USB_INTEL.DeviceDescUSB%    = CW10_USB.ndi,        USB\VID_8086&PID_1110
+%CW10USB_INTEL1.DeviceDescUSB%   = CW10_USB.ndi,        USB\VID_8086&PID_1111
+%CW10USB_CPQ.DeviceDescUSB%      = CW10_USB1.ndi,       USB\VID_049F&PID_0033
+%CW10USB_SYMBOL.DeviceDescUSB%   = CW10_USB2.ndi,       USB\VID_05E0&PID_0800
+
+[Adapters]
+;This Section read by non-XP. No PnP IDs, therefore INF never used by non-XP.
+
+
+;----------------------------------------------------------------------------
+; Windows 9X specific entries
+;
+[CW10_USB.ndi]
+AddReg      = USB_ID.reg, Common.reg, win9x.reg, USB.reg 
+CopyFiles   = win9x.USBCopyFiles
+
+;----- Compaq -------
+
+[CW10_USB1.ndi]
+AddReg      = USB_ID.reg, Common.reg, win9x.reg, USB.reg, CPQ.reg
+CopyFiles   = win9x.USBCopyFiles
+
+;----- Symbol -------
+
+[CW10_USB2.ndi]
+AddReg      = USB_ID.reg, Common.reg, win9x.reg, USB.reg, SYM.reg
+CopyFiles   = win9x.USBCopyFiles
+
+;----------------------------------------------------------------------------
+; NT specific entries
+;
+[CW10_USB.ndi.NT]
+AddReg          = Common.reg, nt.reg, USB.reg, CW51_USB.CoInstallers_AddReg 
+Characteristics = 0x84              ; NCF_REMOVABLE | NCF_HAS_UI | NCF_PHYSICAL
+;;BusType         = 15                ; USB
+BusType=15                ;
+CopyFiles       = NT.USBCopyFiles, NT.CW51_USBCopyFilesSection
+
+; NT services sections
+[CW10_USB.ndi.NT.Services]
+;AddService  = CW10USB, 2, CW10_USB.Service, common.EventLog
+AddService  = CW10, 2, CW51_USB.Service, common.EventLog
+DelService=cw10, 0x4
+
+;----- Compaq -------
+
+[CW10_USB1.ndi.NT]
+AddReg          = Common.reg, nt.reg, USB.reg, CPQ.reg, CW51_USB.CoInstallers_AddReg
+Characteristics = 0x84              ; NCF_REMOVABLE | NCF_HAS_UI | NCF_PHYSICAL
+BusType=15                ;
+CopyFiles       = NT.USBCopyFiles, NT.CW51_USBCopyFilesSection
+
+
+; NT services sections
+[CW10_USB1.ndi.NT.Services]
+;AddService  = CW10USB, 2, CW10_USB.Service, common.EventLog
+AddService  = CW10, 2, CW51_USB.Service, common.EventLog
+DelService=cw10, 0x4
+
+;----- Symbol -------
+
+[CW10_USB2.ndi.NT]
+AddReg          = Common.reg, nt.reg, USB.reg, SYM.reg, CW51_USB.CoInstallers_AddReg
+Characteristics = 0x84              ; NCF_REMOVABLE | NCF_HAS_UI | NCF_PHYSICAL
+BusType=15                ;
+CopyFiles       = NT.USBCopyFiles, NT.CW51_USBCopyFilesSection
+
+; NT services sections
+[CW10_USB2.ndi.NT.Services]
+;AddService  = CW10USB, 2, CW10_USB.Service, common.EventLog
+AddService  = CW10, 2, CW51_USB.Service, common.EventLog
+DelService=cw10, 0x4
+
+;----------------------------------------------------------------------------
+; DestinationDirs
+;
+[DestinationDirs]
+DefaultDestDir	       = 11
+NT.USBCopyFiles        = 12    ; system32\drivers subdirectory on NT
+win9x.USBCopyFiles     = 11    ; system subdirectory on win9x
+
+[NT.USBCopyFiles]
+cw51usb.sys                    ; NT Installation
+
+[win9x.USBCopyFiles]
+cw10usb.sys                    ; win9x Installation
+
+
+
+[SourceDisksNames]
+1                      = %INSTALL_DISK_STR%,,,
+
+[SourceDisksFiles] 
+cw51usb.sys            = 1
+USBCoins.dll       = 1
+MPFWRES.dll            = 1
+
+;----- Compaq -------
+[CPQ.reg]
+HKR, ,                            VendorDesc,      0, "Compaq 802.11b MultiPort Module"
+
+;----- Symbol -------
+[SYM.reg]
+HKR, ,                            VendorDesc,      0, "Symbol Spectrum24 Wireless LAN USB Adapter"
+
+;-----------------CoInstaller----------------------------------------------------
+[NT.CW51_USBCopyFilesSection]
+USBCoins.dll
+MPFWRES.dll
+
+[CW51_USB.CoInstallers_AddReg]
+HKR,,CoInstallers32,0x00010000,"USBCoins.dll, CW51_USBCoInstallEntryPoint"
+
+;----------------------------------------------------------------------------
+; common regs for NT and W9x
+;
+[Common.reg]
+;
+; Vendor Description
+;
+HKR, ,                            VendorDesc,      0, "Intel(R) PRO/Wireless 2011B LAN USB"
+
+;
+; AP Density
+;
+HKR, ,                            APDensity,       0, "1"
+HKR, defaults,                    APDensity,       0, 1
+;
+; SSID
+;
+HKR, ,                            SSID,            0, %SSID_DEF_STR%
+HKR, defaults,                    SSID,            0, %SSID_DEF_STR%
+HKR, NDI\params\SSID,             ParamDesc,       0, "SSID"
+HKR, NDI\params\SSID,             type,            0, "edit"
+HKR, NDI\params\SSID,             limitText,       0, "32"
+HKR, NDI\params\SSID,             default,         0, %SSID_DEF_STR%
+HKR, NDI\params\SSID,             flag,            1, "30","00","00","00"
+;
+; StationName
+;
+HKR, ,                            StationName,     0, "Client"
+HKR, defaults,                    StationName,     0, "Client"
+;
+; Listen Interval
+;
+HKR, ,                            ListenInterval,  0, "3"
+HKR, defaults,                    ListenInterval,  0, 3
+HKR, NDI\params\ListenInterval,   ParamDesc,       0, "Maximum Listen Interval"
+HKR, NDI\params\ListenInterval,   flag,            1, "30","00","00","00"
+HKR, NDI\params\ListenInterval,   type,            0, "int"
+HKR, Ndi\params\ListenInterval,   default,         0, "3"
+HKR, NDI\params\ListenInterval,   min,             0, "0"
+HKR, NDI\params\ListenInterval,   max,             0, "77"
+HKR, NDI\params\ListenInterval,   step,            0, "1"
+HKR, NDI\params\ListenInterval,   optional,        0, "0"
+
+;
+; Channel
+;
+HKR, ,                            DSChannel,       0, "10"
+HKR, defaults,                    DSChannel,       0, 10
+
+;
+; Encapsultion (i.e. Ethernet Translation)
+;
+HKR, ,                            Encapsulation,   0, "1"
+HKR, defaults,                    Encapsulation,   0, 1
+
+;
+; TxRate
+;
+HKR, ,                            TxRate,          0, "15"
+HKR, defaults,                    TxRate,          0, 15
+HKR, NDI\params\TxRate,           ParamDesc,       0, "Transmit Rate"
+HKR, NDI\params\TxRate,           type,            0, "enum"
+HKR, NDI\params\TxRate,           default,         0, "15"
+HKR, NDI\params\TxRate,           flag,            1, "30","00","00","00"
+HKR, NDI\params\TxRate\enum,      1,               0, "Fixed 1 Mb/s"
+HKR, NDI\params\TxRate\enum,      2,               0, "Fixed 2 Mb/s"
+HKR, NDI\params\TxRate\enum,      3,               0, "Auto Select 1 or 2"
+HKR, NDI\params\TxRate\enum,      4,               0, "Fixed 5.5 Mb/s"
+HKR, NDI\params\TxRate\enum,      8,               0, "Fixed 11 Mb/s"
+HKR, NDI\params\TxRate\enum,      15,              0, "Fully Auto"
+
+;
+; RTS Threshold
+;
+HKR, ,                            RTSThresh,       0, "2432"
+HKR, defaults,                    RTSThresh,       0, 2432
+HKR, NDI\params\RTSThresh,        ParamDesc,       0, "Medium Reservation"
+HKR, NDI\params\RTSThresh,        type,            0, "enum"
+HKR, NDI\params\RTSThresh,        default,         0, "2432"
+HKR, NDI\params\RTSThresh,        flag,            1, "30","00","00","00"
+HKR, NDI\params\RTSThresh\enum,   2432,            0, "Off"
+HKR, NDI\params\RTSThresh\enum,   500,             0, "Hidden Stations"
+;
+; Frag Threshold
+;
+HKR, ,                            FragThresh,      0, "2432"
+HKR, defaults,                    FragThresh,      0, 2432
+HKR, NDI\params\FragThresh,       ParamDesc,       0, "Fragmentation Threshold"
+HKR, NDI\params\FragThresh,       type,            0, "int"
+HKR, Ndi\params\FragThresh,       default,         0, "2432"
+HKR, NDI\params\FragThresh,       min,             0, "256"
+HKR, NDI\params\FragThresh,       max,             0, "2432"
+HKR, NDI\params\FragThresh,       step,            0, "128"
+HKR, NDI\params\FragThresh,       flag,            1, "20","00","00","00"
+HKR, NDI\params\FragThresh,       optional,        0, "0"
+
+;
+; Network Type
+;
+HKR, ,                            NetworkType,     0, %NETWORK_TYPE_DEF_STR%
+HKR, defaults,                    NetworkType,     0, %NETWORK_TYPE_DEF_STR%
+HKR, NDI\params\NetworkType,      ParamDesc,       0, "Network Type"
+HKR, NDI\params\NetworkType,      type,            0, "enum"
+HKR, NDI\params\NetworkType,      default,         0, %NETWORK_TYPE_DEF_STR%
+HKR, NDI\params\NetworkType,      flag,            1, "30","00","00","00"
+HKR, NDI\params\NetworkType\enum, 0,               0, "802.11 Ad Hoc"
+HKR, NDI\params\NetworkType\enum, 1,               0, "Infrastructure"
+;HKR, NDI\params\NetworkType\enum, 3,               0, "Ad Hoc"
+
+;
+; PS Mode
+;
+HKR, ,                            PSMode,          0, "1"
+HKR, defaults,                    PSMode,          0, 1
+HKR, NDI\params\PSMode,           ParamDesc,       0, "Power Save Mode"
+HKR, NDI\params\PSMode,           type,            0, "enum"
+HKR, NDI\params\PSMode,           default,         0, "1"
+HKR, NDI\params\PSMode,           flag,            1, "30","00","00","00"
+HKR, NDI\params\PSMode\enum,      1,               0, "Disabled"
+HKR, NDI\params\PSMode\enum,      2,               0, "Enabled"
+
+;
+;    Wep Required
+;
+HKR, ,                            WepReq,          0, %WEP_REQUIRED_DEF_STR%
+HKR, defaults,                    WepReq,          0, %WEP_REQUIRED_DEF_STR%
+HKR, NDI\params\WepReq,           ParamDesc,       0, "Encryption"
+HKR, NDI\params\WepReq,           flag,            1, "30","00","00","00"
+HKR, NDI\params\WepReq,           type,            0, "enum"
+HKR, Ndi\params\WepReq,           default,         0, %WEP_REQUIRED_DEF_STR%
+HKR, NDI\params\WepReq\enum,      0,               0, "Disabled"
+HKR, NDI\params\WepReq\enum,      2,               0, "64 bit"
+HKR, NDI\params\WepReq\enum,      6,               0, "128 bit"
+HKR, NDI\params\WepReq,           optional,        0, "0"
+
+;
+;    Wep Encrypt in Driver
+;
+HKR, ,                            EncryptInDriver, 0, "1"
+HKR, defaults,                    EncryptInDriver, 0, 1
+
+;
+;    Wep Decrypt in Driver
+;
+HKR, ,                            DecryptInDriver, 0, "1"
+HKR, defaults,                    DecryptInDriver, 0, 1
+
+;
+;    WEP Factor
+;
+HKR, ,                            WEPFactor,       0, "3"
+HKR, defaults,                    WEPFactor,       0, 3
+
+;
+;    Esarhpssap
+;
+;HKR, ,                            Esarhpssap,      0, %PASSPHRASE_DEF_STR%
+;HKR, defaults,                    Esarhpssap,      0, %PASSPHRASE_DEF_STR%
+;HKR, NDI\params\Esarhpssap,       ParamDesc,       0, "WEP Passphrase"
+;HKR, NDI\params\Esarhpssap,       type,            0, "edit"
+;HKR, NDI\params\Esarhpssap,       limitText,       0, "64"
+;HKR, NDI\params\Esarhpssap,       default,         0, %PASSPHRASE_DEF_STR%
+;HKR, NDI\params\Esarhpssap,       flag,            1, "30","00","00","00"
+
+;
+;    DefaultKeyID
+;
+;HKR, ,                            DefaultKeyID,    0, "1"
+;HKR, defaults,                    DefaultKeyID,    0, "1"
+;HKR, NDI\params\DefaultKeyID,     ParamDesc,       0, "Default Tx Key for 64 Bit Mode"
+;HKR, NDI\params\DefaultKeyID,     type,            0, "edit"
+;HKR, NDI\params\DefaultKeyID,     limitText,       0, "64"
+;HKR, NDI\params\DefaultKeyID,     default,         0, "1"
+;HKR, NDI\params\DefaultKeyID,     flag,            1, "30","00","00","00"
+
+;
+;    Short Preamble
+;
+HKR, ,                            PreambleMode,    0, "1"
+HKR, defaults,                    PreambleMode,    0, 1
+HKR, NDI\params\PreambleMode,     ParamDesc,       0, %SHORT_PREAM_STR%
+HKR, NDI\params\PreambleMode,     flag,            1, "30","00","00","00"
+HKR, NDI\params\PreambleMode,     type,            0, "enum"
+HKR, Ndi\params\PreambleMode,     default,         0, "1"
+HKR, NDI\params\PreambleMode\enum,1,               0, "Long Tx Preamble"
+HKR, NDI\params\PreambleMode\enum,2,               0, "Short Tx Preamble"
+;HKR, NDI\params\PreambleMode\enum,3,               0, "Auto"
+HKR, NDI\params\PreambleMode,     optional,        0, "0"
+ 
+;
+;
+; Authentication Type
+;
+HKR, ,                            AuthentAlg,      0, %AUTHENT_TYPE_DEF_STR%
+HKR, defaults,                    AuthentAlg,      0, %AUTHENT_TYPE_DEF_STR%
+HKR, NDI\params\AuthentAlg,       ParamDesc,       0, "Authentication Algorithm"
+HKR, NDI\params\AuthentAlg,       type,            0, "enum"
+HKR, NDI\params\AuthentAlg,       default,         0, %AUTHENT_TYPE_DEF_STR%
+HKR, NDI\params\AuthentAlg,       flag,            1, "30","00","00","00"
+HKR, NDI\params\AuthentAlg\enum,  1,               0, "WECA Compliant (always use Open)"
+HKR, NDI\params\AuthentAlg\enum,  2,               0, "Must use Shared with WEP"
+
+;
+;    IBSS in Driver mode control
+;
+HKR, ,                            IBSSInDriver,    0, "1"
+HKR, defaults,                    IBSSInDriver,    0, 1
+HKR, NDI\params\IBSSInDriver,     ParamDesc,       0, "Driver based IBSS"
+HKR, NDI\params\IBSSInDriver,     type,            0, "enum"
+HKR, NDI\params\IBSSInDriver,     default,         0, "1"
+HKR, NDI\params\IBSSInDriver,     flag,            1, "30","00","00","00"
+HKR, NDI\params\IBSSInDriver\enum,0,               0, "Disabled"
+HKR, NDI\params\IBSSInDriver\enum,1,               0, "Enabled"
+
+;----------------------------------------------------------------------------
+; USB specific
+;
+
+[USB.reg]
+
+HKR, ,                            BusType,         0, "15"
+HKR, NDI,                         CardType,        0, "PNP"
+
+;----------------------------------------------------------------------------
+; 9X specific
+;
+
+[win9x.reg]
+HKR, ,                            DevLoader,       0, "*ndis,*ntkern"
+HKR, ,                            EnumPropPages,   0, "netdi.dll,EnumPropPages"
+HKR, ,                            OSVersion,       0, "1"
+;
+; NDIS Info
+;
+HKR, NDIS,                        LogDriverName,   0, "cw10usb"
+HKR, NDIS,                        MajorNdisVersion,1, 03
+HKR, NDIS,                        MinorNdisVersion,1, 0A
+;
+; Interfaces
+;
+HKR, Ndi\Interfaces,              DefUpper,        0, "ndis3"
+HKR, Ndi\Interfaces,              DefLower,        0, "ethernet"
+HKR, Ndi\Interfaces,              UpperRange,      0, "ndis3"
+HKR, Ndi\Interfaces,              LowerRange,      0, "ethernet"
+;
+; Install sections
+;
+;HKR, Ndi\Install,ndis3,, "cw10usb.install"
+
+
+;[cw10usb.install]
+;CopyFiles = win9x.CopyFiles
+
+;----------------------------------------------------------------------------
+; 9x ID sections
+;
+[USB_ID.reg]
+HKR, ,                            DeviceVxDs,      0, "cw10usb.sys"
+HKR, ,                            NTMPDriver,      0, "cw10usb.sys"
+HKR, Ndi,                         DeviceID,        0, "USB\VID_2474&PID_3642"
+
+;----------------------------------------------------------------------------
+; NT specific
+;
+
+[nt.reg]
+;HKR, Ndi,                         Service,         0, "CW10USB"
+HKR, Ndi,                         Service,         0, "CW10"
+HKR, Ndi\Interfaces,              UpperRange,      0, "ndis5"
+HKR, Ndi\Interfaces,              LowerRange,      0, "ethernet"
+HKR, ,                            OSVersion,       0, "2"
+
+[CW51_USB.Service]
+DisplayName     = %CW10_USB.Service.DispName%
+ServiceType     = 1                ;%SERVICE_KERNEL_DRIVER%
+StartType       = 3                ;%SERVICE_AUTO_START%
+ErrorControl    = 1                ;%SERVICE_ERROR_NORMAL%
+ServiceBinary   = %12%\CW51Usb.sys
+LoadOrderGroup  = NDIS
+
+[common.EventLog]
+AddReg = common.AddEventLog.reg
+
+[common.AddEventLog.reg]
+HKR, , EventMessageFile, 0x00020000,%%SystemRoot%%"\System32\netevent.dll",%%SystemRoot%%"\System32\drivers\CW51usb.sys"
+HKR, , TypesSupported,   0x00010001, 7
+
+
+;----------------------------------------------------------------------------
+; Strings
+;
+[Strings]
+Provider                   = "Intel Corporation"
+;;CW10USB                    = "CW10USB"
+
+CW10USB_ISIL.DeviceDescUSB	 = "Intersil IEEE 802.11 LAN USB Adapter"
+CW10USB_INTEL.DeviceDescUSB  = "Intel(R) PRO/Wireless LAN Module"
+CW10USB_INTEL1.DeviceDescUSB = "Intel(R) PRO/Wireless 2011B LAN USB Device"
+CW10USB_CPQ.DeviceDescUSB    = "Compaq 802.11b MultiPort Module"
+CW10USB_SYMBOL.DeviceDescUSB = "Symbol Spectrum24 Wireless LAN USB Adapter"
+
+CW10_USB.Service.DispName  = "Intel(R) PRO/Wireless LAN Module Driver"
+
+SHORT_PREAM_STR            = "Preamble Mode"
+
+INSTALL_DISK_STR           = "Wireless LAN Installation Disk"
+
+;
+; Don't put spaces around = sign otherwise installer will not be able to
+; find these lines.
+SSID_DEF_STR="101"
+NETWORK_TYPE_DEF_STR="1"
+AUTHENT_TYPE_DEF_STR="2"
+PASSPHRASE_DEF_STR="INTEL"
+WEP_REQUIRED_DEF_STR="0"

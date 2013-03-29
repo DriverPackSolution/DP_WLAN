@@ -1,0 +1,14 @@
+[Version]
+Signature   ="$WINDOWS NT$"
+
+[DestinationDirs]
+DefaultDestDir            =12 ; 
+
+[NWUMTSNDIS.Services]
+DelService=NWU530,0x00000200 
+
+[NWUMTSNDIS.Uninstall]
+DelFiles=NWUMTSNDIS_Driver
+
+[NWUMTSNDIS_Driver]
+NWU530.sys
